@@ -1,0 +1,687 @@
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 28-2月 -2008 17:27:37
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 02-3月 -2008 08:16:51
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS: 无监听程序
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: 无监听程序
+    nt secondary err code: 61
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 02-3月 -2008 08:18:27
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:14
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:17
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:17
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:19
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:19
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:21
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:21
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:23
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:23
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:25
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:25
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:27
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:27
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:29
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:29
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:31
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:31
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:32
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:32
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:34
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 22:42:36
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 23:01:41
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12504, connecting to:
+ (DESCRIPTION=(address=(host=localhost)(protocol=tcp)(port=1521))(connect_data=(INSTANCE_NAME=orcl)(CID=(PROGRAM=d:\jdk15\bin\java.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-3月 -2008 23:01:41
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS: 拒绝连接
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-JUL-2008 17:48:08
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-JUL-2008 17:48:12
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 24-JUL-2008 17:48:14
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 19-AUG-2008 14:27:10
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 61
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 31-OCT-2008 12:56:47
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\act\bin\pcube.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 31-OCT-2008 14:19:18
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\act\bin\pcube.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.1.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.1.0 - Production
+  Time: 31-OCT-2008 14:19:34
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.4.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.4.0 - Production
+  Time: 26-NOV-2008 11:22:41
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.4.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.4.0 - Production
+  Time: 26-NOV-2008 11:24:14
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.4.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.4.0 - Production
+  Time: 26-NOV-2008 11:25:38
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12514, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.4.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.4.0 - Production
+  Time: 26-NOV-2008 11:44:35
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12564
+    TNS-12564: TNS:connection refused
+    ns secondary err code: 0
+    nt main err code: 0
+    nt secondary err code: 0
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12541, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)(CID=(PROGRAM=e:\oracle\product\10.2.0\db_1\bin\sqlplus.exe)(HOST=DELLBOOK)(USER=yfzhu))))
+
+  VERSION INFORMATION:
+	TNS for 32-bit Windows: Version 10.2.0.4.0 - Production
+	Windows NT TCP/IP NT Protocol Adapter for 32-bit Windows: Version 10.2.0.4.0 - Production
+  Time: 21-DEC-2008 21:22:47
+  Tracing not turned on.
+  Tns error struct:
+    ns main err code: 12541
+    TNS-12541: TNS:no listener
+    ns secondary err code: 12560
+    nt main err code: 511
+    TNS-00511: No listener
+    nt secondary err code: 61
+    nt OS err code: 0

@@ -1,0 +1,18 @@
+#content{
+ padding-left: 10px;
+ padding-top: 5px;
+}
+#message {
+clear:both;
+margin:5px 0px 10px 30px;
+}
+#template{
+width:410px;
+float:left;
+
+}
+#format{
+padding-left:20px;
+width:200px;
+float:left;
+}

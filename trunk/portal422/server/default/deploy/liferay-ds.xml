@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<datasources>
+<local-tx-datasource>
+		<jndi-name>jdbc/LiferayPool</jndi-name>
+		<connection-url>jdbc:oracle:thin:@localhost:1521:orcl</connection-url>
+		<driver-class>oracle.jdbc.OracleDriver</driver-class>
+		<user-name>nealportal4</user-name>
+		<password>nealportal4</password>
+		<connection-property name="SetBigStringTryClob">true</connection-property>
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>50</max-pool-size>
+	</local-tx-datasource>
+	<local-tx-datasource>
+		<jndi-name>DataSource</jndi-name>
+		<connection-url>jdbc:oracle:thin:@localhost:1521:orcl</connection-url>
+		<driver-class>oracle.jdbc.OracleDriver</driver-class>
+		<user-name>neands3</user-name>
+		<password>abc123</password>
+		<connection-property name="SetBigStringTryClob">true</connection-property>
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>50</max-pool-size>
+	</local-tx-datasource>
+	
+	<local-tx-datasource>
+		<jndi-name>HSQLDataSource</jndi-name>
+		<connection-url>jdbc:hsqldb:file:/portal422/server/default/data/hypersonic/trans</connection-url>
+	    <driver-class>org.hsqldb.jdbcDriver</driver-class>
+	    <user-name>SA</user-name>
+	    <password></password>
+		<min-pool-size>1</min-pool-size>
+		<max-pool-size>1</max-pool-size>
+	</local-tx-datasource>
+  <!-- the database must exists in folder of jboss data/hypersonce dir-->	
+  <mbean code="org.jboss.jdbc.HypersonicDatabase" name="jboss:service=Hypersonic,database=trans">
+	<attribute name="InProcessMode">true</attribute>
+    <attribute name="Database">trans</attribute>
+ </mbean>
+</datasources>

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<title>Selectable Elements (WebFX)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="local/webfxlayout.js"></script>
+</head>
+<body>
+<!-- WebFX Layout Include -->
+<script type="text/javascript">
+
+var articleMenu= new WebFXMenu;
+articleMenu.left  = 384;
+articleMenu.top   = 86;
+articleMenu.width = 140;
+articleMenu.add(new WebFXMenuItem("Introduction", "selectableelements.html"));
+articleMenu.add(new WebFXMenuItem("Usage", "usage.html"));
+articleMenu.add(new WebFXMenuItem("Sub Classes", "subclasses.html"));
+articleMenu.add(new WebFXMenuItem("API", "api.html"));
+articleMenu.add(new WebFXMenuItem("Demo", "demo.html"));
+articleMenu.add(new WebFXMenuSeparator);
+articleMenu.add(new WebFXMenuItem("Download", "http://webfx.eae.net/download/selectableelements102.zip"));
+webfxMenuBar.add(new WebFXMenuButton("Article Menu", null, null, articleMenu));
+
+webfxLayout.writeTitle("Selectable Elements");
+webfxLayout.writeMenu();
+webfxLayout.writeDesignedByEdger();
+
+</script>
+<div class="webfx-main-body">
+<!-- end WebFX Layout Includes -->
+
+
+<h2>Creating Sub Classes</h2>
+
+<p>A very common scenario is that you want to create a table where each row
+can be selected. The entire script was made with this in mind and you'll see
+that the power of Object Oriented Programming makes this almost too easy.</p>
+
+<h3>Constructor</h3>
+
+<p>All we need to do in the constructor is to call the super class constructor.
+We also set up the prototype chain.</p>
+
+<pre>
+function SelectableTableRows(oTableElement, bMultiple) {
+   SelectableElements.call(this, oTableElement, bMultiple);
+}
+SelectableTableRows.prototype = new SelectableElements;
+</pre>
+
+<p>Notice the use of the method <code>call</code>. All function objects have
+this method and the first argument is the object that should be bound to the
+keyword <code>this</code> inside the function.</p>
+
+<h3>isItem</h3>
+
+<p>This is probably the most important method that you need to override when
+creating your own subclasses. The method takes an HTML element and returns true if
+the element should be considered to be an item. In this case it is an item
+if the element is a table row of the table.</p>
+
+<pre>
+SelectableTableRows.prototype.isItem = function (node) {
+   return node != null && node.tagName == "TR" &&
+      node.parentNode.parentNode == this._htmlElement;
+};
+</pre>
+
+<h3>Indexable Interface</h3>
+
+<p>That's all there is to it but out of convenience we override a few methods
+to make them more efficient. Since every table row has a property called
+<code>rowIndex</code> we are going to use this to our advantage. We also take
+advantage of the <code>rows</code> collection to simplify the methods.</p>
+
+<pre>
+SelectableTableRows.prototype.getItems = function () {
+   return this._htmlElement.rows;
+};
+
+SelectableTableRows.prototype.getItemIndex = function (el) {
+   return el.rowIndex;
+};
+
+SelectableTableRows.prototype.getItem = function (i) {
+   return this._htmlElement.rows[i];
+};
+</pre>
+
+<h2>Usage</h2>
+
+<p>To use the <code>SelectableTableRows</code> you also need to include
+the file <a href="js/selectabletablerows.js">selectabletablerows.js</a>. Then
+just use the <code>SelectableTableRows</code> constructor instead of the
+<code>SelectableElements</code> constructor.</p>
+
+<h2>SelectableTableCells</h2>
+
+<p>Another useful subclass is the <code>SelectableTableCells</code> class found
+in the file <a href="js/selectabletablecells.js">selectabletablecells.js</a>.
+The implementation of this uses the HTML  properties <code>rowIndex</code> and
+<code>cellIndex</code> to implement the methods for the Indexable interface. Once
+that is done the Traversable interface is implemented using this.</p>
+
+<h2>SelectableListItems</h2>
+
+<p>The subclass <code>SelectableListItems</code>
+(<a href="js/selectablelistitems.js">selectablelistitems.js</a>) allows nested list items
+to be selected. The implementation for <code>getNext</code> and <code>getPrevious</code>
+are a bit complicated but it doesn't get much worse than this. In most cases it is as easy
+as it is for the <code>SelectableTableRow</code> class.</p>
+
+<p>The demo for the <code>SelectableListItems</code> is only available in Mozilla due to the
+lack of CSS2 selector support (and differences in list styling) in other browsers.</p>
+
+<p>
+<a href="selectableelements.html">Introduction</a><br />
+<a href="usage.html">Usage</a><br />
+<a href="subclasses.html">Sub Classes</a><br />
+<a href="api.html">API</a><br />
+<a href="demo.html">Demo</a><br />
+<a href="http://webfx.eae.net/download/selectableelements102.zip">Download</a>
+</p>
+
+<p class="author">Author: Erik Arvidsson</p>
+
+<!-- end webfx-main-body -->
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<title>Selectable Elements (WebFX)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="local/webfxlayout.js"></script>
+
+<script type="text/javascript" src="js/selectableelements.js"></script>
+<style>
+
+.selected {
+	background:	Highlight;
+	color:		HighlightText;
+}
+
+#div-1 {
+	width:		100px;
+	background:	Window;
+	border:		1px solid ThreeDShadow;
+	font:		Icon;
+	padding:	1px;
+	cursor:		default;
+	-moz-user-select:	none;
+	margin:		10px;
+}
+
+#div-1 div {
+	padding:	0px 5px;
+	height:		16px;
+}
+
+</style>
+</head>
+<body>
+<!-- WebFX Layout Include -->
+<script type="text/javascript">
+
+var articleMenu= new WebFXMenu;
+articleMenu.left  = 384;
+articleMenu.top   = 86;
+articleMenu.width = 140;
+articleMenu.add(new WebFXMenuItem("Introduction", "selectableelements.html"));
+articleMenu.add(new WebFXMenuItem("Usage", "usage.html"));
+articleMenu.add(new WebFXMenuItem("Sub Classes", "subclasses.html"));
+articleMenu.add(new WebFXMenuItem("API", "api.html"));
+articleMenu.add(new WebFXMenuItem("Demo", "demo.html"));
+articleMenu.add(new WebFXMenuSeparator);
+articleMenu.add(new WebFXMenuItem("Download", "http://webfx.eae.net/download/selectableelements102.zip"));
+webfxMenuBar.add(new WebFXMenuButton("Article Menu", null, null, articleMenu));
+
+webfxLayout.writeTitle("Selectable Elements");
+webfxLayout.writeMenu();
+webfxLayout.writeDesignedByEdger();
+
+</script>
+<div class="webfx-main-body">
+<!-- end WebFX Layout Includes -->
+
+
+<h2>Usage</h2>
+
+<p>To use the selectable elements behavior you need to include the file
+<a href="js/selectableelements.js">selectableelements.js</a> like this:</p>
+
+<pre>
+&lt;script type="text/javascript" src="<a href="js/selectableelements.js">js/selectableelements.js</a>"&gt;&lt;/script&gt;
+</pre>
+
+<p>You also need to define what you want selected elements to look like. This is done
+by defining a CSS rule for the class <code>selected</code>.</p>
+
+<pre>
+&lt;style type="text/css"&gt;
+
+.selected {
+   background: Highlight;
+   color:      HighlightText;
+}
+
+&lt;/style&gt;
+</pre>
+
+<p>After this you need to define the HTML that you want to describe your data.
+In this case we'll keep it simple and use a <code>DIV</code> as a container
+with <code>DIV</code> elements as items.</p>
+
+<pre>
+&lt;div id="div-1"&gt;
+   &lt;div&gt;Item 0&lt;/div&gt;
+   &lt;div&gt;Item 1&lt;/div&gt;
+   &lt;div&gt;Item 2&lt;/div&gt;
+   &lt;div&gt;Item 3&lt;/div&gt;
+   &lt;div&gt;Item 4&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<p>Once the HTML element is defined we can add the behavior (there is no need
+to wait until the entire page with images has loaded). This is done by creating
+a new JavaScript object from the <code>SelectableElements</code> class. In this
+case we want to allow multiple selection so we pass <code>true</code> as the
+second argument.</p>
+
+<pre>
+&lt;script type="text/javascript"&gt;
+
+var se = new SelectableElements(document.getElementById("div-1"), true);
+se.onchange = function () {
+	window.status = se.getSelectedIndexes();
+};
+
+&lt;/script&gt;
+</pre>
+
+<p>The code above also shows how to get a callback once the user changes the
+selected items.</p>
+
+<h3>Result</h3>
+
+<p>Using the code from above with a few more CSS rules set up we get.</p>
+
+<div id="div-1" onselectstart="return false">
+   <div>Item 0</div>
+   <div>Item 1</div>
+   <div>Item 2</div>
+   <div>Item 3</div>
+   <div>Item 4</div>
+</div>
+
+<script type="text/javascript">
+
+var se = new SelectableElements(document.getElementById("div-1"), true);
+se.onchange = function () {
+	window.status = se.getSelectedIndexes();
+};
+
+</script>
+
+<h3>Disable Selection</h3>
+
+<p>It is also a good idea to disable selection since ctrl click and shift click
+will select text by default.</p>
+
+<p>To disable the selection in IE we add an event listener that listens for
+the <code>selectionstart</code> event and when it is fired we return
+<code>false</code> to disable the default behavior.</p>
+
+<pre>
+&lt;div id="div-1" onselectstart="return false"&gt;
+</pre>
+
+<p>The Mozilla solution is simply put just beautiful. To disable selection one
+uses the CSS property <code>-moz-user-select</code> (part of CSS3 proposal) and
+set the value to <code>none</code>.</p>
+
+<pre>
+#div-1 {
+   -moz-user-select: none;
+}
+</pre>
+
+<p>
+<a href="selectableelements.html">Introduction</a><br />
+<a href="usage.html">Usage</a><br />
+<a href="subclasses.html">Sub Classes</a><br />
+<a href="api.html">API</a><br />
+<a href="demo.html">Demo</a><br />
+<a href="http://webfx.eae.net/download/selectableelements102.zip">Download</a>
+</p>
+
+<p class="author">Author: Erik Arvidsson</p>
+
+<!-- end webfx-main-body -->
+</div>
+
+</body>
+</html>
+

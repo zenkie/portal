@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<server>
+	<mbean code="org.jboss.mail.MailService" name="jboss:service=MailSession">
+		<attribute name="JNDIName">mail/MailSession</attribute>
+		<attribute name="User">yfzhu@burgeon.com.cn</attribute>
+		<attribute name="Password">abc123</attribute>
+		<attribute name="Configuration">
+			<configuration>
+				<property name="mail.imap.host" value="mail.burgeon.com.cn" />
+				<property name="mail.pop3.host" value="mail.burgeon.com.cn" />
+				<property name="mail.smtp.host" value="mail.burgeon.com.cn" />
+				<property name="mail.store.protocol" value="imap" />
+				<property name="mail.transport.protocol" value="smtp" />
+			</configuration>
+		</attribute>
+	</mbean>
+</server>

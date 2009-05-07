@@ -1,0 +1,82 @@
+<%
+	org.json.JSONObject tableObj=new org.json.JSONObject();
+	tableObj.put("id", tableId);
+	tableObj.put("desc", table.getDescription(locale));
+	tableObj.put("actionADD", canAdd);
+	tableObj.put("actionMODIFY", canModify);
+	tableObj.put("actionDELETE", canDelete);
+	tableObj.put("actionSUBMIT", canSubmit);
+	tableObj.put("actionEXPORT", canExport);
+	tableObj.put("actionGROUPSUBMIT", canSubmit &&  table.isActionEnabled(Table.GROUPSUBMIT));
+	
+	int[] columnMasks= new int[]{Column.MASK_QUERY_LIST};
+	/**
+	  1) Metadata
+	*/
+	EditableGridMetadata meta=new EditableGridMetadata(table, locale, userWeb,columnMasks );
+	JSONObject gridMetadata=meta.toJSONObject();
+	ArrayList al=new ArrayList();
+	for(int i=0;i< meta.getColumns().size();i++){
+		GridColumn c=(GridColumn)  meta.getColumns().get(i);
+		if(c.isUploadWhenModify())al.add(new Integer(i));
+	}
+	gridMetadata.put("columnsWhenModify",nds.util.JSONUtils.toJSONArray(al));
+	/**
+	   2) QueryRequest
+	*/
+	int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getDefaultAction()==nds.web.config.ObjectUIConfig.ACTION_EDIT)?3:1);
+	JSONObject q=new JSONObject();
+	q.put("callbackEvent","RefreshGrid");
+	q.put("table", table.getName());
+	q.put("column_masks", JSONUtils.toJSONArrayPrimitive(columnMasks));
+	q.put("dir_perm",listViewPermissionType);
+	q.put("init_query",true);
+	q.put("fixedcolumns", fixedColumns.toURLQueryString(null));
+	q.put("start",0);
+	q.put("range",QueryUtils.DEFAULT_RANGE);
+	q.put("show_alert",true); //show row css accroding to column value
+	if( table.getColumn("orderno")!=null){
+		q.put("order_columns", table.getColumn("orderno").getId());
+		q.put("order_asc", true);
+	}else{
+		q.put("order_columns", table.getColumn("id").getId());
+		q.put("order_asc", false);
+	}
+	// when this parameter set, system will try to load recent one week data
+	q.put("tryrecent",true);
+	
+	//String creationLink=WebUtils.getMainTableLink(request)+"table="+ tableId+"&fixedcolumns="+java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""),request.getCharacterEncoding())+"&next_screen="+java.net.URLEncoder.encode(StringUtils.escapeHTMLTags(urlOfThisPage),request.getCharacterEncoding());
+	
+	String singleObjectPageURL=(
+		nds.util.Validator.isNotNull(table.getRowURL())? nds.util.WebKeys.NDS_URI +  table.getRowURL() +"?":
+		nds.util.WebKeys.NDS_URI +"/object/object.jsp?table="+table.getId()
+		)
+		+"&"+WebUtils.getMainTableLink(request)+"&fixedcolumns="+ java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""))+"&id=";
+		
+	//String singleObjectPageURL=QueryUtils.getTableRowURL(table)+"&"+WebUtils.getMainTableLink(request)+"&fixedcolumns="+ java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""))+"&id=";
+	StringBuffer tas=new StringBuffer();
+	if(canAdd) tas.append("A");
+	if(canModify) tas.append("M");
+	if(canDelete) tas.append("D");
+	if(canSubmit) tas.append("S");
+	
+	boolean shouldWarn=Tools.getYesNo(userWeb.getUserOption("WARN_ON_SUBMIT","Y"),true);
+	boolean refreshGridWhenCloseDialog=Tools.getYesNo(userWeb.getUserOption("REFRESH_PORTAL_GRID","Y"),true);
+	
+	
+	Configurations conf=(Configurations)nds.control.web.WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS);
+	String exportRootPath=conf.getProperty("export.root.nds","/act/home");
+	String testfilePath =exportRootPath + File.separator+ 
+	userWeb.getClientDomain()+File.separator+ userWeb.getUserName()+File.separator+"cache"+File.separator+"testscript.cache";
+
+%>
+<script>
+gridInitObject={
+	mainobjurl:"<%=singleObjectPageURL%>",
+	metadata: <%=gridMetadata%>,
+	query:<%=q%>
+};
+pc.setWarningOnSubmit(<%=shouldWarn%>);
+pc.setRefreshOnDialogClose(<%=refreshGridWhenCloseDialog%>);
+pc.setTableObj(<%=tableObj.toString()%>);
+</script>
