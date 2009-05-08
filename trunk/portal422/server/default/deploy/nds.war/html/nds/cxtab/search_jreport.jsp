@@ -39,7 +39,7 @@
           if(i%columnsPerRow == 0)out.print("<tr>");
         %>
           <td height="18" width="<%=widthPerColumn*2/3%>%" nowrap align="left">
-               <div class="desc-txt"><%desc%>:</div>
+               <div class="desc-txt"><%=desc%>:</div>
           </td>
           <td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left">
            <%
