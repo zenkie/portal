@@ -2,10 +2,6 @@
 <servlet><servlet-name>org.apache.jspc.html.nds.header_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.header_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.index_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.index_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.info_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.info_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.ahyy.setprjpasswd_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.ahyy.setprjpasswd_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.ahyy.setquizz_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.ahyy.setquizz_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.ahyy.signcontract_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.ahyy.signcontract_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.ahyy.sign_005ftoolbar_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.ahyy.sign_005ftoolbar_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt2_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.alisoft.loadpdt2_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt_jsp$RestConnector2</servlet-name><servlet-class>org.apache.jspc.html.nds.alisoft.loadpdt_jsp$RestConnector2</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.alisoft.loadpdt_jsp</servlet-class></servlet>
@@ -98,10 +94,6 @@
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.header_jsp</servlet-name><url-pattern>/html/nds/header.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.index_jsp</servlet-name><url-pattern>/html/nds/index.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.info_jsp</servlet-name><url-pattern>/html/nds/info.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.ahyy.setprjpasswd_jsp</servlet-name><url-pattern>/html/nds/ahyy/setprjpasswd.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.ahyy.setquizz_jsp</servlet-name><url-pattern>/html/nds/ahyy/setquizz.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.ahyy.signcontract_jsp</servlet-name><url-pattern>/html/nds/ahyy/signcontract.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.ahyy.sign_005ftoolbar_jsp</servlet-name><url-pattern>/html/nds/ahyy/sign_005ftoolbar.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt2_jsp</servlet-name><url-pattern>/html/nds/alisoft/loadpdt2.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt_jsp$RestConnector2</servlet-name><url-pattern>/html/nds/alisoft/loadpdt_jsp$RestConnector2.java</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt_jsp</servlet-name><url-pattern>/html/nds/alisoft/loadpdt.jsp</url-pattern></servlet-mapping>
