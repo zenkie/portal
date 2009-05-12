@@ -1,9 +1,6 @@
 <servlet><servlet-name>org.apache.jspc.html.nds.error_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.error_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.header_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.header_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.info_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.info_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt2_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.alisoft.loadpdt2_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt_jsp$RestConnector2</servlet-name><servlet-class>org.apache.jspc.html.nds.alisoft.loadpdt_jsp$RestConnector2</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.alisoft.loadpdt_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.audit.create_005ffilter_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.audit.create_005ffilter_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.audit.setup_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.audit.setup_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.audit.view_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.audit.view_jsp</servlet-class></servlet>
@@ -15,11 +12,9 @@
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.create_005fcxtabrpt_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.create_005fcxtabrpt_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.cxtabdef_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.cxtabdef_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.downloadrpt_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.downloadrpt_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.cxtab.history_005ffiles_jsp$TableFilter</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.history_005ffiles_jsp$TableFilter</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.history_005ffiles_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.history_005ffiles_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.opencube_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.opencube_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.rpthome_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.rpthome_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.cxtab.search_jsp$TableFilter</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.search_jsp$TableFilter</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.search_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.search_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.viewcube_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.viewcube_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.viewrpt_005ftoolbar_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.viewrpt_005ftoolbar_jsp</servlet-class></servlet>
@@ -34,7 +29,6 @@
 <servlet><servlet-name>org.apache.jspc.html.nds.object.inlineobj_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.object.inlineobj_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.object.multiple_005fobject_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.object.multiple_005fobject_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.object.object_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.object.object_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.objext.batchupdate_jsp$1</servlet-name><servlet-class>org.apache.jspc.html.nds.objext.batchupdate_jsp$1</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.objext.batchupdate_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.objext.batchupdate_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.objext.copyto_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.objext.copyto_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.objext.import_005fexcel_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.objext.import_005fexcel_jsp</servlet-class></servlet>
@@ -92,9 +86,6 @@
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.error_jsp</servlet-name><url-pattern>/html/nds/error.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.header_jsp</servlet-name><url-pattern>/html/nds/header.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.info_jsp</servlet-name><url-pattern>/html/nds/info.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt2_jsp</servlet-name><url-pattern>/html/nds/alisoft/loadpdt2.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt_jsp$RestConnector2</servlet-name><url-pattern>/html/nds/alisoft/loadpdt_jsp$RestConnector2.java</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt_jsp</servlet-name><url-pattern>/html/nds/alisoft/loadpdt.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.audit.create_005ffilter_jsp</servlet-name><url-pattern>/html/nds/audit/create_005ffilter.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.audit.setup_jsp</servlet-name><url-pattern>/html/nds/audit/setup.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.audit.view_jsp</servlet-name><url-pattern>/html/nds/audit/view.jsp</url-pattern></servlet-mapping>
@@ -106,11 +97,9 @@
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.create_005fcxtabrpt_jsp</servlet-name><url-pattern>/html/nds/cxtab/create_005fcxtabrpt.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.cxtabdef_jsp</servlet-name><url-pattern>/html/nds/cxtab/cxtabdef.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.downloadrpt_jsp</servlet-name><url-pattern>/html/nds/cxtab/downloadrpt.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.history_005ffiles_jsp$TableFilter</servlet-name><url-pattern>/html/nds/cxtab/history_005ffiles_jsp$TableFilter.java</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.history_005ffiles_jsp</servlet-name><url-pattern>/html/nds/cxtab/history_005ffiles.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.opencube_jsp</servlet-name><url-pattern>/html/nds/cxtab/opencube.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.rpthome_jsp</servlet-name><url-pattern>/html/nds/cxtab/rpthome.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.search_jsp$TableFilter</servlet-name><url-pattern>/html/nds/cxtab/search_jsp$TableFilter.java</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.search_jsp</servlet-name><url-pattern>/html/nds/cxtab/search.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.viewcube_jsp</servlet-name><url-pattern>/html/nds/cxtab/viewcube.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.viewrpt_005ftoolbar_jsp</servlet-name><url-pattern>/html/nds/cxtab/viewrpt_005ftoolbar.jsp</url-pattern></servlet-mapping>
@@ -125,7 +114,6 @@
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.object.inlineobj_jsp</servlet-name><url-pattern>/html/nds/object/inlineobj.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.object.multiple_005fobject_jsp</servlet-name><url-pattern>/html/nds/object/multiple_005fobject.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.object.object_jsp</servlet-name><url-pattern>/html/nds/object/object.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.objext.batchupdate_jsp$1</servlet-name><url-pattern>/html/nds/objext/batchupdate_jsp$1.java</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.objext.batchupdate_jsp</servlet-name><url-pattern>/html/nds/objext/batchupdate.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.objext.copyto_jsp</servlet-name><url-pattern>/html/nds/objext/copyto.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.objext.import_005fexcel_jsp</servlet-name><url-pattern>/html/nds/objext/import_005fexcel.jsp</url-pattern></servlet-mapping>
