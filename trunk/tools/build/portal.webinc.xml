@@ -1,6 +1,5 @@
 <servlet><servlet-name>org.apache.jspc.html.nds.error_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.error_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.header_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.header_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.index_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.index_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.info_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.info_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt2_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.alisoft.loadpdt2_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt_jsp$RestConnector2</servlet-name><servlet-class>org.apache.jspc.html.nds.alisoft.loadpdt_jsp$RestConnector2</servlet-class></servlet>
@@ -92,7 +91,6 @@
 <servlet><servlet-name>org.apache.jspc.html.nds.websql.sqlresult_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.websql.sqlresult_jsp</servlet-class></servlet>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.error_jsp</servlet-name><url-pattern>/html/nds/error.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.header_jsp</servlet-name><url-pattern>/html/nds/header.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.index_jsp</servlet-name><url-pattern>/html/nds/index.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.info_jsp</servlet-name><url-pattern>/html/nds/info.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt2_jsp</servlet-name><url-pattern>/html/nds/alisoft/loadpdt2.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.alisoft.loadpdt_jsp$RestConnector2</servlet-name><url-pattern>/html/nds/alisoft/loadpdt_jsp$RestConnector2.java</url-pattern></servlet-mapping>

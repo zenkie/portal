@@ -1,6 +1,5 @@
 org/apache/jspc/html/nds/error_jsp.java
 org/apache/jspc/html/nds/header_jsp.java
-org/apache/jspc/html/nds/index_jsp.java
 org/apache/jspc/html/nds/info_jsp.java
 org/apache/jspc/html/nds/alisoft/loadpdt2_jsp.java
 org/apache/jspc/html/nds/alisoft/loadpdt_jsp$RestConnector2.java
