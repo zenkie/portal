@@ -92,9 +92,6 @@
 <servlet><servlet-name>org.apache.jspc.html.nds.security.groupperm_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.security.groupperm_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.security.sql_005ffilter_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.security.sql_005ffilter_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.shell.index_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.shell.index_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.website._001.result_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.website._001.result_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.website._002.result_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.website._002.result_jsp</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.website._003.result_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.website._003.result_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.websql.index_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.websql.index_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.websql.sqlresult_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.websql.sqlresult_jsp</servlet-class></servlet>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.error_jsp</servlet-name><url-pattern>/html/nds/error.jsp</url-pattern></servlet-mapping>
@@ -191,8 +188,5 @@
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.security.groupperm_jsp</servlet-name><url-pattern>/html/nds/security/groupperm.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.security.sql_005ffilter_jsp</servlet-name><url-pattern>/html/nds/security/sql_005ffilter.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.shell.index_jsp</servlet-name><url-pattern>/html/nds/shell/index.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.website._001.result_jsp</servlet-name><url-pattern>/html/nds/website/_001/result.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.website._002.result_jsp</servlet-name><url-pattern>/html/nds/website/_002/result.jsp</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.website._003.result_jsp</servlet-name><url-pattern>/html/nds/website/_003/result.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.websql.index_jsp</servlet-name><url-pattern>/html/nds/websql/index.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.websql.sqlresult_jsp</servlet-name><url-pattern>/html/nds/websql/sqlresult.jsp</url-pattern></servlet-mapping>

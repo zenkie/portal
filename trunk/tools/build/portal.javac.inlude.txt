@@ -92,8 +92,5 @@ org/apache/jspc/html/nds/security/groupperm2_jsp.java
 org/apache/jspc/html/nds/security/groupperm_jsp.java
 org/apache/jspc/html/nds/security/sql_005ffilter_jsp.java
 org/apache/jspc/html/nds/shell/index_jsp.java
-org/apache/jspc/html/nds/website/_001/result_jsp.java
-org/apache/jspc/html/nds/website/_002/result_jsp.java
-org/apache/jspc/html/nds/website/_003/result_jsp.java
 org/apache/jspc/html/nds/websql/index_jsp.java
 org/apache/jspc/html/nds/websql/sqlresult_jsp.java
