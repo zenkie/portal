@@ -16,6 +16,7 @@
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.opencube_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.opencube_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.rpthome_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.rpthome_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.search_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.search_jsp</servlet-class></servlet>
+<servlet><servlet-name>org.apache.jspc.html.nds.cxtab.search_005fjreport_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.search_005fjreport_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.viewcube_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.viewcube_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.viewrpt_005ftoolbar_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.viewrpt_005ftoolbar_jsp</servlet-class></servlet>
 <servlet><servlet-name>org.apache.jspc.html.nds.cxtab.viewrpt_jsp</servlet-name><servlet-class>org.apache.jspc.html.nds.cxtab.viewrpt_jsp</servlet-class></servlet>
@@ -101,6 +102,7 @@
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.opencube_jsp</servlet-name><url-pattern>/html/nds/cxtab/opencube.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.rpthome_jsp</servlet-name><url-pattern>/html/nds/cxtab/rpthome.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.search_jsp</servlet-name><url-pattern>/html/nds/cxtab/search.jsp</url-pattern></servlet-mapping>
+<servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.search_005fjreport_jsp</servlet-name><url-pattern>/html/nds/cxtab/search_jreport.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.viewcube_jsp</servlet-name><url-pattern>/html/nds/cxtab/viewcube.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.viewrpt_005ftoolbar_jsp</servlet-name><url-pattern>/html/nds/cxtab/viewrpt_toolbar.jsp</url-pattern></servlet-mapping>
 <servlet-mapping><servlet-name>org.apache.jspc.html.nds.cxtab.viewrpt_jsp</servlet-name><url-pattern>/html/nds/cxtab/viewrpt.jsp</url-pattern></servlet-mapping>

@@ -16,6 +16,7 @@ org/apache/jspc/html/nds/cxtab/history_005ffiles_jsp.java
 org/apache/jspc/html/nds/cxtab/opencube_jsp.java
 org/apache/jspc/html/nds/cxtab/rpthome_jsp.java
 org/apache/jspc/html/nds/cxtab/search_jsp.java
+org/apache/jspc/html/nds/cxtab/search_005fjreport_jsp.java
 org/apache/jspc/html/nds/cxtab/viewcube_jsp.java
 org/apache/jspc/html/nds/cxtab/viewrpt_005ftoolbar_jsp.java
 org/apache/jspc/html/nds/cxtab/viewrpt_jsp.java
