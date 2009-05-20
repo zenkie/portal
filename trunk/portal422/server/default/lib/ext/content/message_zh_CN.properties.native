@@ -199,3 +199,4 @@ contain=包含
 no-contain=不包含
 axis-p=分页定义
 print-template-not-set=打印失败，请先进行打印设置
+pls-input=请输入
