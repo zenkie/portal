@@ -4,6 +4,7 @@
 /**
    params:
    cxtab* - cxtab id, or cxtab name 
+   if ad_cxtab.pre_procedure is not null, will direct page to search_jreport.jsp for query form construction, since parameters will be from ad_cxtab_jpara
 */
 	int cxtabId= ParamUtils.getIntAttributeOrParameter(request, "cxtab", -1);
 	if(cxtabId ==-1){
@@ -12,7 +13,7 @@
 				userWeb.getAdClientId()+" and name="+QueryUtils.TO_STRING(request.getParameter("cxtab"))) ,-1);
 	}
 	if(cxtabId==-1) throw new NDSException("Internal error, cxtab id="+ request.getParameter("cxtab") + " does not exist");
-	List list=QueryEngine.getInstance().doQueryList("select ad_table_id,name, description,attr1,attr2 from ad_cxtab where id="+ cxtabId);
+	List list=QueryEngine.getInstance().doQueryList("select ad_table_id,name, description,attr1,attr2,pre_procedure from ad_cxtab where id="+ cxtabId);
  	if(list.size()==0)throw new NDSException("Internal error, cxtab id="+ cxtabId + " does not exist");
   	int tableId= Tools.getInt( ((List)list.get(0)).get(0),-1);
   	
@@ -20,8 +21,9 @@
 	String cxtabDesc=(String) ((List)list.get(0)).get(2);
 	String excelPath= (String) ((List)list.get(0)).get(3);
 	String jReportPath= (String) ((List)list.get(0)).get(4);
+	String preProcedure= (String) ((List)list.get(0)).get(5);
 	
-	if(tableId==-1){
+	if(tableId==-1 || nds.util.Validator.isNotNull(preProcedure)){
   		// redirect to search_jreport.jsp
   		request.getRequestDispatcher("search_jreport.jsp").forward(request, response);
   		return;
