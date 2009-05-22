@@ -88,8 +88,9 @@
             <Set name="MaxThreads">100</Set>
             <Set name="MaxIdleTimeMs">30000</Set>
             <Set name="LowResourcePersistTimeMs">5000</Set>
+             <!--
             <Set name="ConfidentialPort">8443</Set>
-            <Set name="IntegralPort">8443</Set>
+            <Set name="IntegralPort">8443</Set> -->
              <Set name="bufferSize">8192</Set>
 
           </New>
@@ -127,6 +128,7 @@
        <!-- Add a AJP13 listener on port 8009                               -->
        <!-- This protocol can be used with mod_jk in apache, IIS etc.       -->
        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!--
        <Call name="addListener">
          <Arg>
            <New class="org.mortbay.http.ajp.AJP13Listener">
@@ -138,7 +140,7 @@
            </New>
          </Arg>
        </Call>
-
+	-->
        <!-- =============================================================== -->
        <!-- Configure the Request Log                                       -->
        <!-- =============================================================== -->

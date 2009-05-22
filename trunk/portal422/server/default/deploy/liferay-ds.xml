@@ -3,7 +3,7 @@
 <datasources>
 <local-tx-datasource>
 		<jndi-name>jdbc/LiferayPool</jndi-name>
-		<connection-url>jdbc:oracle:thin:@localhost:1521:orcl</connection-url>
+		<connection-url>jdbc:oracle:thin:@@ORAIP@:1521:@TNSNAME@</connection-url>
 		<driver-class>oracle.jdbc.OracleDriver</driver-class>
 		<user-name>nealportal4</user-name>
 		<password>nealportal4</password>
@@ -13,7 +13,7 @@
 	</local-tx-datasource>
 	<local-tx-datasource>
 		<jndi-name>DataSource</jndi-name>
-		<connection-url>jdbc:oracle:thin:@localhost:1521:orcl</connection-url>
+		<connection-url>jdbc:oracle:thin:@@ORAIP@:1521:@TNSNAME@</connection-url>
 		<driver-class>oracle.jdbc.OracleDriver</driver-class>
 		<user-name>neands3</user-name>
 		<password>abc123</password>
@@ -24,7 +24,7 @@
 	
 	<local-tx-datasource>
 		<jndi-name>HSQLDataSource</jndi-name>
-		<connection-url>jdbc:hsqldb:file:/portal422/server/default/data/hypersonic/trans</connection-url>
+		<connection-url>jdbc:hsqldb:file:/@MAINDIR@/portal422/server/default/data/hypersonic/trans</connection-url>
 	    <driver-class>org.hsqldb.jdbcDriver</driver-class>
 	    <user-name>SA</user-name>
 	    <password></password>

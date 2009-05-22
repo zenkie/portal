@@ -2,11 +2,10 @@
 rem -------------------------------------------------------------------------
 rem JBoss Bootstrap Script for Win32
 rem -------------------------------------------------------------------------
-set NLS_LANG=SIMPLIFIED CHINESE_CHINA.ZHS16GBK
 set NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
-set JAVA_HOME=d:\jdk15
+set JAVA_HOME=@JAVA_HOME@
 rem $Id: run.bat 56327 2006-08-28 10:34:13Z dimitris@jboss.org $
-set JAVA_OPTS=-Dnds.config.path=e:/act.nea/conf/portal.properties
+set JAVA_OPTS=-Dnds.config.path=@MAINDIR@/act.nea/conf/portal.properties -Djetty.port=@WEBPORT@
 set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;E:\portal422\server\default\lib\ext
 @if not "%ECHO%" == ""  echo %ECHO%
 @if "%OS%" == "Windows_NT"  setlocal
