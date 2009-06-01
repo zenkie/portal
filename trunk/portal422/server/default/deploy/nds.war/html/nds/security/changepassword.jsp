@@ -70,10 +70,12 @@ function checkOptions(form){
 		alert("<%= PortletUtils.getMessage(pageContext, "please-enter-a-valid-password",null)%>");
 		return false;
 	}
+/*	
 	if(!testComplex(form.password1.value)){
 		alert("<%= PortletUtils.getMessage(pageContext, "please-enter-a-valid-password",null)%>");
 		return false;
 	}
+*/
 	submitForm(form); 
 }
 </script>
