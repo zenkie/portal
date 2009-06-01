@@ -98,7 +98,7 @@ var Alerts = {
 		cell1.className = "pop-up-close";
 		cell1.width = "1%";
 		if(closeButton){
-			cell1.innerHTML = "<a href=\"javascript:void(0)\" title='关闭"+"' onclick=\"Alerts.killAlert(this)\"><img border=\"0\" src=\"/html/nds/images/close.gif\"/></a>"
+			cell1.innerHTML = "<a href=\"javascript:void(0)\" title='Close"+"' onclick=\"Alerts.killAlert(this)\"><img border=\"0\" src=\"/html/nds/images/close.gif\"/></a>"
 		}
 		if(maxButton){
 			cell0.width = "98%";
@@ -107,7 +107,7 @@ var Alerts = {
 			cell1.id = "pop-up-close-x";
 			cell2.className = "pop-up-close";
 			cell2.width = "1%";
-			cell2.innerHTML = "<a href=\"javascript:void(0)\" title='独立窗口"+"' onclick=\"Alerts.killAlert(this);popup_window('"+maxURL+"','_blank');\"><img border=\"0\" src=\"/html/nds/images/maxbutton.gif\"/></a>"
+			cell2.innerHTML = "<a href=\"javascript:void(0)\" title='Single window"+"' onclick=\"Alerts.killAlert(this);popup_window('"+maxURL+"','_blank');\"><img border=\"0\" src=\"/html/nds/images/maxbutton.gif\"/></a>"
 						
 		}
 		
