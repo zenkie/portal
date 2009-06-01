@@ -543,6 +543,7 @@ ObjectQuery.prototype = {
 		var cks=$("q_fm_list").getInputs('checkbox', 'itemid');
 		for(var i=0;i<cks.length;i++){
 			cks[i].checked= ck;
+			this.dynamic_add(cks[i].id);
 		}
 	},
 	
