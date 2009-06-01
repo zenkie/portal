@@ -10,5 +10,8 @@ var gMessageHolder={
 	INPUT_FIELD:"请首先输入0信息",
 	INPUT_FILE_NAME:"请输入文件名",
 	TEMPLATE_UPDATED:"您的模板已设置成功！",
-	CLOSE_DIALOG:"关闭"
+	CLOSE_DIALOG:"关闭",
+	ADD_ALL:"添加全部",
+	EXCLUDE_ALL:"排除全部",
+	NOTCONTAINS:"不包含",
 };
