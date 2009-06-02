@@ -596,6 +596,11 @@ ObjectControl.prototype = {
 			}
 		}
 	},
+	isempty:function(column_acc_Id,fk_column_acc_Id){
+			if($(column_acc_Id).value==""){
+		 		$(fk_column_acc_Id).value="";
+			}
+	},
 	audit:function(audittype,objectId){
 		var evt={};
 		evt.command="ExecuteAudit";
