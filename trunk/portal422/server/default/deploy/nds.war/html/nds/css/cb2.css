@@ -247,3 +247,11 @@ padding-top:5px;
 position:absolute;
 text-align:right;
 }
+.toggleFCKeditorBar{
+	float:right;
+}
+.toggleFCKeditorBar a{
+padding:4px 20px 0px 0px;
+float:right;
+position:relative;
+}

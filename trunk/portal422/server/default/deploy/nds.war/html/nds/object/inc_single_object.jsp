@@ -242,6 +242,9 @@
     				net.fckeditor.FCKeditor fckEditor = new net.fckeditor.FCKeditor(request,column_acc_Id,"98%","370px",null, null, "/html/nds/js/fckeditor");
     				fckEditor.setValue(dataWithoutNBSP==null?"":dataWithoutNBSP);
 				%>
+				<div class="toggleFCKeditorBar"><a href="javascript:toggleFCKeditor(FCKeditorAPI.GetInstance('<%=column_acc_Id%>'));">
+					<span id="<%=column_acc_Id%>_tb"><%= PortletUtils.getMessage(pageContext, "switch-fckeditor",null)%></span></a>
+				</div>
 				<%=fckEditor%>
     <%      }else if ( ds.getObjectType()==DisplaySetting.OBJ_FILE){
     %>		
