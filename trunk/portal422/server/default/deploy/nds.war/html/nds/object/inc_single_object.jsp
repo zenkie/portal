@@ -152,8 +152,7 @@
                 	a.put("tabIndex", (++tabIndex)+"");
                 	//String defaultValue=objprefs.getProperty(column.getName(),column.getDefaultValue(bReplaceVariable));
 		        	String defaultValue=objprefs.getProperty(column.getName(), 
-        				userWeb.getUserOption(column.getName(),column.getDefaultValue(bReplaceVariable)));
-                	
+        			userWeb.getUserOption(column.getName(),column.getDefaultValue(bReplaceVariable)));
                 	if(defaultValue==null) defaultValue="0";
                 	if(bReplaceVariable) defaultValue=userWeb.replaceVariables(defaultValue);
                 	if(ds.getObjectType()==DisplaySetting.OBJ_CHECK){
@@ -197,6 +196,7 @@
 	            		h.put("readonly","readonly");
 	            	}
 	            	h.put("onkeypress","oc.onKeyPress(event)");
+	            	h.put("onblur", "oc.isempty("+column_acc_Id+","+"fk_"+column_acc_Id+")");
 	            	
 	            }//end if(fkQueryModel!=null)
 	            if(column.isAutoComplete()){
