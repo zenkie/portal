@@ -823,3 +823,4 @@ print-notice=PDF格式能做到精确打印，使用PDF输出格式时，必须保证在本机安装了Acrob
 print-format=输出格式
 object.submitprint=提交并打印
 object.printsetting=打印设置
+switch-fckeditor=切换编辑模式
