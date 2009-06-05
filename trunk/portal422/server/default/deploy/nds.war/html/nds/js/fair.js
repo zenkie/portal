@@ -65,8 +65,10 @@ FAIR.prototype={
 		this.pagenum =ret.pagenum;
 		var fairstr="";
 		var fairid =ret.fairid;
-	  Form.Element.focus('srinfo');
-	  $("srinfo").value=this.srinfo;
+		if($("srinfo")!=null){
+		  Form.Element.focus('srinfo');
+		  $("srinfo").value=this.srinfo;
+	  }
 		var querytype =$("querytype").value;
 		var nowpage=parseInt(this.startidx)+1;
 		var m=parseInt(parseInt(this.startidx)/6);
@@ -95,7 +97,7 @@ FAIR.prototype={
 	       fairstr+="<span>...</span><a href=\"javascript:fair.anypage("+this.pagenum+");\" >"+this.pagenum+"</a>";
 	      }
 	    if(this.pagenum>parseInt(this.startidx)+1){    
-	       fairstr+="<a  class=\"noborder\" onclick=\"javascript:fair.nextpage();\">下一页》</a></div>";
+	       fairstr+="<a class=\"noborder\" href=\"javascript:fair.nextpage();\">下一页》</a></div>";
 	     }else{
 	      fairstr+="<a class=\"unclick noborder\">下一页》</a>";
 	    }
@@ -227,13 +229,13 @@ FAIR.prototype={
 	     }else{
 	      fairstr+="<a class=\"unclick noborder\">下一页》</a></div>";
 	    }
-	   $("detail_view_inner").innerHTML=fairstr;
+		 $("detail_view_inner").innerHTML=fairstr;
 	   $("fairid").value=ret.fairid;
 	    if(ret.totqty!=""){
-	   $("totqty").innerHTML=ret.totqty;
+	 			 $("totqty").innerHTML=ret.totqty;
 	   }
 	}else{
-		 $("detail_view_inner").innerHTML="没有商品数据信息！";
+					$("detail_view_inner").innerHTML="没有商品数据信息！";
 	 }
 	},
 	
@@ -647,20 +649,20 @@ FAIR.prototype={
 	    if(this.startidx==0){
 	     fairstr+="<a class=\"unclick noborder\">《上一页</a>";
 	    }else{
-	       	fairstr+="<a  class=\"noborder\" href=\"javascript:fair.prepage();\">《上一页</a>";
+	       	fairstr+="<a  class=\"noborder\" href=\"javascript:fair.prepageorder();\">《上一页</a>";
 	    }
 	    for(var k=6*m+1;k<=this.pagenum&&k<=6*(m+1)+1;k++){
 	       if(k==nowpage){
-	     	fairstr+="<a class=\"now_page\" href=\"javascript:fair.anypage("+k+");\" >"+k+"</a>";
+	     	fairstr+="<a class=\"now_page\" href=\"javascript:fair.anypageorder("+k+");\" >"+k+"</a>";
 	      }else{	
-	       fairstr+="<a href=\"javascript:fair.anypage("+k+");\" >"+k+"</a>";
+	       fairstr+="<a href=\"javascript:fair.anypageorder("+k+");\" >"+k+"</a>";
 	      }
 	    }
 	    if(this.pagenum>6*(m+1)+1){
-	       fairstr+="<span>...</span><a href=\"javascript:fair.anypage("+this.pagenum+");\" >"+this.pagenum+"</a>";
+	       fairstr+="<span>...</span><a href=\"javascript:fair.anypageorder("+this.pagenum+");\" >"+this.pagenum+"</a>";
 	      }
 	    if(this.pagenum>parseInt(this.startidx)+1){     
-	       fairstr+="<a class=\"noborder\" href=\"javascript:fair.nextpage();\">下一页》</a>";
+	       fairstr+="<a class=\"noborder\" href=\"javascript:fair.nextpageorder();\">下一页》</a>";
 	     }else{
 	      fairstr+="<a class=\"unclick noborder\">下一页》</a>";
 	    }
@@ -869,6 +871,18 @@ FAIR.prototype={
       $("startidx").value =$("startidx").value-1;
 	     this.loadFairObject();
 	},
+	prepageorder:function(){
+      $("startidx").value =$("startidx").value-1;
+	     this.myorder();
+	},
+	anypageorder:function(pageindex){
+		$("startidx").value =pageindex-1;
+		 this.myorder();
+	},
+	 nextpageorder:function(){
+	   $("startidx").value =parseInt($("startidx").value)+1; 
+	   this.myorder();
+	},	
 	/*
 	    显示下一页商品
 	*/
