@@ -943,10 +943,19 @@ PortalControl.prototype = {
 	 * copy row information to object
 	 * @line0 just the main object id,will search for row whose first element equals line0
 	 */
-	editLine:function(line0){
+		editLine:function(line0){
 		var i,row=-1;
 		if(this._data==null){
-			showObject2(gridInitObject.mainobjurl+line0, this._dialogOption);
+			if($(line0+"_p_step")!=null){
+				var p_step=$(line0+"_p_step").value;
+				if($(line0+"_iscomplete").value=="Y"){
+					showObject2(gridInitObject.mainobjurl+line0+"&nextstep="+p_step+"&p_nextstep=-2",this._dialogOption);
+				}else{
+					showObject2(gridInitObject.mainobjurl+line0+"&p_nextstep="+p_step,this._dialogOption);
+				}
+			}else{
+				showObject2(gridInitObject.mainobjurl+line0,this._dialogOption);
+			}	
 		}else{
 			for(i=0;i< this._data.length;i++){
 				if(this._data[i][0]==line0){
@@ -968,7 +977,16 @@ PortalControl.prototype = {
 		showObject2(gridInitObject.mainobjurl+line[4],this._dialogOption);
 	},
 	mo:function(tid){
+		if($(tid+"_p_step")!=null){
+			var p_step=$(tid+"_p_step").value;
+			if($(tid+"_iscomplete").value=="Y"){
+				showObject2(gridInitObject.mainobjurl+tid+"&nextstep="+p_step+"&p_nextstep=-2",this._dialogOption);
+			}else{
+				showObject2(gridInitObject.mainobjurl+tid+"&p_nextstep="+p_step,this._dialogOption);
+			}
+		}else{
 		showObject2(gridInitObject.mainobjurl+tid,this._dialogOption);
+		}
 	},
 	auditObj:function(urlaudit){
 		showObject2(urlaudit,{onClose:new Function('pc.navigate("/html/nds/audit/view.jsp");')});
