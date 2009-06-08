@@ -496,3 +496,101 @@ font-style:none;
 font-size:14px;
 text-align:left;
 }
+.div_step{
+    width:902px;
+    clear:both;
+    background-color:#fff;
+    padding:3px 0px;
+    margin:3px 0px 0px 0px;
+    text-align:right;
+}
+.button_step{
+	background:transparent url(/html/nds/themes/classic/01/images/button_bg.gif) repeat scroll 0 50%;
+	border:1px solid #BFA277;
+	padding:3px 24px;
+}
+#tabs1 {
+    float:left;
+    width:902px;
+    font-size:93%;
+    line-height:normal;
+	border-bottom:1px solid #BCD2E6;
+	margin: 0px;
+}
+#tabs1 ul {
+	margin:0;
+	padding:10px 10px 0 70px;
+	list-style:none;
+}
+#tabs1 li {
+    display:inline;
+    margin:0;
+    padding:0;
+}
+#tabs1 li.currleft{
+    float:left;
+    background:url("/html/nds/themes/classic/01/images/li.gif") no-repeat left bottom;
+    margin:0;
+    padding:0 0 0 4px;
+    text-decoration:none;
+}
+#tabs1 li.left {
+    float:left;
+    background:url("/html/nds/themes/classic/01/images/li.gif") no-repeat left top;
+    margin:0;
+    padding:0 0 0 4px;
+    text-decoration:none;
+}
+.precurr{
+    float:left;
+    display:block;
+    background:url("/html/nds/themes/classic/01/images/pre.gif") no-repeat right top;
+    padding:3px 35px 3px 35px;
+    color:#627EB7;
+} 
+.prenocurr{
+    float:left;
+    display:block;
+    background:url("/html/nds/themes/classic/01/images/pre.gif") no-repeat right bottom;
+    padding:3px 35px 3px 35px;
+    color:#627EB7;
+}  
+.crosscurr{
+    float:left;
+    display:block;
+    background:url("/html/nds/themes/classic/01/images/cross.gif") no-repeat right top;
+    color:#627EB7;
+}
+.crossnocurr{
+    float:left;
+    display:block;
+    background:url("/html/nds/themes/classic/01/images/cross.gif") no-repeat right bottom;
+    color:#627EB7;
+}
+.allnocurr{
+    float:left;
+    display:block;
+    background:url("/html/nds/themes/classic/01/images/endnocurr.gif") no-repeat right bottom;
+    color:#627EB7;
+}
+.endnocurr{
+    float:left;
+    display:block;
+    background:url("/html/nds/themes/classic/01/images/endnocurr.gif") no-repeat right top;
+    padding:3px 55px 3px 56px;
+    color:#627EB7;
+}
+.nocurrtabs{
+    float:left;
+    display:block;
+    background:url("/html/nds/themes/classic/01/images/end.gif") no-repeat right top;
+    padding:3px 55px 3px 56px;
+    color:#627EB7;
+}
+.currtabs {
+    float:left;
+    display:block;
+    background:url("/html/nds/themes/classic/01/images/end.gif") no-repeat right bottom;
+    padding:3px 55px 3px 56px;
+    color:#627EB7;
+}
