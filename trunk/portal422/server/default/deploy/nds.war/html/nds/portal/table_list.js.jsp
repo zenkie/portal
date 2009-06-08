@@ -46,29 +46,29 @@
 	q.put("tryrecent",true);
 	
 	//String creationLink=WebUtils.getMainTableLink(request)+"table="+ tableId+"&fixedcolumns="+java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""),request.getCharacterEncoding())+"&next_screen="+java.net.URLEncoder.encode(StringUtils.escapeHTMLTags(urlOfThisPage),request.getCharacterEncoding());
-	
-	String singleObjectPageURL=(
-		nds.util.Validator.isNotNull(table.getRowURL())? nds.util.WebKeys.NDS_URI +  table.getRowURL() +"?":
-		nds.util.WebKeys.NDS_URI +"/object/object.jsp?table="+table.getId()
-		)
-		+"&"+WebUtils.getMainTableLink(request)+"&fixedcolumns="+ java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""))+"&id=";
+	String singleObjectPageURL="";
+	if( TableManager.getInstance().getColumn(table.getName(),"p_step")!=null ){
+		 singleObjectPageURL=(
+			nds.util.Validator.isNotNull(table.getRowURL())? nds.util.WebKeys.NDS_URI +  table.getRowURL() +"?":
+			nds.util.WebKeys.NDS_URI +"/step/index.jsp?table="+table.getId()
+			)
+			+"&"+WebUtils.getMainTableLink(request)+"&fixedcolumns="+java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""))+"&id=";
+    }else{
+		singleObjectPageURL=(
+			nds.util.Validator.isNotNull(table.getRowURL())? nds.util.WebKeys.NDS_URI +  table.getRowURL() +"?":
+			nds.util.WebKeys.NDS_URI +"/object/object.jsp?table="+table.getId()
+			)
+			+"&"+WebUtils.getMainTableLink(request)+"&fixedcolumns="+java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""))+"&id=";
+	}
 		
 	//String singleObjectPageURL=QueryUtils.getTableRowURL(table)+"&"+WebUtils.getMainTableLink(request)+"&fixedcolumns="+ java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""))+"&id=";
 	StringBuffer tas=new StringBuffer();
 	if(canAdd) tas.append("A");
 	if(canModify) tas.append("M");
 	if(canDelete) tas.append("D");
-	if(canSubmit) tas.append("S");
-	
+	if(canSubmit) tas.append("S");	
 	boolean shouldWarn=Tools.getYesNo(userWeb.getUserOption("WARN_ON_SUBMIT","Y"),true);
 	boolean refreshGridWhenCloseDialog=Tools.getYesNo(userWeb.getUserOption("REFRESH_PORTAL_GRID","Y"),true);
-	
-	
-	Configurations conf=(Configurations)nds.control.web.WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS);
-	String exportRootPath=conf.getProperty("export.root.nds","/act/home");
-	String testfilePath =exportRootPath + File.separator+ 
-	userWeb.getClientDomain()+File.separator+ userWeb.getUserName()+File.separator+"cache"+File.separator+"testscript.cache";
-
 %>
 <script>
 gridInitObject={

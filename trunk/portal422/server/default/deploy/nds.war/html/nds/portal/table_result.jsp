@@ -152,8 +152,18 @@ for(int i=0;i< meta.getColumnCount();i++){
   %>
 <td nowrap align="<%=columnAligns[i]%>" width="<%= (int)(100* colmn.getLength()/ totalLength) %>%" <%=tdAttributes%>>
 	<%=columnData%>
-</td>
 <%
+if( TableManager.getInstance().getColumn(colmn.getTable().getName(),"p_step")!=null ){
+       int p_step=Tools.getInt( QueryEngine.getInstance().doQueryOne("select p_step from  "+colmn.getTable().getName()+"  where id="+itemId),0);
+       String iscomplete=(String)QueryEngine.getInstance().doQueryOne("select iscomplete from  "+colmn.getTable().getName()+"  where id="+itemId);
+%>
+       <input id="<%=itemId%>_p_step" name="<%=itemId%>_p_step" type="hidden" value="<%=p_step%>">
+       <input id="<%=itemId%>_iscomplete" name="<%=itemId%>_iscomplete" type="hidden" value="<%=iscomplete%>">
+<%
+     }
+%>	
+</td>
+<%	
  }// for columns
 %>
 </tr>
