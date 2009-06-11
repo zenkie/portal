@@ -68,7 +68,7 @@ function submitForm(){
 	<c:choose>
 	<c:when test="<%= (userWeb!=null&&!userWeb.isGuest()) %>">
 		<li><div class="left_text"><%= LanguageUtil.get(pageContext, "current-user")%>:</div><div class="right_text"><%=userWeb.getUserDescription() %></div></li>
-		<li><div class="left_textx"><%= LanguageUtil.get(pageContext, "enter-view") %>:<a href="/html/nds/portal"><%= LanguageUtil.get(pageContext, "backmanager") %></a>
+		<li><div class="left_textx"><%= LanguageUtil.get(pageContext, "enter-view") %>:<a href="/html/nds/portal/portal.jsp"><%= LanguageUtil.get(pageContext, "backmanager") %></a>
 	,<%= LanguageUtil.get(pageContext, "or") %>:<a href="/c/portal/logout"><%= LanguageUtil.get(pageContext, "logout") %></a></div><div></div></li>
 	</c:when>
 	<c:otherwise>
