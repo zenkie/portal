@@ -87,7 +87,7 @@ function checkOptions(form){
 <input type="hidden" name="formRequest" value="<%=NDS_PATH+"/security/changepassword.jsp?objectid="+ userid%>">
 <input type="hidden" name="command" value="ChangePassword">
 <input type="hidden" name="nds.control.ejb.UserTransaction" value="N">
-	<tr><td align="center" colspan="2"><%= PortletUtils.getMessage(pageContext, "password-requirement",null)%></td></tr>
+	<!--<tr><td align="center" colspan="2"><%= PortletUtils.getMessage(pageContext, "password-requirement",null)%></td></tr>-->
 	<tr><td align="right"><%= PortletUtils.getMessage(pageContext, "name",null)%>:</td>
 	<td nowrap><%=userName%>&nbsp;&nbsp;<%=userDesc%></td>
 	</tr>
