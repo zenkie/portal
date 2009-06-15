@@ -27,7 +27,9 @@ var gMessageHolder={
 	FILE_NAME:"<%= LanguageUtil.get(pageContext, "file-name") %>",
 	MAINTAIN_BY_SYS: "<%=PortletUtils.getMessage(pageContext, "maintain-by-sys",null)%>",
 	NO_PERMISSION: "<%=PortletUtils.getMessage(pageContext, "no-permission",null)%>",
-	EXCEPTION: "<%=PortletUtils.getMessage(pageContext, "exception",null)%>"
+	EXCEPTION: "<%=PortletUtils.getMessage(pageContext, "exception",null)%>",
+	TEMPLET_NAME_REPEAT:"<%=PortletUtils.getMessage(pageContext, "templet_name_repeat",null)%>",
+	TEMPLET_NAME:"<%=PortletUtils.getMessage(pageContext, "templet_name",null)%>"
 };
 
 

@@ -62,9 +62,9 @@ document.bgColor="<%=colorScheme.getPortletBg()%>";
 <%
 	if(ownerId==userWeb.getUserId()){
 %>
-<%= cxtabTable.getDescription(locale)%>:<input type="text" id="cxtabName" name="cxtabName" size="30" value="<%=cxtabName%>">
+<%= cxtabTable.getDescription(locale)%>:<input type="text" id="cxtabName" name="cxtabName" size="30" value="<%=cxtabName%>" readonly="true">
 <%}else{%>
-	<%= cxtabTable.getDescription(locale)%>:<input type="text" id="cxtabName" name="cxtabName" value="<%=cxtabName%>">
+	<%= cxtabTable.getDescription(locale)%>:<input type="text" id="cxtabName" name="cxtabName" value="<%=cxtabName%>" readonly="true">
 <%}%>
 <input type="hidden" id="cxtabId" name="cxtabId" value="<%=cxtabId%>">
 </td></tr>	
