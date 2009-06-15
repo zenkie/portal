@@ -1359,7 +1359,7 @@ PortalControl.prototype = {
 /**
      * @param filetype html (default) or xls
      */
-    doJReportOnSelection:function(cxtabId, tableId, filetype){
+    doJReportOnSelection:function(tableId, filetype){
 		//do query according to search form
 		var fm=$("list_query_form");
 	    toggleButtons($("list_query_form"),true);
@@ -1369,31 +1369,19 @@ PortalControl.prototype = {
 		evt.callbackEvent="ExecuteCxtab";
 		evt.table=tableId;
 		evt.query=Object.toJSON(this._gridQuery);
-		evt.cxtab= cxtabId;
+		evt.cxtab= $("rep_templet").value;
 		evt.filetype= filetype;
 		this.executeCommandEvent(evt);
-    	
     },    
+    modifyrep:function(){
+    	var	cxtabId=$("rep_templet").value;
+    	showObject("/html/nds/cxtab/cxtabdef.jsp?id="+cxtabId);
+    },
     /**
      * @param filetype html (default) or xls
      */
-    doReportOnSelection:function(bIsOnSelection, cxtabId, tableId, filetype){
-    	
-    	var cxtab=null, cxtabValue=null;
-    	if(cxtabId ==undefined || cxtabId == null || isNaN(cxtabId)){
-    		if(this._cxtabInputId!=null)cxtab=$(this._cxtabInputId);
-    		if(cxtab==null){
-	    		alert(gMessageHolder.NO_CXTAB);
-	    		return;
-	    	}
-	    	if( (String(cxtab.value)).blank()){
-	    		alert(gMessageHolder.PLS_SELECT_CXTAB);
-	    		return;
-	    	}
-    		cxtabValue= cxtab.value;
-    	}else{
-    		cxtabValue=cxtabId;
-    	}
+    doReportOnSelection:function(bIsOnSelection,tableId, filetype){
+    	var	cxtabValue=$("rep_templet").value;
     	var tableValue =null;
     	if(tableId==undefined || tableId ==null || isNaN(tableId)){
     		tableValue=this._tableObj.id;

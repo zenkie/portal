@@ -51,9 +51,26 @@
 %>
 <table border="0" cellspacing="0" cellpadding="0" align='center' width="98%"><tr><td>
 <div id="rpt-desc">
-	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "current-cxtab",null)%>:</span><b><%=cxtabName%></b><br>
+	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "current-cxtab",null)%>:</span>
+		<select name="rep_templet" id="rep_templet">
+					<%
+					List rep_templet=QueryEngine.getInstance().doQueryList("select id,name from ad_cxtab where ad_table_id="+tableId+" and ad_client_id="+userWeb.getAdClientId());
+					String str="";
+					int rep_templet_id;
+					if(rep_templet.size()>0){
+						for(int i=0;i<rep_templet.size();i++){
+							str=(String)((List)(rep_templet.get(i))).get(1);
+							rep_templet_id=Tools.getInt(((List)(rep_templet.get(i))).get(0),-1);
+						%>
+						<option value="<%=rep_templet_id%>" <%=(rep_templet_id==cxtabId)?"selected='selected'":" "%>><%=str%></option>
+						<%
+						}
+					}
+					%>
+		  		</select></br>
 	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "description",null)%>:</span><%=cxtabDesc%>
-</div></td></tr></table>
+</div>
+</td></tr></table>
 	    <form id="list_query_form" name="list_query_form" method="post" action="/servlets/QueryInputHandler" onSubmit="pc.queryList();return false;" >
         <input type='hidden' name='table' value='<%=tableId %>'>
         <input type='hidden' name='tab_count' value='<%=tab_count%>'>
@@ -62,7 +79,7 @@
         <input type='hidden' name='param_count' value='<%=qColumns.size() %>'>
         <input type='hidden' name='resulthandler' value='/html/nds/portal/table_list.jsp'>
         <input type='hidden' name='show_maintableid' value='true'>
-		<input type='hidden' name='show_all' value='true'>        
+		<input type='hidden' name='show_all' value='true'>       
 		  <%
 		  	for(int tabIdx=0;tabIdx< tab_count;tabIdx ++){
 		  		// page setting
@@ -199,23 +216,23 @@
 <%
 
 if(Validator.isNotNull(excelPath)){%>
-      <input id="btn_run_rpt2" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=cxtabId%>,<%=tableId%>,'xls')" value="<%=PortletUtils.getMessage(pageContext, "execute-xls",null)%>">
+      <input id="btn_run_rpt2" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'xls')" value="<%=PortletUtils.getMessage(pageContext, "execute-xls",null)%>">
       &nbsp;&nbsp;
 <%}%>
-      <input id="btn_run_rpt" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=cxtabId%>,<%=tableId%>,'htm')" value="<%=PortletUtils.getMessage(pageContext, "execute-htm",null)%>">&nbsp;&nbsp;
-      <input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=cxtabId%>,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;
+      <input id="btn_run_rpt" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'htm')" value="<%=PortletUtils.getMessage(pageContext, "execute-htm",null)%>">&nbsp;&nbsp;
+      <input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;
 <%if(Validator.isNotNull(jReportPath)){
 	if(jReportPath.endsWith(".jrxml")){%>
-      <input id="btn_run_jxls" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=cxtabId%>,<%=tableId%>,'xls')" value="<%=PortletUtils.getMessage(pageContext, "execute-jxls",null)%>">&nbsp;&nbsp;
-      <input id="btn_run_jhtm" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=cxtabId%>,<%=tableId%>,'htm')" value="<%=PortletUtils.getMessage(pageContext, "execute-jhtm",null)%>">&nbsp;&nbsp;
-      <input id="btn_run_jpdf" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=cxtabId%>,<%=tableId%>,'pdf')" value="<%=PortletUtils.getMessage(pageContext, "execute-jpdf",null)%>">&nbsp;&nbsp;
+      <input id="btn_run_jxls" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'xls')" value="<%=PortletUtils.getMessage(pageContext, "execute-jxls",null)%>">&nbsp;&nbsp;
+      <input id="btn_run_jhtm" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'htm')" value="<%=PortletUtils.getMessage(pageContext, "execute-jhtm",null)%>">&nbsp;&nbsp;
+      <input id="btn_run_jpdf" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'pdf')" value="<%=PortletUtils.getMessage(pageContext, "execute-jpdf",null)%>">&nbsp;&nbsp;
     <%}%>
 <%	
   }
  int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
 if((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE ){
 %>    
-      <input type="button" class="cbutton" onclick="javascript:showObject('/html/nds/cxtab/cxtabdef.jsp?id=<%=cxtabId%>')" value="<%=PortletUtils.getMessage(pageContext, "define-cxtab",null)%>">
+      <input type="button" class="cbutton" onclick="javascript:pc.modifyrep();" value="<%=PortletUtils.getMessage(pageContext, "define-cxtab",null)%>">
 <%}%>      
 <script>
  pc.initCxtabQuery(<%=q.toString()%>);

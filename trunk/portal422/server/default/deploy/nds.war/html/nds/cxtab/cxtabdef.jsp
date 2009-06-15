@@ -10,6 +10,7 @@ QueryEngine engine =QueryEngine.getInstance();
 Table cxtabTable=manager.getTable("ad_cxtab");
 String title= PortletUtils.getMessage(pageContext, "crosstab-define",null);
 List qr=engine.doQueryList("select ad_table_id, name from ad_cxtab where id="+ cxtabId);
+int ownerId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select ownerid from ad_cxtab where id="+cxtabId), -1);
 if(qr.size()==0)  throw new NDSException("@object-not-find@");
 // check write permission
 int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
@@ -26,7 +27,7 @@ String tabName=title;
 <liferay-util:include page="/html/nds/header.jsp">
 	<liferay-util:param name="html_title" value="<%=title%>" />
 	<liferay-util:param name="show_top" value="true" />
-	<liferay-util:param name="enable_context_menu" value="true" />	
+	<liferay-util:param name="enable_context_menu" value="true" />
 	<liferay-util:param name="table_width" value="100%" />
 </liferay-util:include>
 <script language="javascript">
@@ -58,7 +59,14 @@ document.bgColor="<%=colorScheme.getPortletBg()%>";
   <input type='hidden' name="command" value="CreateCxtabRunnerProcessInstance">
 <tr><td><br>
 <%= manager.getColumn("ad_cxtab","ad_table_id").getDescription(locale)%>: <a href="<%=NDS_PATH%>/object/object.jsp?table=ad_table&id=<%=factTableId%>"><%=factTable.getDescription(locale)%></a>&nbsp;&nbsp;
-<%= cxtabTable.getDescription(locale)%>:<a href="<%=NDS_PATH%>/object/object.jsp?table=<%=cxtabTable.getId()%>&id=<%=cxtabId%>"><%=cxtabName%></a>
+<%
+	if(ownerId==userWeb.getUserId()){
+%>
+<%= cxtabTable.getDescription(locale)%>:<input type="text" id="cxtabName" name="cxtabName" size="30" value="<%=cxtabName%>">
+<%}else{%>
+	<%= cxtabTable.getDescription(locale)%>:<input type="text" id="cxtabName" name="cxtabName" value="<%=cxtabName%>">
+<%}%>
+<input type="hidden" id="cxtabId" name="cxtabId" value="<%=cxtabId%>">
 </td></tr>	
 <tr><td><br>
 <table cellpadding="0" cellspacing="0" width="600" height="420">
@@ -121,7 +129,7 @@ document.write(tree);
 		<script>
 			createButton($("axis_h_moveup"));
 			createButton($("axis_h_movedown"));
-		</script>		
+		</script>
 	</td>
 	<td width="194" height="110">
 		<SELECT class="selectbox" id="axis_h" MULTIPLE size="7" ondblclick="cxtabDefControl.editDim('axis_h')"></SELECT>
@@ -174,7 +182,14 @@ document.write(tree);
 	</tr>
 	<tr>
 		<td width="400" height="50"><!--btn-->
-		<input class="command2_button" type='button' id="btn_save_cxtab" size="20" name='executeCxrpt' value='<%=PortletUtils.getMessage(pageContext, "save-cxtab",null)%>' onclick="javascript:cxtabDefControl.saveCxtab();" >
+			<%
+				if(ownerId==userWeb.getUserId()){
+			%>
+					<input class="cbutton" type='button' id="btn_save_cxtab" size="20" name='executeCxrpt' value='<%=PortletUtils.getMessage(pageContext, "modify-save-cxtab",null)%>' onclick="javascript:cxtabDefControl.saveCxtab('M');" >&nbsp;&nbsp;
+					<input class="cbutton" type='button' id="btn_add_cxtab" size="20" value='<%=PortletUtils.getMessage(pageContext, "add-save-cxtab",null)%>' onclick="javascript:cxtabDefControl.saveCxtab('A');" >
+		<%}else{%>
+				 <input class="cbutton" type='button' id="btn_add_cxtab" size="20" value='<%=PortletUtils.getMessage(pageContext, "add-save-cxtab",null)%>' onclick="javascript:cxtabDefControl.saveCxtab('A');" >
+		<%}%>
 		<%@ include file="/html/nds/common/helpbtn.jsp"%>
 		</td>
 	</tr>
@@ -241,7 +256,7 @@ document.write(tree);
 			<td width="15%" nowrap><%=manager.getColumn("ad_cxtab_fact","DESCRIPTION").getDescription(locale)%><font color="red">*</font>:</td>
 			<td width="85%" align="left"><input title="<%=manager.getColumn("ad_cxtab_fact","DESCRIPTION").getDescription(locale)%>" type="text"  id="TMPLmea_description" value="" size="60" maxlength="80" /></td>
 		</tr><tr>
-<%				
+<%
     column= manager.getColumn("ad_cxtab_fact","VALUEFORMAT");
     values =column.getValues(locale);
     temp = values.keys();

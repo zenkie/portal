@@ -10,6 +10,6 @@ var gMessageHolder={
 	INPUT_FIELD:"Please input 0 first",
 	INPUT_FILE_NAME:"Please input file name",
 	TEMPLATE_UPDATED:"You website changed!",
-	CLOSE_DIALOG:"Close"
+	CLOSE_DIALOG:"Close",
+	TEMPLET_NAME_REPEAT:"The templet's name has already been repeated"
 };
-

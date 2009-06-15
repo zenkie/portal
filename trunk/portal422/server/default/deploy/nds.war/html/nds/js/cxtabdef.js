@@ -38,7 +38,7 @@ CxtabDefControl.prototype = {
 	/**
 	 * Save all
 	 */
-	saveCxtab:function(){
+	saveCxtab:function(savetype){
 		if(this._measures.length==0){
 			msgbox(gMessageHolder.REQUIRE_AT_LEAST_ONE_MEASURE);
 			return false;
@@ -51,13 +51,18 @@ CxtabDefControl.prototype = {
 		evt.axisH= this._axisH;
 		evt.axisV= this._axisV;
 		evt.measures= this._measures;
+		evt.name=$("cxtabName").value;
+		evt.savetype=savetype;
+		//alert(Object.toJSON(evt));
 		this._executeCommandEvent(evt);	
 	},	
 	_saveCxtabDef:function(e){
 		var chkResult=e.getUserData(); // data
-//		if(chkResult.code!=0){
+		if(chkResult.code==2){
+			alert(gMessageHolder.TEMPLET_NAME_REPEAT);
+		}else{
 			msgbox(chkResult.message);
-//		}
+		}
 	},
 	_loadCxtabDef: function(e){
 		var chkResult=e.getUserData(); // data

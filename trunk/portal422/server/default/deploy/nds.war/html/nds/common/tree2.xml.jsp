@@ -104,6 +104,7 @@ result= QueryEngine.getInstance().doQuery(query);
 	//set reporttype to "S"
 	expr=expr.combine(new Expression(new ColumnLink("AD_CXTAB.REPORTTYPE"), "=S",null), SQLCombination.SQL_AND,null);
 	expr=expr.combine(new Expression(new ColumnLink("AD_CXTAB.ISACTIVE"), "=Y",null), SQLCombination.SQL_AND,null);
+		expr=expr.combine(new Expression(new ColumnLink("AD_CXTAB.ISPUBLIC"), "=Y",null), SQLCombination.SQL_AND,null);
 	expr=expr.combine(userWeb.getSecurityFilter(dataTable.getName(), 1) ,  SQLCombination.SQL_AND,null);
 	queryData.addParam(expr);//read permission
 
@@ -111,7 +112,7 @@ result= QueryEngine.getInstance().doQuery(query);
 	if(colOrderNo!=null)orderKey= new int[]{ colOrderNo.getId()};
 	else orderKey= new int[]{ dataTable.getAlternateKey().getId()};
 	queryData.setOrderBy(orderKey, true);
-	
+	System.out.print(queryData.toString());
 	resultData= QueryEngine.getInstance().doQuery(queryData);
 	String icon;
 	for(int j=0;j< resultData.getRowCount();j++){

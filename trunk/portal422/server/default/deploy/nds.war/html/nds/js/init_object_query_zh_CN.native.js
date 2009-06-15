@@ -14,4 +14,5 @@ var gMessageHolder={
 	ADD_ALL:"添加全部",
 	EXCLUDE_ALL:"排除全部",
 	NOTCONTAINS:"不包含",
+	TEMPLET_NAME_REPEAT:"模板名字重复"
 };
