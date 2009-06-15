@@ -82,7 +82,26 @@ action="<%=request.getContextPath() %>/control/importexcel">
 <input type='hidden' name="mainobjecttableid" value="<%= ParamUtils.getIntAttributeOrParameter(request, "mainobjecttableid",-1)%>">
 <input type='hidden' name="fixedcolumns" value="<%= fixedColumns.toURLQueryString("")%>">  
 Excel <%=PortletUtils.getMessage(pageContext, "filename",null)%> :<input type="file" name="excel" size="35" ><p>
-<%=PortletUtils.getMessage(pageContext, "start-line",null)%> :<input class="inputline" type="text" name="startRow" value='2' size="10" > <input type='checkbox' name="bgrun" value="true"><%=PortletUtils.getMessage(pageContext, "run-at-background",null)%>
+<%=PortletUtils.getMessage(pageContext, "start-line",null)%> :<input class="inputline" type="text" name="startRow" value='2' size="10" > 
+<input type='checkbox' name="bgrun" value="true"><%=PortletUtils.getMessage(pageContext, "run-at-background",null)%>
+<%
+List udxColumns=tableManager.getUniqueIndexColumns(table);
+if(udxColumns.size()>0){
+%>
+<input type='checkbox' name="update_on_unique_constraints" value="true">
+<%=PortletUtils.getMessage(pageContext, "update-on-unique-constraints",null)%>:(
+<%
+	StringBuffer ucDesc=new StringBuffer();
+	for(int j=0;j<udxColumns.size();j++){
+		if(((Column)udxColumns.get(j)).getName().equals("AD_CLIENT_ID")) continue;
+		ucDesc.append(((Column)udxColumns.get(j)).getDescription(locale)).append(",");
+	}
+	ucDesc.deleteCharAt(ucDesc.length()-1);
+%>
+	<%=ucDesc%>)
+<%	
+}//end udxColumns.size()
+%>
 <p>      
 <input class="command2_button" type='button' name='ImportExcel' value='<%=PortletUtils.getMessage(pageContext, "import",null)%>' onclick="javascript:sheet_import_form.submit();" >
 <span id="tag_close_window"></span>

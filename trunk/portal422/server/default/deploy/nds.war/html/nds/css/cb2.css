@@ -247,11 +247,14 @@ padding-top:5px;
 position:absolute;
 text-align:right;
 }
-.toggleFCKeditorBar{
-	float:right;
+#list-legend{
+margin-left:20px;
+margin-top:5px;
 }
-.toggleFCKeditorBar a{
-padding:4px 20px 0px 0px;
-float:right;
-position:relative;
+
+#list-legend SPAN.b{
+border:1px outset black;
+margin:4px;
+padding:2px;
+text-align:center;
 }

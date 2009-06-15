@@ -1,3 +1,4 @@
+
 .negative-row{
 	color:blue
 }
@@ -82,8 +83,9 @@
 .auditing-row{
 	font-weight:bold;
 }
-blue-italic-row{
+.blue-italic-row{
 	color:blue;
 	font-style: italic;	
+	background-color: #F3F8FF;
 }
 

@@ -1,6 +1,4 @@
-<div id="message" class="nt" style="visibility: hidden;">
-	<div id="message_txt"></div>
-</div>
+
 <form id="fm_list">
 <!--<table width="100%" cellspacing="0" cellpadding="0"  align="center">
     <tr >
@@ -263,6 +261,13 @@ if ( table.isSubTotalEnabled()){
      <font color='red'>*</font><%= PortletUtils.getMessage(pageContext, "current-filter",null)%>:
      <span class=sqldesc id="filter_setting">
      </span>
+</div>
+<div id="list-legend">
+	<%@ include file="inc_table_legend.jsp"%>
+</div>	
+<div id="message" class="nt">
+	<div id="message_txt">
+	</div>
 </div>
 <form id="export_form" method="post" target="_blank" action="<%="/servlets/QueryInputHandler"%>">
 	<input type="hidden" id="exp_resulthandler" name="resulthandler" value="<%=NDS_PATH%>/reports/create_report.jsp">
