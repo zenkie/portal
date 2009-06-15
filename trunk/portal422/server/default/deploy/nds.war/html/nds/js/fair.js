@@ -744,17 +744,19 @@ FAIR.prototype={
    },
      
       delpdt:function(fairid,pdtid){
-       	var evt={};
-		evt.command="DBJSONXML";
-		evt.callbackEvent="FAIR_DELPDT";				 
-    	var startidx =$("startidx").value;
-		var range =$("range").value;
-		var param={"fairid":fairid,"startidx":startidx,"range":range,"querytype":"delmy","pdtid":pdtid};
-		evt.param=Object.toJSON(param);
-		evt.table="b_fair";
-		evt.action="listpdt";
-		evt.permission="r";
-		this._executeCommandEvent(evt);		
+       	if(confirm("您确认删除该订单吗")){
+	       	var evt={};
+			evt.command="DBJSONXML";
+			evt.callbackEvent="FAIR_DELPDT";				 
+	    	var startidx =$("startidx").value;
+			var range =$("range").value;
+			var param={"fairid":fairid,"startidx":startidx,"range":range,"querytype":"delmy","pdtid":pdtid};
+			evt.param=Object.toJSON(param);
+			evt.table="b_fair";
+			evt.action="listpdt";
+			evt.permission="r";
+			this._executeCommandEvent(evt);	
+		}	
     },
     
    searchproduct:function(srinfo){
