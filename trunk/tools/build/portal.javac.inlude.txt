@@ -85,3 +85,6 @@ org/apache/jspc/html/nds/security/sql_005ffilter_jsp.java
 org/apache/jspc/html/nds/shell/index_jsp.java
 org/apache/jspc/html/nds/websql/index_jsp.java
 org/apache/jspc/html/nds/websql/sqlresult_jsp.java
+org/apache/jspc/html/nds/step/ajaxtab_jsp.java
+org/apache/jspc/html/nds/step/index_jsp.java
+org/apache/jspc/html/nds/step/multiple_005fobject_jsp.java
