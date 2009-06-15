@@ -181,7 +181,7 @@ document.write(tree);
 </td>
 	</tr>
 	<tr>
-		<td width="400" height="50"><!--btn-->
+		<td width="600" height="50"><!--btn-->
 			<%
 				if(ownerId==userWeb.getUserId()){
 			%>
