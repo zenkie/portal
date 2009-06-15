@@ -44,6 +44,7 @@ CxtabDefControl.prototype = {
 			return false;
 		}
 		var evt={};
+		var info=null;
 		evt.command="SaveCxtabJson";
 		evt.callbackEvent="SaveCxtabJson";
 		evt.cxtabId=this._cxtabId;
@@ -51,7 +52,16 @@ CxtabDefControl.prototype = {
 		evt.axisH= this._axisH;
 		evt.axisV= this._axisV;
 		evt.measures= this._measures;
-		evt.name=$("cxtabName").value;
+		if(savetype=="A"){
+			info=prompt(gMessageHolder.TEMPLET_NAME);
+			if(info!=null){ 
+				evt.name=info;
+			}else{
+				evt.name=$("cxtabName").value;
+			}
+		}else{
+			evt.name=$("cxtabName").value;
+		}
 		evt.savetype=savetype;
 		//alert(Object.toJSON(evt));
 		this._executeCommandEvent(evt);	
