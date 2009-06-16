@@ -500,6 +500,7 @@ FAIR.prototype={
 		evt.command="DBJSONXML";
 		evt.callbackEvent="FAIR_SAVEORDER";
    	    var asiinfo=$("p_matrix").getElementsBySelector('[class="inputline"]');
+   	    var r=/^[0-9]*[1-9][0-9]*$/;
         for(var n=0;n<asiinfo.length;n++){
       	 if(asiinfo[n].value!=""&asiinfo[n].value!=0){
       	  	if(isNaN(asiinfo[n].value)){
@@ -508,6 +509,9 @@ FAIR.prototype={
       	  	}else if(asiinfo[n].value<0){
       	  		alert("输的数额有负数！");
       	  		return;      	  		
+      	  	}else if(!r.test(asiinfo[n].value)){
+      	  		alert("输的数额不能为小数！");
+      	  		return; 
       	  	}
       	   qty[i]=asiinfo[n].value;
       	   asi[i]=asiinfo[n].name;
@@ -531,6 +535,7 @@ FAIR.prototype={
 		var pdtid =$("match_id").value;
 		evt.callbackEvent="FAIR_SAVEORDER_MATCH";	
         var asiinfo=$("p_matrix_match").getElementsBySelector('[class="inputline"]');
+         var r=/^[0-9]*[1-9][0-9]*$/;
         for(var n=0;n<asiinfo.length;n++){
       	 if(asiinfo[n].value!=""&asiinfo[n].value!=0){
 			if(isNaN(asiinfo[n].value)){
@@ -539,6 +544,9 @@ FAIR.prototype={
       	  	}else if(asiinfo[n].value<0){
       	  		alert("输的数额有负数！");
       	  		return;      	  		
+      	  	}else if(!r.test(asiinfo[n].value)){
+      	  		alert("输的数额不能为小数！");
+      	  		return; 
       	  	}
       	   qty[i]=asiinfo[n].value;
       	   asi[i]=asiinfo[n].name;
@@ -1000,7 +1008,8 @@ FAIR.prototype={
  onReturn_order:function(event){
      if (!event) event = window.event;
      if (event && event.keyCode && event.keyCode == 13){
-     	 window.location="/html/nds/fair/index.jsp?srinfo="+document.getElementById("srinfox").value;
+     	var fairid=$("fairid").value;
+     	window.location="/html/nds/fair/index.jsp?fairid="+fairid+"&srinfo="+document.getElementById("srinfox").value;
     }
  },
  
