@@ -52,24 +52,23 @@ CxtabDefControl.prototype = {
 		evt.axisH= this._axisH;
 		evt.axisV= this._axisV;
 		evt.measures= this._measures;
+		evt.savetype=savetype;
 		if(savetype=="A"){
 			info=prompt(gMessageHolder.TEMPLET_NAME);
-			if(info!=null){ 
+			if(info!=null&&info!=""){ 
 				evt.name=info;
-			}else{
-				evt.name=$("cxtabName").value;
+				this._executeCommandEvent(evt);
 			}
 		}else{
 			evt.name=$("cxtabName").value;
+			this._executeCommandEvent(evt);
 		}
-		evt.savetype=savetype;
-		//alert(Object.toJSON(evt));
-		this._executeCommandEvent(evt);	
 	},	
 	_saveCxtabDef:function(e){
 		var chkResult=e.getUserData(); // data
 		if(chkResult.code==2){
 			alert(gMessageHolder.TEMPLET_NAME_REPEAT);
+			this.saveCxtab("A");
 		}else{
 			msgbox(chkResult.message);
 		}

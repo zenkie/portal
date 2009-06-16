@@ -1375,7 +1375,7 @@ PortalControl.prototype = {
     },    
     modifyrep:function(){
     	var	cxtabId=$("rep_templet").value;
-    	showObject("/html/nds/cxtab/cxtabdef.jsp?id="+cxtabId);
+    	showObject2("/html/nds/cxtab/cxtabdef.jsp?id="+cxtabId,{onClose:function(){pc.qrpt(cxtabId);}});
     },
     /**
      * @param filetype html (default) or xls
