@@ -28,7 +28,7 @@ columns=table.getShowableColumns(actionType);
 	</div>
 </div>
 <div class="<%=uiConfig.getCssClass()%>" id="<%=uiConfig.getCssClass()%>">
-<form name="<%=namespace%>fm" method="post" action="<%=contextPath %>/control/command" onSubmit="return ptc.submitForm(this);">
+<form name="<%=namespace%>fm" method="post" action="<%=contextPath %>/control/command" onSubmit="return false;">
 <input type="hidden" name="id" value="<%=objectId %>">
 <input type="hidden" name="table" value="<%=tableId %>">
 	<%if(uiConfig.isShowComments()){%>
