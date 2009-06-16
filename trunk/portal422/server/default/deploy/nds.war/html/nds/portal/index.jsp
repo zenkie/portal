@@ -14,7 +14,7 @@
  	response.sendRedirect("/login.jsp");
  	return;
  }
- boolean isPopupPortal=Tools.getYesNo(userWeb.getUserOption("POPUP_PORTAL","Y"), true);
+ boolean isPopupPortal=Tools.getYesNo(userWeb.getUserOption("POPUP_PORTAL","N"), true);
  if(!isPopupPortal){
  	response.sendRedirect("/html/nds/portal/portal.jsp");
  	return;
