@@ -522,7 +522,7 @@ FAIR.prototype={
 		evt.param=Object.toJSON(param);
 		evt.table="b_fair";
 		evt.action="saveorder";
-		evt.permission="w";		
+		evt.permission="r";		
 		this._executeCommandEvent(evt);	
 	},
 	saveorder_match:function(){
@@ -557,7 +557,7 @@ FAIR.prototype={
 		evt.param=Object.toJSON(param);
 		evt.table="b_fair";
 		evt.action="saveorder";
-		evt.permission="w";		
+		evt.permission="r";		
 		this._executeCommandEvent(evt);	
 	},
 		
@@ -998,7 +998,8 @@ FAIR.prototype={
 		 	 fair.searchproduct(document.getElementById("srinfo").value);
 	},
   search_order:function(){
-		 	 window.location="/html/nds/fair/index.jsp?srinfo="+document.getElementById("srinfox").value;
+		var fairid=$("fairid").value;
+     	window.location="/html/nds/fair/index.jsp?fairid="+fairid+"&srinfo="+document.getElementById("srinfox").value;
 	},
  onReturn_index:function(event){
      if (!event) event = window.event;
