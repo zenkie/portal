@@ -124,7 +124,7 @@ if(table!=null){
 		
 	}
 	boolean hasWritePermission=false;
-	boolean isWriteEnabled= ( ((perm & 3 )==3)) ;
+	boolean isWriteEnabled= ( ((perm & 3 )==3)) && status!=3 && status!=2;
 	boolean isSubmitEnabled= ( ((perm & 5 )==5)) ;
 	
 	boolean canDelete= table.isActionEnabled(Table.DELETE) && isWriteEnabled && status !=2;
