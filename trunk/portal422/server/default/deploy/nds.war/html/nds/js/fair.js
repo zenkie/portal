@@ -739,7 +739,9 @@ FAIR.prototype={
           fairstr+="<div class=\"icon_revised_delete\"><div class=\"icon_revised\"><a target=\"self\" href=\"/html/nds/fair/order.jsp?pdtid="+data2.id+"&fairid="+fairid+"\"><img src=\"/html/nds/fair/images/icon_revised.gif\" width=\"31\" height=\"16\"/></a></div><div class=\"icon__delete\"><a target=\"_self\" href=\"javascript:fair.delpdt("+fairid+","+data2.id+")\"><img src=\"/html/nds/fair/images/icon_delete.gif\" width=\"31\" height=\"16\" /></a></div></div>";        
          fairstr+="</div>";
 	 }
-	 $("myorder").innerHTML=fairstr;
+	 	$("myorder").innerHTML=fairstr;
+	}else{
+		$("myorder").innerHTML="";
 	}
    },
      
