@@ -47,7 +47,7 @@
 	Properties props=userWeb.getPreferenceValues(table.getName().toLowerCase()+".print", false,false);
 	String templateFile= props.getProperty("template"); // format like: cx123 for ad_cxtab(id=123) definitions, t123 for ad_report(id=123) definitions
 	boolean hasTemplateSet= Validator.isNotNull(templateFile);
-	String format=props.getProperty("format", "htm"); //default to htm format as output
+	String format=props.getProperty("format", "pdf"); //default to htm format as output
     
 %>
 <iframe id="print_iframe" name="print_iframe" width="1" height="1" src="<%= contextPath %>/html/common/null.html"></iframe>
