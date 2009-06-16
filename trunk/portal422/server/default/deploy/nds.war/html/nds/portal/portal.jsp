@@ -27,7 +27,7 @@ Boolean welcome=(Boolean)userWeb.getProperty("portal.welcome",Boolean.TRUE);
 String dialogURL=null;
 if(welcome.booleanValue()){
 	dialogURL= userWeb.getWelcomePage();
-	userWeb.setProperty("portal.welcome",Boolean.FALSE);
+	//userWeb.setProperty("portal.welcome",Boolean.FALSE);
 }
 String directTb=request.getParameter("table");
 boolean isNotPopupPortal="false".equals(request.getParameter("popup"));//Tools.getYesNo(userWeb.getUserOption("POPUP_PORTAL","Y"), true);
@@ -50,6 +50,7 @@ jQuery(document).ready(function(){pc.navigate('<%=directTb%>')});
 %>
 function loadWelcomePage(){
 	pc.welcome("<%=dialogURL%>");
+	//window.location.href="<%=dialogURL%>";
 }
 jQuery(document).ready(loadWelcomePage);
 <%		}	
