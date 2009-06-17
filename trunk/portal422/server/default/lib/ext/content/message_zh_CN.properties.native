@@ -206,3 +206,5 @@ ckeck-success=检查成功!
 ckeck-fail=检查失败!
 clear-cache-fail=清除缓存失败!
 clear-cache-success=清除缓存成功!
+clear-additional-links=附件链接全部清除!
+additional-links-success=附件链接设定成功!
