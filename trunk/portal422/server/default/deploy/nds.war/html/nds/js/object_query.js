@@ -257,7 +257,7 @@ ObjectQuery.prototype = {
 	returnFilterObj_dropdown:function(desc,xml){
 		if(desc=="")
 		{
-      		$(this._accepter_id+"_fd").value="(ø…”√ = Y)";
+      		$(this._accepter_id+"_fd").value=gMessageHolder.AVAILABLE;
       	}else{
       		$(this._accepter_id+"_fd").value=desc;
       	}
@@ -275,6 +275,10 @@ ObjectQuery.prototype = {
 	returnFilterObj:function(desc,xml){
 		var xmlvalue=this._xmlid+"_xml";
 		var flag=true;
+		if(desc==""){
+			desc=gMessageHolder.AVAILABLE;
+		}
+		alert(desc);
 		//var content_row={"id":desc,"value":xmlvalue,"condition":$("condition").value,"set":xml};	
 		var content_row={"id":desc,"condition":this.condition,"value":xmlvalue,"set":xml};	
 		var mid=this.multi_result.length;
@@ -649,7 +653,11 @@ ObjectQuery.prototype = {
 		var r=e.getUserData(); 
 		var ret=r.data;
 		if(this._returnType=="f"){
-			$(this._accepter_id+"_fd").value=ret.desc;
+			if(ret.desc==""){
+				$(this._accepter_id+"_fd").value=gMessageHolder.AVAILABLE;
+			}else{
+				$(this._accepter_id+"_fd").value=ret.desc;
+			}
 			$(this._accepter_id).value=ret.filterxml;
 			$(this._accepter_id+"_fd").readOnly=true;
 

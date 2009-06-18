@@ -67,6 +67,7 @@ var gMessageHolder={
 	SET_ALREADY_CHOOSED:"The set already has been choosed",
 	SET_ALREADY_EXCLUDE:"The set already has been excluded",
 	CONFIRM_SAVE_FIRST: "Data changed, will save first?",
+	AVAILABLE:"(available = Y)",
 	CLOSE_AFTER_PRINT:"Click OK button when complete printing."
 };
 
