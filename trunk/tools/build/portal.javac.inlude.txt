@@ -34,6 +34,8 @@ org/apache/jspc/html/nds/object/multiple_005fobject_jsp.java
 org/apache/jspc/html/nds/object/object_jsp.java
 org/apache/jspc/html/nds/objext/batchupdate_jsp.java
 org/apache/jspc/html/nds/objext/copyto_jsp.java
+org/apache/jspc/html/nds/objext/template_jsp.java
+org/apache/jspc/html/nds/objext/object_005fbatchadd_jsp.java
 org/apache/jspc/html/nds/objext/import_005fexcel_jsp.java
 org/apache/jspc/html/nds/objext/objects_jsp.java
 org/apache/jspc/html/nds/objext/object_005fportal_jsp.java
