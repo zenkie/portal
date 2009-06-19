@@ -278,7 +278,6 @@ ObjectQuery.prototype = {
 		if(desc==""){
 			desc=gMessageHolder.AVAILABLE;
 		}
-		alert(desc);
 		//var content_row={"id":desc,"value":xmlvalue,"condition":$("condition").value,"set":xml};	
 		var content_row={"id":desc,"condition":this.condition,"value":xmlvalue,"set":xml};	
 		var mid=this.multi_result.length;
