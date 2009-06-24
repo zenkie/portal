@@ -1438,7 +1438,7 @@ PortalControl.prototype = {
 	 * Show url as in popup dialog, this is called when portal page first loaded
 	 */
 	welcome:function(url){
-		showObject(url,null,null,{maxButton:false,closeButton:false});
+		showObject(url,null,null,{maxButton:false,closeButton:true});
 	},
 	_doActionOnSelectedItems:function(uri){
         var selectedIds = this._getSelectedItemIds();

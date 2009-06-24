@@ -1,3 +1,4 @@
+<%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/common/init.jsp" %>
 <%@ page import="org.json.*" %>
 <%@ page import="nds.control.util.*" %>
@@ -9,7 +10,7 @@
      * Things needed in this page:
      *  1.  table     main table that queried on(can be id or name)
      *  2.  id        id of object to be displayed, -1 means not found
-     *  3.  auditid   用于审核人审核单据所定义工作流的id;
+     *  3.  auditid   用于审核人审核单据所定义工作流的id 即 au_phaseinstance.id; 
      *  4.  fixedcolumns 在列表（关联对象）界面中创建单对象的时候，会有此参数
      *  5.  input	  if false, must be view page, else will determined by user permission
      */
@@ -50,6 +51,12 @@ if(table!=null){
 request.setAttribute("table_help", new Integer(tableId));
 
 int selectedTabId=-1;
+// check user has audit records on this object
+int cnt=Tools.getInt(engine.doQueryOne("select count(*) from au_pi_user where au_pi_id="+ auditid+
+	" and ((ad_user_id="+userWeb.getUserId()+" and assignee_id is null ) or (assignee_id="+ userWeb.getUserId()+")) and state='W'"),-1);
+if(cnt<1){
+	throw new NDSException("@no-permission@");
+}	
 
 %>
 <html>
@@ -207,7 +214,6 @@ columns=table.getShowableColumns(actionType);
 <div id="obj-top">
 <div class="buttons">
 	<%= LanguageUtil.get(pageContext, "audit-comments",null)%>:<input id="comments" class="form-text" type="text" value="" name="comments" maxlength="255" size="20"/>&nbsp;
-	<%if(!userWeb.isGuest()&&userWeb.hasObjectPermission(table.getName(),objectId,nds.security.Directory.AUDIT)){%>
 	<span id="buttons"><!--BUTTONS_BEGIN-->
 	<%
 	 validCommands.add(commandFactory.newButtonInstance("Accept", PortletUtils.getMessage(pageContext, "object.accept",null),"oc.audit('accept',"+auditid+")","A"));
@@ -218,7 +224,7 @@ columns=table.getShowableColumns(actionType);
 %>
 <%@ include file="inc_command.jsp" %>
 			<!--BUTTONS_END--></span>
-	<%}%><span id="closebtn"></span>
+	<span id="closebtn"></span>
 	</div>
 	<div id="message" class="nt"  style="visibility:hidden;">
 	</div>
