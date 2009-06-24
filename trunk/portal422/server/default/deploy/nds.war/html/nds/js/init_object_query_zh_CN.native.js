@@ -14,5 +14,9 @@ var gMessageHolder={
 	ADD_ALL:"添加全部",
 	EXCLUDE_ALL:"排除全部",
 	NOTCONTAINS:"不包含",
-	TEMPLET_NAME_REPEAT:"模板名字重复"
+	TEMPLET_NAME_REPEAT:"模板名字重复",
+	RETAILER_NOT_EMPTY:"经销商不能为空!",
+	M_PRODUCT_NOT_EMPTY:"商品名称不能为空!",
+	CONFORM_CREATE_SELL:"的确想要生成销售价格明细吗？",
+	CONFORM_UPDATE_SELL:"的确想要更新销售价格明细吗？"
 };
