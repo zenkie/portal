@@ -94,8 +94,10 @@ CostControl.prototype = {
 		    	 $(mid+"_retailer_query").innerHTML=this.checkvalue(costdata[i].c_costum);
 		    	 $(mid+"_productname_query").innerHTML=this.checkvalue(costdata[i].m_product);
 		    	 $(mid+"_productvalue_query").innerHTML=this.checkvalue(costdata[i].m_product_value);
-		    	 $(mid+"_price_query").innerHTML=this.checkvalue(costdata[i].price);
 		    	 $(mid+"_pricelist_query").innerHTML=this.checkvaluelist(costdata[i].pricelist);
+		    	 $(mid+"_price_futures_query").innerHTML=this.checkvaluelist(costdata[i].price[0]);
+		    	 $(mid+"_price_hand_query").innerHTML=this.checkvaluelist(costdata[i].price[1]);
+		    	 $(mid+"_price_return_query").innerHTML=this.checkvaluelist(costdata[i].price[2]);
 		    	 $(mid+"_price_query_row").style.display="";   
 		    	  mid++;
 	    	}
@@ -104,8 +106,10 @@ CostControl.prototype = {
 		    	$(mid+"_retailer_query").innerHTML=this.checkvalue(costdata.c_costum);
 		    	$(mid+"_productname_query").innerHTML=this.checkvalue(costdata.m_product);
 		    	$(mid+"_productvalue_query").innerHTML=this.checkvalue(costdata.m_product_value);
-		    	$(mid+"_price_query").innerHTML=this.checkvalue(costdata.price);
 		    	$(mid+"_pricelist_query").innerHTML=this.checkvaluelist(costdata.pricelist);
+		    	$(mid+"_price_futures_query").innerHTML=this.checkvaluelist(costdata.price[0]);
+		    	$(mid+"_price_hand_query").innerHTML=this.checkvaluelist(costdata.price[1]);
+		    	$(mid+"_price_return_query").innerHTML=this.checkvaluelist(costdata.price[2]);
 		    	$(mid+"_price_query_row").style.display="";   
     	}else{
     		alert(gMessageHolder.NO_DATA);

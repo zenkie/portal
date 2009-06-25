@@ -1,3 +1,4 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/common/init.jsp" %>
 <liferay-util:include page="/html/nds/header.jsp">
@@ -16,6 +17,7 @@
 <script language="javascript" src="/html/nds/js/application.js"></script>
 <script language="javascript" src="/html/nds/js/alerts.js"></script>
 <script language="javascript" src="/cost/cost.js"></script>
+<script type="text/javascript" src="/html/nds/js/init_object_query_zh_CN.js"></script>
 <link type="text/css" rel="stylesheet" href="/cost/link.css">
 <form id="cost_query" name="cost_query" method="post">
 <table width="920" border="0" cellspacing="0" cellpadding="0">
@@ -65,18 +67,22 @@
               <tr>
 			  <td><table width="500" id="modify_table" cellspacing="1" cellpadding="1" border="1" bgcolor="#486489" align="center">
                 <tr class="emtb">
-                  <td align="center"><%= PortletUtils.getMessage(pageContext, "dealer_query",null) %></td>
-                  <td align="center"><%= PortletUtils.getMessage(pageContext, "productname_query",null) %></td>
-                  <td align="center"><%= PortletUtils.getMessage(pageContext, "productvalue_query",null) %></td>
-                  <td align="center"><%= PortletUtils.getMessage(pageContext, "futures_price_query",null) %></td>
-                  <td align="center"><%= PortletUtils.getMessage(pageContext, "standard_price_query",null) %></td>
+                  <td align="center">经销商</td>
+                  <td align="center">商品款号</td>
+                  <td align="center">商品品名</td>
+                  <td align="center">标准价</td>
+                  <td align="center">期货价</td>
+                  <td align="center">现货价</td>
+                  <td align="center">退货价</td>
                 </tr>
                 <tr id="price_query_row" style="display:none;" class="emtbts">
                   <td id="retailer_query" >&nbsp;</td>
                   <td id="productname_query" >&nbsp;</td>
                   <td id="productvalue_query" >&nbsp;</td>
-                  <td id="price_query" align="right">&nbsp;</td>
                   <td id="pricelist_query" align="right">&nbsp;</td>
+                  <td id="price_futures_query" align="right">&nbsp;</td>
+                  <td id="price_hand_query" align="right">&nbsp;</td>
+                  <td id="price_return_query" align="right">&nbsp;</td>
                 </tr>
               </table></td>
 			  </tr>
