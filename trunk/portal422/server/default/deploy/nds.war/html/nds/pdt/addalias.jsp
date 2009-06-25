@@ -68,6 +68,17 @@ private final static int TABINDEX_START=20000;
 	 			}
 	 		}
 	 		sb.append("</tr>");
+	 		if((j-18)%20==0){
+	 		 	sb.append("<tr><td>&nbsp;</td>");
+			 	for(int m =0;m<lastAttrValues.size();m++){
+				 	lastVDesc= (String)((List)lastAttrValues.get(m)).get(1);	
+				 	lastVId= Tools.getInt(((List)lastAttrValues.get(m)).get(0),-1);
+				 	sb.append("<td class='hd'><span class='cursor' onclick='selectAll2(\"").append(prefix).
+				 	append("\",\"").append("_").append(lastVId).
+				 	append("\")'>").append(lastVDesc).append("</span></td>");
+				}
+				sb.append("</tr>");
+	 		}
 	 	}
  	}else{
  		// only one column
