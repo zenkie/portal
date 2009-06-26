@@ -25,7 +25,7 @@ CostControl.prototype = {
 			evt.param=Object.toJSON(param);
 			evt.table="b_salepriceconf";
 			evt.action="CREATRETAIL";
-			evt.permission="r";		
+			evt.permission="r";
 			this._executeCommandEvent(evt);
 		}			
 	},
@@ -44,9 +44,8 @@ CostControl.prototype = {
 	},
 	_onSellRetail: function(e){
 		var data=e.getUserData();
-	//	if(data.code==0){
-	//	var ret=data.data.jsonResult.evalJSON();
 		alert(data.message);
+		this._closeWindowOrShowMessage("b_salepriceite")
 	},
 	_getInputs:function(form){
 	    form = $(form);
@@ -114,16 +113,6 @@ CostControl.prototype = {
     	}else{
     		alert(gMessageHolder.NO_DATA);
     	}
-	},
-	_onSaveOption : function (e) {
-     var r=e.getUserData(); 
-		
-		if(r.code!=0){
-			this._showMessage(r.message,true);
-		}else{
-			this._closeWindowOrShowMessage(r.message,true);
-
-		}   
 	},	
 	_executeCommandEvent :function (evt) {
 		Controller.handle( Object.toJSON(evt), function(r){
@@ -136,11 +125,7 @@ CostControl.prototype = {
 					}
 	  );
 	},
-	_showMessage:function(msg, bError){
-			if(msg!=null&&bError){
-				alert("msg");
-		}
-	},
+	
   checkvalue:function(value){
 		if(value==undefined){
 			return "";
@@ -155,26 +140,18 @@ CostControl.prototype = {
 			return value;
 		}
 	},
-	tryClose:function(){
-		// mandatory options should have data on it
-		//if(optionsave()==false) return;
-		this._closeWindowOrShowMessage(null,false);
-	},
-	 _closeWindowOrShowMessage:function(msg, bReload){
+	 _closeWindowOrShowMessage:function(table){
 		var isclosed=false;
     	var w = window.opener;
     	if(w==undefined)w= window.parent;
     	if (w ){
 			var iframe=w.document.getElementById("popup-iframe-0");
 			if(iframe){
-	    		w.setTimeout("Alerts.killAlert(document.getElementById('popup-iframe-0'))",1);
+	    		w.setTimeout("Alerts.killAlert(document.getElementById('popup-iframe-0'));pc.navigate('"+table+"')",1);
 				//reload window
-				if(bReload)w.location.reload();
+			//	if(bReload)w.location.reload();
 	    		isclosed=true;
     		}
-    	}
-    	if(!isclosed && msg!=null){
-				alert(msg);
     	}
     }
 };
