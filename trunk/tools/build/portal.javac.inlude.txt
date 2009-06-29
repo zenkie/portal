@@ -35,6 +35,7 @@ org/apache/jspc/html/nds/object/object_jsp.java
 org/apache/jspc/html/nds/objext/batchupdate_jsp.java
 org/apache/jspc/html/nds/objext/copyto_jsp.java
 org/apache/jspc/html/nds/objext/template_jsp.java
+org/apahce/jspc/html/nds/objext/selectview_jsp.java
 org/apache/jspc/html/nds/objext/object_005fbatchadd_jsp.java
 org/apache/jspc/html/nds/objext/import_005fexcel_jsp.java
 org/apache/jspc/html/nds/objext/objects_jsp.java
