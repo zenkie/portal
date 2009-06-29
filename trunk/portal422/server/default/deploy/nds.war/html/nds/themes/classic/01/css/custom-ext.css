@@ -1,5 +1,5 @@
 .negative-row{
-	color:blue;
+	color:blue
 }
 .positive-row{
 	font-weight:bold;
@@ -10,10 +10,12 @@
 .notnull-row{
 	font-weight:bold;
 }
+
 .nonezero-row{
 	font-style: italic;
 	background-color: #FFCCFF;
 }
+
 .zero-row{
 	color:red;
 }
@@ -23,14 +25,25 @@
 .blue-font-row{
 	color:blue;
 }
+
+
 .green-font-row{
 	color:green;
 }
 .yellow-font-row{
-	color:green;
+	color:yellow;
 }
 .italic-row{
 	font-style: italic;
+}
+
+.purple-font-row{
+	color:purple;
+}
+
+.italic-purple-font-row{
+	font-style: italic;
+    color:purple;
 }
 .italic-green-font-row{
 	font-style: italic;
@@ -77,11 +90,16 @@
 	color:red;
 }
 .accept-row{
-	
+
 }
 .auditing-row{
 	font-weight:bold;
 }
-.selected{
-   background: #EFF4FA;
+blue-italic-row{
+	color:blue;
+	font-style: italic;	
+}
+.green-font-bold-row{
+	color:green;
+  font-weight:bold;
 }
