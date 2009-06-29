@@ -7,12 +7,11 @@
 <%@ taglib uri="http://java.fckeditor.net" prefix="FCK" %>
 <%! 
     /** 
+     如果用户尚未登录系统，将引导向登录窗口
      * Things needed in this page:
      *  1.  table     main table that queried on(can be id or name)
      *  2.  id        id of object to be displayed, -1 means not found
      *  3.  auditid   用于审核人审核单据所定义工作流的id 即 au_phaseinstance.id; 
-     *  4.  fixedcolumns 在列表（关联对象）界面中创建单对象的时候，会有此参数
-     *  5.  input	  if false, must be view page, else will determined by user permission
      */
     String urlOfThisPage;
 %>
@@ -20,7 +19,12 @@
 String tableName=request.getParameter("table");
 int objectId=Tools.getInt(request.getParameter("id"),-1);
 int auditid=Tools.getInt(request.getParameter("auditid"),-1);
-PairTable fixedColumns= PairTable.parseIntTable(request.getParameter("fixedcolumns"),null );
+if(userWeb==null || userWeb.isGuest()){
+	String redirect=java.net.URLEncoder.encode(request.getRequestURI()+"?"+request.getQueryString() ,"UTF-8");
+	response.sendRedirect("/login.jsp?redirect="+redirect);
+	return;
+}
+PairTable fixedColumns=PairTable.EMPTY_PAIRTABLE;
 boolean isInput=false;
 String namespace="";
 int status=0;
@@ -171,7 +175,7 @@ if(table!=null){
 var masterObject={
 	hiddenInputs:{
 		id:<%=objectId %>,table:<%=tableId %>,namespace:"<%= namespace%>", tablename:"<%= table.getName()%>",
-			directory:"<%= directory%>",fixedcolumns:"<%= fixedColumns.toURLQueryString("")%>",
+			directory:"<%= directory%>",fixedcolumns:null,
 			copyfromid:null
 	},
 	table:<%=table.toJSONObject(locale)%>,

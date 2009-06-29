@@ -1,6 +1,24 @@
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/common/init.jsp" %>
 <%
+ /**
+    如果Referer对应的url里存在redirect参数，此参数对应的url将作为welcome对话框的网址
+     此功能用于用户点击审核单据的链接，在未登录情况下的重定向
+   
+    */
+ String referer=request.getHeader("Referer");
+ String redirect ="";
+ if(nds.util.Validator.isNotNull(referer)){
+ 	  java.net.URL url=new  java.net.URL(referer);
+ 	  String q=url.getQuery();
+ 	  if(q!=null){
+	 	  com.Ostermiller.util.CGIParser parser= new com.Ostermiller.util.CGIParser(q,"UTF-8");
+	 	  redirect=parser.getParameter("redirect");
+	 	  if(nds.util.Validator.isNotNull(redirect)){
+	 	  	 redirect ="?redirect="+java.net.URLEncoder.encode(redirect,"UTF-8");
+	 	  }else  redirect ="";
+ 	  }
+ }
  if(userWeb==null || userWeb.getUserId()==userWeb.GUEST_ID){
  	/*session.invalidate();
  	com.liferay.util.servlet.SessionErrors.add(request,PrincipalException.class.getName());
@@ -13,10 +31,11 @@
  	com.liferay.util.servlet.SessionErrors.add(request,"USER_NOT_ACTIVE");
  	response.sendRedirect("/login.jsp");
  	return;
- }
+ } 
+ 
  boolean isPopupPortal=Tools.getYesNo(userWeb.getUserOption("POPUP_PORTAL","N"), true);
- if(!isPopupPortal){
- 	response.sendRedirect("/html/nds/portal/portal.jsp");
+ if(!isPopupPortal || nds.util.Validator.isNotNull(redirect)){
+ 	response.sendRedirect("/html/nds/portal/portal.jsp"+redirect);
  	return;
  }
   if(true){
@@ -36,7 +55,8 @@ a{
  color:#0000FF;
 }
 </style>	
-<script language="javascript" > 
+<script language="javascript" >
+ 
  function enter(bPopup){
 	  	window.open("portal.jsp?popup="+bPopup,"_self","");
 	     }

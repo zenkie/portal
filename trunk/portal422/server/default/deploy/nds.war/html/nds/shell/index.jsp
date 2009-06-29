@@ -43,7 +43,7 @@ function selectScript(){
 <a name="top"/>
 <form method="POST" action="/servlets/eval">
 <b><%=PortletUtils.getMessage(pageContext, "script",null)%></b><br>
-<TEXTAREA name="bsh.script" rows="10" cols="120">
+<TEXTAREA name="bsh.script" rows="30" cols="120">
 <%=(script==null?"":script)%>
 </TEXTAREA>
 <p><!--

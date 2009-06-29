@@ -6,10 +6,12 @@
 #value 0 (default) means not check timeout of session
 	@param "table" - table id or name for viewing, should direct to that table immediately
 	@param "popup" - only when "false" will update current user's setting, disable popup portal next time, other values will do nothing
+	@param redirect - if set, should be an URL, and we will popup that url as welcome window (overwrite default welcome window)
  */ 
  private static int intervalForCheckTimeout=Tools.getInt(((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("portal.session.checkinterval","0"),0);
 %>
 <%
+ 
  if(userWeb==null || userWeb.getUserId()==userWeb.GUEST_ID){
  	/*session.invalidate();
  	com.liferay.util.servlet.SessionErrors.add(request,PrincipalException.class.getName());
@@ -23,11 +25,14 @@
  	response.sendRedirect("/login.jsp");
  	return;
  }
-Boolean welcome=(Boolean)userWeb.getProperty("portal.welcome",Boolean.TRUE);
-String dialogURL=null;
-if(welcome.booleanValue()){
-	dialogURL= userWeb.getWelcomePage();
-	//userWeb.setProperty("portal.welcome",Boolean.FALSE);
+
+String dialogURL=request.getParameter("redirect");
+if(nds.util.Validator.isNull(dialogURL)){
+	Boolean welcome=(Boolean)userWeb.getProperty("portal.welcome",Boolean.TRUE);
+	if(welcome.booleanValue()){
+		dialogURL= userWeb.getWelcomePage();
+		//userWeb.setProperty("portal.welcome",Boolean.FALSE);
+	}
 }
 String directTb=request.getParameter("table");
 boolean isNotPopupPortal="false".equals(request.getParameter("popup"));//Tools.getYesNo(userWeb.getUserOption("POPUP_PORTAL","Y"), true);
@@ -46,7 +51,7 @@ if(isNotPopupPortal){
 %>	
 jQuery(document).ready(function(){pc.navigate('<%=directTb%>')});
 <%	}else{
-		if(dialogURL!=null) {
+		if(nds.util.Validator.isNotNull(dialogURL)) {
 %>
 function loadWelcomePage(){
 	pc.welcome("<%=dialogURL%>");

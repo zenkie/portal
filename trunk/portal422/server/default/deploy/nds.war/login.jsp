@@ -115,6 +115,7 @@ function submitForm(){
   	<form action="/c/portal/login" method="post" name="fm1" id="fm1">
       <input type="hidden" value="already-registered" name="cmd"/>
        <input type="hidden" value="already-registered" name="tabs1"/>
+       <input type="hidden" name="redirect" value="<%=request.getParameter("redirect")%>"/>
 	<%
 		  String  login ="";
 		   if(company==null)
