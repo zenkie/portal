@@ -233,3 +233,5 @@ req-approved=请求被批准!
 req-commited=该请求已经被提交过了!
 req-audit=请求进入审核状态!
 req-reject=请求被驳回!
+all_total=总合计
+row_total=行合计
