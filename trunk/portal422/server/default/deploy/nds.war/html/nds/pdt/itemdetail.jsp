@@ -1,5 +1,5 @@
 <%@ include file="/html/nds/common/init.jsp" %>
-
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%!
 private nds.log.Logger logger= nds.log.LoggerManager.getInstance().getLogger("itemdetail.jsp");
 private final static int TABINDEX_START=20000;
@@ -28,7 +28,7 @@ private final static int TABINDEX_START=20000;
  		String lastAttrName= (String)((List)attributes.get(level+1)).get(1);
  		List lastAttrValues= (List) attributeValues.get(level+1);
  		for(j=0;j<lastAttrValues.size();j++){
-	 		lastVDesc= (String)((List)lastAttrValues.get(j)).get(1);	
+	 		lastVDesc= (String)((List)lastAttrValues.get(j)).get(1);
 	 		lastVId= Tools.getInt(((List)lastAttrValues.get(j)).get(0),-1);
 	 	}
  		for(j=0;j<attrValues.size();j++){
@@ -62,15 +62,19 @@ private final static int TABINDEX_START=20000;
  @param instances - valid instances of current set, value:instanceid, key  _valueid1_valueid2, contains a special value
   named "inputCount" which is used for calcuate input tabIndex, and will get updated each time a new input elements added
 */
- private StringBuffer getAttributeTable(HashMap instances,int level, List attributes,List attributeValues, String prefix, List inputList){
+ private StringBuffer getAttributeTable(HashMap instances,int level, List attributes,List attributeValues, String prefix, List inputList,List li_store,List li_dest,boolean flagstore,boolean flagdest){
  	int totalInputs= inputList.size();
  	String nextInputId;
 	int attrId=Tools.getInt( ((List)attributes.get(level)).get(0),-1);
 	String attrName= (String)((List)attributes.get(level)).get(1);
 	List attrValues= (List) attributeValues.get(level);
+	/*MessagesHolder mh= MessagesHolder.getInstance();
+	UserWebImpl usr=(UserWebImpl) WebUtils.getSessionContextManager(request.getSession(true)).getActor(nds.util.WebKeys.USER);
+	Locale locale= user.getLocale();
+	*/
 	StringBuffer sb=new StringBuffer();
 	int levels= attributes.size();
-	sb.append("<table align='left' id='modify_table' width='100%' border='1' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF'>");
+	sb.append("<table align='left' id='modify_table_product' class='modify_table' width='100%' border='1' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF'>");
 	int j,k, vId, lastVId;
 	String vDesc, lastVDesc;
 	String key;
@@ -84,7 +88,7 @@ private final static int TABINDEX_START=20000;
 	 		sb.append("<tr><td class='hd'>").
 	 		append(vDesc).append("</td><td>&nbsp;</td></tr>");
 	 		sb.append("<tr><td>&nbsp;</td><td>").append(
-	 		getAttributeTable(instances,level+1,attributes,attributeValues, prefix+"_"+vId, inputList)).
+	 		getAttributeTable(instances,level+1,attributes,attributeValues, prefix+"_"+vId, inputList,li_store,li_dest,flagstore,flagdest)).
 	 		append("</td></tr>");
 	 	}
  	}else if(level==levels-2){
@@ -98,6 +102,7 @@ private final static int TABINDEX_START=20000;
 	 		lastVId= Tools.getInt(((List)lastAttrValues.get(j)).get(0),-1);
 	 		sb.append("<td class='hd'>").append(lastVDesc).append("</td>");
 	 	}
+	 	sb.append("<td class='hd'>").append("行合计").append("</td>");
 	 	sb.append("</tr>");
  		for(j=0;j<attrValues.size();j++){
  			vId=Tools.getInt(((List)attrValues.get(j)).get(0),-1);
@@ -107,17 +112,53 @@ private final static int TABINDEX_START=20000;
 	 			lastVId =Tools.getInt(((List)lastAttrValues.get(k)).get(0),-1);	
 	 			key= prefix+"_"+vId+"_"+lastVId;
 	 			instanceId= instances.get(key);
-	 			
+	 			boolean flag_store =false;
+	 			boolean flag_dest =false;
 	 			if(instanceId!=null){
 	 				nextInputId= inputCount+1>=totalInputs ?  ((Integer)inputList.get(0)).toString() : ((Integer)inputList.get(inputCount+1)).toString();
-		 			sb.append("<td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' name='A").append(instanceId).append("' id='P").
-		 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,\"P").append(nextInputId).append("\");'></td>");
-		 			//
+		 			sb.append("<td><table><tr><td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' name='A").append(instanceId).append("' id='P").
+		 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,").append(j).append(",").append(k).append(");'></td></tr>");
+		 			if(flagstore){
+			 			sb.append("<tr style='color: #996633'><td>");
+			 			if(li_store.size()>0){
+			 				for(int m=0;m<li_store.size();m++){
+			 					int temp=Tools.getInt(((List)li_store.get(m)).get(0),-1);
+			 					if(temp==Tools.getInt(instanceId,0)){
+					 					sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</td></tr>");
+					 					flag_store =true;
+				 					break;
+		 				  	}
+			 				}
+			 			}
+			 			if(!flag_store){
+			 				sb.append("0").append("</td></tr>");
+			 			}
+			 		}
+		 			if(flagdest){
+			 			sb.append("<tr style='color:#339966'><td>");
+			 			if(li_dest.size()>0){
+			 				for(int m=0;m<li_dest.size();m++){
+			 					int temp=Tools.getInt(((List)li_dest.get(m)).get(0),-1);
+			 					if(temp==Tools.getInt(instanceId,0)){
+					 					sb.append(Tools.getInt(((List)li_dest.get(m)).get(1),0)).append("</td></tr>");
+					 					flag_dest =true;
+					 					break;
+			 				  	}
+			 				}
+			 			}
+			 			if(!flag_dest){
+			 				sb.append("0").append("</td></tr>");
+			 			}
+		 			}
+		 			sb.append("</table></td>");
 		 			inputCount++;
 	 			}else{
 	 				sb.append("<td></td>");
 	 			}
 	 		}
+	 		sb.append("<td id='tot_");
+	 		sb.append(j);
+	 		sb.append("'align='center' valign='top'></td>");
 	 		sb.append("</tr>");
 	 	}
  	}else{
@@ -129,8 +170,47 @@ private final static int TABINDEX_START=20000;
 	 		instanceId= instances.get(key);
 	 		if(instanceId!=null){
 	 			nextInputId= inputCount+1>=totalInputs ?  ((Integer)inputList.get(0)).toString() : ((Integer)inputList.get(inputCount+1)).toString();
-	 			sb.append("<tr><td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' value='' name='A").
-	 			append(instanceId).append("'  id='P").append(instanceId).append("' onkeydown='return gc.onMatrixKey(event,\"P").append(nextInputId).append("\");'>").append("</td></tr>");
+	 			sb.append("<tr><td><table><tr><td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' value='' name='A").
+	 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,0,").append(j).append(");'></td></tr>");
+	 			boolean flag_store =false;
+	 			boolean flag_dest =false;
+	 			if(flagstore){
+		 			if(li_store.size()>0){
+			 				sb.append("<tr style='color: #996633><td>");
+			 				for(int m=0;m<li_store.size();m++){
+			 					int temp=Tools.getInt(((List)li_store.get(m)).get(0),-1);
+			 					if(temp==Tools.getInt(instanceId,0)){
+					 					sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</td></tr>");
+					 					flag_store =true;
+					 					break;
+			 				  	}
+			 				}
+			 			}
+			 			if(!flag_store){
+			 					sb.append("0").append("</td></tr>");
+			 			}
+		 			}
+		 			if(flagdest){
+			 			if(li_dest.size()>0){
+			 				sb.append("<tr style='color:#339966'><td>");
+			 				for(int m=0;m<li_dest.size();m++){
+			 					int temp=Tools.getInt(((List)li_dest.get(m)).get(0),-1);
+			 					if(temp==Tools.getInt(instanceId,0)){
+					 					sb.append(Tools.getInt(((List)li_dest.get(m)).get(1),0)).append("</td></tr>");
+					 					flag_dest =true;
+					 					break;
+			 				  	}
+			 				}
+			 			}
+			 			if(!flag_dest){
+			 					sb.append("0").append("</td></tr>");
+			 			}
+		 			}
+		 			sb.append("</table></td>");
+		 			sb.append("<td id='tot_");
+	 				sb.append(j);
+	 				sb.append("' align='center' valign='top'></td>");
+	 				sb.append("</tr>");
 	 			inputCount++;
 	 		}
 	 	}
@@ -159,7 +239,12 @@ if((userWeb.getPermission(table.getSecurityDirectory())& nds.security.Directory.
 }
 int productId=Tools.getInt(request.getParameter("pdtid"),-1);
 int setId=Tools.getInt(request.getParameter("asid"),-1);
-
+String storedesc=(String)request.getParameter("storedesc");
+String storedata=(String)request.getParameter("storedata");
+String destdesc=(String)request.getParameter("destdesc");
+String destdata=(String)request.getParameter("destdata");
+boolean flagstore =false;
+boolean flagdest =false;
 QueryEngine engine=QueryEngine.getInstance();
 String attribueSetName=(String) engine.doQueryOne("select name from m_attributeset where id="+ setId);
 List attributes=engine.doQueryList("select a.id, a.name from m_attribute a, m_attributeuse u where a.isactive='Y' and a.ATTRIBUTEVALUETYPE='L' and a.id=u.m_attribute_id and u.m_attributeset_id="+setId+" order by u.orderno asc");
@@ -220,20 +305,33 @@ instances2.put("inputCount", new Integer(0));// this will be updated when recurs
 
 ArrayList inputList=new ArrayList();
 prepareAttributeTable(instances2,0,attributes,attributeValues,"", inputList);
-
+List li_store=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty from fa_storage t  where t.C_STORE_ID=(select d.id from c_store d where d.name='"+storedata+"') and t.m_product_id="+productId);
+List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty from fa_storage t  where t.C_STORE_ID=(select d.id from c_store d where d.name='"+destdata+"') and t.m_product_id="+productId);
 %>
 <div id="itemdetail_div">
 <table cellpadding="5" cellspacing="0" border="0" width="100%"  style="margin-top: 5px;">	
 <tr><td><%= PortletUtils.getMessage(pageContext, "bg-batch-value",null)%>:
 <input type="text" id="itemdetail_defaultvalue" value="" size="10"> &nbsp;
 <span style="display:none"><input type="checkbox" id="itemdetail_notnull" value="1"></span><!--<%= PortletUtils.getMessage(pageContext, "do-not-create-record-for-null",null)%>-->
-<input class="command2_button" type="button" name="clearinstances" value="<%=PortletUtils.getMessage(pageContext, "clear-all",null)%>(K)" onclick="gc.clearItemDetailInputs()" accessKey="K" >
+<input class="command2_button" type="button" name="clearinstances" value="<%=PortletUtils.getMessage(pageContext, "clear-all",null)%>(K)" onclick="gc.clearItemDetailInputs()" accessKey="K" >&nbsp;&nbsp;
+<%
+	if(!"".equals(storedata)){
+		flagstore=true;
+%>
+<span style="color: #996633"><%=storedesc%>:<%=storedata%></span>&nbsp; &nbsp;
+<%}%>
+<%
+	if(!"".equals(destdata)){
+		flagdest=true;
+%>
+<span style="color:#339966"><%=destdesc%>:<%=destdata%></span>
+<%}%>
 </td></tr>
-<tr><td><%= PortletUtils.getMessage(pageContext, "input-value-for-each-attribute",null)%></td></tr>
+<tr><td><%= PortletUtils.getMessage(pageContext, "input-value-for-each-attribute",null)%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= PortletUtils.getMessage(pageContext, "dispatcher_storage",null)%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= PortletUtils.getMessage(pageContext, "all_total",null)%>:<span id="tot_product"></span></td></tr>
 <tr><td>
 <form id="itemdetail_form">
-<div style="width:580px; height:260px;overflow-y: auto; overflow-x: auto; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px"> 
-<%=getAttributeTable(instances2,0,attributes,attributeValues,"",inputList)%>
+<div style="width:790px; height:360px;overflow-y: auto; overflow-x: auto; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px"> 
+<%=getAttributeTable(instances2,0,attributes,attributeValues,"",inputList,li_store,li_dest,flagstore,flagdest)%>
 </div>
 </form>
 </td></tr>
