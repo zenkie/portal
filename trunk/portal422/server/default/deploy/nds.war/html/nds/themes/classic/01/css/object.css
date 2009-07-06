@@ -479,7 +479,7 @@ width:902px;
 }
 .modify_table td.hd,
 #modify_table td.hd {
-background:transparent url(/html/nds/images/obj-center-menu-bg.jpg) repeat scroll 0%;
+background-color:#e1ebfd;
 border:1px solid #77A5E0;
 cursor:pointer;
 }
