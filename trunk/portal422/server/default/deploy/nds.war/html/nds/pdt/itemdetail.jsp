@@ -102,7 +102,7 @@ private final static int TABINDEX_START=20000;
 	 		lastVId= Tools.getInt(((List)lastAttrValues.get(j)).get(0),-1);
 	 		sb.append("<td class='hd'>").append(lastVDesc).append("</td>");
 	 	}
-	 	sb.append("<td class='hd'>").append("行合计").append("</td>");
+	 	sb.append("<td class='hd'>").append("@row_total@").append("</td>");
 	 	sb.append("</tr>");
  		for(j=0;j<attrValues.size();j++){
  			vId=Tools.getInt(((List)attrValues.get(j)).get(0),-1);
