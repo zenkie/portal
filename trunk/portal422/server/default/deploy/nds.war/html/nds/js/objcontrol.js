@@ -620,6 +620,72 @@ ObjectControl.prototype = {
 		}
 		  this.closeDialog();
 	},
+	findstoreId:function(){
+		var i;
+		var c_store_product="";
+		var c_store_product_data="";
+		var c_dest_product="";
+		var c_dest_product_data="";
+		var flag=false;
+		var flag1=false;
+		for(i=0;i<this._masterObj.columns.length;i++){
+			
+			if( this._masterObj.columns[i].name.indexOf("C_ORIG_ID")!=-1&&this._masterObj.columns[i].refColumnId!=-1){
+			//	$("c_store_product").value=this._masterObj.columns[i].description;
+			//	$("c_store_product_data").value=$("column_"+this._masterObj.columns[i].id).value;
+				c_store_product=this._masterObj.columns[i].description
+				if($("column_"+this._masterObj.columns[i].id).value==undefined){
+					c_store_product_data=$("column_"+this._masterObj.columns[i].id).innerHTML;
+				}else{
+					c_store_product_data=$("column_"+this._masterObj.columns[i].id).value;
+				}
+				flag=true;
+			}
+			if(flag){
+				if( this._masterObj.columns[i].name.indexOf("C_STORE_ID")!=-1&&this._masterObj.columns[i].refColumnId!=-1){
+					c_dest_product=this._masterObj.columns[i].description;
+					if($("column_"+this._masterObj.columns[i].id).value==undefined){
+						c_dest_product_data=$("column_"+this._masterObj.columns[i].id).innerHTML;
+					}else{
+						c_dest_product_data=$("column_"+this._masterObj.columns[i].id).value;
+					}
+				}
+			}else{
+				if( this._masterObj.columns[i].name.indexOf("C_STORE_ID")!=-1&&this._masterObj.columns[i].refColumnId!=-1){
+					c_store_product=this._masterObj.columns[i].description;
+					if($("column_"+this._masterObj.columns[i].id).value==undefined){
+						c_store_product_data=$("column_"+this._masterObj.columns[i].id).innerHTML;
+					}else{
+						c_store_product_data=$("column_"+this._masterObj.columns[i].id).value;
+					}
+				}
+				flag1=true;
+			}
+			if(flag1){
+				if( this._masterObj.columns[i].name.indexOf("C_DEST_ID")!=-1&&this._masterObj.columns[i].refColumnId!=-1){
+					c_dest_product=this._masterObj.columns[i].description;
+					if($("column_"+this._masterObj.columns[i].id).value==undefined){
+						c_dest_product_data=$("column_"+this._masterObj.columns[i].id).innerHTML;
+					}else{
+						c_dest_product_data=$("column_"+this._masterObj.columns[i].id).value;
+					}
+				}
+			}else{
+				if( this._masterObj.columns[i].name.indexOf("C_DEST_ID")!=-1&&this._masterObj.columns[i].refColumnId!=-1){
+					c_store_product=this._masterObj.columns[i].description;
+					if($("column_"+this._masterObj.columns[i].id).value==undefined){
+						c_store_product_data=$("column_"+this._masterObj.columns[i].id).innerHTML;
+					}else{
+						c_store_product_data=$("column_"+this._masterObj.columns[i].id).value;
+					}
+				}
+			}
+		}
+			$("c_store_product").value=c_store_product;
+			$("c_store_product_data").value=c_store_product_data;
+			$("c_dest_product").value=c_dest_product;
+			$("c_dest_product_data").value=c_dest_product_data;
+	},
 	_tryUpdateTitle:function(){
 		var w = window.opener;
 		if(w==undefined)w= window.parent;

@@ -68,6 +68,7 @@ var gMessageHolder={
 	SET_ALREADY_EXCLUDE:"The set already has been excluded",
 	CONFIRM_SAVE_FIRST: "Data changed, will save first?",
 	AVAILABLE:"(available = Y)",
-	CLOSE_AFTER_PRINT:"Click OK button when complete printing."
+	CLOSE_AFTER_PRINT:"Click OK button when complete printing.",
+	NO_POSITIVE_INTEGER:"The value what you has been input is not positive integer"
 };
 

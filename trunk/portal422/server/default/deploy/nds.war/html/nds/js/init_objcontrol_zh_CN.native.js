@@ -69,5 +69,6 @@ var gMessageHolder={
 	SET_ALREADY_EXCLUDE:"该集合已被排除",
 	CONFIRM_SAVE_FIRST: "有数据改动，先保存改动?",
 	AVAILABLE:"(可用 = Y)",
-	CLOSE_AFTER_PRINT:"请在打印完成后，点击'确定'按钮关闭当前窗口"
+	CLOSE_AFTER_PRINT:"请在打印完成后，点击'确定'按钮关闭当前窗口",
+	NO_POSITIVE_INTEGER:"您输入的数字不是正整数"
 };

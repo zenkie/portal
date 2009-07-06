@@ -443,7 +443,7 @@ GridControl.prototype = {
 				if(!ele.disabled && this._checkInput(col,ele)==false) return false;
 			}
 		}
-		return true;	
+		return true;
 	},
 	/**
 	 * @param col GridColumn
@@ -504,6 +504,10 @@ GridControl.prototype = {
 				evt.product=pdtValue;
 				evt.fixedColumns=this._fixedColumns;
 				evt.tableId=this._gridMetadata.tableId;
+				evt.storedesc=$("c_store_product").value;
+				evt.storedata=$("c_store_product_data").value;
+				evt.destdesc=$("c_dest_product").value;
+				evt.destdata=$("c_dest_product_data").value;
 				if(this._currentRow!=-1 && this._data[this._currentRow][1]!="A") evt.trymatrix=false;
 				this._executeCommandEvent(evt);
 			}else{
@@ -526,21 +530,88 @@ GridControl.prototype = {
 	 * @param nextInputId next input id, so when enter pressed, go to next input
 	 * @return false to cancel that key
 	 */
-	onMatrixKey: function(event, nextInputId){
-		if(event.keyCode==13){
-			if(event.ctrlKey||event.altKey || event.shiftKey){
-				gc.saveItemDetail();
-				return true;
+	onMatrixKey: function(event,row,cell){
+		 var r=/^[0-9]*[1-9][0-9]*$/;
+		 var flag=false;
+		 var val=$("modify_table_product").rows[row+1].cells[cell+1].getElementsByTagName("input")
+		 if(event.keyCode==37||event.keyCode==38||event.keyCode==39||event.keyCode==40||event.keyCode==13){
+			if(val[0].value!=""&&!r.test(val[0].value)){
+			 	alert(gMessageHolder.NO_POSITIVE_INTEGER);
 			}else{
-				var ne=$(nextInputId);
-				if(ne!=null) {
-					ne.focus();
-					dwr.util.selectRange(ne, 0, this.MAX_INPUT_LENGTH);
-				}
-				return false;
+				flag=true;
 			}
-		}else if( event.keyCode==27) Alerts.killAlert($("itemdetail_div"));
-		return true;		
+		}
+		if(flag){
+			var temp=null;
+			var temp_input=null;
+			var sum=0;
+			temp_input=$("modify_table_product").rows[row+1].getElementsByTagName("input");
+			for(var j=0;j<temp_input.length;j++){
+				if(temp_input[j].value!="")
+				sum+=parseInt(temp_input[j].value);
+			}
+		    $("tot_"+row).innerHTML=sum;
+		    sum=0;
+		    var temp_value;
+		    for(j=1;j<$("modify_table_product").rows.length;j++){
+		    	temp_value=$("modify_table_product").rows[j].cells[$("modify_table_product").rows[row].cells.length-1].innerHTML;
+		    	if(temp_value==""){
+		    		temp_value=0;
+		    	}
+		    	sum+=parseInt(temp_value);
+		    }
+		    $("tot_product").innerHTML=sum;
+			if(event.keyCode==37){ //left
+				for(var i=cell;i>=1;i--){
+					var temp=$("modify_table_product").rows[row+1].cells[i].innerHTML;
+					if(temp!=""){
+					//	temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsBySelector('[class="inputline"]');
+						temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsByTagName("input");
+						$(temp_input[0].id).focus();
+						break;
+					}
+				}	
+			}else if(event.keyCode==38){ //up
+				for(var i=row;i>=1;i--){
+					var temp=$("modify_table_product").rows[i].cells[cell+1].innerHTML;
+					if(temp!=""){
+						temp_input=$("modify_table_product").rows[i].cells[cell+1].getElementsByTagName("input");
+						$(temp_input[0].id).focus();
+						break;
+					}
+				}	
+			}else if(event.keyCode==39){//right	
+			  for(var i=cell+2;i<$("modify_table_product").rows[row].cells.length-1;i++){
+					var temp=$("modify_table_product").rows[row+1].cells[i].innerHTML;
+					if(temp!=""){
+						temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsByTagName("input");
+						$(temp_input[0].id).focus();
+						break;
+					}
+				}
+			}else if(event.keyCode==40){//down
+				for(var i=row+2;i<$("modify_table_product").rows.length;i++){
+					var temp=$("modify_table_product").rows[i].cells[cell+1].innerHTML;
+					if(temp!=""){
+						temp_input=$("modify_table_product").rows[i].cells[cell+1].getElementsByTagName("input");
+						$(temp_input[0].id).focus();
+						break;
+					}
+				}
+			}else if(event.keyCode==13){
+				gc.saveItemDetail();
+				if(Prototype.Browser.IE){	
+					event.cancelBubble = true;
+					event.returnValue = false;
+				}else{
+					event.returnValue = false;
+					event.stopPropagation();
+					event.preventDefault();
+				}
+			}else if( event.keyCode==27){
+				 Alerts.killAlert($("itemdetail_div"));
+			}	
+		}
 	},
 	/**
 	* Clear item detail inputs 
@@ -551,7 +622,11 @@ GridControl.prototype = {
 		for(i=0;i<eles.length;i++){
 			ele=eles[i];
 			dwr.util.setValue(ele, "");
-		}		
+		}
+		for(j=1;j<$("modify_table_product").rows.length;j++){
+			$("modify_table_product").rows[j].cells[$("modify_table_product").rows[0].cells.length-1].innerHTML="";
+		}	
+		$("tot_product").innerHTML="";
 	},
 	/**	*  Save itemdetail_form inputs, this is matrix
 	*  json format [[attribute1, value1],[attribute2, value2],..], array of array of 2 elements pair
@@ -782,7 +857,8 @@ GridControl.prototype = {
 			if(chkResult.showDialog){
 				var ele = Alerts.fireMessageBox(
 				{
-					width: 600,
+					width: 800,
+					Height:360,
 					modal: true,
 					title: gMessageHolder.SET_PRODUCT_ATTRIBUTE
 				});
@@ -824,7 +900,7 @@ GridControl.prototype = {
 				this.editLine(row);
 				var ele = Alerts.fireMessageBox(
 				{
-					width: 600,
+					width: 700,
 					modal: true,
 					title: gMessageHolder.SET_PRODUCT_ATTRIBUTE
 				});
