@@ -72,7 +72,8 @@ for( int i=0;i< editColumns.size();i++){
 <td height="18" width="<%=widthPerColumn*2/3%>%" nowrap align="right" valign='top' class="desc">
 <div id="lb_<%=columnDomId%>" class="desc-txt"> <%=colDisplayName%>:</div>
 </td>
-<td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' class="value"><div id="tf_<%=columnDomId%>">
+<td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' class="value">
+	<div id="tf_<%=columnDomId%>">
 <%
     type= column.getType();
     
@@ -117,7 +118,8 @@ for( int i=0;i< editColumns.size();i++){
             h.put("tabIndex", (++tabIndex)+"");
             //h.put("class","inputline "+ columnClasses); 
             h.put("class", TableQueryModel.getTextInputCssClass(columnsPerRow,column));
-			      h.put("onkeypress", "gc.onLineReturn(event, doSaveLine)");            
+			h.put("onkeypress", "gc.onLineReturn(event, doSaveLine)");    
+			h.put("onfocus", "oc.findstoreId()");          
             String defaultValue;
             if(!isFixedColumn) defaultValue=userWeb.replaceVariables(userWeb.getUserOption(column.getName(),column.getDefaultValue()));
             else defaultValue= PortletUtils.getMessage(pageContext, "maintain-by-sys",null);
@@ -165,10 +167,15 @@ columnMProductId= editColumn.getName()+"__"+  editColumn.getReferenceColumn().ge
 editColumn= table.getColumn("M_ATTRIBUTESETINSTANCE_ID");
 columnMProductAttributeSetInstanceId= editColumn.getName()+"__"+  editColumn.getReferenceColumn().getTable().getAlternateKey().getName();
 %>
-	<td align="left"><%=commandFactory.newButtonInstance("SaveLine", PortletUtils.getMessage(pageContext, "command.ok",null),"doSaveLine()", "L").toHTML()%>
+	<td align="left"><input class="cbutton" type="button" accesskey="L" value="<%=PortletUtils.getMessage(pageContext, "command.ok",null)%>(L)"  onclick="javascript:oc.findstoreId();doSaveLine()">
 	<%if(table.isActionEnabled(Table.DELETE)){%>
 	&nbsp;&nbsp;&nbsp;<%=commandFactory.newButtonInstance("DeleteLine", PortletUtils.getMessage(pageContext, "command.deleteline",null),"doDeleteLine()", "E").toHTML()%>
-	<%}%></td>
+	<%}%>
+	 <input type="hidden" id="c_store_product" name="c_store_product" value="">
+	 <input type="hidden" id="c_store_product_data" name="c_store_product_data" value="">
+	  <input type="hidden" id="c_dest_product" name="c_dest_product" value="">
+	 <input type="hidden" id="c_dest_product_data" name="c_dest_product_data" value="">
+	</td>
 <td>
 <div id="emtbts_lgd" style="display:none;"><div id="legend_line"><%= PortletUtils.getMessage(pageContext, "new-line",null)%></div></div>
 <div id="emtbts_cks" style="display:none;">
