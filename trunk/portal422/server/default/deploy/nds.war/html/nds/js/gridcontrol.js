@@ -638,6 +638,7 @@ GridControl.prototype = {
 		var a=new Array(),i,ele,v,d;
 		v=dwr.util.getValue("itemdetail_defaultvalue");
 		var dfValue=0;
+		var r=/^[0-9]*[1-9][0-9]*$/;
 		var bNotCreateForNull= dwr.util.getValue("itemdetail_notnull");
 		if(!v.blank() && !bNotCreateForNull){
 			dfValue=parseInt(v,10);
@@ -654,8 +655,8 @@ GridControl.prototype = {
 			if(String(ele.value).blank()) v= dfValue;
 			else{
 				v=parseInt(ele.value,10);
-				if(isNaN(v)){
-					msgbox(gMessageHolder.MUST_BE_NUMBER_TYPE);
+				if(v!=""&&!r.test(v)){
+					msgbox(gMessageHolder.NO_POSITIVE_INTEGER);
 					dwr.util.selectRange(ele, 0, this.MAX_INPUT_LENGTH);
 					return;
 				}
