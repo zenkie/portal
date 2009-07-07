@@ -504,9 +504,9 @@ GridControl.prototype = {
 				evt.product=pdtValue;
 				evt.fixedColumns=this._fixedColumns;
 				evt.tableId=this._gridMetadata.tableId;
-				evt.storedesc=$("c_store_product").value;
+				evt.store_colId=$("c_store_product_id").value;
 				evt.storedata=$("c_store_product_data").value;
-				evt.destdesc=$("c_dest_product").value;
+				evt.dest_colId=$("c_dest_product_id").value;
 				evt.destdata=$("c_dest_product_data").value;
 				if(this._currentRow!=-1 && this._data[this._currentRow][1]!="A") evt.trymatrix=false;
 				this._executeCommandEvent(evt);
