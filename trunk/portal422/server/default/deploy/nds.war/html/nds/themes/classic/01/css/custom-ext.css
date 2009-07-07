@@ -103,3 +103,6 @@ blue-italic-row{
 	color:green;
   font-weight:bold;
 }
+.selected{
+   background: #77A5E0;
+}
