@@ -535,7 +535,9 @@ GridControl.prototype = {
 		 var flag=false;
 		 var val=$("modify_table_product").rows[row+1].cells[cell+1].getElementsByTagName("input")
 		 if(event.keyCode==37||event.keyCode==38||event.keyCode==39||event.keyCode==40||event.keyCode==13){
-			if(val[0].value!=""&&!r.test(val[0].value)){
+		 	var inputvale=val[0].value;
+		 	inputvale=inputvale.replace(/^\s+/,'').replace(/\s+$/,'');
+			if(inputvale!=""&&!r.test(inputvale)){
 			 	alert(gMessageHolder.NO_POSITIVE_INTEGER);
 			}else{
 				flag=true;
