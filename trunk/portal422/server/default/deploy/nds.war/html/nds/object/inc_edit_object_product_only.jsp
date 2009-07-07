@@ -171,9 +171,9 @@ columnMProductAttributeSetInstanceId= editColumn.getName()+"__"+  editColumn.get
 	<%if(table.isActionEnabled(Table.DELETE)){%>
 	&nbsp;&nbsp;&nbsp;<%=commandFactory.newButtonInstance("DeleteLine", PortletUtils.getMessage(pageContext, "command.deleteline",null),"doDeleteLine()", "E").toHTML()%>
 	<%}%>
-	 <input type="hidden" id="c_store_product" name="c_store_product" value="">
+	 <input type="hidden" id="c_store_product_id" name="c_store_product_id" value="">
 	 <input type="hidden" id="c_store_product_data" name="c_store_product_data" value="">
-	  <input type="hidden" id="c_dest_product" name="c_dest_product" value="">
+	  <input type="hidden" id="c_dest_product_id" name="c_dest_product_id" value="">
 	 <input type="hidden" id="c_dest_product_data" name="c_dest_product_data" value="">
 	</td>
 <td>
