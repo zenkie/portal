@@ -12,7 +12,7 @@ try{
 	userWeb= ((UserWebImpl)WebUtils.getSessionContextManager(session).getActor(nds.util.WebKeys.USER));	
 	Table ta1=TableManager.getInstance().getTable("B_SLPRICEADJ");
 	Table ta2=TableManager.getInstance().getTable("B_RTPADJ");
-	if((userWeb.getPermission(ta1.getSecurityDirectory())& nds.security.Directory.WRITE)== nds.security.Directory.WRITE &&(userWeb.getPermission(ta2.getSecurityDirectory())& nds.security.Directory.WRITE)== nds.security.Directory.WRITE ){
+	if((userWeb.getPermission(ta1.getSecurityDirectory())& nds.security.Directory.WRITE)== nds.security.Directory.WRITE ||(userWeb.getPermission(ta2.getSecurityDirectory())& nds.security.Directory.WRITE)== nds.security.Directory.WRITE ){
 			product_cost =true;
 	}
 }catch(Exception userWebException){
