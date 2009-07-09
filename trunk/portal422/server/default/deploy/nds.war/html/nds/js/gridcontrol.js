@@ -533,7 +533,7 @@ GridControl.prototype = {
 	onMatrixKey: function(event,row,cell){
 		 var r=/^[0-9]*[1-9][0-9]*$/;
 		 var flag=false;
-		 var val=$("modify_table_product").rows[row+1].cells[cell+1].getElementsByTagName("input")
+		 var val=$("modify_table_product").rows[row+1].cells[cell+1].getElementsByTagName("input");
 		 if(event.keyCode==37||event.keyCode==38||event.keyCode==39||event.keyCode==40||event.keyCode==13){
 		 	var inputvale=val[0].value;
 		 	inputvale=inputvale.replace(/^\s+/,'').replace(/\s+$/,'');
@@ -567,7 +567,6 @@ GridControl.prototype = {
 				for(var i=cell;i>=1;i--){
 					var temp=$("modify_table_product").rows[row+1].cells[i].innerHTML;
 					if(temp!=""){
-					//	temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsBySelector('[class="inputline"]');
 						temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsByTagName("input");
 						var input_ele=temp_input[0].id;
 						dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
