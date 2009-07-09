@@ -538,7 +538,8 @@ GridControl.prototype = {
 		 	var inputvale=val[0].value;
 		 	inputvale=inputvale.replace(/^\s+/,'').replace(/\s+$/,'');
 			if(inputvale!=""&&!r.test(inputvale)){
-			 	alert(gMessageHolder.NO_POSITIVE_INTEGER);
+			 	var inputele=val[0].id;
+				dwr.util.selectRange(inputele,0,this.MAX_INPUT_LENGTH);
 			}else{
 				flag=true;
 			}
@@ -627,6 +628,8 @@ GridControl.prototype = {
 		inputvale=inputvale.replace(/^\s+/,'').replace(/\s+$/,'');
 		if(inputvale!=""&&!r.test(inputvale)){
 			alert(gMessageHolder.NO_POSITIVE_INTEGER);
+			var inputele=val[0].id;
+			dwr.util.selectRange(inputele,0,this.MAX_INPUT_LENGTH);
 		}else{
 			flag=true;
 		}
