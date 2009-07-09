@@ -20,9 +20,10 @@
 <script type="text/javascript" src="/html/nds/js/init_object_query_zh_CN.js"></script>
 <link type="text/css" rel="stylesheet" href="/cost/link.css">
 <form id="cost_query" name="cost_query" method="post">
+	<br>
 <table width="920" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td width="876" valign="top" background="images/table_center_center.gif"><table width="540" border="0" align="center" cellpadding="0" cellspacing="0">
+            <td width="876" valign="top"><table width="540" border="0" align="center" cellpadding="0" cellspacing="0">
               <tr>
                 <td align="center" valign="top"><div class="from_top_text_list"></div></td>
               </tr>
