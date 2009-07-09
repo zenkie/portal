@@ -234,5 +234,5 @@ req-commited=该请求已经被提交过了!
 req-audit=请求进入审核状态!
 req-reject=请求被驳回!
 row_total=行合计
-enough_goods=有货
-lack_goods=无货
+enough_goods=有
+lack_goods=无

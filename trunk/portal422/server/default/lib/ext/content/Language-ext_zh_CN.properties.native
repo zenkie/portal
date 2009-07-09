@@ -860,5 +860,5 @@ sell-adjust-set=可以单独指定经销商所对应的款号设定不同的期货价，现货价，退货价。
 all_total=输入总合计
 row_total=行合计
 dispatcher_storage=彩色字是收发货店仓库存情况
-enough_goods=有货
-lack_goods=无货
+enough_goods=有
+lack_goods=无
