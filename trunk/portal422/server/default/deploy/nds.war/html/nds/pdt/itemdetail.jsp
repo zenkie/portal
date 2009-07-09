@@ -76,7 +76,7 @@ private final static int TABINDEX_START=20000;
 	DefaultWebEvent event=new DefaultWebEvent("CommandEvent");
 	MessagesHolder mh= MessagesHolder.getInstance();
 	int levels= attributes.size();
-	sb.append("<table align='left' id='modify_table_product' class='modify_table' width='100%' border='1' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF'>");
+	sb.append("<table align='left' id='modify_table_product' class='modify_table' border='1' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF'>");
 	int j,k, vId, lastVId;
 	String vDesc, lastVDesc;
 	String key;
@@ -118,65 +118,73 @@ private final static int TABINDEX_START=20000;
 	 			boolean flag_dest =false;
 	 			if(instanceId!=null){
 	 				nextInputId= inputCount+1>=totalInputs ?  ((Integer)inputList.get(0)).toString() : ((Integer)inputList.get(inputCount+1)).toString();
-		 			sb.append("<td><table><tr><td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' name='A").append(instanceId).append("' id='P").
-		 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,").append(j).append(",").append(k).append(");'></td></tr>");
+		 			sb.append("<td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' name='A").append(instanceId).append("' id='P").
+		 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,").append(j).append(",").append(k).append(");'").append("   onblur='gc.proonblur(").append(j).append(",").append(k).append(");'").append("><br><div class='product-storage'>");
 		 			if(flagstore){
-			 			sb.append("<tr style='color: #996633'><td>");
-			 			if(li_store.size()>0){
-			 				boolean  directory_store=false;
-			 				if((userWeb.getPermission(store_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
+		 				boolean  directory_store=false;
+		 				if("root".equals(userWeb.getUserName())||(userWeb.getPermission(store_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
 									directory_store =true;
-							}
+						}
+			 			if(li_store.size()>0){
 			 				for(int m=0;m<li_store.size();m++){
 			 					int temp=Tools.getInt(((List)li_store.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-			 							if(directory_store){
-					 						sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</td></tr>");
+			 						sb.append("<div class='product-storage-left'>");
+			 						if(directory_store){
+					 					sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+					 				}else{
+					 					if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
+					 						sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
-					 						if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
-					 						 sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</td></tr>");
-					 						}else{
-					 							sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</td></tr>");
-					 						}
+					 						sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
-					 					flag_store =true;
+					 				}
+					 				flag_store =true;
 				 					break;
-		 				  	}
+		 				  		}
 			 				}
 			 			}
 			 			if(!flag_store){
-			 				sb.append("0").append("</td></tr>");
+			 				if(directory_store){
+			 					sb.append("<div class='product-storage-left'>0</div>");
+			 				}else{
+			 					sb.append("<div class='product-storage-left'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 				}
 			 			}
 			 		}
 		 			if(flagdest){
-			 			sb.append("<tr style='color:#339966'><td>");
 			 			boolean  directory_dest=false;
-			 			if((userWeb.getPermission(dest_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
+			 			if("root".equals(userWeb.getUserName())||(userWeb.getPermission(dest_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
 								directory_dest =true;
 						}
 			 			if(li_dest.size()>0){
 			 				for(int m=0;m<li_dest.size();m++){
 			 					int temp=Tools.getInt(((List)li_dest.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-					 					if(directory_dest){
-					 						sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</td></tr>");
+			 						sb.append("<div class='product-storage-right'>");
+					 				if(directory_dest){
+					 					sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+					 				}else{
+					 					if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
+					 						sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
-					 						if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
-					 						 sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</td></tr>");
-					 						}else{
-					 							sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</td></tr>");
-					 						}
+					 						sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
-					 					flag_dest =true;
-					 					break;
+					 				}
+					 				flag_dest =true;
+					 				break;
 			 				  	}
 			 				}
 			 			}
 			 			if(!flag_dest){
-			 				sb.append("0").append("</td></tr>");
+			 				if(directory_dest){
+			 					sb.append("<div class='product-storage-right'>0</div>");
+			 				}else{
+			 					sb.append("<div class='product-storage-right'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 				}
 			 			}
 		 			}
-		 			sb.append("</table></td>");
+		 			sb.append("</div></td>");
 		 			inputCount++;
 	 			}else{
 	 				sb.append("<td></td>");
@@ -196,67 +204,75 @@ private final static int TABINDEX_START=20000;
 	 		instanceId= instances.get(key);
 	 		if(instanceId!=null){
 	 			nextInputId= inputCount+1>=totalInputs ?  ((Integer)inputList.get(0)).toString() : ((Integer)inputList.get(inputCount+1)).toString();
-	 			sb.append("<tr><td><table><tr><td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' value='' name='A").
-	 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,0,").append(j).append(");'></td></tr>");
+	 			sb.append("<tr><td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' value='' name='A").
+	 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,0,").append(j).append(");'").append(" onblur='gc.proonblur(0,").append(j).append(");'").append("><br><div class='product-storage'>");
 	 			boolean flag_store =false;
 	 			boolean flag_dest =false;
 	 			if(flagstore){
+	 				boolean  directory_store=false;
+	 				if("root".equals(userWeb.getUserName())||(userWeb.getPermission(store_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
+						directory_store =true;
+					}
 		 			if(li_store.size()>0){
-			 				sb.append("<tr style='color: #996633><td>");
-			 				boolean  directory_store=false;
-			 				if((userWeb.getPermission(store_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
-									directory_store =true;
-							}
 			 				for(int m=0;m<li_store.size();m++){
 			 					int temp=Tools.getInt(((List)li_store.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-					 					if(directory_store){
-					 						sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</td></tr>");
+			 						sb.append("<div class='product-storage-left'>");
+					 				if(directory_store){
+					 					sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+					 				}else{
+					 					if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
+					 						 sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
-					 						if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
-					 						 sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</td></tr>");
-					 						}else{
-					 							sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</td></tr>");
-					 						}
+					 							sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
-					 					flag_store =true;
-					 					break;
+					 				}
+					 				flag_store =true;
+					 				break;
 			 				  	}
 			 				}
 			 			}
 			 			if(!flag_store){
-			 					sb.append("0").append("</td></tr>");
+			 				if(directory_store){
+			 					sb.append("<div class='product-storage-left'>0</div>");
+			 				}else{
+			 					sb.append("<div class='product-storage-left'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 				}
 			 			}
 		 			}
 		 			if(flagdest){
+		 				boolean  directory_dest=false;
+		 				if((userWeb.getPermission(dest_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
+							directory_dest =true;
+						}
 			 			if(li_dest.size()>0){
-			 				sb.append("<tr style='color:#339966'><td>");
-			 				boolean  directory_dest=false;
-			 				if((userWeb.getPermission(dest_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
-								directory_dest =true;
-							}
 			 				for(int m=0;m<li_dest.size();m++){
 			 					int temp=Tools.getInt(((List)li_dest.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-					 					if(directory_dest){
-					 						sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</td></tr>");
+			 						sb.append("<div class='product-storage-right'>");
+					 				if(directory_dest){
+					 					sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+					 				}else{
+					 					if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
+					 						 	sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
-					 						if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
-					 						 	sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</td></tr>");
-					 						}else{
-					 							sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</td></tr>");
-					 						}
+					 							sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
-					 					flag_dest =true;
-					 					break;
+					 				}
+					 				flag_dest =true;
+					 				break;
 			 				  	}
 			 				}
 			 			}
 			 			if(!flag_dest){
-			 					sb.append("0").append("</td></tr>");
+			 				if(directory_dest){
+			 					sb.append("<div class='product-storage-right'>0</div>");
+			 				}else{
+			 					sb.append("<div class='product-storage-right'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 				}
 			 			}
 		 			}
-		 			sb.append("</table></td>");
+		 			sb.append("</div></td>");
 		 			sb.append("<td id='tot_");
 	 				sb.append(j);
 	 				sb.append("' align='center' valign='top'></td>");
