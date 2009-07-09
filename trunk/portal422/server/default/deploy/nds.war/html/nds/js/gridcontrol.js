@@ -569,7 +569,8 @@ GridControl.prototype = {
 					if(temp!=""){
 					//	temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsBySelector('[class="inputline"]');
 						temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsByTagName("input");
-						$(temp_input[0].id).focus();
+						var input_ele=temp_input[0].id;
+						dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
 						break;
 					}
 				}	
@@ -578,7 +579,8 @@ GridControl.prototype = {
 					var temp=$("modify_table_product").rows[i].cells[cell+1].innerHTML;
 					if(temp!=""){
 						temp_input=$("modify_table_product").rows[i].cells[cell+1].getElementsByTagName("input");
-						$(temp_input[0].id).focus();
+						var input_ele=temp_input[0].id;
+						dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
 						break;
 					}
 				}	
@@ -587,7 +589,8 @@ GridControl.prototype = {
 					var temp=$("modify_table_product").rows[row+1].cells[i].innerHTML;
 					if(temp!=""){
 						temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsByTagName("input");
-						$(temp_input[0].id).focus();
+						var input_ele=temp_input[0].id;
+						dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
 						break;
 					}
 				}
@@ -596,7 +599,8 @@ GridControl.prototype = {
 					var temp=$("modify_table_product").rows[i].cells[cell+1].innerHTML;
 					if(temp!=""){
 						temp_input=$("modify_table_product").rows[i].cells[cell+1].getElementsByTagName("input");
-						$(temp_input[0].id).focus();
+						var input_ele=temp_input[0].id;
+						dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
 						break;
 					}
 				}
@@ -614,6 +618,40 @@ GridControl.prototype = {
 				 Alerts.killAlert($("itemdetail_div"));
 			}	
 		}
+	},
+	
+	proonblur: function(row,cell){
+		var r=/^[0-9]*[1-9][0-9]*$/;
+		var flag=false;
+		var val=$("modify_table_product").rows[row+1].cells[cell+1].getElementsByTagName("input");
+		var inputvale=val[0].value;
+		inputvale=inputvale.replace(/^\s+/,'').replace(/\s+$/,'');
+		if(inputvale!=""&&!r.test(inputvale)){
+			alert(gMessageHolder.NO_POSITIVE_INTEGER);
+		}else{
+			flag=true;
+		}
+		if(flag){
+			var temp=null;
+			var temp_input=null;
+			var sum=0;
+			temp_input=$("modify_table_product").rows[row+1].getElementsByTagName("input");
+			for(var j=0;j<temp_input.length;j++){
+				if(temp_input[j].value!="")
+				sum+=parseInt(temp_input[j].value);
+			}
+		    $("tot_"+row).innerHTML=sum;
+		    sum=0;
+		    var temp_value;
+		    for(j=1;j<$("modify_table_product").rows.length;j++){
+		    	temp_value=$("modify_table_product").rows[j].cells[$("modify_table_product").rows[row].cells.length-1].innerHTML;
+		    	if(temp_value==""){
+		    		temp_value=0;
+		    	}
+		    	sum+=parseInt(temp_value);
+		    }
+		    $("tot_product").innerHTML=sum;
+		 }
 	},
 	/**
 	* Clear item detail inputs 
