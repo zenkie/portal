@@ -385,7 +385,7 @@ List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinsta
 <input class="command2_button" type="button" name="clearinstances" value="<%=PortletUtils.getMessage(pageContext, "clear-all",null)%>(K)" onclick="gc.clearItemDetailInputs()" accessKey="K" >&nbsp;&nbsp;<%= PortletUtils.getMessage(pageContext, "dispatcher_storage",null)%>&nbsp;&nbsp;&nbsp;&nbsp;
 <%
 	if(store_col!=null){
-		store_table =store_col.getReferenceTable();
+		store_table =store_col.getReferenceTable();
 		flagstore=true;
 %>
 <span style="color: #996633"><%=store_col.getDescription(locale)%>:<%=storedata%></span>&nbsp; &nbsp;
