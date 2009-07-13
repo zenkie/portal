@@ -163,9 +163,9 @@ private final static int TABINDEX_START=20000;
 			 					if(temp==Tools.getInt(instanceId,0)){
 			 						sb.append("<div class='product-storage-right'>");
 					 				if(directory_dest){
-					 					sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+					 					sb.append(Tools.getInt(((List)li_dest.get(m)).get(1),0)).append("</div>");
 					 				}else{
-					 					if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
+					 					if(Tools.getInt(((List)li_dest.get(m)).get(1),0)>0){
 					 						sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
 					 						sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
@@ -251,9 +251,9 @@ private final static int TABINDEX_START=20000;
 			 					if(temp==Tools.getInt(instanceId,0)){
 			 						sb.append("<div class='product-storage-right'>");
 					 				if(directory_dest){
-					 					sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+					 					sb.append(Tools.getInt(((List)li_dest.get(m)).get(1),0)).append("</div>");
 					 				}else{
-					 					if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
+					 					if(Tools.getInt(((List)li_dest.get(m)).get(1),0)>0){
 					 						 	sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
 					 							sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
