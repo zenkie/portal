@@ -62,7 +62,7 @@ private final static int TABINDEX_START=20000;
  @param instances - valid instances of current set, value:instanceid, key  _valueid1_valueid2, contains a special value
   named "inputCount" which is used for calcuate input tabIndex, and will get updated each time a new input elements added
 */
- private StringBuffer getAttributeTable(HashMap instances,int level, List attributes,List attributeValues, String prefix, List inputList,List li_store,List li_dest,boolean flagstore,boolean flagdest,Table store_table,Table dest_table,UserWebImpl userWeb){
+ private StringBuffer getAttributeTable(HashMap instances,int level, List attributes,List attributeValues, String prefix, List inputList,List li_store,List li_dest,int store_objectId, int dest_objectId,Table store_table,Table dest_table,boolean directory_store,boolean directory_dest,UserWebImpl userWeb){
  	int totalInputs= inputList.size();
  	String nextInputId;
 	int attrId=Tools.getInt( ((List)attributes.get(level)).get(0),-1);
@@ -90,7 +90,7 @@ private final static int TABINDEX_START=20000;
 	 		sb.append("<tr><td class='hd'>").
 	 		append(vDesc).append("</td><td>&nbsp;</td></tr>");
 	 		sb.append("<tr><td>&nbsp;</td><td>").append(
-	 		getAttributeTable(instances,level+1,attributes,attributeValues, prefix+"_"+vId, inputList,li_store,li_dest,flagstore,flagdest,store_table,dest_table,userWeb)).
+	 		getAttributeTable(instances,level+1,attributes,attributeValues, prefix+"_"+vId, inputList,li_store,li_dest,store_objectId,dest_objectId,store_table,dest_table,directory_store,directory_dest,userWeb)).
 	 		append("</td></tr>");
 	 	}
  	}else if(level==levels-2){
@@ -120,11 +120,7 @@ private final static int TABINDEX_START=20000;
 	 				nextInputId= inputCount+1>=totalInputs ?  ((Integer)inputList.get(0)).toString() : ((Integer)inputList.get(inputCount+1)).toString();
 		 			sb.append("<td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' name='A").append(instanceId).append("' id='P").
 		 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,").append(j).append(",").append(k).append(");'").append("   onblur='gc.proonblur(").append(j).append(",").append(k).append(");'").append("><br><div class='product-storage'>");
-		 			if(flagstore){
-		 				boolean  directory_store=false;
-		 				if("root".equals(userWeb.getUserName())||(userWeb.getPermission(store_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
-									directory_store =true;
-						}
+		 			if(store_objectId!=-1){
 			 			if(li_store.size()>0){
 			 				for(int m=0;m<li_store.size();m++){
 			 					int temp=Tools.getInt(((List)li_store.get(m)).get(0),-1);
@@ -152,11 +148,7 @@ private final static int TABINDEX_START=20000;
 			 				}
 			 			}
 			 		}
-		 			if(flagdest){
-			 			boolean  directory_dest=false;
-			 			if("root".equals(userWeb.getUserName())||(userWeb.getPermission(dest_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
-								directory_dest =true;
-						}
+		 			if(dest_objectId!=-1){
 			 			if(li_dest.size()>0){
 			 				for(int m=0;m<li_dest.size();m++){
 			 					int temp=Tools.getInt(((List)li_dest.get(m)).get(0),-1);
@@ -208,11 +200,7 @@ private final static int TABINDEX_START=20000;
 	 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,0,").append(j).append(");'").append(" onblur='gc.proonblur(0,").append(j).append(");'").append("><br><div class='product-storage'>");
 	 			boolean flag_store =false;
 	 			boolean flag_dest =false;
-	 			if(flagstore){
-	 				boolean  directory_store=false;
-	 				if("root".equals(userWeb.getUserName())||(userWeb.getPermission(store_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
-						directory_store =true;
-					}
+	 			if(store_objectId!=-1){
 		 			if(li_store.size()>0){
 			 				for(int m=0;m<li_store.size();m++){
 			 					int temp=Tools.getInt(((List)li_store.get(m)).get(0),-1);
@@ -240,11 +228,7 @@ private final static int TABINDEX_START=20000;
 			 				}
 			 			}
 		 			}
-		 			if(flagdest){
-		 				boolean  directory_dest=false;
-		 				if((userWeb.getPermission(dest_table.getSecurityDirectory())& nds.security.Directory.READ )== nds.security.Directory.READ ){
-							directory_dest =true;
-						}
+		 			if(dest_objectId!=-1){
 			 			if(li_dest.size()>0){
 			 				for(int m=0;m<li_dest.size();m++){
 			 					int temp=Tools.getInt(((List)li_dest.get(m)).get(0),-1);
@@ -376,6 +360,10 @@ ArrayList inputList=new ArrayList();
 prepareAttributeTable(instances2,0,attributes,attributeValues,"", inputList);
 List li_store=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty from fa_storage t  where t.C_STORE_ID=(select d.id from c_store d where d.name='"+storedata+"') and t.m_product_id="+productId);
 List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty from fa_storage t  where t.C_STORE_ID=(select d.id from c_store d where d.name='"+destdata+"') and t.m_product_id="+productId);
+int dest_objectId=-1;
+int store_objectId=-1;
+boolean directory_store=false;
+boolean directory_dest=false;
 %>
 <div id="itemdetail_div">
 <table cellpadding="5" cellspacing="0" border="0" width="100%"  style="margin-top: 5px;">	
@@ -386,14 +374,20 @@ List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinsta
 <%
 	if(store_col!=null){
 		store_table =store_col.getReferenceTable();
-		flagstore=true;
+		store_objectId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select id from c_store where name='"+storedata+"'"),-1);
+		if("root".equals(userWeb.getUserName())||userWeb.hasObjectPermission(store_table.getName(),store_objectId,nds.security.Directory.WRITE)){
+				directory_store=true;
+		}
 %>
 <span style="color: #996633"><%=store_col.getDescription(locale)%>:<%=storedata%></span>&nbsp; &nbsp;
 <%}%>
 <%
 	if(dest_col!=null){
 		dest_table=dest_col.getReferenceTable();
-		flagdest=true;
+		dest_objectId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select id from c_store where name='"+destdata+"'"),-1);
+		if("root".equals(userWeb.getUserName())||userWeb.hasObjectPermission(dest_table.getName(),store_objectId,nds.security.Directory.WRITE)){
+				directory_dest =true;
+		}
 %>
 <span style="color:#339966"><%=dest_col.getDescription(locale)%>:<%=destdata%></span>
 <%}%>
@@ -402,7 +396,7 @@ List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinsta
 <tr><td>
 <form id="itemdetail_form">
 <div style="width:790px; height:360px;overflow-y: auto; overflow-x: auto; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px"> 
-<%=getAttributeTable(instances2,0,attributes,attributeValues,"",inputList,li_store,li_dest,flagstore,flagdest,store_table,dest_table,userWeb)%>
+<%=getAttributeTable(instances2,0,attributes,attributeValues,"",inputList,li_store,li_dest,store_objectId,dest_objectId,store_table,dest_table,directory_store,directory_dest,userWeb)%>
 </div>
 </form>
 </td></tr>
