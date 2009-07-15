@@ -504,10 +504,12 @@ GridControl.prototype = {
 				evt.product=pdtValue;
 				evt.fixedColumns=this._fixedColumns;
 				evt.tableId=this._gridMetadata.tableId;
-				evt.store_colId=$("c_store_product_id").value;
-				evt.storedata=$("c_store_product_data").value;
-				evt.dest_colId=$("c_dest_product_id").value;
-				evt.destdata=$("c_dest_product_data").value;
+				if($("c_store_product_id")!=null){
+					evt.store_colId=$("c_store_product_id").value;
+					evt.storedata=$("c_store_product_data").value;
+					evt.dest_colId=$("c_dest_product_id").value;
+					evt.destdata=$("c_dest_product_data").value;
+				}
 				if(this._currentRow!=-1 && this._data[this._currentRow][1]!="A") evt.trymatrix=false;
 				this._executeCommandEvent(evt);
 			}else{
