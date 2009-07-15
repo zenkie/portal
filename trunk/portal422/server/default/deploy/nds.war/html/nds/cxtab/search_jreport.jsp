@@ -26,7 +26,23 @@
 %>
 <table border="0" cellspacing="0" cellpadding="0" align='center' width="98%"><tr><td>
 <div id="rpt-desc">
-	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "current-cxtab",null)%>:</span><b><%=jreportName%></b><br>
+	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "current-cxtab",null)%>:</span>
+			<select name="rep_templet" id="rep_templet">
+					<%
+					List rep_templet=QueryEngine.getInstance().doQueryList("select id,name from ad_cxtab where ad_table_id="+tableId+" and ad_client_id="+userWeb.getAdClientId()+"and reporttype='S'");
+					String str="";
+					int rep_templet_id;
+					if(rep_templet.size()>0){
+						for(int i=0;i<rep_templet.size();i++){
+							str=(String)((List)(rep_templet.get(i))).get(1);
+							rep_templet_id=Tools.getInt(((List)(rep_templet.get(i))).get(0),-1);
+						%>
+						<option value="<%=rep_templet_id%>" <%=(rep_templet_id==cxtabId)?"selected='selected'":" "%>><%=str%></option>
+						<%
+						}
+					}
+					%>
+		  	</select></br>
 	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "description",null)%>:</span><%=jreportDesc%>
 </div>
 </td></tr></table>
