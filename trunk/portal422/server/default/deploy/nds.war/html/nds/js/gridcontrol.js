@@ -867,6 +867,12 @@ GridControl.prototype = {
 		if(pdtColIndex <0) return;
 		pdtValue= this._data[row][pdtColIndex];
 		var evt={};
+		if($("c_store_product_id")!=null){
+			evt.store_colId=$("c_store_product_id").value;
+			evt.storedata=$("c_store_product_data").value;
+			evt.dest_colId=$("c_dest_product_id").value;
+			evt.destdata=$("c_dest_product_data").value;
+		}
 		evt.command="CheckProductAttribute";
 		evt.callbackEvent="ShowProductAttribute";
 		evt.product=pdtValue;
