@@ -79,6 +79,7 @@ org/apache/jspc/html/nds/reports/report_005fgenerator_jsp.java
 org/apache/jspc/html/nds/schedule/addpi_jsp.java
 org/apache/jspc/html/nds/schedule/exec_jsp.java
 org/apache/jspc/html/nds/schema/clonetb_jsp.java
+org/apache/jspc/html/nds/schema/tableview_jsp.java
 org/apache/jspc/html/nds/schema/export_jsp.java
 org/apache/jspc/html/nds/schema/import2_jsp.java
 org/apache/jspc/html/nds/schema/import_jsp.java
