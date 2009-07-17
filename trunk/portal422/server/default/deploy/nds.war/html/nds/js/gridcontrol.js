@@ -951,7 +951,8 @@ GridControl.prototype = {
 				this.editLine(row);
 				var ele = Alerts.fireMessageBox(
 				{
-					width: 700,
+					width: 800,
+					Height:360,
 					modal: true,
 					title: gMessageHolder.SET_PRODUCT_ATTRIBUTE
 				});
