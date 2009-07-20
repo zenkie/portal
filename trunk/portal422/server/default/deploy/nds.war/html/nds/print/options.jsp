@@ -118,7 +118,7 @@ for(int i=0;i< al.size();i++){
 		if(!hasTemplateSet)hasTemplateSet=true;
 %>
             <tr>
-              <td width="5"><input type="radio" name="template" value="cx<%=id%>" <%=checkMark%>></td><td  align="left" width="400" ><img src="<%=NDS_PATH%>/images/jprint.gif" border=0 width=32 height=32>
+              <td width="5"><input type="radio" name="tmpl" value="cx<%=id%>" <%=checkMark%>></td><td  align="left" width="400" ><img src="<%=NDS_PATH%>/images/jprint.gif" border=0 width=32 height=32>
                &nbsp;<b><a href="javascript:prt.editJReport(<%=id%>)"><%=name%></a></b>&nbsp;&nbsp;
                <p>
               <%if(nds.util.Validator.isNotNull(description)){%>
@@ -141,7 +141,7 @@ for(int i=0;i< al.size();i++){
 		if(!hasTemplateSet)hasTemplateSet=true;
 %>
             <tr>
-              <td width="5"><input type="radio" name="template" value="t<%=id%>" <%=checkMark%>></td>
+              <td width="5"><input type="radio" name="tmpl" value="t<%=id%>" <%=checkMark%>></td>
               <td  align="left" width="400" ><img src="<%=NDS_PATH%>/images/report_template.gif" border=0 width=32 height=32>
                &nbsp;<b><a href="javascript:prt.editReport(<%=id%>)"><%=name%></a></b>&nbsp;&nbsp;
                [<a href="javascript:prt.checkTemplate(<%=tableId%>)"><%=PortletUtils.getMessage(pageContext, "check-update",null)%></a>]
