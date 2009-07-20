@@ -88,6 +88,7 @@ org/apache/jspc/html/nds/security/grouperm_005fsubsystem_jsp.java
 org/apache/jspc/html/nds/security/groupperm2_jsp.java
 org/apache/jspc/html/nds/security/groupperm_jsp.java
 org/apache/jspc/html/nds/security/sql_005ffilter_jsp.java
+org/apache/jspc/html/nds/security/loginusers_jsp.java
 org/apache/jspc/html/nds/shell/index_jsp.java
 org/apache/jspc/html/nds/websql/index_jsp.java
 org/apache/jspc/html/nds/websql/sqlresult_jsp.java
