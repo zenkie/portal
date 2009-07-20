@@ -124,7 +124,37 @@ if(table!=null){
 	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status !=2;
 	boolean canEdit= canModify || canAdd;
 	/**------check permission end---**/
+
+	/** -- add support for webaction of listbutton --**/
+  Connection actionEnvConnection=null;
+  List<WebAction> waObjButtons=new ArrayList<WebAction>(), waObjMenuItems=new ArrayList<WebAction>();
+  try{
+  	actionEnvConnection=QueryEngine.getInstance().getConnection();
+	HashMap actionEnv=new HashMap();
+	actionEnv.put("httpservletrequest", request);
+	actionEnv.put("userweb", userWeb);
+	actionEnv.put("connection", actionEnvConnection);
+	actionEnv.put("objectid", String.valueOf(objectId));	
+	actionEnv.put("maintable",table.getName());
 	
+  	List<WebAction> was=table.getWebActions(WebAction.DisplayTypeEnum.ObjButton);
+  	for(int wasi=0;wasi<was.size();wasi++){
+  		WebAction wa=was.get(wasi);
+  		if(wa.canDisplay(actionEnv)){
+  			waObjButtons.add(wa);
+  		}
+  	}
+  	was=table.getWebActions(WebAction.DisplayTypeEnum.ObjMenuItem);
+  	for(int wasi=0;wasi<was.size();wasi++){
+  		WebAction wa=was.get(wasi);
+  		if(wa.canDisplay(actionEnv)){
+  			waObjMenuItems.add(wa);
+  		}
+  	}
+  }finally{
+  	if(actionEnvConnection!=null)try{actionEnvConnection.close();}catch(Throwable ace){}
+  }
+  /** -- end support for webaction of listbutton --**/	
 	String includePage=null;
 	String msgError=null;
 	if(objectId !=-1){

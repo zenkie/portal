@@ -13,9 +13,12 @@ if(objectId == -1 || (result!=null && result.getTotalRowCount()>0)){
 %>
 <div id="obj-top">
 <div class="buttons"><span id="buttons"><!--BUTTONS_BEGIN-->
-<%@ include file="inc_single_object_modify_buttons.jsp" %><!--BUTTONS_END-->
-</span><%@ include file="/html/nds/common/helpbtn.jsp"%><span id="closebtn"></span>
+<%@ include file="inc_single_object_modify_buttons.jsp" %><input id="objdropbtn" type="button"  class='cbutton' value="<%=PortletUtils.getMessage(pageContext, "more",null)%>">
+<!--BUTTONS_END-->
+</span>
+<%@ include file="/html/nds/common/helpbtn.jsp"%><span id="closebtn"></span>
 </div>
+<div id="objmenu" class="portal-dock interactive-mode"><!--OBJMENU_BEGIN--><%@ include file="inc_objmenu_modify.jsp" %><!--OBJMENU_END--></div>
 <div id="message" class="nt"  style="visibility:hidden;">
 		<%@ include file="inc_message.jsp" %>
 </div>

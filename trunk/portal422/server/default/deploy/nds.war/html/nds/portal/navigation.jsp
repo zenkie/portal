@@ -31,30 +31,32 @@ org.json.JSONObject jc;
 
 int tabId= Integer.MAX_VALUE-1;
 
-jc=new org.json.JSONObject();
-jc.put("id", 0);
-jc.put("desc",PortletUtils.getMessage(pageContext, "navitab",null));
-jc.put("url", "home.jsp");
-menuObjs.put(jc);
-
-  for (int i=0; i< subsystems.size(); i++){   
+String homeByJSP=conf.getProperty("home.jsp","true");
+if("true".equalsIgnoreCase(homeByJSP)){
+	jc=new org.json.JSONObject();
+	jc.put("id", 0);
+	jc.put("desc",PortletUtils.getMessage(pageContext, "navitab",null));
+	jc.put("url", "home.jsp");
+	menuObjs.put(jc);
+}
+for (int i=0; i< subsystems.size(); i++){   
      subSystem=(SubSystem)subsystems.get(i);        
      subSystemId=subSystem.getId();
      subSystemDesc=subSystem.getDescription(locale);
      jc=new org.json.JSONObject();
      jc=new org.json.JSONObject();
      jc.put("id", subSystemId);
-	   jc.put("desc", subSystemDesc);
-	   jc.put("url","subsystem.jsp?id="+subSystemId); 
-	   menuObjs.put(jc);
-	 } 
+	 jc.put("desc", subSystemDesc);
+	 jc.put("url","subsystem.jsp?id="+subSystemId); 
+	 menuObjs.put(jc);
+} 
 
  
 jc=new org.json.JSONObject();
 jc.put("id",  tabId--);
 jc.put("desc",PortletUtils.getMessage(pageContext, "report-center",null));
 jc.put("url", "/html/nds/cxtab/rpthome.jsp");
- menuObjs.put(jc);
+menuObjs.put(jc);
 %>
 <div id="page-nav-container"></div>
 <script>

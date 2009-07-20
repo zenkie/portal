@@ -102,6 +102,7 @@ for(int i=0;i< meta.getColumnCount();i++){
 	tdAttributes="";
     String columnData=result.getString(i+1, true);
     String originColumnData= result.getString(i+1, false);
+    Object originColumnDataObj=result.getObject(i+1);
     colmn=manager.getColumn(meta.getColumnId(i+1));
     if(colmn.getMoney() != null)
         columnData = StringUtils.displayMoney(originColumnData, colmn.getMoney());
@@ -139,6 +140,13 @@ for(int i=0;i< meta.getColumnCount();i++){
 			if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_BUTTON){
             	nds.web.button.ButtonCommandUI uic= (nds.web.button.ButtonCommandUI)colmn.getUIConstructor();
             	columnData= uic.constructHTML(request, colmn, Tools.getInt(result.getObject(1),-1));
+            }else if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK){
+            	if("Y".equals(originColumnDataObj)){
+	            	columnData="<span class='ckbox'/>";
+	            	//<input type='checkbox' value='Y' class='cbx' onclick='return false' checked />
+            	}else{
+            		columnData="&nbsp;";
+            	}
             }        
         }
         
@@ -163,7 +171,7 @@ if( TableManager.getInstance().getColumn(colmn.getTable().getName(),"p_step")!=n
      }
 %>	
 </td>
-<%	
+<%
  }// for columns
 %>
 </tr>

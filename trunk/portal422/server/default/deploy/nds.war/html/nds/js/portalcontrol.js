@@ -46,7 +46,7 @@ PortalControl.prototype = {
 		application.addEventListener( "ExecuteAudit", this._onExecuteAudit, this);
 		application.addEventListener( "LoadCxtabSearchForm", this._onLoadCxtabSearchForm, this);
 		application.addEventListener( "DeleteCxtabFiles", this._onDeleteCxtabFiles, this);
-		
+		application.addEventListener( "ExecuteWebAction", this._onExecuteWebAction, this);
 		// init tree.js, this is for report center
 		/// XP Look
 		webFXTreeConfig.rootIcon		= "/html/nds/js/xloadtree111/images/xp/folder.png";
@@ -145,6 +145,7 @@ PortalControl.prototype = {
 		div.innerHTML=e.getUserData().data.pagecontent;
 		executeLoadedScript(div);
 	},
+	
 	_onExecuteAudit:function(e){
 		var r=e.getUserData(); 
 		if(r.message){
@@ -692,9 +693,78 @@ PortalControl.prototype = {
 		this.navigate("/html/nds/portal/myfolder.jsp");
 	},
 	/**
-	* @param tn  table name or real url
+	for StoredProcedure,BeanShell,OSShell
 	*/
-	navigate:function(tn){
+	webaction:function(actionId, warn,target){
+		if( (warn!=null && confirm(warn)) || warn==null){
+			var evt={};
+			evt.webaction= actionId;
+			if(warn!=undefined && target!=null)evt.target=target;
+			evt.command="ExecuteWebAction";
+			evt.query=this.getQuery();
+			evt.callbackEvent="ExecuteWebAction";
+			this.executeCommandEvent(evt); 	
+		}
+	},
+	/**
+	Get current selection from ui, structure: data/selection(1,2,3), data/query(sql),data/id(for obj table),data/table(table id)
+	*/
+	getQuery:function(){
+		var q={};
+		q.selection=this._getSelectedItemIds();	
+		q.query=Object.clone(this._gridQuery);
+		q.table=this._tableObj.id;
+		q.id=-1;
+		return q;
+	},
+	/**
+	 Add menu items from web action definition
+	*/
+	addListMenuItems:function(html){
+		console.log("addListMenuItems--");
+		console.log(html);
+		new Insertion.Bottom($("portal-dock-list-"+this._tableObj.id), html);
+	},
+	_onExecuteWebAction:function(e){
+		var r=e.getUserData().data; 
+		if(r.message && r.code !=3 && r.code!=4){
+			msgbox(r.message.replace(/<br>/g,"\n"));
+		}
+		switch(r.code){
+			case 1://refresh list
+				this.refreshGrid();				
+				break;
+			case 2://refresh page
+				//window.location.reload();	
+				history.go(0);
+				break;
+			case 3://using message as url, and load target from user data
+				var tgt=r.target;
+				if(tgt==undefined || tgt==null) tgt="_blank";
+				if( tgt.startsWith("_")){
+					popup_window(r.message, tgt);
+				}else{
+					this.navigate(r.message, tgt);	
+				}
+				break;
+			case 4:// message as javascript
+				eval(r.message);
+				break;
+			case 99://close current page
+				window.close();
+				break;
+		}
+	},	
+	/**
+	* @param tn  table name or real url
+	  @param tg, target of div to insert into, default to "portal-content"
+	*/
+	navigate:function(tn,tgt){
+		if(tgt==undefined || tgt==null) tgt="portal-content";
+		if($(tgt)==null){
+			alert( "div id="+ tgt+" not found");
+			return;	
+		}
 		this._lastAccessTime= (new Date()).getTime();
 		var url;
 		if(tn.indexOf(".")<0){
@@ -705,7 +775,7 @@ PortalControl.prototype = {
 		new Ajax.Request(url, {
 		  method: 'get',
 		  onSuccess: function(transport) {
-		  	var pt=$("portal-content");
+		  	var pt=$(tgt);
 		    pt.innerHTML=transport.responseText;
 		    executeLoadedScript(pt);
 		  },
@@ -719,7 +789,7 @@ PortalControl.prototype = {
 		  	  	if(exc!=null && exc.length>0){
 		  	  		alert(decodeURIComponent(exc));	
 		  	  	}else{
-		  	  		var pt=$("portal-content");
+		  	  		var pt=$(tgt);
 		    		pt.innerHTML=transport.responseText;
 		    		executeLoadedScript(pt);
 		  	  	}
@@ -943,19 +1013,10 @@ PortalControl.prototype = {
 	 * copy row information to object
 	 * @line0 just the main object id,will search for row whose first element equals line0
 	 */
-		editLine:function(line0){
+	editLine:function(line0){
 		var i,row=-1;
 		if(this._data==null){
-			if($(line0+"_p_step")!=null){
-				var p_step=$(line0+"_p_step").value;
-				if($(line0+"_iscomplete").value=="Y"){
-					showObject2(gridInitObject.mainobjurl+line0+"&nextstep="+p_step+"&p_nextstep=-2",this._dialogOption);
-				}else{
-					showObject2(gridInitObject.mainobjurl+line0+"&p_nextstep="+p_step,this._dialogOption);
-				}
-			}else{
-				showObject2(gridInitObject.mainobjurl+line0,this._dialogOption);
-			}	
+			showObject2(gridInitObject.mainobjurl+line0, this._dialogOption);
 		}else{
 			for(i=0;i< this._data.length;i++){
 				if(this._data[i][0]==line0){
@@ -1356,7 +1417,7 @@ PortalControl.prototype = {
     doExportList:function(){
     	this._submitToNewWindow("/html/nds/reports/create_report.jsp");
     },
-/**
+	/**
      * @param filetype html (default) or xls
      */
     doJReportOnSelection:function(tableId, filetype){

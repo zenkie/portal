@@ -291,7 +291,7 @@ border:1px solid #BDBDBD;
 padding:0 4px;
 +padding:0px;/*IE*/
 }
-.cbutton{
+.cbutton{height:20px;
 background:#E7E7E7;
 border:1px solid #BDBDBD;
 }

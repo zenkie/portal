@@ -12,6 +12,9 @@
     <td>
     <%@ include file="inc_multiple_object_quicksearch.jsp" %>
     </td>
+    <td>
+    <%@ include file="inc_multiple_object_tabbuttons.jsp" %>
+    </td>
   </tr>
 </table>
 <%

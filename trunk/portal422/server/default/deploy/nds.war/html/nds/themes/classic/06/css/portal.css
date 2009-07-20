@@ -293,7 +293,7 @@ color:#333;
 padding:0 4px;
 +padding:0px;/*IE*/
 }
-.cbutton{
+.cbutton{height:20px;
 background:#e0e0e0;
 border:1px solid #476388;
 color:#333;

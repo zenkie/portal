@@ -261,7 +261,7 @@ white-space: nowrap;
  vertical-align:middle;
  height:18px;
 }
-#message{
+#message{position:absolute;top:20px;
   margin:2px 0px 0px 30px;
   height:16px;
   clear:both;
@@ -353,7 +353,7 @@ right:0px;
 position:absolute;
 top:0px;
 width:80px;
-z-index:100;
+z-index:60;
 }
 #inline_statusimg{
 height:60px;
@@ -361,7 +361,7 @@ left:700px;
 position:absolute;
 top:20px;
 width:80px;
-z-index:100;
+z-index:60;
 }
 .emtbts{
 background:#FFF6EB;

@@ -45,6 +45,7 @@ TableCommand.prototype.makeTemplate=function(){
 (new TableCommand("Refresh", gMessageHolder.CMD_REFRESH,"tb_refresh.gif","J")).makeTemplate();
 
 function TableCommands(oTable) {
+	this.id= oTable.id;
 	var i,c,t,tb;
 	this._buttons=[];
 	this._menuItems=[];
@@ -109,7 +110,7 @@ TableCommands.prototype.toString= function() {
 			
 		str+="<div class='portal-dock interactive-mode'><div class='table-buttons btn-more'><a href='#'>"+
 			gMessageHolder.MORE_COMMANDS+"</a></div>"+
-			"<ul class='portal-dock-list'>";
+			"<ul class='portal-dock-list' id='portal-dock-list-"+ this.id +"'>";
 		sb = [];
 		for (var i = 0; i < this._menuItems.length; i++) {
 			sb[i] =commonCommands.menuItems[this._menuItems[i]];

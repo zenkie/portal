@@ -237,7 +237,21 @@ GridControl.prototype = {
 		}
 		return d;
 	},
-
+	/**
+	array of selected rows' record id
+	*/
+	getSelectedRows:function(){
+		var i,d=-1;
+		var a=new Array();
+		var a=[];
+		for(i=0; i<this._data.length;i++){
+			var line= this._data[i];
+			if( dwr.util.getValue($(line[0]+"_chk"))==true){
+				a.push(line[4]);
+			}
+		}
+		return a;
+	},
 	/**
 	* Mark selected rows in grid as delete, will save when SaveAll
 	*/

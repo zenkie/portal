@@ -294,7 +294,7 @@ color:#31601A;
 padding:0 4px;
 +padding:0px;/*IE*/
 }
-.cbutton{
+.cbutton{height:20px;
 background:transparent url(/html/nds/themes/classic/04/images/button_bg.gif) repeat scroll 0%;
 border:1px solid #A8DD59;
 }

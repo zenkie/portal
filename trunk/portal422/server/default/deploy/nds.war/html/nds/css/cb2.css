@@ -273,3 +273,10 @@ text-align:center;
 	text-align:right;
 	color:#339966;
 }
+span.ckbox{
+ background-image:url(/html/nds/images/checkbox.gif);
+background-repeat:no-repeat;
+display:block;
+height:16px;
+width:16px;
+}

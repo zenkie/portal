@@ -21,12 +21,17 @@ columns=table.getShowableColumns(actionType);
 <div id="obj-top">
 <div class="buttons">
 	<%if(!userWeb.isGuest()){%>
-		<span id="buttons"><!--BUTTONS_BEGIN--><%@ include file="inc_single_object_view_buttons.jsp" %><!--BUTTONS_END--></span>
-	<%}%><%@ include file="/html/nds/common/helpbtn.jsp"%><span id="closebtn"></span>
-	</div>
-	<div id="message" class="nt"  style="visibility:hidden;">
-	</div>
+		<span id="buttons"><!--BUTTONS_BEGIN--><%@ include file="inc_single_object_view_buttons.jsp" %>
+		<input id="objdropbtn" type="button"  class='cbutton' value="<%=PortletUtils.getMessage(pageContext, "more",null)%>">
+		<!--BUTTONS_END--></span>
+	<%}%>
+	
+	<%@ include file="/html/nds/common/helpbtn.jsp"%><span id="closebtn"></span>
 </div>
+<div id="objmenu" class="portal-dock interactive-mode"><!--OBJMENU_BEGIN--><%@ include file="inc_objmenu_modify.jsp" %><!--OBJMENU_END--></div>
+<div id="message" class="nt"  style="visibility:hidden;"></div>
+</div>
+
 <div class="<%=uiConfig.getCssClass()%>" id="<%=uiConfig.getCssClass()%>">
 <form name="<%=namespace%>fm" method="post" action="<%=contextPath %>/control/command" onSubmit="return false;">
 <input type="hidden" name="id" value="<%=objectId %>">

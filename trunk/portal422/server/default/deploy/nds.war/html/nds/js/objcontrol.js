@@ -24,12 +24,84 @@ ObjectControl.prototype = {
 		application.addEventListener( "UnsubmitObject", this._onSubmitObject, this);// share the same handling method _onSubmitObject
 		application.addEventListener( "ExecuteAudit", this._onExecuteAudit, this);
 		application.addEventListener( "PrintJasper", this._onPrintJasper, this);
+		application.addEventListener( "ExecuteWebAction", this._onExecuteWebAction, this);
 		this.MAX_INPUT_LENGTH=1000;// this is used for selection range
 		this._tryAddCloseButton();
 		this._tryUpdateTitle();
 		this._url= window.location.href;
 		this._closeWindow=false;// if true, will close window immdiately
+		ObjDropMenu.init();
 	},
+	webaction:function(actionId, warn,target){
+		if( (warn!=null && confirm(warn)) || warn==null){
+			var evt={};
+			evt.webaction= actionId;
+			evt.objectid= this._masterObj.hiddenInputs.id;
+			if(warn!=undefined && target!=null)evt.target=target;
+			evt.command="ExecuteWebAction";
+			evt.query=this.getQuery();
+			evt.callbackEvent="ExecuteWebAction";
+			this._executeCommandEvent(evt); 	
+		}
+	},
+	/**
+	Get current selection from ui, structure: data/selection(1,2,3), data/query(sql),data/id(for obj table),data/table(table id)
+	*/
+	getQuery:function(){
+		var q={};
+		if(gc!=null){ 
+			q.selection=gc.getSelectedRows();
+		}else
+			q.selection=[];
+		q.query=null;
+		q.table=this._masterObj.table.id;
+		q.id=this._masterObj.hiddenInputs.id;
+		return q;
+	},
+	_onExecuteWebAction:function(e){
+		var r=e.getUserData().data; 
+		
+		if(r.message && r.code !=3 && r.code!=4){
+			msgbox(r.message.replace(/<br>/g,"\n"));
+		}
+		switch(r.code){
+			case 1://refresh list
+				history.go(0);		
+				break;
+			case 2://refresh page
+				try{
+					this.closeDialog();	
+					return;
+				}catch(e){}
+				window.close();	
+				break;
+			case 3:
+				try{
+					gc.refreshGrid();	
+					return;
+				}catch(e){}
+				try{
+					this.doRefresh();	
+					return;
+				}catch(e){}	
+				history.go(0);
+			case 4://using message as url, and load target from user data
+				var tgt=r.target;
+				if(tgt==undefined || tgt==null) tgt="_blank";
+				if( tgt.startsWith("_")){
+					popup_window(r.message, tgt);
+				}else{
+					this.navigate(r.message, tgt);	
+				}
+				break;
+			case 5:// message as javascript
+				eval(r.message);
+				break;
+			case 99://close current page
+				window.close();
+				break;
+		}
+	},		
 	/**
 	 * Get column by id in master object, return null if not found
 	 * column properties:
@@ -519,11 +591,18 @@ ObjectControl.prototype = {
 		if(p>0 && pe>p){
 			$("buttons").innerHTML=te.substring(p+ "<!--BUTTONS_BEGIN-->".length,pe);
 		}	
+		p= te.indexOf("<!--OBJMENU_BEGIN-->");
+		pe= te.indexOf("<!--OBJMENU_END-->");
+		if(p>0 && pe>p){
+			$("objmenu").innerHTML=te.substring(p+ "<!--OBJMENU_BEGIN-->".length,pe);
+			ObjDropMenu.init();
+		}
 		p= te.indexOf("<!--OBJ_INPUTS1_BEGIN-->");
 		pe= te.indexOf("<!--OBJ_INPUTS1_END-->");
-		if(p>0 && pe>p)
+		if(p>0 && pe>p){
 			$("obj_inputs_1").innerHTML=te.substring(p+ "<!--OBJ_INPUTS1_BEGIN-->".length,pe);
-
+			
+		}
 		p= te.indexOf("<!--OBJ_INPUTS2_BEGIN-->");
 		pe= te.indexOf("<!--OBJ_INPUTS2_END-->");
 		var inputs2=$("obj_inputs_2");
@@ -600,7 +679,7 @@ ObjectControl.prototype = {
 			if($(column_acc_Id).value==""){
 		 		$(fk_column_acc_Id).value="";
 			}
-	},
+	},	
 	audit:function(audittype,objectId){
 		var evt={};
 		evt.command="ExecuteAudit";
@@ -690,7 +769,7 @@ ObjectControl.prototype = {
 			$("c_store_product_data").value=c_store_product_data;
 			$("c_dest_product_id").value=c_dest_productId;
 			$("c_dest_product_data").value=c_dest_product_data;
-	},
+	},	
 	_tryUpdateTitle:function(){
 		var w = window.opener;
 		if(w==undefined)w= window.parent;
@@ -704,9 +783,9 @@ ObjectControl.prototype = {
 };
 // define static main method
 ObjectControl.main = function () {
-	try{
+	//try{
 	oc=new ObjectControl();
-	}catch(e){}
+	//}catch(e){}
 };
 /**
 * Init

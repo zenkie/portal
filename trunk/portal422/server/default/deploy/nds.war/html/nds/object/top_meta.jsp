@@ -55,6 +55,7 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <script type="text/javascript" src="/html/nds/js/xloadtree111/xloadtree.js"></script>
 <link type="text/css" rel="stylesheet" href="/html/nds/js/xloadtree111/xtree.css" />
 -->
+<script language="javascript" src="/html/nds/js/objdropmenu.js"></script>
 <script language="javascript" src="/html/nds/js/formkey.js"></script>
 <script type="text/javascript" src="/html/nds/js/selectableelements.js"></script>
 <script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script>
@@ -74,6 +75,7 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <script language="javascript" src="/html/nds/js/gridcontrol.js"></script>
 <script type="text/javascript" src="/html/nds/js/object_query.js"></script>
 <link type="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css">
+<link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/objdropmenu.css">
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/portal.css">
 <link type="text/css" rel="StyleSheet" href="/html/nds/css/cb2.css">
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/nds_portal.css">

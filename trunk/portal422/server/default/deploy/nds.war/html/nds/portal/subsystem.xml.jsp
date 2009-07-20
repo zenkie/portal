@@ -23,21 +23,26 @@ int tablecategoryId,tableId;
 Table table;
 TableCategory  tablecategory;
 SubSystemView subsystemview=new SubSystemView();
-List tabcategorylist,tablelist,al;
+List tabcategorylist,categoryChildren,al;
 String url,cdesc,tdesc;
-tabcategorylist=subsystemview.getTableCategories(request,subSystemId);
+/*elements are List, containing 2 elements: 
+		nds.schema.TableCategory,
+		java.util.List (nds.schema.Table or nds.schema.WebAction) 
+*/	 
+tabcategorylist=subsystemview.getTableCategories(request,subSystemId);// elements can be TableCategory or WebAction
 %>
 <tree>
 <%
   if(tabcategorylist.size()>1){
 for(int i=0;i<tabcategorylist.size();i++){  
 	al= (List)tabcategorylist.get(i);
-    tablecategory=(TableCategory)al.get(0);
-	tablelist= (List) al.get(1);
-	tablecategoryId =tablecategory.getId();
-	url=tablecategory.getPageURL();
-	cdesc=tablecategory.getName();
-    if(url!=null){ 
+	if(al.get(0) instanceof TableCategory){
+	    tablecategory=(TableCategory)al.get(0);
+		categoryChildren= (List) al.get(1);
+		tablecategoryId =tablecategory.getId();
+		url=tablecategory.getPageURL();
+		cdesc=tablecategory.getName();
+	    if(url!=null){ 
  %>     
     <tree text="<%=cdesc%>" action="javascript:pc.navigate('<%=url%>')">
      	<%     	
@@ -45,35 +50,60 @@ for(int i=0;i<tabcategorylist.size();i++){
      %>		 
     <tree text="<%=cdesc%>">
     <%
-	} // end  if(url!=null)
-	for(int j=0;j<tablelist.size();j++){
-		table=(Table)tablelist.get(j);
-		tableId =table.getId(); 
-		tdesc=table.getDescription(locale);
-	%>
+		} // end  if(url!=null)
+		for(int j=0;j<categoryChildren.size();j++){
+			if(categoryChildren.get(j)  instanceof Table){
+				table=(Table)categoryChildren.get(j);
+				tableId =table.getId(); 
+				tdesc=table.getDescription(locale);
+%>
 	<tree icon="/html/nds/images/table.gif"  text="<%=StringUtils.escapeForXML(tdesc)%>" action="javascript:pc.navigate('<%=tableId%>')"/>       
-	<%
-	}
-	// check additional links from configurations
-	String linkFile= conf.getProperty("ui.treelink.tablecategory_"+tablecategoryId );
-	if(linkFile !=null){
+	<%			
+			}else if(categoryChildren.get(j)  instanceof WebAction){
+				WebAction action=(WebAction)categoryChildren.get(j) ;
+%>
+	<%=action.toHTML(locale)%>
+<%			
+			}
+		
+		}
+		// check additional links from configurations
+		String linkFile= conf.getProperty("ui.treelink.tablecategory_"+tablecategoryId );
+		if(linkFile !=null){
 	%>
 		<jsp:include page="<%=linkFile%>" flush="true"/>
-	<%}
+	<%	} 
 	%>
 	</tree>
-<%}
+<%
+	}//end if TableCategory
+	else{
+		//web action
+		WebAction wac= (WebAction)al.get(0);
+%>
+		<%=wac.toHTML(locale)%>
+<%		
+	}
+ }//  end for
 }else if(tabcategorylist.size()==1){
   	al= (List)tabcategorylist.get(0);
-  	tablecategory=(TableCategory)al.get(0);
-  	tablelist= (List) al.get(1);
-  	for(int j=0;j<tablelist.size();j++){
-		table=(Table)tablelist.get(j);
-		tableId =table.getId(); 
-		tdesc=table.getDescription(locale);
- %>
- <tree icon="/html/nds/images/table.gif"  text="<%=StringUtils.escapeForXML(tdesc)%>" action="javascript:pc.navigate('<%=tableId%>')"/>       
-	<%
+  	if(al.get(0) instanceof TableCategory){
+	  	tablecategory=(TableCategory)al.get(0);
+	  	categoryChildren= (List) al.get(1);
+	  	for(int j=0;j<categoryChildren.size();j++){
+			if(categoryChildren.get(j)  instanceof Table){
+				table=(Table)categoryChildren.get(j);
+				tableId =table.getId(); 
+				tdesc=table.getDescription(locale);
+%>
+	<tree icon="/html/nds/images/table.gif"  text="<%=StringUtils.escapeForXML(tdesc)%>" action="javascript:pc.navigate('<%=tableId%>')"/>       
+	<%			
+		}else if(categoryChildren.get(j)  instanceof WebAction){
+			WebAction action=(WebAction)categoryChildren.get(j);
+%>
+	<%=action.toHTML(locale)%>
+<%			
+		}
 	} 
 	// check additional links from configurations
 	String linkFile= conf.getProperty("ui.treelink.tablecategory_"+tablecategory.getId() );
@@ -81,6 +111,13 @@ for(int i=0;i<tabcategorylist.size();i++){
 	%>
 		<jsp:include page="<%=linkFile%>" flush="true"/>
 	<%}
+	}else{
+	//web action
+		WebAction wac= (WebAction)al.get(0);
+%>
+		<%=wac.toHTML(locale)%>
+<%		
+	}
 }
 %>
  
