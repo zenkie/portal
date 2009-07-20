@@ -5,22 +5,22 @@
 }
 
 .portal-dock-list-container {
-	background:#DDEAFB;
+	background:#f8f8f8;
 	border:0px;
+	right:2px;
 	text-align: right;
-	border: 1px solid #678FC2;
-}
+ }
  .portal-dock.expanded .portal-dock-list-container {
-	background: #DCEDFF;
-	border: 1px solid #678FC2;
+	background: #f8f8f8;
+	border: 1px solid #757575;
 	border-top: none;
 	text-align: right;
 }
 
  .portal-dock.interactive-mode ul {
 	background: url(/html/nds/images/dock/menu_bg.png) no-repeat 0 0;
-	border-left: 20px solid #DDEAFB;
-	/*display: none;*/
+	border-left: 20px solid #fff;
+	display: none;
 	float: none;
 	margin:1px 0pt 1px 1px;
 }
@@ -49,7 +49,7 @@
 }
 
  .portal-dock.interactive-mode li a:hover {
-	background-color: #C9DEFD;
+	background-color: #ccc;
 	background-position: 1.5em 50%;
 	border-top: 1px solid #E0D79F;
 	padding-left: 1.5em;
