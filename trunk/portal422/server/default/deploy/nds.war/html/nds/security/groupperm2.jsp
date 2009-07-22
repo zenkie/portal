@@ -139,7 +139,7 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
 <br>
 <form name="add_permission" id="add_permission" method="post" action="<%=request.getContextPath() %>/control/command">
   <input type='hidden' name="groupid" value="<%=groupId %>">
-  <input type='hidden' name="next-screen" value="<%=NDS_PATH+"/security/groupperm2.jsp?id="+groupId +"&catalog="+java.net.URLEncoder.encode(catalog) %>">
+  <input type='hidden' name="next-screen" value="<%=NDS_PATH+"/security/groupperm2.jsp?id="+groupId+"&subsystemId="+subsystemId+"&catalog="+java.net.URLEncoder.encode(catalog) %>">
   <input type='hidden' name="action" value="set">
    <input type='hidden' name="command" id="command">
   <input type='hidden' name="dirid" id="dirid" value="0">
