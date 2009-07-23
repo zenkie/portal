@@ -144,7 +144,7 @@ if(table!=null){
 	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status !=2;
 	boolean canEdit= canModify || canAdd;
 	/**------check permission end---**/
-	
+	List<WebAction> waObjButtons=new ArrayList<WebAction>(), waObjMenuItems=new ArrayList<WebAction>();
 	String includePage=null;
 	String msgError=null;
 	if(objectId !=-1){
