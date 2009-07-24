@@ -54,6 +54,7 @@ if(nds.util.Validator.isNull(dialogURL)){
 	<div id="ssv-top-banner">
 		<%@ include file="top.jsp" %>
 	</div>
+	<div id="ssv-top-heigth"></div>
 </div>
 <div id="ssv-main">	
 <table id="ssv-table" cellpadding="0" cellspacing="0">

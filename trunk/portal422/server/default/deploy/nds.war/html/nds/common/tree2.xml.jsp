@@ -112,7 +112,6 @@ result= QueryEngine.getInstance().doQuery(query);
 	if(colOrderNo!=null)orderKey= new int[]{ colOrderNo.getId()};
 	else orderKey= new int[]{ dataTable.getAlternateKey().getId()};
 	queryData.setOrderBy(orderKey, true);
-	System.out.print(queryData.toString());
 	resultData= QueryEngine.getInstance().doQuery(queryData);
 	String icon;
 	for(int j=0;j< resultData.getRowCount();j++){
