@@ -56,6 +56,7 @@ queryObj.put("start",0);
 queryObj.put("must_be_active",mustBeActive);
 queryObj.put("range",QueryUtils.DEFAULT_RANGE);
 queryObj.put("resulthandler","/html/nds/query/search_result.jsp");
+if(accepter_id!=null)queryObj.put("accepter_id", accepter_id);
 if(searchOnColumn!=null)queryObj.put("column", searchOnColumn.getId());
 String singleObjectPageURL=(
 	nds.util.Validator.isNotNull(table.getRowURL())? nds.util.WebKeys.NDS_URI +  table.getRowURL() +"?":
