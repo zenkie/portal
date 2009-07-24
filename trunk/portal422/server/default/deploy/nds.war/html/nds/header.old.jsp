@@ -10,7 +10,7 @@ private final static java.text.DateFormat timeFormatter =new java.text.SimpleDat
 <%@ include file="/html/common/init.jsp" %>
 <%@ include file="/html/common/themes/top_meta.jsp" %>
 <%@ include file="/html/common/themes/top_meta-ext.jsp" %>
-<link rel="Shortcut Icon" href="<%= themeDisplay.getPathThemeImage() %>/liferay.ico" />
+<link rel="Shortcut Icon" href="/html/nds/images/portal.ico" />
 <link type="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css">
 <link type="text/css" rel="stylesheet" href="/html/nds/css/portal.css">
 <link type="text/css" rel="StyleSheet" href="/html/nds/css/cb2.css">

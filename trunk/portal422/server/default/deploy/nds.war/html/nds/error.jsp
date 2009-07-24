@@ -28,7 +28,7 @@ try{
 <%@ include file="/html/common/init.jsp" %>
 <%@ include file="/html/common/themes/top_meta.jsp" %>
 <%@ include file="/html/common/themes/top_meta-ext.jsp" %>
-<link rel="Shortcut Icon" href="<%= themeDisplay.getPathThemeImage() %>/liferay.ico" />
+<link rel="Shortcut Icon" href="/html/nds/images/portal.ico" />
 	<script language="JavaScript" src="<%= contextPath %>/html/nds/js/common.js"></script>
 	<script language="JavaScript" src="<%= contextPath %>/html/nds/js/print.js"></script>
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/object.css">

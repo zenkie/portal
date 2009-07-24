@@ -1,7 +1,7 @@
 <%@ include file="/html/common/init.jsp" %>
 <%@ include file="/html/common/themes/top_meta.jsp" %>
 <%@ include file="/html/common/themes/top_meta-ext.jsp" %>
-<link rel="Shortcut Icon" href="<%= themeDisplay.getPathThemeImage() %>/liferay.ico">
+<link rel="Shortcut Icon" href="/html/nds/images/portal.ico">
 <%if(GetterUtil.getBoolean(PropsUtil.get(PropsUtil.JAVASCRIPT_FAST_LOAD)) ){ %>
 <script language="JavaScript" src="/html/nds/js/header_aio_<%=locale.toString()%>_min.js"></script>
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/header_aio_min.css">

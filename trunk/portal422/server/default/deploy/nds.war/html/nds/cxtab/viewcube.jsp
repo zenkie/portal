@@ -13,7 +13,7 @@ String openURL="opencube.jsp?pi="+pi+"&file="+java.net.URLEncoder.encode(fileNam
 %>
 <html>
 <head>
-<link rel="Shortcut Icon" href="<%= themeDisplay.getPathThemeImage() %>/liferay.ico" />
+<link rel="Shortcut Icon" href="/html/nds/images/portal.ico" />
 <title><%=PortletUtils.getMessage(pageContext, "crosstab-report",null)%></title>
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/portal_header.css">
 <style>

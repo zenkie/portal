@@ -1,7 +1,7 @@
 <%@ include file="/html/common/init.jsp" %>
 <%@ include file="/html/common/themes/top_meta.jsp" %>
 <%@ include file="/html/common/themes/top_meta-ext.jsp" %>
-<link rel="Shortcut Icon" href="<%= themeDisplay.getPathThemeImage() %>/liferay.ico">
+<link rel="Shortcut Icon" href="/html/nds/images/portal.ico">
 <script language="JavaScript" src="/html/nds/js/top_css_ext.js"></script>
 <script type="text/javascript" language="JavaScript1.5" src="/html/nds/js/ieemu.js"></script>
 <script language="JavaScript" src="/html/nds/js/cb2.js"></script>

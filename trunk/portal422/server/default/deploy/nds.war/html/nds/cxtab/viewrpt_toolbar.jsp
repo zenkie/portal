@@ -11,7 +11,7 @@ String downloadURL= "/servlets/binserv/Download/"+ java.net.URLEncoder.encode(fi
 %>
 <html>
 <head>
-<link rel="Shortcut Icon" href="<%= themeDisplay.getPathThemeImage() %>/liferay.ico" />
+<link rel="Shortcut Icon" href="/html/nds/images/portal.ico" />
 <title><%=PortletUtils.getMessage(pageContext, "crosstab-report",null)%></title>
 <style>
 body{
