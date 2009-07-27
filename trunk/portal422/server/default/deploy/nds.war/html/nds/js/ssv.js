@@ -53,10 +53,9 @@ SSVIEW.prototype = {
 		  	//}catch(e){}
 		  }
 		});	
-	}, 
+	}
 	
 };
-// define static main method
 SSVIEW.main = function () {
 	ssv=new SSVIEW();
 };
