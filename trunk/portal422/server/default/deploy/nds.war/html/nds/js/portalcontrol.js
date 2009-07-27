@@ -63,7 +63,12 @@ PortalControl.prototype = {
 		webFXTreeConfig.tIcon			= "/html/nds/js/xloadtree111/images/xp/T.png";
 		webFXTreeConfig.blankIcon		= "/html/nds/js/xloadtree111/images/xp/blank.png";
 		webFXTreeConfig.usePersistence  = false;
+		
+		ObjDropMenu.init(true);//hover
 
+	},
+	ssv:function(sid){
+		window.location="/html/nds/portal/portal.jsp?ss="+sid;
 	},
 	/**
 	 Update last access time
@@ -117,11 +122,11 @@ PortalControl.prototype = {
 		/**
 		 screen layout may not be as expected
 		*/
-		if($("rpt-search")==null){
+		/*if($("rpt-search")==null){
 			this.navigate("/html/nds/cxtab/rpthome.jsp?cxtab="+encodeURIComponent(cxtabId));
 			//alert(gMessageHolder.PLEASE_REFRESH_CXTAB_PAGE);
 			return;
-		}
+		}*/
 		var evt={};
 		evt.command="LoadPage";
 		evt.callbackEvent="LoadCxtabSearchForm";
@@ -133,15 +138,16 @@ PortalControl.prototype = {
 	/**
 	 * Create WebFXLoadTree and return 
 	 */
-	createTree:function(desc,src,sAction){
+	createTree:function(desc,src,sAction,bExpandAll){
 		var tree = new WebFXLoadTree(desc, src, sAction);
 		tree.setBehavior("classic");
 		$("tree-list").innerHTML=tree.toString();
-		tree.expandAll();
+		if(bExpandAll ==undefined || bExpandAll==true)
+			tree.expandAll();
 		return tree;
 	},
 	_onLoadCxtabSearchForm:function(e){
-		var div=$("rpt-search");
+		var div=$("portal-content");
 		div.innerHTML=e.getUserData().data.pagecontent;
 		executeLoadedScript(div);
 	},
@@ -721,8 +727,6 @@ PortalControl.prototype = {
 	 Add menu items from web action definition
 	*/
 	addListMenuItems:function(html){
-		console.log("addListMenuItems--");
-		console.log(html);
 		new Insertion.Bottom($("portal-dock-list-"+this._tableObj.id), html);
 	},
 	_onExecuteWebAction:function(e){
@@ -760,7 +764,7 @@ PortalControl.prototype = {
 	  @param tg, target of div to insert into, default to "portal-content"
 	*/
 	navigate:function(tn,tgt){
-		if(tgt==undefined || tgt==null) tgt="portal-content";
+		if(tgt==undefined || tgt==null || tgt=='null') tgt="portal-content";
 		if($(tgt)==null){
 			alert( "div id="+ tgt+" not found");
 			return;	

@@ -1,7 +1,7 @@
-<div id="objdropmenu" class='portal-dock interactive-mode'><div class='table-buttons btn-more'>
+<div id="objdropmenu" class='obj-dock interactive-mode'><div class='table-buttons btn-more'>
 <input type="button" value="<%=PortletUtils.getMessage(pageContext, "more",null)%>">
 </div>
-<ul class='portal-dock-list'>
+<ul class='obj-dock-list'>
 <%
 validCommands.clear();
 

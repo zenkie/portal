@@ -13,7 +13,7 @@
 <%	}%>
 <table><tr><td>
 <script type="text/javascript">
- webFXTreeConfig.autoExpandAll=true;
- var tree=pc.createTree("<%=desc%>","/html/nds/portal/tablecategory.xml.jsp?id=<%=catId%>", <%=(url==null?"null":"\"javascript:pc.navigate('"+url+"')\"")%>);
+ webFXTreeConfig.autoExpandAll=false;
+ var tree=pc.createTree("<%=desc%>","/html/nds/portal/tablecategory.xml.jsp?id=<%=catId%>", <%=(url==null?"null":"\"javascript:pc.navigate('"+url+"')\"")%>,false);
 </script>    
 </td></tr></table>

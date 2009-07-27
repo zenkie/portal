@@ -3,7 +3,6 @@
 Navigation bar, when subSystem specified, will list categories as menu 
  */
 String name;
-nds.query.web.SubSystemView ssv=new nds.query.web.SubSystemView();
 List rtm=null;
 // elements: Vector ( 3 elements: categoryId(Integer),  table vector ( of that category),
 // and vector size ( of that category to be row count in category table, may eliminate some tables

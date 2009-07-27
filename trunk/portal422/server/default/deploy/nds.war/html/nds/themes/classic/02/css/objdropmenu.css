@@ -1,31 +1,31 @@
-.portal-dock.interactive-mode {
+.obj-dock.interactive-mode {
 	width:165px;
 	min-width:165px;
 	margin-right:1.3em;
 }
 
-.portal-dock-list-container {
+.obj-dock-list-container {
 	background:#f8f8f8;
 	border:0px;
 	right:2px;
 	text-align: right;
  }
- .portal-dock.expanded .portal-dock-list-container {
+ .obj-dock.expanded .obj-dock-list-container {
 	background: #f8f8f8;
 	border: 1px solid #757575;
 	border-top: none;
 	text-align: right;
 }
 
- .portal-dock.interactive-mode ul {
+ .obj-dock.interactive-mode ul {
 	background: url(/html/nds/images/dock/menu_bg.png) no-repeat 0 0;
 	border-left: 20px solid #fff;
-	display: none;
+	/*display: none;*/
 	float: none;
 	margin:1px 0pt 1px 1px;
 }
 
- .portal-dock.interactive-mode li {
+ .obj-dock.interactive-mode li {
 	display: block;
 	float: none;
 	margin-bottom: 0pt;
@@ -34,7 +34,7 @@
 	width: 140px;
 }
 
- .portal-dock.interactive-mode li a {
+ .obj-dock.interactive-mode li a {
 	background-position: 0.5em 50%;
 	background-repeat: no-repeat;
 	border-top: 1px solid #ccc;
@@ -44,11 +44,11 @@
 	text-decoration: none;
 }
 
- .portal-dock.interactive-mode ul.portal-dock-list > li:first-child a,  .portal-dock.interactive-mode ul.portal-dock-list > li:first-child ul.show-my-places li:first-child a {
+ .obj-dock.interactive-mode ul.obj-dock-list > li:first-child a,  .obj-dock.interactive-mode ul.obj-dock-list > li:first-child ul.show-my-places li:first-child a {
 	border-top: none;
 }
 
- .portal-dock.interactive-mode li a:hover {
+ .obj-dock.interactive-mode li a:hover {
 	background-color: #ccc;
 	background-position: 1.5em 50%;
 	border-top: 1px solid #E0D79F;
@@ -56,29 +56,29 @@
 	text-decoration: none;
 }
 
- .portal-dock.interactive-mode ul.portal-dock-list > li:first-child a,  .portal-dock.interactive-mode ul.portal-dock-list > li:first-child a:hover,  .portal-dock.interactive-mode ul.portal-dock-list li.my-places ul.show-my-places li ul li:first-child a,  .portal-dock.interactive-mode ul.portal-dock-list li.my-places ul.show-my-places li ul li:first-child a:hover {
+ .obj-dock.interactive-mode ul.obj-dock-list > li:first-child a,  .obj-dock.interactive-mode ul.obj-dock-list > li:first-child a:hover,  .obj-dock.interactive-mode ul.obj-dock-list li.my-places ul.show-my-places li ul li:first-child a,  .obj-dock.interactive-mode ul.obj-dock-list li.my-places ul.show-my-places li ul li:first-child a:hover {
 	border-top: none;
 }
 
 
-.ie6 .portal-dock.interactive-mode {
+.ie6 .obj-dock.interactive-mode {
 	white-space: nowrap;
 	width: 150px;
 }
 
-.ie .portal-dock .my-places .show-my-places h3 {
+.ie .obj-dock .my-places .show-my-places h3 {
 	font-size: 1.1em;
 }
 
-.ie6 .portal-dock.expanded.interactive-mode .portal-dock-list-container {
+.ie6 .obj-dock.expanded.interactive-mode .obj-dock-list-container {
 	height: 1%;
 }
 
 
-.ie6 .portal-dock.interactive-mode li {
+.ie6 .obj-dock.interactive-mode li {
 	height: 1%;
 }
 
-.ie6 .portal-dock.interactive-mode li a {
+.ie6 .obj-dock.interactive-mode li a {
 	height: 1%;
 }

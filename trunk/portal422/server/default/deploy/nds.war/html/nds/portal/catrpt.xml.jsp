@@ -21,31 +21,18 @@ try{
 Configurations conf= (Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS);
 nds.query.web.SubSystemView ssv=new nds.query.web.SubSystemView();
 
-List categoryChildren=ssv.getChildrenOfTableCategory(request,tablecategoryId,true/*include webaction*/ );
-Locale locale =userWeb.getLocale();
-int tableId;
-Table table;
+//elements are ArrayList, first is cxtab id, second is cxtab name
+List cxtabs=ssv.getCxtabs(request,tablecategoryId );
 
-String url,cdesc,tdesc;
 %>
 <tree>
 <%
-for(int j=0;j<categoryChildren.size();j++){
-	if(categoryChildren.get(j)  instanceof Table){
-		table=(Table)categoryChildren.get(j);
-		tableId =table.getId(); 
-		tdesc=table.getDescription(locale);
+for(int j=0;j<cxtabs.size();j++){
+	List t=(List)cxtabs.get(j); 
 %>
-	<tree icon="/html/nds/images/table.gif"  text="<%=StringUtils.escapeForXML(tdesc)%>" action="javascript:pc.navigate('<%=tableId%>')"/>       
-	<%			
-	}else if(categoryChildren.get(j)  instanceof WebAction){
-		WebAction action=(WebAction)categoryChildren.get(j);
-%>
-	<%=action.toHTML(locale)%>
+	<tree icon="/html/nds/images/cxtab.gif"  text="<%=StringUtils.escapeForXML( (String)t.get(1))%>" action="javascript:pc.qrpt('<%=t.get(0)%>')"/>       
 <%			
-	}
+	
 }
-%> 
- 	<tree text="<%= PortletUtils.getMessage(pageContext, "ref-report",null)%>" src="<%="/html/nds/portal/catrpt.xml.jsp?id="+tablecategoryId%>">
- 	</tree>
+%>
 </tree>    

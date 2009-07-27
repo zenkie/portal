@@ -1,5 +1,5 @@
 var ObjDropMenu = {
-	init: function() {
+	init: function(isHover) {
 		var instance = this;
 		var dock = jQuery('#objmenu');
 		var dockList = jQuery('#objdropmenu');
@@ -36,7 +36,8 @@ var ObjDropMenu = {
 			};
 
 			var alike = jQuery('#objdropbtn');
-			alike.hover(dockOver,function(){});
+			if(isHover)alike.hover(dockOver,function(){});
+			else alike.click(dockOver);
 		}
 	},
 

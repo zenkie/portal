@@ -2,7 +2,11 @@
 	<%=userWeb.getClientDomainName()%>
 </div>
 <div id="page-niche-menu">
-	<span style="font-weight: bold"><%= user.getGreeting() %></span>|
+	<span style="font-weight: bold"><%= user.getGreeting() %>. </span>
+	<%if(ssId!=-1){%>
+	<%= PortletUtils.getMessage(pageContext, "current-subsystem",null)%>:<span style="font-weight: bold"><%=manager.getSubSystem(ssId).getName()%></span>(
+	<a class="ph" href="javascript:void()" id="objdropbtn"><%= PortletUtils.getMessage(pageContext, "switch-subsystem",null)%></a>)
+	<%}%>|
 	<%if(session.getAttribute("saasvendor")==null){
 		//alisoft does not allow home page and logout, change password
 	%>
@@ -14,4 +18,3 @@
 	<a class="ph" href="<%= themeDisplay.getURLSignOut() %>"><bean:message key="sign-out" /></a>
 	<%}%>
 </div>
-

@@ -28,7 +28,7 @@ columns=table.getShowableColumns(actionType);
 	
 	<%@ include file="/html/nds/common/helpbtn.jsp"%><span id="closebtn"></span>
 </div>
-<div id="objmenu" class="portal-dock interactive-mode"><!--OBJMENU_BEGIN--><%@ include file="inc_objmenu_modify.jsp" %><!--OBJMENU_END--></div>
+<div id="objmenu" class="obj-dock interactive-mode"><!--OBJMENU_BEGIN--><%@ include file="inc_objmenu_modify.jsp" %><!--OBJMENU_END--></div>
 <div id="message" class="nt"  style="visibility:hidden;"></div>
 </div>
 

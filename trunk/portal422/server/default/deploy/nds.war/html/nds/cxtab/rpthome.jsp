@@ -18,17 +18,7 @@
 			</div>
 		</div>
   </div>
-</div> <!--
-<div id="rpt-search-content">
-	<div id="rpt-search-tab">
-		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span></a></li></ul>
-		<div id="tab1">
-			<div id="rpt-search">
-				<div id="rpt-search-note"><%= PortletUtils.getMessage(pageContext, "pls-select-rpt-template",null)%></div>
-			</div>
-		</div>
-	</div>
-</div>-->
+</div>
 <script type="text/javascript">
 //jQuery('#rpt-search-tab ul').tabs();
 jQuery('#page-table-query-tab ul').tabs();

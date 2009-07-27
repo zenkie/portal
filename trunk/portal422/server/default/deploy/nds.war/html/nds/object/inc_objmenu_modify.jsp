@@ -1,5 +1,5 @@
-<div id="objdropmenu" class="portal-dock-list-container">
-<ul class='portal-dock-list'>
+<div id="objdropmenu" class="obj-dock-list-container">
+<ul class='obj-dock-list'>
 <%
 validCommands.clear();
 if( objectId == -1){

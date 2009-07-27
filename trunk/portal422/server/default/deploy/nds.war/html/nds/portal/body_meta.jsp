@@ -11,6 +11,8 @@
 	<div id="timeout-btn"><input class="cbutton" type="button" value="<%=PortletUtils.getMessage(pageContext, "time-out-refresh",null)%>" onclick="pc.timeoutRefresh()">&nbsp;
 <input class="cbutton"  type="button" value="<%=PortletUtils.getMessage(pageContext, "time-out-wait",null)%>" onclick="pc.timeoutWait()"></div>
 </div>
+<div id="objmenu" class="obj-dock interactive-mode"><%@ include file="inc_ssmenu.jsp" %></div>
+
 
 	
 

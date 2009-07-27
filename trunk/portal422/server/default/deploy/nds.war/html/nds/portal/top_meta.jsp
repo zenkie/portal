@@ -59,6 +59,8 @@
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/dockmenu.css">
 <link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/custom-ext.css" />
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/ui.tabs.css">
+<script language="javascript" src="/html/nds/js/objdropmenu.js"></script>
+<link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/objdropmenu.css">
 <%}//end JAVASCRIPT_FAST_LOAD
 %>
 <title><%=userWeb.getClientDomainName()%></title>

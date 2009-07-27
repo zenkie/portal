@@ -45,6 +45,7 @@ if(isNotPopupPortal){
 }
 TableManager manager=TableManager.getInstance();
 Configurations conf= (Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS);
+nds.query.web.SubSystemView ssv=new nds.query.web.SubSystemView();
 
 boolean ssviewFirst=Tools.getYesNo(userWeb.getUserOption("SSVIEW",defaultSsviewFirst?"Y":"N"),false);
 int ssId=Tools.getInt(request.getParameter("ss"),-1);

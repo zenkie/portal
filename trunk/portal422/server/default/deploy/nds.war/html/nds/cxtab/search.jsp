@@ -49,6 +49,11 @@
 	ArrayList qColumns=table.getIndexedColumns();
 	TableQueryModel model= new TableQueryModel(tableId,qColumns,false,false,locale);
 %>
+<div id="page-table-query">
+	<div id="page-table-query-tab">
+		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span></a></li></ul>
+		<div id="tab1">
+			<div id="rpt-search">
 <table border="0" cellspacing="0" cellpadding="0" align='center' width="98%"><tr><td>
 <div id="rpt-desc">
 	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "current-cxtab",null)%>:</span>
@@ -212,7 +217,14 @@
                 </table><br>
                 <%}// end for(int tabIdx=0;tabIdx< tab_count;tabIdx ++)
                 %>
- <div id="rpt-sbtns">
+
+ </form>
+			</div>
+		</div>
+  </div>
+</div>
+
+<div id="rpt-sbtns">
 <%
 
 if(Validator.isNotNull(excelPath)){%>
@@ -237,7 +249,7 @@ if((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE ){
 <script>
  pc.initCxtabQuery(<%=q.toString()%>);
  pc.refreshCxtabHistoryFiles(<%=cxtabId%>);
-</script>	
- </div>      
- </form>
+ jQuery('#page-table-query-tab ul').tabs();
+</script>
+ </div>
 <div id="history_files"></div>
