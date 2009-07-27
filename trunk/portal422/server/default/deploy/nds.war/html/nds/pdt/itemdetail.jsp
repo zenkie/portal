@@ -385,7 +385,7 @@ boolean directory_dest=false;
 	if(dest_col!=null){
 		dest_table=dest_col.getReferenceTable();
 		dest_objectId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select id from c_store where name='"+destdata+"'"),-1);
-		if("root".equals(userWeb.getUserName())||userWeb.hasObjectPermission(dest_table.getName(),store_objectId,nds.security.Directory.WRITE)){
+		if("root".equals(userWeb.getUserName())||userWeb.hasObjectPermission(dest_table.getName(),dest_objectId,nds.security.Directory.WRITE)){
 				directory_dest =true;
 		}
 %>
