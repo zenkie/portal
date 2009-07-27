@@ -64,7 +64,7 @@ PortalControl.prototype = {
 		webFXTreeConfig.blankIcon		= "/html/nds/js/xloadtree111/images/xp/blank.png";
 		webFXTreeConfig.usePersistence  = false;
 		
-		if(document.getElementById("#objdropbtn")!=null)ObjDropMenu.init(true);//hover
+		if(document.getElementById("objdropbtn")!=null)ObjDropMenu.init(true);//hover
 
 	},
 	ssv:function(sid){
