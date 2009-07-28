@@ -87,6 +87,7 @@ org/apache/jspc/html/nds/security/changepassword_jsp.java
 org/apache/jspc/html/nds/security/grouperm_005fsubsystem_jsp.java
 org/apache/jspc/html/nds/security/groupperm2_jsp.java
 org/apache/jspc/html/nds/security/groupperm_jsp.java
+org/apache/jspc/html/nds/security/groupperms_jsp.java
 org/apache/jspc/html/nds/security/sql_005ffilter_jsp.java
 org/apache/jspc/html/nds/security/loginusers_jsp.java
 org/apache/jspc/html/nds/shell/index_jsp.java
