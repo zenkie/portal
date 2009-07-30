@@ -753,6 +753,10 @@ GridControl.prototype = {
 		var cols=this._gridMetadata.columns,i,col,v;
 		// update asi_sum to first column that contains name "QTY"
 		if(chkResult!=null && chkResult.asi_sum!=undefined){
+			if(chkResult.asi_sum==0){
+				alert(gMessageHolder.PRODUCT_NMNER_ZORE);
+				return;
+			}						
 			for(i=5;i<cols.length;i++){
 				col=cols[i];
 				if((col.isUploadWhenCreate || col.isUploadWhenModify) && col.name.indexOf("QTY")>=0 ){
