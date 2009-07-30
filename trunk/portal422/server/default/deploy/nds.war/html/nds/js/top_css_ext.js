@@ -215,4 +215,3 @@ function noContextMenu() {
  }
 
 //if(/MSIE/.test(navigator.userAgent))document.attachEvent( "oncontextmenu",noContextMenu );
-function void(){}
