@@ -1,10 +1,10 @@
 
-<form id="q_fm_list">
+<form id="q_fm_list_<%=queryindex%>">
 <table width="100%" cellspacing="0" cellpadding="0"  align="center">
     <tr >
     <td align="right">
 <div id="q_line"></div>
-<div id="q_embed_lines"> 
+<div id="q_embed_lines_<%=queryindex%>" class="q_embed_lines"> 
 <table id="q_inc_table" width="100%" cellpadding="0" cellspacing="0" border="1" class="modify_table">
 	<thead><tr>
   	<td nowrap align='center' width="40"><%=PortletUtils.getMessage(pageContext, "rowindex",null)%></td>
@@ -45,7 +45,7 @@ for(int i=0;i< columns.size();i++){
 	}
  %>
   <td nowrap align='center'>
-    <span onClick="javascript:oq.orderGrid(<%=col.getId()%>)"><span id="q_title_<%=col.getId()%>"></span>
+    <span onClick="javascript:oq.orderGrid(<%=col.getId()%>)"><span id="q_title_<%=col.getId()%>_<%=queryindex%>"></span>
     	<%=col.getDescription(locale)%>
     </span>
   </td>
@@ -54,7 +54,7 @@ for(int i=0;i< columns.size();i++){
 %>
   </tr>
  </thead><!--$QGRIDTABLE_START-->
-<tbody id="q_grid_table"></tbody><!--$QGRIDTABLE_END-->
+<tbody id="q_grid_table_<%=queryindex%>"></tbody><!--$QGRIDTABLE_END-->
 </table>
 <br>
 </div> <!-- q_embed-lines-->

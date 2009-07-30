@@ -22,6 +22,7 @@ String returnType= request.getParameter("return_type");
 String accepter_id= request.getParameter("accepter_id");
 String qdata= request.getParameter("qdata");
 String security= request.getParameter("security");
+int queryindex =Tools.getInt(request.getParameter("queryindex"),-1)+1;
 if(Validator.isNull(qdata))qdata="";
 boolean mustBeActive=Tools.getYesNo(request.getParameter("mustbeactive"),true);
 Column searchOnColumn= TableManager.getInstance().getColumn(Tools.getInt(request.getParameter("column"),-1));
@@ -56,7 +57,6 @@ queryObj.put("start",0);
 queryObj.put("must_be_active",mustBeActive);
 queryObj.put("range",QueryUtils.DEFAULT_RANGE);
 queryObj.put("resulthandler","/html/nds/query/search_result.jsp");
-if(accepter_id!=null)queryObj.put("accepter_id", accepter_id);
 if(searchOnColumn!=null)queryObj.put("column", searchOnColumn.getId());
 String singleObjectPageURL=(
 	nds.util.Validator.isNotNull(table.getRowURL())? nds.util.WebKeys.NDS_URI +  table.getRowURL() +"?":
@@ -94,7 +94,7 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 			<li class="current"><%= PortletUtils.getMessage(pageContext, "multi-result",null)%></li>
 		</ul>
 		<div id="multi-content">		
-			<div id="multi-list">
+			<div id="multi-list_<%=queryindex%>" class="multi-list">
 					<%@ include file="/html/nds/query/multiple_result.jsp" %>
 				</div>
 			</div>
@@ -114,16 +114,16 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 	if(searchOnColumn!=null && searchOnColumn.isFilteredByWildcard()){
 		Expression expr= WebUtils.parseWildcardFilter(searchOnColumn,request,userWeb);
 %>
-<input type='hidden' id="q_form_param_expr" name='param_expr' value='<%=expr.toHTMLInputElement()%>'>	
+<input type='hidden' id="q_form_param_expr_<%=queryindex%>" name='param_expr' value='<%=expr.toHTMLInputElement()%>'>	
 <%		
 	}
 %>	
-<form id="q_form" name="q_form" method="post" action="/servlets/QueryInputHandler" onSubmit="oq.search();return false;" >
+<form id="q_form_<%=queryindex%>" name="q_form_<%=queryindex%>" method="post" action="/servlets/QueryInputHandler" onSubmit="oq.search();return false;" >
     <input type='hidden' name='tab_count' value='<%=tab_count%>'>
 	<div id="query-search-content">
-		<div id="query-search-tab">
+		<div id="query-search-tab_<%=queryindex%>">
 			<ul><li><a href="#qtab1"><span><%=PortletUtils.getMessage(pageContext, "query-setting",null)%></span></a></li></ul>
-			<div id="qtab1">
+			<div id="qtab1" class="ui-tabs-panel">
 				<div id="q_search_condition">
 				<%@ include file="inc_search_condition.jsp" %>
 				</div>
@@ -137,18 +137,18 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 <div id="multi-buttons">
 <div id="qbtns-multi">
 	<input id="btn-search" type="button" class="cbutton" onclick="javascript:oq.search()" value="<%=PortletUtils.getMessage(pageContext, "show-result",null)%>">&nbsp;
-	<input id="btn-choose-set" type="button" class="cbutton" onclick="javascript:oq.return_set()" value="<%=PortletUtils.getMessage(pageContext, "add-all",null)%>">
-	<input type="checkbox" name="condition" id="condition" value="" onclick="javascript:oq.reverse_condition()"><%=PortletUtils.getMessage(pageContext, "reverse",null)%>
+	<input id="btn-choose-set_<%=queryindex%>" type="button" class="cbutton" onclick="javascript:oq.return_set()" value="<%=PortletUtils.getMessage(pageContext, "add-all",null)%>">
+	<input type="checkbox" name="condition_<%=queryindex%>" id="condition_<%=queryindex%>" value="" onclick="javascript:oq.reverse_condition()"><%=PortletUtils.getMessage(pageContext, "reverse",null)%>
 </div>
 <div id="qbtns">
-	<span id="q_progress" style="display:none"><img src="/html/nds/images/progress.gif"></span>
+	<span id="q_progress_<%=queryindex%>" style="display:none"><img src="/html/nds/images/progress.gif"></span>
 	<input id="btn-return-result" type="button" class="cbutton" onclick="javascript:oq.return_result()" value="<%=PortletUtils.getMessage(pageContext, "return-multi-result",null)%>">
 	<input id="btn-cancel" type="button" class="cbutton" onclick="javascript:oq.close()" value="<%=PortletUtils.getMessage(pageContext, "command.cancel",null)%>">
 </div>
 </div>
 <%}else{%>
 <div id="qbtns">
-	<span id="q_progress" style="display:none"><img src="/html/nds/images/progress.gif"></span>
+	<span id="q_progress_<%=queryindex%>" style="display:none"><img src="/html/nds/images/progress.gif"></span>
 	<input id="btn-search" type="button" class="cbutton" onclick="javascript:oq.search()" value="<%=PortletUtils.getMessage(pageContext, "show-result",null)%>">&nbsp;
 	<input id="btn-cancel" type="button" class="cbutton" onclick="javascript:oq.close()" value="<%=PortletUtils.getMessage(pageContext, "command.cancel",null)%>">
 </div>
@@ -157,10 +157,10 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 <%
 if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 %>
-<div id="mulit-info" style="margin-top:30px">
+<div id="mulit-info_<%=queryindex%>" style="margin-top:30px">
 </div>
 <%}%>
-<div id="query-data" align="right" style="display:none;">
+<div id="query-data_<%=queryindex%>" align="right" style="display:none;">
 		<div id="query-result">
 			<%@ include file="inc_search_list.jsp" %>
 		</div>
@@ -182,7 +182,7 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 			</div></td></tr>
 			<tr><td>
 		 		<font color='red'>*</font><%= PortletUtils.getMessage(pageContext, "current-filter",null)%>:
-		 		 <span class=sqldesc id="q_filter_setting">
+		 		 <span class=sqldesc id="q_filter_setting_<%=queryindex%>">
 		     </span>
 			</td><td>&nbsp;</td></tr>
 			</table>
@@ -196,13 +196,14 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 </tr>
 </table>
 <%}%>
+<input type='hidden' name='queryindex_<%=queryindex%>' id='queryindex_<%=queryindex%>' value="<%=queryindex%>" />
 <script>
-	jQuery('#query-search-tab ul').tabs();
+	jQuery('#query-search-tab_<%=queryindex%> ul').tabs();
 	oq.setQueryObject(<%=queryObj.toString()%>, "<%=singleObjectPageURL%>", "<%=returnType%>");
 	<%
 		if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 	%>
-		document.getElementById("mulit-info").innerHTML ="<%= PortletUtils.getMessage(pageContext, "mulit-info",null)%>";
+		document.getElementById("mulit-info_<%=queryindex%>").innerHTML ="<%= PortletUtils.getMessage(pageContext, "mulit-info",null)%>";
 	<%}%>
 <%
 	if(table.isDropdown() || (table.getRowCount()<100 && table.getRowCount()>0) ){

@@ -61,10 +61,17 @@
                inputName += "/value";
 			if(column.getReferenceTable() !=null){                                   
                 h.put("id",column_acc_Id);
-                String url=request.getContextPath()+"/servlets/query?table="+column.getReferenceTable().getId()+"&return_type=m&accepter_id="+"list_query_form"+"."+column_acc_Id;
+               	FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column,null,false);
+               	fkQueryModel.setQueryindex(queryindex);
+               	
         %>
           		<input:text name="<%=inputName%>" attributes="<%= h %>" /><%= type%>
-                <input type='hidden' name='<%=column_acc_name+"/sql"%>' id='<%=column_acc_Id + "_sql"%>' />
+				<input type='hidden' name='<%=column_acc_name+"/sql"%>' id='<%=column_acc_Id + "_sql"%>' />
+				<input type='hidden' name='<%=column_acc_name+"/filter"%>' id='<%=column_acc_Id + "_filter"%>' />
+				<span id='<%=column_acc_Id+"_link"%>' title="popup" onaction="<%=fkQueryModel.getButtonClickEventScript()%>">
+						<img id='<%=column_acc_Id+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/filterobj.gif' alt='<%=PortletUtils.getMessage(pageContext, "open-new-page-to-search",null)%>'>
+				</span>
+				<script>createButton(document.getElementById("<%=column_acc_Id+"_link"%>"));</script>	
                 <%/* 
                 Do not support open search form again currently
                 %>
