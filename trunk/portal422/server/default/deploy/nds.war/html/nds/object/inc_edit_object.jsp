@@ -110,6 +110,7 @@ for( int i=0;i< editColumns.size();i++){
             refTable= column.getReferenceTable();
             if(refTable!=null){		
             	fkQueryModel=new FKObjectQueryModel(false,refTable, columnDomId,column,null);
+            	fkQueryModel.setQueryindex(-1);
             	if(column.isAutoComplete()){
 	            	dcqjsonObject=new org.json.JSONObject();
 					dcqjsonObject.put("column_acc_Id",columnDomId);

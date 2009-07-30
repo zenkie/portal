@@ -127,6 +127,7 @@ for( int i=0;i< editColumns.size();i++){
             refTable= column.getReferenceTable();
             if(refTable!=null){		
             	fkQueryModel=new FKObjectQueryModel(false,refTable,columnDomId,column,null);
+            	fkQueryModel.setQueryindex(-1);
             	h.put("onkeydown",fkQueryModel.getKeyEventScript());
             	dcqjsonObject_product=new org.json.JSONObject();
 				dcqjsonObject_product.put("column_acc_Id",columnDomId);

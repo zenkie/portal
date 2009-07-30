@@ -239,6 +239,7 @@ if(status==2){
 <div id="obj-bottom">
 	<%@ include file="bottom.jsp" %>
 </div>
+<input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
 <table><tr><td>
 	  <script>
 	  	 	jQuery(document).ready(function(){dcq.createdynlist(<%=dcqjsonarraylist%>)});
