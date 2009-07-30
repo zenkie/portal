@@ -9,6 +9,7 @@ int assigneeId= Tools.getInt(al.get(1), -1);
 String assignee= (assigneeId==-1? "": (String)al.get(2));
 String desc= (assigneeId==-1? "": (String) al.get(3));
 FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(TableManager.getInstance().getTable("users"), "assignee",null);
+fkQueryModel.setQueryindex(-1);
 %>
 <form action="/control/command" method="post" name="fm2" id="form1">
 <table border="0" cellpadding="4" cellspacing="0" width="100%">
