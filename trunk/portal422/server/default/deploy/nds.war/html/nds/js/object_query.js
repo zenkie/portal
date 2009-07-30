@@ -13,13 +13,14 @@ var DropdownQuery = Class.create();
 var ObjectQuery = Class.create();
 ObjectQuery.prototype = {
 	initialize: function() {
-		this._gridQuery=null; // QueryObject 
-		this._accepter_id=null; //id of input control that accepts query result
-		this._mainobjurl=null; // object url
-		this._returnType="s"; // default to single, "m" for multiple, "f" for filter
+		this._gridQuery=[]; // QueryObject 
+		this._accepter_id=[]; //id of input control that accepts query result
+		this._mainobjurl=[]; // object url
+		this._returnType=[]; // default to single, "m" for multiple, "f" for filter
 		this._partialData=null; // partial columns of all rows, for single return type
 		this.multi_result=[];
-		this._xmlid=0;
+		this._queryindex=-1;
+		this._xmlid=[];
 		this.condition="IN";
 		application.addEventListener( "QueryObject", this._onQueryObject, this);
 		application.addEventListener( "ReturnSQL", this._onReturnSQL, this);	
@@ -37,11 +38,12 @@ ObjectQuery.prototype = {
 		if( l==null || (l!=null &&l.title=="popup")){
 			url=reconstructQueryURL(url, options);
 			if(url==null) return; // find error
-			this._gridQuery=null;
-			this._accepter_id=accepter_id;
+			this._queryindex=this._queryindex+1;
+			this.multi_result[this._queryindex]=new Array();
+			this._accepter_id[this._queryindex]=accepter_id;
 			var popup = Alerts.fireMessageBox({
-					width: 610,modal:true,noCenter: true,title: gMessageHolder.SEARCH,
-					onClose: function() {}
+					width: 610,modal:true,noCenter: true,title: gMessageHolder.SEARCH,queryindex:this._queryindex,
+					onClose: function() {oq.close_query();}
 				});
 			//AjaxUtil.update(url, popup, null);
 			new Ajax.Request(url, {
@@ -68,6 +70,7 @@ ObjectQuery.prototype = {
 			  	//}catch(e){}
 			  }
 			});	
+		//	$("queryindex_"+this._queryindex).value=this._queryindex;
 		}else{
 				$(accepter_id+ "_link").title="popup"; // reset to popup
 				$(accepter_id+ "_img").alt="";
@@ -86,19 +89,18 @@ ObjectQuery.prototype = {
 			    	obj.value= "";
 			    }
 		}
-
 	},
 	toggle_m: function(url, accepter_id, options) {
 			var l= $(accepter_id+"_link");
 			if( l==null || (l!=null &&l.title=="popup")){
 				url=reconstructQueryURL(url, options);
 				if(url==null) return; // find error
-	
-				this._gridQuery=null;
-				this._accepter_id=accepter_id;
+				this._queryindex=this._queryindex+1;
+				this.multi_result[this._queryindex]=new Array();
+				this._accepter_id[this._queryindex]=accepter_id;
 				var popup = Alerts.fireMessageBox({
-						width: 790,modal:true,noCenter: true,title: gMessageHolder.SEARCH,
-						onClose: function() {oq.close();}
+						width: 790,modal:true,noCenter: true,title: gMessageHolder.SEARCH,queryindex:this._queryindex,
+						onClose: function() {oq.close_query();}
 					});
 				//AjaxUtil.update(url, popup, null);
 				new Ajax.Request(url, {
@@ -124,15 +126,16 @@ ObjectQuery.prototype = {
 				  	  	}
 				  }
 				});	
+				//$("queryindex_"+this._queryindex).value=this._queryindex;
 			}else{
 				//clear data
 				$(accepter_id+ "_link").title="popup"; // reset to popup
 				$(accepter_id+ "_img").alt="";
 		      	$(accepter_id).value="";
-		      	if(this._returnType=="a"){
+		      	if(this._returnType[this._queryindex]=="a"){
 		      		$(accepter_id+ "_img").src="/html/nds/images/add_filter.gif";
-		      			if($("tab_"+this._accepter_id)!=null){
-							$("tab_"+this._accepter_id).innerHTML="";
+		      			if($("tab_"+accepter_id)!=null){
+							$("tab_"+accepter_id).innerHTML="";
 						}
 		      	}else{
 		      		$(accepter_id+ "_img").src="/html/nds/images/filterobj.gif";
@@ -159,13 +162,14 @@ ObjectQuery.prototype = {
 	 * @param returnType "m" (multiple) or "s" (single)
 	 */
 	setQueryObject:function(queryObject, objURL, rtnType){
-		this._gridQuery=queryObject;
-		this._gridQuery.callbackEvent="QueryObject";
-		this._gridQuery.returnType= rtnType;
-		this._returnType= rtnType;
+		this._gridQuery[this._queryindex]=queryObject;
+		this._gridQuery[this._queryindex].callbackEvent="QueryObject";
+		this._gridQuery[this._queryindex].returnType= rtnType;
+		this._returnType[this._queryindex]= rtnType;
+		this._xmlid[this._queryindex]=0;
 		this._initGridSelectionControl();
-		this._mainobjurl= objURL;
-		var te=$("pop-up-title-0");
+		this._mainobjurl[this._queryindex]= objURL;
+		var te=$("pop-up-title-"+this._queryindex);
 		if(te){
 			te.innerHTML=gMessageHolder.SEARCH + " - " + queryObject.table_desc;
 		}
@@ -180,26 +184,27 @@ ObjectQuery.prototype = {
 	},
 	search:	function(){
 		this._partialData=null;
-		if($("mulit-info")!=null){
-			$("mulit-info").remove();
+		if($("mulit-info_"+this._queryindex)!=null){
+			$("mulit-info_"+this._queryindex).remove();
 		}
-		var fm=$("q_form");
-	    this._gridQuery.param_str= fm.serialize();
-	    this._gridQuery.start=0;
-	    var qexp=$("q_form_param_expr");
+		var fm=$("q_form_"+this._queryindex);
+	    this._gridQuery[this._queryindex].param_str= fm.serialize();
+	  //  alert(Object.toJSON(this._gridQuery.param_str));
+	    this._gridQuery[this._queryindex].start=0;
+	    var qexp=$("q_form_param_expr_"+this._queryindex);
 	    if(qexp!=null){
-	    	this._gridQuery.param_expr=qexp.value;
+	    	this._gridQuery[this._queryindex].param_expr=qexp.value;
 	    }
-		this._executeQuery(this._gridQuery);
+		this._executeQuery(this._gridQuery[this._queryindex]);
 	},
 	
 	returnSQL:function(){
-		var fm=$("q_form");
-	    var queryObj= Object.clone(this._gridQuery);
+		var fm=$("q_form_"+this._queryindex);
+	    var queryObj= Object.clone(this._gridQuery[this._queryindex]);
 	   	queryObj.param_str= fm.serialize();
 	    queryObj.callbackEvent="ReturnSQL";
 	    queryObj.noresult=true;
-	    if(this._returnType=="f"){//filter
+	    if(this._returnType[this._queryindex]=="f"){//filter
 			queryObj.resulthandler="/html/nds/query/search_result_filter_dropdown.jsp";
 		}else
 		    queryObj.resulthandler="/html/nds/query/search_result_sql.jsp";
@@ -211,9 +216,9 @@ ObjectQuery.prototype = {
 	 */
 	returnRow:function(ele){
 		// get selected line
-		var acpt=$(this._accepter_id);
+		var acpt=$(this._accepter_id[this._queryindex]);
       	acpt.value=ele.alt;
-      	var fk_acpt=$("fk_"+ this._accepter_id);
+      	var fk_acpt=$("fk_"+ this._accepter_id[this._queryindex]);
       	if(fk_acpt!=null)fk_acpt.value=ele.id.replace(/chk_obj_/i, "") ;
       	
 		if(this._partialData!=null && acpt.onaction){
@@ -230,7 +235,7 @@ ObjectQuery.prototype = {
 		var selectedIds=Array();
 		var selectedAKs=Array();
 		var j;
-		var cks=$("q_fm_list").getInputs('checkbox', 'itemid');
+		var cks=$("q_fm_list_"+this._queryindex).getInputs('checkbox', 'itemid');
 		for(var i=0;i<cks.length;i++){
 			if( cks[i].checked){
 			  	selectedIds.push(cks[i].value);
@@ -239,13 +244,13 @@ ObjectQuery.prototype = {
 		}
 		if(selectedIds.length==0){
  			alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
-            return;				
+            return;
 		}
 		var sql= " IN ("+selectedIds.join(",")+")";
 		var sqlDesc= gMessageHolder.CONTAINS+" ("+ selectedAKs.join(",")+")";
 		var xml=null;
-		if(this._returnType=="f"){//filter
-			var j={"expr":{"desc":sqlDesc,"clink":this._gridQuery.table+".ID","condition":sql}};
+		if(this._returnType[this._queryindex]=="f"){//filter
+			var j={"expr":{"desc":sqlDesc,"clink":this._gridQuery[this._queryindex].table+".ID","condition":sql}};
 			var jo={"filter":{"desc":sqlDesc,"sql":sql,"expr":j}};
 			xml= json2xml(jo,false);
 			this.returnFilterObj_dropdown(sqlDesc, xml);
@@ -257,15 +262,15 @@ ObjectQuery.prototype = {
 	returnFilterObj_dropdown:function(desc,xml){
 		if(desc=="")
 		{
-      		$(this._accepter_id+"_fd").value=gMessageHolder.AVAILABLE;
+      		$(this._accepter_id[this._queryindex]+"_fd").value=gMessageHolder.AVAILABLE;
       	}else{
-      		$(this._accepter_id+"_fd").value=desc;
+      		$(this._accepter_id[this._queryindex]+"_fd").value=desc;
       	}
-      	$(this._accepter_id).value=xml;
-      	$(this._accepter_id+"_fd").readOnly=true;
-		$(this._accepter_id+ "_img").src="/html/nds/images/clear.gif";
-		$(this._accepter_id+ "_link").title="clear";
-		$(this._accepter_id+ "_img").alt=gMessageHolder.CLEAR_CONDITION;
+      	$(this._accepter_id[this._queryindex]).value=xml;
+      	$(this._accepter_id[this._queryindex]+"_fd").readOnly=true;
+		$(this._accepter_id[this._queryindex]+ "_img").src="/html/nds/images/clear.gif";
+		$(this._accepter_id[this._queryindex]+ "_link").title="clear";
+		$(this._accepter_id[this._queryindex]+ "_img").alt=gMessageHolder.CLEAR_CONDITION;
 		this.close();				
 	},	
 	/**
@@ -273,19 +278,19 @@ ObjectQuery.prototype = {
 	 * 
 	 */
 	returnFilterObj:function(desc,xml){
-		var xmlvalue=this._xmlid+"_xml";
+		var xmlvalue=this._xmlid[this._queryindex]+"_xml";
 		var flag=true;
 		if(desc==""){
 			desc=gMessageHolder.AVAILABLE;
 		}
 		//var content_row={"id":desc,"value":xmlvalue,"condition":$("condition").value,"set":xml};	
 		var content_row={"id":desc,"condition":this.condition,"value":xmlvalue,"set":xml};	
-		var mid=this.multi_result.length;
+		var mid=this.multi_result[this._queryindex].length;
 		for(var i=0;i<mid;i++){
-			if(this.multi_result[i].id==content_row.id){
+			if(this.multi_result[this._queryindex][i].id==content_row.id){
 				flag=false;
-				if(this.multi_result[i].condition!=this.condition){
-					if(this.multi_result[i].condition=="IN"){
+				if(this.multi_result[this._queryindex][i].condition!=this.condition){
+					if(this.multi_result[this._queryindex][i].condition=="IN"){
 						alert(gMessageHolder.SET_ALREADY_CHOOSED);
 					}else{
 						alert(gMessageHolder.SET_ALREADY_EXCLUDE);
@@ -295,26 +300,26 @@ ObjectQuery.prototype = {
 			}
 		}
 		if(flag){
-			this.multi_result[mid]=content_row;
-			dwr.util.cloneNode("m_multiple_row",{idPrefix:this.multi_result[mid].value+'_'});
-			$(this.multi_result[mid].value+'_'+"m_multiple").innerHTML="<input type=\"checkbox\" name=\"m_multiple\"  value="+this.multi_result[mid].value+">";
-			dwr.util.setValue(this.multi_result[mid].value+'_'+"m_multiple_value",this.multi_result[mid].id);
-			$(this.multi_result[mid].value+'_'+"m_multiple_row").style.display="";
-			this._xmlid++;
+			this.multi_result[this._queryindex][mid]=content_row;
+			dwr.util.cloneNode("m_multiple_row_"+this._queryindex,{idPrefix:this.multi_result[this._queryindex][mid].value+'_'});
+			$(this.multi_result[this._queryindex][mid].value+'_'+"m_multiple_"+this._queryindex).innerHTML="<input type=\"checkbox\" name=\"m_multiple_"+this._queryindex+"\"  value="+this.multi_result[this._queryindex][mid].value+">";
+			dwr.util.setValue(this.multi_result[this._queryindex][mid].value+'_'+"m_multiple_value_"+this._queryindex,this.multi_result[this._queryindex][mid].id);
+			$(this.multi_result[this._queryindex][mid].value+'_'+"m_multiple_row_"+this._queryindex).style.display="";
+			this._xmlid[this._queryindex]++;
 		}
 	},	
 	returnQuery:function(sql,sqlDesc,sqlExpr){
-		$(this._accepter_id+ "_link").title="clear"; // reset to popup
-      	$(this._accepter_id+ "_img").src="/html/nds/images/clear.gif";
-	    $(this._accepter_id+ "_img").alt=gMessageHolder.CLEAR_CONDITION;
-      	$(this._accepter_id).value=sqlDesc;
-     	$(this._accepter_id).readOnly=true;
-      	$(this._accepter_id+ "_sql").value=sql;
-		var obj=$(this._accepter_id+ "_expr");
+		$(this._accepter_id[this._queryindex]+ "_link").title="clear"; // reset to popup
+      	$(this._accepter_id[this._queryindex]+ "_img").src="/html/nds/images/clear.gif";
+	    $(this._accepter_id[this._queryindex]+ "_img").alt=gMessageHolder.CLEAR_CONDITION;
+      	$(this._accepter_id[this._queryindex]).value=sqlDesc;
+     	$(this._accepter_id[this._queryindex]).readOnly=true;
+      	$(this._accepter_id[this._queryindex]+ "_sql").value=sql;
+		var obj=$(this._accepter_id[this._queryindex]+ "_expr");
 		if( obj !=null){
 	    	obj.value= sqlExpr;
 	    }
-		this.close();				
+		this.close();
 	},
 	/**@return when e is not an element or e.value is empty
 	*/
@@ -324,10 +329,18 @@ ObjectQuery.prototype = {
 		
 	},
 	close:function(){
-		window.setTimeout("Alerts.killAlert(document.getElementById('pop-up-title-0'))",1);
-		this.multi_result=[];
-		this.condition="IN";
+		window.setTimeout("Alerts.killAlert(document.getElementById('pop-up-title-"+this._queryindex+"'))",1);
 	},
+	close_query:function(){
+		this.multi_result[this._queryindex]=null;
+		this.condition="IN";
+		this._xmlid[this._queryindex]=0;
+		this._queryindex=this._queryindex-1;
+		if(this._queryindex==-1){
+			this._gridQuery=[];
+		}
+	},
+	
 	onSearchReturn :function(event) {
 	  if (!event) event = window.event;
 	  if (event && event.keyCode && event.keyCode == 13) this.search();
@@ -364,28 +377,21 @@ ObjectQuery.prototype = {
 	*/
 	_onQueryObject:function(e){
 		var qr=e.getUserData().data; 
-		var rowCount=qr.rowCount;
-		var i,s,a;
-		var q=this._gridQuery;
-		s=qr.start;
-		q.start= s;
-		// data insert by html
 		if(qr.pagecontent!=null){
 			if(Prototype.Browser.IE){
 				// ie does not support setting innerHTML in tbody
-				var div=$("q_embed_lines");
+				var div=$("q_embed_lines_"+this._queryindex);
 				var te=div.innerHTML;
 				var p= te.indexOf("<!--$QGRIDTABLE_START-->");
 				var pe= te.indexOf("<!--$QGRIDTABLE_END-->");
 				var pstr=te.substring(0, p+ "<!--$QGRIDTABLE_START-->".length);
 				var pestr=te.substr(pe);
-				var newDiv=pstr.concat("<tbody id='q_grid_table'>",qr.pagecontent,"</tbody>",pestr);
+				var newDiv=pstr.concat("<tbody id='q_grid_table_"+this._queryindex+"'>",qr.pagecontent,"</tbody>",pestr);
 				div.innerHTML=newDiv;
 				executeLoadedScript(div);
 				this._initGridSelectionControl();
-				
 			}else{
-				var gridTableBody=$("q_grid_table");
+				var gridTableBody=$("q_grid_table_"+this._queryindex);
 				dwr.util.removeAllRows(gridTableBody);
 				gridTableBody.innerHTML=qr.pagecontent;
 				executeLoadedScript(gridTableBody);
@@ -401,65 +407,65 @@ ObjectQuery.prototype = {
 		this._syncGridControl(qr);
 		var desc=  qr.queryDesc;
 		if(qr.message !=undefined && qr.message!=null) desc+= "<br><blink><span class='err'>***"+ qr.message+"</blink>";
-		$("q_filter_setting").innerHTML= desc;
-		dwr.util.setValue($("q_chk_select_all"),false);
-		$("query-data").show();
+		$("q_filter_setting_"+this._queryindex).innerHTML= desc;
+		dwr.util.setValue($("q_chk_select_all_"+this._queryindex),false);
+		$("query-data_"+this._queryindex).show();
 	},
 	_syncGridControl:function(qr){
-		this._gridQuery.totalRowCount=qr.totalRowCount;
-		this._gridQuery.start=qr.start;
+		this._gridQuery[this._queryindex].totalRowCount=qr.totalRowCount;
+		this._gridQuery[this._queryindex].start=qr.start;
 		//this._gridQuery.range=qr.range;
 		//dwr.util.setValue("range_select", qr.range);
-		if( this._gridQuery.order_columns!=null){
-			var ele=$("q_title_"+this._gridQuery.order_columns);
+		if( this._gridQuery[this._queryindex].order_columns!=null){
+			var ele=$("q_title_"+this._gridQuery[this._queryindex].order_columns);
 			if(ele!=null){
-				ele.innerHTML="<img src='/html/nds/images/"+( this._gridQuery.order_asc?"up":"down")+"simple.png'>";
+				ele.innerHTML="<img src='/html/nds/images/"+( this._gridQuery[this._queryindex].order_asc?"up":"down")+"simple.png'>";
 			}
 		}
-		if($("q_txtRange")!=null){
-			$("q_txtRange").innerHTML=((qr.start+1)+"-"+ (qr.start+qr.rowCount)+"/"+ qr.totalRowCount);
+		if($("q_txtRange_"+this._queryindex)!=null){
+			$("q_txtRange_"+this._queryindex).innerHTML=((qr.start+1)+"-"+ (qr.start+qr.rowCount)+"/"+ qr.totalRowCount);
 			if(qr.start>0){
-				 $("q_begin_btn").setEnabled(true);
-				 $("q_prev_btn").setEnabled(true);
+				 $("q_begin_btn_"+this._queryindex).setEnabled(true);
+				 $("q_prev_btn_"+this._queryindex).setEnabled(true);
 			}else{
-				 $("q_begin_btn").setEnabled(false);
-				 $("q_prev_btn").setEnabled(false);
+				 $("q_begin_btn_"+this._queryindex).setEnabled(false);
+				 $("q_prev_btn_"+this._queryindex).setEnabled(false);
 			}
 			if((qr.start+qr.rowCount)< qr.totalRowCount){
-				 $("q_next_btn").setEnabled(true);
-				 $("q_end_btn").setEnabled(true);
+				 $("q_next_btn_"+this._queryindex).setEnabled(true);
+				 $("q_end_btn_"+this._queryindex).setEnabled(true);
 			}else{
-				 $("q_next_btn").setEnabled(false);
-				 $("q_end_btn").setEnabled(false);
+				 $("q_next_btn_"+this._queryindex).setEnabled(false);
+				 $("q_end_btn_"+this._queryindex).setEnabled(false);
 			}
 		}
 	},		
 	_executeQuery : function (queryObj) {
-		$("q_progress").show();
+		$("q_progress_"+this._queryindex).show();
 	    this._toggleButtons(true);
 		var s= Object.toJSON(queryObj);
+		//alert(s);
 		Controller.query(s, function(r){
 				var result= r.evalJSON();
 				if (result.code !=0 ){
-					$("q_progress").hide();
 				    oq._toggleButtons(false);
 					msgbox(result.message);
 				}else {
 					var evt=new BiEvent(result.callbackEvent);
 					evt.setUserData(result);
 					application.dispatchEvent(evt);
-					$("q_progress").hide();
 				    oq._toggleButtons(false);
 				}
 		  	}		
 		);
+		$("q_progress_"+this._queryindex).hide();
 	},		
      /**
      * Init list table to handle selection action
      */
     _initGridSelectionControl:function(){
 		var tb= new SelectableTableRows(document.getElementById("q_inc_table"), false);// set as global object
-		if(this._returnType!="s"){//"m" or "f"
+		if(this._returnType[this._queryindex]!="s"){//"m" or "f"
 			tb.ondoubleclick=function(trElement){
 				oq.mo(trElement.id.replace(/_qtemplaterow/i, ""));
 			};
@@ -467,11 +473,10 @@ ObjectQuery.prototype = {
 			tb.ondoubleclick=function(trElement){
 				//$(oq._accepter_id).value=$("chk_obj_"+trElement.id.replace(/_qtemplaterow/i, "") ).alt;
 				var ele=$("chk_obj_"+trElement.id.replace(/_qtemplaterow/i, ""));
-				var acpt=$(oq._accepter_id);
+				var acpt=$(oq._accepter_id[this._queryindex]);
 		      	acpt.value=ele.alt;
-		      	var fk_acpt=$("fk_"+ oq._accepter_id);
+		      	var fk_acpt=$("fk_"+ oq._accepter_id[this._queryindex]);
 		      	if(fk_acpt!=null)fk_acpt.value=ele.id.replace(/chk_obj_/i, "") ;
-		      	
 				if(oq._partialData!=null && acpt.onaction){
 					var rowIdx=Number(ele.title);
 					if(rowIdx>=0&& rowIdx<oq._partialData.length){
@@ -488,13 +493,13 @@ ObjectQuery.prototype = {
 		popup_window("/html/nds/object/object.jsp?table="+tableId+"&id="+objId);
 	},
     mo:function(tid){
-		popup_window(this._mainobjurl+tid);
+		popup_window(this._mainobjurl[this._queryindex]+tid);
 	},
 	/**
 	* create query request and execute query
 	*/
 	refreshGrid : function () {
-		this._executeQuery(this._gridQuery);
+		this._executeQuery(this._gridQuery[this._queryindex]);
 	},	
 	/**
 	 * Reorder grid query
@@ -502,17 +507,17 @@ ObjectQuery.prototype = {
 	 * order by column, will toggle asc and desc, else do asc 
 	 */
 	orderGrid: function(columnId){
-		var oldOrderBy=this._gridQuery.order_columns;
-		var oldAsc=this._gridQuery.order_asc;
+		var oldOrderBy=this._gridQuery[this._queryindex].order_columns;
+		var oldAsc=this._gridQuery[this._queryindex].order_asc;
 		if(oldOrderBy==columnId ){
-			this._gridQuery.order_asc=!oldAsc;
+			this._gridQuery[this._queryindex].order_asc=!oldAsc;
 		}else{
-			var ele=$("q_title_"+oldOrderBy);
+			var ele=$("q_title_"+oldOrderBy+"_"+this._queryindex);
 			if(ele!=null)ele.innerHTML="";
-			this._gridQuery.order_columns=columnId;
-			this._gridQuery.order_asc=true;
+			this._gridQuery[this._queryindex].order_columns=columnId;
+			this._gridQuery[this._queryindex].order_asc=true;
 		}		
-		this._executeQuery(this._gridQuery);
+		this._executeQuery(this._gridQuery[this._queryindex]);
 	},
 	/***
 	* Invoke by buttons, include btn_begin,btn_next,btn_prev,btn_end
@@ -521,29 +526,29 @@ ObjectQuery.prototype = {
 	scrollPage: function (t) {
 		//var t=event.target.id;
 		var s;
-		var qr=Object.clone(this._gridQuery);
+		var qr=Object.clone(this._gridQuery[this._queryindex]);
 		var qs=qr.start;
-		var qrange=parseInt( $("q_range_select").value,10);
+		var qrange=parseInt( $("q_range_select_"+this._queryindex).value,10);
 		var qtot=qr.totalRowCount;
-        if(t=="q_begin_btn")s=0;
-		else if(t=="q_prev_btn") s= qs-qrange;
-		else if(t=="q_next_btn") s= qs+qrange;
-		else if(t=="q_end_btn") s= qtot-qrange;
+        if(t=="q_begin_btn_"+this._queryindex)s=0;
+		else if(t=="q_prev_btn_"+this._queryindex) s= qs-qrange;
+		else if(t=="q_next_btn_"+this._queryindex) s= qs+qrange;
+		else if(t=="q_end_btn_"+this._queryindex) s= qtot-qrange;
 		else s= qs;
 		
 		qr.start=s;
 		qr.range=qrange;
-		this._gridQuery.range=qrange;
+		this._gridQuery[this._queryindex].range=qrange;
 		this._executeQuery(qr);
 	},	
 	/**
 	 * mark all check box checked
 	 */
 	selectAll:function(){
-		var ca=$("q_chk_select_all");
+		var ca=$("q_chk_select_all_"+this._queryindex);
 		ca.checked = ca.checked|0;
 		var ck= ca.checked;
-		var cks=$("q_fm_list").getInputs('checkbox', 'itemid');
+		var cks=$("q_fm_list_"+this._queryindex).getInputs('checkbox', 'itemid');
 		for(var i=0;i<cks.length;i++){
 			cks[i].checked= ck;
 			this.dynamic_add(cks[i].id);
@@ -552,27 +557,27 @@ ObjectQuery.prototype = {
 	
 	return_content:function(akData){
 		var content_row=null;
-		var compare_len=this.multi_result.length;
-		var len=this.multi_result.length;
+		var compare_len=this.multi_result[this._queryindex].length;
+		var len=this.multi_result[this._queryindex].length;
 		var flag=false;
 		var flag_check=false;
 		var jo=null;
 		var sql=null;
 		var sqlDesc=null;
-		var cks=$("q_fm_list").getInputs('checkbox', 'itemid');
+		var cks=$("q_fm_list_"+this._queryindex).getInputs('checkbox', 'itemid');
 		for(var i=0;i<cks.length;i++){
 			flag=false;
 			if( cks[i].id==akData){
 				sql=this.condition+"("+cks[i].value+")";
-				content_row={"id":cks[i].id,"value":cks[i].value,"condition":this.condition,"clkstr":this._gridQuery.table+".ID"};
+				content_row={"id":cks[i].id,"value":cks[i].value,"condition":this.condition,"clkstr":this._gridQuery[this._queryindex].table+".ID"};
 				for(var j=0;j<compare_len;j++){
-					if(this.multi_result[j].value==cks[i].value){ 
+					if(this.multi_result[this._queryindex][j].value==cks[i].value){ 
 						flag=true;	
-						if(this.multi_result[j].condition!=this.condition){
-							if(this.multi_result[j].condition=="IN"){
-								alert(this.multi_result[j].id+gMessageHolder.ALREADY_CHOOSED);
+						if(this.multi_result[this._queryindex][j].condition!=this.condition){
+							if(this.multi_result[this._queryindex][j].condition=="IN"){
+								alert(this.multi_result[this._queryindex][j].id+gMessageHolder.ALREADY_CHOOSED);
 							}else{
-								alert(this.multi_result[j].id+gMessageHolder.ALREADY_EXCLUDE);
+								alert(this.multi_result[this._queryindex][j].id+gMessageHolder.ALREADY_EXCLUDE);
 							}
 							flag_check=true;
 						}
@@ -580,7 +585,7 @@ ObjectQuery.prototype = {
 					}
 				}	
 				if(!flag){
-			  	this.multi_result[len]=content_row;
+			  	this.multi_result[this._queryindex][len]=content_row;
 			  	len++;
 			  }
 			}
@@ -589,26 +594,27 @@ ObjectQuery.prototype = {
  	//		alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
     //        return;				
 	//	}
-    	for(var mid=compare_len;mid<this.multi_result.length;mid++){
-    		dwr.util.cloneNode("m_multiple_row",{idPrefix:this.multi_result[mid].value+'_'});
-    		$(this.multi_result[mid].value+'_'+"m_multiple").innerHTML="<input type=\"checkbox\" name=\"m_multiple\"  value="+this.multi_result[mid].id+">";
-		  	if(this.multi_result[mid].condition!="IN"){
-		  		dwr.util.setValue(this.multi_result[mid].value+'_'+"m_multiple_value",gMessageHolder.NOTCONTAINS+"("+this.multi_result[mid].id+")");
+    	for(var mid=compare_len;mid<this.multi_result[this._queryindex].length;mid++){
+    		dwr.util.cloneNode("m_multiple_row_"+this._queryindex,{idPrefix:this.multi_result[this._queryindex][mid].value+'_'});
+    		$(this.multi_result[this._queryindex][mid].value+'_'+"m_multiple_"+this._queryindex).innerHTML="<input type=\"checkbox\" name=\"m_multiple_"+this._queryindex+"\"  value="+this.multi_result[this._queryindex][mid].id+">";
+		  	if(this.multi_result[this._queryindex][mid].condition!="IN"){
+		  		dwr.util.setValue(this.multi_result[this._queryindex][mid].value+'_'+"m_multiple_value_"+this._queryindex,gMessageHolder.NOTCONTAINS+"("+this.multi_result[this._queryindex][mid].id+")");
 		  	}else{
-		  		dwr.util.setValue(this.multi_result[mid].value+'_'+"m_multiple_value",gMessageHolder.CONTAINS+"("+this.multi_result[mid].id+")");
+		  		dwr.util.setValue(this.multi_result[this._queryindex][mid].value+'_'+"m_multiple_value_"+this._queryindex,gMessageHolder.CONTAINS+"("+this.multi_result[this._queryindex][mid].id+")");
 			}
-		  	$(this.multi_result[mid].value+'_'+"m_multiple_row").style.display="";
+		  	$(this.multi_result[this._queryindex][mid].value+'_'+"m_multiple_row_"+this._queryindex).style.display="";
 		}
 	},
 	remove_choosed_rows:function(){
 		var flag=false;
-		 var obj=document.getElementsByName("m_multiple"); 
+		var value=this._queryindex;
+		 var obj=document.getElementsByName("m_multiple_"+value); 
 		 for(var i=obj.length-1;i>=0;i--){
 	  	if(obj[i].checked){
 	  		flag=true;
-	  		var j=this.multi_result[i].value;
-	  		 dwr.util.removeAllRows("content",{filter:function(tr){return (tr.id==j+'_'+"m_multiple_row");}});
-	  		 this.multi_result.splice(i,1);	
+	  		var j=this.multi_result[this._queryindex][i].value;
+	  		 dwr.util.removeAllRows("content_"+this._queryindex,{filter:function(tr){return (tr.id==j+'_'+"m_multiple_row_"+value);}});
+	  		 this.multi_result[this._queryindex].splice(i,1);	
 	  	}
 	  }
 	  if(!flag){
@@ -616,33 +622,36 @@ ObjectQuery.prototype = {
 	  }
 	},
 	remove_all:function(){
-		dwr.util.removeAllRows("content",{filter:function(tr){return (tr.id!="m_multiple_row");}});
-		this.multi_result =[];
+		var value=this._queryindex;
+		dwr.util.removeAllRows("content_"+this._queryindex,{filter:function(tr){return (tr.id!="m_multiple_row_"+value);}});
+		//dwr.util.removeAllRows("content_"+this._queryindex,{this.filter(tr);});
+		this.multi_result[this._queryindex]=null;
+		this.multi_result[this._queryindex]=new Array();
 		this.condition="IN";
 	},
 	
 	return_set:function(){
-		var fm=$("q_form");
-	    var queryObj= Object.clone(this._gridQuery);
+		var fm=$("q_form_"+this._queryindex);
+	    var queryObj= Object.clone(this._gridQuery[this._queryindex]);
 	   	queryObj.param_str= fm.serialize();
 	    queryObj.callbackEvent="ReturnSET";
 	    queryObj.noresult=true;
 		//queryObj.resulthandler="/html/nds/query/search_result_filter.jsp?condition="+$("condition").value;
 		queryObj.condition=this.condition;
-		queryObj.returnType=this._returnType;
+		queryObj.returnType=this._returnType[this._queryindex];
 		queryObj.resulthandler="/html/nds/query/search_result_filter.jsp";
 		this._executeQuery(queryObj);
 	},
 	
 	return_result:function(){
-		if(this.multi_result.length==0){
+		if(this.multi_result[this._queryindex].length==0){
 			alert(gMessageHolder.NO_DATA_TO_PROCESS);
 		}else{
 			var evt={};
 			evt.command="Return_Result";
-			evt.params=this.multi_result;
-			evt.table=this._gridQuery.table;
-			evt.returnType=this._returnType;
+			evt.params=this.multi_result[this._queryindex];
+			evt.table=this._gridQuery[this._queryindex].table;
+			evt.returnType=this._returnType[this._queryindex];
 			evt.callbackEvent="Return_Result";
 			this._executeCommandEvent(evt);	
 		}
@@ -651,42 +660,42 @@ ObjectQuery.prototype = {
 	_onReturn_Result:function(e){
 		var r=e.getUserData(); 
 		var ret=r.data;
-		if(this._returnType=="f"){
+		if(this._returnType[this._queryindex]=="f"){
 			if(ret.desc==""){
-				$(this._accepter_id+"_fd").value=gMessageHolder.AVAILABLE;
+				$(this._accepter_id[this._queryindex]+"_fd").value=gMessageHolder.AVAILABLE;
 			}else{
-				$(this._accepter_id+"_fd").value=ret.desc;
+				$(this._accepter_id[this._queryindex]+"_fd").value=ret.desc;
 			}
-			$(this._accepter_id).value=ret.filterxml;
-			$(this._accepter_id+"_fd").readOnly=true;
+			$(this._accepter_id[this._queryindex]).value=ret.filterxml;
+			$(this._accepter_id[this._queryindex]+"_fd").readOnly=true;
 
-		}else if(this._returnType=="a"){
-			$(this._accepter_id).value=ret.desc;
-			if($("tab_"+this._accepter_id)!=null){
-				$("tab_"+this._accepter_id).innerHTML=ret.desc;
+		}else if(this._returnType[this._queryindex]=="a"){
+			$(this._accepter_id[this._queryindex]).value=ret.desc;
+			if($("tab_"+this._accepter_id[this._queryindex])!=null){
+				$("tab_"+this._accepter_id[this._queryindex]).innerHTML=ret.desc;
 			}
-			$(this._accepter_id+ "_expr").value=ret.filterxml;
-			$(this._accepter_id+ "_sql").value=ret.sql;
-			$(this._accepter_id).readOnly=true;
+			$(this._accepter_id[this._queryindex]+ "_expr").value=ret.filterxml;
+			$(this._accepter_id[this._queryindex]+ "_sql").value=ret.sql;
+			$(this._accepter_id[this._queryindex]).readOnly=true;
 		}else{
-			$(this._accepter_id).value=ret.desc;
-			$(this._accepter_id+ "_filter").value=ret.filterxml;
-			$(this._accepter_id+ "_sql").value=ret.sql;
-			$(this._accepter_id).readOnly=true;
+			$(this._accepter_id[this._queryindex]).value=ret.desc;
+			$(this._accepter_id[this._queryindex]+ "_filter").value=ret.filterxml;
+			$(this._accepter_id[this._queryindex]+ "_sql").value=ret.sql;
+			$(this._accepter_id[this._queryindex]).readOnly=true;
 		}
-		$(this._accepter_id+ "_img").src="/html/nds/images/clear.gif";
-		$(this._accepter_id+ "_link").title="clear";
-		$(this._accepter_id+ "_img").alt=gMessageHolder.CLEAR_CONDITION;
+		$(this._accepter_id[this._queryindex]+ "_img").src="/html/nds/images/clear.gif";
+		$(this._accepter_id[this._queryindex]+ "_link").title="clear";
+		$(this._accepter_id[this._queryindex]+ "_img").alt=gMessageHolder.CLEAR_CONDITION;
 		this.close();
 	},
 	reverse_condition:function(){
-		if($("condition").checked){
+		if($("condition_"+this._queryindex).checked){
 		//	$("btn-choose-content").value=gMessageHolder.EXCLUDE_CHOOSED_ROWS;
-			$("btn-choose-set").value=gMessageHolder.EXCLUDE_ALL;
+			$("btn-choose-set_"+this._queryindex).value=gMessageHolder.EXCLUDE_ALL;
 			this.condition="NOT IN";
 		}else{
 		//	$("btn-choose-content").value=gMessageHolder.ADD_CHOOSE_ROWS;
-			$("btn-choose-set").value=gMessageHolder.ADD_ALL;
+			$("btn-choose-set_"+this._queryindex).value=gMessageHolder.ADD_ALL;
 			this.condition="IN";
 		}
 	},
@@ -707,7 +716,7 @@ ObjectQuery.prototype = {
 		}
 	},
 	dynamic_add:function(akData){
-		if($("multi-list")!=null){
+		if($("multi-list_"+this._queryindex)!=null){
 			if($(akData).checked){
 				this.return_content(akData);
 			}else{
@@ -716,18 +725,19 @@ ObjectQuery.prototype = {
 		}
 	},
 	dyn_remove_choosed_rows:function(akData){
-		 var obj=document.getElementsByName("m_multiple"); 
+		var value=this._queryindex;
+		 var obj=document.getElementsByName("m_multiple_"+value); 
 		 for(var i=obj.length-1;i>=0;i--){
 	  	if(obj[i].value==akData){
-	  		if(this.multi_result[i].condition==this.condition){
-	  		var j=this.multi_result[i].value;
-	  		 dwr.util.removeAllRows("content",{filter:function(tr){return (tr.id==j+'_'+"m_multiple_row");}});
-	  		 this.multi_result.splice(i,1);	
+	  		if(this.multi_result[this._queryindex][i].condition==this.condition){
+	  		var j=this.multi_result[this._queryindex][i].value;
+	  		 dwr.util.removeAllRows("content_"+this._queryindex,{filter:function(tr){return (tr.id==j+'_'+"m_multiple_row_"+value);}});
+	  		 this.multi_result[this._queryindex].splice(i,1);	
 	  		}else{
-	  			if(this.multi_result[i].condition=="IN"){
-					alert(this.multi_result[i].id+gMessageHolder.ALREADY_CHOOSED);
+	  			if(this.multi_result[this._queryindex][i].condition=="IN"){
+					alert(this.multi_result[this._queryindex][i].id+gMessageHolder.ALREADY_CHOOSED);
 				}else{
-					alert(this.multi_result[i].id+gMessageHolder.ALREADY_EXCLUDE);
+					alert(this.multi_result[this._queryindex][i].id+gMessageHolder.ALREADY_EXCLUDE);
 				}
 	  		}
 	  		 break;
@@ -736,7 +746,7 @@ ObjectQuery.prototype = {
 	},
 	
 	unselectall:function(){
-	 	dwr.util.setValue($("q_chk_select_all"), false);
+	 	dwr.util.setValue($("q_chk_select_all_"+this._queryindex), false);
 	}
 }
 ObjectQuery.main = function () {
