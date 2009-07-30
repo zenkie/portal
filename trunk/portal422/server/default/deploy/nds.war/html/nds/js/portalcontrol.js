@@ -9,7 +9,9 @@ PortalControl.prototype = {
 		dwr.util.setEscapeHtml(false);
 		/** A function to call if something fails. */
 		dwr.engine._errorHandler =  function(message, ex) {
-			$("timeoutBox").style.visibility = 'hidden';
+			if($("timeoutBox")!=null){
+				$("timeoutBox").style.visibility = 'hidden';
+			}
 	  		while(ex!=null && ex.cause!=null) ex=ex.cause;
 	  		if(ex!=null)message=ex.message;// dwr.engine._debug("Error: " + ex.name + ", " + ex.message+","+ ex.cause.message, true);
 			if (message == null || message == "") msgbox("A server error has occured. More information may be available in the console.");
@@ -883,7 +885,9 @@ PortalControl.prototype = {
 		return !( (selectedIdx==null || selectedIdx.length < 2));
 	},
 	timeoutRefresh:function(){
-		$("timeoutBox").style.visibility = 'hidden';
+		if($("timeoutBox")!=null){
+			$("timeoutBox").style.visibility = 'hidden';
+		}
 		dwr.engine.abortAll();
 		if($("list_query_form")!=null)toggleButtons($("list_query_form"),false);
 	  	try{
@@ -891,7 +895,9 @@ PortalControl.prototype = {
 	  	}catch(e){}
 	},
 	timeoutWait:function(){
-		$("timeoutBox").style.visibility = 'hidden';
+		if($("timeoutBox")!=null){
+			$("timeoutBox").style.visibility = 'hidden';
+		}
 	},
 	_executeQuery : function (queryObj) {
 		this._lastAccessTime= (new Date()).getTime();
@@ -904,7 +910,9 @@ PortalControl.prototype = {
 		var s= Object.toJSON(queryObj);
 		Controller.query(s, function(r){
 				//try{
-					$("timeoutBox").style.visibility = 'hidden';
+					if($("timeoutBox")!=null){
+						$("timeoutBox").style.visibility = 'hidden';
+					}
 					var result= r.evalJSON();
 					if (result.code !=0 ){
 						msgbox(result.message);
