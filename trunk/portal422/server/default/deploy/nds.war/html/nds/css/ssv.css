@@ -91,10 +91,36 @@ padding:5px;
 }
 
 #ssv-v {
+background:url(/html/nds/portal/ssv/images/middlebg.gif) repeat-x scroll;
 height:150px;
 +height:100%; /*IE可执行*/
 margin:5px 10px 0 5px;
 }
+
+#ssv-v .showitem { padding:15px 0 0 40px;}
+
+#ssv-v .showitem .pic{ position:relative}
+
+#ssv-v .yellow{ 
+background:url(/html/nds/portal/ssv/images/middleTitle-yellow.gif) no-repeat scroll;
+}
+
+#ssv-v .showitem .pic .title{ 
+position:absolute; 
+padding-top:10px; 
+left:-30px; 
+width: 22px; 
+height: 106px; 
+color:#fff; 
+line-height:16px;
+font-size:14px;
+font-weight:bold;}
+
+.clearfix{
+display:inline-block;}
+
+.span-auto{
+with:auto;}
 
 #ssv-v ul{
 list-style:none;
@@ -180,7 +206,27 @@ text-align:left;
 height:150px;
 +height:100%; /*IE可执行*/
 margin:5px 10px 0 5px;
+background:url(/html/nds/portal/ssv/images/middlebg.gif) repeat-x scroll;
 }
+
+#ssv-l .showitem { padding:15px 0 0 40px;}
+
+#ssv-l .showitem .pic{ position:relative}
+
+#ssv-l .blue{ 
+background:url(/html/nds/portal/ssv/images/middleTitle-blue.gif) no-repeat scroll;
+}
+
+#ssv-l .showitem .pic .title{ 
+position:absolute; 
+padding-top:10px; 
+left:-30px; 
+width: 22px; 
+height: 106px; 
+color:#fff; 
+line-height:16px;
+font-size:14px;
+font-weight:bold;}
 
 #ssv-l ul{
 list-style:none;
@@ -192,10 +238,30 @@ float:left;
 text-algin:left;}
 
 #ssv-w {
-height:150px;
+height:220px;
 +height:100%; /*IE可执行*/
 margin:5px 10px 0 5px;
+background:url(/html/nds/portal/ssv/images/middlebg.gif) repeat-x scroll;
 }
+
+#ssv-w .showitem { padding:15px 0 0 40px;}
+
+#ssv-w .showitem .pic{ position:relative}
+
+#ssv-w .blue{ 
+background:url(/html/nds/portal/ssv/images/middleTitle-blue01.gif) no-repeat scroll;
+}
+
+#ssv-w .showitem .pic .title{ 
+position:absolute; 
+padding-top:10px; 
+left:-30px; 
+width: 22px; 
+height: 106px; 
+color:#fff; 
+line-height:16px;
+font-size:14px;
+font-weight:bold;}
 
 #ssv-w ul{
 list-style:none;
