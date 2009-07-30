@@ -9,7 +9,6 @@ if(bottomFile !=null){
 <jsp:include page="<%=bottomFile%>" flush="true"/>
 <%}else{
 %>
+<div id="bottom-company-txt"> (C)2007-2008 </div>
 <div id="bottom-company-img"></div>	
 <%}%>
-
-

@@ -72,15 +72,22 @@ if(nds.util.Validator.isNull(dialogURL)){
 	%>
 	<%@ include file="navigation.jsp" %>
 	<%}%>
+<div id="ssv-bbs">
+<div class="ssv-p"><img src="/html/nds/portal/ssv/images/ssv-title04.gif" width="85" height="22"  /></div>
+	<%@ include file="bbs.jsp" %>
+</div>
+
 		</div>	
-	</td><td width="1%" norwap class="topleft">
-		<div id="ssv-help">
-		</div>
+	</td>
+<td width="1%" norwap class="topleft">
+
+
+<div class="ssv-help">
+<div class="ssv-help-p"><img src="/html/nds/portal/ssv/images/ssv-title05.gif" width="85" height="22"  /></div>
+<div id="ssv-help">	
+</div></div></div>		
     </td>
 </tr></table>	
-</div>
-<div id="ssv-bbs">
-	<%@ include file="bbs.jsp" %>
 </div>
 <div id="ssv-bottom">
 	<%@ include file="bottom.jsp" %>
