@@ -68,6 +68,9 @@ var Alerts = {
 		var maxURL= options.maxURL;
 		
 		outer.className = "pop-up-outer";
+		if(options.queryindex!=undefined){
+			outer.id="pop-up-outer_"+options.queryindex;
+		}
 		outer.align = "center";
 		inner.className = "pop-up-inner";
 		
@@ -137,7 +140,9 @@ var Alerts = {
 			var options = wrapper.options;
 			var background = null;
 			var showSelects = false;
-			
+			if(options.queryindex!=undefined){
+				wrapper=$("pop-up-outer_"+options.queryindex);
+			}
 			Alerts.remove(wrapper);
 			body.removeChild(wrapper);
 			
