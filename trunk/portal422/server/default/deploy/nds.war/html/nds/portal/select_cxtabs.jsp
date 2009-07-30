@@ -16,7 +16,8 @@ if(!nds.util.Validator.isNull(defaultCxtabName)){
 	//fix ad_table_id to current fact table
 	PairTable cxtabpt=new PairTable();
 	cxtabpt.put("ad_cxtab.ad_table_id", String.valueOf(tableId));
-	fkQueryModel=new FKObjectQueryModel(ad_cxtab_id_column.getReferenceTable(), cxtab_column_Id,ad_cxtab_id_column,cxtabpt);	
+	fkQueryModel=new FKObjectQueryModel(ad_cxtab_id_column.getReferenceTable(), cxtab_column_Id,ad_cxtab_id_column,cxtabpt);
+	fkQueryModel.setQueryindex(-1);	
 	// onchange="cxtabControl.loadCxtabProcessParam()" 
 %>	
 <%=PortletUtils.getMessage(pageContext, "cxtab-template",null)%>:&nbsp;<br>

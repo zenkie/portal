@@ -128,6 +128,7 @@ TableQueryModel model= new TableQueryModel(tableId,qColumns,false,false,locale);
 	                                h.put("id",column_acc_Id);
                                     //String url="/html/nds/query/search.jsp?table="+column.getReferenceTable().getId()+"&column="+column.getId()+"&return_type=m&accepter_id="+column_acc_Id;
                                     FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column,null,false);
+                                    fkQueryModel.setQueryindex(-1);
                                     if(nds.util.Validator.isNotNull(defaultValue)) defaultValue="="+defaultValue;
                             %>
                               		<input:text name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= h %>" /><%= type%>
@@ -181,6 +182,7 @@ for(int i=0;i<qColumns.size();i++){
 //<input type='hidden' name='select_desc' value='=columnTitles'>
   %>                
 <input type='hidden' name='show_all' value='true'>
+<input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
 <!--<div id='tryrecent'><input type='checkbox' id='chk_tryrecent' value='1' checked><%=PortletUtils.getMessage(pageContext, "try-recent",null)%></div>-->
   </form>
 
