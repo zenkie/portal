@@ -106,6 +106,7 @@
 				if(column!=null && column.getReferenceTable() !=null){  
 				    if(isMultipleSelection){                             
 	                    FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), inputName,column,null,false);
+	                    fkQueryModel.setQueryindex(-1);
 	                    
             %>
 	              		<input:text name="<%=inputName%>" attributes="<%= h %>" />
@@ -190,4 +191,5 @@ if((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE ){
 </script>	
 </div>      
 </form>
+<input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
 <div id="history_files"></div>

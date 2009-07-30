@@ -179,6 +179,7 @@
 								if(column.getReferenceTable() !=null){                                   
 	                                h.put("id",column_acc_Id);
                                     FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column,null,false);
+                                    fkQueryModel.setQueryindex(-1);
                             %>
                               		<input:text name="<%=inputName%>" attributes="<%= h %>" /><%= type%>
                                     <input type='hidden' name='<%=column_acc_name+"/sql"%>' id='<%=column_acc_Id + "_sql"%>' />
@@ -253,3 +254,4 @@ if((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE ){
 </script>
  </div>
 <div id="history_files"></div>
+<input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />

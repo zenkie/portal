@@ -121,6 +121,7 @@ request.setAttribute("urls", urls);
    column=manager.getColumn("ad_pinstance","AD_PROCESSQUEUE_ID");
    column_acc_Id= "queue";//"column_"+column.getId();
    fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column);	
+   fkQueryModel.setQueryindex(-1);
    inputName="queue";//column.getName().toLowerCase()+"__"+column.getReferenceTable().getAlternateKey().getName().toLowerCase();
    String defaultQueue=(String)QueryEngine.getInstance().doQueryOne("select name from ad_processqueue where isactive='Y' and proctype='O' and issystem='Y'");
 %>
