@@ -862,3 +862,7 @@ row_total=行合计
 dispatcher_storage=彩色字是收发货店仓库存情况
 enough_goods=有
 lack_goods=无
+ref-report=相关报表
+current-subsystem=您处在
+switch-subsystem=切换
+subsystem-view=子系统综合
