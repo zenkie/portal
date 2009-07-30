@@ -129,4 +129,5 @@ function optionsave(){
   <%}%>
 <%}%>
 </form> 
+<input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
 <%@ include file="/html/nds/footer_info.jsp" %>
