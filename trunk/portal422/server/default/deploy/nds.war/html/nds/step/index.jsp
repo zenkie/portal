@@ -161,6 +161,7 @@ if(status==2){
 	<img src="<%=NDS_PATH+"/images/submitted-small" + ("CN".equals(locale.getCountry())? "_zh_CN":"")+".gif"%>" width="74" height="58">
 </div>
 <%}%>
+<input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
 <table><tr><td>
 	  <script>
 	  	 	jQuery(document).ready(function(){dcq.createdynlist(<%=dcqjsonarraylist%>)});
