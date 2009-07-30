@@ -45,6 +45,7 @@ boolean showAssignment=ParamUtil.get(request,"showassign",false);
  String className,assigneeName=null;
  int assigneeId=-1;
 FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(TableManager.getInstance().getTable("users"), "assignee",null); 
+fkQueryModel.setQueryindex(-1);
 %>
 <form action="/control/command" method="post" id="form1">
 <div id="audit_toolbar">
@@ -182,6 +183,7 @@ FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(TableManager.getInstance(
  
 </div>
 </form>
+<input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
 <script type="text/javascript">
  var selTb= new SelectableTableRows(document.getElementById("inc_table"), false);
 </script>
