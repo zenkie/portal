@@ -62,6 +62,12 @@ if(ssId==-1){
 			 menuObjs.put(jc);
 	     }
 	}
+	jc=new org.json.JSONObject();
+	jc.put("id",  tabId--);
+	jc.put("desc",PortletUtils.getMessage(pageContext, "report-center",null));
+	jc.put("url", "/html/nds/cxtab/rpthome.jsp");
+	menuObjs.put(jc);
+
 }	
 %>
 <div id="page-nav-container"></div>
