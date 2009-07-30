@@ -1,4 +1,5 @@
 <%@ include file="/html/nds/common/init.jsp" %>
+<%@ include file="/html/nds/portal/top_meta.jsp" %>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%
 TableManager manager=TableManager.getInstance();
@@ -11,12 +12,6 @@ Table table= manager.getTable(tableId);
 	request.setAttribute("page_help", "TableTemplate");
 	int navTabTotalWidth=DEFAULT_TAB_WIDTH; //total table width
 %>
-<liferay-util:include page="/html/nds/header.jsp">
-	<liferay-util:param name="html_title" value="<%=tabName%>" />
-	<liferay-util:param name="show_top" value="true" />
-	<liferay-util:param name="table_width" value="<%=String.valueOf(navTabTotalWidth)%>" />
-</liferay-util:include>
-
 <div id="maintab">
 	<ul><li><a href="#tab1"><span><%=tabName%></span></a></li></ul>
 	<div id="tab1">
@@ -82,22 +77,6 @@ if( objectId != -1){
 int actionType= objectId ==-1?Column.ADD:Column.MODIFY;
 ArrayList columns=table.getShowableColumns(actionType);
 %>
-
-<script language="JavaScript" src="<%=NDS_PATH%>/js/formkey.js"></script>
-<script language="JavaScript" src="<%=NDS_PATH%>/js/print.js"></script>
-<script language="JavaScript" src="<%=NDS_PATH%>/js/ExpCollapse.js"></script>
-<script language="JavaScript" src="<%= NDS_PATH %>/js/formkey.js"></script>
-
-<script type="text/javascript" src="<%=NDS_PATH%>/js/selectableelements.js"></script>
-<script type="text/javascript" src="<%=NDS_PATH%>/js/selectabletablerows.js"></script>
-
-<script language="JavaScript" src="/html/js/ajax.js"></script>
-<script language="JavaScript" src="/html/js/dragdrop/coordinates.js"></script>
-<script language="JavaScript" src="/html/js/dragdrop/drag.js"></script>
-<script language="JavaScript" src="/html/js/dragdrop/dragdrop.js"></script>
-<script type="text/javascript" src="<%=NDS_PATH%>/js/object_query.js"></script>
-
-
 <iframe id=CalFrame name=CalFrame frameborder=0 src=<%=NDS_PATH%>/common/calendar.jsp style=display:none;position:absolute;z-index:99999></iframe>
 <script language="javascript" src="<%=NDS_PATH%>/js/calendar.js"></script>
 <%
@@ -159,8 +138,7 @@ function doCreate(){
 </table>
 <br>
 </form>
-
-    </div>
 </div>
-
+</div>
+<input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
 <%@ include file="/html/nds/footer_info.jsp" %>

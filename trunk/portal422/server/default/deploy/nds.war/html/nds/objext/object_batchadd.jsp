@@ -204,6 +204,7 @@ if(internal_table_width>0){
 	                                Table refTable= ((Column)columns.get(i)).getReferenceTable();
 	                                if(refTable!=null){		
 	                                	fkQueryModel=new FKObjectQueryModel(refTable,column_acc_Id,(Column)columns.get(i));
+	                                	fkQueryModel.setQueryindex(-1);
 	    	  							
 	    	  						}else{
 	    	  							fkQueryModel=null;
