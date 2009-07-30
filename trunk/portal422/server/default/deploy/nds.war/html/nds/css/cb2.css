@@ -149,7 +149,7 @@ float:left;
 #multi-buttons{
 margin:0px 0px 0px 0px;
 }
-#q_embed_lines{
+#q_embed_lines,.q_embed_lines{
 height: expression( this.scrollHeight > 260 ? "260px": (this.scrollHeight < 100 ?"100px": "auto") );
 max-height:260px;
 min-height:100px;
@@ -226,7 +226,7 @@ position:relative;
 padding:2px 4px 0px 0px;
 }
 blink {behavior: url(/html/nds/css/blink.htc);}
-#multi-list{
+#multi-list,.multi-list{
 border:0 solid #CCCCCC;
 clear:both;
 height:350px;
