@@ -1,3 +1,6 @@
+#objdropmenu{
+display:none;
+}
 .obj-dock.interactive-mode {
 	width:165px;
 	min-width:165px;
@@ -20,7 +23,7 @@
  .obj-dock.interactive-mode ul {
 	background: url(/html/nds/images/dock/menu_bg.png) no-repeat 0 0;
 	border-left: 20px solid #fff;
-	/*display: none;*/
+	display: block;
 	float: none;
 	margin:1px 0pt 1px 1px;
 }
