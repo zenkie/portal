@@ -17,18 +17,15 @@ var ObjDropMenu = {
 			var clickCheck=function(internalEvent) {
 						var currentEl = jQuery(internalEvent.target);
 						var dockParent = currentEl.parents('#objdropmenu');
-						if ((dockParent.length == 0) && !currentEl.is('#objdropbtn')) {
+						if (((dockParent.length == 0) && !currentEl.is('#objdropbtn')) || 
+							((dockParent.length > 0 && currentEl.is("a") )) ) {
 							instance._toggle('hide');
-						}else{
-							jQuery(document).one(
-								'click',
-								clickCheck
-							);	
+							jQuery(document).unbind("click.objdropmenu");
 						}
 					};
 			var dockOver = function(event) {
-				jQuery(document).one(
-					'click',
+				jQuery(document).bind(
+					"click.objdropmenu",
 					clickCheck
 				);
 				
@@ -36,6 +33,7 @@ var ObjDropMenu = {
 			};
 
 			var alike = jQuery('#objdropbtn');
+			//alike.click(dockOver);
 			if(isHover)alike.hover(dockOver,function(){});
 			else alike.click(dockOver);
 		}
