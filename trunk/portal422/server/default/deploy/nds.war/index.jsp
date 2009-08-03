@@ -193,7 +193,7 @@ function submitForm(){
 </div>
 </div>
 </div>
-</body>
 <%@ include file="/inc_progress.jsp" %>
+</body>
 </html>
 
