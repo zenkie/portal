@@ -5,7 +5,6 @@ body{
 	padding:0px;
 	HEIGHT:100%;
 }
-
 #objtb22{
 	PADDING: 0px;
 	border:1px #fff solid;
@@ -38,6 +37,13 @@ body{
 	height: 31px;
 	width: 156px;
 }
+/******* cost_copy.jsp  title   need a new photo(title_cx1.gif)*******/
+.from_top_text_list1{
+	text-align:center;
+	background: url(/cost/images/title_cx1.gif) no-repeat scroll;
+	height: 31px;
+	width: 182px;
+}
 
 .from_top_title{
 	text-align:center;
@@ -45,7 +51,6 @@ body{
 	height: 31px;
 	width: 112px;
 }
-
 ul.Var-Index-width{
  margin:0 auto;
  padding:0;
@@ -53,8 +58,21 @@ ul.Var-Index-width{
  text-align:center;
  list-style-type:none;
 }
-
+/******* cost_copy.jsp*******/
+ul.Var-Index-width1{
+ margin:0 auto;
+ padding:0;
+ width:750px;
+ text-align:center;
+ list-style-type:none;
+}
 ul.Var-Index-width li{
+ width:750px;
+ margin:0;
+ padding:0;
+}
+/******* cost_copy.jsp*******/
+ul.Var-Index-width1 li{
  width:750px;
  margin:0;
  padding:0;
@@ -65,14 +83,59 @@ float:left;
 width:200px;
 text-align:right;}
 
+
+/******* cost_copy.jsp *******/
+ul.Var-Index-width1 li .left001{
+float:left;
+width:350px;
+text-align:left;}
+ul.Var-Index-width1 li .left002{
+float:left;
+width:100px;
+text-align:right;}
+ul.Var-Index-width1 li .right002{
+float:left;
+width:210px;
+height:18px;
+text-align:left;}
+
+/******* cost_copy.jsp *******/
+ul.Var-Index-width1 li .right001{
+float:right;
+width:350px;
+text-align:right;}
+ul.Var-Index-width1 li .left003{
+float:left;
+width:100px;
+text-align:right;}
+ul.Var-Index-width1 li .right003{
+float:left;
+width:210px;
+height:18px;
+text-align:left;}
+
+
 ul.Var-Index-width li .right{
 float:left;
-width:550px;
+width:540px;
 text-align:left;}
 
 ul.Var-Index-width li .right01{
 float:left;
 width:300px;
+text-align:center;}
+/******* cost_copy.jsp *******/
+ul.Var-Index-width1 li .right01{
+float:left;
+width:730px;
+text-align:center;}
+ul.Var-Index-width1 li .result001{
+padding-top:100px;
+font-size:16px !important;
+font-weight:bold;
+float:left;
+width:730px;
+height:80px;
 text-align:center;}
 
 input.Warning_query {
@@ -81,12 +144,19 @@ input.Warning_query {
   padding:2px 8px 0 3px;
   width:400px;
 }
+/******* cost_copy.jsp *******/
+input.Warning_copy{
+  border:1px solid #7F9DB9;
+  height:16px;
+  padding:2px 8px 0 3px;
+  width:170px;
+}
 
 .HackBox {
   border-top:1px solid transparent !important;
   clear:both;
   height:10px;
-  width:400px;
+  width:300px;
 }
 
 .modify_table, #modify_table {

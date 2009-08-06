@@ -1,3 +1,4 @@
+﻿//charset='utf-8'
 var cost;
 var CostControl = Class.create();
 // define constructor
@@ -15,6 +16,7 @@ CostControl.prototype = {
 		});		
 		application.addEventListener( "SELLRETAIL", this._onSellRetail, this);
 		application.addEventListener( "COST_QUERY", this._onCost_query, this);
+		application.addEventListener( "COST_COPY", this._onCost_copy, this);
 	},
 	createretail: function(){
 		if(confirm(gMessageHolder.CONFORM_CREATE_SELL)){
@@ -82,6 +84,26 @@ CostControl.prototype = {
 			this._executeCommandEvent(evt);	
 		}
 	},
+
+	//COST_COPY...
+ price_copy:function (){
+	 	var evt={};
+		evt.command="DBJSONXML";
+		
+		evt.callbackEvent="COST_COPY";
+		var dealer_query=$("fk_dealer_query2").value;
+		var dealer_query1_sql=$("dealer_query1_sql").value;
+		if(dealer_query==""||dealer_query1_sql==""){
+			alert("经销商不能为空!");	
+		}else{
+			var param={"customer_s":dealer_query,"customer_m":dealer_query1_sql};
+			evt.param=Object.toJSON(param);
+			evt.table="b_salepriceite";
+			evt.action="pricecopy";
+			evt.permission="r";
+			this._executeCommandEvent(evt);	
+		}
+	},
 	_onCost_query:function (e) {
 		var data=e.getUserData(); 
     	var ret=data.data.jsonResult.evalJSON();
@@ -112,6 +134,19 @@ CostControl.prototype = {
 		    	$(mid+"_price_query_row").style.display="";   
     	}else{
     		alert(gMessageHolder.NO_DATA);
+    	}
+	},	
+//COST COPY	
+	_onCost_copy:function (e) {
+		var data=e.getUserData(); 
+		
+    	var ret=data.data.jsonResult.evalJSON();
+    	
+    	var costdata=ret.data;
+    	if(costdata!=null&&costdata.result=='ok'){    		
+	    	$(result001).innerHTML="<span style='font-family:Courier, Courier New, monospace ;color:green;font-size:20px'>复制成功!</span>";
+    	}else{
+    		$(result001).innerHTML="<span style='font-family:Courier, Courier New, monospace ;color:red;font-size:20px'>复制失败!</span>";
     	}
 	},	
 	_executeCommandEvent :function (evt) {
