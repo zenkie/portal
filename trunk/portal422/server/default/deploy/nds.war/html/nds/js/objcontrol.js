@@ -66,7 +66,7 @@ ObjectControl.prototype = {
 		}
 		switch(r.code){
 			case 1://refresh list
-				history.go(0);		
+				window.location.reload();	
 				break;
 			case 2://refresh page
 				try{
@@ -84,7 +84,7 @@ ObjectControl.prototype = {
 					this.doRefresh();	
 					return;
 				}catch(e){}	
-				history.go(0);
+				window.location.reload();	
 			case 4://using message as url, and load target from user data
 				var tgt=r.target;
 				if(tgt==undefined || tgt==null) tgt="_blank";

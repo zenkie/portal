@@ -742,7 +742,7 @@ PortalControl.prototype = {
 				break;
 			case 2://refresh page
 				//window.location.reload();	
-				history.go(0);
+				window.location.reload();	
 				break;
 			case 3://using message as url, and load target from user data
 				var tgt=r.target;
