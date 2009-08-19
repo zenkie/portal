@@ -280,6 +280,7 @@ try{
   @param asid - attribute set id of that product
 */
 TableManager manager=TableManager.getInstance();
+
 Table table = manager.getTable(Tools.getInt(request.getParameter("table"),-1));
 if (!table.isActionEnabled(Table.ADD) ||( (table.getColumn("m_product_id")==null && !table.getName().equalsIgnoreCase("m_product")) 
 				|| table.getColumn("m_attributesetinstance_id")==null)) throw new NDSException("@no-permission@");
@@ -356,14 +357,22 @@ for(Iterator it= instances.keySet().iterator();it.hasNext();){
 }
 instances2.put("inputCount", new Integer(0));// this will be updated when recursing instances
 
+//check read permission on fa_storage.storage of specified store
+Table faStorageTable= manager.getTable("FA_STORAGE");
+
 ArrayList inputList=new ArrayList();
 prepareAttributeTable(instances2,0,attributes,attributeValues,"", inputList);
-List li_store=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty from fa_storage t  where t.C_STORE_ID=(select d.id from c_store d where d.name='"+storedata+"') and t.m_product_id="+productId);
-List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty from fa_storage t  where t.C_STORE_ID=(select d.id from c_store d where d.name='"+destdata+"') and t.m_product_id="+productId);
+List li_store=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty, t.id from fa_storage t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(storedata)+") and t.m_product_id="+productId);
+List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty,t.id from fa_storage t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(destdata)+") and t.m_product_id="+productId);
 int dest_objectId=-1;
 int store_objectId=-1;
 boolean directory_store=false;
 boolean directory_dest=false;
+// id of fa_storage, from first store
+int idOfanyOfStoreStorage=-1;
+int idOfanyOfDestStorage=-1;
+if(li_store!=null && li_store.size()>0)  idOfanyOfStoreStorage=Tools.getInt(((List)li_store.get(0)).get(2),-1);
+if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)li_dest.get(0)).get(2),-1);
 %>
 <div id="itemdetail_div">
 <table cellpadding="5" cellspacing="0" border="0" width="100%"  style="margin-top: 5px;">	
@@ -374,8 +383,9 @@ boolean directory_dest=false;
 <%
 	if(store_col!=null){
 		store_table =store_col.getReferenceTable();
-		store_objectId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select id from c_store where name='"+storedata+"'"),-1);
-		if("root".equals(userWeb.getUserName())||userWeb.hasObjectPermission(store_table.getName(),store_objectId,nds.security.Directory.WRITE)){
+		store_objectId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select id from c_store where name="+QueryUtils.TO_STRING(storedata)+""),-1);
+		if("root".equals(userWeb.getUserName())||
+			(idOfanyOfStoreStorage!=-1 && userWeb.hasObjectPermission("FA_STORAGE",idOfanyOfStoreStorage,nds.security.Directory.READ))){
 				directory_store=true;
 		}
 %>
@@ -384,8 +394,9 @@ boolean directory_dest=false;
 <%
 	if(dest_col!=null){
 		dest_table=dest_col.getReferenceTable();
-		dest_objectId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select id from c_store where name='"+destdata+"'"),-1);
-		if("root".equals(userWeb.getUserName())||userWeb.hasObjectPermission(dest_table.getName(),dest_objectId,nds.security.Directory.WRITE)){
+		dest_objectId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select id from c_store where name="+QueryUtils.TO_STRING(destdata)+""),-1);
+		if("root".equals(userWeb.getUserName())||
+			(idOfanyOfDestStorage!=-1 && userWeb.hasObjectPermission("FA_STORAGE",idOfanyOfDestStorage,nds.security.Directory.READ))){
 				directory_dest =true;
 		}
 %>
