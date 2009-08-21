@@ -866,3 +866,4 @@ ref-report=相关报表
 current-subsystem=您处在
 switch-subsystem=切换
 subsystem-view=子系统综合
+parent-record-not-modifiable=更新失败，含不可更改单据内容
