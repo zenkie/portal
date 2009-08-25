@@ -60,3 +60,11 @@ SSVIEW.main = function () {
 	ssv=new SSVIEW();
 };
 jQuery(document).ready(SSVIEW.main); 
+
+/*****add by zh*****/
+function setOpacity(ele,level){
+		if(ele.filters)
+			ele.style.filters='alpha(opacity='+level+')';
+		else
+			ele.style.opacity=level/100;
+	}

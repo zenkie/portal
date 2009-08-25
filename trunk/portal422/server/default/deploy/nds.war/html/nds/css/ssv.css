@@ -1,15 +1,26 @@
- body, ul, ol, li, p, h1, h2, h3, h4, h5, h6, form, fieldset, table, td, img, div {
-    border:0 none;
-    margin:0;
-    padding:0;
-	
+html{
+top:0;
+height:100%;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size:12px;
-	text-align:center;
-	
+body, img,{
+margin: 0;
+padding: 0;
+border: 0;
+overflow: hidden;
+height: 100%; 
+max-height: 100%; 
+font-family:Tahoma,Arial;
+font-size:12px;
+}
+
+* html body{ /*IE6 hack*/
+padding: 40px 0 258px 0; /*Set value to (HeightOfFrameDiv 0 0 0)*/
+}
+
+* html #ssv-main{ /*IE6 hack*/ 
+height: 100%; 
+width: 100%; 
 }
 
 ul, ol {
@@ -29,16 +40,18 @@ a:hover{
 	}
 
 #ssv-top{
-height:30px;
+top:0;
+bottom:auto;
+position:absolute;
+height:28px;
 left:0;
 min-width:1000px;
-top:0;
 width:100% !important;
 }
 
 #ssv-top-banner{
 background:#FDAD18 url(/html/nds/themes/classic/01/images/head-title-bg.jpg) no-repeat scroll left center;
-height:30px;
+height:28px;
 position:relative;
 text-align:left;
 z-index:3;
@@ -54,26 +67,31 @@ display:inline;
 float:left;
 font-size:10pt;
 font-weight:bold;
-height:26px;
+height:24px;
 padding:4px 0 0 106px;
 }
 
 #page-niche-menu {
 color:#FFFFFF;
-padding:12px 10px 0;
+padding:10px 10px 0;
 position:absolute;
 right:0;
 text-align:right;
+font-size:12px;
 }
 
 #ssv-main {
 left:0;
 right:0;
-top:56px;
+height:80%;
+top:40px;
+bottom:256px;
+overflow:auto;
+position:absolute;
 }
 
 #ssv-table {
-height:100%;
+
 padding:0;
 width:100%;
 font-size:12px;
@@ -92,7 +110,6 @@ padding:5px;
 
 #ssv-v {
 background:url(/html/nds/portal/ssv/images/middlebg.gif) repeat-x scroll;
-height:150px;
 +height:100%; /*IE可执行*/
 margin:5px 10px 0 5px;
 }
@@ -110,7 +127,7 @@ position:absolute;
 padding-top:10px; 
 left:-30px; 
 width: 22px; 
-height: 106px; 
+height: 86px; 
 color:#fff; 
 line-height:16px;
 font-size:14px;
@@ -152,7 +169,7 @@ a.IMG{
 	width:80px;
   height:80px;
   padding-top:5px;
-  display: block
+  display: block;
 }
 
 a.IMG:hover{
@@ -164,7 +181,7 @@ a.IMG:hover{
 	  width:80px;
     height:80px;
     padding-top:5px;
-    display: block
+    display: block;
 	}
 
 a.IMG01{
@@ -176,7 +193,7 @@ a.IMG01{
 	width:80px;
   height:80px;
   padding-top:5px;
-  display: block
+  display: block;
 
 }
 
@@ -189,21 +206,10 @@ a.IMG01:hover{
 	  width:80px;
     height:80px;
     padding-top:5px;
-    display: block
+    display: block;
 	}
 
-.ssv-p{
-border-bottom:1px solid #DD740B;
-float:left;
-font-size:93%;
-line-height:normal;
-width:100%;
-padding:10px 0 0 10px;
-text-align:left;
-}
-
 #ssv-l {
-height:150px;
 +height:100%; /*IE可执行*/
 margin:5px 10px 0 5px;
 background:url(/html/nds/portal/ssv/images/middlebg.gif) repeat-x scroll;
@@ -238,7 +244,6 @@ float:left;
 text-algin:left;}
 
 #ssv-w {
-height:220px;
 +height:100%; /*IE可执行*/
 margin:5px 10px 0 5px;
 background:url(/html/nds/portal/ssv/images/middlebg.gif) repeat-x scroll;
@@ -257,7 +262,7 @@ position:absolute;
 padding-top:10px; 
 left:-30px; 
 width: 22px; 
-height: 106px; 
+height:106px; 
 color:#fff; 
 line-height:16px;
 font-size:14px;
@@ -272,16 +277,26 @@ text-algin:left;}
 float:left;
 text-algin:left;}
 
-.ssv-help{
+#ssv-help2{
 background-color:#FFFBF4;
 border:1px solid #FEE7BB;
 clear:both;
 margin:5px 5px;
 padding:0 5px;
-height:500px;
 width:210px;
 display: block;
-overflow-y: scroll; overflow-x: scroll;}
+}
+
+.ssv-help{
+background-color:#FFFBF4;
+clear:both;
+padding-top:5px;
+height:400px;
+width:210px;
+display: block;
+overflow-y: hidden; 
+overflow-x: hidden;
+line-height:18px;}
 
 .ssv-help-p{
 border-bottom:1px solid #DD740B;
@@ -291,6 +306,13 @@ line-height:normal;
 width:100%;
 padding:10px 0 0 5px;
 margin:5px 0px;
+height:22px;
+
+}
+
+.ssv-help-pic{
+height:22px;
+border:0px;
 }
 
 #ssv-bbs{
@@ -301,11 +323,40 @@ font-size:12px;
 text-align:left;
 }
 
+.ssv-p{
+border-bottom:1px solid #DD740B;
+float:left;
+width:100%;
+padding:10px 0 0 10px;
+text-align:left;
+visibility:visible;
+height:22px;
+}
+
+.ssv-bbs-p{
+height:22px;
+border:0px;
+}
+
+
+#ssv-bottom1 {
+color:#333333;
+height:90px;
+bottom:0px;
+left:0;
+top: auto;
+min-width:700px;
+overflow:hidden;
+position:absolute;
+width:100%;
+}
+
 #ssv-bottom {
 background:transparent url(/html/nds/themes/classic/01/images/from-bottom-bg.jpg) repeat-x scroll 0 0;
 border-top:4px solid #E49F27;
 color:#333333;
-height:23px;
+height:20px;
+bottom:0px;
 left:0;
 min-width:700px;
 overflow:hidden;
@@ -313,10 +364,12 @@ position:absolute;
 width:100%;
 }
 
+
 #bottom-company-img {
 background:transparent url(/html/nds/themes/classic/01/images/company_small_logo.gif) no-repeat scroll left center;
 height:20px;
 position:absolute;
+bottom:0;
 right:10px;
 text-align:right;
 width:70px;
@@ -327,4 +380,5 @@ position:absolute;
 right:100px;
 text-align:right;
 top:2px;
+font-size:12px;
 }

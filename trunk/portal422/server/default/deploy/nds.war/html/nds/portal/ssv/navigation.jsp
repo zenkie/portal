@@ -17,7 +17,7 @@ List<SubSystem> sss =ssv.getSubSystems(request, nds.query.web.SubSystemView.PERM
 for(int i=0;i< sss.size();i++){
 	ss=sss.get(i);
 %>
-<li><div class="ss"><a href="javascript:ssv.view(<%=ss.getId()%>)" class="IMG"><img src="<%=ss.getIconURL()%>"/><div class="sst"><%=ss.getName()%></div></a></div></li>
+<li><div class="ss"><a href="javascript:ssv.view(<%=ss.getId()%>)" class="IMG"><img src="<%=ss.getIconURL()%>" border="0"/><div class="sst"><%=ss.getName()%></div></a></div></li>
 <%	
 }
 %>
@@ -53,7 +53,7 @@ sss =ssv.getSubSystems(request, nds.query.web.SubSystemView.PERMISSION_NO_LICENS
 for(int i=0;i< sss.size();i++){
 	ss=sss.get(i);
 %>
-<li><div class="ss"><a href="javascript:ssv.help(<%=ss.getId()%>)" class="IMG01"><img src="<%=ss.getIconURL()%>"/><div class="sst"><%=ss.getName()%></div></a></div></li>
+<li><div class="ss"><a href="javascript:ssv.help(<%=ss.getId()%>)" class="IMG01"><img src="<%=ss.getIconURL()%>" border="0"/><div class="sst"><%=ss.getName()%></div></a></div></li>
 <%	
 }
 %>

@@ -49,6 +49,7 @@ if(nds.util.Validator.isNull(dialogURL)){
 </script>	
 </head>
 <body>
+
 <%@ include file="body_meta.jsp"%>
 <div id="ssv-top">
 	<div id="ssv-top-banner">
@@ -65,6 +66,7 @@ if(nds.util.Validator.isNull(dialogURL)){
 	// check navigation
 	Configurations conf= (Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS);
 	String linkFile= conf.getProperty("ssview.navigation");
+	
 	if(linkFile !=null){
 	%>
 		<jsp:include page="<%=linkFile%>" flush="true"/>
@@ -72,26 +74,33 @@ if(nds.util.Validator.isNull(dialogURL)){
 	%>
 	<%@ include file="navigation.jsp" %>
 	<%}%>
-<div id="ssv-bbs">
-<div class="ssv-p"><img src="/html/nds/portal/ssv/images/ssv-title04.gif" width="85" height="22"  /></div>
-	<%@ include file="bbs.jsp" %>
-</div>
+
 
 		</div>	
 	</td>
 <td width="1%" norwap class="topleft">
 
-
+<div id="ssv-help2">
+	<div class="ssv-help-p"><div class="ssv-help-pic"><img src="/html/nds/portal/ssv/images/ssv-title05.gif" width="85px" height="22px"  /></div></div>
 <div class="ssv-help">
-<div class="ssv-help-p"><img src="/html/nds/portal/ssv/images/ssv-title05.gif" width="85" height="22"  /></div>
 <div id="ssv-help">	
-</div></div></div>		
+	</div></div></div>		
     </td>
-</tr></table>	
+</tr></table>
 </div>
+
+<div id="ssv-bottom1">
+<div id="ssv-bbs">
+<div class="ssv-p"><div class="ssv-bbs-p"><img src="/html/nds/portal/ssv/images/ssv-title04.gif" width="85px" height="22px" /></div></div>
+	<div id="ssv-bbs-bg">
+		<%@ include file="bbs.jsp" %>
+		</div>
+</div>	
 <div id="ssv-bottom">
 	<%@ include file="bottom.jsp" %>
 </div>
+</div>
+
 </body>
 </html>
 
