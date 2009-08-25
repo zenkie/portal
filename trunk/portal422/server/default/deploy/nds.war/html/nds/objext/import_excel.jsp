@@ -190,7 +190,9 @@ if(udxColumns.size()>0){
 </td>
 </tr>
 <tr>
-<td valign="top"><strong><%=PortletUtils.getMessage(pageContext, "import-select-file",null)%></strong></td>
+<td valign="top"><strong><%=PortletUtils.getMessage(pageContext, "import-select-file",null)%></strong><br>
+	(Max: <%=Tools.getInt( conf.getProperty("import.excel.maxsize", "1"),1)%>MB)
+	</td>
 <td valign="top"><div id="flashcontent"><input id="fileInput1" name="excel" size="35" type="file"/></div></td>
 </tr>
 </tbody>
