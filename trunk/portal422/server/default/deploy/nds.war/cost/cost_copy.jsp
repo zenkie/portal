@@ -90,3 +90,4 @@
 			document.getElementById("dealer_query1").readOnly=true;
 		  </script>
 </table>
+<a href="/html/nds/distribution/index.jsp">aaaaaaa</a>

@@ -104,6 +104,16 @@ CostControl.prototype = {
 			this._executeCommandEvent(evt);	
 		}
 	},
+    // TEST
+    test_1:function(){
+     var evt={};
+        evt.command="DBJSONXML";
+        evt.callbackEvent="TEST_1";
+        var c_dest=$("000000").value;
+        var param={"c_dest":c_dest};
+        evt.param=Object.toJSON(param);
+        this._executeCommandEvent(evt);
+    },
 	_onCost_query:function (e) {
 		var data=e.getUserData(); 
     	var ret=data.data.jsonResult.evalJSON();
