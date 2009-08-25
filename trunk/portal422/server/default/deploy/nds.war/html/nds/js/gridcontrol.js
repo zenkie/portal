@@ -312,7 +312,13 @@ GridControl.prototype = {
 	importGrid:function(){
 		if(this.checkDirty()) return;
 		if(this.checkNew()) return;
-		window.location=("/html/nds/objext/import_excel.jsp?table="+this._gridMetadata.table+"&fixedcolumns="+encodeURIComponent(this._fixedColumnsStr));
+		var l="/html/nds/objext/import_excel.jsp?objectid="+oc.getObjectId()+"&table="+this._gridMetadata.table+"&fixedcolumns="+encodeURIComponent(this._fixedColumnsStr);
+		if(Prototype.Browser.IE)
+			showDialog(l,800,550,true);
+		else
+			popup_window(l);
+		//showDialog("/html/nds/objext/import_excel.jsp?objectid="+oc.getObjectId()+"&table="+this._gridMetadata.table+"&fixedcolumns="+encodeURIComponent(this._fixedColumnsStr),800,550,true);
+		//window.location=("/html/nds/objext/import_excel.jsp?objectid="+oc.getObjectId()+"&table="+this._gridMetadata.table+"&fixedcolumns="+encodeURIComponent(this._fixedColumnsStr));
 	},
 	analyzeGrid:function(){
 		showProgressWindow(true);

@@ -4,6 +4,7 @@ var ObjectControl = Class.create();
 // define constructor
 ObjectControl.prototype = {
 	initialize: function() {
+		this._isButtonDisabled=false;
 		this._masterObj=masterObject;
 		dwr.engine.setErrorHandler(function(message, ex) {
 			$("timeoutBox").style.visibility = 'hidden';
@@ -59,8 +60,8 @@ ObjectControl.prototype = {
 		return q;
 	},
 	_onExecuteWebAction:function(e){
+		oc._toggleButtons(false);
 		var r=e.getUserData().data; 
-		
 		if(r.message && r.code !=3 && r.code!=4 && r.code!=5){
 			msgbox(r.message.replace(/<br>/g,"\n"));
 		}
@@ -76,6 +77,7 @@ ObjectControl.prototype = {
 				window.close();	
 				break;
 			case 3:
+				
 				try{
 					gc.refreshGrid();	
 					return;
@@ -151,7 +153,7 @@ ObjectControl.prototype = {
 	@param e either string for file or object from server containing printfile attribute
 	*/
 	_onPrintJasper:function(e){
-		//console.log(e);
+		oc._toggleButtons(false);
 		var pf;
 		if(typeof(e)=="string") pf=e;
 		else
@@ -233,6 +235,7 @@ ObjectControl.prototype = {
 		evt.parsejson="Y";
 		evt.callbackEvent="UnsubmitObject";
 		evt.merge(this._masterObj.hiddenInputs);
+		if(oc._toggleButtons(true) ==false) return;
 		this._executeCommandEvent(evt);
     },
     doSubmitPrint:function(bSaveFirst,bShouldWarn){
@@ -259,12 +262,14 @@ ObjectControl.prototype = {
 			}
 			evt.masterobj.merge(this._masterObj.hiddenInputs);
 			evt.callbackEvent="SubmitObject";
+			if(oc._toggleButtons(true) ==false) return;
 			this._executeCommandEvent(evt);
 		}else{
 			evt.command=this._masterObj.table.name+"Submit";
 			evt.parsejson="Y";
 			evt.callbackEvent="SubmitObject";
 			evt.merge(this._masterObj.hiddenInputs);
+			if(oc._toggleButtons(true) ==false) return;
 			this._executeCommandEvent(evt);
 		}
     },
@@ -291,12 +296,14 @@ ObjectControl.prototype = {
 			}
 			evt.masterobj.merge(this._masterObj.hiddenInputs);
 			evt.callbackEvent="SubmitObject";
+			if(oc._toggleButtons(true) ==false) return;
 			this._executeCommandEvent(evt);
 		}else{
 			evt.command=this._masterObj.table.name+"Submit";
 			evt.parsejson="Y";
 			evt.callbackEvent="SubmitObject";
 			evt.merge(this._masterObj.hiddenInputs);
+			if(oc._toggleButtons(true) ==false) return;
 			this._executeCommandEvent(evt);
 		}
     },
@@ -310,6 +317,7 @@ ObjectControl.prototype = {
 		evt.parsejson="Y";
 		evt.callbackEvent="DeleteObject";
 		evt.merge(this._masterObj.hiddenInputs);
+		if(oc._toggleButtons(true) ==false) return;
 		this._executeCommandEvent(evt);
     },
     _onSubmitObject:function(e){
@@ -423,7 +431,15 @@ ObjectControl.prototype = {
 		}		
 		return clobs;
 	},
+	/**
+	@return false if has already toggled to false
+	*/
 	_toggleButtons:function(disable){
+		if(disable && this._isButtonDisabled){
+			alert(gMessageHolder.DO_NOT_PRESS_TWICE);
+			return false;	
+		}
+		this._isButtonDisabled=disable;
 		var es=$("buttons").getElementsBySelector("input[type='button']");
 		if(disable){
 			for(var i=0;i< es.length;i++){
@@ -445,10 +461,11 @@ ObjectControl.prototype = {
 		Controller.handle( Object.toJSON(evt), function(r){
 				//try{
 					$("timeoutBox").style.visibility = 'hidden';
-					oc._toggleButtons(false);
+					
 					var result= r.evalJSON();
 					if (result.code !=0 ){
 						msgbox(result.message);
+						oc._toggleButtons(false);
 					}else {
 						var evt=new BiEvent(result.callbackEvent);
 						evt.setUserData(result);
@@ -630,6 +647,7 @@ ObjectControl.prototype = {
 		}*/
 		var msg=e.getUserData().message;
 		this._showMessage(msg);
+		oc._toggleButtons(false);
 	},
 	/**
 	 * On key press on FK column, will remove hidden input "fk_"+inputId
@@ -681,6 +699,7 @@ ObjectControl.prototype = {
 			}
 	},	
 	audit:function(audittype,objectId){
+		if(oc._toggleButtons(true) ==false) return;
 		var evt={};
 		evt.command="ExecuteAudit";
 		evt.callbackEvent="ExecuteAudit";

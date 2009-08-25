@@ -1496,7 +1496,11 @@ PortalControl.prototype = {
     	this._submitToNewWindow("/html/nds/print/options.jsp");
     },
     doImport:function(){
-    	showObject2("/html/nds/objext/import_excel.jsp?table="+this._tableObj.id,pc._dialogOption);
+		if(Prototype.Browser.IE)
+			showObject2("/html/nds/objext/import_excel.jsp?table="+this._tableObj.id,pc._dialogOption);
+		else
+			popup_window("/html/nds/objext/import_excel.jsp?table="+this._tableObj.id);
+
     },
 	doListCopyTo:function(){
 		this._doActionOnSelectedItems("/html/nds/objext/copyto.jsp?src_table="+this._tableObj.id);

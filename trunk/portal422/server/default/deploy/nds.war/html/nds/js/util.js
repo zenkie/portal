@@ -181,8 +181,8 @@ function disableEsc() {
 		event.returnValue = false;
 	}
 }
-
-if (!Element) Element = new Object();
+if(typeof(Element) == "undefined")Element = new Object();
+//if (!Element) Element = new Object();
 
 Element.disable = function(element) {
 	element = $(element);
@@ -226,8 +226,8 @@ Element.changeOpacity = function(object, opacity) {
 	object.style.filter = "alpha(opacity=" + opacity + ")";
 }
 
-
-if (!Event) Event = new Object();
+if(typeof(Event) == "undefined")Event = new Object();
+//if (!Event) Event = new Object();
 
 Event.addHandler = function(obj, type, func) {
 	if (type.indexOf("on") != 0) {
