@@ -110,6 +110,14 @@ function submitForm(){
                   <div class="portlet-msg-error"> <%= LanguageUtil.get(pageContext, "error-username-or-password") %> </div>
                   <br />
                 </c:if>
+                 <c:if test="<%= SessionErrors.contains(request, "SLEEP_USER") %>">
+                  <div class="portlet-msg-error"> <%= LanguageUtil.get(pageContext, "inactive-user-exception") %> </div>
+                  <br />
+                </c:if> 
+                <c:if test="<%= SessionErrors.contains(request, "INACTIVE_USER") %>">
+                  <div class="portlet-msg-error"> <%= LanguageUtil.get(pageContext, "inactive-user-exception") %> </div>
+                  <br />
+                </c:if>
               </c:if>
 
   	<form action="/c/portal/login" method="post" name="fm1" id="fm1">
