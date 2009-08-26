@@ -40,6 +40,30 @@ Table refTable;
 String fixedColumnMark;
 boolean isFixedColumn;
 
+//caculate percentage of each column size in table
+int[] colSizes=new int[columns.size()];
+boolean[] alignRight=new boolean[columns.size()];
+int sizeAll=0;
+for(int i=0;i< columns.size();i++){
+	col=(Column)columns.get(i);
+	alignRight[i]= ( col.getType()==Column.NUMBER && col.getReferenceTable()==null && (!col.isValueLimited()));
+	isModifiable=isModify && col.isMaskSet(Column.MASK_CREATE_EDIT)&&col.isMaskSet(Column.MASK_MODIFY_EDIT);
+	colWidth=15;
+	if(col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK) colWidth=5;
+	if(!isModifiable){
+		colWidth= col.isColumnLink()? col.getColumnLink().getLastColumn().getLength(): col.getLength();
+		if(colWidth>15) colWidth=15;
+	}else{
+		colWidth=(( col.getStatSize()<=0)? 15:col.getStatSize());
+	}
+	colSizes[i]=colWidth;
+	sizeAll+=colWidth;
+}
+for(int i=0;i<colSizes.length;i++){
+	colSizes[i]=(int)( colSizes[i] * 100 / sizeAll);
+	if(colSizes[i]==0)colSizes[i]=1;
+}
+
 for(int i=0;i< columns.size();i++){
 	col=(Column)columns.get(i);
 	if(col.getReferenceTable()!=null){
@@ -84,7 +108,6 @@ for(int i=0;i< columns.size();i++){
 		col2=col.getReferenceTable().getAlternateKey();
 		colName=col.getName()+"__"+ col2.getName();	
 		maxLength=col2.getLength();
-		
 	}else{
 		colName=col.getName();
 		maxLength=col.getLength();
@@ -99,8 +122,9 @@ for(int i=0;i< columns.size();i++){
 	}else{
 		colWidth=(( col.getStatSize()<=0)? 15:col.getStatSize());
 	}
+	
 %>
-<td width="<%=colWidth%>%">
+<td width="<%=colSizes[i]%>%" <%=(alignRight[i]?"align='right'":"")%>>
 	<%
 	values= col.getValues(locale);
 	if(values != null){// combox or check
@@ -143,9 +167,9 @@ for(int i=0;i< columns.size();i++){
            		//h.put("tabIndex", (++tabIndex)+"");
            		if((refTable!=null &&refTable.getAlternateKey().isUpperCase())||
 								col.isUpperCase()){
-					h.put("class","inputline ucase"+ (isFixedColumn?" disabled":""));
+					h.put("class","inputline ucase"+ (isFixedColumn?" disabled":"")+ (alignRight[i]?" num":""));
 				}else
-					h.put("class","inputline"+ (isFixedColumn?" disabled":""));
+					h.put("class","inputline"+ (isFixedColumn?" disabled":"")+ (alignRight[i]?" num":""));
                        		
                 %>
 <input:text name="<%=cId%>" attributes="<%=h %>" attributesText="<%=fixedColumnMark%>" />
