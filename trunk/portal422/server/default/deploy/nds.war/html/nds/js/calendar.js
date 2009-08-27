@@ -3,6 +3,7 @@ document.onclick=hideCalendar;
 
 function showCalendar(sImg,bOpenBound,sFld1,sFld2,sCallback,bIsDateNumber)
 {
+	
 	var fld1,fld2;
 	var cf=document.getElementById("CalFrame");
 	if(cf==null) return;
@@ -26,8 +27,15 @@ function showCalendar(sImg,bOpenBound,sFld1,sFld2,sCallback,bIsDateNumber)
 	var sT=document.body.scrollTop,sL=document.body.scrollLeft;
 	var eH=oImg.height,eW=oImg.width;
 	while(p&&p.tagName!="BODY"){eT+=p.offsetTop;eL+=p.offsetLeft;p=p.offsetParent;}
-	cf.style.top=(document.body.clientHeight-(eT-sT)-eH>=cf.height)?eT+eH:eT-cf.height;
-	cf.style.left=(document.body.clientWidth-(eL-sL)>=cf.width)?eL:eL+eW-cf.width;
+	
+	//cf.style.top=(document.body.clientHeight-(eT-sT)-eH>=cf.height)?eT+eH:(eT-cf.Height);
+	//cf.style.left=(document.body.clientWidth-(eL-sL)>=cf.width)?eL:eL+eW-cf.width;
+	
+	//2009-8-17 modify by zhou
+	cf.style.top=((document.body.clientHeight-(eT-sT)-eH>=cf.height)?eT+eH:(eT-cf.Height))+"px";
+	cf.style.left=((document.body.clientWidth-(eL-sL)>=cf.width)?eL:eL+eW-cf.width)+"px";
+	//END..
+	
 	cf.style.display="block";
 	
 	wcf.openbound=bOpenBound;
