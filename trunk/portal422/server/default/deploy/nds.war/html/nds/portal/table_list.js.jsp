@@ -77,6 +77,15 @@ gridInitObject={
 	query:<%=q%>
 };
 pc.setWarningOnSubmit(<%=shouldWarn%>);
-pc.setRefreshOnDialogClose(<%=refreshGridWhenCloseDialog%>);
+//pc.setRefreshOnDialogClose(<%=refreshGridWhenCloseDialog%>);
+<%
+StringBuffer dialogOption=new StringBuffer("{1:1");
+if(refreshGridWhenCloseDialog) dialogOption.append(",onClose:refreshPortalGrid");
+if(nds.util.Validator.isNotNull(table.getRowURL())){
+	dialogOption.append(",iswindow:true,width:1000");
+}
+dialogOption.append("}");
+%>
+pc.setDialogOption(<%=dialogOption%>);	
 pc.setTableObj(<%=tableObj.toString()%>);
 </script>

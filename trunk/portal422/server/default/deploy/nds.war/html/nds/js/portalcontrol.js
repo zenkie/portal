@@ -84,6 +84,9 @@ PortalControl.prototype = {
 	setResizable:function(b){
 		this._resizable=b;	
 	},
+	setDialogOption:function(opt){
+		this._dialogOption=opt;
+	},
 	/**
 	  Refresh grid when dialog window close, this will slow down client
 	*/
@@ -1047,7 +1050,7 @@ PortalControl.prototype = {
 	editRow:function(row){
 		var line= this._data[row];
 		if(["D","E","N"].indexOf(line[1])>-1) return;
-		showObject2(gridInitObject.mainobjurl+line[4],this._dialogOption);
+		 (gridInitObject.mainobjurl+line[4],this._dialogOption);
 	},
 	mo:function(tid){
 		if($(tid+"_p_step")!=null){
@@ -1697,9 +1700,13 @@ function showObject2(url,option, theWidth, theHeight){
     if( theHeight==undefined) theHeight=570;
 	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:true});
 	if(option!=undefined) options.merge(option);
-	Alerts.popupIframe(url,options);
-	Alerts.resizeIframe(options);
-	Alerts.center();
+	if(option.iswindow==true){
+		popup_window(url,options.target, options.width,options.height);
+	}else{
+		Alerts.popupIframe(url,options);
+		Alerts.resizeIframe(options);
+		Alerts.center();
+	}
 }
 function showObject(url, theWidth, theHeight,option){
 	if( theWidth==undefined || theWidth==null) theWidth=956;
