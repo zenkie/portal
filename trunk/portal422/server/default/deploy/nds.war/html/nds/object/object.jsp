@@ -16,6 +16,11 @@
     String urlOfThisPage;
 %>
 <%
+if(userWeb==null || userWeb.isGuest()){
+	String redirect=java.net.URLEncoder.encode(request.getRequestURI()+"?"+request.getQueryString() ,"UTF-8");
+	response.sendRedirect("/login.jsp?redirect="+redirect);
+	return;
+}
 String tableName=request.getParameter("table");
 int objectId=Tools.getInt(request.getParameter("id"),-1);
 PairTable fixedColumns= PairTable.parseIntTable(request.getParameter("fixedcolumns"),null );

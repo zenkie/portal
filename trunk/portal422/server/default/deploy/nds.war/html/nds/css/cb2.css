@@ -265,13 +265,13 @@ text-align:center;
 	float:left;
 	width:21px;
 	text-align:left;
-	color: #996633;
+	background-color:#C0C0FE;
 }
 .product-storage-right{
 	float:left;
 	width:21px;
 	text-align:right;
-	color:#339966;
+	background-color:#C0FEC0;
 }
 span.ckbox{
  background-image:url(/html/nds/images/checkbox.gif);

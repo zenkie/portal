@@ -45,6 +45,10 @@ if(nds.util.Validator.isNull(dialogURL)){
 	setInterval("checkTimeoutForPortal(<%=session.getMaxInactiveInterval()%>)", <%=intervalForCheckTimeout*60000%>);
 <%
 	}
+	if(nds.util.Validator.isNotNull(dialogURL)) {
+%>	
+	popup_window("<%=dialogURL%>");
+<%	}
 %>	
 </script>	
 </head>

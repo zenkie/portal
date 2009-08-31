@@ -389,7 +389,7 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 				directory_store=true;
 		}
 %>
-<span style="color: #996633"><%=store_col.getDescription(locale)%>:<%=storedata%></span>&nbsp; &nbsp;
+<span style="background-color:#C0C0FE;"><%=store_col.getDescription(locale)%>:<%=storedata%></span>&nbsp; &nbsp;
 <%}%>
 <%
 	if(dest_col!=null){
@@ -400,7 +400,7 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 				directory_dest =true;
 		}
 %>
-<span style="color:#339966"><%=dest_col.getDescription(locale)%>:<%=destdata%></span>
+<span style="background-color:#C0FEC0;"><%=dest_col.getDescription(locale)%>:<%=destdata%></span>
 <%}%>
 </td></tr>
 <tr><td><%= PortletUtils.getMessage(pageContext, "input-value-for-each-attribute",null)%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= PortletUtils.getMessage(pageContext, "all_total",null)%>:<span id="tot_product"></span></td></tr>
