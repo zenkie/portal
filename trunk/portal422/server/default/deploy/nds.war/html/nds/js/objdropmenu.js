@@ -4,7 +4,7 @@ var ObjDropMenu = {
 		var dock = jQuery('#objmenu');
 		var dockList = jQuery('#objdropmenu');
 
-		if (dockList!=null){
+		if (dockList!=null && dockList.length>0){
 			var btn=document.getElementById('objdropbtn');
 			var offsets = getOffsets(btn);
 			dock.css({
