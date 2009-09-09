@@ -66,7 +66,7 @@
   	<td>&nbsp;</td>
   </tr>
    <% 
-     tabcategorylist=subsystemview.getTableCategories(request,subsystem.getId());
+     tabcategorylist=subsystemview.getTableCategories(request,subsystem.getId(),false);
      for(int x=0;x<tabcategorylist.size();x++){
        al= (List)tabcategorylist.get(x);
        tablecategory=(TableCategory)al.get(0);
