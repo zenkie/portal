@@ -1,6 +1,7 @@
 <%@ include file="/html/nds/common/init.jsp" %>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%!
+	private final static int MAX_COL_LENGTH=100;
     /**
     Sort by modifieddate descending
     */
@@ -107,7 +108,11 @@
                 <td width="80%">
                 	<image src="<%=NDS_PATH+"/images/"+getFileTypeImage(files[i].getName())%>" border=0 height="16" width="16">
                 <a href="<%=contextPath%>/servlets/binserv/GetFile?filename=<%=java.net.URLEncoder.encode(files[i].getName(),"UTF-8")%>"><%=files[i].getName()%></a>
-                <%=desc%>
+                <%if(desc.length()>MAX_COL_LENGTH){%>
+                	<span title="<%=desc%>"><%=nds.util.StringUtils.shorten(desc.toString(),MAX_COL_LENGTH,"...")%></span>
+                <%}else{%>
+                	<%=desc.toString()%>
+                <%}%>
                 </td>
                 <td  width="5%" nowrap>
                 <%=Tools.formatSize(files[i].length())%>
