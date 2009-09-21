@@ -90,13 +90,19 @@
             }else{
             	desc.append("&nbsp;");
             }
+            
             if(isJustNow){
 %>
               <tr height="12" class='<%=(fi++%2==0?"even-row":"odd-row")%>'>
                 <td width="80%">
                 	<b><image src="<%=NDS_PATH+"/images/"+getFileTypeImage(files[i].getName())%>" border=0 height="16" width="16">
                 <a href="<%=contextPath%>/servlets/binserv/GetFile?filename=<%=java.net.URLEncoder.encode(files[i].getName(),"UTF-8")%>"><%=files[i].getName()%></a>
-            	<%=desc%></b>
+            	<%if(desc.length()>MAX_COL_LENGTH){%>
+                	<span title="<%=desc%>"><%=nds.util.StringUtils.shorten(desc.toString(),MAX_COL_LENGTH,"...")%></span>
+                <%}else{%>
+                	<%=desc.toString()%>
+                <%}%>
+				</b>
                 </td>
                 <td  width="5%" nowrap><b><%=Tools.formatSize(files[i].length())%></b>
                 </td>

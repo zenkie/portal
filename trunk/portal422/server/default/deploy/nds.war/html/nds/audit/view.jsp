@@ -112,7 +112,8 @@ fkQueryModel.setQueryindex(-1);
  	 	//special condition when table is not active set by admin
  	 	continue;
  	 }
- 	 if(table.getRealTableName()!=null) tableId=manager.getTable(table.getRealTableName()).getId();
+ 	 /* yfzhu marked up following line since real table must not show view's records */
+ 	 //if(table.getRealTableName()!=null) tableId=manager.getTable(table.getRealTableName()).getId();
  	 recordDocNo= (String)result.getObject(4);
  	 recordId=Tools.getInt(result.getObject(5),-1) ; 
  	 

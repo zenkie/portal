@@ -9,7 +9,7 @@
     /** 
      如果用户尚未登录系统，将引导向登录窗口
      * Things needed in this page:
-     *  1.  table     main table that queried on(can be id or name)
+     *  1.  table     main table that queried on(can be id or name),如果审核人没有访问此表的权限，自动尝试对应的real_table的相应记录的权限
      *  2.  id        id of object to be displayed, -1 means not found
      *  3.  auditid   用于审核人审核单据所定义工作流的id 即 au_phaseinstance.id; 
      */
@@ -24,6 +24,13 @@ if(userWeb==null || userWeb.isGuest()){
 	response.sendRedirect("/login.jsp?redirect="+redirect);
 	return;
 }
+QueryEngine engine=QueryEngine.getInstance();
+// check user has audit records on this object
+int cnt=Tools.getInt(engine.doQueryOne("select count(*) from au_pi_user where au_pi_id="+ auditid+
+	" and ((ad_user_id="+userWeb.getUserId()+" and assignee_id is null ) or (assignee_id="+ userWeb.getUserId()+")) and state='W'"),-1);
+if(cnt<1){
+	throw new NDSException("@no-permission@");
+}
 PairTable fixedColumns=PairTable.EMPTY_PAIRTABLE;
 boolean isInput=false;
 String namespace="";
@@ -31,7 +38,6 @@ int status=0;
 org.json.JSONArray dcqjsonarraylist=new org.json.JSONArray();
 org.json.JSONObject dcqjsonObject=null;
 TableManager manager=TableManager.getInstance();
-QueryEngine engine=QueryEngine.getInstance();
 Table table=null;
 int tableId= Tools.getInt(tableName,-1);
 if(tableId==-1){
@@ -41,8 +47,21 @@ if(tableId==-1){
 	}
 }else{
 	table=manager.getTable(tableId);
-	
 }
+//check user read permission on this record
+if(!userWeb.hasObjectPermission(table.getName(),objectId,nds.security.Directory.READ)){
+	//check read permission on real table, if has
+	if(table.getRealTableName()!=null) {
+		table=manager.getTable(table.getRealTableName());
+		tableId=table.getId();
+		if(!userWeb.hasObjectPermission(table.getName(),objectId,nds.security.Directory.READ)){
+			throw new NDSException("@no-permission-or-not-exists@");
+		}
+	}else{
+		throw new NDSException("@no-permission-or-not-exists@");
+	}
+}
+
 ObjectUIConfig uiConfig=WebUtils.getTableUIConfig(table);
 
 if(table!=null){
@@ -55,12 +74,6 @@ if(table!=null){
 request.setAttribute("table_help", new Integer(tableId));
 
 int selectedTabId=-1;
-// check user has audit records on this object
-int cnt=Tools.getInt(engine.doQueryOne("select count(*) from au_pi_user where au_pi_id="+ auditid+
-	" and ((ad_user_id="+userWeb.getUserId()+" and assignee_id is null ) or (assignee_id="+ userWeb.getUserId()+")) and state='W'"),-1);
-if(cnt<1){
-	throw new NDSException("@no-permission@");
-}	
 
 %>
 <html>
@@ -147,6 +160,9 @@ if(table!=null){
 	List<WebAction> waObjButtons=new ArrayList<WebAction>(), waObjMenuItems=new ArrayList<WebAction>();
 	String includePage=null;
 	String msgError=null;
+	
+	includePage="object_view.jsp";
+	/*
 	if(objectId !=-1){
 			hasWritePermission=(canDelete || canModify ||canSubmit) && 
 				userWeb.hasObjectPermission(table.getName(),objectId,nds.security.Directory.WRITE);
@@ -165,6 +181,7 @@ if(table!=null){
 		  		includePage="object_modify.jsp";
 		  	}
 	}//end if(objectId !=-1)
+	*/
 	
 	if(msgError!=null){
 	%>
