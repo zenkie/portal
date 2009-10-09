@@ -58,8 +58,8 @@ ResultSet rs= QueryEngine.getInstance().doQuery("select name,id from ad_subsyste
     $("query_subsystem").submit();
   }
 	function selectReadCheckbox(checkMark,subsystemId){
-			$(subsystemId+"c").checked=$(subsystemId+checkMark).checked||$(subsystemId+"c").checked;	
-			$(subsystemId+"r").checked=$(subsystemId+"c").checked;
+		$(subsystemId+"c").checked=$(subsystemId+checkMark).checked||$(subsystemId+"c").checked;	
+		$(subsystemId+"r").checked=$(subsystemId+"c").checked;
 	}
 	function checkReadCheckBox(subsystemId){
 		var flag=false;
@@ -69,6 +69,9 @@ ResultSet rs= QueryEngine.getInstance().doQuery("select name,id from ad_subsyste
   		}
   		if ($(subsystemId+"s")!=null) {
   			flag=flag||$(subsystemId+"s").checked;
+  		}
+  		if ($(subsystemId+"u")!=null) {
+  			flag=flag||$(subsystemId+"u").checked;
   		}
   		if(flag){
 			$(subsystemId+"r").checked=flag;
@@ -80,11 +83,12 @@ ResultSet rs= QueryEngine.getInstance().doQuery("select name,id from ad_subsyste
 		$(subsystemId+"r").checked=$(subsystemId+"a").checked;
 		$(subsystemId+"w").checked=$(subsystemId+"a").checked;
 		$(subsystemId+"s").checked=$(subsystemId+"a").checked;
+		$(subsystemId+"u").checked=$(subsystemId+"a").checked;
 		$(subsystemId+"e").checked=$(subsystemId+"a").checked;
 		$(subsystemId+"c").checked=$(subsystemId+"a").checked;
 	}
 	function subsystem_unselectall(subsystemId){
-		$(subsystemId+"a").checked=$(subsystemId+"r").checked&&$(subsystemId+"w").checked&&$(subsystemId+"s").checked&&$(subsystemId+"e").checked;
+		$(subsystemId+"a").checked=$(subsystemId+"r").checked&&$(subsystemId+"w").checked&&$(subsystemId+"u").checked&&$(subsystemId+"s").checked&&$(subsystemId+"e").checked;
 	}
 </script>
 <br>
@@ -120,11 +124,12 @@ ResultSet rs= QueryEngine.getInstance().doQuery("select name,id from ad_subsyste
                 </table>
                 <table width="90%" class="modify_table" border="1" cellpadding="0" cellspacing="0" bordercolordark="#FFFFFF" bordercolorlight="#999999">
                   <thead><tr>
-                    <td height="24" width="9%" >&nbsp;</td>
-                    <td height="24" width="50%" ><%= PortletUtils.getMessage(pageContext, "directory-subsystem",null)%></td>
+                    <td height="24" width="1%" >&nbsp;</td>
+                    <td height="24" width="49%" ><%= PortletUtils.getMessage(pageContext, "directory-subsystem",null)%></td>
                     <td height="24" width="10%"  nowrap ><%= PortletUtils.getMessage(pageContext, "permission-read",null)%></td>
                     <td height="24" width="10%"  nowrap  ><%= PortletUtils.getMessage(pageContext, "permission-write",null)%></td>
                     <td height="24" width="10%"  nowrap  ><%= PortletUtils.getMessage(pageContext, "permission-submit",null)%></td>
+                    <td height="24" width="10%"  nowrap  ><%= PortletUtils.getMessage(pageContext, "permission-audit",null)%></td>
                     <td height="24" width="10%"  nowrap  ><%= PortletUtils.getMessage(pageContext, "permission-export",null)%></td>
                   </tr></thead>
                   <%
@@ -146,6 +151,7 @@ ResultSet rs= QueryEngine.getInstance().doQuery("select name,id from ad_subsyste
                     <td> <input type="checkbox" id=<%=subsystemId+"r"%> class="checkbox" name="<%=subsystemId %>" value="1" onclick="javascript:checkReadCheckBox(<%=subsystemId%>);subsystem_unselectall(<%=subsystemId %>)">
                     <td> <input type="checkbox" id=<%=subsystemId+"w"%> class="checkbox" name="<%=subsystemId %>" value="3" onclick="javascript:selectReadCheckbox('w',<%=subsystemId%>);subsystem_unselectall(<%=subsystemId %>)">
                     <td> <input type="checkbox" id=<%=subsystemId+"s"%> class="checkbox" name="<%=subsystemId %>" value="5" onclick="javascript:selectReadCheckbox('s',<%=subsystemId%>);subsystem_unselectall(<%=subsystemId %>)">
+                    <td> <input type="checkbox" id=<%=subsystemId+"u"%> class="checkbox" name="<%=subsystemId %>" value="9" onclick="javascript:selectReadCheckbox('u',<%=subsystemId%>);subsystem_unselectall(<%=subsystemId %>)">
                     <td> <input type="checkbox" id=<%=subsystemId+"e"%> class="checkbox" name="<%=subsystemId %>" value="17" onclick="javascript:selectReadCheckbox('e',<%=subsystemId%>);subsystem_unselectall(<%=subsystemId %>)">
                     	<input type="checkbox" name="directory_subsystem" id=<%=subsystemId+"c"%> value="<%=subsystemId%>" style="display:none">
                   </tr>

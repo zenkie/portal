@@ -70,6 +70,7 @@ var gMessageHolder={
 	AVAILABLE:"(available = Y)",
 	CLOSE_AFTER_PRINT:"Click OK button when complete printing.",
 	NO_POSITIVE_INTEGER:"The value what you has been input is not positive integer",
-	PRODUCT_NMNER_ZORE:"The number of the product is zore!"
+	PRODUCT_NMNER_ZORE:"The number of the product is zore!",
+	LINE:"Line"
 };
 

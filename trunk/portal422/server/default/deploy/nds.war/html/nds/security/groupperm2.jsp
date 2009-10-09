@@ -89,6 +89,9 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
 		if ($(tableId+"w")!=null) {
 			$(tableId+"w").checked=$(tableId+"a").checked;
 		}
+		if ($(tableId+"u")!=null) {
+			$(tableId+"u").checked=$(tableId+"a").checked;
+		}
 		if ($(tableId+"s")!=null) {
 			$(tableId+"s").checked=$(tableId+"a").checked;
 		}	
@@ -104,6 +107,9 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
   		if ($(tableId+"s")!=null) {
   			$(tableId+"a").checked=$(tableId+"a").checked&&$(tableId+"s").checked;
   		}
+  		if ($(tableId+"u")!=null) {
+  			$(tableId+"a").checked=$(tableId+"a").checked&&$(tableId+"u").checked;
+  		}
 	}
 	function selectCheckbox(checkMark,tableId){
 			$(tableId+"c").checked=$(tableId+checkMark).checked||$(tableId+"c").checked;
@@ -117,6 +123,12 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
   		}
   		if ($(tableId+"p")!=null) {
   			flag=flag||$(tableId+"p").checked;
+  		}
+  		if ($(tableId+"u")!=null) {
+  			flag=flag||$(tableId+"u").checked;
+  		}
+  		if ($(tableId+"s")!=null) {
+  			flag=flag||$(tableId+"s").checked;
   		}
   		if(flag){
 			$(tableId+"r").checked=flag;
@@ -171,11 +183,12 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
 
 				<table width="90%" class="modify_table" border="1" cellpadding="0" cellspacing="0" bordercolordark="#FFFFFF" bordercolorlight="#999999">
                   <thead><tr>
-                    <td height="24" width="10%" ><input type="checkbox" id="sall" class="checkbox" name="sall" value="" onclick="javascript:table_selectTotal()"></td>
-                    <td height="24" width="50%" ><%=PortletUtils.getMessage(pageContext, "directory",null)%></td>
+                    <td height="24" width="1%" ><input type="checkbox" id="sall" class="checkbox" name="sall" value="" onclick="javascript:table_selectTotal()"></td>
+                    <td height="24" width="49%" ><%=PortletUtils.getMessage(pageContext, "directory",null)%></td>
                     <td height="24" width="8%"  nowrap ><%=PortletUtils.getMessage(pageContext, "permission-read",null)%></td>
                     <td height="24" width="8%"  nowrap  ><%=PortletUtils.getMessage(pageContext, "permission-write",null)%></td>
                     <td height="24" width="8%"  nowrap  ><%=PortletUtils.getMessage(pageContext, "permission-submit",null)%></td>
+                    <td height="24" width="8%"  nowrap  ><%=PortletUtils.getMessage(pageContext, "permission-audit",null)%></td>
                     <td height="24" width="8%"  nowrap  ><%=PortletUtils.getMessage(pageContext, "permission-export",null)%></td>
                   </tr></thead>
                   <%
@@ -208,10 +221,10 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
                         }
                   %>
                   <tr>
-                    <td height="24"  width="10%" align='left'>
+                    <td height="24"  width="1%" align='left'>
                       <input type="checkbox" class="checkbox" id=<%=dirTag+"a"%> name="directory_total" value="<%=dirTag %>" onclick="javascript:table_selectAll('<%=dirTag%>')">
                     </td>
-                    <td height="24"  width="50%">
+                    <td height="24"  width="49%">
                           <a target=_blank href="<%= url%>" title='<%= name%>'> <%=desc %></a>
                     <% 
 						ArrayList prms=getPermission( groupId,dirId);
@@ -260,6 +273,9 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
                     <%if (showSubmit){%>
                      <input type="checkbox" width="8%"  id=<%=dirTag+"s"%> class="checkbox" name="<%=dirTag %>" value="5" <%=((isSubmit)?"checked":"")%>  onclick="javascript:selectCheckbox('s','<%=dirTag%>');table_unselectall('<%=dirTag%>')">
                     <%}else out.print("<font color='#666666'>"+PortletUtils.getMessage(pageContext, "none-exists",null)+"</font>");%></td><td>
+                     <%if (showAudit){%>
+                     <input type="checkbox" width="8%"  id=<%=dirTag+"u"%> class="checkbox" name="<%=dirTag %>" value="9" <%=((isAudit)?"checked":"")%>  onclick="javascript:selectCheckbox('u','<%=dirTag%>');table_unselectall('<%=dirTag%>')">
+                     <%}else out.print("<font color='#666666'>"+PortletUtils.getMessage(pageContext, "none-exists",null)+"</font>");%></td><td>
                      <input type="checkbox" width="8%"  id=<%=dirTag+"e"%> class="checkbox" name="<%=dirTag %>" value="17" <%=((isExport)?"checked":"")%>  onclick="javascript:selectCheckbox('e','<%=dirTag%>');table_unselectall('<%=dirTag%>')">
                      <input type="checkbox" name="directory_id" id=<%=dirTag+"c"%> value="<%=dirId%>" style="display:none" <%=((isChecked)?"checked":"")%>>
                       <input type="checkbox" name="tab_action" id=<%=dirTag+"t"%> value="<%=dirId%>" style="display:none">

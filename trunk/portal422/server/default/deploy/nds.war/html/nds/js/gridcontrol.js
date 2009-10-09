@@ -454,7 +454,7 @@ GridControl.prototype = {
 	},
 	
 	/**
-	 * @return false if object panel contains invalid data
+	 * @return false if inline object panel contains invalid data
 	 */
 	_checkObjectInput: function(){
 		var cols=this._gridMetadata.columns,i,col, d;
@@ -465,6 +465,46 @@ GridControl.prototype = {
 				ele=$("eo_"+ col.name);
 				if(ele==null )continue;
 				if(!ele.disabled && this._checkInput(col,ele)==false) return false;
+			}
+		}
+		return true;
+	},
+	/**
+	 * @return false if grid panel contains invalid data
+	 */
+	checkInputs:function(){
+		var cols=this._gridMetadata.columns,i,col, d;
+		for(i=4;i< cols.length;i++){
+			col= cols[i];
+			if(col.isVisible &&  col.isUploadWhenCreate && col.isUploadWhenModify ){
+				//columns that modified in list will be checked
+				for(l=0;l< this._data.length;l++){
+					var line= this._data[l];	
+					if(!this._checkInputData(col, line[i], l+1)) return false;
+				}
+			}
+		}
+		return true;
+	},
+	/**
+	 * @param col GridColumn
+	 * @param d data of input
+	 * @param lineNo line no start from 1
+	 * @return false if contains invalid data
+	 */
+	_checkInputData: function(col,d,lineNo){
+		var blank=(String(d)).blank();
+		if(!col.isNullable &&  (blank || (col.isValueLimited && d=="0") )){
+			msgbox( gMessageHolder.EXCEPTION+"("+gMessageHolder.LINE+":"+lineNo+"):"+col.description+ gMessageHolder.CAN_NOT_BE_NULL);
+			return false;
+		}
+		if(!col.isValueLimited && !blank ){
+			if(col.type==Column.NUMBER && isNaN(d,10)){
+				msgbox( gMessageHolder.EXCEPTION+"("+gMessageHolder.LINE+":"+lineNo+"):"+col.description+ gMessageHolder.MUST_BE_NUMBER_TYPE);
+				return false;
+			}else if((col.type==Column.DATE || col.type==Column.DATENUMBER) && !isValidDate(d) ){
+				msgbox( gMessageHolder.EXCEPTION+"("+gMessageHolder.LINE+":"+lineNo+"):"+col.description+ gMessageHolder.MUST_BE_DATE_TYPE);
+				return false;
 			}
 		}
 		return true;

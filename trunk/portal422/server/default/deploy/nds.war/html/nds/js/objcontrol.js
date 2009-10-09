@@ -407,7 +407,13 @@ ObjectControl.prototype = {
 		var evt={};
 		evt.command="ProcessObject";
 		evt["nds.control.ejb.UserTransaction"]="N";//each line will have a seperate transaction
-		if(gc!=undefined && !gc.isDestroied() )gc.fillProcessEvent(evt); // grid control
+		if(gc!=undefined && !gc.isDestroied() ){
+			if(gc.checkInputs()==false){
+				this._toggleButtons(false);		
+	       		return;
+			}
+			gc.fillProcessEvent(evt); // grid control
+		}
 		// hash type
 		evt.masterobj=$H(Form.serializeElements( this._getInputs("obj_inputs_1"),true));
 		// special treatment on clob type column

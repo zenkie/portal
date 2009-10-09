@@ -71,5 +71,6 @@ var gMessageHolder={
 	AVAILABLE:"(可用 = Y)",
 	CLOSE_AFTER_PRINT:"请在打印完成后，点击'确定'按钮关闭当前窗口",
 	NO_POSITIVE_INTEGER:"您输入的数字不是正整数",
-	PRODUCT_NMNER_ZORE:"商品的数量为0!"
+	PRODUCT_NMNER_ZORE:"商品的数量为0!",
+	LINE:"行"
 };

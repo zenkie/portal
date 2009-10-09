@@ -71,6 +71,9 @@ int table_Id= ParamUtils.getIntParameter(request, "table", -1);
   		if ($(catalogId+"s")!=null) {
   			flag=flag||$(catalogId+"s").checked;
   		}
+  		if ($(catalogId+"u")!=null) {
+  			flag=flag||$(catalogId+"u").checked;
+  		}
   		if(flag){
 			$(catalogId+"r").checked=flag;
 		}
@@ -81,11 +84,12 @@ int table_Id= ParamUtils.getIntParameter(request, "table", -1);
     	$(catalogId+"r").checked= $(catalogId+"a").checked;
     	$(catalogId+"w").checked= $(catalogId+"a").checked;
     	$(catalogId+"s").checked= $(catalogId+"a").checked;
+    	$(catalogId+"u").checked= $(catalogId+"a").checked;
     	$(catalogId+"e").checked= $(catalogId+"a").checked;
     	$(catalogId+"c").checked= $(catalogId+"a").checked;
 	}
   	function catalog_unselectall(catalogId){
-  		$(catalogId+"a").checked=$(catalogId+"r").checked&&$(catalogId+"w").checked&&$(catalogId+"s").checked&&$(catalogId+"e").checked;
+  		$(catalogId+"a").checked=$(catalogId+"r").checked&&$(catalogId+"w").checked&&$(catalogId+"s").checked&&$(catalogId+"u").checked&&$(catalogId+"e").checked;
 	}
 </script>
 <br>
@@ -121,12 +125,13 @@ int table_Id= ParamUtils.getIntParameter(request, "table", -1);
                 </table>
                 <table width="90%" class="modify_table" border="1" cellpadding="0" cellspacing="0" bordercolordark="#FFFFFF" bordercolorlight="#999999">
                   <thead><tr>
-                    <td height="24" width="9%" ><input type="checkbox" id="sall" class="checkbox" name="sall" value="" onclick="javascript:selectTotal()"></td>
-                    <td height="24" width="50%" ><%= PortletUtils.getMessage(pageContext, "directory-catalog",null)%></td>
-                    <td height="24" width="10%"  nowrap ><%= PortletUtils.getMessage(pageContext, "permission-read",null)%></td>
-                    <td height="24" width="10%"  nowrap  ><%= PortletUtils.getMessage(pageContext, "permission-write",null)%></td>
-                    <td height="24" width="10%"  nowrap  ><%= PortletUtils.getMessage(pageContext, "permission-submit",null)%></td>
-                    <td height="24" width="10%"  nowrap  ><%= PortletUtils.getMessage(pageContext, "permission-export",null)%></td>
+                    <td height="24" width="1%" ><input type="checkbox" id="sall" class="checkbox" name="sall" value="" onclick="javascript:selectTotal()"></td>
+                    <td height="24" width="59%" ><%= PortletUtils.getMessage(pageContext, "directory-catalog",null)%></td>
+                    <td height="24" width="8%"  nowrap ><%= PortletUtils.getMessage(pageContext, "permission-read",null)%></td>
+                    <td height="24" width="8%"  nowrap  ><%= PortletUtils.getMessage(pageContext, "permission-write",null)%></td>
+                    <td height="24" width="8%"  nowrap  ><%= PortletUtils.getMessage(pageContext, "permission-submit",null)%></td>
+                    <td height="24" width="8%"  nowrap  ><%= PortletUtils.getMessage(pageContext, "permission-audit",null)%></td>
+                    <td height="24" width="8%"  nowrap  ><%= PortletUtils.getMessage(pageContext, "permission-export",null)%></td>
                   </tr></thead>
                   <%
                     int catalogId=0;
@@ -144,9 +149,10 @@ int table_Id= ParamUtils.getIntParameter(request, "table", -1);
                       
                     </td>
                     <td height="24" ><a href="<%=(NDS_PATH+"/security/groupperm2.jsp?id="+groupId+"&catalog="+catalogId+"&subsystemId="+subsystemId) %>"><%=catalog %></a></td>
-                    <td> <input type="checkbox" id=<%=catalogId+"r"%> class="checkbox" name="<%=catalogId %>" value="1" onclick="javascript:checkReadCheckBox(<%=catalogId%>);catalog_unselectall(<%=catalogId%>)">
-                    <td> <input type="checkbox" id=<%=catalogId+"w"%> class="checkbox" name="<%=catalogId %>" value="3" onclick="javascript:selectReadCheckbox('w',<%=catalogId%>);catalog_unselectall(<%=catalogId%>)">
-                    <td> <input type="checkbox" id=<%=catalogId+"s"%> class="checkbox" name="<%=catalogId %>" value="9" onclick="javascript:selectReadCheckbox('s',<%=catalogId%>);catalog_unselectall(<%=catalogId%>)">
+                    <td> <input type="checkbox" id=<%=catalogId+"r"%> class="checkbox" name="<%=catalogId %>" value="1" onclick="javascript:checkReadCheckBox(<%=catalogId%>);catalog_unselectall(<%=catalogId%>)"></td>
+                    <td> <input type="checkbox" id=<%=catalogId+"w"%> class="checkbox" name="<%=catalogId %>" value="3" onclick="javascript:selectReadCheckbox('w',<%=catalogId%>);catalog_unselectall(<%=catalogId%>)"></td>
+                    <td> <input type="checkbox" id=<%=catalogId+"s"%> class="checkbox" name="<%=catalogId %>" value="5" onclick="javascript:selectReadCheckbox('s',<%=catalogId%>);catalog_unselectall(<%=catalogId%>)"></td>
+                    <td> <input type="checkbox" id=<%=catalogId+"u"%> class="checkbox" name="<%=catalogId %>" value="9" onclick="javascript:selectReadCheckbox('u',<%=catalogId%>);catalog_unselectall(<%=catalogId%>)"></td>
                     <td> <input type="checkbox" id=<%=catalogId+"e"%> class="checkbox" name="<%=catalogId %>" value="17" onclick="javascript:selectReadCheckbox('e',<%=catalogId%>);catalog_unselectall(<%=catalogId%>)">
                     	<input type="checkbox" name="directory_catalog" id=<%=catalogId+"c"%> value="<%=catalogId%>" style="display:none" >
                   </tr>
