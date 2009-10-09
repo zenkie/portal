@@ -282,7 +282,7 @@
                 	createButton(document.getElementById("<%=namespace%>cbt_<%=column.getId()%>"));
                 </script>
                 <%if (coid !=-1){%>
-                	<a href='<%=QueryUtils.getTableRowURL(column.getReferenceTable(),true)+"&id="+coid%>'><%= PortletUtils.getMessage(pageContext, "ref-object-view" ,"|")%></a>
+                	<a href='<%=QueryUtils.getTableRowURL(column.getReferenceTable(),true)+"&id="+coid%>'><img border="0" src="/html/nds/images/out.png"/></a>
                 <%}
                 }
             }

@@ -124,8 +124,12 @@ for(int i=0;i< columns.size();i++){
 	}
 	
 %>
-<td width="<%=colSizes[i]%>%" <%=(alignRight[i]?"align='right'":"")%>>
-	<%
+<td class="pd1" width="<%=colSizes[i]%>%" <%=(alignRight[i]?"align='right'":"")%>>
+	<%if(refTable!=null){
+		// hold img link
+	%>
+	<span id="<%=cId%>_url" class="pd2">&nbsp;</span>
+	<%}
 	values= col.getValues(locale);
 	if(values != null){// combox or check
 	    String columnDataValue = "0";
@@ -165,6 +169,9 @@ for(int i=0;i< columns.size();i++){
            		h.put("onchange", "gc.cellChanged(event)");
            		h.put("onkeydown", "gc.moveTableFocus(event)");
            		//h.put("tabIndex", (++tabIndex)+"");
+           		if(refTable!=null){
+           			h.put("onfocus","gc.fkfocus(event)");
+           		}
            		if((refTable!=null &&refTable.getAlternateKey().isUpperCase())||
 								col.isUpperCase()){
 					h.put("class","inputline ucase"+ (isFixedColumn?" disabled":"")+ (alignRight[i]?" num":""));
@@ -173,7 +180,10 @@ for(int i=0;i< columns.size();i++){
                        		
                 %>
 <input:text name="<%=cId%>" attributes="<%=h %>" attributesText="<%=fixedColumnMark%>" />
-          <%}//end getObjectType!=DisplaySetting.OBJ_FILE ||OBJ_IMAGE
+          	<% if(refTable!=null){%>
+			<span id="<%=cId%>_find" class="hide mid"></span><%}else{%>
+			<%}
+          }//end getObjectType!=DisplaySetting.OBJ_FILE ||OBJ_IMAGE
             else{// getObjectType==DisplaySetting.OBJ_FILE || OBJ_IMAGE
           %>
           <span id="<%=cId%>"></span>
@@ -182,12 +192,10 @@ for(int i=0;i< columns.size();i++){
          else{%>
 <span id="<%=cId%>"></span>
          <%}
-	}%>
-    &nbsp;&nbsp;</td>
+	}%></td>
     <%
 }//for
-    %>
-  </tr>
+    %></tr>
   </tbody>
 </table>
 <br>

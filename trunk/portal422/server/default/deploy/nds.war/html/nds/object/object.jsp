@@ -1,3 +1,4 @@
+<%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/common/init.jsp" %>
 <%@ page import="org.json.*" %>
 <%@ page import="nds.control.util.*" %>
@@ -41,17 +42,16 @@ if(tableId==-1){
 	}
 }else{
 	table=manager.getTable(tableId);
-	
 }
-ObjectUIConfig uiConfig=WebUtils.getTableUIConfig(table);
-
 if(table!=null){
 	tableName= table.getName();
 	request.setAttribute("mastertable", String.valueOf(tableId));
 	request.setAttribute("masterid", String.valueOf(objectId));
 	// Forbid none menuobject from opening
-	//if(!table.isMenuObject()) throw new NDSException("@forbid-none-menuobject@");
+	if(!table.isMenuObject()) throw new NDSException("@forbid-none-menuobject@");
 }
+ObjectUIConfig uiConfig=WebUtils.getTableUIConfig(table);
+
 request.setAttribute("table_help", new Integer(tableId));
 
 int selectedTabId=-1;

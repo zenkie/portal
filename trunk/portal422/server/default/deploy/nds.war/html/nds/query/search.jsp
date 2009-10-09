@@ -31,6 +31,16 @@ Table table= TableManager.getInstance().getTable(Tools.getInt(request.getParamet
 if(table==null) table=TableManager.getInstance().getTable(request.getParameter("table"));
 if(table==null) throw new NDSException("table not found");
 int tableId= table.getId();
+
+// add permission check
+boolean canAdd= table.isActionEnabled(Table.ADD);
+if(canAdd){
+	String directory=table.getSecurityDirectory();
+	int perm= userWeb.getPermission(directory);
+	canAdd= ((perm & 3 )==3);
+}
+String addURL="/html/nds/object/object.jsp?table="+tableId+"&id=-1";
+
 QueryRequestImpl qRequest=QueryEngine.getInstance().createRequest(userWeb.getSession());
 qRequest.setMainTable(table.getId());
 // show all columns 
@@ -143,6 +153,9 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 <div id="qbtns">
 	<span id="q_progress_<%=queryindex%>" style="display:none"><img src="/html/nds/images/progress.gif"></span>
 	<input id="btn-return-result" type="button" class="cbutton" onclick="javascript:oq.return_result()" value="<%=PortletUtils.getMessage(pageContext, "return-multi-result",null)%>">
+	<%if(canAdd ){%>
+	<input id="btn-cancel" type="button" class="cbutton" onclick="javascript:popup_window('<%=addURL%>')" value="<%=PortletUtils.getMessage(pageContext, "object.add",null)%>">
+	<%}%>
 	<input id="btn-cancel" type="button" class="cbutton" onclick="javascript:oq.close()" value="<%=PortletUtils.getMessage(pageContext, "command.cancel",null)%>">
 </div>
 </div>
@@ -150,6 +163,9 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 <div id="qbtns">
 	<span id="q_progress_<%=queryindex%>" style="display:none"><img src="/html/nds/images/progress.gif"></span>
 	<input id="btn-search" type="button" class="cbutton" onclick="javascript:oq.search()" value="<%=PortletUtils.getMessage(pageContext, "show-result",null)%>">&nbsp;
+	<%if(canAdd ){%>
+	<input id="btn-cancel" type="button" class="cbutton" onclick="javascript:popup_window('<%=addURL%>')" value="<%=PortletUtils.getMessage(pageContext, "object.add",null)%>">
+	<%}%>
 	<input id="btn-cancel" type="button" class="cbutton" onclick="javascript:oq.close()" value="<%=PortletUtils.getMessage(pageContext, "command.cancel",null)%>">
 </div>
 <%}%>

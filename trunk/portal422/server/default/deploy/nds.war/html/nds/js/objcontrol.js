@@ -59,34 +59,40 @@ ObjectControl.prototype = {
 		q.id=this._masterObj.hiddenInputs.id;
 		return q;
 	},
-	_onExecuteWebAction:function(e){
-		oc._toggleButtons(false);
-		var r=e.getUserData().data; 
+	/**
+		@param r - SPResult, contains 'code' and 'message'
+		@return true, no need to continue following script(window should be closed or refreshed)
+	*/
+	_handleSPResult:function(r){
+		var b=false;
 		if(r.message && r.code !=3 && r.code!=4 && r.code!=5){
 			msgbox(r.message.replace(/<br>/g,"\n"));
 		}
 		switch(r.code){
 			case 1://refresh list
-				window.location.reload();	
+				//window.location.reload(true);	
+				this.doRefresh();
+				b=true;
 				break;
 			case 2://refresh page
+				b=true;
 				try{
 					this.closeDialog();	
-					return;
+					return true;
 				}catch(e){}
 				window.close();	
 				break;
 			case 3:
-				
 				try{
 					gc.refreshGrid();	
-					return;
+					return true;
 				}catch(e){}
 				try{
 					this.doRefresh();	
-					return;
+					return true;
 				}catch(e){}	
-				window.location.reload();	
+				window.location.reload(true);	
+				return true;
 			case 4://using message as url, and load target from user data
 				var tgt=r.target;
 				if(tgt==undefined || tgt==null) tgt="_blank";
@@ -101,8 +107,15 @@ ObjectControl.prototype = {
 				break;
 			case 99://close current page
 				window.close();
+				b=true;
 				break;
 		}
+		return b;
+	},
+	_onExecuteWebAction:function(e){
+		oc._toggleButtons(false);
+		var r=e.getUserData().data; 
+		this._handleSPResult(r);
 	},		
 	/**
 	 * Get column by id in master object, return null if not found
@@ -596,6 +609,11 @@ ObjectControl.prototype = {
 	 */
 	_onSaveObject : function (e) {
 		if(this._checkShouldClose(e)) return;
+		// spresult of main object
+		var spr=e.getUserData().data.spresult;
+		if(spr){
+			if(this._handleSPResult(spr)) return;
+		}
 		// detal objects
 		if(gc!=undefined  && !gc.isDestroied())gc.updateGrid(e);
 		// master object

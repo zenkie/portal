@@ -218,6 +218,7 @@ ObjectQuery.prototype = {
 		// get selected line
 		var acpt=$(this._accepter_id[this._queryindex]);
       	acpt.value=ele.alt;
+      	fireEvent(acpt,"change");
       	var fk_acpt=$("fk_"+ this._accepter_id[this._queryindex]);
       	if(fk_acpt!=null)fk_acpt.value=ele.id.replace(/chk_obj_/i, "") ;
       	
@@ -266,6 +267,7 @@ ObjectQuery.prototype = {
       	}else{
       		$(this._accepter_id[this._queryindex]+"_fd").value=desc;
       	}
+      	fireEvent($(this._accepter_id[this._queryindex]+"_fd"),"change");
       	$(this._accepter_id[this._queryindex]).value=xml;
       	$(this._accepter_id[this._queryindex]+"_fd").readOnly=true;
 		$(this._accepter_id[this._queryindex]+ "_img").src="/html/nds/images/clear.gif";
@@ -314,6 +316,10 @@ ObjectQuery.prototype = {
 	    $(this._accepter_id[this._queryindex]+ "_img").alt=gMessageHolder.CLEAR_CONDITION;
       	$(this._accepter_id[this._queryindex]).value=sqlDesc;
      	$(this._accepter_id[this._queryindex]).readOnly=true;
+     	
+      	fireEvent($(this._accepter_id[this._queryindex]),"change");
+
+     	
       	$(this._accepter_id[this._queryindex]+ "_sql").value=sql;
 		var obj=$(this._accepter_id[this._queryindex]+ "_expr");
 		if( obj !=null){
@@ -956,10 +962,11 @@ scrollPage: function (t,accepterId) {
     		document.sheet_item_modify.selectedItemIdx[row].checked = true;
     	}catch(e){
     	}
-    	try{// prototype method
+    	fireEvent(ele,"change");
+    	/*try{// prototype method
     		if(ele.onchange)ele.onchange();
     	}catch(e){
-    	}
+    	}*/
     }
 	this._hidePopupWindow();
 },
@@ -1549,3 +1556,16 @@ function json2xml(o, tab) {
    return tab ? xml.replace(/\t/g, tab) : xml.replace(/\t|\n/g, "");
 }
 
+function fireEvent(element,event){
+    if (document.createEventObject){
+        // dispatch for IE
+        var evt = document.createEventObject();
+        return element.fireEvent('on'+event,evt)
+    }
+    else{
+        // dispatch for firefox + others
+        var evt = document.createEvent("HTMLEvents");
+        evt.initEvent(event, true, true ); // event type,bubbling,cancelable
+        return !element.dispatchEvent(evt);
+    }
+}

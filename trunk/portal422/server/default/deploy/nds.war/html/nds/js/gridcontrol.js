@@ -144,6 +144,10 @@ GridControl.prototype = {
 			this._executeQuery(this._gridQuery);
 		}
 	},	
+	fk:function(tableId, objId){
+		var url="/html/nds/object/object.jsp?table="+tableId+"&id="+objId;
+		popup_window(url,"_blank", 956,570);
+	},
 	/**
 	 * Open current row in new window
 	 */
@@ -874,9 +878,42 @@ GridControl.prototype = {
 			col= cols[i];
 			if(col.isVisible){
 				this._setValue(line[0]+"_"+ col.name,line[i] );
+				if(col.objIdPos!=-1 && col.rTableId!=-1){
+					if(line[col.objIdPos]!=null)
+						$(line[0]+"_"+ col.name+"_url").innerHTML='<a href="javascript:gc.fk('+
+							col.rTableId+','+line[col.objIdPos]+
+							')"><img border="0" src="/html/nds/images/out.png"/></a>';
+					if(col.fkQueryURL!=null)
+						$(line[0]+"_"+ col.name+"_find").innerHTML='<a href="javascript:'+
+							col.fkQueryURL.replace(/@ACCEPTER@/gi,line[0]+"_"+ col.name)+
+							'"><img border="0" src="/html/nds/images/find.gif"/></a>';
+				}
 			}
 		}
 		this._updateGridLineState(line);
+	},
+	/**
+	 show find button
+	*/
+	fkfocus:function(e){
+		var r= this._getCurrentPositionInData(e);
+		var line=this._data[r.row];
+		var col=this._gridMetadata.columns[r.column];
+		
+		if(this._lastFocusedFKElement!=null){
+			//hide last focused fk element
+			if(!this._lastFocusedFKElement.hasClassName("hide"));	
+				this._lastFocusedFKElement.addClassName("hide");
+		}
+		var ele=$(line[0]+"_"+ col.name+"_find");
+		ele.removeClassName("hide");
+		this._lastFocusedFKElement=ele;
+		
+	},
+	/**
+	hide find button
+	*/
+	fkblur:function(e){
 	},
 	/**
 	 * Show json object, will request server send back screen
