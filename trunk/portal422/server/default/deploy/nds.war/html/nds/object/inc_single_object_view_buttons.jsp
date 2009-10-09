@@ -24,17 +24,15 @@ if(canSubmit){
 	
 }
 //unsubmit support
-if( table.isActionEnabled(Table.UNSUBMIT) && table.isActionEnabled(Table.SUBMIT) && status==2){
-	// user should be the last modifier to do unsubmit
-	if(table.getColumn("modifierid")!=null){
-		int lastModifierId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select modifierid from "+ table.getRealTableName()+" where id="+ objectId),-1);
-		if(lastModifierId!=-1&& lastModifierId== userWeb.getUserId()){
-			boolean shouldWarn=Tools.getYesNo(userWeb.getUserOption("WARN_ON_SUBMIT","Y"),true);
-			validCommands.add( commandFactory.newButtonInstance("Unsubmit", 
-				PortletUtils.getMessage(pageContext, "object.unsubmit",null),
-				"oc.doUnsubmit("+shouldWarn+")","U"
-			));
-		}
+if( table.isActionEnabled(Table.AUDIT) && table.isActionEnabled(Table.SUBMIT) && status==2){
+	//
+	if( (perm & 9 )==9){ 
+	
+		boolean shouldWarn=Tools.getYesNo(userWeb.getUserOption("WARN_ON_SUBMIT","Y"),true);
+		validCommands.add( commandFactory.newButtonInstance("Unsubmit", 
+			PortletUtils.getMessage(pageContext, "object.unsubmit",null),
+			"oc.doUnsubmit("+shouldWarn+")","U"
+		));
 	}
 }
 if(objectId!=-1){
