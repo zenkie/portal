@@ -1391,10 +1391,12 @@ jQuery(document).ready(DynamicQuery.main);
 	 * ta: signs for whether current searchOnColumn is in title area or not
 	 * rc: reference columns in wildcard filter, which is in same table as searchOnColumn
 	 * prc:reference columns in wildcard filter, which is in parent table of searchOnColumn
-	 * 
+	 * @param accepter_id will use this one to confirm position in grid(list or embed object)
+	 *  if accepter_id starts from eo_, then is in embed object panel, format like eo_Y_SPEC_ID__NAME
+	 *  else is in list, format like M2308_Y_SPEC_ID__NAME
 	 * @return null if find error
 	 */
-function reconstructQueryURL(orgURL, options){
+function reconstructQueryURL(orgURL, options,accepter_id){
 		var url=orgURL;
 		if(options !=undefined && options !=null){
 			// check every colum input in rc and prc
@@ -1424,7 +1426,14 @@ function reconstructQueryURL(orgURL, options){
 			for(i=0;i< gridArray.length;i++){
 				column = gc.getColumnById(gridArray[i]);
 				if(column ==null)continue;
-				ele=$("eo_"+ column.name);
+				if(accepter_id.startsWith("eo_")){
+					//load from embed object panel, accepter_id format:eo_Y_SPEC_ID__NAME
+					ele=$("eo_"+ column.name);
+				}else{
+					//load from grid table, accepter_id format:M2308_Y_SPEC_ID__NAME, 
+					//will replace Y_SPEC_ID__NAME with column
+					ele=$(accepter_id.split("_",1)+"_"+column.name);
+				}
 				if(ele!=null){
 					v=dwr.util.getValue(ele);
 					if(v==null){
@@ -1435,7 +1444,7 @@ function reconstructQueryURL(orgURL, options){
 							return;
 						}
 					}else{
-						url+="&wfc_"+ column.id+"="+ encodeURIComponent(v);
+						url+="&wfc_"+ gridArray[i]+"="+ encodeURIComponent(v);
 					}
 				}
 			}

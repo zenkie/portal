@@ -122,13 +122,13 @@ for(int i=0;i< columns.size();i++){
 	}else{
 		colWidth=(( col.getStatSize()<=0)? 15:col.getStatSize());
 	}
-	
+	isFixedColumn= (fixedColumns.get(new Integer(col.getId())) ==null)?false:true;
 %>
 <td class="pd1" width="<%=colSizes[i]%>%" <%=(alignRight[i]?"align='right'":"")%>>
-	<%if(refTable!=null){
-		// hold img link
+	<%if(refTable!=null && !isFixedColumn && refTable.isMenuObject()){
+		// hold img link, if column is fk, and not fixed, and can popup(menuItem)
 	%>
-	<span id="<%=cId%>_url" class="pd2">&nbsp;</span>
+		<span id="<%=cId%>_url" class="pd2">&nbsp;</span>
 	<%}
 	values= col.getValues(locale);
 	if(values != null){// combox or check
@@ -160,7 +160,7 @@ for(int i=0;i< columns.size();i++){
           if(col.getDisplaySetting().getObjectType()!=DisplaySetting.OBJ_FILE
 			          	&& col.getDisplaySetting().getObjectType()!=DisplaySetting.OBJ_IMAGE
 			          	&& col.getDisplaySetting().getObjectType()!=DisplaySetting.OBJ_XML){
-		   		isFixedColumn= (fixedColumns.get(new Integer(col.getId())) ==null)?false:true;
+		   		
 				fixedColumnMark= isFixedColumn?"DISABLED":"";
            		java.util.Hashtable h = new java.util.Hashtable();
            		h.put("size", colWidth+"");

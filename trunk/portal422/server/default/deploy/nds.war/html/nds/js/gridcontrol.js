@@ -914,19 +914,25 @@ GridControl.prototype = {
 			jsonhtml="<a href='javascript:gc.showJsonObj("+row+")'><img src='/html/nds/images/detail.gif' border='0'/></a>";
 		}
 		$( line[0]+"_jsonobj" ).innerHTML=jsonhtml;
+		var canModify=(this._tableActions.indexOf("M")>=0);
+		var ele;
 		for(i=4;i< cols.length;i++){
 			col= cols[i];
 			if(col.isVisible){
 				this._setValue(line[0]+"_"+ col.name,line[i] );
 				if(col.objIdPos!=-1 && col.rTableId!=-1){
-					if(line[col.objIdPos]!=null)
-						$(line[0]+"_"+ col.name+"_url").innerHTML='<a href="javascript:gc.fk('+
+					if(line[col.objIdPos]!=null){
+						ele=$(line[0]+"_"+ col.name+"_url");
+						if(ele!=null)ele.innerHTML='<a href="javascript:gc.fk('+
 							col.rTableId+','+line[col.objIdPos]+
 							')"><img border="0" src="/html/nds/images/out.png"/></a>';
-					if(col.fkQueryURL!=null)
-						$(line[0]+"_"+ col.name+"_find").innerHTML='<a href="javascript:'+
+					}
+					if(canModify && col.fkQueryURL!=null){
+						ele=$(line[0]+"_"+ col.name+"_find");
+						if(ele!=null)ele.innerHTML='<a href="javascript:'+
 							col.fkQueryURL.replace(/@ACCEPTER@/gi,line[0]+"_"+ col.name)+
 							'"><img border="0" src="/html/nds/images/find.gif"/></a>';
+					}
 				}
 			}
 		}
