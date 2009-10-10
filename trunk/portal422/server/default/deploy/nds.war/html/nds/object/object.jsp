@@ -48,7 +48,7 @@ if(table!=null){
 	request.setAttribute("mastertable", String.valueOf(tableId));
 	request.setAttribute("masterid", String.valueOf(objectId));
 	// Forbid none menuobject from opening
-	if(!table.isMenuObject()) throw new NDSException("@forbid-none-menuobject@");
+	//if(!table.isMenuObject()) throw new NDSException("@forbid-none-menuobject@");
 }
 ObjectUIConfig uiConfig=WebUtils.getTableUIConfig(table);
 
