@@ -36,7 +36,7 @@ ObjectQuery.prototype = {
 	toggle: function(url, accepter_id, options) {
 		var l= $(accepter_id+"_link");
 		if( l==null || (l!=null &&l.title=="popup")){
-			url=reconstructQueryURL(url, options);
+			url=reconstructQueryURL(url, options,accepter_id);
 			if(url==null) return; // find error
 			this._queryindex=this._queryindex+1;
 			this.multi_result[this._queryindex]=new Array();
@@ -93,7 +93,7 @@ ObjectQuery.prototype = {
 	toggle_m: function(url, accepter_id, options) {
 			var l= $(accepter_id+"_link");
 			if( l==null || (l!=null &&l.title=="popup")){
-				url=reconstructQueryURL(url, options);
+				url=reconstructQueryURL(url, options,accepter_id);
 				if(url==null) return; // find error
 				this._queryindex=this._queryindex+1;
 				this.multi_result[this._queryindex]=new Array();
@@ -786,7 +786,7 @@ DropdownQuery.prototype = {
 		var notLoadedDiv=document.getElementById("dwrloading_"+accepter_id); 
 		
 		if(options!=undefined && options!=null){
-			query=reconstructQueryURL(query, options);
+			query=reconstructQueryURL(query, options,accepter_id);
 			if(query==null) return;// found error
 			// load div every time
 			if(dropdownDiv!=null){
@@ -1436,7 +1436,7 @@ function reconstructQueryURL(orgURL, options,accepter_id){
 				}
 				if(ele!=null){
 					v=dwr.util.getValue(ele);
-					if(v==null){
+					if(v==null || v.blank()){
 						// if column is not nullable, alert user to input first
 						if(!column.isNullable){
 							alert(gMessageHolder.INPUT_FIELD.replace("0", column.description));
