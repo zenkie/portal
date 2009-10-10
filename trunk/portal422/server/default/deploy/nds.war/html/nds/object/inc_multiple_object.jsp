@@ -125,7 +125,7 @@ for(int i=0;i< columns.size();i++){
 	isFixedColumn= (fixedColumns.get(new Integer(col.getId())) ==null)?false:true;
 %>
 <td class="pd1" width="<%=colSizes[i]%>%" <%=(alignRight[i]?"align='right'":"")%>>
-	<%if(refTable!=null && !isFixedColumn && refTable.isMenuObject()){
+	<%if(refTable!=null && !isFixedColumn){
 		// hold img link, if column is fk, and not fixed, and can popup(menuItem)
 	%>
 		<span id="<%=cId%>_url" class="pd2">&nbsp;</span>
