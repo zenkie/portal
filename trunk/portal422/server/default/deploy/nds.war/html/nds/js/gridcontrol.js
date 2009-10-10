@@ -493,7 +493,7 @@ GridControl.prototype = {
 	 * @return false if contains invalid data
 	 */
 	_checkInputData: function(col,d,lineNo){
-		var blank=(String(d)).blank();
+		var blank=(d==null || (String(d)).blank());
 		if(!col.isNullable &&  (blank || (col.isValueLimited && d=="0") )){
 			msgbox( gMessageHolder.EXCEPTION+"("+gMessageHolder.LINE+":"+lineNo+"):"+col.description+ gMessageHolder.CAN_NOT_BE_NULL);
 			return false;
