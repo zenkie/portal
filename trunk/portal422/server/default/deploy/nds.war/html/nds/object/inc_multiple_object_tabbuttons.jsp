@@ -9,7 +9,7 @@
 	actionEnv.put("userweb", userWeb);
 	actionEnv.put("connection", actionEnvConnection);
 	//special env data for TabButton display check
-	actionEnv.put("objectid", masterTableId);
+	actionEnv.put("objectid", masterId);
 	actionEnv.put("maintable", masterTable.getName());
 		
   	List<WebAction> was=table.getWebActions(WebAction.DisplayTypeEnum.TabButton);
