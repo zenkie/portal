@@ -163,11 +163,13 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 <div id="qbtns">
 	<span id="q_progress_<%=queryindex%>" style="display:none"><img src="/html/nds/images/progress.gif"></span>
 	<input id="btn-search" type="button" class="cbutton" onclick="javascript:oq.search()" value="<%=PortletUtils.getMessage(pageContext, "show-result",null)%>">&nbsp;
+<%--
 	<%if(canAdd ){%>
 	<input id="btn-cancel" type="button" class="cbutton" onclick="javascript:popup_window('<%=addURL%>')" value="<%=PortletUtils.getMessage(pageContext, "object.add",null)%>">
 	<%}%>
 	<input id="btn-cancel" type="button" class="cbutton" onclick="javascript:oq.close()" value="<%=PortletUtils.getMessage(pageContext, "command.cancel",null)%>">
-</div>
+--%>
+	</div>
 <%}%>
 </div>
 <%
