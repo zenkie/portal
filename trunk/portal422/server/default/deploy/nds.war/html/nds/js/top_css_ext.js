@@ -76,6 +76,12 @@ function btnreq(url, theWidth, theHeight){
     dialog_window(url,theWidth, theHeight);
 }
 function refreshWindow(){
+	try{
+		if(oc!=null){
+			oc.doRefresh();
+			return;
+		}
+	}catch(ex){}
 	window.location.reload();	
 }
 function dialog_window(url, theWidth, theHeight, refreshWindowWhenClose){
