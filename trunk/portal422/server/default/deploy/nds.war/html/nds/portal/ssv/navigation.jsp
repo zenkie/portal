@@ -1,3 +1,4 @@
+<%@ page language="java" import="java.util.*,nds.velocity.*" pageEncoding="utf-8"%>
 <%
 /**
 Navigation of ss
@@ -8,9 +9,8 @@ nds.query.web.SubSystemView ssv=new nds.query.web.SubSystemView();
 SubSystem ss;
 %>
 <div id="ssv-v">
-<div class="showitem yellow clearfix">
-<div class="span-auto pic">
-<div class="title"></div>
+<div class="title-bg"><div class="title">可用</div></div>
+<div class="clearfix">
 <ul>
 <%
 List<SubSystem> sss =ssv.getSubSystems(request, nds.query.web.SubSystemView.PERMISSION_VIEWABLE);
@@ -22,15 +22,14 @@ for(int i=0;i< sss.size();i++){
 }
 %>
 </ul>
-</div></div></div>	
+</div></div>	
 	
 <%
 sss =ssv.getSubSystems(request, nds.query.web.SubSystemView.PERMISSION_NO_PERM);
 if(sss.size()>0){%>
 <div id="ssv-l">
-<div class="showitem blue clearfix">
-<div class="span-auto pic">
-<div class="title"></div>
+<div class="title-bg"><div class="title">不可用</div></div>
+<div class="clearfix">
 <ul>
 <%
 for(int i=0;i< sss.size();i++){
@@ -41,12 +40,11 @@ for(int i=0;i< sss.size();i++){
 }
 %>
 </ul>
-</div></div></div>
+</div></div>
 <%}%>
 <div id="ssv-w">
-<div class="showitem blue clearfix">
-<div class="span-auto pic">
-<div class="title"></div>
+<div class="title-bg"><div class="title">未开通</div></div>
+<div class="clearfix">
 <ul>
 	<%
 sss =ssv.getSubSystems(request, nds.query.web.SubSystemView.PERMISSION_NO_LICENSE);
@@ -58,4 +56,4 @@ for(int i=0;i< sss.size();i++){
 }
 %>
 </ul>
-</div></div></div>	
+</div></div>
