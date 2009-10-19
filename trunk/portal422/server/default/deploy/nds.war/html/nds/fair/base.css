@@ -21,6 +21,7 @@ a{
 	text-decoration:none;
 	outline:none;
 }/*棕色*/
+
 a:hover
 {
 	color:#D91B07;
@@ -54,6 +55,21 @@ select
 	top:18px;
 	+top:0px;/*IE可执行*/
 	}
+	
+.relative02{
+	position:relative;
+	z-index:22;
+	top:8px;
+	clear:both;
+	width:670px;
+	padding-left:5px;
+	}	
+
+.outline {
+position:relative; 
+clear:both;
+}
+
 .txt_coffe
 {
    color:#714c2c;
@@ -422,11 +438,11 @@ a img
 }
 #store_view a img,#hotCharts a img,#detail_view a img
 {
-	border:1px solid #c9c9c9; 
+	border:0px solid #c9c9c9; 
 }
 #store_view a img,#hotCharts a img,#detail_view_match a img
 {
-	border:1px solid #c9c9c9; 
+	border:0px solid #c9c9c9; 
 }
 .cost
 {
@@ -1421,7 +1437,7 @@ margin-left:5px;
    width:310px;
    float:right;
    margin-right:10px;
-   _display:inline;
+   display:inline;
 }
 h1
 {
@@ -2135,19 +2151,22 @@ a img
     background-position: -96px 0;
 }
 
-.item_view_content .table_bg{
+.table_bg{
     background:#efefef;
+    width:100%;
 }
 
-.item_view_content .td_bg{
-   background:url(images/td_bg.jpg) repeat-x scroll;
+.td_bg{
+   background:#999;
    height:18px;
    color:#FFFFFF;
+   font-size:12px;
+   padding-left:3px;
    text-align:center;
-    font-size:12px;
+   width:40px;
 }
 
-.item_view_content .td_bg_center{
+.td_bg_center{
    background:#dedede;
    color:#FFFFFF;
    text-align:center;

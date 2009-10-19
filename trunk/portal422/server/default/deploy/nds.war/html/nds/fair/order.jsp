@@ -104,24 +104,10 @@
 										<div class="content_line"></div>
 										<h3>数量：<span id="cnt" class="cost"></span></h3>
 										<h3>金额：<span id="totamt" class="cost"></span>元</h3>
-										<div class="relative" >
-											<form id="p_form" name="p_form" method="post">
-										    <div id="p_matrix" style="overflow-x:auto;width:100%;">
-											</div>
-										   </form>
-										  <br/><div align="right"><a onclick="fair.saveorder();"><img src="images/btn_news.gif" width="72" height="24"  border="0"/></a></div>
-										  </div>
-				</div>
-</form>
-				<span class="view_btm clear"></span>
-			
-			</div>
-<div id="detail_view">
-	<span class="view_top"></span>
-<div>
-	<p class="graytxt relative" style="padding: 2px 0px 0px 10px; top: 10px; text-align: left; width: 600px; text-indent: 0pt;">
+										<div>
+	<p class="graytxt relative" style="padding: 2px 0px 0px 10px; top: 10px; text-align: left; width: 310px; text-indent: 0pt;">
 		<ul class="outline">              	
-            <li style="cursor: pointer;padding-left:20px;font-size:14px;font-weight:bold;">该商品的信息
+            <li style="cursor: pointer;font-size:14px;font-weight:bold;">该商品的信息
                  <ul style="display: block;font-size:12px;font-weight:normal; ">
                 	 <li id="desc" style="padding: 0px 0px 0px 23px;">
                        </li>
@@ -130,9 +116,18 @@
        </ul>		
 		</p>
 </div>
-		<span class="view_btm clear"></span>
+				</div>			
+</form>
+										<div class="relative02" >
+											<form id="p_form" name="p_form" method="post">
+										    <div id="p_matrix" style="overflow-x:auto;width:100%;text-algin:center;"></div>
+										   </form>
+										  <br/><div align="right"><a onclick="fair.saveorder();"><img src="images/btn_news.gif" width="72" height="24"  border="0"/></a></div>
+										  </div>
+				<span class="view_btm clear"></span>
 			
-</div>
+			</div>
+
 <div class="crumb_view">
 	建议搭配
 </div>
@@ -164,16 +159,14 @@
 											<h3>数量：<span id="cnt_match" class="cost"></span></h3>
 											<h3>金额：<span id="totamt_match" class="cost"></span>元</h3>
 										<div class="relative">
-											<div id="p_matrix_match" style="overflow-x:auto;width:100%;">
-											</div>
+											<div id="p_matrix_match" style="overflow-x:auto;width:670px;"></div>
 								
 										  <br/><div align="right"><a onclick="javascript:fair.saveorder_match();"><img src="images/btn_news.gif" width="72" height="24" /></a></div>
 										</div>
 				</div>
  </form>
 				<span class="view_btm clear"></span>
-			
-			
+</div>
 		
 <div id="detail_view">
 	<span class="view_top"></span>
