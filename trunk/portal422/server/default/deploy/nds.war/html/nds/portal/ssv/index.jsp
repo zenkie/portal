@@ -1,3 +1,4 @@
+<%@ page language="java" import="java.util.*,nds.velocity.*" pageEncoding="utf-8"%>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/common/init.jsp" %>
 <%!
@@ -57,9 +58,25 @@ if(nds.util.Validator.isNull(dialogURL)){
 <%@ include file="body_meta.jsp"%>
 <div id="ssv-top">
 	<div id="ssv-top-banner">
-		<%@ include file="top.jsp" %>
+		<div id="page-company-logo">
+	<%=userWeb.getClientDomainName()%>
+</div>
 	</div>
-	<div id="ssv-top-heigth"></div>
+	<div id="ssv-top-text-bg">
+	<div id="page-niche-menu">
+	<span style="font-weight: bold"><%= user.getGreeting() %></span>|
+	<%if(session.getAttribute("saasvendor")==null){
+		//alisoft does not allow home page and logout, change password
+	%>
+	<a class="top-text" href="/"><%= PortletUtils.getMessage(pageContext, "home",null)%></a>&nbsp;|&nbsp;
+	<%}%>
+	<a class="top-text" href="javascript:showObject('/html/nds/option/option.jsp',null,null,{maxButton:false,closeButton:false})"><%= PortletUtils.getMessage(pageContext, "option_setting",null)%></a>&nbsp;|&nbsp;
+	<a class="top-text" href="javascript:popup_window('/help/Wiki.jsp?page=Help')"><%= PortletUtils.getMessage(pageContext, "help",null)%></a>&nbsp;|&nbsp;
+	<%if(session.getAttribute("saasvendor")==null){%>
+	<a class="top-text" href="<%= themeDisplay.getURLSignOut() %>"><bean:message key="sign-out" /></a>
+	<%}%>
+</div>
+	</div>
 </div>
 <div id="ssv-main">	
 <table id="ssv-table" cellpadding="0" cellspacing="0">
@@ -85,7 +102,7 @@ if(nds.util.Validator.isNull(dialogURL)){
 <td width="1%" norwap class="topleft">
 
 <div id="ssv-help2">
-	<div class="ssv-help-p"><div class="ssv-help-pic"><img src="/html/nds/portal/ssv/images/ssv-title05.gif" width="85px" height="22px"  /></div></div>
+<div  class="title-bg"><div class="title">帮助说明</div></div>
 <div class="ssv-help">
 <div id="ssv-help">	
 	</div></div></div>		
@@ -95,7 +112,7 @@ if(nds.util.Validator.isNull(dialogURL)){
 
 <div id="ssv-bottom1">
 <div id="ssv-bbs">
-<div class="ssv-p"><div class="ssv-bbs-p"><img src="/html/nds/portal/ssv/images/ssv-title04.gif" width="85px" height="22px" /></div></div>
+<div class="title-bg01"><div class="title01">系统交互</div></div>
 	<div id="ssv-bbs-bg">
 		<%@ include file="bbs.jsp" %>
 		</div>
