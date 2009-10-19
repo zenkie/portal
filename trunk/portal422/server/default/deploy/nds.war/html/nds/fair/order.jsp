@@ -107,8 +107,8 @@
 										<div>
 	<p class="graytxt relative" style="padding: 2px 0px 0px 10px; top: 10px; text-align: left; width: 310px; text-indent: 0pt;">
 		<ul class="outline">              	
-            <li style="cursor: pointer;font-size:14px;font-weight:bold;">该商品的信息
-                 <ul style="display: block;font-size:12px;font-weight:normal; ">
+            <li style="cursor: pointer;font-size:13px;font-weight:bold;color: rgb(122, 122, 122);">该商品的信息
+                 <ul style="display: block;font-size:12px;font-weight:normal;color: rgb(122, 122, 122); ">
                 	 <li id="desc" style="padding: 0px 0px 0px 23px;">
                        </li>
                  </ul>
