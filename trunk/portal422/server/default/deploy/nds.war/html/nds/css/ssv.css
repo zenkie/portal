@@ -15,7 +15,7 @@ font-size:12px;
 }
 
 * html body{ /*IE6 hack*/
-padding: 40px 0 258px 0; /*Set value to (HeightOfFrameDiv 0 0 0)*/
+padding: 84px 0 258px 0; /*Set value to (HeightOfFrameDiv 0 0 0)*/
 }
 
 * html #ssv-main{ /*IE6 hack*/ 
@@ -35,135 +35,14 @@ a{
 
 a:hover{
     font-size: 12px;
-    COLOR:#0000FF;
+    COLOR:#ff0000;
     TEXT-DECORATION: underline;
 	}
 
-#ssv-top{
-top:0;
-bottom:auto;
-position:absolute;
-height:28px;
-left:0;
-min-width:1000px;
-width:100% !important;
-}
-
-#ssv-top-banner{
-background:#FDAD18 url(/html/nds/themes/classic/01/images/head-title-bg.jpg) no-repeat scroll left center;
-height:28px;
-position:relative;
-text-align:left;
-z-index:3;
-}
-
-#ssv-top-heigth{
-border-bottom:3px #e49f27 solid;}
-
-#page-company-logo {
-background:transparent url(/html/nds/themes/classic/01/images/head-small-logo.gif) no-repeat scroll left center;
-color:#333333;
-display:inline;
-float:left;
-font-size:10pt;
-font-weight:bold;
-height:24px;
-padding:4px 0 0 106px;
-}
-
-#page-niche-menu {
-color:#FFFFFF;
-padding:10px 10px 0;
-position:absolute;
-right:0;
-text-align:right;
-font-size:12px;
-}
-
-#ssv-main {
-left:0;
-right:0;
-height:80%;
-top:40px;
-bottom:256px;
-overflow:auto;
-position:absolute;
-}
-
-#ssv-table {
-
-padding:0;
-width:100%;
-font-size:12px;
-text-algin:left;
-}
-
-.topleft {
-text-align:left;
-vertical-align:top;
-}
-
-#ssv-content {
-margin:0px;
-padding:5px;
-}
-
-#ssv-v {
-background:url(/html/nds/portal/ssv/images/middlebg.gif) repeat-x scroll;
-+height:100%; /*IE可执行*/
-margin:5px 10px 0 5px;
-}
-
-#ssv-v .showitem { padding:15px 0 0 40px;}
-
-#ssv-v .showitem .pic{ position:relative}
-
-#ssv-v .yellow{ 
-background:url(/html/nds/portal/ssv/images/middleTitle-yellow.gif) no-repeat scroll;
-}
-
-#ssv-v .showitem .pic .title{ 
-position:absolute; 
-padding-top:10px; 
-left:-30px; 
-width: 22px; 
-height: 86px; 
-color:#fff; 
-line-height:16px;
-font-size:14px;
-font-weight:bold;}
-
-.clearfix{
-display:inline-block;}
-
-.span-auto{
-with:auto;}
-
-#ssv-v ul{
-list-style:none;
-float:left;
-text-algin:left;}
-
-#ssv-v li{
-float:left;
-text-algin:left;}
-
-.ss{
-float:left;
-margin:5px;
-text-align:center;
-padding:5px;
-	width:80px;
-  height:80px;}
-  
-.sst{
-padding:2px 0 0 0;
-}
-
 a.IMG{
 	TEXT-DECORATION: none;
-	background-color:#fffbf4;
-  border:1px #ffd178 solid;
+	background-color:#f1f5f8;
+    border:1px #acd3f0 solid;
 	font-size: 12px;
 	color: #000;
 	width:80px;
@@ -173,8 +52,8 @@ a.IMG{
 }
 
 a.IMG:hover{
-    background-color:#fee5b6;
-    border:1px #ffd178 solid;
+    background-color:#d2dfe9;
+    border:1px #acd3f0 solid;
     font-size: 12px;
     COLOR:#0000FF;
     TEXT-DECORATION: underline;
@@ -209,139 +88,212 @@ a.IMG01:hover{
     display: block;
 	}
 
+#ssv-top{
+top:0;
+bottom:auto;
+position:absolute;
+height:60px;
+left:0;
+min-width:1000px;
+width:100% !important;
+}
+
+#ssv-top-banner{
+background:#fff url(/html/nds/portal/ssv/images/head-title-bg.gif) no-repeat scroll right;
+height:60px;
+position:relative;
+text-align:left;
+z-index:3;
+margin-right:15px;
+}
+
+#page-company-logo {
+background:url(/html/nds/portal/ssv/images/head-left-logo.gif) no-repeat scroll;
+color:#fff;
+display:inline;
+float:left;
+font-size:10pt;
+font-weight:bold;
+height:60px;
+padding:0px 0 0 284px;
+margin-left:15px;
+}
+
+#ssv-top-text-bg{
+background:url(/html/nds/portal/ssv/images/head-text-bg.gif) repeat-x scroll;
+height:24px;}
+
+#page-niche-menu {
+color:#FFFFFF;
+padding:7px 30px 0;
+position:absolute;
+right:0;
+text-align:right;
+font-size:12px;
+}
+
+a.top-text{
+	TEXT-DECORATION: none;
+	font-size: 12px;
+	color: #fff;
+}
+
+a.top-text:hover{
+    font-size: 12px;
+    COLOR:#ffff00;
+    TEXT-DECORATION: underline;
+	}
+
+#ssv-main {
+left:0;
+right:0;
+height:80%;
+top:84px;
+bottom:256px;
+overflow:auto;
+position:absolute;
+}
+
+#ssv-table {
+
+padding:0;
+width:100%;
+font-size:12px;
+text-algin:left;
+}
+
+.topleft {
+text-align:left;
+vertical-align:top;
+}
+
+#ssv-content {
+margin:0px;
+padding:0 5px;
+}
+
+#ssv-v {
+background-color:#fbfbfb;
+border:1px solid #ccc;
+margin:5px 0;
+clear:both;
+}
+
+.title-bg{ 
+background:url(/html/nds/portal/ssv/images/title-bg.gif) repeat-x scroll;
+height:28px;
+margin:0;
+}
+
+.title{
+font-size:12px;
+color:#333;
+font-weight:bold;
+padding:8px 0 0 20px;}
+
+.clearfix{
+display:inline-block;}
+
+#ssv-v ul{
+list-style:none;
+float:left;
+text-algin:left;
+margin:0;}
+
+#ssv-v li{
+float:left;
+text-algin:left;
+}
+
+.ss{
+float:left;
+margin:5px;
+text-align:center;
+padding:5px;
+	width:80px;
+  height:80px;}
+  
+.sst{
+padding:2px 0 0 0;
+}
+
 #ssv-l {
-+height:100%; /*IE可执行*/
-margin:5px 10px 0 5px;
-background:url(/html/nds/portal/ssv/images/middlebg.gif) repeat-x scroll;
+background-color:#fbfbfb;
+border:1px solid #ccc;
+margin:5px 0;
+clear:both;
 }
-
-#ssv-l .showitem { padding:15px 0 0 40px;}
-
-#ssv-l .showitem .pic{ position:relative}
-
-#ssv-l .blue{ 
-background:url(/html/nds/portal/ssv/images/middleTitle-blue.gif) no-repeat scroll;
-}
-
-#ssv-l .showitem .pic .title{ 
-position:absolute; 
-padding-top:10px; 
-left:-30px; 
-width: 22px; 
-height: 106px; 
-color:#fff; 
-line-height:16px;
-font-size:14px;
-font-weight:bold;}
 
 #ssv-l ul{
 list-style:none;
 float:left;
-text-algin:left;}
+margin:0;}
 
 #ssv-l li{
-float:left;
-text-algin:left;}
+float:left;}
 
 #ssv-w {
-+height:100%; /*IE可执行*/
-margin:5px 10px 0 5px;
-background:url(/html/nds/portal/ssv/images/middlebg.gif) repeat-x scroll;
+background-color:#fbfbfb;
+border:1px solid #ccc;
+margin:5px 0;
+clear:both;
 }
-
-#ssv-w .showitem { padding:15px 0 0 40px;}
-
-#ssv-w .showitem .pic{ position:relative}
-
-#ssv-w .blue{ 
-background:url(/html/nds/portal/ssv/images/middleTitle-blue01.gif) no-repeat scroll;
-}
-
-#ssv-w .showitem .pic .title{ 
-position:absolute; 
-padding-top:10px; 
-left:-30px; 
-width: 22px; 
-height:106px; 
-color:#fff; 
-line-height:16px;
-font-size:14px;
-font-weight:bold;}
 
 #ssv-w ul{
 list-style:none;
 float:left;
-text-algin:left;}
+margin:0;}
 
 #ssv-w li{
-float:left;
-text-algin:left;}
+float:left;}
 
 #ssv-help2{
-background-color:#FFFBF4;
-border:1px solid #FEE7BB;
+background-color:#fbfbfb;
+border:1px solid #ccc;
 clear:both;
 margin:5px 5px;
-padding:0 5px;
+padding:0;
 width:210px;
 display: block;
 }
 
 .ssv-help{
-background-color:#FFFBF4;
+background-color:#fbfbfb;
 clear:both;
-padding-top:5px;
+padding:5px;
 height:400px;
-width:210px;
+width:200px;
 display: block;
 overflow-y: hidden; 
 overflow-x: hidden;
 line-height:18px;}
 
-.ssv-help-p{
-border-bottom:1px solid #DD740B;
-float:right;
-font-size:93%;
-line-height:normal;
-width:100%;
-padding:10px 0 0 5px;
-margin:5px 0px;
-height:22px;
-
-}
-
-.ssv-help-pic{
-height:22px;
-border:0px;
-}
-
 #ssv-bbs{
+background-color:#fbfbfb;
+border:1px solid #ccc;
 padding:0px;
 margin:0px;
-width:99%;
+width:100%;
 font-size:12px;
 text-align:left;
 }
 
-.ssv-p{
-border-bottom:1px solid #DD740B;
-float:left;
-width:100%;
-padding:10px 0 0 10px;
-text-align:left;
-visibility:visible;
-height:22px;
+.title-bg01{ 
+background:url(/html/nds/portal/ssv/images/title-bg.gif) repeat-x scroll;
+height:20px;
+margin:0;
 }
 
-.ssv-bbs-p{
-height:22px;
-border:0px;
-}
-
+.title01{
+font-size:12px;
+color:#333;
+font-weight:bold;
+padding:5px 0 0 20px;}
 
 #ssv-bottom1 {
 color:#333333;
 height:90px;
++height:60px;/*IE可执行*/
 bottom:0px;
 left:0;
 top: auto;
@@ -352,9 +304,8 @@ width:100%;
 }
 
 #ssv-bottom {
-background:transparent url(/html/nds/themes/classic/01/images/from-bottom-bg.jpg) repeat-x scroll 0 0;
-border-top:4px solid #E49F27;
-color:#333333;
+background-color:#024770;
+color:#fff;
 height:20px;
 bottom:0px;
 left:0;
@@ -362,17 +313,6 @@ min-width:700px;
 overflow:hidden;
 position:absolute;
 width:100%;
-}
-
-
-#bottom-company-img {
-background:transparent url(/html/nds/themes/classic/01/images/company_small_logo.gif) no-repeat scroll left center;
-height:20px;
-position:absolute;
-bottom:0;
-right:10px;
-text-align:right;
-width:70px;
 }
 
 #bottom-company-txt {
