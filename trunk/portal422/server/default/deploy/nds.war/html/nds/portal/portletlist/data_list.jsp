@@ -55,6 +55,7 @@ if(query ==null){
     }
     if(uiConfig.getPageSize()>0)query.setRange(0,uiConfig.getPageSize());
     
+    if(userExpr!=null)query.addParam(userExpr);
 }else{
   if(nds.util.Validator.isNotNull(dataConfig.getFilter())){
   	query.addParam(dataConfig.getFilter());

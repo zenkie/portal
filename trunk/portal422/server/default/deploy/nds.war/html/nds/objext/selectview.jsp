@@ -25,12 +25,9 @@
   
 
 <br>
-<table border="0" cellspacing="0" cellpadding="0" align="center" bordercolordark="#FFFFFF" bordercolorlight="#999999" width="100%">
-<form name="selectview">
-     <tr>
-      <td> <table border="0" cellspacing="5" cellpadding="0" align="center" width="90%"><tr>
-        <td align='center'><br><%=PortletUtils.getMessage(pageContext, "option-views",null)%>:&nbsp;&nbsp;
-<select name="view" tabIndex="3"  >
+<table border="0" cellspacing="5" cellpadding="0" align="center" width="90%"><tr>
+    <td align='left'><%=PortletUtils.getMessage(pageContext, "option-views",null)%></td></tr>
+        	
 <%		
 	
 	Table table;
@@ -39,20 +36,13 @@
        table= manager.getTable(Tools.getInt(st.nextToken(),-1));
        if( table !=null){
 %>
-	 <option value="<%=table.getId()%>" selected="selected"><%=table.getDescription(locale)%></option>      		
+	 <tr>
+    <td align='left'>&nbsp; &nbsp;-- &nbsp;<a href="<%=NDS_PATH+ "/object/object.jsp?input=true&id=" + objectId+"&table="+table.getId()%>"><%=table.getDescription(locale)%></a>
+	</td></tr>
 <%       }
     }
 %>
 
-</select>          
-		</td></tr>
-		<tr><td align='center'><br>
-			<input  type='button' name='gotoview' value='<%=PortletUtils.getMessage(pageContext, "enter-view",null)%>' onclick="window.location='<%=NDS_PATH+ "/object/object.jsp?input=true&id=" + objectId+"&table="%>'+selectview.view.value;" >
-		</td></tr>
-		</table>
- 	  </td>
- 	</tr>
-</form> 	
 </table>
     </div>
 </div>

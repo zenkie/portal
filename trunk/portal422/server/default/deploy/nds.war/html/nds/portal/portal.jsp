@@ -30,6 +30,10 @@
  }
 
 String dialogURL=request.getParameter("redirect");
+if(nds.util.Validator.isNotNull(dialogURL)){
+	response.sendRedirect(dialogURL);
+ 	return;
+}
 if(nds.util.Validator.isNull(dialogURL)){
 	Boolean welcome=(Boolean)userWeb.getProperty("portal.welcome",Boolean.TRUE);
 	if(welcome.booleanValue()){

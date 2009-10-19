@@ -48,15 +48,16 @@
 </style>
 <div  align="center" ><a name="001"><strong>---数据库结构设计---</strong></a></div>
 <br>
-<table  border="0"  width="450" class="table" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<table  border="0"  width="550" class="table" cellpadding="0" cellspacing="1" bgcolor="#dddddd">
   <tr>
   	<td width="70" nowrap > 子系统 </td>
   	<td width="100" nowrap > 类别 </td>
   	<td width="150" nowrap > 表 </td>
-  	<td width="130" nowrap > 表名称 </td>
+  	<td width="330" nowrap align="left"> ID  表名称 </td>
   </tr>
 <%
-  for(int k=0;k<subsystems.size();k++){
+  for(int k=0;k<subsystems.size();k++){ 
+      if(k>1) continue;
      subsystem=(SubSystem)subsystems.get(k); 
   %>
   <tr>
@@ -89,12 +90,12 @@
 	<td nowrap>
   <a href="#<%=table.getId()%>"> <%=table.getName()%></a>
    </td>	
-     <td nowrap align="left"><%=table.getDescription(locale)%> </td>
+     <td nowrap align="left"><span style="width:100px;padding-right:10px"><%=table.getId()%></span><%=table.getDescription(locale)%> </td>
    </tr>
  <%}}}%>
 <table>
 	<br>
- <table  border="0"  width="800" class="table" cellpadding="1"  cellspacing="1"  bgcolor="#dddddd">
+ <table  border="0"  width="800" class="table" cellpadding="0"  cellspacing="1"  bgcolor="#dddddd">
 	<%
 for(int j=0;j<tableList.size();j++){
      table= (Table)tableList.elementAt(j);  

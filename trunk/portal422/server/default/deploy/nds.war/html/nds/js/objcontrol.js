@@ -64,6 +64,7 @@ ObjectControl.prototype = {
 		@return true, no need to continue following script(window should be closed or refreshed)
 	*/
 	_handleSPResult:function(r){
+		oc._toggleButtons(false);
 		var b=false;
 		if(r.message && r.code !=3 && r.code!=4 && r.code!=5){
 			msgbox(r.message.replace(/<br>/g,"\n"));
@@ -84,7 +85,8 @@ ObjectControl.prototype = {
 				break;
 			case 3:
 				try{
-					gc.refreshGrid();	
+					if(gc!=null && !gc.isDestroied())gc.refreshGrid();
+					else  jQuery("#tabs > ul").tabs();//refresh current tab, only work for jquery ui tabs 3
 					return true;
 				}catch(e){}
 				try{
@@ -105,6 +107,11 @@ ObjectControl.prototype = {
 			case 5:// message as javascript
 				eval(r.message);
 				break;
+			case 98: // refresh grid and object
+				try{
+					gc.refreshGrid();
+				}catch(e){}
+				break;
 			case 99://close current page
 				window.close();
 				b=true;
@@ -113,7 +120,6 @@ ObjectControl.prototype = {
 		return b;
 	},
 	_onExecuteWebAction:function(e){
-		oc._toggleButtons(false);
 		var r=e.getUserData().data; 
 		this._handleSPResult(r);
 	},		
@@ -618,7 +624,10 @@ ObjectControl.prototype = {
 		// spresult of main object
 		var spr=e.getUserData().data.spresult;
 		if(spr){
-			if(this._handleSPResult(spr)) return;
+			console.log(spr);
+			if(this._handleSPResult(spr)){
+				return;
+			} 
 		}
 		// detal objects
 		if(gc!=undefined  && !gc.isDestroied())gc.updateGrid(e);
