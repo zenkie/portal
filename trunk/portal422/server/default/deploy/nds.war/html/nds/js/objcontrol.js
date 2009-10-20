@@ -624,7 +624,6 @@ ObjectControl.prototype = {
 		// spresult of main object
 		var spr=e.getUserData().data.spresult;
 		if(spr){
-			console.log(spr);
 			if(this._handleSPResult(spr)){
 				return;
 			} 
