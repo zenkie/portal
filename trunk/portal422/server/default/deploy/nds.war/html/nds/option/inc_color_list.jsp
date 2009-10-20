@@ -19,4 +19,9 @@
     <td align="center"><label for="05"><%= PortletUtils.getMessage(pageContext, "color_05" ,null)%></label><input type="radio" id="05" name="themeid" value="05" <%="05".equals(selectedThemeId)?"checked":""%>/><br><a href="/html/nds/themes/classic/thumbnail/05_big.jpg" target="_blank"><img vspace="0" hspace="0" border="0" src="/html/nds/themes/classic/thumbnail/05_small.gif"/></a></td>
     <td align="center"><label for="06"><%= PortletUtils.getMessage(pageContext, "color_06" ,null)%></label><input type="radio" id="06" name="themeid" value="06" <%="06".equals(selectedThemeId)?"checked":""%>/><br><a href="/html/nds/themes/classic/thumbnail/06_big.jpg" target="_blank"><img vspace="0" hspace="0" border="0" src="/html/nds/themes/classic/thumbnail/06_small.gif"/></a></td>
   </tr>
+  <tr>
+    <td align="center"><label for="04"><%= PortletUtils.getMessage(pageContext, "color_07" ,null)%></label><input type="radio" id="04" name="themeid" value="04" <%="04".equals(selectedThemeId)?"checked":""%>/><br><a href="/html/nds/themes/classic/thumbnail/04_big.jpg" target="_blank"><img vspace="0" hspace="0" border="0" src="/html/nds/themes/classic/thumbnail/07_small.gif"/></a></td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
 </table>
