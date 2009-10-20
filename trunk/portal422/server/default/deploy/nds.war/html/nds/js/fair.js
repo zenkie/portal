@@ -294,10 +294,10 @@ FAIR.prototype={
 	    var ret=rettemp.data;
 		var category = ret.category;
 		var refbypdts = ret.refbypdts;
-		var oderinfo =ret.oderinfo;
+		var oderinfo =ret.oderinfo||"";
 		var asi=ret.asi;
 		var qty=ret.qty;
-		var photo=ret.photo;
+		var photo=ret.photo||"";
 		jQuery("li").remove(".jcarousel-item"); 
     	jQuery("div").remove(".jcarousel-next"); 
     	jQuery("div").remove(".jcarousel-prev"); 
@@ -323,14 +323,14 @@ FAIR.prototype={
           } 	
          $("p_marketprice").innerHTML ="标准价:￥"+this.checkvalue(ret.retailprice)+"元";
          $("p_material").innerHTML=this.checkvalue(ret.material);
-          if(this.checkvalue(oderinfo.amt)==""){
+          if(oderinfo!=""&&this.checkvalue(oderinfo.amt)==""){
            	if(this.checkvalue(oderinfo.quota)==""){ 
            		$("customeinfo").innerHTML="您当前累计订货：￥0";
            	}else{
            		 $("customeinfo").innerHTML="您当前累计订货：￥0"+",距离订货指标尚有：￥"+this.checkvalue(oderinfo.quota);
            	}
            }else{
-            	if(this.checkvalue(oderinfo.quota)==""){ 
+            	if(oderinfo!=""&&this.checkvalue(oderinfo.quota)==""){ 
            		  $("customeinfo").innerHTML="您当前累计订货：￥"+this.checkvalue(oderinfo.amt);
            	    }else{
            		  $("customeinfo").innerHTML="您当前累计订货：￥"+this.checkvalue(oderinfo.amt)+",距离订货指标尚有：￥"+this.checkvalue(oderinfo.quota);
@@ -345,11 +345,11 @@ FAIR.prototype={
          this.creatlis("mycarouse2",refbypdts,ret.id);
          $("detail_view_match").style.display="none"; 
          $("p_matrix").innerHTML=page;
-          if(this.checkvalue(oderinfo.totqty)!=""){
-         $("totqty").innerHTML=oderinfo.totqty;
+          if(oderinfo!=""&&this.checkvalue(oderinfo.totqty)!=""){
+         $("totqty").innerHTML=oderinfo!=""?oderinfo.totqty:"";
           }
-         $("cnt").innerHTML =this.checkvalue(oderinfo.ordernum);
-          if(this.checkvalue(oderinfo.ordernum)!=""){
+         $("cnt").innerHTML =oderinfo!=""?this.checkvalue(oderinfo.ordernum):"";
+          if(oderinfo!=""&&this.checkvalue(oderinfo.ordernum)!=""){
              $("totamt").innerHTML=Math.round(parseInt(oderinfo.ordernum)*parseFloat(ret.poprice)*100)/100;
          }else{
           	$("totamt").innerHTML=0;
@@ -361,7 +361,7 @@ FAIR.prototype={
         }else if(asi!=undefined){
          	$("a"+asi).value=qty;
         }
-       if(this.checkvalue(oderinfo.qty)!=""){
+       if(oderinfo!=""&&this.checkvalue(oderinfo.qty)!=""){
           	$("totamt").value=parseInt($("p_price").value)*this.checkvalue(oderinfo.qty);
         }
 	},
@@ -378,16 +378,16 @@ FAIR.prototype={
 	
 	
 	_onloadmatchoneObject:function(e){
-		var data=e.getUserData(); 
-	    var rettemp=data.jsonResult.evalJSON();
-	    var page=data.pagecontent;
-	    var ret=rettemp.data;
-	    var asi=ret.asi;
+		 var data=e.getUserData(); 
+	   var rettemp=data.jsonResult.evalJSON();
+	   var page=data.pagecontent;
+	   var ret=rettemp.data;
+	   var asi=ret.asi;
 		 var qty=ret.qty;
-		 var oderinfo =ret.oderinfo;
-		 var photo=ret.photo;
-       var divstr="";
-       var flag=1;
+		 var oderinfo =ret.oderinfo||"";
+		 var photo=ret.photo||"";
+     var divstr="";
+     var flag=1;
         for(var n=1;n<=photo.length;n++){
            	if(photo[n-1]=="1"){
            		if(flag==1){
@@ -415,16 +415,16 @@ FAIR.prototype={
             $("p_img_match").innerHTML="<a target=\"_blank\" onclick=\"javascript:fair.imageopen_match("+ret.id+");\"><img src=\"images/zoom.gif\" alt=\"点击放大\"  width=\"31\" class=\"zoom\" style=\"cursor: pointer;\" border=\"0\"></a>";
          $("detail_view_match").style.display="block"; 
          $("p_matrix_match").innerHTML=page;
-          if(this.checkvalue(oderinfo.totqty)!=""){
+          if(oderinfo!=""&&this.checkvalue(oderinfo.totqty)!=""){
             $("totqty").innerHTML=oderinfo.totqty;
           }
-          if(this.checkvalue(oderinfo.ordernum)!=""){
+          if(oderinfo!=""&&this.checkvalue(oderinfo.ordernum)!=""){
                $("cnt_match").innerHTML =this.checkvalue(oderinfo.ordernum);
            }else{
             	$("cnt_match").innerHTML =0;
             }
-             if(this.checkvalue(oderinfo.ordernum)!=""){
-            $("totamt_match").innerHTML=Math.round(parseInt(oderinfo.ordernum)*parseFloat(ret.poprice)*100)/100;
+             if(oderinfo!=""&&this.checkvalue(oderinfo.ordernum)!=""){
+             $("totamt_match").innerHTML=Math.round(parseInt(oderinfo.ordernum)*parseFloat(ret.poprice)*100)/100;
             }else{
              	$("totamt_match").innerHTML=0;
             }
@@ -436,7 +436,7 @@ FAIR.prototype={
          }else if(asi!=undefined){
          	$("b"+asi).value=qty;
          }
-         if(this.checkvalue(oderinfo.qty)!=""){
+         if(oderinfo!=""&&this.checkvalue(oderinfo.qty)!=""){
           	$("totamt_match").value=parseInt($("p_price_match").value)*this.checkvalue(oderinfo.qty);
         }
 	},
@@ -571,25 +571,25 @@ FAIR.prototype={
 		var data=e.getUserData(); 
 	    var rettemp=data.jsonResult.evalJSON();
 	    var ret=rettemp.data;
-	    var oderinfo =ret.oderinfo;
+	    var oderinfo =ret.oderinfo||"";
 	       if(this.checkvalue(oderinfo.amt)==""){
-           	if(this.checkvalue(oderinfo.quota)==""){ 
+           	if(oderinfo!=""&&this.checkvalue(oderinfo.quota)==""){ 
            		$("customeinfo").innerHTML="您当前累计订货：￥0";
            	}else{
            		 $("customeinfo").innerHTML="您当前累计订货：￥0"+",距离订货指标尚有：￥"+this.checkvalue(oderinfo.quota);
            	}
            }else{
-            	if(this.checkvalue(oderinfo.quota)==""){ 
+            	if(oderinfo!=""&&this.checkvalue(oderinfo.quota)==""){ 
            		  $("customeinfo").innerHTML="您当前累计订货：￥"+this.checkvalue(oderinfo.amt);
            	    }else{
            		  $("customeinfo").innerHTML="您当前累计订货：￥"+this.checkvalue(oderinfo.amt)+",距离订货指标尚有：￥"+this.checkvalue(oderinfo.quota);
            	    }
            	}
-	    $("cnt").innerHTML =this.checkvalue(oderinfo.qty);
-		if(this.checkvalue(oderinfo.totqty)!=""){
+	    $("cnt").innerHTML =oderinfo!=""?this.checkvalue(oderinfo.qty):"";
+		if(oderinfo!=""&&this.checkvalue(oderinfo.totqty)!=""){
 			$("totqty").innerHTML=oderinfo.totqty;
 		}
-        if(this.checkvalue(oderinfo.qty)!=""){
+        if(oderinfo!=""&&this.checkvalue(oderinfo.qty)!=""){
         	$("totamt").innerHTML=Math.round(parseInt(oderinfo.qty)*parseFloat(ret.poprice)*100)/100;
 		}else{
 			$("totamt").innerHTML=0;
@@ -600,25 +600,25 @@ FAIR.prototype={
 		var data=e.getUserData(); 
 	    var rettemp=data.jsonResult.evalJSON();
 	    var ret=rettemp.data;
-	    var oderinfo =ret.oderinfo;
-	       if(this.checkvalue(oderinfo.amt)==""){
+	    var oderinfo =ret.oderinfo||"";
+	       if(oderinfo!=""&&this.checkvalue(oderinfo.amt)==""){
            	if(this.checkvalue(oderinfo.quota)==""){ 
            		$("customeinfo").innerHTML="您当前累计订货：￥0";
            	}else{
            		 $("customeinfo").innerHTML="您当前累计订货：￥0"+",距离订货指标尚有：￥"+this.checkvalue(oderinfo.quota);
            	}
            }else{
-            	if(this.checkvalue(oderinfo.quota)==""){ 
+            	if(oderinfo!=""&&this.checkvalue(oderinfo.quota)==""){ 
            		  $("customeinfo").innerHTML="您当前累计订货：￥"+this.checkvalue(oderinfo.amt);
            	    }else{
            		  $("customeinfo").innerHTML="您当前累计订货：￥"+this.checkvalue(oderinfo.amt)+",距离订货指标尚有：￥"+this.checkvalue(oderinfo.quota);
            	    }
            	}
-	   	$("cnt_match").innerHTML =this.checkvalue(oderinfo.qty);
-	    if(this.checkvalue(oderinfo.totqty)!=""){
+	   	$("cnt_match").innerHTML =oderinfo!=""?this.checkvalue(oderinfo.qty):"";
+	    if(oderinfo!=""&&this.checkvalue(oderinfo.totqty)!=""){
          $("totqty").innerHTML=oderinfo.totqty;
           }
-		if(this.checkvalue(oderinfo.qty)!=""){
+		if(oderinfo!=""&&this.checkvalue(oderinfo.qty)!=""){
         	$("totamt_match").innerHTML=Math.round(parseInt(oderinfo.qty)*parseFloat(ret.poprice)*100)/100;
 		}else{
 			$("totamt_match").innerHTML=0;
