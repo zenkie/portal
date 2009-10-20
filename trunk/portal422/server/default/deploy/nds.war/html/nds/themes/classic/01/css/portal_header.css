@@ -15,6 +15,7 @@ padding: 113px 0 24px 0; /*Set value to (HeightOfFrameDiv 0 0 0)*/
 height: 100%; 
 width: 100%; 
 }
+
 #portal-top{
 position: absolute; 
 top: 0; 
@@ -24,6 +25,7 @@ min-width:1000px;
 height: 113px;
 /*overflow: hidden;*/
 }
+
 #portal-top1{
 position: absolute; 
 top: 0; 
@@ -44,6 +46,7 @@ font-weight:bold;
 height:40px;
 padding:20px 0px 0px 276px;
 }
+
 #portal-main{
 position: fixed; 
 top: 110px;
@@ -56,7 +59,7 @@ overflow: auto;
 
 #portal-main1{
 position: fixed; 
-top: 43px;
+top: 110px;
 left: 0;
 right: 0;
 bottom: 20px;
@@ -80,14 +83,14 @@ position:absolute;
 left:10px;
 }
 
-#bottom-company-img {
+/*#bottom-company-img {
 position:absolute;
 text-align:right;
 right:10px;
 background:transparent url(/html/nds/themes/classic/01/images/company_small_logo.gif) no-repeat scroll left center;
 width:70px;
 height:20px;
-}
+}*/
 
 #bottom-company-txt{
 position:absolute;
@@ -95,6 +98,7 @@ top:2px;
 right:10px;
 text-align:right;
 }
+
 #page-top-banner {
 height:60px;
 position:relative;
@@ -129,6 +133,7 @@ display:inline-block;
 img, #page-niche-menu { /*behavior: url(/html/nds/css/iepngfix/iepngfix.htc);*/ }
 #page-global-search {
 }
+
 #page-nav-more-menu li {
 padding:2px 2px 2px 5px;
 }
@@ -145,6 +150,7 @@ overflow-y:hidden;
 height:30px;
 padding:0 10px;
 }
+
 .page-nav-divider {
 /*clear:both;*/
 font-size:0pt;
@@ -153,13 +159,16 @@ margin-bottom:0px;
 width:100%;
 background-color:#C9D6E6;
 }
+
 .page-nav-selected {
 background-color:#5890D2;
 }
+
 .page-nav-tabs-box {
 height:24px;
 position:relative;
 }
+
 .page-tab {
 float:left;
 font-weight:normal;
@@ -172,6 +181,7 @@ cursor:pointer;
 _cursor: hand;
 margin:0px;
 }
+
 .page-tab a {
 color:#000000;
 }
@@ -179,6 +189,7 @@ color:#000000;
 background-color:#5890D2;
 color:#FFFFFF;
 }
+
 .page-tab-selected, .page-tab-selected a {
 background:url(/html/nds/themes/classic/01/images/menu1-2.gif);
 color:#003366;
@@ -190,12 +201,15 @@ position:relative;
 text-align:center;
 margin:0px;
 }
+
 .page-tab-text {
 padding:8px 5px 0pt 6pt;
 }
+
 .page-tab-text * {
 white-space:nowrap;
 }
+
 #page-subnav-container {
 float:left;
 z-index:2;
