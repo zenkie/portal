@@ -70,7 +70,7 @@ private nds.log.Logger logger= nds.log.LoggerManager.getInstance().getLogger("as
 	List attrValues= (List) attributeValues.get(level);
 	StringBuffer sb=new StringBuffer();
 	int levels= attributes.size();
-	sb.append("<table width='500' border='0' align='center' cellpadding='1' cellspacing='1' class='table_bg'>");
+	sb.append("<table border='0' align='center' cellpadding='1' cellspacing='1' class='table_bg'>");
 	int j,k, vId, lastVId;
 	String vDesc, lastVDesc;
 	String key;
