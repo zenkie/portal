@@ -31,6 +31,8 @@
   if(adScriptId!=-1){
      script=QueryEngine.getInstance().doQueryOne("select content from ad_script where id="+adScriptId).toString();
   }
+  String btype=request.getParameter("bsh.type");
+  boolean isPython=("python".equals(btype));
 %>
 <script>
 	document.title="<%=PortletUtils.getMessage(pageContext, "shell",null)%>";
@@ -42,7 +44,9 @@ function selectScript(){
 <br>	
 <a name="top"/>
 <form method="POST" action="/servlets/eval">
-<b><%=PortletUtils.getMessage(pageContext, "script",null)%></b><br>
+<b><%=PortletUtils.getMessage(pageContext, "script",null)%></b>
+<select name="bsh.type"><option value="beanshell" <%=isPython?"":"selected"%>>BeanShell</option>
+<option value="python" <%=isPython?"selected":""%>>Python</option></select><br>
 <TEXTAREA name="bsh.script" rows="30" cols="120">
 <%=(script==null?"":script)%>
 </TEXTAREA>
