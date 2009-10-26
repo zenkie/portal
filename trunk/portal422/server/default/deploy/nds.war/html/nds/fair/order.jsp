@@ -104,8 +104,27 @@
 										<div class="content_line"></div>
 										<h3>数量：<span id="cnt" class="cost"></span></h3>
 										<h3>金额：<span id="totamt" class="cost"></span>元</h3>
+<<<<<<< .mine
+										<div class="relative01" >
+											<form id="p_form" name="p_form" method="post">
+										    <div id="p_matrix" style="overflow-x:auto;width:100%;">
+											</div>
+										   </form>
+										  <br/><div align="right"><a onclick="fair.saveorder();"><img src="images/btn_news.gif" width="72" height="24"  border="0"/></a></div>
+										  </div>
+				</div>
+</form>
+				<span class="view_btm clear"></span>
+			
+			</div>
+<div id="detail_view">
+	<span class="view_top"></span>
+<div>
+	<p class="graytxt relative" style="padding: 2px 0px 0px 10px; top: 10px; text-align: left; width: 600px; text-indent: 0pt;">
+=======
 										<div>
 	<p class="graytxt relative" style="padding: 2px 0px 0px 10px; top: 10px; text-align: left; width: 310px; text-indent: 0pt;">
+>>>>>>> .r269
 		<ul class="outline">              	
             <li style="cursor: pointer;font-size:13px;font-weight:bold;color: rgb(122, 122, 122);">该商品的信息
                  <ul style="display: block;font-size:12px;font-weight:normal;color: rgb(122, 122, 122); ">

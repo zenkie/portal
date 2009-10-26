@@ -21,40 +21,54 @@ a{
 	text-decoration:none;
 	outline:none;
 }/*棕色*/
+<<<<<<< .mine
+
+a:hover{
+=======
 
 a:hover
 {
+>>>>>>> .r269
 	color:#D91B07;
 	text-decoration:underline;
 }/*红色*/
 
 .noUnderline a{text-decoration:none;}
-.read_more
-{
+
+.read_more{
    text-align:right;
 } 
-input
-{
+
+input{
   font-family:Arial,simsun;
   border:none;
 }
-textarea
-{
+
+textarea{
 	font-family:Arial,simsun;
 	 font-size:12px;
 }
-select
-{
+
+select{
 	 font-family:Arial,simsun;
 	 font-size:11px;
  }
-.relative
-{
+ 
+.relative{
 	position:relative;
 	z-index:22;
 	top:18px;
 	+top:0px;/*IE可执行*/
 	}
+<<<<<<< .mine
+	
+.relative01{
+	position:relative;
+	z-index:22;
+	top:8px;
+	}
+	
+=======
 	
 .relative02{
 	position:relative;
@@ -70,6 +84,7 @@ position:relative;
 clear:both;
 }
 
+>>>>>>> .r269
 .txt_coffe
 {
    color:#714c2c;
@@ -2156,8 +2171,13 @@ a img
     width:100%;
 }
 
+<<<<<<< .mine
+.item_view_content .td_bg{
+   background:#999999 none repeat scroll 0 0;
+=======
 .td_bg{
    background:#999;
+>>>>>>> .r269
    height:18px;
    color:#FFFFFF;
    font-size:12px;
