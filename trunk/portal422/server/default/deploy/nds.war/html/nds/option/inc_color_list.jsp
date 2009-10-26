@@ -20,7 +20,11 @@
     <td align="center"><label for="06"><%= PortletUtils.getMessage(pageContext, "color_06" ,null)%></label><input type="radio" id="06" name="themeid" value="06" <%="06".equals(selectedThemeId)?"checked":""%>/><br><a href="/html/nds/themes/classic/thumbnail/06_big.jpg" target="_blank"><img vspace="0" hspace="0" border="0" src="/html/nds/themes/classic/thumbnail/06_small.gif"/></a></td>
   </tr>
   <tr>
+<<<<<<< .mine
+    <td align="center"><label for="07"><%= PortletUtils.getMessage(pageContext, "color_07" ,null)%></label><input type="radio" id="04" name="themeid" value="07" <%="07".equals(selectedThemeId)?"checked":""%>/><br><a href="/html/nds/themes/classic/thumbnail/07_big.jpg" target="_blank"><img vspace="0" hspace="0" border="0" src="/html/nds/themes/classic/thumbnail/07_small.gif"/></a></td>
+=======
     <td align="center"><label for="07"><%= PortletUtils.getMessage(pageContext, "color_07" ,null)%></label><input type="radio" id="07" name="themeid" value="07" <%="07".equals(selectedThemeId)?"checked":""%>/><br><a href="/html/nds/themes/classic/thumbnail/07_big.jpg" target="_blank"><img vspace="0" hspace="0" border="0" src="/html/nds/themes/classic/thumbnail/07_small.gif"/></a></td>
+>>>>>>> .r269
     <td align="center">&nbsp;</td>
     <td align="center">&nbsp;</td>
   </tr>
