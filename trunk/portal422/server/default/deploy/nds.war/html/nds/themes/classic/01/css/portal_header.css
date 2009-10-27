@@ -38,18 +38,19 @@ height: 113px;
 
 #page-company-logo {
 background:transparent url(/html/nds/themes/classic/01/images/head-left-logo.gif) no-repeat scroll left center;
-color:#333;
+color:#fff;
 display:inline;
 float:left;
 font-size:12pt;
 font-weight:bold;
-height:40px;
-padding:20px 0px 0px 276px;
+height:60px;
+padding:0px 0px 0px 276px;
 }
 
 #portal-main{
 position: fixed; 
-top: 110px;
+top: 115px;
++top: 110px;/*IE可执行*/
 left: 0;
 right: 0;
 bottom: 20px;
@@ -112,7 +113,7 @@ white-space:nowrap;
 }
 
 #page-niche-menu-bg {
-position:absolute;
+position:fixed;
 text-align:right;
 right:0px;
 background:url(/html/nds/themes/classic/01/images/head-txt-bg.gif) repeat scroll;
@@ -145,7 +146,8 @@ left:0pt;
 min-width:1000px;
 width: 100%!important;
 margin-top:24px;
-background-color:#024770;
++margin-top:0px;/*IE可执行*/
+background-color:#c3d9ff;
 overflow-y:hidden;
 height:30px;
 padding:0 10px;
@@ -176,7 +178,7 @@ height:30px;
 padding:0px 5px 0px 5px;
 position:relative;
 text-align:center;
-color:#fff;
+color:#024770;
 cursor:pointer;
 _cursor: hand;
 margin:0px;
