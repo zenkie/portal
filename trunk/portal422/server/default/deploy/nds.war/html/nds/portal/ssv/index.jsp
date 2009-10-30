@@ -62,7 +62,6 @@ if(nds.util.Validator.isNull(dialogURL)){
 	<%=userWeb.getClientDomainName()%>
 </div>
 	</div>
-	<div id="ssv-top-text-bg">
 	<div id="page-niche-menu">
 	<span style="font-weight: bold"><%= user.getGreeting() %></span>|
 	<%if(session.getAttribute("saasvendor")==null){
