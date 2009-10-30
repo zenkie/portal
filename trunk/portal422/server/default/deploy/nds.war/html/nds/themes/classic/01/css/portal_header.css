@@ -9,7 +9,7 @@ font-family:Tahoma,Arial;
 font-size:76%;
 }
 * html body{ /*IE6 hack*/
-padding: 113px 0 24px 0; /*Set value to (HeightOfFrameDiv 0 0 0)*/
+padding: 90px 0 24px 0; /*Set value to (HeightOfFrameDiv 0 0 0)*/
 }
 * html #portal-main{ /*IE6 hack*/ 
 height: 100%; 
@@ -22,7 +22,7 @@ top: 0;
 left: 0;
 width: 100%!important; 
 min-width:1000px;
-height: 113px;
+height: 90px;
 /*overflow: hidden;*/
 }
 
@@ -32,7 +32,7 @@ top: 0;
 left: 0; 
 width: 100%!important; 
 min-width:1000px;
-height: 113px;
+height: 60px;
 /*overflow: hidden;*/
 }
 
@@ -44,13 +44,12 @@ float:left;
 font-size:12pt;
 font-weight:bold;
 height:60px;
-padding:0px 0px 0px 276px;
+padding:0px 0px 0px 630px;
 }
 
 #portal-main{
 position: fixed; 
-top: 115px;
-+top: 110px;/*IE可执行*/
+top: 90px;
 left: 0;
 right: 0;
 bottom: 20px;
@@ -60,7 +59,7 @@ overflow: auto;
 
 #portal-main1{
 position: fixed; 
-top: 110px;
+top: 90px;
 left: 0;
 right: 0;
 bottom: 20px;
@@ -105,30 +104,19 @@ height:60px;
 position:relative;
 text-align:left;
 z-index:3;
-background:url(/html/nds/themes/classic/01/images/head-title-bg.gif) no-repeat right scroll #Fff;
+
 }
 
 #page-top-banner * {
 white-space:nowrap;
 }
 
-#page-niche-menu-bg {
-position:fixed;
+#page-niche-menu{
+padding:30px 30px 0px 0px;
+color:#5fb3ff;
+position:absolute;
 text-align:right;
 right:0px;
-background:url(/html/nds/themes/classic/01/images/head-txt-bg.gif) repeat scroll;
-height:24px;
-width: 100%!important; 
-min-width:1000px;
-clear:both;
-display:inline-block;
-}
-
-#page-niche-menu{
-padding:6px 10px 0px 10px;
-color:#5fb3ff;
-clear:both;
-display:inline-block;
 }
 
 img, #page-niche-menu { /*behavior: url(/html/nds/css/iepngfix/iepngfix.htc);*/ }
@@ -145,8 +133,7 @@ z-index:2;
 left:0pt;
 min-width:1000px;
 width: 100%!important;
-margin-top:24px;
-+margin-top:0px;/*IE可执行*/
+margin-top:0px;
 background-color:#c3d9ff;
 overflow-y:hidden;
 height:30px;
@@ -178,7 +165,7 @@ height:30px;
 padding:0px 5px 0px 5px;
 position:relative;
 text-align:center;
-color:#024770;
+color:#000;
 cursor:pointer;
 _cursor: hand;
 margin:0px;
@@ -205,7 +192,7 @@ margin:0px;
 }
 
 .page-tab-text {
-padding:8px 5px 0pt 6pt;
+padding:10px 5px 0pt 6pt;
 }
 
 .page-tab-text * {
