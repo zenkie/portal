@@ -69,7 +69,7 @@ var gMessageHolder={
 	CONFIRM_SAVE_FIRST: "Data changed, will save first?",
 	AVAILABLE:"(available = Y)",
 	CLOSE_AFTER_PRINT:"Click OK button when complete printing.",
-	NO_POSITIVE_INTEGER:"The value what you has been input is not positive integer",
+	NOT_INTEGER:"The value what you has been input is not integer",
 	PRODUCT_NMNER_ZORE:"The number of the product is zore!",
 	LINE:"Line"
 };
