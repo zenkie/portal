@@ -7,7 +7,7 @@ see object_query.jsp#ObjectQuery.returnRow and object_query.jsp#DropdownQuery.re
 function createAction(ele, func){
 	$(ele).onaction=new Function("args", func+"(args)");
 }
-
+//bai
 /**
  Works on l_v_order.s_location_id, when location changed, update address,contactor,phone
 */
