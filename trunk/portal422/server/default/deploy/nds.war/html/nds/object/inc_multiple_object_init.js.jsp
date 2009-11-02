@@ -17,7 +17,7 @@
 	q.put("range",QueryUtils.DEFAULT_RANGE);
 	
 	// if found m_product_id, M_ATTRIBUTESETINSTANCE_ID;VALUE1,M_ATTRIBUTESETINSTANCE_ID;VALUE2, will be first ones to order by
-	if( table.getColumn("m_product_id")!=null && table.getColumn("M_ATTRIBUTESETINSTANCE_ID;VALUE1")!=null &&  table.getColumn("M_ATTRIBUTESETINSTANCE_ID;VALUE2")!=null){
+	if( table.getColumn("M_PRODUCT_ID")!=null && table.getColumn("M_ATTRIBUTESETINSTANCE_ID")!=null){
 			JSONArray ja=new JSONArray();
 			JSONObject jodr=new JSONObject();
 			jodr.put("column","M_PRODUCT_ID;NAME");
