@@ -24,6 +24,7 @@ GridControl.prototype = {
 		this._isDestroied=true;
 	},
 	initialize: function() {
+		this._regexp_integer=new RegExp(/^[+|-]?\d+$/);
 		this._isDestroied=false;
 		this._isDirty=false;
 		this._objpage="/html/nds/object/object.jsp";
@@ -555,7 +556,7 @@ GridControl.prototype = {
 		// check input validity
 		if(this._checkObjectInput()==false) return;
 		var chkProductAttribute=$("check_product_attribute");
-		if(chkProductAttribute){
+		if(chkProductAttribute){ 
 			var pdtValue=String($("eo_"+chkProductAttribute.value).value);
 			if(chkProductAttribute!=null && chkProductAttribute.checked && !pdtValue.blank() 
 					&& ( $("eo_"+chkProductAttribute.name)==null || 
@@ -588,114 +589,143 @@ GridControl.prototype = {
 	 */
 	onLineReturn : function(event, action) {
 	  if (!event) event = window.event;
-	  if (event && event.keyCode && event.keyCode == 13) action(event);
+	  if (event && event.keyCode && event.keyCode == 13) {
+	  	// is the src in div of inc-edit-line
+	  	if(!(event.ctrlKey||event.altKey || event.shiftKey)){
+		  	var sc=(Prototype.Browser.IE?event.srcElement:event.target);
+	  		if(sc!=null && $(sc).descendantOf("inc-edit-line"))
+		  		action(event);
+	  	}
+	  }
 	},
 	/**
-	 * Convert enter to tab key
+	 * Convert enter to tab key, attached to onKeyDown event
 	 * @param event key event
 	 * @param nextInputId next input id, so when enter pressed, go to next input
 	 * @return false to cancel that key
 	 */
 	onMatrixKey: function(event,row,cell){
-		 var r=/^[0-9]*[1-9][0-9]*$/;
-		 var flag=false;
+		 //var r=/^[0-9]*[1-9][0-9]*$/;
 		 var val=$("modify_table_product").rows[row+1].cells[cell+1].getElementsByTagName("input");
 		 if(event.keyCode==37||event.keyCode==38||event.keyCode==39||event.keyCode==40||event.keyCode==13){
 		 	var inputvale=val[0].value;
 		 	inputvale=inputvale.replace(/^\s+/,'').replace(/\s+$/,'');
-			if(inputvale!=""&&!r.test(inputvale)){
-			 	var inputele=val[0].id;
-				dwr.util.selectRange(inputele,0,this.MAX_INPUT_LENGTH);
-			}else{
-				flag=true;
+			if(inputvale!=""&&!this._regexp_integer.test(inputvale)){
+				//alert(gMessageHolder.NOT_INTEGER);
+				dwr.util.selectRange(val[0],0,this.MAX_INPUT_LENGTH);
+				return false;
 			}
 		}
-		if(flag){
-			var temp=null;
-			var temp_input=null;
-			var sum=0;
-			temp_input=$("modify_table_product").rows[row+1].getElementsByTagName("input");
-			for(var j=0;j<temp_input.length;j++){
-				if(temp_input[j].value!="")
-				sum+=parseInt(temp_input[j].value);
-			}
-		    $("tot_"+row).innerHTML=sum;
-		    sum=0;
-		    var temp_value;
-		    for(j=1;j<$("modify_table_product").rows.length;j++){
-		    	temp_value=$("modify_table_product").rows[j].cells[$("modify_table_product").rows[row].cells.length-1].innerHTML;
-		    	if(temp_value==""){
-		    		temp_value=0;
-		    	}
-		    	sum+=parseInt(temp_value);
-		    }
-		    $("tot_product").innerHTML=sum;
-			if(event.keyCode==37){ //left
-				for(var i=cell;i>=1;i--){
-					var temp=$("modify_table_product").rows[row+1].cells[i].innerHTML;
-					if(temp!=""){
-						temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsByTagName("input");
-						var input_ele=temp_input[0].id;
-						dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
-						break;
-					}
-				}	
-			}else if(event.keyCode==38){ //up
-				for(var i=row;i>=1;i--){
-					var temp=$("modify_table_product").rows[i].cells[cell+1].innerHTML;
-					if(temp!=""){
-						temp_input=$("modify_table_product").rows[i].cells[cell+1].getElementsByTagName("input");
-						var input_ele=temp_input[0].id;
-						dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
-						break;
-					}
-				}	
-			}else if(event.keyCode==39){//right	
-			  for(var i=cell+2;i<$("modify_table_product").rows[row].cells.length-1;i++){
-					var temp=$("modify_table_product").rows[row+1].cells[i].innerHTML;
-					if(temp!=""){
-						temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsByTagName("input");
-						var input_ele=temp_input[0].id;
-						dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
-						break;
-					}
+		/*var temp=null;
+		var temp_input=null;
+		var sum=0;
+		temp_input=$("modify_table_product").rows[row+1].getElementsByTagName("input");
+		for(var j=0;j<temp_input.length;j++){
+			if(temp_input[j].value!="")
+			sum+=parseInt(temp_input[j].value);
+		}
+	    $("tot_"+row).innerHTML=sum;
+	    sum=0;
+	    var temp_value;
+	    for(j=1;j<$("modify_table_product").rows.length;j++){
+	    	temp_value=$("modify_table_product").rows[j].cells[$("modify_table_product").rows[row].cells.length-1].innerHTML;
+	    	if(temp_value==""){
+	    		temp_value=0;
+	    	}
+	    	sum+=parseInt(temp_value);
+	    }
+	    $("tot_product").innerHTML=sum;*/
+		if(event.keyCode==37){ //left
+			for(var i=cell;i>=1;i--){
+				var temp=$("modify_table_product").rows[row+1].cells[i].innerHTML;
+				if(temp!=""){
+					temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsByTagName("input");
+					var input_ele=temp_input[0].id;
+					dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
+					break;
 				}
-			}else if(event.keyCode==40){//down
-				for(var i=row+2;i<$("modify_table_product").rows.length;i++){
-					var temp=$("modify_table_product").rows[i].cells[cell+1].innerHTML;
-					if(temp!=""){
-						temp_input=$("modify_table_product").rows[i].cells[cell+1].getElementsByTagName("input");
-						var input_ele=temp_input[0].id;
-						dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
-						break;
-					}
-				}
-			}else if(event.keyCode==13){
-				gc.saveItemDetail();
-				if(Prototype.Browser.IE){	
-					event.cancelBubble = true;
-					event.returnValue = false;
-				}else{
-					event.returnValue = false;
-					event.stopPropagation();
-					event.preventDefault();
-				}
-			}else if( event.keyCode==27){
-				 Alerts.killAlert($("itemdetail_div"));
 			}	
-		}
+		}else if(event.keyCode==38){ //up
+			for(var i=row;i>=1;i--){
+				var temp=$("modify_table_product").rows[i].cells[cell+1].innerHTML;
+				if(temp!=""){
+					temp_input=$("modify_table_product").rows[i].cells[cell+1].getElementsByTagName("input");
+					var input_ele=temp_input[0].id;
+					dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
+					break;
+				}
+			}	
+		}else if(event.keyCode==39){//right	
+		  for(var i=cell+2;i<$("modify_table_product").rows[row].cells.length-1;i++){
+				var temp=$("modify_table_product").rows[row+1].cells[i].innerHTML;
+				if(temp!=""){
+					temp_input=$("modify_table_product").rows[row+1].cells[i].getElementsByTagName("input");
+					var input_ele=temp_input[0].id;
+					dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
+					break;
+				}
+			}
+		}else if(event.keyCode==40){//down
+			for(var i=row+2;i<$("modify_table_product").rows.length;i++){
+				var temp=$("modify_table_product").rows[i].cells[cell+1].innerHTML;
+				if(temp!=""){
+					temp_input=$("modify_table_product").rows[i].cells[cell+1].getElementsByTagName("input");
+					var input_ele=temp_input[0].id;
+					dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
+					break;
+				}
+			}
+		}else if(event.keyCode==13){//enter
+			if(Prototype.Browser.IE){	
+				event.cancelBubble = true;
+				event.returnValue = false;
+			}else{
+				event.stopPropagation();
+				event.preventDefault();
+			}
+			if(event.ctrlKey||event.altKey || event.shiftKey){
+				return gc.saveItemDetail();
+			}else{
+				var nTabIdx=val[0].tabIndex+1;
+				var ne=$("modify_table_product").getElementsBySelector("input[tabindex='"+nTabIdx+"']");
+				if(ne==null || ne.length==0){
+					return gc.saveItemDetail();
+				}else{
+					ne[0].focus();
+					dwr.util.selectRange(ne[0], 0, this.MAX_INPUT_LENGTH);	
+				}
+			}
+		}else if( event.keyCode==27){//escape
+			Alerts.killAlert($("itemdetail_div"));
+			var chkProductAttribute=$("check_product_attribute");
+			if(chkProductAttribute!=null && $("eo_"+chkProductAttribute.value)!=null){
+				dwr.util.selectRange($("eo_"+chkProductAttribute.value),0,this.MAX_INPUT_LENGTH);
+			}
+			 
+		}	
+		return true;
+		
 	},
 	
-	proonblur: function(row,cell){
-		var r=/^[0-9]*[1-9][0-9]*$/;
+	oncellchange: function(row,cell){
 		var flag=false;
 		var val=$("modify_table_product").rows[row+1].cells[cell+1].getElementsByTagName("input");
 		var inputvale=val[0].value;
 		inputvale=inputvale.replace(/^\s+/,'').replace(/\s+$/,'');
-		if(inputvale!=""&&!r.test(inputvale)){
-			alert(gMessageHolder.NO_POSITIVE_INTEGER);
-			var inputele=val[0].id;
-			dwr.util.selectRange(inputele,0,this.MAX_INPUT_LENGTH);
+		if(inputvale!=""&&!this._regexp_integer.test(inputvale)){
+			alert(gMessageHolder.NOT_INTEGER);
+			val[0].value="";
+			/*var inputele=val[0].id;
+			dwr.util.selectRange(val[0],0,this.MAX_INPUT_LENGTH);
+			if(Prototype.Browser.IE){	
+				event.cancelBubble = true;
+				event.returnValue = false;
+			}else{
+				event.returnValue = false;
+				event.stopPropagation();
+				event.preventDefault();
+			}*/
+			
 		}else{
 			flag=true;
 		}
@@ -720,6 +750,7 @@ GridControl.prototype = {
 		    }
 		    $("tot_product").innerHTML=sum;
 		 }
+		 return flag;
 	},
 	/**
 	* Clear item detail inputs 
@@ -736,22 +767,23 @@ GridControl.prototype = {
 		}	
 		$("tot_product").innerHTML="";
 	},
-	/**	*  Save itemdetail_form inputs, this is matrix
+	/**Save itemdetail_form inputs, this is matrix
 	*  json format [[attribute1, value1],[attribute2, value2],..], array of array of 2 elements pair
 	   attribute set instance id will have id as "A"+id, value should be number for all
+	   return false if error found
 	*/
 	saveItemDetail:function(){
 		var a=new Array(),i,ele,v,d;
 		v=dwr.util.getValue("itemdetail_defaultvalue");
 		var dfValue=0;
-		var r=/^[0-9]*[1-9][0-9]*$/;
+		//var r=/^[0-9]*[1-9][0-9]*$/;
 		var bNotCreateForNull= dwr.util.getValue("itemdetail_notnull");
 		if(!v.blank() && !bNotCreateForNull){
 			dfValue=parseInt(v,10);
 			if(isNaN(dfValue)){
 				msgbox(gMessageHolder.MUST_BE_NUMBER_TYPE);
 				dwr.util.selectRange("itemdetail_defaultvalue", 0, this.MAX_INPUT_LENGTH);
-				return;
+				return false;
 			}
 		}
 		var asum=0;
@@ -760,12 +792,12 @@ GridControl.prototype = {
 			ele=eles[i];
 			if(String(ele.value).blank()) v= dfValue;
 			else{
-				v=parseInt(ele.value,10);
-				if(v!=""&&!r.test(v)){
-					msgbox(gMessageHolder.NO_POSITIVE_INTEGER);
+				if(ele.value!=""&&!this._regexp_integer.test(ele.value)){
+					msgbox(gMessageHolder.NOT_INTEGER);
 					dwr.util.selectRange(ele, 0, this.MAX_INPUT_LENGTH);
-					return;
+					return false;
 				}
+				v=parseInt(ele.value,10);
 			}
 			if(v!=0){
 				a.push([ ele.id, v]); 
@@ -782,6 +814,7 @@ GridControl.prototype = {
 		var pdt=$("eo_"+chkProductAttribute.value);
 		this._saveLineToGrid(chkResult,pdt);
 		this._tmpData=null;
+		return true;
 	},
 	/**
 	 * Update line to grid, and wait for upload to server, if currentRow is -1, then a new row created
@@ -799,6 +832,9 @@ GridControl.prototype = {
 		 @param focusInput if not null, will set focus and select that input element
 	 */
 	_saveLineToGrid : function (chkResult, focusInput) {
+		if(focusInput!=null){
+			dwr.util.selectRange(focusInput,0,this.MAX_INPUT_LENGTH);
+		}
 		var line; // array
 		var cols=this._gridMetadata.columns,i,col,v;
 		// update asi_sum to first column that contains name "QTY"
@@ -878,9 +914,6 @@ GridControl.prototype = {
 		//this._gridTable.clearSelection();
 		//this._gridTable.setItemSelected($(line[0]+"_templaterow"), true);
 		this._isDirty=true;
-		if(focusInput!=null){
-			dwr.util.selectRange(focusInput,0,this.MAX_INPUT_LENGTH);
-		}
 			
 	} ,
 	/**
