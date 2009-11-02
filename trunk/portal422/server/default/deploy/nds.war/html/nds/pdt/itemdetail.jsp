@@ -119,7 +119,7 @@ private final static int TABINDEX_START=20000;
 	 			if(instanceId!=null){
 	 				nextInputId= inputCount+1>=totalInputs ?  ((Integer)inputList.get(0)).toString() : ((Integer)inputList.get(inputCount+1)).toString();
 		 			sb.append("<td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' name='A").append(instanceId).append("' id='P").
-		 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,").append(j).append(",").append(k).append(");'").append("   onblur='gc.proonblur(").append(j).append(",").append(k).append(");'").append("><br><div class='product-storage'>");
+		 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,").append(j).append(",").append(k).append(");'").append(" 	onchange='return gc.oncellchange(").append(j).append(",").append(k).append(");'").append("><br><div class='product-storage'>");
 		 			if(store_objectId!=-1){
 			 			if(li_store.size()>0){
 			 				for(int m=0;m<li_store.size();m++){
@@ -197,7 +197,7 @@ private final static int TABINDEX_START=20000;
 	 		if(instanceId!=null){
 	 			nextInputId= inputCount+1>=totalInputs ?  ((Integer)inputList.get(0)).toString() : ((Integer)inputList.get(inputCount+1)).toString();
 	 			sb.append("<tr><td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' value='' name='A").
-	 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,0,").append(j).append(");'").append(" onblur='gc.proonblur(0,").append(j).append(");'").append("><br><div class='product-storage'>");
+	 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,0,").append(j).append(");'").append(" onblur='return gc.oncellchange(0,").append(j).append(");'").append("><br><div class='product-storage'>");
 	 			boolean flag_store =false;
 	 			boolean flag_dest =false;
 	 			if(store_objectId!=-1){
@@ -405,7 +405,7 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 </td></tr>
 <tr><td><%= PortletUtils.getMessage(pageContext, "input-value-for-each-attribute",null)%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= PortletUtils.getMessage(pageContext, "all_total",null)%>:<span id="tot_product"></span></td></tr>
 <tr><td>
-<form id="itemdetail_form">
+<form id="itemdetail_form" onsubmit="return false;">
 <div style="width:790px; height:360px;overflow-y: auto; overflow-x: auto; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px"> 
 <%=getAttributeTable(instances2,0,attributes,attributeValues,"",inputList,li_store,li_dest,store_objectId,dest_objectId,store_table,dest_table,directory_store,directory_dest,userWeb)%>
 </div>
