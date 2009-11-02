@@ -203,7 +203,7 @@ if(udxColumns.size()>0){
     </div>
 </fieldset>
 <div id="btn">
-<input class="command2_button" type='button' id="btnImport" name='ImportExcel' value='<%=PortletUtils.getMessage(pageContext, "import",null)%>' onclick="javascript:impxls.beginImport();" >
+<input class="command2_button" type='button' id="btnImport" name='ImportExcel' value='<%=PortletUtils.getMessage(pageContext, "import-file",null)%>' onclick="javascript:impxls.beginImport();" >
 <input class="command2_button" type='button' id="btnPrint" name='print' value='<%=PortletUtils.getMessage(pageContext, "print",null)%>' onclick="javascript:window.print();" >
 <span id="tag_close_window"></span>
 <Script language="javascript">
