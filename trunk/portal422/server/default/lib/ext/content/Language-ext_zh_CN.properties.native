@@ -866,7 +866,6 @@ lack_goods=无
 ref-report=相关报表
 current-subsystem=您处在
 switch-subsystem=切换
-<<<<<<< .mine
 subsystem-view=子系统综合
 show-news-1=伯俊新产品发布
 show-news-2=伯俊软件携手众多品牌
@@ -892,4 +891,5 @@ import-select-file=选择文件
 browse-file=浏览文件
 import-file-desc=导入文件(txt,csv,xls)
 multiply-qty-column=数量列自动乘以此倍数
-import-result=文件处理结果>>>>>>> .r249
+import-result=文件处理结果
+import-file=开始上传并导入
