@@ -15,12 +15,29 @@
 	q.put("fixedcolumns", fixedColumns.toURLQueryString(null));
 	q.put("start",0);
 	q.put("range",QueryUtils.DEFAULT_RANGE);
-	if( table.getColumn("orderno")!=null){
-		q.put("order_columns", table.getColumn("orderno").getId());
-		q.put("order_asc", true);
+	
+	// if found m_product_id, M_ATTRIBUTESETINSTANCE_ID;VALUE1,M_ATTRIBUTESETINSTANCE_ID;VALUE2, will be first ones to order by
+	if( table.getColumn("m_product_id")!=null && table.getColumn("M_ATTRIBUTESETINSTANCE_ID;VALUE1")!=null &&  table.getColumn("M_ATTRIBUTESETINSTANCE_ID;VALUE2")!=null){
+			JSONArray ja=new JSONArray();
+			JSONObject jodr=new JSONObject();
+			jodr.put("column","M_PRODUCT_ID;NAME");
+			ja.put(jodr);
+			jodr=new JSONObject();
+			jodr.put("column","M_ATTRIBUTESETINSTANCE_ID;VALUE1");
+			ja.put(jodr);
+			jodr=new JSONObject();
+			jodr.put("column","M_ATTRIBUTESETINSTANCE_ID;VALUE2");
+			ja.put(jodr);
+			q.put("orderby", ja);
 	}else{
-		q.put("order_columns", table.getColumn("id").getId());
-		q.put("order_asc", false);
+		if( table.getColumn("orderno")!=null){
+			q.put("order_columns", table.getColumn("orderno").getId());
+			q.put("order_asc", true);
+		}else{
+			
+			q.put("order_columns", table.getColumn("id").getId());
+			q.put("order_asc", false);
+		}
 	}
 	String creationLink=WebUtils.getMainTableLink(request)+"table="+ tableId+"&fixedcolumns="+java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""),request.getCharacterEncoding())+"&next_screen="+java.net.URLEncoder.encode(StringUtils.escapeHTMLTags(urlOfThisPage),request.getCharacterEncoding());
 	
