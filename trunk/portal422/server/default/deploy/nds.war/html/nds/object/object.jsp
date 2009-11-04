@@ -195,6 +195,8 @@ if(table!=null){
 	%>
 		<div class="msg-error"><%=msgError%></div>
 	<%}else{
+		JSONObject tableObj=table.toJSONObject(locale);
+		tableObj.put("description",table.getCategory().getName()+ " - "+ table.getDescription(locale));
 	%>
 <script>
 var masterObject={
@@ -203,7 +205,7 @@ var masterObject={
 			directory:"<%= directory%>",fixedcolumns:"<%= fixedColumns.toURLQueryString("")%>",
 			copyfromid:null
 	},
-	table:<%=table.toJSONObject(locale)%>,
+	table:<%=tableObj%>,
 	<%
 	 ArrayList inputColumns=table.getColumns(new int[]{1,3}, false);// Columns input for Add/Modify 
 	 JSONArray inputColumnsJson=new JSONArray();
