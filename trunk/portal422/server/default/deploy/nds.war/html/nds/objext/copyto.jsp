@@ -10,12 +10,11 @@
     int orderId=Tools.getInt(request.getParameter("objectids"),-1);
     String dv=String.valueOf(QueryEngine.getInstance().doQueryOne("select VALUE from AD_PARAM where NAME='portal.copyitem'"));
         if(orderId!=-1){
-            String tableName=srcTable.getRealTableName()==null?srcTable.getName():srcTable.getRealTableName();
+            //String tableName=srcTable.getRealTableName()==null?srcTable.getName():srcTable.getRealTableName();
+            String tableName=srcTable.getName();
             int tableId=srcTable.getId();
             if(dv.contains(tableName)){
-                //out.print(tableName);
                 response.sendRedirect("/copy_item/index.jsp?tableid="+tableId+"&id="+orderId);
-                return;
             }
         }
     
