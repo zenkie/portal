@@ -4,6 +4,20 @@
 	String tabName= PortletUtils.getMessage(pageContext, "title.copyto",null);
 	request.setAttribute("page_help", "CopyTo");
 	int navTabTotalWidth=DEFAULT_TAB_WIDTH; //total table width
+    TableManager manager= TableManager.getInstance();
+    Table srcTable=manager.getTable( ParamUtils.getIntParameter(request, "src_table", -1));
+    PairTable fixedColumns=PairTable.parseIntTable(request.getParameter("fixedcolumns"), null);
+    int orderId=Tools.getInt(request.getParameter("objectids"),-1);
+    String dv=String.valueOf(QueryEngine.getInstance().doQueryOne("select VALUE from AD_PARAM where NAME='portal.copyitem'"));
+        if(orderId!=-1){
+            String tableName=srcTable.getRealTableName()==null?srcTable.getName():srcTable.getRealTableName();
+            int tableId=srcTable.getId();
+            if(dv.contains(tableName)){
+                out.print(tableName);
+                response.sendRedirect("/copy_item/index.jsp?tableid="+tableId+"&id="+orderId);
+            }
+        }
+    
 %>
 
 <liferay-util:include page="/html/nds/header.jsp">
@@ -21,8 +35,7 @@
      */
 %>
 <%
-    TableManager manager= TableManager.getInstance();
-    Table srcTable=manager.getTable( ParamUtils.getIntParameter(request, "src_table", -1));
+
     Table destTable=manager.getTable( ParamUtils.getIntParameter(request, "dest_table", -1));
     ArrayList al=new ArrayList();
     if(destTable ==null){
@@ -34,7 +47,7 @@
     	}
     	if(al.size()==1 && srcTable.getId()==((Table)al.get(0)).getId())destTable= (Table)al.get(0);
     }
-	PairTable fixedColumns=PairTable.parseIntTable(request.getParameter("fixedcolumns"), null);    
+
 
 %>
 <script>
