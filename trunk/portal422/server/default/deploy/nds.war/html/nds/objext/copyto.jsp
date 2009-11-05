@@ -13,8 +13,9 @@
             String tableName=srcTable.getRealTableName()==null?srcTable.getName():srcTable.getRealTableName();
             int tableId=srcTable.getId();
             if(dv.contains(tableName)){
-                out.print(tableName);
+                //out.print(tableName);
                 response.sendRedirect("/copy_item/index.jsp?tableid="+tableId+"&id="+orderId);
+                return;
             }
         }
     
