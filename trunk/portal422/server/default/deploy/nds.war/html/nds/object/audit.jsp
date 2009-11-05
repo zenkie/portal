@@ -158,6 +158,7 @@ if(table!=null){
 	boolean canEdit= canModify || canAdd;
 	/**------check permission end---**/
 	List<WebAction> waObjButtons=new ArrayList<WebAction>(), waObjMenuItems=new ArrayList<WebAction>();
+	HashMap actionEnv=new HashMap();
 	String includePage=null;
 	String msgError=null;
 	
