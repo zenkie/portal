@@ -104,20 +104,84 @@ jQuery(document).ready(loadWelcomePage);
 	  }
 	%>
 </div>
-<div id="portal-main">		
-		<table id="page-table" cellpadding="0" cellspacing="0">
-	<tr>
-		<td width="1%" norwap class="topleft">
-		<%@ include file="list_menu.jsp" %>
-    </td>
-<td width="99%" class="topleft">
-	<div id="portal-content"></div>	
-	</td>
-	</tr></table>
+<div id="portal-main" style="margin-left:3px">		
+	<table id="page-table" cellpadding="0" cellspacing="0" >
+	<tr><td width="1%" norwap class="topleft" >
+		   <table cellspacing="0" cellpadding="0" border="0" width="100%">
+			<tr><td id="a" style="vertical-align:top;width:200px" >
+			<div style="margin:0;overflow:hidden;" >
+			<%@ include file="list_menu.jsp" %>
+			</div>
+		   	</td><td id="b" style="vertical-align:top;width:10px;" >
+			<div id="leftToggler"  onclick="menu_toggle(this);" onmoussdeover="menu_hl(1);" onmousdeout="menu_hl(0);"  >
+				</div></td>
+			</tr></table></td>
+		<td style="vertical-align:top;width:100%;">
+	<div id="portal-content" style="width:100%"></div>	
+	</td></tr>
+	</table>
 </div>
+<script type="text/javascript">
+var menustate=1;
+var menuWidth=null;
+function menu_hl(state){
+   var url1="#C3D9FF";
+   var url2="#C3D9FF";
+   var url3="#678FC2";
+   var url4="#678FC2";
+   if(state==1){
+	   
+		$('b').style.backgroundColor=(menustate==1)?url1:url2;
+	} else {
+		$('b').style.backgroundColor=(menustate==1)?url3:url4;
+	}
+}
+function menu_toggle(e){
+   //var display =document.getElementById("a").style.display;
+   e.blur();
+   var url1="#C3D9FF url('/html/nds/themes/classic/01/images/arrow-left.gif') no-repeat scroll 1px 50%";
+   var url2="#C3D9FF url('/html/nds/themes/classic/01/images/arrow-right.gif') no-repeat scroll 1px 50%";
+   if(menustate==1){
+		document.getElementById("a").style.display="none"; 
+		menustate=-1;
+		resize();
+		document.getElementById('leftToggler').style.background=url2;
+
+	}else{document.getElementById('leftToggler').style.background=url1;
+
+		document.getElementById("a").style.display="block";
+		document.getElementById("b").style.width="10px"; 
+		menustate=1;
+		resize();
+	}
+   $('portal-bottom').focus();
+}
+function resize(){
+		//if(is_ie) return;
+		
+		var limitWidth=245;
+		//if(!pc._resizable) limitWidth=15;
+		//else limitWidth=245;
+		var e=$("embed-lines");
+		//if (menuWidth==null) menuWidth=e.style.width;
+		if (menustate==-1)limitWidth=40;
+		else limitWidth=240;
+
+		if(e==null)return;
+		if (!is_safari) {
+				e.style.width= (document.body.clientWidth - limitWidth)+"px";
+    }else {
+        e.style.width= (document.body.offsetWidth - limitWidth)+"px";
+    }
+	}
+</script>
 <div id="portal-bottom">
 	<%@ include file="bottom.jsp" %>
+
 </div>
+
+
+
 </body>
 </html>
 
