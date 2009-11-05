@@ -2,9 +2,9 @@
 /** -- add support for webaction of tab buttons --**/
   Connection actionEnvConnection=null;
   List<WebAction> waTabButtons=new ArrayList<WebAction>();
+  HashMap actionEnv=new HashMap();
   try{
   	actionEnvConnection=QueryEngine.getInstance().getConnection();
-	HashMap actionEnv=new HashMap();
 	actionEnv.put("httpservletrequest", request);
 	actionEnv.put("userweb", userWeb);
 	actionEnv.put("connection", actionEnvConnection);
@@ -23,6 +23,6 @@
   	if(actionEnvConnection!=null)try{actionEnvConnection.close();}catch(Throwable ace){}
   }
 for(int wasi=0;wasi<waTabButtons.size();wasi++){
-	out.println(waTabButtons.get(wasi).toHTML(locale));
+	out.println(waTabButtons.get(wasi).toHTML(locale,actionEnv));
 }
 %>

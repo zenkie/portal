@@ -88,7 +88,7 @@ boolean isModify=canModify;
 <%
 // these are list buttons of webaction
 for(int wasi=0;wasi<waListButtons.size();wasi++){
-	out.println(waListButtons.get(wasi).toHTML(locale));
+	out.println(waListButtons.get(wasi).toHTML(locale,null));
 }
 %>
 		<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "help",null)%>" onclick="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"/>
@@ -103,7 +103,7 @@ jQuery('#page-table-query-tab ul').tabs();
 // these are list menuitems of webaction
 StringBuffer waListMenuItemStr=new StringBuffer();
 for(int wasi=0;wasi<waListMenuItems.size();wasi++){
-	waListMenuItemStr.append(waListMenuItems.get(wasi).toHTML(locale));
+	waListMenuItemStr.append(waListMenuItems.get(wasi).toHTML(locale,null));
 }
 if(waListMenuItems.size()>0){
 System.out.println(StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\""));

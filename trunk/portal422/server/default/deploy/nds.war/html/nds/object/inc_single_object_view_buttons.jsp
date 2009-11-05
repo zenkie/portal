@@ -53,6 +53,6 @@ validCommands.add( commandFactory.newButtonInstance("Refresh",
 <%
 // these are list buttons of webaction
 for(int wasi=0;wasi<waObjButtons.size();wasi++){
-	out.print(waObjButtons.get(wasi).toHTML(locale));
+	out.print(waObjButtons.get(wasi).toHTML(locale,actionEnv)); 
 }
 %>

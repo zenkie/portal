@@ -41,7 +41,7 @@ for(int j=0;j<categoryChildren.size();j++){
 	}else if(categoryChildren.get(j)  instanceof WebAction){
 		WebAction action=(WebAction)categoryChildren.get(j);
 %>
-	<%=action.toHTML(locale)%>
+	<%=action.toHTML(locale,null)%>
 <%			
 	}
 }

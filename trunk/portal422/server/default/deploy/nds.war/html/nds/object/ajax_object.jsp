@@ -128,9 +128,9 @@ if(table!=null){
 	/** -- add support for webaction of listbutton --**/
   Connection actionEnvConnection=null;
   List<WebAction> waObjButtons=new ArrayList<WebAction>(), waObjMenuItems=new ArrayList<WebAction>();
+  HashMap actionEnv=new HashMap();
   try{
   	actionEnvConnection=QueryEngine.getInstance().getConnection();
-	HashMap actionEnv=new HashMap();
 	actionEnv.put("httpservletrequest", request);
 	actionEnv.put("userweb", userWeb);
 	actionEnv.put("connection", actionEnvConnection);

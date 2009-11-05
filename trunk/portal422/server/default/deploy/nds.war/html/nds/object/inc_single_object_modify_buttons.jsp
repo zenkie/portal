@@ -47,7 +47,7 @@ if( objectId == -1){
 <%
 // these are list buttons of webaction
 for(int wasi=0;wasi<waObjButtons.size();wasi++){
-	out.print(waObjButtons.get(wasi).toHTML(locale));
+	out.print(waObjButtons.get(wasi).toHTML(locale,actionEnv)); 
 }
 %>
 

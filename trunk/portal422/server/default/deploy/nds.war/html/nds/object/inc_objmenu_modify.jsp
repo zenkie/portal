@@ -61,9 +61,9 @@ for(int i=0;i< validCommands.size();i++){
 <%	
 }
 // these are list menuitems of webaction
-for(int i=0;i<waObjMenuItems.size();i++){
+for(int i=0;i<waObjMenuItems.size();i++){ 
 %>
-	<%=waObjMenuItems.get(i).toHTML(locale)%>
+	<%=waObjMenuItems.get(i).toHTML(locale,actionEnv)%>
 <%
 }%>
 </ul></div>
