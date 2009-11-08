@@ -15,20 +15,12 @@
 	q.put("fixedcolumns", fixedColumns.toURLQueryString(null));
 	q.put("start",0);
 	q.put("range",QueryUtils.DEFAULT_RANGE);
-	
+	//[{"column":"M_PRODUCT_ID;NAME "},{"column":"M_ATTRIBUTESETINSTANCE_ID;VALUE1"},{"column":"M_ATTRIBUTESETINSTANCE_ID;VALUE2"}]
 	// if found m_product_id, M_ATTRIBUTESETINSTANCE_ID;VALUE1,M_ATTRIBUTESETINSTANCE_ID;VALUE2, will be first ones to order by
-	if( table.getColumn("M_PRODUCT_ID")!=null && table.getColumn("M_ATTRIBUTESETINSTANCE_ID")!=null){
-			JSONArray ja=new JSONArray();
-			JSONObject jodr=new JSONObject();
-			jodr.put("column","M_PRODUCT_ID;NAME");
-			ja.put(jodr);
-			jodr=new JSONObject();
-			jodr.put("column","M_ATTRIBUTESETINSTANCE_ID;VALUE1");
-			ja.put(jodr);
-			jodr=new JSONObject();
-			jodr.put("column","M_ATTRIBUTESETINSTANCE_ID;VALUE2");
-			ja.put(jodr);
-			q.put("orderby", ja);
+	JSONArray sporder=null;
+	if( table.getJSONProps()!=null) sporder=table.getJSONProps().optJSONArray("orderby");
+	if(sporder!=null){
+			q.put("orderby", sporder);
 	}else{
 		if( table.getColumn("orderno")!=null){
 			q.put("order_columns", table.getColumn("orderno").getId());
@@ -54,12 +46,19 @@
 	if(canDelete) tas.append("D");
 	if(canSubmit) tas.append("S");
 	
+	String inlineMode=((isModify && refbyTable!=null)? refbyTable.getInlineMode():"N");
+	if(refbyTable!=null && inlineMode.equals("Y")) {
+		JSONObject jrob=TableManager.getInstance().getTable(refbyTable.getTableId()).getJSONProps();
+		if(	jrob!=null && jrob.optBoolean("allow_embed_edit",true)==false){
+			inlineMode="B";// not allow to do modify in inline area, but can modify in grid
+		}
+	}
 %>
 function GridInitObject(){}
 GridInitObject.prototype={
 	getGridMetadata: function () {return <%=meta.toJSONObject(refbyTable.allowPopup())%>;},
 	getGridQueryObj:function(){return <%=q%>;},
-	getInlineMode:function(){return "<%=((isModify && refbyTable!=null)? refbyTable.getInlineMode():"N")%>";},
+	getInlineMode:function(){return "<%=inlineMode%>";},
 	getLineCreationLink:function(){ return "<%=creationLink%>";},
 	getLinePage:function(){ return "<%=singleObjectPageURL%>";},
 	getFixedColumns:function(){ return <%=(new org.json.JSONObject(fixedColumns.toHashMap())).toString()%>;},

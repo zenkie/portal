@@ -119,7 +119,7 @@ for( int i=0;i< editColumns.size();i++){
             //h.put("class","inputline "+ columnClasses); 
             h.put("class", TableQueryModel.getTextInputCssClass(columnsPerRow,column));
 			h.put("onkeypress", "gc.onLineReturn(event, doSaveLine)");    
-			h.put("onfocus", "oc.findstoreId()");          
+			//h.put("onfocus", "oc.findstoreId()");
             String defaultValue;
             if(!isFixedColumn) defaultValue=userWeb.replaceVariables(userWeb.getUserOption(column.getName(),column.getDefaultValue()));
             else defaultValue= PortletUtils.getMessage(pageContext, "maintain-by-sys",null);
@@ -167,15 +167,19 @@ editColumn= table.getColumn("m_product_id");
 columnMProductId= editColumn.getName()+"__"+  editColumn.getReferenceColumn().getTable().getAlternateKey().getName() ;
 editColumn= table.getColumn("M_ATTRIBUTESETINSTANCE_ID");
 columnMProductAttributeSetInstanceId= editColumn.getName()+"__"+  editColumn.getReferenceColumn().getTable().getAlternateKey().getName();
+
+boolean quickSave=Tools.getYesNo(userWeb.getUserOption("QUICKSAVE","Y"),true);
 %>
-	<td align="left"><input class="cbutton" type="button" accesskey="L" value="<%=PortletUtils.getMessage(pageContext, "command.ok",null)%>(L)"  onclick="javascript:oc.findstoreId();doSaveLine()">
+	<td align="left">
+		<input type="checkbox" id="quick_save" name="quick_save" <%=(quickSave?"checked":"")%>><%=PortletUtils.getMessage(pageContext, "quick-save",null)%> &nbsp;&nbsp;
+		<input class="cbutton" type="button" accesskey="L" value="<%=PortletUtils.getMessage(pageContext, "command.ok",null)%>(L)"  onclick="javascript:oc.findstoreId();doSaveLine()">
 	<%if(table.isActionEnabled(Table.DELETE)){%>
 	&nbsp;&nbsp;&nbsp;<%=commandFactory.newButtonInstance("DeleteLine", PortletUtils.getMessage(pageContext, "command.deleteline",null),"doDeleteLine()", "E").toHTML()%>
 	<%}%>
-	 <input type="hidden" id="c_store_product_id" name="c_store_product_id" value="">
+	 <%/*<input type="hidden" id="c_store_product_id" name="c_store_product_id" value="">
 	 <input type="hidden" id="c_store_product_data" name="c_store_product_data" value="">
 	  <input type="hidden" id="c_dest_product_id" name="c_dest_product_id" value="">
-	 <input type="hidden" id="c_dest_product_data" name="c_dest_product_data" value="">
+	 <input type="hidden" id="c_dest_product_data" name="c_dest_product_data" value="">*/%>
 	</td>
 <td>
 <div id="emtbts_lgd" style="display:none;"><div id="legend_line"><%= PortletUtils.getMessage(pageContext, "new-line",null)%></div></div>

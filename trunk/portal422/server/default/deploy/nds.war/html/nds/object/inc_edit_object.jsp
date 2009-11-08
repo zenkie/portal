@@ -112,6 +112,7 @@ for( int i=0;i< editColumns.size();i++){
             	fkQueryModel=new FKObjectQueryModel(false,refTable, columnDomId,column,null);
             	fkQueryModel.setQueryindex(-1);
             	if(column.isAutoComplete()){
+            		h.put("onkeydown",fkQueryModel.getKeyEventScript());
 	            	dcqjsonObject=new org.json.JSONObject();
 					dcqjsonObject.put("column_acc_Id",columnDomId);
 					dcqjsonObject.put("tableId",refTable.getId());
@@ -180,7 +181,8 @@ for( int i=0;i< editColumns.size();i++){
 	<input type="checkbox" id="check_product_attribute" name="<%=columnMProductAttributeSetInstanceId%>" value="<%=columnMProductId%>" <%=(checkProductAttribute==1?"checked":"")%> >
 	<%=PortletUtils.getMessage(pageContext, "check-attribute",null)+":"+TableManager.getInstance().getTable("M_PRODUCT").getDescription(locale)%>
 	<%}%>
-	<input type="checkbox" id="clear_after_insert" name="clear_after_save" checked><%=PortletUtils.getMessage(pageContext, "clear-after-insert",null)%>
+	<input type="checkbox" id="clear_after_insert" name="clear_after_save" checked><%=PortletUtils.getMessage(pageContext, "clear-after-insert",null)%>&nbsp;
+	<input type="checkbox" id="quick_save" name="quick_save" <%=(Tools.getYesNo(userWeb.getUserOption("QUICKSAVE","Y"),true)?"checked":"")%>><%=PortletUtils.getMessage(pageContext, "quick-save",null)%>
 		</div>
 <div id="emtbts_btns">
 <table border="0" cellpadding="0" cellspacing="0" ><tr>

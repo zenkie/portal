@@ -251,6 +251,7 @@ columns=table.getShowableColumns(actionType);
 	<div id="message" class="nt"  style="visibility:hidden;">
 	</div>
 </div>
+
 <div class="<%=uiConfig.getCssClass()%>" id="<%=uiConfig.getCssClass()%>">
 <form name="<%=namespace%>fm" method="post" action="<%=contextPath %>/control/command" onSubmit="return false;">
 <input type="hidden" name="id" value="<%=objectId %>">
