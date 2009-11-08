@@ -89,18 +89,20 @@ dwr.util.onReturn = function(event, action) {
  * @see http://getahead.org/dwr/browser/util/selectrange
  */
 dwr.util.selectRange = function(ele, start, end) {
-  ele = dwr.util._getElementById(ele, "selectRange()");
-  if (ele == null) return;
-  if (ele.setSelectionRange) {
-    ele.setSelectionRange(start, end);
-  }
-  else if (ele.createTextRange) {
-    var range = ele.createTextRange();
-    range.moveStart("character", start);
-    range.moveEnd("character", end - ele.value.length);
-    range.select();
-  }
-  ele.focus();
+  try{
+	  	ele = dwr.util._getElementById(ele, "selectRange()");
+	  if (ele == null) return;
+	  if (ele.setSelectionRange) {
+	    ele.setSelectionRange(start, end);
+	  }
+	  else if (ele.createTextRange) {
+	    var range = ele.createTextRange();
+	    range.moveStart("character", start);
+	    range.moveEnd("character", end - ele.value.length);
+	    range.select();
+	  }
+	  ele.focus();
+	}catch(ex){}
 };
 /**
  * Find the element in the current HTML document with the given id or ids

@@ -55,24 +55,24 @@ function extendEventObject() {
 	});
 
 	Event.prototype.__defineGetter__("fromElement", function () {
-		var node;
+		var node=null;
 		if (this.type == "mouseover")
 			node = this.relatedTarget;
 		else if (this.type == "mouseout")
 			node = this.target;
 		if (!node) return;
-		while (node.nodeType != 1) node = node.parentNode;
+		try{while (node.nodeType != 1) node = node.parentNode;}catch(ex){}
 		return node;
 	});
 
 	Event.prototype.__defineGetter__("toElement", function () {
-		var node;
+		var node=null;
 		if (this.type == "mouseout")
 			node = this.relatedTarget;
 		else if (this.type == "mouseover")
 			node = this.target;
 		if (!node) return;
-		while (node.nodeType != 1) node = node.parentNode;
+		try{while (node.nodeType != 1) node = node.parentNode;}catch(ex){}
 		return node;
 	});
 

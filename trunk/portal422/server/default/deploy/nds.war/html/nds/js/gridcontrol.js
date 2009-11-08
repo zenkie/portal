@@ -553,6 +553,7 @@ GridControl.prototype = {
 		if( arguments.length==0 ) e=window.event;
 		else e= arguments[0];
 		if(e!=null) e = e.target != null ? e.target : e.srcElement;
+		
 		// check input validity
 		if(this._checkObjectInput()==false) return;
 		var chkProductAttribute=$("check_product_attribute");
@@ -569,11 +570,14 @@ GridControl.prototype = {
 				evt.product=pdtValue;
 				evt.fixedColumns=this._fixedColumns;
 				evt.tableId=this._gridMetadata.tableId;
-				if($("c_store_product_id")!=null){
-					evt.store_colId=$("c_store_product_id").value;
-					evt.storedata=$("c_store_product_data").value;
-					evt.dest_colId=$("c_dest_product_id").value;
-					evt.destdata=$("c_dest_product_data").value;
+				if(typeof(oc)!="undefined" && oc!=null){
+					var storeInfo=oc.getStoreInfo();
+					if(storeInfo!=null){
+						evt.store_colId=storeInfo.c_store_product_id;
+						evt.storedata=storeInfo.c_store_product_data;
+						evt.dest_colId=storeInfo.c_dest_product_id;
+						evt.destdata=storeInfo.c_dest_product_data;
+					}
 				}
 				if(this._currentRow!=-1 && this._data[this._currentRow][1]!="A") evt.trymatrix=false;
 				this._executeCommandEvent(evt);
@@ -816,6 +820,9 @@ GridControl.prototype = {
 		this._tmpData=null;
 		return true;
 	},
+	getLastFocusElement:function(){
+		return this._lastFocusElement;
+	},
 	/**
 	 * Update line to grid, and wait for upload to server, if currentRow is -1, then a new row created
 	 * else update data and grid line of that row
@@ -834,6 +841,7 @@ GridControl.prototype = {
 	_saveLineToGrid : function (chkResult, focusInput) {
 		if(focusInput!=null){
 			dwr.util.selectRange(focusInput,0,this.MAX_INPUT_LENGTH);
+			this._lastFocusElement= focusInput;
 		}
 		var line; // array
 		var cols=this._gridMetadata.columns,i,col,v;
@@ -914,7 +922,7 @@ GridControl.prototype = {
 		//this._gridTable.clearSelection();
 		//this._gridTable.setItemSelected($(line[0]+"_templaterow"), true);
 		this._isDirty=true;
-			
+		if( dwr.util.getValue("quick_save")==true)oc.saveAll();
 	} ,
 	/**
 	  @param colName column name in this._gridMetadata
@@ -1007,11 +1015,14 @@ GridControl.prototype = {
 		if(pdtColIndex <0) return;
 		pdtValue= this._data[row][pdtColIndex];
 		var evt={};
-		if($("c_store_product_id")!=null){
-			evt.store_colId=$("c_store_product_id").value;
-			evt.storedata=$("c_store_product_data").value;
-			evt.dest_colId=$("c_dest_product_id").value;
-			evt.destdata=$("c_dest_product_data").value;
+		if(typeof(oc)!="undefined" && oc!=null){
+			var storeInfo=oc.getStoreInfo();
+			if(storeInfo!=null){
+				evt.store_colId=storeInfo.c_store_product_id;
+				evt.storedata=storeInfo.c_store_product_data;
+				evt.dest_colId=storeInfo.c_dest_product_id;
+				evt.destdata=storeInfo.c_dest_product_data;
+			}
 		}
 		evt.command="CheckProductAttribute";
 		evt.callbackEvent="ShowProductAttribute";

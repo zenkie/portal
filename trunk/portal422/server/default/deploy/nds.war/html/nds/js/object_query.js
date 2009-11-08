@@ -859,7 +859,7 @@ DropdownQuery.prototype = {
 		dropdownDiv.style.top = offsets.y + (acceptorEle.offsetHeight ? acceptorEle.offsetHeight : 22) + "px";
 		dropdownDiv.style.left = offsets.x + "px";
 		dropdownDiv.style.display = "block";
-		dropdownDiv.scrollIntoView();
+		//dropdownDiv.scrollIntoView();
 	},
 	_resize : function (accepter_id) {
 		
@@ -1069,7 +1069,7 @@ _hidePopupWindow:function(){
 		createButton($("end_btn_"+accepterId)); 
 		dq.syncGridControl(accepterId);
 		this._init_result("table_"+accepterId);
-		dropdownDiv.scrollIntoView();
+		//dropdownDiv.scrollIntoView();
   }
 }
 
@@ -1231,7 +1231,7 @@ DynamicQuery.prototype = {
 		$("div_dyn").style.top=div_top+"px";
 		$("div_dyn").style.left=offsets.x;
 		$("div_dyn").style.padding=0; 
-		$("div_dyn").style.position="relative";
+		$("div_dyn").style.position="absolute";
 		$("div_dyn").style.zIndex=10;
 		$("divcontent_dyn").style.width=(Prototype.Browser.IE?$(this._accepter_id).offsetWidth+20:$(this._accepter_id).offsetWidth+20);
 		$("divcontent_dyn").style.top=div_top+"px";

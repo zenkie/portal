@@ -679,7 +679,14 @@ ObjectControl.prototype = {
 		}*/
 		var msg=e.getUserData().message;
 		this._showMessage(msg);
+
 		oc._toggleButtons(false);
+		//focus to last saved position
+		if(typeof(gc) != undefined && gc!=null && !gc.isDestroied()){
+			var ele=gc.getLastFocusElement();
+			if(ele!=null)
+				dwr.util.selectRange(ele,0,this.MAX_INPUT_LENGTH);
+		}
 	},
 	/**
 	 * On key press on FK column, will remove hidden input "fk_"+inputId
@@ -750,7 +757,85 @@ ObjectControl.prototype = {
 		}
 		  this.closeDialog();
 	},
-	findstoreId:function(){
+	/**
+	 Only works when grid columns contains "m_product_id" and "m_attributesetinstance_id"
+	 @return {c_store_product_id:xxx,c_store_product_data:xxx,c_dest_product_id:xxx,c_dest_product_data:xxx}
+	*/
+	getStoreInfo:function(){
+		var i;
+		var c_store_productId="";
+		var c_store_product_data="";
+		var c_dest_productId="";
+		var c_dest_product_data="";
+		var flag=false;
+		var flag1=false;
+		for(i=0;i<this._masterObj.columns.length;i++){
+			
+			if( this._masterObj.columns[i].name.indexOf("C_ORIG_ID")!=-1&&this._masterObj.columns[i].refColumnId!=-1){
+			//	$("c_store_product").value=this._masterObj.columns[i].description;
+			//	$("c_store_product_data").value=$("column_"+this._masterObj.columns[i].id).value;
+			//	c_store_product=this._masterObj.columns[i].description
+				c_store_productId=this._masterObj.columns[i].id;
+				if($("column_"+this._masterObj.columns[i].id).value==undefined){
+					c_store_product_data=$("column_"+this._masterObj.columns[i].id).innerHTML;
+				}else{
+					c_store_product_data=$("column_"+this._masterObj.columns[i].id).value;
+				}
+				flag=true;
+			}
+			if(flag){
+				if( this._masterObj.columns[i].name.indexOf("C_STORE_ID")!=-1&&this._masterObj.columns[i].refColumnId!=-1){
+					//c_dest_product=this._masterObj.columns[i].description;
+					c_dest_productId=this._masterObj.columns[i].id;
+					if($("column_"+this._masterObj.columns[i].id).value==undefined){
+						c_dest_product_data=$("column_"+this._masterObj.columns[i].id).innerHTML;
+					}else{
+						c_dest_product_data=$("column_"+this._masterObj.columns[i].id).value;
+					}
+				}
+			}else{
+				if( this._masterObj.columns[i].name.indexOf("C_STORE_ID")!=-1&&this._masterObj.columns[i].refColumnId!=-1){
+					//c_store_product=this._masterObj.columns[i].description;
+					c_store_productId=this._masterObj.columns[i].id;
+					if($("column_"+this._masterObj.columns[i].id).value==undefined){
+						c_store_product_data=$("column_"+this._masterObj.columns[i].id).innerHTML;
+					}else{
+						c_store_product_data=$("column_"+this._masterObj.columns[i].id).value;
+					}
+				}
+				flag1=true;
+			}
+			if(flag1){
+				if( this._masterObj.columns[i].name.indexOf("C_DEST_ID")!=-1&&this._masterObj.columns[i].refColumnId!=-1){
+					//c_dest_product=this._masterObj.columns[i].description;
+					c_dest_productId=this._masterObj.columns[i].id;
+					if($("column_"+this._masterObj.columns[i].id).value==undefined){
+						c_dest_product_data=$("column_"+this._masterObj.columns[i].id).innerHTML;
+					}else{
+						c_dest_product_data=$("column_"+this._masterObj.columns[i].id).value;
+					}
+				}
+			}else{
+				if( this._masterObj.columns[i].name.indexOf("C_DEST_ID")!=-1&&this._masterObj.columns[i].refColumnId!=-1){
+					//c_store_product=this._masterObj.columns[i].description;
+					c_store_productId=this._masterObj.columns[i].id;
+					if($("column_"+this._masterObj.columns[i].id).value==undefined){
+						c_store_product_data=$("column_"+this._masterObj.columns[i].id).innerHTML;
+					}else{
+						c_store_product_data=$("column_"+this._masterObj.columns[i].id).value;
+					}
+				}
+			}
+		}
+		return {c_store_product_id:c_store_productId,
+			c_store_product_data:c_store_product_data,
+			c_dest_product_id:c_dest_productId,
+			c_dest_product_data:c_dest_product_data};
+	},
+	/**
+	 parse store information
+	*/
+	/*findstoreId:function(){
 		var i;
 		var c_store_productId="";
 		var c_store_product_data="";
@@ -820,7 +905,7 @@ ObjectControl.prototype = {
 			$("c_store_product_data").value=c_store_product_data;
 			$("c_dest_product_id").value=c_dest_productId;
 			$("c_dest_product_data").value=c_dest_product_data;
-	},	
+	},	*/
 	_tryUpdateTitle:function(){
 		var w = window.opener;
 		if(w==undefined)w= window.parent;
