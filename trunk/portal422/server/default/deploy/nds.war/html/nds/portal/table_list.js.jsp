@@ -35,7 +35,12 @@
 	q.put("start",0);
 	q.put("range",QueryUtils.DEFAULT_RANGE);
 	q.put("show_alert",true); //show row css accroding to column value
-	if( table.getColumn("orderno")!=null){
+	//order by
+	JSONArray sporder=null;
+	if( table.getJSONProps()!=null) sporder=table.getJSONProps().optJSONArray("orderby");
+	if(sporder!=null){
+		q.put("orderby", sporder);
+	}else if( table.getColumn("orderno")!=null){
 		q.put("order_columns", table.getColumn("orderno").getId());
 		q.put("order_asc", true);
 	}else{
