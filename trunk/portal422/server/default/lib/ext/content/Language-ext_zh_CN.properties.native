@@ -893,3 +893,4 @@ import-file-desc=导入文件(txt,csv,xls)
 multiply-qty-column=数量列自动乘以此倍数
 import-result=文件处理结果
 import-file=开始上传并导入
+quick-save=输入后立刻保存
