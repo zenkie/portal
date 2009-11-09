@@ -108,7 +108,19 @@ if(table.isActionEnabled(Table.MODIFY)){%>
 %>
 <%@ include file="inc_rest_cols.jsp"%>
 <%}
-columns=table.getColumns(new int[]{0,2,4}, false); 
+columns=table.getAllColumns();
+for(int i=columns.size()-1;i>=0;i-- ){
+	col=(Column)columns.get(i);
+	if(col.getDisplaySetting().isUIController() ) {
+		columns.remove(i);
+		continue;
+	}
+	int t=col.getDisplaySetting().getObjectType();
+	if(t==DisplaySetting.OBJ_FILE || t==DisplaySetting.OBJ_IMAGE || t==DisplaySetting.OBJ_XML){
+		columns.remove(i);
+		continue;
+	}
+}
 showMask =true;
 %>
 <tr><td class="td" colspan="6"><br/>

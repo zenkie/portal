@@ -11,7 +11,7 @@
 		for(int i=0;i<columns.size();i++){
   			 col=(Column)(columns.get(i));
   			  if(col.isVirtual())continue;
-  			 if(col.getReferenceTable()!=null){
+  			 if(col.getReferenceTable()!=null && !showMask){
   			 	colName= col.getName()+"__"+ col.getReferenceTable().getAlternateKey().getName();
   			 }else{
   			 	colName=  col.getName();
