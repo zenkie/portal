@@ -335,11 +335,16 @@ GridControl.prototype = {
 	},
 	/**
 	* create query request and execute query
+	@param bSkipDirtyCheck if true, do not check dirty, default to false
 	*/
-	refreshGrid : function () {
+	refreshGrid : function (bSkipDirtyCheck) {
 		//if(this.checkNew()) return;
-		if(this.checkDirty()==false)
+		if(arguments.length==1 && arguments[0]==true){
 			this._executeQuery(this._gridQuery);
+		}else{
+			if(this.checkDirty()==false)
+				this._executeQuery(this._gridQuery);
+		}
 	},
 
 
@@ -1334,6 +1339,7 @@ GridControl.prototype = {
 		var errFound=false;
 		var rowsToDelete=new Array();
 		var bToDelete;
+		var sMsg="";
 		for(i=0;i<rs.length;i++){
 			rsOne=rs[i];
 			y= rsOne.row ;//
@@ -1357,7 +1363,6 @@ GridControl.prototype = {
 						a=[rowIdx,"E",null,null];
 						bToDelete=true;
 						rowsToDelete.push(y);
-						// 通常在此情况下需要refresh grid
 						bRefresh=true;
 					}
 				}else if(rsOne.action=="D"){
@@ -1369,6 +1374,7 @@ GridControl.prototype = {
 				//error found
 				a=[rowIdx,rsOne.action,rsOne.msg,line[3]];			
 				errFound=true;
+				sMsg+= gMessageHolder.LINE+" "+(y+1)+":"+ rsOne.msg+"\n";
 			}
 			for(j=0;j<a.length;j++) line[j]= a[j];
 			if(!bToDelete)this._updateGridLine(y);
@@ -1382,6 +1388,8 @@ GridControl.prototype = {
 		if(errFound==false && bRefresh==true){
 			//if(confirm(gMessageHolder.RELOAD_SINCE_ATTRIBUTE_MATRIX_SPLITTED)) #MANTIS0000026
 			this.refreshGrid();
+		}else{
+			if(errFound)alert( gMessageHolder.EXCEPTION+":\n"+ sMsg);
 		}
 	},
 	
