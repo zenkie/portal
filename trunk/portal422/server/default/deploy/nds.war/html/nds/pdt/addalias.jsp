@@ -114,11 +114,16 @@ int pdtId=Tools.getInt(request.getParameter("pdtid"),-1);
 String pdtName= (String) engine.doQueryOne("select name from m_product where id="+ pdtId);
 int setId=nds.util.Tools.getInt(engine.doQueryOne("select M_ATTRIBUTESET_ID from m_product where id="+pdtId),-1);
 String attribueSetName=(String) engine.doQueryOne("select name from m_attributeset where id="+ setId);
-List attributes=engine.doQueryList("select a.id, a.name from m_attribute a, m_attributeuse u where a.isactive='Y' and a.ATTRIBUTEVALUETYPE='L' and a.id=u.m_attribute_id and u.m_attributeset_id="+setId+" order by u.orderno asc");
+List attributes=engine.doQueryList("select a.id, a.name, a.clrsize from m_attribute a, m_attributeuse u where a.isactive='Y' and a.ATTRIBUTEVALUETYPE='L' and a.id=u.m_attribute_id and u.m_attributeset_id="+setId+" order by u.orderno asc");
 if(attributes.size()<1) throw new NDSException("Not find List type attribute in set id="+ setId);
 List attributeValues=new ArrayList(); //elements are List, whose elements are List with 2 elements, first is id, second is desc
 for(int i=0;i< attributes.size();i++){
-	attributeValues.add( engine.doQueryList("select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+((List)attributes.get(i)).get(0)));
+	if( Tools.getInt(((List)attributes.get(i)).get(2),-1)==2){
+		//cloth size, not color, should display only value without name
+		attributeValues.add( engine.doQueryList("select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+((List)attributes.get(i)).get(0) + " order by to_number(martixcol),value"));
+	}else{
+		attributeValues.add( engine.doQueryList("select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+((List)attributes.get(i)).get(0) + " order by to_number(martixcol),value"));
+	}
 }
 List attributeInstances=engine.doQueryList(
 "select distinct si.id, ai.m_attributevalue_id, u.orderno from m_attributesetinstance si , m_attributeinstance ai, m_attributeuse u "+

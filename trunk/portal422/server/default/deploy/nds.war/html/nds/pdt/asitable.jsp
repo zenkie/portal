@@ -163,7 +163,7 @@ if(nameSpace==null || nameSpace.length()!=1) throw new NDSException("namespace("
 QueryEngine engine=QueryEngine.getInstance();
 int setId=Tools.getInt(engine.doQueryOne("select M_ATTRIBUTESET_ID from m_product where id="+ productId),-1);
 String attribueSetName=(String) engine.doQueryOne("select name from m_attributeset where id="+ setId);
-List attributes=engine.doQueryList("select a.id, a.name from m_attribute a, m_attributeuse u where a.isactive='Y' and a.ATTRIBUTEVALUETYPE='L' and a.id=u.m_attribute_id and u.m_attributeset_id="+setId+" order by u.orderno asc");
+List attributes=engine.doQueryList("select a.id, a.name, a.clrsize from m_attribute a, m_attributeuse u where a.isactive='Y' and a.ATTRIBUTEVALUETYPE='L' and a.id=u.m_attribute_id and u.m_attributeset_id="+setId+" order by u.orderno asc");
 if(attributes.size()<1) throw new NDSException("Not find List type attribute in set id="+ setId);
 
 /**
@@ -181,14 +181,20 @@ if(checkAliasTableForAttributeSetInstanceExistance){
 List attributeValues=new ArrayList(); //elements are List, whose elements are List with 2 elements, first is id, second is desc
 for(int i=0;i< attributes.size();i++){
 	Object aid=((List)attributes.get(i)).get(0);
-	String sql="select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end "+
-									"from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
+	String sql;
+	if( Tools.getInt(((List)attributes.get(i)).get(2),-1)==2){
+		//cloth size, not color, should display only value without name
+		sql="select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid;
+	}else{
+		sql="select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end "+
+								"from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
+	}
 	if(checkAliasTableForAttributeSetInstanceExistance){
 		sql+=" and exists(select 1 from m_product_alias a, m_attributeinstance si,m_attributesetinstance asi "+
 		"where a.isactive='Y' and a.m_product_id="+productId+" and asi.id=a.M_ATTRIBUTESETINSTANCE_ID  and asi.M_ATTRIBUTESET_ID="+ setId+
 		" and a.M_ATTRIBUTESETINSTANCE_ID=si.M_ATTRIBUTESETINSTANCE_ID and si.M_ATTRIBUTEVALUE_ID=v.id and si.M_ATTRIBUTE_ID="+ aid +")";
 	}
-	sql +=" order by v.value asc";
+	sql +=" order by to_number(martixcol),value";
 	attributeValues.add( engine.doQueryList(sql));
 }
 
