@@ -894,3 +894,6 @@ multiply-qty-column=数量列自动乘以此倍数
 import-result=文件处理结果
 import-file=开始上传并导入
 quick-save=输入后立刻保存
+show_qty_consign=可配量
+show_qty_valid=可用量
+show_qty=当前量
