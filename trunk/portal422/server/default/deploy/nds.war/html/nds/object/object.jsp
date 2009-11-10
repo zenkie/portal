@@ -249,8 +249,8 @@ if(status==2){
 <input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
 <table><tr><td>
 	  <script>
-	  	 	jQuery(document).ready(function(){dcq.createdynlist(<%=dcqjsonarraylist%>)});
-	  	  var ti=setInterval("dcq.dynquery();",500);
+	  	 	jQuery(document).ready(function(){try{dcq.createdynlist(<%=dcqjsonarraylist%>);}catch(ex){}});
+	  	  	var ti=setInterval("try{dcq.dynquery();}catch(ex){}",500);
 	  </script>
 </td></tr></table>
 </body>

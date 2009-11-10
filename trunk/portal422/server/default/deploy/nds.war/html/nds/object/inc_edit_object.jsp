@@ -214,6 +214,6 @@ if(table.isActionEnabled(Table.ADD)){%>
 </table>
 <table><tr><td>
 	  <script>
-	  	 	jQuery(document).ready(function(){dcq.createdynlist(<%=dcqjsonarraylist%>)});
+	  	 	jQuery(document).ready(function(){dcq.createdynlist(<%=dcqjsonarraylist%>);});
 	  </script>
 </td></tr></table>
