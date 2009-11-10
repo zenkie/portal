@@ -67,6 +67,19 @@ queryObj.put("start",0);
 queryObj.put("must_be_active",mustBeActive);
 queryObj.put("range",QueryUtils.DEFAULT_RANGE);
 queryObj.put("resulthandler","/html/nds/query/search_result.jsp");
+
+JSONArray sporder=null;
+if( table.getJSONProps()!=null) sporder=table.getJSONProps().optJSONArray("orderby");
+if(sporder!=null){
+	queryObj.put("orderby", sporder);
+}else if( table.getColumn("orderno")!=null){
+	queryObj.put("order_columns", table.getColumn("orderno").getId());
+	queryObj.put("order_asc", true);
+}else{
+	queryObj.put("order_columns", table.getColumn("id").getId());
+	queryObj.put("order_asc", false);
+}
+
 if(searchOnColumn!=null)queryObj.put("column", searchOnColumn.getId());
 String singleObjectPageURL=(
 	nds.util.Validator.isNotNull(table.getRowURL())? nds.util.WebKeys.NDS_URI +  table.getRowURL() +"?":
