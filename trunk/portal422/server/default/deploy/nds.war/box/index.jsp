@@ -95,7 +95,7 @@
     <td class="zh-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">单据类型：</div></td>
     <td class="zh-value" width="130" valign="top" nowrap="" align="left"><input readonly="" class="ipt-4-2" id="tableType" name="" type="text" style="border:0"/></td>
     <td class="zh-desc" valign="top" nowrap="" align="right" width="80"><div class="desc-txt">备注：</div></td>
-    <td align="left" valign="top" nowrap="" class="zh-value" width="540"><input class="ipt-4-440" name="" type="text" /></td>
+    <td align="left" valign="top" nowrap="" class="zh-value" width="540"><input class="ipt-4-440" id="desc" name="" type="text" /></td>
   </tr>
    <tr>
        <td colspan="6" width="500">&nbsp;</td>

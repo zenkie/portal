@@ -75,6 +75,7 @@ BOX.prototype={
         $("docon").value=ret.M_BOX_HD.DOCON;
         $("tableType").value=ret.M_BOX_HD.TABLETYPE;
         $("status").value=ret.M_BOX_HD.STATUS;
+        $("desc").value=ret.M_BOX_HD.desc||"";
         if(ret.M_BOX_HD.STATUS==2){
            $("submitImge").style.display=""; 
         }
@@ -522,6 +523,7 @@ BOX.prototype={
         var evt={};
         evt.command="DBJSONXML";
         evt.callbackEvent="DO_SAVE";
+        var desc=$("desc").value||"-1";
         var m_box_id=$("m_box_id").value;
         var f="N";
         if(finish){
@@ -592,7 +594,7 @@ BOX.prototype={
                 }
             }
         }
-        var param={"m_box_id":m_box_id,"m_item":m_item,"finish":f};
+        var param={"m_box_id":m_box_id,"m_item":m_item,"finish":f,"desc":desc};
         evt.param=Object.toJSON(param);
         evt.table="m_box";
         evt.action="save";
