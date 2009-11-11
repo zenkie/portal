@@ -1246,6 +1246,7 @@ GridControl.prototype = {
 	},
 	_toggleEditableFields:function(nextFormStateIsAdd){
 		//clear and disable those columns that change
+		
 		var cols=this._gridMetadata.columns,i,col,e,el,isEnabled;
 		for(i=4;i< cols.length;i++){
 			col= cols[i];
@@ -1254,7 +1255,7 @@ GridControl.prototype = {
 				e=$("tf_eo_"+ col.name);
 				el=$("lb_eo_"+ col.name);
 				//nextFormStateIsAdd=true and isUploadWhenCreate=true, or nextFormStateIsAdd=false and isUploadWhenModify=true
-				isEnabled=(nextFormStateIsAdd == col.isUploadWhenCreate );// enable
+				isEnabled=(nextFormStateIsAdd == col.isUploadWhenCreate) && !col.hideInEditMode ;// enable
 				if(isEnabled){
 					 e.show();
 					 el.show();
@@ -1263,6 +1264,7 @@ GridControl.prototype = {
 					el.hide();
 				}
 			}
+			
 		}
 	},
 	/**
