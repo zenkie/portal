@@ -19,6 +19,7 @@
         response.sendRedirect("/login.jsp");
         return;
     }
+    String comp=String.valueOf(QueryEngine.getInstance().doQueryOne("select VALUE from AD_PARAM where NAME='portal.company'"));
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -80,13 +81,13 @@
 <input name="" type="image" src="images/btn-jh.gif" width="101" height="20" onclick="box.doPrint();"/>
 <input name="" type="image" src="images/btn-gb.gif" width="58" height="20" onclick="box.closePop()"/>
 <input type="hidden" id="status" value=""/>
-<input type="hidden" id="customer" value="jz">
+<%if(comp.equals("玖姿")){%><input type="hidden" id="customer" value="jz"><%}%>
 </div>
 <div id="zh-main">
 <table width="977" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td width="8" height="395" valign="top"><img src="images/main-left-bg01.gif" width="8" height="395" /></td>
-    <td width="961" valign="top" background="images/main-center-bg01.gif">
+    <td width="8" height="395" valign="top"><img src="images/main-left-bg<%if(comp.equals("玖姿")){%>01<%}%>.gif" width="8" height="395" /></td>
+    <td width="961" valign="top" background="images/main-center-bg<%if(comp.equals("玖姿")){%>01<%}%>.gif">
 	<div id="zh-table">
 	<table width="940" border="0" cellspacing="1" cellpadding="0" align="center">
   <tr>
@@ -94,18 +95,38 @@
     <td class="zh-value" width="130" valign="top" nowrap="" align="left"><input class="ipt-4-2" readonly="" id="docon" name="" type="text" style="border:0"/></td>
     <td class="zh-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">单据类型：</div></td>
     <td class="zh-value" width="130" valign="top" nowrap="" align="left"><input readonly="" class="ipt-4-2" id="tableType" name="" type="text" style="border:0"/></td>
+    <%if(comp.equals("玖姿")){%>
     <td class="zh-desc" valign="top" nowrap="" align="right" width="80"><div class="desc-txt">备注：</div></td>
     <td align="left" valign="top" nowrap="" class="zh-value" width="540"><input class="ipt-4-440" id="desc" name="" type="text" /></td>
   </tr>
-   <tr>
+  <tr>
        <td colspan="6" width="500">&nbsp;</td>
-   </tr>
+  </tr>
+   <%}else{%>
+            <td class="zh-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">装箱规则：</div></td>
+    <td class="zh-value" width="130" valign="top" nowrap="" align="left">
+        <select id="boxRule" class="objsl" tabindex="1" name="doctype">
+            <option value="0">--请选择--</option>
+            <option selected="true" value="DES">按目的地装箱</option>
+            <option value="ORD">按单装箱</option>
+        </select>
+    </td>
+    <td class="zh-desc" width="80" valign="top" nowrap="" align="left"><div class="desc-txt">收货地址：</div></td>
+    <td class="zh-value" width="230" valign="top" nowrap="" align="left"><input id="address" readonly="" class="ipt-4-220" name="" type="text" style="border:0" /></td>
+  </tr>
+  <tr>
+    <td class="zh-desc" valign="top" nowrap="" align="right" width="80"><div class="desc-txt">备注：</div></td>
+    <td colspan="5" align="left" valign="top" nowrap="" class="zh-value" width="540"><input class="ipt-4-440" id="desc" name="" type="text" /></td>
+    <td class="zh-desc" valign="top" nowrap="" align="left" width="80">&nbsp;</td>
+    <td class="zh-value" valign="top" nowrap="" align="left" width="230">&nbsp;</td>
+  </tr>
+  <%}%>
 </table>
 			</div>
 			<div class="zh-height"></div>
 			<div id="zh-table">
 			<div id="zh-from-left">
-			<div id="zh_left_lb" style="display:none;">
+			<div id="zh_left_lb" <%if(comp.equals("玖姿")){%>style="display:none;"<%}%>>
 			<div id="zh-left-lb-title" class="zh-left-lb-title">分类标识</div>
 			<div id="zh-lb">
 			<ul id="destination">
@@ -113,7 +134,7 @@
 			</div>
 			</div>
 			</div>
-            <DIV STYLE="margin-left:40px">
+            <%if(comp.equals("玖姿")){%><DIV STYLE="margin-left:40px"><%}%>
 			<div id="zh-from-left01">
 			<div  class="zh-left-lb-title">箱号</div>
                 <div id="zh-xh" style="overflow-y:auto;overflow-x:hidden;">
@@ -140,10 +161,10 @@
             </div>
             <div id ="showContent">
 			</div>
-            </div>
+            <%if(comp.equals("玖姿")){%></div><%}%>
             </div> 
 			</td>
-    <td width="8" valign="top"><img src="images/main-right-bg.gif01" width="8" height="395" /></td>
+    <td width="8" valign="top"><img src="images/main-right-bg.gif" width="8" height="395" /></td>
   </tr>
 </table>
  <input type="hidden" id="isSaved">

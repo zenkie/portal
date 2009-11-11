@@ -33,7 +33,7 @@ height:10px;}
 
 #zh-btn{
 width:977px;
-margin:15px 0px;}
+margin:5px 0px;}
 
 .hd{
     font-weight:bold;
@@ -53,7 +53,7 @@ width:977px;
 margin:0 auto;}
 
 #zh-table{
-padding-top:10px;}
+padding-top:5px;}
 
 .zh-desc {
 padding-left:5px;
@@ -98,7 +98,7 @@ border:1px solid #a7c0d6;
 	vertical-align:bottom;
 	width:440px;
 	border:#7f9db9 0px solid;
-} 
+}
 
 .ucase {
 text-transform:uppercase;
