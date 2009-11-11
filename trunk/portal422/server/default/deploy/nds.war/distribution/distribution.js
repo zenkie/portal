@@ -157,8 +157,10 @@ DIST.prototype={
         var ret=data.jsonResult.evalJSON();
         if(ret.data=="OK"){
             this.status=0;
+            jQuery("#ph-serach-bg>div input[type='image']").hide();
             alert("保存成功！");
             $("isChanged").value="false";
+            
         }else if(ret.data=="YES"){
             this.status=0;
             alert("提交成功！");
@@ -1051,7 +1053,11 @@ DIST.prototype={
                     }
                 }else if(event.which==13){
                     if(isSel==0){
-                        jQuery("#ph-from-right-table table input")[jQuery("#ph-from-right-table table input").index(this)+1].focus();
+                        if(jQuery("#ph-from-right-table table input")[jQuery("#ph-from-right-table table input").index(this)+1]){
+                            jQuery("#ph-from-right-table table input")[jQuery("#ph-from-right-table table input").index(this)+1].focus();
+                        }else{
+                            jQuery("#ph-from-right-table table input")[0].focus();
+                        }
                     }
                 }
             }
