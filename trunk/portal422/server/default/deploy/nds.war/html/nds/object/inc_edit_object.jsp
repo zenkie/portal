@@ -26,7 +26,7 @@ int maxInputLength;
 FKObjectQueryModel fkQueryModel;
 TableQueryModel model= new TableQueryModel(tableId, new int[]{Column.MASK_CREATE_EDIT,Column.MASK_MODIFY_EDIT},true,true,locale);
 ButtonFactory commandFactory= ButtonFactory.getInstance(pageContext,locale);
-
+boolean hideInEditMode;
 for( int i=0;i< editColumns.size();i++){
 	colIdx++;
     if(colIdx%columnsPerRow == 0){
@@ -45,19 +45,22 @@ for( int i=0;i< editColumns.size();i++){
         	columnClasses="ucase";
         }
 	    columnDomId="eo_"+ column.getName()+"__"+ column.getReferenceTable().getAlternateKey().getName();
+	    hideInEditMode=(column.getReferenceTable().getJSONProps()!=null &&
+					column.getReferenceTable().getJSONProps().optBoolean("embed_obj_hide",false)==true);
     }else{
         maxInputLength= column.getLength();
         if(column.isUpperCase()){
         	columnClasses="ucase";
         }
         columnDomId="eo_"+ column.getName();
+        hideInEditMode=false;
 	}
     colDisplayName=  model.getDescriptionForColumn(column);
 %>
 <td height="18" width="<%=widthPerColumn*2/3%>%" nowrap align="right" valign='top' class="desc">
-<div id="lb_<%=columnDomId%>" class="desc-txt"> <%=colDisplayName%>:</div>
+<div id="lb_<%=columnDomId%>" class="desc-txt" <%=hideInEditMode?"style='display:none'":""%>> <%=colDisplayName%>:</div>
 </td>
-<td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' class="value"><div id="tf_<%=columnDomId%>">
+<td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' class="value"><div id="tf_<%=columnDomId%>" <%=hideInEditMode?"style='display:none'":""%>>
 <%
     type= column.getType();
     
