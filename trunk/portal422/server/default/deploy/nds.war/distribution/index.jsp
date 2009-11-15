@@ -34,7 +34,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>配货单</title>
-    <link href="ph.css" rel="stylesheet" type="text/css" />
+
 
     <link rel="Shortcut Icon" href="/html/nds/images/portal.ico" />
     <script language="javascript" src="/html/nds/js/top_css_ext.js"></script>
@@ -76,12 +76,8 @@
     <script type="text/javascript" src="/html/nds/js/object_query.js"></script>
     <script language="javascript" src="/distribution/distribution.js"></script>
     <link typ e="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css">
-    <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/objdropmenu.css">
-    <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/portal.css">
-    <link type="text/css" rel="StyleSheet" href="/html/nds/css/cb2.css">
-    <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/object.css">
-    <link type="text/css" rel="StyleSheet" href="/html/nds/themes/classic/01/css/custom-ext.css" />
-    <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/ui.tabs.css"/>
+    <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/header_aio_min.css">
+    <link href="ph.css" rel="stylesheet" type="text/css" />
 </head>
 <% if(id!=-1){ %>
 <script language="javascript">
@@ -102,7 +98,7 @@
                 <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.showObject('auto_dist.jsp',600,450)" />
                 <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav')"/>
                 <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord')"/>
-                <input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='http://192.168.1.102:90/distribution/index.jsp?&&fixedcolumns=&id=-1';"/>
+                <input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/distribution/index.jsp?&&fixedcolumns=&id=-1';"/>
             </div>
 </div>
 <div id="ph-container"> 
