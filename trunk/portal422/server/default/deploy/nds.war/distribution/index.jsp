@@ -94,11 +94,12 @@
 <div id="ph-btn">
 	<div id="ph-from-btn">
                 <input type="hidden" id="fund_balance" value="<%=id!=-1?id:""%>"/>
-                <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250)"/>
-                <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.showObject('auto_dist.jsp',600,450)" />
+                <input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/distribution/index.jsp?&&fixedcolumns=&id=-1';"/>
                 <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav')"/>
                 <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord')"/>
-                <input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/distribution/index.jsp?&&fixedcolumns=&id=-1';"/>
+                <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250)"/>
+                <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.showObject('auto_dist.jsp',600,450)" />
+                <input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
             </div>
 </div>
 <div id="ph-container"> 
@@ -106,11 +107,14 @@
   <tr>
     <td colspan="2" class="ph-td-bg"><div id="ph-serach">
         <div id="ph-serach-title">
-            <div id="ph-serach-img">
-                <img src="images/btn-mx.gif" style="cursor:pointer" width="72" height="18" onclick="$('Details').style.display='';$('Documents').style.display='none'" />
-                &nbsp;&nbsp;
-                <img src="images/btn-djh.gif" style="cursor:pointer" width="72" height="18" onclick="$('Details').style.display='none';$('Documents').style.display=''" />
-            </div>
+         	<div id="menu">
+       <a href="#" onclick="$('Details').style.display='';$('Documents').style.display='none'">
+	       <span class="left"></span> 
+			   明细查询 </a> 
+       <a href="#" onclick="$('Details').style.display='none';$('Documents').style.display=''">
+	        <span class="left"></span>
+	           单据号查询 </a>
+    </div>
         </div>
         <div id="ph-serach-bg">
         <div id="Details" class="obj">
@@ -215,7 +219,7 @@
     <td colspan="2" bgcolor="#e6edf1"><div id="ph-pic">
     <div id="ph-pic-img">
         <div id="ph-pic-img-width">
-            <div id="ph-pic-img-border"><img id="pdt-img" width="120" height="100" /></div>
+            <div id="ph-pic-img-border"><img id="pdt-img" width="90" height="75" /></div>
             <div id="ph-pic-img-txt"></div>
         </div></div>
     <div id="ph-pic-left">
@@ -274,7 +278,7 @@
     <td colspan="2"><div class="ph-height"></div></td>
   </tr>
   <tr>
-    <td width="1%" valign="top">
+    <td valign="top" align="left">
     <div id="ph-from-left">
         <div id="ph-from-left-bg">
             <div class="left-search">

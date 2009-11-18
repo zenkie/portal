@@ -10,13 +10,12 @@ body{
 }
 
 #ph-btn{
-padding-top:10px;
-
+margin:5px 0;
 }
 
-
-#ph-serach-img{
-padding:1px 0px 0px 160px;}
+#ph-from-btn{
+margin:0px 0 5px 30px;
+float:left;} 
 
 .djh-table{
 padding-top:20px;} 
@@ -41,42 +40,6 @@ margin:0;
 padding:0;
 clear:both;} 
 
-#ssv-top{
-height:31px;
-left:0;
-clear:both;
-}
-	
-#ssv-top-banner{
-background:#FDAD18 url(/html/nds/themes/classic/01/images/head-title-bg.jpg) no-repeat scroll left center;
-height:28px;
-text-align:left;
-z-index:3;
-}
-
-#ssv-top-heigth{
-border-bottom:3px #e49f27 solid;}
-
-#page-company-logo {
-background:transparent url(/html/nds/themes/classic/01/images/head-small-logo.gif) no-repeat scroll left center;
-color:#333333;
-display:inline;
-float:left;
-font-size:10pt;
-font-weight:bold;
-height:24px;
-padding:4px 0 0 106px;
-}
-
-#page-niche-menu {
-color:#FFFFFF;
-padding:10px 10px 0;
-position:absolute;
-right:0;
-text-align:right;
-font-size:12px;
-}
-
 .ph-td-bg{
 background:url(images/ph-serach-bg.gif) repeat-x scroll;
 height:90px;
@@ -88,9 +51,46 @@ width:1003px;
 height:90px;}
 
 #ph-serach-title{
-background:#ccc url(images/ph-serach-title.gif) no-repeat scroll;
+background:#ccc;
 height:20px;
+padding-left:25px;
 }
+
+#menu {
+		  font-family:Arial;
+		  font-size:12px;
+		  }
+		  
+	    #menu a, #menu a:visited {
+		  display:block; 
+		  float:left;
+		  position:relative;
+		  background-color:#cfe1ef;
+		  color:#333; 
+		  text-decoration:none;
+		  padding:2px 10px;
+		  margin:1px 0 0 5px; 
+		  }
+		 
+		 #menu a span{
+		 height:0;
+		 width:0;
+		 border-bottom:solid 6px #cfe1ef;
+		 border-left:solid 6px #ccc;
+		 position:absolute;
+		 top:0;
+		 left:0;
+		 overflow:hidden;
+		 }
+		  
+		#menu a:hover{
+		background-color: #024770;
+		color:#fff;
+		}
+		
+		#menu a:hover span{
+		border-bottom:solid 6px #024770;
+		}
 
 #ph-serach-bg{
 background-color:#f0f0f0;
@@ -313,8 +313,12 @@ padding-left:20px;
 }
 
 .ph-from-right{
-
+float:left;
+text-align:left;
+width:100%;
 }
+
+
 
 #ph-from-right-border{
 border:1px solid #ccc;
@@ -420,10 +424,6 @@ font-size:12px;}
 	border-bottom-color: #000000;
 	
 }
-
-#ph-from-btn{
-margin-left:30px;
-float:left;}
 
 #ph-footer{
 

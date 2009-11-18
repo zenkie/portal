@@ -478,7 +478,7 @@ DIST.prototype={
             $('column_26991').disabled="true";
             jQuery("#Details table td input").attr("disabled","true");
             jQuery("#Details table td img").css("display","none");
-            $("ph-serach-img").style.display = "none";
+            $("menu").style.display = "none";
         }
         if($("orderStatus").value=="2"){
             jQuery("#ph-from-right-table td input").attr("disabled","true");
