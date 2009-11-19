@@ -165,7 +165,7 @@ DIST.prototype={
             this.status=0;
             alert("提交成功！");
             $("isChanged").value="false";
-            self.close();
+            window.close();
         }else{
             alert("出现错误！可能原因："+ret.data);
         }

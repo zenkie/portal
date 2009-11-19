@@ -92,221 +92,226 @@
 <input type="hidden" id="isChanged" value="false"/>
 <iframe id="CalFrame" name="CalFrame" frameborder=0 src=/html/nds/common/calendar.jsp style="display:none;position:absolute; z-index:9999"></iframe>
 <div id="ph-btn">
-	<div id="ph-from-btn">
-                <input type="hidden" id="fund_balance" value="<%=id!=-1?id:""%>"/>
-                <input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/distribution/index.jsp?&&fixedcolumns=&id=-1';"/>
-                <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav')"/>
-                <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord')"/>
-                <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250)"/>
-                <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.showObject('auto_dist.jsp',600,450)" />
-                <input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
-            </div>
-</div>
-<div id="ph-container"> 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td colspan="2" class="ph-td-bg"><div id="ph-serach">
-        <div id="ph-serach-title">
-         	<div id="menu">
-       <a href="#" onclick="$('Details').style.display='';$('Documents').style.display='none'">
-	       <span class="left"></span> 
-			   明细查询 </a> 
-       <a href="#" onclick="$('Details').style.display='none';$('Documents').style.display=''">
-	        <span class="left"></span>
-	           单据号查询 </a>
+    <div id="ph-from-btn">
+        <input type="hidden" id="fund_balance" value="<%=id!=-1?id:""%>"/>
+        <input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/distribution/index.jsp?&&fixedcolumns=&id=-1';"/>
+        <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav')"/>
+        <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord')"/>
+        <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250)"/>
+        <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.showObject('auto_dist.jsp',600,450)" />
+        <input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
     </div>
-        </div>
-        <div id="ph-serach-bg">
-        <div id="Details" class="obj">
-            <table width="900" border="0" cellspacing="1" cellpadding="0" class="obj" align="center">
-                <tr>
-                    <td class="ph-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">订单类型<font color="red">*</font>：</div></td>
-                    <td class="ph-value" width="180" valign="top" nowrap="" align="left"><select id="column_26991" class="objsl" tabindex="1" name="doctype">
-                        <option value="0">--请选择--</option>
-                        <option value="FWD">期货订单</option>
-                        <option value="INS">现货订单</option>
-                        <option selected="selected" value="ALL">全部</option>
-                    </select></td>
-                    <!--发货店仓-->
-                    <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">发货店仓<font color="red">*</font>：</div></td>
-                    <td class="ph-value" width="180" valign="top" nowrap="" align="left"><input name="c_orig_id__name" readonly="" type="text" class="ipt-4-2"  id="column_26992"  value="" />
-                        <input type="hidden" id="fk_column_26992" name="C_ORIG_ID" value="">
+</div>
+<div id="ph-container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+    <td colspan="2" class="ph-td-bg">
+        <div id="ph-serach">
+            <div id="ph-serach-title">
+                <div id="menu">
+                    <a href="#" onclick="$('Details').style.display='';$('Documents').style.display='none'">
+                        <span class="left"></span>
+                        明细查询 </a>
+                    <a href="#" onclick="$('Details').style.display='none';$('Documents').style.display=''">
+                        <span class="left"></span>
+                        单据号查询 </a>
+                </div>
+            </div>
+            <div id="ph-serach-bg">
+                <div id="Details" class="obj">
+                    <table width="900" border="0" cellspacing="1" cellpadding="0" class="obj" align="center">
+                        <tr>
+                            <td class="ph-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">订单类型<font color="red">*</font>：</div></td>
+                            <td class="ph-value" width="180" valign="top" nowrap="" align="left"><select id="column_26991" class="objsl" tabindex="1" name="doctype">
+                                <option value="0">--请选择--</option>
+                                <option value="FWD">期货订单</option>
+                                <option value="INS">现货订单</option>
+                                <option selected="selected" value="ALL">全部</option>
+                            </select></td>
+                            <!--发货店仓-->
+                            <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">发货店仓<font color="red">*</font>：</div></td>
+                            <td class="ph-value" width="180" valign="top" nowrap="" align="left"><input name="c_orig_id__name" readonly="" type="text" class="ipt-4-2"  id="column_26992"  value="" />
+                                <input type="hidden" id="fk_column_26992" name="C_ORIG_ID" value="">
                   <span  class="coolButton" id="cbt_26992" onaction="oq.toggle('/html/nds/query/search.jsp?table=14610&return_type=s&column=26992&accepter_id=column_26992&qdata='+encodeURIComponent(document.getElementById('column_26992').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_26992')">
                     <img width="16" height="16" border="0" align="absmiddle" title="Find" src="images/find.gif"/>
                   </span>
-                        <script type="text/javascript" >createButton(document.getElementById("cbt_26992"));</script>
-                    </td>
-                    <!--收货店仓-->
-                    <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">收货店仓<font color="red">*</font>：</div></td>
-                    <td class="ph-value" width="180" valign="top" nowrap="" align="left">
-                        <input type='hidden' id='column_26993' name="column_26993" value=''>
-                        <input name="" readonly type="text" class="ipt-4-2" id='column_26993_fd' value="" >
-        <span  class="coolButton" id="column_26993_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table=C_V_STORE2&return_type=f&accepter_id=column_26993', 'column_26993');">
-                <img id='column_26993_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/>
-        </span>
-                        <script type="text/javascript" >createButton(document.getElementById('column_26993_link'));</script>
-                    </td>
-                   <!--
-                    <td class="ph-value" width="80" valign="top" nowrap="" align="left"><input id="switchModel" type="button" value="切换为矩阵模式" style="font-size:14px;" onclick="dist.switchModel();"></td>
-                    -->
-                </tr>
-                <tr>
-                    <!--选择款号-->
-                    <td class="ph-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">选择款号<font color="red">*</font>：</div></td>
-                    <td class="ph-value" width="180" valign="top" nowrap="" align="left">
-                        <input type='hidden' id='column_26994' name="product_filter" value=''>
-                        <input type="text" class="ipt-4-2"  readonly id='column_26994_fd' value="" />
+                                <script type="text/javascript" >createButton(document.getElementById("cbt_26992"));</script>
+                            </td>
+                            <!--收货店仓-->
+                            <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">收货店仓<font color="red">*</font>：</div></td>
+                            <td class="ph-value" width="180" valign="top" nowrap="" align="left">
+                                <input type='hidden' id='column_26993' name="column_26993" value=''>
+                                <input name="" readonly type="text" class="ipt-4-2" id='column_26993_fd' value="" >
+                                    <span  class="coolButton" id="column_26993_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table=C_V_STORE2&return_type=f&accepter_id=column_26993', 'column_26993');">
+                                            <img id='column_26993_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/>
+                                    </span>
+                                <script type="text/javascript" >createButton(document.getElementById('column_26993_link'));</script>
+                            </td>
+                            <!--
+                            <td class="ph-value" width="80" valign="top" nowrap="" align="left"><input id="switchModel" type="button" value="切换为矩阵模式" style="font-size:14px;" onclick="dist.switchModel();"></td>
+                            -->
+                            <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">物流备注：</div></td>
+                            <td class="ph-value" width="320" valign="top" align="left">
+                                <input type="text" id="notes" class="ipt-4-2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!--选择款号-->
+                            <td class="ph-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">选择款号<font color="red">*</font>：</div></td>
+                            <td class="ph-value" width="180" valign="top" nowrap="" align="left">
+                                <input type='hidden' id='column_26994' name="product_filter" value=''>
+                                <input type="text" class="ipt-4-2"  readonly id='column_26994_fd' value="" />
         <span  class="coolButton" id="column_26994_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'m_product'+'&return_type=f&accepter_id=column_26994', 'column_26994');">
             <img id='column_26994_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/>
         </span>
-                        <script type="text/javascript" >createButton(document.getElementById('column_26994_link'));</script>
-                    </td>
-                    <!--起止时间-->
-                    <%
-                        Date tody=new Date();
-                        SimpleDateFormat fmt=new SimpleDateFormat("yyyyMMdd");
-                        String end=fmt.format(tody);
-                        Long stL=tody.getTime()-24*60*60*1000*10l;
-                        Date std=new Date(stL);
-                        String st=fmt.format(std);
-                    %>
-                    <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt"> 订单时间(起)<font color="red">*</font>：</div></td>
-                    <td class="ph-value" width="180" valign="top" nowrap="" align="left">
-                        <input type="text" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="column_26995" value="<%=st%>" />
+                                <script type="text/javascript" >createButton(document.getElementById('column_26994_link'));</script>
+                            </td>
+                            <!--起止时间-->
+                            <%
+                                Date tody=new Date();
+                                SimpleDateFormat fmt=new SimpleDateFormat("yyyyMMdd");
+                                String end=fmt.format(tody);
+                                Long stL=tody.getTime()-24*60*60*1000*10l;
+                                Date std=new Date(stL);
+                                String st=fmt.format(std);
+                            %>
+                            <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt"> 订单时间(起)<font color="red">*</font>：</div></td>
+                            <td class="ph-value" width="180" valign="top" nowrap="" align="left">
+                                <input type="text" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="column_26995" value="<%=st%>" />
         <span  class="coolButton">
             <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar23',false,'column_26995',null,null,true);"><img id="imageCalendar23" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/> </a>
         </span>
-                    </td>
-                    <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">订单时间(止)<font color="red">*</font>：</div></td>
-                    <td class="ph-value" width="180" valign="top" nowrap="" align="left">
-                        <input name="billdateend" type="text"  class="ipt-4-2" maxlength="10" size="20" title="8位日期，如20070823" id="column_269966"  value="<%=end%>"/>
+                            </td>
+                            <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">订单时间(止)<font color="red">*</font>：</div></td>
+                            <td class="ph-value" width="180" valign="top" nowrap="" align="left">
+                                <input name="billdateend" type="text"  class="ipt-4-2" maxlength="10" size="20" title="8位日期，如20070823" id="column_269966"  value="<%=end%>"/>
         <span  class="coolButton">
             <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar144',false,'column_269966',null,null,true);">
                 <img id='imageCalendar144' width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/>
             </a>
         </span>
-                    </td>
-                    <!--查询条件提交按钮-->
-                    <td class="ph-value" width="80" valign="top" nowrap="" align="left"><%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject()" /><%}%>
-                    </td>
-                </tr>
-            </table>
-        </div>
-          <!--单据号查询表格--> 
-           <div id="Documents" class="djh-table" style="display:none">
-		   <table width="600" border="0" cellspacing="1" cellpadding="0" class="obj" align="center">
-               <tr>
-                    <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">单据号<font color="red">*</font>：</div></td>
-                    <td class="ph-value" width="176" valign="top" nowrap="nowrap" align="left"><input name="Input2" type="text" class="ipt-4-2" id="column_26996_fd" />
-                        <input type="hidden" id="column_26996" name="DOCUMENT_ID" value="">
+                            </td>
+                            <!--查询条件提交按钮-->
+                            <td class="ph-value" width="80" valign="top" nowrap="" align="left"><%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject()" /><%}%>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!--单据号查询表格-->
+                <div id="Documents" class="djh-table" style="display:none">
+                    <table width="600" border="0" cellspacing="1" cellpadding="0" class="obj" align="center">
+                        <tr>
+                            <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">单据号<font color="red">*</font>：</div></td>
+                            <td class="ph-value" width="176" valign="top" nowrap="nowrap" align="left"><input name="Input2" type="text" class="ipt-4-2" id="column_26996_fd" />
+                                <input type="hidden" id="column_26996" name="DOCUMENT_ID" value="">
                         <span id="column_26996_link" class="coolButton"onaction="oq.toggle_m('/html/nds/query/search.jsp?table=12943&return_type=f&accepter_id=column_26996','column_26996')">
                             <img id='column_26996_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/>
                         </span>
-                        <script type="text/javascript" >createButton(document.getElementById('column_26996_link'));</script>
-                    </td>
-                    <td class="ph-value" width="362" valign="top" nowrap="nowrap" align="left">
-                            <%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject('doc')" /><%}%></td>
-               </tr>
-         </table>
-           </div>
-    </div>
-</div></td>
-  </tr>
-  <tr>
-    <td colspan="2"><div class="ph-height"></div></td>
-  </tr>
-  <tr>
-    <td colspan="2" bgcolor="#e6edf1"><div id="ph-pic">
-    <div id="ph-pic-img">
-        <div id="ph-pic-img-width">
-            <div id="ph-pic-img-border"><img id="pdt-img" width="90" height="75" /></div>
-            <div id="ph-pic-img-txt"></div>
-        </div></div>
-    <div id="ph-pic-left">
-        <div id="ph-pic-txt">
-            <ul>
-                <li>
-                    <div class="left">可&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
-                    <div class="right" id="tot-can"></div>
-                </li>
-                <li>
-                    <div class="left">未&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
-                    <div class="right" id="tot-rem"></div>
-                </li>
-                <li>
-                    <div class="left-red">当前已配：</div>
-                    <div class="right-red" id="tot-ready"></div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div id="ph-pic-left01">
-        <div id="ph-pic-txt">
-            <ul>
-                <li>
-                    <div class="left">可&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
-                    <div class="right" id="input-5"></div>
-                </li>
-                <li>
-                    <div class="left">未&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
-                    <div class="right" id="input-4"></div>
-                </li>
-                <li>
-                    <div class="left-red">当前已配：</div>
-                    <div class="right-red" id="input-2"></div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div id="ph-pic-right">
-        <div id="ph-pic-txt">
-            <ul>
-                <li>
-                    <div class="left">未&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
-                    <div class="right" id="rs"></div>
-                </li>
-                <li>
-                    <div class="left-red">当前可配：</div>
-                    <div class="right-red" id="input-1"></div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div></td>
-  </tr>
-  <tr>
-    <td colspan="2"><div class="ph-height"></div></td>
-  </tr>
-  <tr>
-    <td valign="top" align="left">
-    <div id="ph-from-left">
-        <div id="ph-from-left-bg">
-            <div class="left-search">
-                <div><input name="textfield" type="text" class="left-search-input" id="pdt-search" onkeyup="dist.pdt_search()" /></div>
+                                <script type="text/javascript" >createButton(document.getElementById('column_26996_link'));</script>
+                            </td>
+                            <td class="ph-value" width="362" valign="top" nowrap="nowrap" align="left">
+                                <%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject('doc')" /><%}%></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <div id="left-section-height"></div>
-            <div id="left-section">
-                <ul id="category_manu"></ul>
+        </div></td>
+</tr>
+<tr>
+    <td colspan="2"><div class="ph-height"></div></td>
+</tr>
+<tr>
+    <td colspan="2" bgcolor="#e6edf1"><div id="ph-pic">
+        <div id="ph-pic-img">
+            <div id="ph-pic-img-width">
+                <div id="ph-pic-img-border"><img id="pdt-img" width="90" height="75" /></div>
+                <div id="ph-pic-img-txt"></div>
+            </div></div>
+        <div id="ph-pic-left">
+            <div id="ph-pic-txt">
+                <ul>
+                    <li>
+                        <div class="left">可&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+                        <div class="right" id="tot-can"></div>
+                    </li>
+                    <li>
+                        <div class="left">未&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+                        <div class="right" id="tot-rem"></div>
+                    </li>
+                    <li>
+                        <div class="left-red">当前已配：</div>
+                        <div class="right-red" id="tot-ready"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="ph-pic-left01">
+            <div id="ph-pic-txt">
+                <ul>
+                    <li>
+                        <div class="left">可&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+                        <div class="right" id="input-5"></div>
+                    </li>
+                    <li>
+                        <div class="left">未&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+                        <div class="right" id="input-4"></div>
+                    </li>
+                    <li>
+                        <div class="left-red">当前已配：</div>
+                        <div class="right-red" id="input-2"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="ph-pic-right">
+            <div id="ph-pic-txt">
+                <ul>
+                    <li>
+                        <div class="left">未&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+                        <div class="right" id="rs"></div>
+                    </li>
+                    <li>
+                        <div class="left-red">当前可配：</div>
+                        <div class="right-red" id="input-1"></div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div></td>
+</tr>
+<tr>
+    <td colspan="2"><div class="ph-height"></div></td>
+</tr>
+<tr>
+    <td valign="top" align="left">
+        <div id="ph-from-left">
+            <div id="ph-from-left-bg">
+                <div class="left-search">
+                    <div><input name="textfield" type="text" class="left-search-input" id="pdt-search" onkeyup="dist.pdt_search()" /></div>
+                </div>
+                <div id="left-section-height"></div>
+                <div id="left-section">
+                    <ul id="category_manu"></ul>
+                </div>
+            </div>
+        </div></td>
     <td width="99%" valign="top" align="left"><div class="ph-from-right"><div id="ph-from-right-border">
         <div id="ph-from-right-b">
-                <div id="forTableTitle">
-                </div>
-                <div id="ph-from-right-table"></div>
-                <div style="height:17px"></div>
+            <div id="forTableTitle">
             </div>
-         
+            <div id="ph-from-right-table"></div>
+            <div style="height:17px"></div>
+        </div>
+
     </div></div>
-</td>
-  </tr>
-   <tr>
-   	<td colspan="2"><div id="ph-footer">
-    <div id="ph-footer-bg"></div>
-    <div id="ph-footer-txt">&copy;2008 上海伯俊软件科技有限公司 版权所有 保留所有权 | 商标 | 隐私权声明 </div>
-</div></td>
-   	</tr>
+    </td>
+</tr>
+<tr>
+    <td colspan="2"><div id="ph-footer">
+        <div id="ph-footer-bg"></div>
+        <div id="ph-footer-txt">&copy;2008 上海伯俊软件科技有限公司 版权所有 保留所有权 | 商标 | 隐私权声明 </div>
+    </div></td>
+</tr>
 </table>
 </div></form>
 <div id="submitImge" style="left:30px;top:80px;z-index:111;position:absolute;display:none;">
