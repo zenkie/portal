@@ -41,14 +41,9 @@ padding:0;
 clear:both;} 
 
 .ph-td-bg{
-background:url(images/ph-serach-bg.gif) repeat-x scroll;
-height:90px;
+background:url(images/ph-serach-bg.gif) repeat-y scroll;
+height:110px;
 }
-
-#ph-serach{
-margin:0;
-width:1003px;
-height:90px;}
 
 #ph-serach-title{
 background:#ccc;
@@ -94,7 +89,7 @@ padding-left:25px;
 
 #ph-serach-bg{
 background-color:#f0f0f0;
-height:69px;}
+height:90px;}
 
 .table_title{
 	overflow:hidden;
@@ -114,7 +109,7 @@ text-align:right;
 vertical-align:bottom;
 }
 
-.desc-txt {
+div.obj div.desc-txt {
 margin:5px 0 4px 5px;
 text-align:right;
 }
@@ -143,6 +138,15 @@ border:1px solid #a7c0d6;
 	background-color:#f0f0f0;
 }
 
+#notes{
+    background-color:#f0f0f0;
+    border-bottom:1px solid #194370;
+    border-style:none none solid;
+    color:#333333;
+    padding-top:2px;
+    vertical-align:bottom;
+    width:240px;
+}
 .ucase {
 text-transform:uppercase;
 }

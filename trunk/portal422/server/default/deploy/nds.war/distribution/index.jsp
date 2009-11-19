@@ -75,8 +75,8 @@
     <script language="javascript" src="/html/nds/js/gridcontrol.js"></script>
     <script type="text/javascript" src="/html/nds/js/object_query.js"></script>
     <script language="javascript" src="/distribution/distribution.js"></script>
-    <link typ e="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css">
     <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/header_aio_min.css">
+    <link typ e="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css">
     <link href="ph.css" rel="stylesheet" type="text/css" />
 </head>
 <% if(id!=-1){ %>
@@ -119,9 +119,9 @@
             </div>
             <div id="ph-serach-bg">
                 <div id="Details" class="obj">
-                    <table width="900" border="0" cellspacing="1" cellpadding="0" class="obj" align="center">
+                    <table style="padding-left:10px" border="0" cellspacing="1" cellpadding="0" class="obj" align="left">
                         <tr>
-                            <td class="ph-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">订单类型<font color="red">*</font>：</div></td>
+                            <td class="ph-desc" width="75" valign="top" nowrap="" align="right"><div class="desc-txt">订单类型<font color="red">*</font>：</div></td>
                             <td class="ph-value" width="180" valign="top" nowrap="" align="left"><select id="column_26991" class="objsl" tabindex="1" name="doctype">
                                 <option value="0">--请选择--</option>
                                 <option value="FWD">期货订单</option>
@@ -129,7 +129,7 @@
                                 <option selected="selected" value="ALL">全部</option>
                             </select></td>
                             <!--发货店仓-->
-                            <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">发货店仓<font color="red">*</font>：</div></td>
+                            <td class="ph-desc" width="75" valign="top" nowrap="" align="right"><div class="desc-txt">发货店仓<font color="red">*</font>：</div></td>
                             <td class="ph-value" width="180" valign="top" nowrap="" align="left"><input name="c_orig_id__name" readonly="" type="text" class="ipt-4-2"  id="column_26992"  value="" />
                                 <input type="hidden" id="fk_column_26992" name="C_ORIG_ID" value="">
                   <span  class="coolButton" id="cbt_26992" onaction="oq.toggle('/html/nds/query/search.jsp?table=14610&return_type=s&column=26992&accepter_id=column_26992&qdata='+encodeURIComponent(document.getElementById('column_26992').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_26992')">
@@ -138,7 +138,7 @@
                                 <script type="text/javascript" >createButton(document.getElementById("cbt_26992"));</script>
                             </td>
                             <!--收货店仓-->
-                            <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">收货店仓<font color="red">*</font>：</div></td>
+                            <td class="ph-desc" width="75" valign="top" nowrap="" align="right"><div class="desc-txt">收货店仓<font color="red">*</font>：</div></td>
                             <td class="ph-value" width="180" valign="top" nowrap="" align="left">
                                 <input type='hidden' id='column_26993' name="column_26993" value=''>
                                 <input name="" readonly type="text" class="ipt-4-2" id='column_26993_fd' value="" >
@@ -150,15 +150,12 @@
                             <!--
                             <td class="ph-value" width="80" valign="top" nowrap="" align="left"><input id="switchModel" type="button" value="切换为矩阵模式" style="font-size:14px;" onclick="dist.switchModel();"></td>
                             -->
-                            <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">物流备注：</div></td>
-                            <td class="ph-value" width="320" valign="top" align="left">
-                                <input type="text" id="notes" class="ipt-4-2"/>
-                            </td>
+
                         </tr>
                         <tr>
                             <!--选择款号-->
-                            <td class="ph-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">选择款号<font color="red">*</font>：</div></td>
-                            <td class="ph-value" width="180" valign="top" nowrap="" align="left">
+                            <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">选择款号<font color="red">*</font>：</div></td>
+                            <td class="ph-value"  valign="top" nowrap="" align="left">
                                 <input type='hidden' id='column_26994' name="product_filter" value=''>
                                 <input type="text" class="ipt-4-2"  readonly id='column_26994_fd' value="" />
         <span  class="coolButton" id="column_26994_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'m_product'+'&return_type=f&accepter_id=column_26994', 'column_26994');">
@@ -175,34 +172,40 @@
                                 Date std=new Date(stL);
                                 String st=fmt.format(std);
                             %>
-                            <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt"> 订单时间(起)<font color="red">*</font>：</div></td>
-                            <td class="ph-value" width="180" valign="top" nowrap="" align="left">
+                            <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt"> 订单时间(起)<font color="red">*</font>：</div></td>
+                            <td class="ph-value"  valign="top" nowrap="" align="left">
                                 <input type="text" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="column_26995" value="<%=st%>" />
         <span  class="coolButton">
-            <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar23',false,'column_26995',null,null,true);"><img id="imageCalendar23" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/> </a>
+            <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar23',false,'column_26995',null,null,true);"><img id="imageCalendar23" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
         </span>
                             </td>
-                            <td class="ph-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">订单时间(止)<font color="red">*</font>：</div></td>
-                            <td class="ph-value" width="180" valign="top" nowrap="" align="left">
+                            <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">订单时间(止)<font color="red">*</font>：</div></td>
+                            <td class="ph-value" valign="top" nowrap="" align="left">
                                 <input name="billdateend" type="text"  class="ipt-4-2" maxlength="10" size="20" title="8位日期，如20070823" id="column_269966"  value="<%=end%>"/>
         <span  class="coolButton">
-            <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar144',false,'column_269966',null,null,true);">
-                <img id='imageCalendar144' width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/>
-            </a>
+            <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar144',false,'column_269966',null,null,true);"><img id='imageCalendar144' width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
         </span>
                             </td>
                             <!--查询条件提交按钮-->
                             <td class="ph-value" width="80" valign="top" nowrap="" align="left"><%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject()" /><%}%>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="ph-desc"  valign="top" nowrap="" align="right">
+                                <div class="desc-txt" align="right" style="color:blue;">物流备注*：</div>
+                            </td>
+                            <td class="ph-value" valign="top" align="left" colspan="2">
+                                <input type="text" id="notes"/>
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <!--单据号查询表格-->
                 <div id="Documents" class="djh-table" style="display:none">
-                    <table width="600" border="0" cellspacing="1" cellpadding="0" class="obj" align="center">
+                    <table style="padding-left:10px" border="0" cellspacing="1" cellpadding="0" class="obj" align="left">
                         <tr>
                             <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">单据号<font color="red">*</font>：</div></td>
-                            <td class="ph-value" width="176" valign="top" nowrap="nowrap" align="left"><input name="Input2" type="text" class="ipt-4-2" id="column_26996_fd" />
+                            <td class="ph-value" width="185" valign="top" nowrap="nowrap" align="left"><input name="Input2" type="text" class="ipt-4-2" id="column_26996_fd" />
                                 <input type="hidden" id="column_26996" name="DOCUMENT_ID" value="">
                         <span id="column_26996_link" class="coolButton"onaction="oq.toggle_m('/html/nds/query/search.jsp?table=12943&return_type=f&accepter_id=column_26996','column_26996')">
                             <img id='column_26996_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/>
