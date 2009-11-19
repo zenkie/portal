@@ -202,7 +202,7 @@
                 </div>
                 <!--单据号查询表格-->
                 <div id="Documents" class="djh-table" style="display:none">
-                    <table style="padding-left:10px" border="0" cellspacing="1" cellpadding="0" class="obj" align="left">
+                    <table style="padding-left:12px" border="0" cellspacing="1" cellpadding="0" class="obj" align="left">
                         <tr>
                             <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">单据号<font color="red">*</font>：</div></td>
                             <td class="ph-value" width="185" valign="top" nowrap="nowrap" align="left"><input name="Input2" type="text" class="ipt-4-2" id="column_26996_fd" />
