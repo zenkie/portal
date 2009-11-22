@@ -13,7 +13,12 @@
    <request-handler>nds.control.web.reqhandler.ImportExcelFileHandler</request-handler>
    <next-screen>INFO</next-screen>
 </url-mapping>
-
+<url-mapping>
+   <url>/fileupload</url>
+   <screen>FILEUPLOAD</screen>
+   <request-handler>nds.control.web.reqhandler.FileUploadHandler</request-handler>
+   <next-screen>INFO</next-screen>
+</url-mapping>
 <url-mapping>
    <url>/savepref</url>
    <screen>SAVEPREFREFENCE</screen>
