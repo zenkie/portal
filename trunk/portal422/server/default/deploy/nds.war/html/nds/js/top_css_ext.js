@@ -42,6 +42,12 @@ function btn_dialog_medium(url,warning){
 	}
 	showDialog(url,880,500,true);
 }
+function btn_dialog_large(url,warning){
+	if(warning!=undefined){
+		if(!confirm(warning))return;
+	}
+	showDialog(url,940,530,true);
+}
 function btn_dialog_window(url,warning){
 	if(warning!=undefined){
 		if(!confirm(warning))return;

@@ -261,13 +261,12 @@ text-align:center;
 .product-storage{
  width:42px;
 }
-.product-storage-left{
+.psl{
 	float:left;
 	width:21px;
 	text-align:left;
-	background-color:#C0C0FE;
 }
-.product-storage-right{
+.psr{
 	float:left;
 	width:21px;
 	text-align:right;
@@ -302,4 +301,18 @@ width:8px;
 }
 table.inlineobjtb{
 width:100%;
+}
+.store1_desc_s,.psl .s{
+background-color:#DDA2AD;
+}
+.store1_desc_c,.psl .c{
+background-color:#C0C0FE;
+}
+.store1_desc_v,.psl .v{
+background-color:FFFF80;
+}
+
+#all_total_desc{
+ color:#ff0000;
+ font-weight:bold;
 }

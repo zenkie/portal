@@ -70,6 +70,17 @@ GridControl.prototype = {
 		this._initTable();
 	},
 	/**
+	@param idx - 's' stock qty, 'c' qty_consign, 'v' qty valid
+	*/
+	showQty:function(sign){
+		if( $(sign+"qty").checked){
+			$$('#modify_table_product .'+sign).each(Element.show);
+		}else{
+			$$('#modify_table_product .'+sign).each(Element.hide);
+		}
+
+	},
+	/**
 	 When in table with single child, the child (grid) will be loaded the same time with parent
 	 yet fixed columns must be updated when parent gets id from server.
 	*/
@@ -911,6 +922,10 @@ GridControl.prototype = {
 			 		if(i!=-1) line[i]= chkResult.product_value1; 
 			 		i= this._getPositionInData("M_ATTRIBUTESETINSTANCE_ID;VALUE2");
 			 		if(i!=-1) line[i]= chkResult.product_value2;
+			 		i= this._getPositionInData("M_ATTRIBUTESETINSTANCE_ID;VALUE1_CODE");
+			 		if(i!=-1) line[i]= chkResult.product_value1_code; 
+			 		i= this._getPositionInData("M_ATTRIBUTESETINSTANCE_ID;VALUE2_CODE");
+			 		if(i!=-1) line[i]= chkResult.product_value2_code;
 		 		}
 			}
 		}

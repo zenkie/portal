@@ -125,16 +125,30 @@ private final static int TABINDEX_START=20000;
 			 				for(int m=0;m<li_store.size();m++){
 			 					int temp=Tools.getInt(((List)li_store.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-			 						sb.append("<div class='product-storage-left'>");
+			 						sb.append("<div class='psl'>");
 			 						if(directory_store){
-					 					sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+					 					sb.append("<div class='s'>").append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+					 					sb.append("<div class='c'>").append(Tools.getInt(((List)li_store.get(m)).get(3),0)).append("</div>");
+					 					sb.append("<div class='v'>").append(Tools.getInt(((List)li_store.get(m)).get(4),0)).append("</div>");
 					 				}else{
 					 					if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
-					 						sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 						sb.append("<div class='s'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
-					 						sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 						sb.append("<div class='s'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
+					 					if(Tools.getInt(((List)li_store.get(m)).get(3),0)>0){
+					 						sb.append("<div class='c'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append("<div class='c'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+					 					if(Tools.getInt(((List)li_store.get(m)).get(4),0)>0){
+					 						sb.append("<div class='v'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append("<div class='v'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+					 					
 					 				}
+					 				sb.append("</div>");
 					 				flag_store =true;
 				 					break;
 		 				  		}
@@ -142,9 +156,9 @@ private final static int TABINDEX_START=20000;
 			 			}
 			 			if(!flag_store){
 			 				if(directory_store){
-			 					sb.append("<div class='product-storage-left'>0</div>");
+			 					sb.append("<div class='psl'><div class='s'>&nbsp;</div><div class='c'>&nbsp;</div><div class='v'>&nbsp;</div></div>");
 			 				}else{
-			 					sb.append("<div class='product-storage-left'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 					sb.append("<div class='psl'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 			 				}
 			 			}
 			 		}
@@ -153,7 +167,7 @@ private final static int TABINDEX_START=20000;
 			 				for(int m=0;m<li_dest.size();m++){
 			 					int temp=Tools.getInt(((List)li_dest.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-			 						sb.append("<div class='product-storage-right'>");
+			 						sb.append("<div class='psr'>");
 					 				if(directory_dest){
 					 					sb.append(Tools.getInt(((List)li_dest.get(m)).get(1),0)).append("</div>");
 					 				}else{
@@ -170,9 +184,9 @@ private final static int TABINDEX_START=20000;
 			 			}
 			 			if(!flag_dest){
 			 				if(directory_dest){
-			 					sb.append("<div class='product-storage-right'>0</div>");
+			 					sb.append("<div class='psr'>&nbsp;</div>");
 			 				}else{
-			 					sb.append("<div class='product-storage-right'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 					sb.append("<div class='psr'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 			 				}
 			 			}
 		 			}
@@ -205,16 +219,30 @@ private final static int TABINDEX_START=20000;
 			 				for(int m=0;m<li_store.size();m++){
 			 					int temp=Tools.getInt(((List)li_store.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-			 						sb.append("<div class='product-storage-left'>");
-					 				if(directory_store){
-					 					sb.append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+			 						sb.append("<div class='psl'>");
+			 						if(directory_store){
+					 					sb.append("<div class='s'>").append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+					 					sb.append("<div class='c'>").append(Tools.getInt(((List)li_store.get(m)).get(3),0)).append("</div>");
+					 					sb.append("<div class='v'>").append(Tools.getInt(((List)li_store.get(m)).get(4),0)).append("</div>");
 					 				}else{
 					 					if(Tools.getInt(((List)li_store.get(m)).get(1),0)>0){
-					 						 sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 						sb.append("<div class='s'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
-					 							sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 						sb.append("<div class='s'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
+					 					if(Tools.getInt(((List)li_store.get(m)).get(3),0)>0){
+					 						sb.append("<div class='c'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append("<div class='c'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+					 					if(Tools.getInt(((List)li_store.get(m)).get(4),0)>0){
+					 						sb.append("<div class='v'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append("<div class='v'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+					 					
 					 				}
+					 				sb.append("</div>");
 					 				flag_store =true;
 					 				break;
 			 				  	}
@@ -222,9 +250,9 @@ private final static int TABINDEX_START=20000;
 			 			}
 			 			if(!flag_store){
 			 				if(directory_store){
-			 					sb.append("<div class='product-storage-left'>0</div>");
+			 					sb.append("<div class='psl'>&nbsp;</div>");
 			 				}else{
-			 					sb.append("<div class='product-storage-left'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 					sb.append("<div class='psl'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 			 				}
 			 			}
 		 			}
@@ -233,7 +261,7 @@ private final static int TABINDEX_START=20000;
 			 				for(int m=0;m<li_dest.size();m++){
 			 					int temp=Tools.getInt(((List)li_dest.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-			 						sb.append("<div class='product-storage-right'>");
+			 						sb.append("<div class='psr'>");
 					 				if(directory_dest){
 					 					sb.append(Tools.getInt(((List)li_dest.get(m)).get(1),0)).append("</div>");
 					 				}else{
@@ -250,9 +278,9 @@ private final static int TABINDEX_START=20000;
 			 			}
 			 			if(!flag_dest){
 			 				if(directory_dest){
-			 					sb.append("<div class='product-storage-right'>0</div>");
+			 					sb.append("<div class='psr'>&nbsp;</div>");
 			 				}else{
-			 					sb.append("<div class='product-storage-right'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 					sb.append("<div class='psr'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 			 				}
 			 			}
 		 			}
@@ -301,7 +329,7 @@ boolean flagdest =false;
 Table store_table =null;
 Table dest_table =null;
 String attribueSetName=(String) QueryEngine.getInstance().doQueryOne("select name from m_attributeset where id="+ setId);
-List attributes=QueryEngine.getInstance().doQueryList("select a.id, a.name from m_attribute a, m_attributeuse u where a.isactive='Y' and a.ATTRIBUTEVALUETYPE='L' and a.id=u.m_attribute_id and u.m_attributeset_id="+setId+" order by u.orderno asc");
+List attributes=QueryEngine.getInstance().doQueryList("select a.id, a.name, a.clrsize from m_attribute a, m_attributeuse u where a.isactive='Y' and a.ATTRIBUTEVALUETYPE='L' and a.id=u.m_attribute_id and u.m_attributeset_id="+setId+" order by u.orderno asc");
 if(attributes.size()<1) throw new NDSException("Not find List type attribute in set id="+ setId);
 
 /**
@@ -319,14 +347,20 @@ if(checkAliasTableForAttributeSetInstanceExistance){
 List attributeValues=new ArrayList(); //elements are List, whose elements are List with 2 elements, first is id, second is desc
 for(int i=0;i< attributes.size();i++){
 	Object aid=((List)attributes.get(i)).get(0);
-	String sql="select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end "+
-									"from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
+	String sql;
+	if( Tools.getInt(((List)attributes.get(i)).get(2),-1)==2){
+		//cloth size, not color, should display only value without name
+		sql="select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
+	}else{
+		sql="select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end "+
+								"from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
+	}									
 	if(checkAliasTableForAttributeSetInstanceExistance){
 		sql+=" and exists(select 1 from m_product_alias a, m_attributeinstance si,m_attributesetinstance asi "+
 		"where a.isactive='Y' and a.m_product_id="+productId+" and asi.id=a.M_ATTRIBUTESETINSTANCE_ID  and asi.M_ATTRIBUTESET_ID="+ setId+
 		" and a.M_ATTRIBUTESETINSTANCE_ID=si.M_ATTRIBUTESETINSTANCE_ID and si.M_ATTRIBUTEVALUE_ID=v.id and si.M_ATTRIBUTE_ID="+ aid +")";
 	}
-	sql +=" order by v.value asc";
+	sql +=" order by to_number(martixcol),value";
 	attributeValues.add( QueryEngine.getInstance().doQueryList(sql));
 }
 
@@ -357,56 +391,61 @@ for(Iterator it= instances.keySet().iterator();it.hasNext();){
 }
 instances2.put("inputCount", new Integer(0));// this will be updated when recursing instances
 
-//check read permission on fa_storage.storage of specified store
-Table faStorageTable= manager.getTable("FA_STORAGE");
+//check read permission on V_FA_STORAGE.storage of specified store
+Table faStorageTable= manager.getTable("V_FA_STORAGE");
 
 ArrayList inputList=new ArrayList();
 prepareAttributeTable(instances2,0,attributes,attributeValues,"", inputList);
-List li_store=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty, t.id from fa_storage t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(storedata)+") and t.m_product_id="+productId);
-List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty,t.id from fa_storage t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(destdata)+") and t.m_product_id="+productId);
+List li_store=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty, t.id,t.qtyconsign, t.qtyvalid from V_FA_STORAGE t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(storedata)+") and t.m_product_id="+productId);
+List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty,t.id,t.qtyconsign, t.qtyvalid from V_FA_STORAGE t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(destdata)+") and t.m_product_id="+productId);
 int dest_objectId=-1;
 int store_objectId=-1;
 boolean directory_store=false;
 boolean directory_dest=false;
-// id of fa_storage, from first store
+// id of V_FA_STORAGE, from first store
 int idOfanyOfStoreStorage=-1;
 int idOfanyOfDestStorage=-1;
 if(li_store!=null && li_store.size()>0)  idOfanyOfStoreStorage=Tools.getInt(((List)li_store.get(0)).get(2),-1);
 if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)li_dest.get(0)).get(2),-1);
 %>
 <div id="itemdetail_div">
-<table cellpadding="5" cellspacing="0" border="0" width="100%"  style="margin-top: 5px;">	
+<table cellpadding="1" cellspacing="0" border="0" width="100%"  style="margin-top: 5px;">	
 <tr><td><%= PortletUtils.getMessage(pageContext, "bg-batch-value",null)%>:
 <input type="text" id="itemdetail_defaultvalue" value="" size="10"> &nbsp;
 <span style="display:none"><input type="checkbox" id="itemdetail_notnull" value="1"></span><!--<%= PortletUtils.getMessage(pageContext, "do-not-create-record-for-null",null)%>-->
-<input class="command2_button" type="button" name="clearinstances" value="<%=PortletUtils.getMessage(pageContext, "clear-all",null)%>(K)" onclick="gc.clearItemDetailInputs()" accessKey="K" >&nbsp;&nbsp;<%= PortletUtils.getMessage(pageContext, "dispatcher_storage",null)%>&nbsp;&nbsp;&nbsp;&nbsp;
+<input class="command2_button" type="button" name="clearinstances" value="<%=PortletUtils.getMessage(pageContext, "clear-all",null)%>(K)" onclick="gc.clearItemDetailInputs()" accessKey="K" >&nbsp;&nbsp;
+<span id="all_total_desc"><%= PortletUtils.getMessage(pageContext, "all_total",null)%>:&nbsp;<span id="tot_product"></span></span>
+</td></tr>
+<tr><td><%= PortletUtils.getMessage(pageContext, "dispatcher_storage",null)%>&nbsp;&nbsp;&nbsp;&nbsp;
 <%
 	if(store_col!=null){
 		store_table =store_col.getReferenceTable();
 		store_objectId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select id from c_store where name="+QueryUtils.TO_STRING(storedata)+""),-1);
 		if("root".equals(userWeb.getUserName())||
-			(idOfanyOfStoreStorage!=-1 && userWeb.hasObjectPermission("FA_STORAGE",idOfanyOfStoreStorage,nds.security.Directory.READ))){
+			(idOfanyOfStoreStorage!=-1 && userWeb.hasObjectPermission("V_FA_STORAGE",idOfanyOfStoreStorage,nds.security.Directory.READ))){
 				directory_store=true;
 		}
 %>
-<span style="background-color:#C0C0FE;"><%=store_col.getDescription(locale)%>:<%=storedata%></span>&nbsp; &nbsp;
+<span id="store1_desc"><%=store_col.getDescription(locale)%>:<%=storedata%></span> 
+<span class="store1_desc_s"><input type="checkbox" id="sqty" value="sqty" checked onclick="gc.showQty('s')"><%=PortletUtils.getMessage(pageContext, "show_qty",null)%></span>
+<span class="store1_desc_c"><input type="checkbox" id="cqty" value="cqty" checked onclick="gc.showQty('c')"><%=PortletUtils.getMessage(pageContext, "show_qty_consign",null)%></span>
+<span class="store1_desc_v"><input type="checkbox" id="vqty" value="vqty" checked onclick="gc.showQty('v')"><%=PortletUtils.getMessage(pageContext, "show_qty_valid",null)%></span>
+&nbsp; &nbsp;
 <%}%>
 <%
 	if(dest_col!=null){
 		dest_table=dest_col.getReferenceTable();
 		dest_objectId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select id from c_store where name="+QueryUtils.TO_STRING(destdata)+""),-1);
 		if("root".equals(userWeb.getUserName())||
-			(idOfanyOfDestStorage!=-1 && userWeb.hasObjectPermission("FA_STORAGE",idOfanyOfDestStorage,nds.security.Directory.READ))){
+			(idOfanyOfDestStorage!=-1 && userWeb.hasObjectPermission("V_FA_STORAGE",idOfanyOfDestStorage,nds.security.Directory.READ))){
 				directory_dest =true;
 		}
 %>
 <span style="background-color:#C0FEC0;"><%=dest_col.getDescription(locale)%>:<%=destdata%></span>
-<%}%>
-</td></tr>
-<tr><td><%= PortletUtils.getMessage(pageContext, "input-value-for-each-attribute",null)%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= PortletUtils.getMessage(pageContext, "all_total",null)%>:<span id="tot_product"></span></td></tr>
+<%}%></td></tr>
 <tr><td>
 <form id="itemdetail_form" onsubmit="return false;">
-<div style="width:790px; height:360px;overflow-y: auto; overflow-x: auto; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px"> 
+<div id="itemdetail_div" style="width:790px; height:360px;overflow-y: auto; overflow-x: auto; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px"> 
 <%=getAttributeTable(instances2,0,attributes,attributeValues,"",inputList,li_store,li_dest,store_objectId,dest_objectId,store_table,dest_table,directory_store,directory_dest,userWeb)%>
 </div>
 </form>
