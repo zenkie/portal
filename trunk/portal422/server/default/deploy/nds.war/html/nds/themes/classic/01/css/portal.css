@@ -178,7 +178,7 @@ border:0px;
 color:#484848;
 font-size: 12px;
 font-weight:bold;
-position:absolute;
+/*position:absolute;*//*delete by ken to let the menu hide by animation*/
 padding-top:10px;
 }
 
@@ -303,4 +303,11 @@ background-color:#fbfbfb;
 clear:both;
 margin:5px 0px;
 padding:0px;
+}
+
+.sumfooter{
+background-color:#dae3ea;
+color:#ff0000;
+font-weight:bold;
+text-align:right;
 }

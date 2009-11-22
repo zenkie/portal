@@ -671,6 +671,7 @@ background:#c3d9ff url(/html/nds/themes/classic/01/images/arrow-left.gif) no-rep
 border-right:1px solid #a7c0d6;
 cursor:pointer;
 height:650px;
+/*height:100%;*/
 margin-top:6px;
 overflow:hidden;
 width:7px;

@@ -2,31 +2,36 @@ body{
 margin: 0;
 padding: 0;
 border: 0;
+overflow: hidden;
+height: 100%; 
+max-height: 100%; 
 font-family:Tahoma,Arial;
 font-size:76%;
 }
+* html body{ /*IE6 hack*/
+padding: 40px 0px 0px 0px;
+}
+* html #objtb{ /*IE6 hack*/ 
+height: 100%; 
+width: 100%; 
+}
+
 #objtb{
-margin-top:40px;
+position: fixed; 
+top: 40px;
+left: 0px;
+right: 0px;
+bottom: 0px;
 padding:0px 0px 5px 10px;
+overflow: auto;
 }
-div#obj-top { position: absolute; left:10px; top: 0px;
-background-color:#FFFFFF;
-height:38px;
-padding:2px 0px 0px 11px;
-width:902px;
-z-index:10;
-}
-div#obj-top {
-top:expression( ( ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
-}
-body > div#obj-top {
-background-color:#FFFFFF;
-height:38px;
-padding:2px 0px 0px 11px;
-position:fixed;
-top:0;
-width:902px;
-z-index:10;
+#obj-top {
+  position:absolute;
+  top:0px;
+  left:10px;
+  height:40px;
+  padding: 2px 0px 0px 0px;
+  width:901px;
 }
 #maintab-body{
 margin: 0px 0px 0px 0px;
@@ -203,6 +208,15 @@ background-color:#E5EBF3;
 border:1px solid #999999;
 margin:1px 0px 5px 0px;
 }
+
+#emtbts_lgd{
+
+}
+#legend_line{
+
+}
+
+/*
 #emtbts_lgd{
 	background:url(/html/nds/themes/classic/01/images/button_yellow.gif) no-repeat;
 	height:26px;
@@ -215,6 +229,8 @@ margin:1px 0px 5px 0px;
 	color: #10509E;
 	padding:8px 0px 0px 8px;
 }
+*/
+
 #emtbts_cks{
 	float:left;
 	padding:6px 0px 0px 0px;
