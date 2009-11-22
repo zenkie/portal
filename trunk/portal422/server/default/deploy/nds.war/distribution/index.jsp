@@ -175,9 +175,9 @@
                             <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt"> 订单时间(起)<font color="red">*</font>：</div></td>
                             <td class="ph-value"  valign="top" nowrap="" align="left">
                                 <input type="text" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="column_26995" value="<%=st%>" />
-        <span  class="coolButton">
-            <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar23',false,'column_26995',null,null,true);"><img id="imageCalendar23" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
-        </span>
+                                <span  class="coolButton">
+                                    <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar23',false,'column_26995',null,null,true);"><img id="imageCalendar23" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
+                                </span>
                             </td>
                             <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">订单时间(止)<font color="red">*</font>：</div></td>
                             <td class="ph-value" valign="top" nowrap="" align="left">
@@ -215,6 +215,14 @@
                             <td class="ph-value" width="362" valign="top" nowrap="nowrap" align="left">
                                 <%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject('doc')" /><%}%></td>
                         </tr>
+                        <tr>
+                            <td class="ph-desc"  valign="top" nowrap="" align="right">
+                                <div class="desc-txt" align="right" style="color:blue;">物流备注*：</div>
+                            </td>
+                            <td class="ph-value" valign="top" align="left" colspan="2">
+                                <input type="text" id="notes"/>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -222,7 +230,7 @@
 </tr>
 <tr>
     <td colspan="2"><div class="ph-height"></div></td>
-</tr>
+</tr>    
 <tr>
     <td colspan="2" bgcolor="#e6edf1"><div id="ph-pic">
         <div id="ph-pic-img">
@@ -310,13 +318,16 @@
     </td>
 </tr>
 <tr>
-    <td colspan="2"><div id="ph-footer">
-        <div id="ph-footer-bg"></div>
-        <div id="ph-footer-txt">&copy;2008 上海伯俊软件科技有限公司 版权所有 保留所有权 | 商标 | 隐私权声明 </div>
-    </div></td>
+    <td colspan="2">
+        <div id="ph-footer">
+            <div id="ph-footer-bg"></div>
+            <div id="ph-footer-txt">&copy;2008 上海伯俊软件科技有限公司 版权所有 保留所有权 | 商标 | 隐私权声明 </div>
+        </div>
+    </td>
 </tr>
 </table>
-</div></form>
+</div>
+</form>
 <div id="submitImge" style="left:30px;top:80px;z-index:111;position:absolute;display:none;">
     <img src="/html/nds/images/submitted.gif"/>
 </div>
