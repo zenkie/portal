@@ -17,9 +17,8 @@
 <script language="javascript" src="/html/nds/js/common.js"></script>
 <script language="javascript" src="/html/nds/js/print.js"></script>
 <script language="javascript" src="/html/nds/js/prototype.js"></script>
-<script language="javascript" src="/html/nds/js/jquery1.2.3/jquery.js"></script>
+<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.3.2.min.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.2.3/hover_intent.js"></script>
-<script language="javascript" src="/html/nds/js/jquery1.2.3/ui.tabs.js"></script>
 <script>
 	jQuery.noConflict();
 </script>		
@@ -49,6 +48,13 @@
 <script language="javascript" src="/html/nds/js/categorymenu.js"></script>
 <script language="javascript" src="/html/nds/js/dockmenu.js"></script>
 <script language="javascript" src="/html/nds/js/outline.js"></script>
+<script language="javascript" src="/html/nds/js/jquery1.3.2/ui.core.js"></script>
+<script language="javascript" src="/html/nds/js/jquery1.3.2/ui.dialog.js"></script>
+<script language="javascript" src="/html/nds/js/jquery1.3.2/ui.draggable.js"></script>
+<script language="javascript" src="/html/nds/js/jquery1.3.2/ui.resizable.js"></script>
+<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.bgiframe.js"></script>
+<script language="javascript" src="/html/nds/js/jquery1.3.2/ui.tabs.js"></script>
+<script language="javascript" src="/html/nds/js/messagescontrol.js"></script>
 <link type="text/css" rel="stylesheet" href="/html/nds/js/xloadtree111/xtree.css" />
 <link type="text/css" rel="StyleSheet" href="/html/nds/css/portlet.css">
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/object.css">
@@ -58,7 +64,7 @@
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/nds_portal.css">
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/dockmenu.css">
 <link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/custom-ext.css" />
-<link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/ui.tabs.css">
+<link type="text/css" rel="stylesheet" href="/html/nds/themes/ui-lightness/ui.all.css" />
 <script language="javascript" src="/html/nds/js/objdropmenu.js"></script>
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/objdropmenu.css">
 <%}//end JAVASCRIPT_FAST_LOAD

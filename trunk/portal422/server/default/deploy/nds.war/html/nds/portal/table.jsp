@@ -71,8 +71,8 @@ boolean isModify=canModify;
   	if(actionEnvConnection!=null)try{actionEnvConnection.close();}catch(Throwable ace){}
   }
 %>
-<div id="page-table-query">
-	<div id="page-table-query-tab">
+<div id="page-table-query" style="width:99%">
+	<div id="page-table-query-tab" style="width:100%">
 		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "query-setting",null)%>&nbsp;-&nbsp;<%=table.getDescription(locale)%></span></a></li></ul>
 		<div id="tab1">
 			<div id="query-content">
@@ -88,22 +88,25 @@ boolean isModify=canModify;
 <%
 // these are list buttons of webaction
 for(int wasi=0;wasi<waListButtons.size();wasi++){
-	out.println(waListButtons.get(wasi).toHTML(locale,null));
+	out.println(waListButtons.get(wasi).toHTML(locale));
 }
 %>
 		<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "help",null)%>" onclick="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"/>
 	</div>
-	<div id="page-table-content">
+	<div id="page-table-content" style="width:99%;">
 	<%@ include file="table_list.js.jsp" %>
 	<%@ include file="table_list.jsp" %>
   </div>
 <script type="text/javascript">
 jQuery('#page-table-query-tab ul').tabs();
+jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
+jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
+jQuery('#tab1').attr('class','ui-tabs-panel');
 <%
 // these are list menuitems of webaction
 StringBuffer waListMenuItemStr=new StringBuffer();
 for(int wasi=0;wasi<waListMenuItems.size();wasi++){
-	waListMenuItemStr.append(waListMenuItems.get(wasi).toHTML(locale,null));
+	waListMenuItemStr.append(waListMenuItems.get(wasi).toHTML(locale));
 }
 if(waListMenuItems.size()>0){
 System.out.println(StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\""));
