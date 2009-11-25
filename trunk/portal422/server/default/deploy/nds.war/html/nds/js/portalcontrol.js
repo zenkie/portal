@@ -107,10 +107,11 @@ PortalControl.prototype = {
 	 in firefox 3, embed-lines should be resized
 	*/
 	resize:function(){
-		if(is_ie) return;
+		//if(is_ie) return;//modified by ken to set table div in ie avoid overflow of table
 		var limitWidth;
 		if(!pc._resizable) limitWidth=15;
-		else limitWidth=245;
+		else limitWidth=245+15;//15 is added to reflect the addtion a toggle bar div between menu and table
+		
 		var e=$("embed-lines");
 		if(e==null)return;
 		if (!is_safari) {
