@@ -67,7 +67,7 @@ if(ssId==-1 && nds.util.Validator.isNull(directTb) && ssviewFirst){
 %>	
 jQuery(document).ready(function(){pc.navigate('<%=directTb%>')});
 <%	}else{
-		if(nds.util.Validator.isNotNull(dialogURL)) {
+		if(nds.util.Validator.isNotNull(dialogURL)){
 %>
 function loadWelcomePage(){
 	pc.welcome("<%=dialogURL%>");
@@ -112,7 +112,7 @@ jQuery(document).ready(loadWelcomePage);
 			<div style="margin:0;overflow:hidden;" >
 			<%@ include file="list_menu.jsp" %>
 			</div>
-		   	</td><td id="b" style="vertical-align:top;width:10px;" >
+		   	</td><td id="b" style="vertical-align:top;width:10px;height:100%;" >
 			<div id="leftToggler"  onclick="menu_toggle(this);" onmoussdeover="menu_hl(1);" onmousdeout="menu_hl(0);"  >
 				</div></td>
 			</tr></table></td>
@@ -177,10 +177,7 @@ function resize(){
 </script>
 <div id="portal-bottom">
 	<%@ include file="bottom.jsp" %>
-
 </div>
-
-
 
 </body>
 </html>

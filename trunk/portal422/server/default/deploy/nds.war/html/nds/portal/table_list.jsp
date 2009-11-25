@@ -3,8 +3,8 @@
 <!--<table width="100%" cellspacing="0" cellpadding="0"  align="center">
     <tr >
     <td valign="top">-->
-<div id="embed-lines"> 
-<table id="inc_table" class="sort-table" width="100%">
+<div id="embed-lines" > 
+<table id="inc_table" class="sort-table" style="width:100%">
 	<thead><tr>
   	<td nowrap align='center' width="40"><%=PortletUtils.getMessage(pageContext, "rowindex",null)%></td>
   	<!--<td nowrap align='center' width="36"><%=PortletUtils.getMessage(pageContext, "rowstate",null)%></td>-->
@@ -254,7 +254,7 @@ if ( table.isSubTotalEnabled()){
     </tr>
   </table>-->
 </form>  
-<div id="result-scroll">
+<div id="result-scroll" >
  <%@ include file="/html/nds/portal/inc_result_scroll.jsp" %>
 </div>
 <div id="result-filter-desc">

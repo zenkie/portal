@@ -1,12 +1,12 @@
-<table>
+<table cellpadding="0" cellspacing="0" width="100%">
 <tr><td>
-	<div class="smalltab">
+	<div class="smalltab" >
 		 <ul class="gamma-tab">
 			<li class="current"><%= PortletUtils.getMessage(pageContext, "feature-list",null)%>
 		
 			</li>
 		</ul>
-		<div id="rpt-list-content">
+		<div id="rpt-list-content" >
 				<%//((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("chatback","")
 				%>
 			<div id="tree-list"></div>
