@@ -39,7 +39,7 @@
 			var title=jQuery("#dialog").attr("title");
 			if (count>0)title+="  &nbsp; &nbsp;<span style='color:red;'>你有"+count+"条紧急消息必需马上处理!!!</span>";
 			else title+="  &nbsp; &nbsp;<span >共有"+cs.length+"条需要确认.</span>";
-			title+="&nbsp;<input type='button' value='立即确认' style='cusor:pointer;position:relative;left:"+((count>0)?"50":"120")+"px;' onclick='mc.goto();'>";
+			title+="&nbsp;<input type='button' value='立即确认' style='vertical-align:middle;padding-top:4px;cusor:pointer;position:relative;left:"+((count>0)?"50":"120")+"px;' onclick='mc.goto();'>";
 			jQuery("#dialog").attr("title",title);
 			var modal=(count>0)?true:false;
 			mc.showMessages(modal);
