@@ -274,6 +274,13 @@
             if(column.getReferenceTable() !=null){
                 if(isFixedColumn==false){
                 %>
+<!//-------------------------------------------------------------------------------------------------------------!>
+<script>
+//testing script by ken 
+ //alert("table is tree?"+<%=table.isTree()%>);
+</script>
+<!//-------------------------------------------------------------------------------------------------------------!>
+
                 <span id="<%=namespace%>cbt_<%=column.getId()%>"  onaction="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
                 <script>
                 	<%if(Validator.isNotNull(column.getRegExpression())){%>
