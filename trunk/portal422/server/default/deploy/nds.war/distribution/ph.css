@@ -152,23 +152,6 @@ border:1px solid #a7c0d6;
 text-transform:uppercase;
 }
 
-.coolButton, .coolButtonHover, .coolButtonActiveHover, .coolButtonActive, .coolButtonActiveDisabled, .coolButtonDisabled, .coolButtonUpDisabled {
--x-system-font:icon;
-border:0 solid buttonface;
-cursor:default;
-font-family:-moz-use-system-font;
-font-size:-moz-use-system-font;
-font-size-adjust:-moz-use-system-font;
-font-stretch:-moz-use-system-font;
-font-style:-moz-use-system-font;
-font-variant:-moz-use-system-font;
-font-weight:normal;
-line-height:-moz-use-system-font;
-padding:2px;
-vertical-align:middle;
-white-space:nowrap;
-}
-
 #ph-pic{
 width:1003px;
 margin:0;
