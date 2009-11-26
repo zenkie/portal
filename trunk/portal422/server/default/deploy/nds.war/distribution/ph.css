@@ -357,7 +357,11 @@ text-align:left;
 display:block;
 clear:both;	
 }
-
+/*11.26 search.jsp popup multipleSelected object style ..modify by zhou */
+#btn-remove-rows{
+   width:80px; 
+}
+/***************************************************************/
 #fund_table1 .modify_table,#ph-from-right-table .modify_table{
 background-color:#FFFFFF;
 border:1px solid #8db6d9;
