@@ -59,7 +59,6 @@
     <script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script>
     <script language="javascript" src="/html/js/dragdrop/coordinates.js"></script>
     <script language="javascript" src="/html/js/dragdrop/drag.js"></script>
-    <script language="javascript" src="/html/js/dragdrop/dragdrop.js"></script>
     <script language="javascript" src="/html/nds/js/calendar.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
@@ -130,19 +129,15 @@
                             <td class="ph-desc" width="75" valign="top" nowrap="" align="right"><div class="desc-txt">发货店仓<font color="red">*</font>：</div></td>
                             <td class="ph-value" width="180" valign="top" nowrap="" align="left"><input name="c_orig_id__name" readonly="" type="text" class="ipt-4-2"  id="column_26992"  value="" />
                                 <input type="hidden" id="fk_column_26992" name="C_ORIG_ID" value="">
-                  <span  class="coolButton" id="cbt_26992" onaction="oq.toggle('/html/nds/query/search.jsp?table=14610&return_type=s&column=26992&accepter_id=column_26992&qdata='+encodeURIComponent(document.getElementById('column_26992').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_26992')">
-                    <img width="16" height="16" border="0" align="absmiddle" title="Find" src="images/find.gif"/>
-                  </span>
-                                <script type="text/javascript" >createButton(document.getElementById("cbt_26992"));</script>
+                  <span  class="coolButton" id="cbt_26992" onaction="oq.toggle('/html/nds/query/search.jsp?table=14610&return_type=s&column=26992&accepter_id=column_26992&qdata='+encodeURIComponent(document.getElementById('column_26992').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_26992')"><img width="16" height="16" border="0" align="absmiddle" title="Find" src="images/find.gif"/></span>
+                      <script type="text/javascript" >createButton(document.getElementById("cbt_26992"));</script>
                             </td>
                             <!--收货店仓-->
                             <td class="ph-desc" width="75" valign="top" nowrap="" align="right"><div class="desc-txt">收货店仓<font color="red">*</font>：</div></td>
                             <td class="ph-value" width="180" valign="top" nowrap="" align="left">
                                 <input type='hidden' id='column_26993' name="column_26993" value=''>
                                 <input name="" readonly type="text" class="ipt-4-2" id='column_26993_fd' value="" >
-                                    <span  class="coolButton" id="column_26993_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table=C_V_STORE2&return_type=f&accepter_id=column_26993', 'column_26993');">
-                                            <img id='column_26993_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/>
-                                    </span>
+                                    <span  class="coolButton" id="column_26993_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table=C_V_STORE2&return_type=f&accepter_id=column_26993', 'column_26993');"><img id='column_26993_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
                                 <script type="text/javascript" >createButton(document.getElementById('column_26993_link'));</script>
                             </td>
                             <!--
@@ -156,9 +151,7 @@
                             <td class="ph-value"  valign="top" nowrap="" align="left">
                                 <input type='hidden' id='column_26994' name="product_filter" value=''>
                                 <input type="text" class="ipt-4-2"  readonly id='column_26994_fd' value="" />
-        <span  class="coolButton" id="column_26994_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'m_product'+'&return_type=f&accepter_id=column_26994', 'column_26994');">
-            <img id='column_26994_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/>
-        </span>
+        <span  class="coolButton" id="column_26994_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'m_product'+'&return_type=f&accepter_id=column_26994', 'column_26994');"><img id='column_26994_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
                                 <script type="text/javascript" >createButton(document.getElementById('column_26994_link'));</script>
                             </td>
                             <!--起止时间-->
@@ -189,11 +182,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="ph-desc"  valign="top" nowrap="" align="right">
+                            <td class="ph-desc"  valign="top" nowrap="nowrap" align="right">
                                 <div class="desc-txt" align="right" style="color:blue;">物流备注*：</div>
                             </td>
                             <td class="ph-value" valign="top" align="left" colspan="2">
-                                <input type="text" id="notes"/>
+                                <input type="text" class="notes" id="notes"/>
                             </td>
                         </tr>
                     </table>
@@ -217,7 +210,7 @@
                                 <div class="desc-txt" align="right" style="color:blue;">物流备注*：</div>
                             </td>
                             <td class="ph-value" valign="top" align="left" colspan="2">
-                                <input type="text" id="notes"/>
+                                <input type="text" class="notes" id="orderNotes"/>
                             </td>
                         </tr>
                     </table>

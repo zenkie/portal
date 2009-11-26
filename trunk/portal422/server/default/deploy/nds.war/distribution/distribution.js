@@ -277,7 +277,7 @@ DIST.prototype={
          $("isChanged").value='false';
         if(ret.searchord){
             $('Details').style.display='none';$('Documents').style.display='';
-            $("column_26996_fd").value=ret.searchord;
+            $("column_40252_fd").value=ret.searchord;
             jQuery("#Documents>table input").attr("disabled","true");
             jQuery("#Documents>table img").css("display","none");
         }else{
@@ -977,11 +977,16 @@ DIST.prototype={
             $("input-1").innerHTML=can-qty;
             $("rs").innerHTML=isNaN(parseInt(col[rowIndex+1].innerHTML,10))?0:parseInt(col[rowIndex+1].innerHTML,10);
         });
+        jQuery("#ph-from-right-table table input").bind("keydown",function(event){
+            if(event.which==13){
+                if(jQuery("#ph-from-right-table table input")[jQuery("#ph-from-right-table table input").index(this)+1]){
+                    jQuery("#ph-from-right-table table input")[jQuery("#ph-from-right-table table input").index(this)+1].focus();
+                }else{
+                    jQuery("#ph-from-right-table table input")[0].focus();
+                }
+            }
+        });
         jQuery("#ph-from-right-table table input").bind("keyup",function(event){
-            var isSel=0;
-            jQuery(this).bind("blur",function(){
-               isSel++; 
-            });
             if(event.target==this){
                 this.status=1;
                 var e=jQuery(this)[0];
@@ -1068,14 +1073,6 @@ DIST.prototype={
                         colForinput[colIndex+1].focus();
                     }else{
                         colForinput[0].focus();
-                    }
-                }else if(event.which==13){
-                    if(isSel==0){
-                        if(jQuery("#ph-from-right-table table input")[jQuery("#ph-from-right-table table input").index(this)+1]){
-                            jQuery("#ph-from-right-table table input")[jQuery("#ph-from-right-table table input").index(this)+1].focus();
-                        }else{
-                            jQuery("#ph-from-right-table table input")[0].focus();
-                        }
                     }
                 }
             }
