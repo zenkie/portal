@@ -5,7 +5,7 @@ BOX.prototype={
         this.boxItem="";
         this.returnData=null;
         this.addr=null;
-      //dwr.util.useLoadingMessage(gMessageHolder.LOADING);
+        //dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         dwr.util.setEscapeHtml(false);
         /** A function to call if something fails. */
         dwr.engine._errorHandler =  function(message, ex) {
@@ -33,25 +33,25 @@ BOX.prototype={
         this._executeCommandEvent(evt);
     },
     doSaveSettings:function(){
-    	var evt={};
-		evt.command="SavePrintSetting";
-		evt.callbackEvent="SavePrintSetting";
-		evt.tableid= "14928";
-		evt.template="cx663";
-		evt.format="pdf";
-		this._executeCommandEvent(evt);
+        var evt={};
+        evt.command="SavePrintSetting";
+        evt.callbackEvent="SavePrintSetting";
+        evt.tableid= "14928";
+        evt.template="cx663";
+        evt.format="pdf";
+        this._executeCommandEvent(evt);
     },
     _onSavePrintSetting:function(e){
         this.doPrint();
-	},
-     doPrint:function(){
-    	var evt={};
-		evt.tag="Print";
-		evt.command="PrintJasper";
+    },
+    doPrint:function(){
+        var evt={};
+        evt.tag="Print";
+        evt.command="PrintJasper";
         var m_box_id=$("m_box_id").value;
-		evt.callbackEvent="PrintJasper";
-		evt.params={"table":14928,"id":m_box_id};
-		this._executeCommandEvent(evt);
+        evt.callbackEvent="PrintJasper";
+        evt.params={"table":14928,"id":m_box_id};
+        this._executeCommandEvent(evt);
     },
     del:function(){
         var es= jQuery("#showContent>div:visible table:visible tr:visible :checkbox:checked");
@@ -77,7 +77,7 @@ BOX.prototype={
         $("status").value=ret.M_BOX_HD.STATUS;
         $("desc").value=ret.M_BOX_HD.desc||"";
         if(ret.M_BOX_HD.STATUS==2){
-           $("submitImge").style.display=""; 
+            $("submitImge").style.display="";
         }
         if(!$("customer")||$("customer").value!="jz"){
             var ops=$("boxRule").options;
@@ -120,7 +120,7 @@ BOX.prototype={
                     }
                     boxNoes=ztools.mergeArr(boxNoes);
                     for(var nk=0;nk<boxNoes.length;nk++){
-                       manuBox+="<li id=\""+destination[j]+"_"+boxNoes[nk]+"\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination[j]+"');this.style.backgroundColor='#ddd';\">"+boxNoes[nk]+"</li>";
+                        manuBox+="<li id=\""+destination[j]+"_"+boxNoes[nk]+"\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination[j]+"');this.style.backgroundColor='#ddd';\">"+boxNoes[nk]+"</li>";
                     }
                 }
                 manuBox+="<li id=\""+destination[j]+"\" style=\"display:none;cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination[j]+"');this.style.backgroundColor='#ddd';\"></li>"+
@@ -151,37 +151,37 @@ BOX.prototype={
         }else{
             manuS+="<li id=\""+destination+"M\" style=\"cursor:pointer;width:110px;\" onclick=\"box.selCategorySty(event,'"+destination+"')\" ><span id=\""+destination+"eq\"><img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/></span>"+destination+"</li>";
             manuBox+="<ul id=\""+destination+"Num\">"
-                if(!ret.M_BOX_LOAD){
-                    manuBox+="<li id=\""+destination+"_1\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination+"');this.style.backgroundColor='#ddd';\">1</li>";
-                }else{
-                    var boxNoes=new Array();
-                    if(this.checkIsArray(ret.M_BOX_LOAD.m_product_no)){
-                        var pdtNo=ret.M_BOX_LOAD.m_product_no;
-                        for(var u=0;u<pdtNo.length;u++){
-                            if(ret.M_BOX_LOAD.categorymark[u]==destination){
-                                boxNoes.push(ret.M_BOX_LOAD.BOXNO[u]);
-                            }
-                        }
-                    }else{
-                        if(ret.M_BOX_LOAD.categorymark==destination){
-                            boxNoes.push(ret.M_BOX_LOAD.BOXNO);
+            if(!ret.M_BOX_LOAD){
+                manuBox+="<li id=\""+destination+"_1\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination+"');this.style.backgroundColor='#ddd';\">1</li>";
+            }else{
+                var boxNoes=new Array();
+                if(this.checkIsArray(ret.M_BOX_LOAD.m_product_no)){
+                    var pdtNo=ret.M_BOX_LOAD.m_product_no;
+                    for(var u=0;u<pdtNo.length;u++){
+                        if(ret.M_BOX_LOAD.categorymark[u]==destination){
+                            boxNoes.push(ret.M_BOX_LOAD.BOXNO[u]);
                         }
                     }
-                    boxNoes=ztools.mergeArr(boxNoes);
-                    for(var nk=0;nk<boxNoes.length;nk++){
-                       manuBox+="<li id=\""+destination+"_"+boxNoes[nk]+"\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination+"');this.style.backgroundColor='#ddd';\">"+boxNoes[nk]+"</li>";
+                }else{
+                    if(ret.M_BOX_LOAD.categorymark==destination){
+                        boxNoes.push(ret.M_BOX_LOAD.BOXNO);
                     }
                 }
-                manuBox+="<li id=\""+destination+"\" style=\"display:none;cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination+"');this.style.backgroundColor='#ddd';\"></li>"+
-                         "</ul>";
+                boxNoes=ztools.mergeArr(boxNoes);
+                for(var nk=0;nk<boxNoes.length;nk++){
+                    manuBox+="<li id=\""+destination+"_"+boxNoes[nk]+"\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination+"');this.style.backgroundColor='#ddd';\">"+boxNoes[nk]+"</li>";
+                }
+            }
+            manuBox+="<li id=\""+destination+"\" style=\"display:none;cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination+"');this.style.backgroundColor='#ddd';\"></li>"+
+                     "</ul>";
             itemS+="<div class=\"zh-from-left02\" id=\""+destination+"TableDiv\" style=\"overflow-y:auto;overflow-x:hidden;height:282px;\"><input type=\"hidden\"/>"+
                    "<table id=\""+destination+"Table\" width=\"99%\" style=\"table-layout:fixed;display:none;\" border=\"1\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" bordercolor=\"#8db6d9\" bordercolorlight=\"#FFFFFF\" bordercolordark=\"#FFFFFF\" bgcolor=\"#8db6d9\" class=\"modify_table\">"+
-                    "<col width=\"40\">"+
-                    "<col width=\"142\">"+
-                    "<col width=\"142\">"+
-                    "<col width=\"130\">"+
-                    "<col width=\"130\">"+
-                    "<col width=\"auto\">";
+                   "<col width=\"40\">"+
+                   "<col width=\"142\">"+
+                   "<col width=\"142\">"+
+                   "<col width=\"130\">"+
+                   "<col width=\"130\">"+
+                   "<col width=\"auto\">";
 
             if(this.checkIsArray(ret.data)){
                 for(var h=0;h<ret.data.length;h++){
@@ -195,7 +195,7 @@ BOX.prototype={
                 }
             }else{
                 itemS+="<tr height=\"29\" style=\"display:none;\">"+
-                       "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><input type='checkbox'>"+1+"</td>"+                       
+                       "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><input type='checkbox'>"+1+"</td>"+
                        "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.NAME+"</div></td>"+
                        "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.VALUE+"</div></td>"+
                        "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.VALUE1+"</div></td>"+
@@ -210,30 +210,30 @@ BOX.prototype={
         if(this.checkIsArray(destination)){
             $("selCategory").value=destination[0];
             for(var o=0;o<destination.length;o++){
-               if(!ret.M_BOX_LOAD){
+                if(!ret.M_BOX_LOAD){
                     this.cloneT(destination[o]+"Table",1);
-               }else{
-                	 var tableState=false;
-                   if(this.checkIsArray(ret.M_BOX_LOAD.m_product_no)){
-                       var pdtNo=ret.M_BOX_LOAD.m_product_no;
-                       for(var g=0;g<pdtNo.length;g++){
+                }else{
+                    var tableState=false;
+                    if(this.checkIsArray(ret.M_BOX_LOAD.m_product_no)){
+                        var pdtNo=ret.M_BOX_LOAD.m_product_no;
+                        for(var g=0;g<pdtNo.length;g++){
                             if(ret.M_BOX_LOAD.categorymark[g]==destination[o]){
                                 this.cloneT(destination[o]+"Table",ret.M_BOX_LOAD.BOXNO[g]);
-                                 $(destination[o]+ret.M_BOX_LOAD.m_product_no[g]+"_"+ret.M_BOX_LOAD.BOXNO[g]).innerHTML=ret.M_BOX_LOAD.QTYOUT[g];
-                                 $(destination[o]+ret.M_BOX_LOAD.m_product_no[g]+"_"+ret.M_BOX_LOAD.BOXNO[g]).parentNode.parentNode.style.display="";
-                                 tableState=true;
+                                $(destination[o]+ret.M_BOX_LOAD.m_product_no[g]+"_"+ret.M_BOX_LOAD.BOXNO[g]).innerHTML=ret.M_BOX_LOAD.QTYOUT[g];
+                                $(destination[o]+ret.M_BOX_LOAD.m_product_no[g]+"_"+ret.M_BOX_LOAD.BOXNO[g]).parentNode.parentNode.style.display="";
+                                tableState=true;
                             }
-                       } 
-                   }else{
-                       if(ret.M_BOX_LOAD.categorymark==destination[o]){
+                        }
+                    }else{
+                        if(ret.M_BOX_LOAD.categorymark==destination[o]){
                             this.cloneT(destination[o]+"Table",ret.M_BOX_LOAD.BOXNO);
-                           $(destination[o]+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).innerHTML=ret.M_BOX_LOAD.QTYOUT;
-                           $(destination[o]+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).parentNode.parentNode.style.display="";
+                            $(destination[o]+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).innerHTML=ret.M_BOX_LOAD.QTYOUT;
+                            $(destination[o]+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).parentNode.parentNode.style.display="";
                             tableState=true;
-                       }
-                   }
+                        }
+                    }
                     if(!tableState)this.cloneT(destination[o]+"Table",1);
-               }
+                }
                 jQuery("#"+destination[o]+"Num > li")[0].style.backgroundColor="#ddd";
                 if(o>0){
                     $(destination[o]+"TableDiv").style.display="none";
@@ -244,39 +244,50 @@ BOX.prototype={
         }else{
             $("selCategory").value=destination;
             if(!ret.M_BOX_LOAD){
-                    this.cloneT(destination+"Table",1);
-               }else{
-                	var tableState=false;
-                   if(this.checkIsArray(ret.M_BOX_LOAD.m_product_no)){
-                    	var pdtNo=ret.M_BOX_LOAD.m_product_no;
-                       for(var r=0;r<pdtNo.length;r++){
-                            if(ret.M_BOX_LOAD.categorymark[r]==destination){
-                                this.cloneT(destination+"Table",ret.M_BOX_LOAD.BOXNO[r]);
-                                $(destination+ret.M_BOX_LOAD.m_product_no[r]+"_"+ret.M_BOX_LOAD.BOXNO[r]).innerHTML=ret.M_BOX_LOAD.QTYOUT[r];
-                                $(destination+ret.M_BOX_LOAD.m_product_no[r]+"_"+ret.M_BOX_LOAD.BOXNO[r]).parentNode.parentNode.style.display="";
-                                 tableState=true;
-                            }
-                       }
-                   }else{
-                        if(ret.M_BOX_LOAD.categorymark==destination){
-                            this.cloneT(destination+"Table",ret.M_BOX_LOAD.BOXNO);
-                            $(destination+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).innerHTML=ret.M_BOX_LOAD.QTYOUT;
-                            $(destination+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).parentNode.parentNode.style.display="";
-                             tableState=true;
-                       }
-                   }
-                 if(!tableState)this.cloneT(destination+"Table",1);  
-               }
+                this.cloneT(destination+"Table",1);
+            }else{
+                var tableState=false;
+                if(this.checkIsArray(ret.M_BOX_LOAD.m_product_no)){
+                    var pdtNo=ret.M_BOX_LOAD.m_product_no;
+                    for(var r=0;r<pdtNo.length;r++){
+                        if(ret.M_BOX_LOAD.categorymark[r]==destination){
+                            this.cloneT(destination+"Table",ret.M_BOX_LOAD.BOXNO[r]);
+                            $(destination+ret.M_BOX_LOAD.m_product_no[r]+"_"+ret.M_BOX_LOAD.BOXNO[r]).innerHTML=ret.M_BOX_LOAD.QTYOUT[r];
+                            $(destination+ret.M_BOX_LOAD.m_product_no[r]+"_"+ret.M_BOX_LOAD.BOXNO[r]).parentNode.parentNode.style.display="";
+                            tableState=true;
+                        }
+                    }
+                }else{
+                    if(ret.M_BOX_LOAD.categorymark==destination){
+                        this.cloneT(destination+"Table",ret.M_BOX_LOAD.BOXNO);
+                        $(destination+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).innerHTML=ret.M_BOX_LOAD.QTYOUT;
+                        $(destination+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).parentNode.parentNode.style.display="";
+                        tableState=true;
+                    }
+                }
+                if(!tableState)this.cloneT(destination+"Table",1);
+            }
             jQuery("#"+destination+"Num > li")[0].style.backgroundColor="#ddd";
             jQuery("#"+destination+"TableDiv > table")[0].style.display="";
         }
-       jQuery("#destination > li")[0].style.backgroundColor="#ddd";
+        jQuery("#destination > li")[0].style.backgroundColor="#ddd";
         this.showFirst($("selCategory").value);
         if(ret.M_BOX_HD.STATUS==2){
             jQuery("#barcode").attr("disabled","true");
         }
         $("isSaved").value="save";
+        this.codeModel();
+        jQuery("#barcode").focus();
 
+        if(!window.document.addEventListener){
+            window.document.attachEvent("onkeydown",hand11);
+            function hand11()
+            {
+                if(window.event.keyCode==13){
+                    return false;
+                }
+            }
+        }
     },
     load:function(){
         var w = window.opener;
@@ -292,7 +303,7 @@ BOX.prototype={
         if(w==undefined)w= window.parent;
         if(isSave!="save"){
             if(confirm("数据已变动，您还没有保存！确定结束装箱？")){
-                if (w ){
+                if (w){
                     var iframe=w.document.getElementById("popup-iframe-0");
                     if(iframe){
                         w.setTimeout("Alerts.killAlert(document.getElementById('popup-iframe-0'));",1);
@@ -302,7 +313,7 @@ BOX.prototype={
                 return false;
             }
         }else{
-            if (w ){
+            if (w){
                 var iframe=w.document.getElementById("popup-iframe-0");
                 if(iframe){
                     w.setTimeout("Alerts.killAlert(document.getElementById('popup-iframe-0'));",1);
@@ -314,10 +325,10 @@ BOX.prototype={
     },
     printBox:function(boxNoId){
         var evt={};
-		evt.tag="Print";
-		evt.command="PrintJasper";
-		evt.callbackEvent="PrintJasper";
-		evt.params={"table":14935,"id":boxNoId};
+        evt.tag="Print";
+        evt.command="PrintJasper";
+        evt.callbackEvent="PrintJasper";
+        evt.params={"table":14935,"id":boxNoId};
         this._executeCommandEvent(evt);
     },
     getBoxNoId:function(){
@@ -326,37 +337,37 @@ BOX.prototype={
         });
     },
     waitOneMomentToPrint:function(){
-		if($('disabledZone'))$('disabledZone').style.visibility = 'hidden';
-   		window.print_iframe.focus();
-   		window.print_iframe.print();
-   		if(oc._closeWindow) {
-   			alert(gMessageHolder.CLOSE_AFTER_PRINT);
-   			oc._closeWindowOrShowMessage(null);
-   		}
-	}, 
+        if($('disabledZone'))$('disabledZone').style.visibility = 'hidden';
+        window.print_iframe.focus();
+        window.print_iframe.print();
+        if(oc._closeWindow) {
+            alert(gMessageHolder.CLOSE_AFTER_PRINT);
+            oc._closeWindowOrShowMessage(null);
+        }
+    },
     _onPrintJasper:function(e){
-		var pf;
-		if(typeof(e)=="string") pf=e;
-		else
-			pf=e.getUserData().printfile;
-		var f="/servlets/binserv/GetFile?filename="+encodeURIComponent(pf)+"&del=Y";
-		var ifm=window.print_iframe;
-		var disabledZone=$('disabledZone');
-		if(disabledZone)disabledZone.style.visibility = 'visible';
-		if(Prototype.Browser.IE){
-			if(disabledZone)disabledZone.style.visibility = 'hidden';
-			if(oc._closeWindow){
-				window.location.href=f;
-			}else{
-				popup_window(f);
-			}
-		}else{
-			$("print_iframe").onload=function () {
- 				setTimeout('box.waitOneMomentToPrint()', 1000);
-     		};
-			ifm.location.href= f;
-		}
-	},   
+        var pf;
+        if(typeof(e)=="string") pf=e;
+        else
+            pf=e.getUserData().printfile;
+        var f="/servlets/binserv/GetFile?filename="+encodeURIComponent(pf)+"&del=Y";
+        var ifm=window.print_iframe;
+        var disabledZone=$('disabledZone');
+        if(disabledZone)disabledZone.style.visibility = 'visible';
+        if(Prototype.Browser.IE){
+            if(disabledZone)disabledZone.style.visibility = 'hidden';
+            if(oc._closeWindow){
+                window.location.href=f;
+            }else{
+                popup_window(f);
+            }
+        }else{
+            $("print_iframe").onload=function () {
+                setTimeout('box.waitOneMomentToPrint()', 1000);
+            };
+            ifm.location.href= f;
+        }
+    },
     cloneT:function(categoryTable,index){
         dwr.util.cloneNode(categoryTable,{idSuffix:"_"+index});
         $(categoryTable+"_"+index).style.display="none";
@@ -379,9 +390,9 @@ BOX.prototype={
                 lies[ss].style.backgroundColor="";
                 lies[ss].firstChild.firstChild.style.backgroundColor="";
                 for(var ui=0;ui<lies1.length;ui++){
-                   if(lies1[ui].style.backgroundColor!=""){
-                      $("selBox").value=lies1[ui].innerHTML.strip(); 
-                   }
+                    if(lies1[ui].style.backgroundColor!=""){
+                        $("selBox").value=lies1[ui].innerHTML.strip();
+                    }
                 }
             }
         }
@@ -393,7 +404,7 @@ BOX.prototype={
         }
     },
     addBox:function(category){
-       this.add(category);
+        this.add(category);
     },
     add:function(category){
         var lies=jQuery("#"+category+"Num > li");
@@ -405,20 +416,20 @@ BOX.prototype={
         $("isSaved").value="unSave";
     },
     delBox:function(category){
-     	this.dele(category);
+        this.dele(category);
     },
     dele:function(category){
-       if(!$(category+"_"+$("selBox").value)){
+        if(!$(category+"_"+$("selBox").value)){
             alert("请选择箱号！");
             return;
         }
-      if(confirm("确认删除"+$("selBox").value+"号箱?")){
-          if(jQuery("#"+category+"Num > li").length>2){
-              $(category+"_"+$("selBox").value).remove();
-              $(category+"Table"+"_"+$("selBox").value).remove();
-          }
-          this.showFirst(category);
-      }
+        if(confirm("确认删除"+$("selBox").value+"号箱?")){
+            if(jQuery("#"+category+"Num > li").length>2){
+                $(category+"_"+$("selBox").value).remove();
+                $(category+"Table"+"_"+$("selBox").value).remove();
+            }
+            this.showFirst(category);
+        }
         $("isSaved").value="unSave";
     },
     showFirst:function(category){
@@ -435,28 +446,50 @@ BOX.prototype={
         $(category+"Table"+"_"+$("selBox").value).style.display="";
     },
     selSty:function(event,category){
-     this.select(event,category);
+        this.select(event,category);
     },
     select:function(event,category){
-      var lies=$(category+"Num").getElementsByTagName("li");
-      for(var i=0;i<lies.length ;i++){
-          lies[i].style.backgroundColor="";
-      }
-      $("selBox").value=(window.event?Event.element(window.event).innerHTML:Event.element(event).innerHTML).strip();
-      var tabs=jQuery("#"+category+"TableDiv > table");
-      for(var i=0;i<tabs.length;i++){
-           tabs[i].style.display="none";
-       }
-       $(category+"Table"+"_"+(window.event?Event.element(window.event).innerHTML:Event.element(event).innerHTML).strip()).style.display="";
+        var lies=$(category+"Num").getElementsByTagName("li");
+        for(var i=0;i<lies.length ;i++){
+            lies[i].style.backgroundColor="";
+        }
+        $("selBox").value=(window.event?Event.element(window.event).innerHTML:Event.element(event).innerHTML).strip();
+        var tabs=jQuery("#"+category+"TableDiv > table");
+        for(var i=0;i<tabs.length;i++){
+            tabs[i].style.display="none";
+        }
+        $(category+"Table"+"_"+(window.event?Event.element(window.event).innerHTML:Event.element(event).innerHTML).strip()).style.display="";
+    },
+    pdtModel:function(){
+        jQuery("#barcode").unbind("keydown");
+        jQuery("#barcode").bind("keydown",function(event){cstable.handlerMe(event)});
+        jQuery("#barcode").bind("keyup",function(e){tooltips.inputHandler(e);});
+        jQuery("#barcode").bind("focus",function(e){tooltips.focusHandler(e)});
+        jQuery("#forCode").bind("mousedown",function(e){tooltips.mousedownHandler()});
+        jQuery("#forCode").bind("mouseup",function(e){tooltips.mouseupHandler()});
+        jQuery("#barcode").bind("blur",function(e){tooltips.tipHide(e);});
+        jQuery("#forCode").bind("mousemove",function(e){tooltips.setKeymode(e);});
+    },
+    codeModel:function(){
+        jQuery("#barcode").unbind("keydown");
+        jQuery("#barcode").unbind("keyup");
+        jQuery("#barcode").unbind("focus");
+        jQuery("#forCode").unbind("mousedown");
+        jQuery("#forCode").unbind("mouseup");
+        jQuery("#barcode").unbind("blur");
+        jQuery("#forCode").unbind("mousemove");
+        jQuery("#barcode").bind("keydown",function(event){
+            if(event.which==13){
+                box.codeRt(event);
+            }
+        });
     },
     codeRt:function(event){
-        if(window.event) event=window.event;
-        if(event.keyCode==13){
-          dwr.util.selectRange(Event.element(event),0,100);
-          var rows=$($("selCategory").value+"Table_"+$("selBox").value).rows;
-          var state=true;
-          var isMatch=false;
-          for(var i=0;i<rows.length;i++){
+        if(event.which==13){
+            var rows=$($("selCategory").value+"Table_"+$("selBox").value).rows;
+            var state=true;
+            var isMatch=false;
+            for(var i=0;i<rows.length;i++){
                 rows[i].style.backgroundColor="";
                 if(rows[i].cells[5].firstChild.id.substring(0,rows[i].cells[5].firstChild.id.lastIndexOf("_"))==($("selCategory").value.strip()+Event.element(event).value.strip())){
                     rows[i].style.backgroundColor="#ddd";
@@ -482,32 +515,25 @@ BOX.prototype={
                     }
                     isMatch=true;
                 }
-             if(this.totalBarCode($("selCategory").value,i)<parseInt(rows[i].cells[5].firstChild.title)){
-                 state=false;
-             }
+                if(this.totalBarCode($("selCategory").value,i)<parseInt(rows[i].cells[5].firstChild.title)){
+                    state=false;
+                }
             }
             if(state){
                 $($("selCategory").value+"eq").innerHTML="<img name='eq' src=\"images/inco-eq.gif\"  width=\"16\" height=\"16\"/>";
             }else{
-               $($("selCategory").value+"eq").innerHTML="<img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/>"; 
+                $($("selCategory").value+"eq").innerHTML="<img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/>";
             }
-           if(!isMatch){
-               alert("没有匹配的商品，请检查条码是否正确！");
-           }
+            jQuery("#barcode").val("");
+            if(!isMatch){
+                alert("没有匹配的商品，请检查条码是否正确！");
+            }
+            jQuery("#barcode").focus();
+            $("isSaved").value="unSave";
         }
-        if(!window.document.addEventListener){
-                window.document.attachEvent("onkeydown",hand11);
-                function hand11()
-                {
-                    if(window.event.keyCode==13){
-                        return false;
-                    }
-                }
-          }
-        $("isSaved").value="unSave";
     },
     totalBarCode:function(category,n){
-       var lies=jQuery("#"+category+"Num > li");
+        var lies=jQuery("#"+category+"Num > li");
         var tot=0;
         for(var i=0;i<lies.length-1;i++){
             var count=$(category+"Table_"+lies[i].innerHTML.strip()).rows[n].cells[5].firstChild.innerHTML;
@@ -527,33 +553,33 @@ BOX.prototype={
         var m_box_id=$("m_box_id").value;
         var f="N";
         if(finish){
-           f=finish;
-           var eqImges=jQuery("#destination li span img[name='uneq']");
-           if(eqImges.length>0){
-               if(!confirm("存在未完全匹配单据，结束装箱？")){
-                   return;
-               }
-           }
+            f=finish;
+            var eqImges=jQuery("#destination li span img[name='uneq']");
+            if(eqImges.length>0){
+                if(!confirm("存在未完全匹配单据，结束装箱？")){
+                    return;
+                }
+            }
         }
         var m_item=new Array();
         var dest=this.returnData.DESTINATION;
         var rData=this.returnData.data;
         if(this.checkIsArray(dest)){
             for(var i=0;i<dest.length;i++){
-               var list=jQuery("#"+dest[i]+"Num > li");
+                var list=jQuery("#"+dest[i]+"Num > li");
                 for(var j=0;j<list.length-1;j++){
                     var num=list[j].innerHTML.strip();
                     for(var s=0;s<rData.length;s++){
                         if(rData[s].m_box_item.DESTINATION==dest[i]){
                             if($(dest[i]+rData[s].m_box_item.NO+"_"+num)){
-                               if($(dest[i]+rData[s].m_box_item.NO+"_"+num).innerHTML){
-                                   var item={};
-                                   item.m_box_no=num;
-                                   item.qty_ady=$(dest[i]+rData[s].m_box_item.NO+"_"+num).innerHTML.strip();
-                                   item.m_product_alias=rData[s].m_box_item.NO;
-                                   item.categorymark=dest[i];
-                                   m_item.push(item);
-                               }
+                                if($(dest[i]+rData[s].m_box_item.NO+"_"+num).innerHTML){
+                                    var item={};
+                                    item.m_box_no=num;
+                                    item.qty_ady=$(dest[i]+rData[s].m_box_item.NO+"_"+num).innerHTML.strip();
+                                    item.m_product_alias=rData[s].m_box_item.NO;
+                                    item.categorymark=dest[i];
+                                    m_item.push(item);
+                                }
                             }
                         }
                     }
@@ -580,17 +606,17 @@ BOX.prototype={
                     }
                 }else{
                     if(rData.m_box_item.DESTINATION==dest){
-                            if($(dest+rData.m_box_item.NO+"_"+num)){
-                                if($(dest+rData.m_box_item.NO+"_"+num).innerHTML){
-                                    var item={};
-                                    item.m_box_no=num;
-                                    item.qty_ady=$(dest+rData.m_box_item.NO+"_"+num).innerHTML.strip();
-                                    item.m_product_alias=rData.m_box_item.NO;
-                                    item.categorymark=dest;
-                                    m_item.push(item);
-                                }
+                        if($(dest+rData.m_box_item.NO+"_"+num)){
+                            if($(dest+rData.m_box_item.NO+"_"+num).innerHTML){
+                                var item={};
+                                item.m_box_no=num;
+                                item.qty_ady=$(dest+rData.m_box_item.NO+"_"+num).innerHTML.strip();
+                                item.m_product_alias=rData.m_box_item.NO;
+                                item.categorymark=dest;
+                                m_item.push(item);
                             }
                         }
+                    }
                 }
             }
         }
@@ -618,7 +644,7 @@ BOX.prototype={
     _finish:function(){
 
     },
-   
+
     _executeCommandEvent :function (evt) {
         Controller.handle( Object.toJSON(evt), function(r){
             var result= r.evalJSON();
@@ -639,19 +665,19 @@ BOX.prototype={
         return (this.checkIsObject(o) && (o.length) &&(!this.checkIsString(o)));
     },
     checkIsString:function(o){
-        return (typeof(o)=="string");                          
+        return (typeof(o)=="string");
     },
     checkIsNum:function(event){
-      if(window.event) var event=window.event;
-       if(isNaN(parseInt(Event.element(event).value))){
-           alert("请输入正确的数字！");
-           Event.element(event).value=0;
-           Event.element(event).focus();
-       }else{
-           Event.element(event).value=parseInt(Event.element(event).value);
-       }
+        if(window.event) var event=window.event;
+        if(isNaN(parseInt(Event.element(event).value))){
+            alert("请输入正确的数字！");
+            Event.element(event).value=0;
+            Event.element(event).focus();
+        }else{
+            Event.element(event).value=parseInt(Event.element(event).value);
+        }
     },
-      showObject:function(url, theWidth, theHeight,option){
+    showObject:function(url, theWidth, theHeight,option){
         if( theWidth==undefined || theWidth==null) theWidth=956;
         if( theHeight==undefined|| theHeight==null) theHeight=670;
         var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"xy",maxButton:true};
@@ -681,32 +707,27 @@ jQuery(document).ready(BOX.main);
 var tooltips;
 var TOOLTIPS=Class.create();
 TOOLTIPS.prototype={
-      initialize:function(){
-          this.textboxcontent=$("barcode").value;
-          this.totaldata=0;
-          this.focusshow=true;
-          this.mousedown=false;
-          this.currentrowid=null;
-          this.tipgetrun=false;
-          this.keymode=false;
-          this.ieclicked=false;
-          this.counter=0;
-          //jQuery(document).bind("keyup",function(e){tooltips.updnkeyHandler(e);});
-          jQuery("#barcode").bind("keyup",function(e){tooltips.inputHandler(e);});
-          jQuery("#barcode").bind("focus",function(e){tooltips.focusHandler(e)});
-          jQuery("#forCode").bind("mousedown",function(e){tooltips.mousedownHandler()});
-          jQuery("#forCode").bind("mouseup",function(e){tooltips.mouseupHandler()});
-          jQuery("#barcode").bind("blur",function(e){tooltips.tipHide(e);});
-          jQuery("#forCode").bind("mousemove",function(e){tooltips.setKeymode(e);})
-      },
-      bindevents:function(){
-           for(var j=0;j<this.totaldata;j++){
-             jQuery("#sn"+j).bind("mouseover",function(e){tooltips.setMouseOver(e)});
-             jQuery("#sn"+j).bind("mouseout",function(e){tooltips.removeColors(e)});
-             jQuery("#sn"+j).bind("click",function(e){tooltips.setValueOnClick(e)});
-           }
-          jQuery("#fc_close").bind("click",function(e){tooltips.ieclicked=true;tooltips.focusshow = false;tooltips.tipHideFocus(e);});
-      },
+    initialize:function(){
+        this.textboxcontent=$("barcode").value;
+        this.totaldata=0;
+        this.focusshow=true;
+        this.mousedown=false;
+        this.currentrowid=null;
+        this.tipgetrun=false;
+        this.keymode=false;
+        this.ieclicked=false;
+        this.counter=0;
+        //jQuery(document).bind("keyup",function(e){tooltips.updnkeyHandler(e);});
+
+    },
+    bindevents:function(){
+        for(var j=0;j<this.totaldata;j++){
+            jQuery("#sn"+j).bind("mouseover",function(e){tooltips.setMouseOver(e)});
+            jQuery("#sn"+j).bind("mouseout",function(e){tooltips.removeColors(e)});
+            jQuery("#sn"+j).bind("click",function(e){tooltips.setValueOnClick(e)});
+        }
+        jQuery("#fc_close").bind("click",function(e){tooltips.ieclicked=true;tooltips.focusshow = false;tooltips.tipHideFocus(e);});
+    },
     setCaretPosition:function(elemId, caretPos) {
         if(!window.event)return;
         var elem = document.getElementById(elemId);
@@ -721,186 +742,184 @@ TOOLTIPS.prototype={
                     elem.focus();
                     elem.setSelectionRange(caretPos, caretPos);
                 }
-            else
-                elem.focus();
+                else
+                    elem.focus();
             }
         }
     },
-      mouseupHandler:function(e){
-             this.mousedown=false;
-      },
-      mousedownHandler:function(e){
-             this.mousedown=true;
-      },
-      inputHandler:function(e){
-       var evt=window.event?window.event:e;
-       var key=(window.event)?evt.keyCode:evt.which;
-      // $("pdt_count").value=key;
-       if((key==38)||(key==40)){this.updnkeyHandler(e);return;}
-       if((key==13)||(key==27)){
-          // if((key==13)&&(window.event)){window.event.cancelBubble();window.event.returnValue=false;}
-           this.focusshow=false;
-           this.tipHide();
-           return;} //for enter and esc keys hide the tips
-       var textchanged=(!(this.textboxcontent==$("barcode").value));
-       if(!textchanged)return;
-       this.textboxcontent = $("barcode").value;
-       this.tipGet();
-       this.tipShow();
-     },
+    mouseupHandler:function(e){
+        this.mousedown=false;
+    },
+    mousedownHandler:function(e){
+        this.mousedown=true;
+    },
+    inputHandler:function(e){
+        var evt=window.event?window.event:e;
+        var key=(window.event)?evt.keyCode:evt.which;
+        // $("pdt_count").value=key;
+        if((key==38)||(key==40)){this.updnkeyHandler(e);return;}
+        if((key==13)||(key==27)){
+            // if((key==13)&&(window.event)){window.event.cancelBubble();window.event.returnValue=false;}
+            this.focusshow=false;
+            this.tipHide();
+            return;} //for enter and esc keys hide the tips
+        var textchanged=(!(this.textboxcontent==$("barcode").value));
+        if(!textchanged)return;
+        this.textboxcontent = $("barcode").value;
+        this.tipGet();
+        this.tipShow();
+    },
     sleep:function(millis){
         var date = new Date();
         var curDate = null;
-
         do { curDate = new Date(); }
         while(curDate-date < millis);
     },
 
-     focusHandler:function(e){
-         //this.counter++;$("pdt_count").value = this.counter;   this.sleep(2000);
+    focusHandler:function(e){
+        //this.counter++;$("pdt_count").value = this.counter;   this.sleep(2000);
         if(this.focusshow){
-             this.tipShow();
-         }else{
-             if(window.event){
-                 if(this.ieclicked){
-                     this.ieclicked=false;
-                 }else{this.focusshow=true; }
-             }
-              if(!window.event)this.focusshow=true;
-         }
+            this.tipShow();
+        }else{
+            if(window.event){
+                if(this.ieclicked){
+                    this.ieclicked=false;
+                }else{this.focusshow=true; }
+            }
+            if(!window.event)this.focusshow=true;
+        }
         if(window.event) this.setCaretPosition("barcode",$("barcode").value.length);
 
-     },
-     tipShow:function(){
-       if((jQuery("#forCode").css("display")!="none" )&&(!this.tipgetrun)){this.tipgetrun=false;return;}
-       var top = jQuery("#barcode").offset().top;
-       var left = jQuery("#barcode").offset().left;
-       jQuery("#forCode").css("left",left)
-                           .css("width","auto")
-                           .css("top",top-jQuery("#forCode").height()-5)
-                           .css("height","auto")
-                           .css("position","absolute")
-                           //.css("display","block")
-                           .css("z-index",999);
-       if(jQuery("#forCode").css("bottom")>jQuery("#forCode").css("height")){
-           jQuery("#forCode").css("top",top+jQuery("#barcode").height() + 5);
-       }
-       if (this.totaldata>0){jQuery("#forCode").css("display","block");  }
-       else{ jQuery("#forCode").css("display","none");}
-       this.tipvisible = true;
-     },
-     getStyleArray:function(){
-         var styles=[[],[]];
-         var code=$("barcode").value;
-         var reg=new RegExp(code,"i");  
-         if(code.length>0){
+    },
+    tipShow:function(){
+        if((jQuery("#forCode").css("display")!="none" )&&(!this.tipgetrun)){this.tipgetrun=false;return;}
+        var top = jQuery("#barcode").offset().top;
+        var left = jQuery("#barcode").offset().left;
+        jQuery("#forCode").css("left",left)
+                .css("width","auto")
+                .css("top",top-jQuery("#forCode").height()-5)
+                .css("height","auto")
+                .css("position","absolute")
+            //.css("display","block")
+                .css("z-index",999);
+        if(jQuery("#forCode").css("bottom")>jQuery("#forCode").css("height")){
+            jQuery("#forCode").css("top",top+jQuery("#barcode").height() + 5);
+        }
+        if (this.totaldata>0){jQuery("#forCode").css("display","block");  }
+        else{ jQuery("#forCode").css("display","none");}
+        this.tipvisible = true;
+    },
+    getStyleArray:function(){
+        var styles=[[],[]];
+        var code=$("barcode").value;
+        var reg=new RegExp(code,"i");
+        if(code.length>0){
             if(box.checkIsArray(box.returnData.data)){
-               for(var i=0;i<box.returnData.data.length;i++){
-                   if(reg.test(box.returnData.data[i].m_box_item.NAME)&&$("selCategory").value.strip()==box.returnData.data[i].m_box_item.DESTINATION){
-                       if(styles[0].indexOf(box.returnData.data[i].m_box_item.NAME)==-1){
-                           styles[0].push(box.returnData.data[i].m_box_item.NAME);  
-                           styles[1].push(box.returnData.data[i].m_box_item.VALUE);
-                       }
-                   }
-               }
-           }else{
-             if(reg.test(box.returnData.data.m_box_item.NAME&&$("selCategory").value.strip()==box.returnData.data.m_box_item.DESTINATION)){
-                       styles[0].push(box.returnData.data.m_box_item.NAME);
-                       styles[1].push(box.returnData.data.m_box_item.VALUE);
-                    }
-           }
-       }//end of if code length
-       return styles;
-     },
-     tipGet:function(){      
-       this.tipgetrun=true;
-       var totaldata=0;
-       var code=$("barcode").value;
-       var reg=new RegExp(code,"i");
-       var styles=this.getStyleArray();
+                for(var i=0;i<box.returnData.data.length;i++){
 
-       var str="<table id='fc_data'>";
-       if(code.length>0){
-                   for(var i=0; i<styles[0].length;i++){
-                       totaldata++;
-                        str+="<tr  id='sn"+(totaldata-1)+"'><td nowrap>"+styles[0][i]+"</td><td nowrap>"+styles[1][i]+"</td></tr>";
-                   }
-       }//end of if code length
-       str+="</table>";
-       str+="<div align=right><a style='cursor:pointer;color:#0000ff' id='fc_close'>关闭</a></div>";
-       $("forCode").innerHTML=str;
-       this.totaldata=totaldata;
-       this.bindevents();
-       return totaldata;
-     },
-    setValueOnClick:function(e){
-           if(window.event)this.ieclicked=true;
-           var evt=window.event?window.event:e;
-           var target=Event.element(evt);
-           target=target.parentNode;
-           if(target.tagName=='TR'){
-               $("barcode").value = target.cells[0].innerHTML;
-               this.textboxcontent=target.cells[0].innerHTML;
-           }
-           this.focusshow=false;
-           this.tipHideFocus();
-       },
-     setMouseOver:function(e){
-          if(this.keymode)return;
-           var evt=e?e:Event;
-           var target=evt.target?evt.target:evt.srcElement;
-           target=target.parentNode;
-           jQuery("#"+target.id).css("backgroundColor","#CCCCFF");
-           this.currentrowid=target.id;
-       },
-      removeColors:function(e){
-            for (var i=0;i<this.totaldata;i++){
-                jQuery("#sn"+i).css("backgroundColor","#FFFFFF");
+                    if(reg.test(box.returnData.data[i].m_box_item.NAME)&&$("selCategory").value.strip()==box.returnData.data[i].m_box_item.DESTINATION){
+                        if(styles[0].indexOf(box.returnData.data[i].m_box_item.NAME)==-1){
+                            styles[0].push(box.returnData.data[i].m_box_item.NAME);
+                            styles[1].push(box.returnData.data[i].m_box_item.VALUE);
+                        }
+                    }
+                }
+            }else{
+                if(reg.test(box.returnData.data.m_box_item.NAME)&&$("selCategory").value.strip()==box.returnData.data.m_box_item.DESTINATION){
+                    styles[0].push(box.returnData.data.m_box_item.NAME);
+                    styles[1].push(box.returnData.data.m_box_item.VALUE);
+                }
             }
-          this.currentrowid=null;
-       },
-   tipHide:function(e){
+        }//end of if code length
+        return styles;
+    },
+    tipGet:function(){
+        this.tipgetrun=true;
+        var totaldata=0;
+        var code=$("barcode").value;
+        var styles=this.getStyleArray();
+        var str="<table id='fc_data'>";
+        if(code.length>0){
+            for(var i=0; i<styles[0].length;i++){
+                totaldata++;
+                str+="<tr  id='sn"+(totaldata-1)+"'><td nowrap>"+styles[0][i]+"</td><td nowrap>"+styles[1][i]+"</td></tr>";
+            }
+        }//end of if code length
+        str+="</table>";
+        str+="<div align=right><a style='cursor:pointer;color:#0000ff' id='fc_close'>关闭</a></div>";
+        $("forCode").innerHTML=str;
+        this.totaldata=totaldata;
+        this.bindevents();
+        return totaldata;
+    },
+    setValueOnClick:function(e){
+        if(window.event)this.ieclicked=true;
+        var evt=window.event?window.event:e;
+        var target=Event.element(evt);
+        target=target.parentNode;
+        if(target.tagName=='TR'){
+            $("barcode").value = target.cells[0].innerHTML;
+            this.textboxcontent=target.cells[0].innerHTML;
+        }
+        this.focusshow=false;
+        this.tipHideFocus();
+    },
+    setMouseOver:function(e){
+        if(this.keymode)return;
+        var evt=e?e:Event;
+        var target=evt.target?evt.target:evt.srcElement;
+        target=target.parentNode;
+        jQuery("#"+target.id).css("backgroundColor","#CCCCFF");
+        this.currentrowid=target.id;
+    },
+    removeColors:function(e){
+        for (var i=0;i<this.totaldata;i++){
+            jQuery("#sn"+i).css("backgroundColor","#FFFFFF");
+        }
+        this.currentrowid=null;
+    },
+    tipHide:function(e){
         if(!this.mousedown){jQuery("#forCode").css("display","none");this.keymode=false;}
-   },
-   tipHideFocus:function(e){
-       this.tipHide();
-       jQuery("#barcode").focus();
-   },
-   setKeymode:function(e){
+    },
+    tipHideFocus:function(e){
+        this.tipHide();
+        jQuery("#barcode").focus();
+    },
+    setKeymode:function(e){
         if((this.currentrowid)&&(this.keymode)){
             jQuery("#"+this.currentrowid).css("backgroundColor","#FFFFFF");
         }
         this.keymode=false;
     },
-   updnkeyHandler:function(e){
-       var evt=window.event?window.event:e;
-       var key=(window.event)?evt.keyCode:evt.which;
-       if((key!=38)&&(key!=40)){return;}
-       this.tipShow();
-       this.keymode=true;
-       var totalrows=this.totaldata;
-       var targetrowno=null;
-       if(this.currentrowid){
-              targetrowno=parseInt(this.currentrowid.substring(2));
-              targetrowno=(key==38)?(targetrowno-1):(targetrowno+1);
-              if(targetrowno>(totalrows-1))targetrowno=null;
-              if(targetrowno<0)targetrowno=null;
-          } else{
-              targetrowno=(key==38)?(targetrowno=(totalrows-1)):(targetrowno=0);
+    updnkeyHandler:function(e){
+        var evt=window.event?window.event:e;
+        var key=(window.event)?evt.keyCode:evt.which;
+        if((key!=38)&&(key!=40)){return;}
+        this.tipShow();
+        this.keymode=true;
+        var totalrows=this.totaldata;
+        var targetrowno=null;
+        if(this.currentrowid){
+            targetrowno=parseInt(this.currentrowid.substring(2));
+            targetrowno=(key==38)?(targetrowno-1):(targetrowno+1);
+            if(targetrowno>(totalrows-1))targetrowno=null;
+            if(targetrowno<0)targetrowno=null;
+        } else{
+            targetrowno=(key==38)?(targetrowno=(totalrows-1)):(targetrowno=0);
         }
         this.setValueOnKey(targetrowno);
-   },
-   setValueOnKey:function(targetrowno){
-       this.removeColors();
+    },
+    setValueOnKey:function(targetrowno){
+        this.removeColors();
         if(targetrowno!=null){
-           $("barcode").value=$("fc_data").rows[targetrowno].cells[0].innerHTML;
-           $("sn"+targetrowno).style.backgroundColor = "#CCCCFF";
-           this.currentrowid="sn"+targetrowno;
+            $("barcode").value=$("fc_data").rows[targetrowno].cells[0].innerHTML;
+            $("sn"+targetrowno).style.backgroundColor = "#CCCCFF";
+            this.currentrowid="sn"+targetrowno;
         }else{
             $("barcode").value=this.textboxcontent;
             this.currentrowid=null;
         }
-   }
+    }
 },
         TOOLTIPS.main = function(){ tooltips=new TOOLTIPS(); tooltips.bindevents();},
         jQuery(document).ready(TOOLTIPS.main);
@@ -913,6 +932,15 @@ CSTABLE.prototype={
         this.currentstyle=null;
         this.styleDetail=[[],[],[],[]];
         this.retData=new Array();
+         if(!window.document.addEventListener){
+            window.document.attachEvent("onkeydown",hand11);
+            function hand11()
+            {
+                if(window.event.keyCode==13){
+                    return false;
+                }
+            }
+        }
     },
     handlerMe:function(e){
         var event=null;
@@ -926,19 +954,13 @@ CSTABLE.prototype={
                 this.showMask();
                 $("pop-up-title-0").innerHTML="款号:<span style='color:red;'>"+this.currentstyle+"</span>  装箱明细！";
 
-            }else if(this.checkValidCode()){
-                box.codeRt(event);
             }
+            /*产品模式的时候兼容输入条码
+             else if(this.checkValidCode()){
+             box.codeRt(event);
+             }*/
         }
-        if(!window.document.addEventListener){
-            window.document.attachEvent("onkeydown",hand11);
-            function hand11()
-            {
-                if(window.event.keyCode==13){
-                    return false;
-                }
-            }
-        }
+
     },
     //bindevents:function(){},
     checkValidStyle:function(){
@@ -951,17 +973,18 @@ CSTABLE.prototype={
         }
         return false;
     },
-    checkValidCode:function(){
-        if(box.checkIsArray(box.returnData.data)){
-            for(var i=0;i<box.returnData.data.length;i++){
-                if(box.returnData.data[i].m_box_item.NO==this.currentstyle&&box.returnData.data[i].m_box_item.DESTINATION==$("selCategory").value.strip())
-                    return true;
-            }
-        }else{
-            if(box.returnData.data.m_box_item.NO==this.currentstyle&&box.returnData.data.m_box_item.DESTINATION==$("selCategory").value.strip())return true;
-        }
-        return false;
-    },
+    /*产品模式的时候兼容输入条码：验证是否是条码
+     checkValidCode:function(){
+     if(box.checkIsArray(box.returnData.data)){
+     for(var i=0;i<box.returnData.data.length;i++){
+     if(box.returnData.data[i].m_box_item.NO==this.currentstyle&&box.returnData.data[i].m_box_item.DESTINATION==$("selCategory").value.strip())
+     return true;
+     }
+     }else{
+     if(box.returnData.data.m_box_item.NO==this.currentstyle&&box.returnData.data.m_box_item.DESTINATION==$("selCategory").value.strip())return true;
+     }
+     return false;
+     },*/
     getSingleValueArray:function(source){
         var temp=[];
         for(var i=0;i<source.length;i++){
@@ -970,7 +993,7 @@ CSTABLE.prototype={
         return temp;
     },
     showStockTable:function(){
-        $("stock_table").innerHTML="";
+        jQuery("#stock_table").html("");
         this.styleDetail=[[],[],[],[]];
         if(box.checkIsArray(box.returnData.data)){
             for(var i=0;i<box.returnData.data.length;i++){
@@ -1129,46 +1152,46 @@ CSTABLE.prototype={
                 this.metrixRt(retDataes[i].name, cou);
             }
         }
-  },
+    },
     metrixRt:function(code,count){
-            count=parseInt(count);
-            var rows=$($("selCategory").value+"Table_"+$("selBox").value).rows;
-            var state=true;
-            for(var i=0;i<rows.length;i++){
-                rows[i].style.backgroundColor="";
-                if(rows[i].cells[5].firstChild.id.substring(0,rows[i].cells[5].firstChild.id.lastIndexOf("_"))==($("selCategory").value.strip()+code)){
-                    rows[i].style.backgroundColor="#ddd";
+        count=parseInt(count);
+        var rows=$($("selCategory").value+"Table_"+$("selBox").value).rows;
+        var state=true;
+        for(var i=0;i<rows.length;i++){
+            rows[i].style.backgroundColor="";
+            if(rows[i].cells[5].firstChild.id.substring(0,rows[i].cells[5].firstChild.id.lastIndexOf("_"))==($("selCategory").value.strip()+code)){
+                rows[i].style.backgroundColor="#ddd";
+                rows[i].style.display="";
+                var old=rows[i].cells[5].firstChild.innerHTML;
+                if($("isRecoil").value=="normal"){
+                    rows[i].cells[5].firstChild.innerHTML=isNaN(parseInt(old))?count:(parseInt(old)+count);
+                }else{
+                    rows[i].cells[5].firstChild.innerHTML=isNaN(parseInt(old))?-count:(parseInt(old)-count);
+                }
+                if(box.totalBarCode($("selCategory").value,i)>parseInt(rows[i].cells[5].firstChild.title)){
+                    var oldColor=rows[i].cells[5].firstChild.style.backgroundColor;
+                    rows[i].cells[5].firstChild.style.backgroundColor="#ff0000";
+                    alert("扫描数量大于单据数量，输入无效！");
+                    rows[i].cells[5].firstChild.innerHTML=old;
+                    rows[i].cells[5].firstChild.style.backgroundColor=oldColor;
+                }
+                var f=parseInt(rows[i].cells[5].firstChild.innerHTML,10);
+                f=isNaN(f)?0:f;
+                if(f!=0){
                     rows[i].style.display="";
-                    var old=rows[i].cells[5].firstChild.innerHTML;
-                    if($("isRecoil").value=="normal"){
-                        rows[i].cells[5].firstChild.innerHTML=isNaN(parseInt(old))?count:(parseInt(old)+count);
-                    }else{
-                        rows[i].cells[5].firstChild.innerHTML=isNaN(parseInt(old))?-count:(parseInt(old)-count);
-                    }
-                    if(box.totalBarCode($("selCategory").value,i)>parseInt(rows[i].cells[5].firstChild.title)){
-                        var oldColor=rows[i].cells[5].firstChild.style.backgroundColor;
-                        rows[i].cells[5].firstChild.style.backgroundColor="#ff0000";
-                        alert("扫描数量大于单据数量，输入无效！");
-                        rows[i].cells[5].firstChild.innerHTML=old;
-                        rows[i].cells[5].firstChild.style.backgroundColor=oldColor;
-                    }
-                    var f=parseInt(rows[i].cells[5].firstChild.innerHTML,10);
-                    f=isNaN(f)?0:f;
-                    if(f!=0){
-                        rows[i].style.display="";
-                    }else{
-                        rows[i].style.display="none";
-                    }
-                }
-                if(box.totalBarCode($("selCategory").value,i)<parseInt(rows[i].cells[5].firstChild.title)){
-                    state=false;
+                }else{
+                    rows[i].style.display="none";
                 }
             }
-            if(state){
-                $($("selCategory").value+"eq").innerHTML="<img name='eq' src=\"images/inco-eq.gif\"  width=\"16\" height=\"16\"/>";
-            }else{
-                $($("selCategory").value+"eq").innerHTML="<img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/>";
+            if(box.totalBarCode($("selCategory").value,i)<parseInt(rows[i].cells[5].firstChild.title)){
+                state=false;
             }
+        }
+        if(state){
+            $($("selCategory").value+"eq").innerHTML="<img name='eq' src=\"images/inco-eq.gif\"  width=\"16\" height=\"16\"/>";
+        }else{
+            $($("selCategory").value+"eq").innerHTML="<img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/>";
+        }
 
         if(!window.document.addEventListener){
             window.document.attachEvent("onkeydown",hand11);

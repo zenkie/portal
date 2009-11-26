@@ -152,7 +152,7 @@
                     <tr>
                         <th  bgcolor="#8db6d9" class="table-title-bg"><div class="td-title">序号</div></th>
                         <th  bgcolor="#8db6d9" class="table-title-bg"><div class="td-title">款号</div></th>
-                        <th  bgcolor="#8db6d9" class="table-title-bg"><div class="td-title">成品名</div></th>
+                        <th  bgcolor="#8db6d9" class="table-title-bg"><div class="td-title">品名</div></th>
                         <th  bgcolor="#8db6d9" class="table-title-bg"><div class="td-title">色号</div></th>
                         <th  bgcolor="#8db6d9" class="table-title-bg"><div class="td-title">尺寸</div></th>
                         <th  bgcolor="#8db6d9" class="table-title-bg"><div class="td-title">扫描数量</div></th>
@@ -167,14 +167,21 @@
     <td width="8" valign="top"><img src="images/main-right-bg.gif" width="8" height="395" /></td>
   </tr>
 </table>
- <input type="hidden" id="isSaved">
+ <input type="hidden" id="isSaved"/>
 </div>
 <div class="zh-height"></div>
 <div id="zh-cz-bg"><input type="hidden" id="isRecoil" value="normal"/>
 <div id="zh-cz-height"><table width="600" border="0" cellspacing="1" cellpadding="0" align="center">
   <tr>
-    <td class="zh-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">商品：</div></td>
-    <td class="zh-value" width="180" valign="top" nowrap="" align="left"><input id="barcode" class="ipt-4-2" name="" type="text" onkeydown="cstable.handlerMe(event);"/></td>
+    <td class="zh-desc" width="80" valign="top" nowrap="" align="right">
+        <div class="desc-txt">
+            <select id="model" width="60" tabindex="1" name="doctype" onchange="if($('model').value =='pdt'){box.pdtModel()}else{box.codeModel()}">
+                <option selected="true" value="code">条码模式</option>
+                <option value="pdt">商品模式</option>
+            </select>
+        </div>
+    </td>
+    <td class="zh-value" width="180" valign="top" nowrap="" align="left"><input id="barcode" class="ipt-4-2" name="" type="text"/></td>
     <td class="zh-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt" >数量：</div></td>
     <td class="zh-value" width="180" valign="top" nowrap="" align="left"><input id="pdt_count" type="text" class="ipt-4-2" value="1" onblur="box.checkIsNum(event)" /></td>
     <td width="180"><nobr><input name="isRecoil" type="radio" value="normal" checked onclick="$('isRecoil').value='normal';"/>扫描&nbsp;<input name="isRecoil" type="radio" value="recoil" onclick="$('isRecoil').value='recoil';" />反冲</nobr></td>
