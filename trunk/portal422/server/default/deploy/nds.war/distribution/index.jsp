@@ -203,12 +203,11 @@
                     <table style="padding-left:12px" border="0" cellspacing="1" cellpadding="0" class="obj" align="left">
                         <tr>
                             <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">单据号<font color="red">*</font>：</div></td>
-                            <td class="ph-value" width="185" valign="top" nowrap="nowrap" align="left"><input name="Input2" type="text" readonly="true" class="ipt-4-2" id="column_26996_fd" />
-                                <input type="hidden" id="column_26996" name="DOCUMENT_ID" value="">
-                        <span id="column_26996_link" class="coolButton"onaction="oq.toggle_m('/html/nds/query/search.jsp?table=12943&return_type=f&accepter_id=column_26996','column_26996')">
-                            <img id='column_26996_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/>
-                        </span>
-                                <script type="text/javascript" >createButton(document.getElementById('column_26996_link'));</script>
+                            <td class="ph-value" width="185" valign="top" nowrap="" align="left">
+                                <input name="Input2" type="text" readonly="true" class="ipt-4-2" id="column_40252_fd" value=""/>
+                                <input type="hidden" id="column_40252" name="DOCUMENT_ID" value="">
+                        <span id="column_40252_link" class="coolButton" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table=12943&return_type=f&accepter_id=column_40252','column_40252');"><img id='column_40252_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
+                                <script type="text/javascript" >createButton(document.getElementById('column_40252_link'));</script>
                             </td>
                             <td class="ph-value" width="362" valign="top" nowrap="nowrap" align="left">
                                 <%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject('doc')" /><%}%></td>

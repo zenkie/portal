@@ -36,11 +36,11 @@ DIST.prototype={
         var reg=/^\d{8}$/;
         var m_allot_id=$("fund_balance").value||"-1";
         if(style&&style=='doc'){
-            if(!$('column_26996').value){
+            if(!$('column_40252').value){
                 alert("单据号不能为空！");
                 return;
             }
-           var searchord=$('column_26996').value;
+           var searchord=$('column_40252').value;
            var param={"or_type":"","c_dest":"","c_orig":"","m_product":"",
                 "datest":"","datend":"","load_type":load_type,"m_allot_id":m_allot_id,"searchord":searchord,"porder":-1};
         }else{
