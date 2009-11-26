@@ -11,6 +11,10 @@ DIST.prototype={
         this.status=0;
         dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         dwr.util.setEscapeHtml(false);
+        window.onunload=function(){
+               var e=window.opener||window.parent;
+               e.setTimeout("pc.doRefresh()",1);
+         }
         /** A function to call if something fails. */
         dwr.engine._errorHandler =  function(message, ex) {
             while(ex!=null && ex.cause!=null) ex=ex.cause;
@@ -38,7 +42,7 @@ DIST.prototype={
             }
            var searchord=$('column_26996').value;
            var param={"or_type":"","c_dest":"","c_orig":"","m_product":"",
-                "datest":"","datend":"","load_type":load_type,"m_allot_id":m_allot_id,"searchord":searchord};
+                "datest":"","datend":"","load_type":load_type,"m_allot_id":m_allot_id,"searchord":searchord,"porder":-1};
         }else{
             var doctype=$("column_26991").value;
             if(!doctype){
@@ -80,12 +84,13 @@ DIST.prototype={
                 return;
             }
             var param={"or_type":doctype,"c_dest":orig_in_sql,"c_orig":orig_out_fk,"m_product":product_filter,
-                "datest":billdatebeg,"datend":billdateend,"load_type":load_type,"m_allot_id":m_allot_id,"searchord":""};
+                "datest":billdatebeg,"datend":billdateend,"load_type":load_type,"m_allot_id":m_allot_id,"searchord":"","porder":-1};
         }
         evt.param=Object.toJSON(param);
         evt.table="m_allot";
         evt.action="distribution";
         evt.permission="r";
+        jQuery("#ph-from-right-table").html("");
         this._executeCommandEvent(evt);
     },
     saveDate:function(type){
@@ -97,7 +102,7 @@ DIST.prototype={
         evt.command="DBJSONXML";
         evt.callbackEvent="DO_SAVE";
         if(type=='ord'){
-            if(!confirm("单据生成不可修改！确认生成单据？")){
+            if(!confirm("单据提交不可修改！确认提交？")){
                 return;
             }
         }
@@ -129,7 +134,7 @@ DIST.prototype={
         evt.callbackEvent="RELOAD";
         var m_allot_id=$("fund_balance").value||"-1";
         var param={"or_type":"-1","c_dest":"-1","c_orig":"-1","m_product":"-1",
-            "datest":"-1","datend":"-1","load_type":"reload","m_allot_id":m_allot_id};
+            "datest":"-1","datend":"-1","load_type":"reload","m_allot_id":m_allot_id,"porder":-1};
         evt.param=Object.toJSON(param);
         evt.table="m_allot";
         evt.action="distribution";
@@ -262,10 +267,13 @@ DIST.prototype={
         var ret=data.jsonResult.evalJSON();
         this.manuStr="";
         this.itemStr="";
+
         if(ret.data&&ret.data=="null"){
-             $("ph-from-right-table").innerHTML="<div style='font-size:20px;color:red;text-align:center;font-weight:bold;vertical-align:middle'>没有数据！</div>";
+            $("ph-from-right-table").innerHTML="<div style='font-size:20px;color:red;text-align:center;font-weight:bold;vertical-align:middle'>没有数据！</div>";
+
             return;
         }
+
          $("isChanged").value='false';
         if(ret.searchord){
             $('Details').style.display='none';$('Documents').style.display='';
@@ -292,6 +300,10 @@ DIST.prototype={
                               "this.style.backgroundColor=\"#8db6d9\"; this.style.color=\"white\";'"+
                               (ii==0?"  style='background:#8db6d9'":"")+">"+pdt[ii].xmlns+"</div></li>\n";
                 var itemColor=pdt[ii].color;
+                if(!itemColor){
+                    alert("此单据已失效！");
+                    return;
+                }
                 var colorArr=new Array();
                 colorArr=this.forMetrixChangeToArr(itemColor);
                 var sizeArr=colorArr[0].stores[0].docnos[0].tag.size;
@@ -385,6 +397,10 @@ DIST.prototype={
                           "this.style.backgroundColor=\"#8db6d9\"; this.style.color=\"white\";'"+
                           "style='background:#8db6d9'>"+pdt.xmlns+"</div></li>\n";
             var itemColor=pdt.color;
+            if(!itemColor){
+                alert("此单据已失效！");
+                return;
+            }
             var colorArr=new Array();
             var ptotCan=0;
             var ptotRem=0;
@@ -483,6 +499,7 @@ DIST.prototype={
         if($("orderStatus").value=="2"){
             jQuery("#ph-from-right-table td input").attr("disabled","true");
         }
+
         if(!window.document.addEventListener){
             window.document.attachEvent("onkeydown",hand11);
             function hand11()
@@ -492,6 +509,7 @@ DIST.prototype={
                 }
             }
         }
+
         this.autoView1();
     },
     /*
@@ -1001,7 +1019,7 @@ DIST.prototype={
                             }
                         }
                     }
-                    var allInput=jQuery("#ph-from-right-table table input");
+                    var allInput=jQuery("#ph-from-right-table>table input");
                     var totAlready=0;
                     for(var s=0;s<allInput.length;s++){
                         var vs=isNaN(parseInt(allInput[s].value,10))?0:parseInt(allInput[s].value,10);

@@ -34,8 +34,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>配货单</title>
-
-
     <link rel="Shortcut Icon" href="/html/nds/images/portal.ico" />
     <script language="javascript" src="/html/nds/js/top_css_ext.js"></script>
     <script language="javascript" language="javascript1.5" src="/html/nds/js/ieemu.js"></script>
@@ -84,7 +82,7 @@
     jQuery(document).ready(function(){dist.reShow();});
 </script>
 <%}%>
-<body class="body-bg" >
+<body>
 <input type="hidden" id="load_model" value="metrix"/>
 <input type="hidden" id="load_type" value="<%=id==-1?"load":"reload"%>"/>
 <input type="hidden" id="showStyle" value="list">
@@ -124,8 +122,8 @@
                             <td class="ph-desc" width="75" valign="top" nowrap="" align="right"><div class="desc-txt">订单类型<font color="red">*</font>：</div></td>
                             <td class="ph-value" width="180" valign="top" nowrap="" align="left"><select id="column_26991" class="objsl" tabindex="1" name="doctype">
                                 <option value="0">--请选择--</option>
-                                <option value="FWD">期货订单</option>
-                                <option value="INS">现货订单</option>
+                                <option value="FWD">新货订单</option>
+                                <option value="INS">补货订单</option>
                                 <option selected="selected" value="ALL">全部</option>
                             </select></td>
                             <!--发货店仓-->
@@ -205,7 +203,7 @@
                     <table style="padding-left:12px" border="0" cellspacing="1" cellpadding="0" class="obj" align="left">
                         <tr>
                             <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">单据号<font color="red">*</font>：</div></td>
-                            <td class="ph-value" width="185" valign="top" nowrap="nowrap" align="left"><input name="Input2" type="text" class="ipt-4-2" id="column_26996_fd" />
+                            <td class="ph-value" width="185" valign="top" nowrap="nowrap" align="left"><input name="Input2" type="text" readonly="true" class="ipt-4-2" id="column_26996_fd" />
                                 <input type="hidden" id="column_26996" name="DOCUMENT_ID" value="">
                         <span id="column_26996_link" class="coolButton"onaction="oq.toggle_m('/html/nds/query/search.jsp?table=12943&return_type=f&accepter_id=column_26996','column_26996')">
                             <img id='column_26996_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/>
