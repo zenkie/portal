@@ -191,7 +191,7 @@ if(udxColumns.size()>0){
 </tr>
 <tr>
 <td valign="top"><strong><%=PortletUtils.getMessage(pageContext, "import-select-file",null)%></strong><br>
-	(Max: <%=Tools.getInt( conf.getProperty("import.excel.maxsize", "1"),1)%>MB)
+	(<%=PortletUtils.getMessage(pageContext, "file-size-max",null)%>: <%=Tools.getInt( conf.getProperty("import.excel.maxsize", "1"),1)%>MB)
 	</td>
 <td valign="top"><div id="flashcontent"><input id="fileInput1" name="excel" size="35" type="file"/></div></td>
 </tr>
@@ -205,7 +205,7 @@ if(udxColumns.size()>0){
 <div id="btn">
 <input class="command2_button" type='button' id="btnImport" name='ImportExcel' value='<%=PortletUtils.getMessage(pageContext, "import-file",null)%>' onclick="javascript:impxls.beginImport();" >
 <input class="command2_button" type='button' id="btnPrint" name='print' value='<%=PortletUtils.getMessage(pageContext, "print",null)%>' onclick="javascript:window.print();" >
-<span id="tag_close_window"></span>
+<span id="tag_close_window"></span> <a href="update_excel.jsp?<%=request.getQueryString()%>"><%=PortletUtils.getMessage(pageContext, "click-here-to-update-import",null)%></a>
 <Script language="javascript">
  // check show close window button or not
  if(  self==top){
@@ -215,7 +215,7 @@ if(udxColumns.size()>0){
  
 
 	var upinit={"sizeLimit": <%=(1024*1024 * Tools.getInt( conf.getProperty("import.excel.maxsize", "1"),1))%>,
-		'buttonText'	: '...',
+		/*'buttonText'	: '...',*/
 		'fileDesc'      : '<%= PortletUtils.getMessage(pageContext, "import-file-desc" ,null)%>'
 		};
 	var para={"table":<%=table.getId()%>, "objectid":<%=objectId%>,

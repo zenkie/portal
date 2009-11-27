@@ -330,7 +330,7 @@ ObjectControl.prototype = {
     },
 	
 	doDelete:function(){
-    	if (!confirm(gMessageHolder.DO_YOU_CONFIRM_DELETE+" "+ this._masterObj.table.description+"?")) {
+    	if (!confirm(gMessageHolder.DO_YOU_CONFIRM_DELETE.replace("0","["+ this._masterObj.table.description+"]" ))) {
             return false;
         }
 		var evt=$H();

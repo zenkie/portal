@@ -91,12 +91,24 @@ ImportXLS.prototype = {
 		$("#btnImport").attr("disabled", "disabled");
 		$("#whole").html('');
 		var para=this._para;
+		var a=new Array();
+		if(para.partial_update){
+			$("input[name='update_columns']:checked").each(function(i){a.push($(this).val());});
+			if(a.length==1){
+				alert($("#selcol").html());
+				$("#btnImport").attr("disabled", "");
+				return;
+			}
+			para.update_columns= a;
+		}
+		
 		var fmt=$("input[name='file_format']:checked").val();
 		para.file_format=fmt;
 		if(fmt!="xls"){
 			para.file_format="txt";
 			para.txt_type=$("input[name='txt_type']:checked").val();
-			if(para.txt_type=="token"){
+			if(para.txt_type==undefined) para.txt_type="token";
+			if(para.txt_type=="token" ){
 				var t="";
 				if($("#token_tab")[0].checked) t+="[\\t]";
 				if($("#token_comma")[0].checked) t+="[,]";

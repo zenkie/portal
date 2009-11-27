@@ -6,7 +6,7 @@ var gMessageHolder={
 	CATEGORY_GUIDE:"分类导航",
 	MAINTAIN_BY_SYS: "系统维护",
 	TIME_OUT:"操作超时",
-	DO_YOU_CONFIRM_DELETE:"你确认要执行删除",
+	DO_YOU_CONFIRM_DELETE:"你确认要删除整个0(若有明细也一并删除)？",
 	DO_YOU_CONFIRM_UNSUBMIT:"你确认要取消提交吗?",
 	DO_YOU_CONFIRM_SUBMIT:"你确认要执行提交动作吗?",
 	DO_YOU_CONFIRM_GROUPSUBMIT:"当前类型对象的多行同时提交将产生数据“合并”的特殊功能。\\n\\n您确认要执行此特殊功能?\\n\\n（选择“取消”如果您尚不了解所谓“合并”的意义，并查看有关帮助以明确）",

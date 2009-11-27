@@ -396,8 +396,8 @@ Table faStorageTable= manager.getTable("V_FA_STORAGE");
 
 ArrayList inputList=new ArrayList();
 prepareAttributeTable(instances2,0,attributes,attributeValues,"", inputList);
-List li_store=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty, t.id,t.qtyconsign, t.qtyvalid from V_FA_STORAGE t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(storedata)+") and t.m_product_id="+productId);
-List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty,t.id,t.qtyconsign, t.qtyvalid from V_FA_STORAGE t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(destdata)+") and t.m_product_id="+productId);
+List li_store=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty, t.id,t.qtyconsign, t.qtycan from V_FA_STORAGE t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(storedata)+") and t.m_product_id="+productId);
+List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty,t.id,t.qtyconsign, t.qtycan from V_FA_STORAGE t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(destdata)+") and t.m_product_id="+productId);
 int dest_objectId=-1;
 int store_objectId=-1;
 boolean directory_store=false;
