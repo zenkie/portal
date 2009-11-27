@@ -62,6 +62,7 @@ queryObj.put("table_id", table.getId());
 queryObj.put("table_desc", table.getDescription(locale));
 queryObj.put("column_masks", JSONUtils.toJSONArrayPrimitive(columnMasks));
 queryObj.put("dir_perm",listViewPermissionType);
+queryObj.put("param_expr",fixedExpr.toString());
 queryObj.put("init_query",true);
 queryObj.put("start",0);
 queryObj.put("must_be_active",mustBeActive);
