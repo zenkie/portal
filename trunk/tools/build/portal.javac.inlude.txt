@@ -55,6 +55,7 @@ org/apache/jspc/html/nds/portal/portal_jsp.java
 org/apache/jspc/html/nds/portal/subsystem_jsp.java
 org/apache/jspc/html/nds/portal/subsystem_xml_jsp.java
 org/apache/jspc/html/nds/portal/tables_jsp.java
+org/apache/jspc/html/nds/portal/getmessage_jsp.java
 org/apache/jspc/html/nds/portal/table_005fresult_jsp.java
 org/apache/jspc/html/nds/portal/table_jsp.java
 org/apache/jspc/html/nds/portal/tablecategory_jsp.java
