@@ -13,7 +13,7 @@
 		
 	 initialize:function(){
 	  	this.modal=null;
-	  	this.URL="/html/nds/portal/getMessage.jsp";
+	  	this.URL="/html/nds/portal/getmessage.jsp";
 	  	this.messages=[];
 	  	this.title=null;
 	  	this. timeoutId=null;
