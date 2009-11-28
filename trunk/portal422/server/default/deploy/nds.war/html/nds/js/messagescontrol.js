@@ -132,20 +132,22 @@ MC.prototype={
 				});
 		jQuery("#dialog").parent().fadeOut(3000,function(){jQuery("#dialog").dialog('close');});
 	 },
-	 goto:function(targetId){
-      if(targetId==null){
-	  		pc.navigate('u_note');
-	  		jQuery("#dialog").dialog('close');
-	    }else{
-	     	 jQuery("#dialog").parent().css("z-index","90");
-	     	 if(mc.modal)jQuery("#dialog").parent().prev(".ui-widget-overlay ").css("z-index","89");
-	     	 if(!mc.modal){jQuery("#dialog").parent().stop();
-	     	jQuery("#dialog").parent().css('opacity',1);}
-	     	var Option={onClose:function(){return mc.refresh();}} ;
-	    	 showObject("/html/nds/object/object.jsp?table=10083&&fixedcolumns=&id="+targetId,956,570,Option);
-	    	  
-	    	  }
-
+    xml2Str:function(xmlNode){
+	try {
+      // Gecko- and Webkit-based browsers (Firefox, Chrome), Opera.
+		return (new XMLSerializer()).serializeToString(xmlNode);
+		}
+		catch (e) {
+     try {
+        // Internet Explorer.
+        return xmlNode.xml;
+     }
+     catch (e) {  
+        //Other browsers without XML Serializer
+        alert('Xmlserializer not supported');
+		}
+	 }
+		return false;
 	},
 	 getChildValue:function (node,nodename){
 	  var value="";
