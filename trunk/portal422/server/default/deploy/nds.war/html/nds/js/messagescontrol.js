@@ -1,42 +1,41 @@
-	jQuery.noConflict();
-	// mc object to dispaly messages delivered to user from u_note
-	//the following files are used or modified
-	//html/nds/js/messagescontrol.js
-	//html/nds/js/jquery1.3.2/*
-	//html/nds/theme/ui-lightness/* the file ui.tab.css was replaced with old version from jquery 1.2.3
-	//html/nds/portal/top_meta.jsp, table.jsp, getmessages.jsp
+jQuery.noConflict();
+// mc object to dispaly messages delivered to user from u_note
+//the following files are used or modified
+//html/nds/js/messagescontrol.js
+//html/nds/js/jquery1.3.2/*
+//html/nds/theme/ui-lightness/* the file ui.tab.css was replaced with old version from jquery 1.2.3
+//html/nds/portal/top_meta.jsp, table.jsp, getmessages.jsp
 	
 	
-	var mc;//message control
-	var MC=Class.create();
-	MC.prototype={
+var mc;//message control
+var MC=Class.create();
+MC.prototype={
 		
-	 initialize:function(){
-	  	this.modal=null;
-	  	this.URL="/html/nds/portal/getmessage.jsp";
-	  	this.messages=[];
-	  	this.title=null;
-	  	this. timeoutId=null;
-	  	this.mcount=null;
-	  	jQuery(document.body).append("<div id=\"dialog\" title=\""+gMessageHolder.NOTICE+"\" style=\"display:none;background-color:white;\"><div id='dialog-dt' ></div></div>");
-	},
+  initialize:function(){
+    this.modal=null;
+    this.URL="/html/nds/portal/getmessage.jsp";
+    this.messages=[];
+    this.title=null;
+    this. timeoutId=null;
+    this.mcount=null;
+    jQuery(document.body).append("<div id=\"dialog\" title=\""+gMessageHolder.NOTICE+"\" style=\"display:none;background-color:white;\"><div id='dialog-dt' ></div></div>");
+    },
 	load:function(){
-		var date=new Date();
-		jQuery.ajax({
-		url: mc.URL+"?t="+date.getTime(),
-		success: function(response) {
-			//alert(new XMLSerializer().serializeToString(response));
+        var date=new Date();
+        jQuery.ajax({
+        url: mc.URL+"?t="+date.getTime(),
+        success: function(response) {
+        //alert(new XMLSerializer().serializeToString(response));
       var result=mc.analyseM(response) ;
       var mstr=result[0];
       var title=result[1];
-       mc.showMessages();
-			jQuery("#dialog-dt").html(mstr);
-			jQuery("#ui-dialog-title-dialog").html(title);
-			
-			if(!mc.modal){
-				mc.timeoutId=setTimeout("mc.fadeMessage();",2000);
-				jQuery("#dialog").parent().mouseenter(function(){if(mc.timeoutId!=null)clearTimeout(mc.timeoutId);});
-				}
+      mc.showMessages();
+      jQuery("#dialog-dt").html(mstr);
+      jQuery("#ui-dialog-title-dialog").html(title);
+      if(!mc.modal){
+          mc.timeoutId=setTimeout("mc.fadeMessage();",2000);
+          jQuery("#dialog").parent().mouseenter(function(){if(mc.timeoutId!=null)clearTimeout(mc.timeoutId);});
+         }
 			
 		}, 
 		error:function(xhr) {
@@ -133,9 +132,8 @@
 				});
 		jQuery("#dialog").parent().fadeOut(3000,function(){jQuery("#dialog").dialog('close');});
 	 },
-  goto:function(id){
-	  	//alert(id);
-      if(id==null){
+  goto:function(targetId){
+      if(targetId==null){
 	  		pc.navigate('u_note');
 	  		jQuery("#dialog").dialog('close');
 	    }else{
@@ -144,7 +142,7 @@
 	     	 if(!mc.modal){jQuery("#dialog").parent().stop();
 	     	jQuery("#dialog").parent().css('opacity',1);}
 	     	var Option={onClose:function(){return mc.refresh();}} ;
-	    	 showObject("/html/nds/object/object.jsp?table=10083&&fixedcolumns=&id="+id,956,570,Option);
+	    	 showObject("/html/nds/object/object.jsp?table=10083&&fixedcolumns=&id="+targetId,956,570,Option);
 	    	  
 	    	  }
 
