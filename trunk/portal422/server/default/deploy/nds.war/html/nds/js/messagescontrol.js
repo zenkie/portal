@@ -1,60 +1,118 @@
-﻿	jQuery.noConflict();
+	jQuery.noConflict();
 	// mc object to dispaly messages delivered to user from u_note
-	//
+	//the following files are used or modified
+	//html/nds/js/messagescontrol.js
+	//html/nds/js/jquery1.3.2/*
+	//html/nds/theme/ui-lightness/* the file ui.tab.css was replaced with old version from jquery 1.2.3
+	//html/nds/portal/top_meta.jsp, table.jsp, getmessages.jsp
+	
 	
 	var mc;//message control
 	var MC=Class.create();
 	MC.prototype={
-
+		
 	 initialize:function(){
-	    jQuery(document.body).append("<div id=\"dialog\" title=\"通知\" style=\"display:none;background-color:white;\"><div id='dialog-dt' ></div></div>");
-	    var date=new Date();
+	  	this.modal=null;
+	  	this.URL="/html/nds/portal/getMessage.jsp";
+	  	this.messages=[];
+	  	this.title=null;
+	  	this. timeoutId=null;
+	  	this.mcount=null;
+	  	jQuery(document.body).append("<div id=\"dialog\" title=\""+gMessageHolder.NOTICE+"\" style=\"display:none;background-color:white;\"><div id='dialog-dt' ></div></div>");
+	},
+	load:function(){
+		var date=new Date();
 		jQuery.ajax({
-		url: "http://192.168.1.102:100/jqdialouge/getMessage.jsp?t="+date.getTime(),
+		url: mc.URL+"?t="+date.getTime(),
 		success: function(response) {
 			//alert(new XMLSerializer().serializeToString(response));
+      var result=mc.analyseM(response) ;
+      var mstr=result[0];
+      var title=result[1];
+       mc.showMessages();
+			jQuery("#dialog-dt").html(mstr);
+			jQuery("#ui-dialog-title-dialog").html(title);
+			
+			if(!mc.modal){
+				mc.timeoutId=setTimeout("mc.fadeMessage();",2000);
+				jQuery("#dialog").parent().mouseenter(function(){if(mc.timeoutId!=null)clearTimeout(mc.timeoutId);});
+				}
+			
+		}, 
+		error:function(xhr) {
+        
+		}
+		});//end of ajax call
+		
+	 },  //end of load dialog
+	refresh:function(){
+		var date=new Date();
+		jQuery.ajax({
+		url: mc.URL+"?t="+date.getTime(),
+		success: function(response) {
+			//alert(new XMLSerializer().serializeToString(response));
+      var result=mc.analyseM(response) ;
+      var mstr=result[0];
+      var title=result[1];
+      var shortTitle=result[2];
+			jQuery("#dialog-dt").html(mstr);
+			jQuery("#dialog-title").html(shortTitle);
+			jQuery("#dialog-title").focus();
+	  }, 
+		error:function(xhr) {
+        
+		}
+		});//end of ajax call
+		
+	},  //end of refresh
+	analyseM:function(response){
 			var root = response.documentElement;
-
+			
 			// loop through all tree children
 			var cs = mc.getChildren(root,"message");
-			var str="<div style='height:150px;overflow-y:scroll;overflow-x:visible;'><table cellspacing='0' cellpadding='0'><thead><tr><th></th><th>优先级</th><th>上载时间</th><th>编号</th><th>标题</th></tr></thead><tbody>";
+			var str="<div style='height:150px;overflow-y:scroll;overflow-x:visible;'><table cellspacing='0' cellpadding='0'><thead><tr><th></th><th>"+gMessageHolder.PRIORITY+"</th><th>"+gMessageHolder.RELEASETIME+"</th><th>"+gMessageHolder.SERIALNO+"</th><th>"+gMessageHolder.TITLE+"</th></tr></thead><tbody>";
 			var count=0;//count no. of most emergent message
 			var priority;
 			var index=0;
 			for (var i = 0; i < cs.length; i++) {	
 				index++;
-				priority=mc.getChildValue(cs[i],"PRIORITYRULE");
-				str+="<tr "+(priority=='1'?"style='background-color:#D2DFE9;'":"")+"><td style='border-bottom:1px dotted grey;'>"+index+"</td>";		
-				if (priority=='1'){count++;str +="<td style='border-bottom:1px dotted grey;'>!!!</td>";}
-				else if (priority=='2'){str+="<td style='border-bottom:1px dotted grey;'>!!</td>";}
-				else str+="<td style='border-bottom:1px dotted grey;'></td>";
+				priority=mc.getChildValue(cs[i],"PRIORITYRULE"); 
+				str+="<tr id='dialog-tbr"+i+"' "+(priority=='1'?"style='background-color:#FFFFFF;'":"")+" onclick='mc.goto("+mc.getChildValue(cs[i],"ID")+");' ";
+				str+=" onmouseover='mc.highlight(this);'";
+				str+="><td style='border-bottom:1px dotted grey;'>"+index+"</td>";	
+				if (priority=='1'){count++;str +="<td style='border-bottom:1px dotted grey;'><span style='color:red'>!!!</span></td>";}
+				else if (priority=='2'){str+="<td style='border-bottom:1px dotted grey;'><span style='color:red'>!!</font></td>";}
+				else str+="<td style='border-bottom:1px dotted grey;'>&nbsp;</td>";
 				str+="<td style='border-bottom:1px dotted grey;'>"+mc.getChildValue(cs[i],"CREATIONDATE").substr(0,10)+"</td>";
 				str+="<td style='border-bottom:1px dotted grey;padding-left:5px;'>"+mc.getChildValue(cs[i],"NO")+"</td>";
 				str+="<td style='border-bottom:1px dotted grey;padding-left:5px;' title='"+mc.getChildValue(cs[i],"DESCRIPTION")+"'>"+mc.getChildValue(cs[i],"TITLE")+"</td>";
 				str+="</tr>";
 			}
-		      
-			str+="</tbody></table></div>";
-			jQuery("#dialog-dt").html(str);
-			var title=jQuery("#dialog").attr("title");
-			if (count>0)title+="  &nbsp; &nbsp;<span style='color:red;'>你有"+count+"条紧急消息必需马上处理!!!</span>";
-			else title+="  &nbsp; &nbsp;<span >共有"+cs.length+"条需要确认.</span>";
-			title+="&nbsp;<input type='button' value='立即确认' style='vertical-align:middle;padding-top:4px;cusor:pointer;position:relative;left:"+((count>0)?"50":"120")+"px;' onclick='mc.goto();'>";
-			jQuery("#dialog").attr("title",title);
-			var modal=(count>0)?true:false;
-			mc.showMessages(modal);
-			jQuery("dialog").css("overflow","scroll");
-			jQuery("dialog").css("height","150px");
-			if(!modal){setTimeout("mc.fadeMessage();",2000);}
+  		str+="</tbody></table></div>";
+			if(mc.title==null)mc.title=jQuery("#dialog").attr("title");
+			var title=mc.title;
+			var shortTitle="";
+			if (count>0){
+				title+="  &nbsp; &nbsp;<span id='dialog-title' style='color:red;'>"+gMessageHolder.URGENT_MESSAGE.replace('$$',count)+"!!!</span>";
+				shortTitle=gMessageHolder.URGENT_MESSAGE.replace('$$',count)+"!!!";}
+			else{
+				 title+="  &nbsp; &nbsp;<span id='dialog-title'>"+gMessageHolder.CONFIRM_MESSAGE.replace('$$',cs.length)+".</span>";			
+			   shortTitle=gMessageHolder.CONFIRM_MESSAGE.replace('$$',cs.length)+".";
+			}
+			title+="&nbsp;<input type='button' value='"+gMessageHolder.NOTICE_HOMEPAGE+"' style='vertical-align:middle;padding-top:4px;cusor:pointer;position:relative;left:"+((count>0)?"50":"120")+"px;' onclick='mc.goto();'>";
+			mc.modal=(count>0)?true:false;
+			mc.mcount=cs.length;
+			return [str,title,shortTitle,cs.length,count];
 		
-		}, 
-		error:function(xhr) {
-        //alert('系統不能獲取通知');
-		}
-		});//end of ajax call
-
-	 },//end of initialize
-	 showMessages:function(modal) {
+	},	
+	highlight:function(which){//alert(which);
+		for(var i=0;i<mc.mcount;i++){
+			jQuery("#dialog-tbr"+i).css("background-color" ,"#FFFFFF");
+			}
+		 jQuery(which).css("background-color","#D2DFE9"); 
+		  //document.getElementById("#dialog-tb").rows[1].css("background-color","#D2DFE9");
+  },
+	showMessages:function(modal) {
 		var setting={
 			//bgiframe: true,
 			//modal: true,
@@ -64,22 +122,32 @@
 			position:['right','bottom']
 			
 		};
-		if(modal)setting.modal=true;
+		if(mc.modal)setting.modal=true;
 		jQuery("#dialog").dialog(setting);
 	 },
 	 fadeMessage:function(){
 		jQuery("#dialog").parent().mouseenter(function(){
-				jQuery("#dialog").parent().stop();
+			  if(mc.timeoutId!=null)clearTimeout(mc.timeoutId);
+			  jQuery("#dialog").parent().stop();
 				jQuery("#dialog").parent().css('opacity',1);
 				});
 		jQuery("#dialog").parent().fadeOut(3000,function(){jQuery("#dialog").dialog('close');});
 	 },
-	 goto:function(){
-		
-		pc.navigate('u_note');
-		jQuery("#dialog").dialog('close');
-		
-		
+	 goto:function(id){
+	  	//alert(id);
+	  	if(id==null){
+	  		pc.navigate('u_note');
+	  		jQuery("#dialog").dialog('close');
+	    } else{
+	     	 jQuery("#dialog").parent().css("z-index","90");
+	     	 if(mc.modal)jQuery("#dialog").parent().prev(".ui-widget-overlay ").css("z-index","89");
+	     	 if(!mc.modal){jQuery("#dialog").parent().stop();
+	     	jQuery("#dialog").parent().css('opacity',1);}
+	     	var Option={onClose:function(){return mc.refresh();}} ;
+	    	 showObject("/html/nds/object/object.jsp?table=10083&&fixedcolumns=&id="+id,956,570,Option);
+	    	  
+	    	  }
+
 	},
 	xml2Str:function(xmlNode){
 	try {
@@ -115,5 +183,5 @@
 	}
 
 };
-	MC.main = function(){ mc=new MC(); },
-    jQuery(document).ready(MC.main);
+MC.main = function(){ mc=new MC();mc.load(); },
+jQuery(document).ready(MC.main);

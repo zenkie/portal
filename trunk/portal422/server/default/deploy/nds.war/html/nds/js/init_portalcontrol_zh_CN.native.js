@@ -56,5 +56,13 @@ var gMessageHolder={
 	ALREADY_CHOOSED:"已被选择",
 	ALREADY_EXCLUDE:"已被排除",
 	SET_ALREADY_CHOOSED:"该集合已被选择",
-	SET_ALREADY_EXCLUDE:"该集合已被排除"
+	SET_ALREADY_EXCLUDE:"该集合已被排除",
+	NOTICE:"通知",
+	PRIORITY:"优先级",
+	RELEASETIME:"发送时间",
+	SERIALNO:"编号",
+	TITLE:"标题",
+	URGENT_MESSAGE:"你有$$条紧急消息必需马上处理",
+	CONFIRM_MESSAGE:"共有$$条需要确认"
+	
 };
