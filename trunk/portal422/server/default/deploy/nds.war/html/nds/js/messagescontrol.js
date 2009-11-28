@@ -76,7 +76,7 @@ MC.prototype={
 			for (var i = 0; i < cs.length; i++) {	
 				index++;
 				priority=mc.getChildValue(cs[i],"PRIORITYRULE"); 
-				str+="<tr id='dialog-tbr"+i+"' "+(priority=='1'?"style='background-color:#FFFFFF;'":"")+" onclick='mc.goto("+mc.getChildValue(cs[i],"ID")+");' ";
+				str+="<tr id='dialog-tbr"+i+"' "+(priority=='1'?"style='background-color:#FFFFFF;'":"")+" onclick='mc.go("+mc.getChildValue(cs[i],"ID")+");' ";
 				str+=" onmouseover='mc.highlight(this);'";
 				str+="><td style='border-bottom:1px dotted grey;'>"+index+"</td>";	
 				if (priority=='1'){count++;str +="<td style='border-bottom:1px dotted grey;'><span style='color:red'>!!!</span></td>";}
@@ -98,7 +98,7 @@ MC.prototype={
 				 title+="  &nbsp; &nbsp;<span id='dialog-title'>"+gMessageHolder.CONFIRM_MESSAGE.replace('$$',cs.length)+".</span>";			
 			   shortTitle=gMessageHolder.CONFIRM_MESSAGE.replace('$$',cs.length)+".";
 			}
-			title+="&nbsp;<input type='button' value='"+gMessageHolder.NOTICE_HOMEPAGE+"' style='vertical-align:middle;padding-top:4px;cusor:pointer;position:relative;left:"+((count>0)?"50":"120")+"px;' onclick='mc.goto();'>";
+			title+="&nbsp;<input type='button' value='"+gMessageHolder.NOTICE_HOMEPAGE+"' style='vertical-align:middle;padding-top:4px;cusor:pointer;position:relative;left:"+((count>0)?"50":"120")+"px;' onclick='mc.go();'>";
 			mc.modal=(count>0)?true:false;
 			mc.mcount=cs.length;
 			return [str,title,shortTitle,cs.length,count];
@@ -132,7 +132,7 @@ MC.prototype={
 				});
 		jQuery("#dialog").parent().fadeOut(3000,function(){jQuery("#dialog").dialog('close');});
 	 },
-	 goto1:function(targetId){
+	 go:function(targetId){
       if(targetId==null){
 	  		pc.navigate('u_note');
 	  		jQuery("#dialog").dialog('close');
