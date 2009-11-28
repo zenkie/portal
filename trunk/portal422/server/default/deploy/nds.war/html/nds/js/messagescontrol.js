@@ -133,7 +133,7 @@
 				});
 		jQuery("#dialog").parent().fadeOut(3000,function(){jQuery("#dialog").dialog('close');});
 	 },
-	 goto:function(id){
+  goto:function(id){
 	  	//alert(id);
       if(id==null){
 	  		pc.navigate('u_note');
