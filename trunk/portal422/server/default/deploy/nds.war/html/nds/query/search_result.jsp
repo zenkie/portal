@@ -34,7 +34,9 @@
  QueryRequest qRequest =result.getQueryRequest();
   TableManager manager= TableManager.getInstance();
 
-  boolean isMultiSelectEnabled= !"s".equals( jo.opt("returnType"));
+  String rt=jo.optString("returnType");
+  int returnType= ("n".equals(rt)?SELECT_NONE: ("s".equals(rt)?SELECT_SINGLE:SELECT_MULTIPLE));
+  //boolean isMultiSelectEnabled= !"s".equals( jo.opt("returnType"));
   int range = qRequest.getRange();
 
 
@@ -139,8 +141,18 @@ for(int i=0;i< meta.getColumnCount();i++){
             itemId = columnData;
             resPkId = columnData;
             tdAttributes="";
-           	if(isMultiSelectEnabled)columnData ="<input class='cbx' id='"+akData+"' type='checkbox' name='itemid' value='" + (itemId)+"' onclick='oq.unselectall();oq.dynamic_add(\""+akData+"\");'>";
-           	else columnData ="<input class='cbx' id='chk_obj_"+  itemId +"'  title='"+rowIdx+"' alt='"+akData+"' type='radio' name='itemid' value='" + (itemId)+"' onclick='oq.returnRow(this)'>";
+           	switch(returnType){
+           		case SELECT_MULTIPLE:
+           			columnData ="<input class='cbx' id='"+akData+"' type='checkbox' name='itemid' value='" + (itemId)+"' onclick='oq.unselectall();oq.dynamic_add(\""+akData+"\");'>";
+           			break;
+           		case SELECT_SINGLE:
+           			columnData ="<input class='cbx' id='chk_obj_"+  itemId +"'  title='"+rowIdx+"' alt='"+akData+"' type='radio' name='itemid' value='" + (itemId)+"' onclick='oq.returnRow(this)'>";
+           			break;
+           		case SELECT_NONE:
+           			columnData="";
+           	}
+           	//if(isMultiSelectEnabled)columnData ="<input class='cbx' id='"+akData+"' type='checkbox' name='itemid' value='" + (itemId)+"' onclick='oq.unselectall();oq.dynamic_add(\""+akData+"\");'>";
+           	//else columnData ="<input class='cbx' id='chk_obj_"+  itemId +"'  title='"+rowIdx+"' alt='"+akData+"' type='radio' name='itemid' value='" + (itemId)+"' onclick='oq.returnRow(this)'>";
            	columnData +="<a href='javascript:oq.mo(\""+itemId+"\")' >"+ serialno+"</a>";
         }
     }

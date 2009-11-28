@@ -7,7 +7,7 @@
  * Do quick search in popup window. When table.isDropdown==true, will so data directly
  * param 
  *      table* - table id to be queried
- *      return_type*  - "m" for mutiple, and "s" for single, "f" for Filter
+ *      return_type*  - "m" for mutiple, and "s" for single, "n" for none, "f" for Filter
  			"f" - will create nds.schema.Filter object for that accepter.
  * 		accepter_id*  - element id of document to recieve the result
  *      qdata		- the default condition for AK column in search form, can be omitted. 
@@ -17,6 +17,7 @@
  		column      - the column id that currently working on, if column has specifile filters defined, that filter will set in search codition
  		wfc_<columnid> - when column isFilteredByWildcard, values of those reference columns can be fetched here
   		mustbeactive - default to "Y", if "N", will include those records that has "isactive" set to "N"
+		immediate  -  "default to "N", if "Y", will do search immediately
 */
 String returnType= request.getParameter("return_type");
 String accepter_id= request.getParameter("accepter_id");
@@ -25,6 +26,7 @@ String security= request.getParameter("security");
 int queryindex =Tools.getInt(request.getParameter("queryindex"),-1)+1;
 if(Validator.isNull(qdata))qdata="";
 boolean mustBeActive=Tools.getYesNo(request.getParameter("mustbeactive"),true);
+boolean immediate=Tools.getYesNo(request.getParameter("immediate"),false);
 Column searchOnColumn= TableManager.getInstance().getColumn(Tools.getInt(request.getParameter("column"),-1));
 
 Table table= TableManager.getInstance().getTable(Tools.getInt(request.getParameter("table"),-1));
@@ -97,15 +99,16 @@ if("s".equals(returnType)){
 }
 
 int tab_count= 1;
-boolean firstDateColumnFound=false;
+boolean firstDateColumnFound=immediate;
 ArrayList qColumns=table.getIndexedColumns();
 TableQueryModel model= new TableQueryModel(tableId,qColumns,false,false,locale);
 int tabIdx=0;
 int columnsPerRow=3;// 2 field per row
 int widthPerColumn= (int)(100/(columnsPerRow*2));
+boolean allowMultipleSelection= (!table.isDropdown()&&!returnType.equals("s")&&!returnType.equals("n")&&security==null);
 %>
 <%
-if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
+if(allowMultipleSelection){
 %>
 <table>
 	<tr>
@@ -132,7 +135,8 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 			</div>
 		</td>
 		<td width="99%" valign="top">
-	<%}%>		
+<%}
+%>		
 <div id="query_content" align="right" <%=table.isDropdown()?"style='display:none'":""%>>
 <%
 	if(searchOnColumn!=null && searchOnColumn.isFilteredByWildcard()){
@@ -156,7 +160,7 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 	</div>
 </form>
 <%
-if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
+if(allowMultipleSelection){
 %>
 <div id="multi-buttons">
 <div id="qbtns-multi">
@@ -185,7 +189,7 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 <%}%>
 </div>
 <%
-if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
+if(allowMultipleSelection){
 %>
 <div id="mulit-info_<%=queryindex%>" style="margin-top:30px">
 </div>
@@ -206,9 +210,13 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 				}else{
 				%>
 				<div id="qbtns2">
-				<%}%>
+				<%}
+				if(!"n".equals(returnType)){
+					// n for no return
+				%>
 				<input id="btn-value" type="button" class="cbutton" onclick="javascript:oq.returnValue()" value="<%=PortletUtils.getMessage(pageContext, "return-value",null)%>">&nbsp;
 				<input id="btn-sql" type="button" class="cbutton" onclick="javascript:oq.returnSQL()" value="<%=PortletUtils.getMessage(pageContext, "return-sql",null)%>">
+				<%}%>
 			</div></td></tr>
 			<tr><td>
 		 		<font color='red'>*</font><%= PortletUtils.getMessage(pageContext, "current-filter",null)%>:
@@ -220,7 +228,7 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 </div>
 <div id="q_eval" style="display:none;"></div>
 <%
-		if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
+if(allowMultipleSelection){
 %>
 </td>
 </tr>
@@ -231,12 +239,12 @@ if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
 	jQuery('#query-search-tab_<%=queryindex%> ul').tabs();
 	oq.setQueryObject(<%=queryObj.toString()%>, "<%=singleObjectPageURL%>", "<%=returnType%>");
 	<%
-		if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
+		if(allowMultipleSelection){
 	%>
 		document.getElementById("mulit-info_<%=queryindex%>").innerHTML ="<%= PortletUtils.getMessage(pageContext, "mulit-info",null)%>";
 	<%}%>
 <%
-	if(table.isDropdown() || (table.getRowCount()<100 && table.getRowCount()>0) ){
+	if(immediate || table.isDropdown() || (table.getRowCount()<100 && table.getRowCount()>0) ){
 %>	
 	oq.search(); 
 <%}

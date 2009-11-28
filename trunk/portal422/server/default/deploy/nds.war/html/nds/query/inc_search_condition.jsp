@@ -2,7 +2,7 @@
 <%
 	for(int i=0;i< qColumns.size();i++){
       Column column=(Column)qColumns.get(i);
-
+	  boolean isAK= (column.isAlternateKey()); //ak has qdata as default value
       String desc=  model.getDescriptionForColumn(column);
       String fkDesc= model.getDescriptionForFKColumn(column);
       if (! "".equals(fkDesc)) fkDesc= "("+ fkDesc+")";
@@ -50,6 +50,8 @@
         else{
             String column_acc_Id="tab"+tabIdx+"_column_"+column.getId();
             String column_acc_name= inputName;
+            String defaultValue="";
+            if(isAK) defaultValue=qdata;
             java.util.Hashtable h = new java.util.Hashtable();
                h.put("size", "15");
             if((column.getReferenceTable()!=null && column.getReferenceTable().getAlternateKey().isUpperCase())||
@@ -58,6 +60,7 @@
             }else
             	h.put("class","qline3");
             	h.put("onkeypress", "oq.onSearchReturn(event)");
+            	
                inputName += "/value";
 			if(column.getReferenceTable() !=null){                                   
                 h.put("id",column_acc_Id);
@@ -65,7 +68,7 @@
                	fkQueryModel.setQueryindex(queryindex);
                	
         %>
-          		<input:text name="<%=inputName%>" attributes="<%= h %>" /><%= type%>
+          		<input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=defaultValue%>"/><%= type%>
 				<input type='hidden' name='<%=column_acc_name+"/sql"%>' id='<%=column_acc_Id + "_sql"%>' />
 				<input type='hidden' name='<%=column_acc_name+"/filter"%>' id='<%=column_acc_Id + "_filter"%>' />
 				<span id='<%=column_acc_Id+"_link"%>' title="popup" onaction="<%=fkQueryModel.getButtonClickEventScript()%>">
