@@ -674,6 +674,7 @@ ObjectQuery.prototype = {
 			}
 			$(this._accepter_id[this._queryindex]).value=ret.filterxml;
 			$(this._accepter_id[this._queryindex]+"_fd").readOnly=true;
+			$(this._accepter_id[this._queryindex]+"_fd").title=$(this._accepter_id[this._queryindex]+"_fd").value;
 
 		}else if(this._returnType[this._queryindex]=="a"){
 			$(this._accepter_id[this._queryindex]).value=ret.desc;
@@ -683,15 +684,19 @@ ObjectQuery.prototype = {
 			$(this._accepter_id[this._queryindex]+ "_expr").value=ret.filterxml;
 			$(this._accepter_id[this._queryindex]+ "_sql").value=ret.sql;
 			$(this._accepter_id[this._queryindex]).readOnly=true;
+			$(this._accepter_id[this._queryindex]).title=ret.desc;
 		}else{
 			$(this._accepter_id[this._queryindex]).value=ret.desc;
 			$(this._accepter_id[this._queryindex]+ "_filter").value=ret.filterxml;
 			$(this._accepter_id[this._queryindex]+ "_sql").value=ret.sql;
 			$(this._accepter_id[this._queryindex]).readOnly=true;
+			$(this._accepter_id[this._queryindex]).title=ret.desc;
 		}
 		$(this._accepter_id[this._queryindex]+ "_img").src="/html/nds/images/clear.gif";
 		$(this._accepter_id[this._queryindex]+ "_link").title="clear";
 		$(this._accepter_id[this._queryindex]+ "_img").alt=gMessageHolder.CLEAR_CONDITION;
+		
+		
 		this.close();
 	},
 	reverse_condition:function(){
