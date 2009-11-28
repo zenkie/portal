@@ -44,7 +44,7 @@
 		}
 		});//end of ajax call
 		
-	 },  //end of load dialog
+	 },  //end of load dialog
 	refresh:function(){
 		var date=new Date();
 		jQuery.ajax({
@@ -109,9 +109,9 @@
 		for(var i=0;i<mc.mcount;i++){
 			jQuery("#dialog-tbr"+i).css("background-color" ,"#FFFFFF");
 			}
-		 jQuery(which).css("background-color","#D2DFE9"); 
+		 jQuery(which).css("background-color","#D2DFE9"); 
 		  //document.getElementById("#dialog-tb").rows[1].css("background-color","#D2DFE9");
-  },
+    },
 	showMessages:function(modal) {
 		var setting={
 			//bgiframe: true,
@@ -135,10 +135,10 @@
 	 },
 	 goto:function(id){
 	  	//alert(id);
-	  	if(id==null){
+      if(id==null){
 	  		pc.navigate('u_note');
 	  		jQuery("#dialog").dialog('close');
-	    } else{
+	    }else{
 	     	 jQuery("#dialog").parent().css("z-index","90");
 	     	 if(mc.modal)jQuery("#dialog").parent().prev(".ui-widget-overlay ").css("z-index","89");
 	     	 if(!mc.modal){jQuery("#dialog").parent().stop();
