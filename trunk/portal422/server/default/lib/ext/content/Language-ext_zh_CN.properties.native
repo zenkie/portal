@@ -899,5 +899,5 @@ show_qty_valid=可用量
 show_qty=当前量
 click-here-to-update-import=我要批量更新部分列的内容
 file-size-max=最大
-select-columns=选择至少2列导入字段，注意第一列内容必须选择并上传，系统以此定位要修改的记录
+select-columns=选择至少2列导入字段，注意第一列内容必须选择并上传，系统以此定位要修改的记录。选择的列按顺序排放在上传文件里，未选择的列不允许出现在上传文件中。
 import-update=批量更新
