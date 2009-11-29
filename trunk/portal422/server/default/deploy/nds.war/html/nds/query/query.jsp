@@ -173,7 +173,7 @@ WebUtils.checkTableQueryPermission(table.getName(), request);
 							<ul><li><a href="#tabct<%=tabIdx%>"><span>
 						<%= PortletUtils.getMessage(pageContext, "page",null)%><%=tabIdx+1%>&nbsp;&nbsp;&nbsp;
                     	</span></a></li></ul>
-                  	<div id="tabct<%=tabIdx%>">
+                  	<div id="tabct<%=tabIdx%>"  class="ui-tabs-panel">
                       <table align="center" border="0" cellpadding="1" cellspacing="1" width="90%" >
 						   	<% if( tabIdx !=0){
 						   		StringHashtable osql_comb = new StringHashtable();

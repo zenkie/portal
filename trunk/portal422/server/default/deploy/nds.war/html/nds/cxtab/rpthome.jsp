@@ -12,7 +12,7 @@
 <div id="page-table-query">
 	<div id="page-table-query-tab">
 		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span></a></li></ul>
-		<div id="tab1">
+		<div id="tab1" class="ui-tabs-panel">
 			<div id="rpt-search">
 			<div id="rpt-search-note"><%= PortletUtils.getMessage(pageContext, "pls-select-rpt-template",null)%></div>
 			</div>

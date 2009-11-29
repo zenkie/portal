@@ -74,7 +74,7 @@ boolean isModify=canModify;
 <div id="page-table-query" style="width:99%">
 	<div id="page-table-query-tab" style="width:100%">
 		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "query-setting",null)%>&nbsp;-&nbsp;<%=table.getDescription(locale)%></span></a></li></ul>
-		<div id="tab1">
+		<div id="tab1"  class="ui-tabs-panel">
 			<div id="query-content">
 			<%@ include file="table_query.jsp" %>
 			</div>
@@ -101,7 +101,6 @@ for(int wasi=0;wasi<waListButtons.size();wasi++){
 jQuery('#page-table-query-tab ul').tabs();
 jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
 jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
-jQuery('#tab1').attr('class','ui-tabs-panel');
 <%
 // these are list menuitems of webaction
 StringBuffer waListMenuItemStr=new StringBuffer();
@@ -109,7 +108,7 @@ for(int wasi=0;wasi<waListMenuItems.size();wasi++){
 	waListMenuItemStr.append(waListMenuItems.get(wasi).toHTML(locale,null));
 }
 if(waListMenuItems.size()>0){
-System.out.println(StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\""));
+//System.out.println(StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\""));
 %>
 
 pc.addListMenuItems("<%=StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\"")%>");
