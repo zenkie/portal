@@ -24,7 +24,7 @@ MC.prototype={
         var date=new Date();
         jQuery.ajax({
         url: mc.URL+"?t="+date.getTime(),
-        success: function(response) {alert("success");
+        success: function(response) {
         //alert(new XMLSerializer().serializeToString(response));
       var result=mc.analyseM(response) ;
       var mstr=result[0];
@@ -38,7 +38,7 @@ MC.prototype={
          }
 			
 		}, 
-		error:function(xhr) {alert("error");}
+		error:function(xhr) {}
 		});//end of ajax call
 		
 	 },  //end of load dialog
