@@ -254,6 +254,9 @@ if((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE ){
  pc.initCxtabQuery(<%=q.toString()%>);
  pc.refreshCxtabHistoryFiles(<%=cxtabId%>);
  jQuery('#page-table-query-tab ul').tabs();
+ jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
+ jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
+
 </script>
  </div>
 <div id="history_files"></div>

@@ -335,6 +335,9 @@ if( window.self==window.top){
 	var i;
 	for(i=0;i<<%= tab_count%>;i++){
 		jQuery('#tabIdx'+i+' ul').tabs();
+		jQuery('#tabIdx'+i+' ul').attr('class','ui-tabs-nav');
+		jQuery('#tabIdx'+i+' li').attr('class','ui-tabs-selected');
+		
 	}
 </script>
 </div>

@@ -22,6 +22,9 @@
 <script type="text/javascript">
 //jQuery('#rpt-search-tab ul').tabs();
 jQuery('#page-table-query-tab ul').tabs();
+jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
+jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
+
 webFXTreeConfig.autoExpandAll=false;
 pc.createTree("<%= PortletUtils.getMessage(pageContext, "report-center",null)%>", "/html/nds/common/tree2.xml.jsp?tbstruct=<%=cxtabCategoryTableId%>&tbdata=<%=cxtabTableId%>&fnc=<%=func%>");
 <%
