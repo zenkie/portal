@@ -63,6 +63,6 @@ var gMessageHolder={
 	SERIALNO:"编号",
 	TITLE:"标题",
 	URGENT_MESSAGE:"你有$$条紧急消息必需马上处理",
-	CONFIRM_MESSAGE:"共有$$条需要确认"
-	
+	CONFIRM_MESSAGE:"共有$$条需要确认",
+	ALL_NOTICES:"全部通告"
 };

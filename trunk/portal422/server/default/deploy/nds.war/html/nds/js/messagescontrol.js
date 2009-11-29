@@ -24,7 +24,7 @@ MC.prototype={
         var date=new Date();
         jQuery.ajax({
         url: mc.URL+"?t="+date.getTime(),
-        success: function(response) {
+        success: function(response) {alert("success");
         //alert(new XMLSerializer().serializeToString(response));
       var result=mc.analyseM(response) ;
       var mstr=result[0];
@@ -38,9 +38,7 @@ MC.prototype={
          }
 			
 		}, 
-		error:function(xhr) {
-        
-		}
+		error:function(xhr) {alert("error");}
 		});//end of ajax call
 		
 	 },  //end of load dialog
@@ -58,9 +56,7 @@ MC.prototype={
 			jQuery("#dialog-title").html(shortTitle);
 			jQuery("#dialog-title").focus();
 	  }, 
-		error:function(xhr) {
-        
-		}
+		error:function(xhr){}
 		});//end of ajax call
 		
 	},  //end of refresh
@@ -69,7 +65,7 @@ MC.prototype={
 			
 			// loop through all tree children
 			var cs = mc.getChildren(root,"message");
-			var str="<div style='height:150px;overflow-y:scroll;overflow-x:visible;'><table cellspacing='0' cellpadding='0'><thead><tr><th></th><th>"+gMessageHolder.PRIORITY+"</th><th>"+gMessageHolder.RELEASETIME+"</th><th>"+gMessageHolder.SERIALNO+"</th><th>"+gMessageHolder.TITLE+"</th></tr></thead><tbody>";
+			var str="<div style='height:150px;overflow-y:scroll;overflow-x:visible;'><table cellspacing='0' cellpadding='0' ><thead><tr><th></th><th>"+gMessageHolder.PRIORITY+"</th><th>"+gMessageHolder.RELEASETIME+"</th><th>"+gMessageHolder.SERIALNO+"</th><th>"+gMessageHolder.TITLE+"</th></tr></thead><tbody>";
 			var count=0;//count no. of most emergent message
 			var priority;
 			var index=0;
@@ -98,8 +94,8 @@ MC.prototype={
 				 title+="  &nbsp; &nbsp;<span id='dialog-title'>"+gMessageHolder.CONFIRM_MESSAGE.replace('$$',cs.length)+".</span>";			
 			   shortTitle=gMessageHolder.CONFIRM_MESSAGE.replace('$$',cs.length)+".";
 			}
-			title+="&nbsp;<input type='button' value='"+gMessageHolder.NOTICE_HOMEPAGE+"' style='vertical-align:middle;padding-top:4px;cusor:pointer;position:relative;left:"+((count>0)?"50":"120")+"px;' onclick='mc.go();'>";
-			mc.modal=(count>0)?true:false;
+			title+="&nbsp;<input type='button' value='"+gMessageHolder.ALL_NOTICES+"' style='vertical-align:middle;padding-top:4px;cusor:pointer;position:relative;left:"+((count>0)?"50":"120")+"px;' onclick='mc.go();'>";
+			mc.modal=(count>0);
 			mc.mcount=cs.length;
 			return [str,title,shortTitle,cs.length,count];
 		
