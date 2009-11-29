@@ -217,6 +217,10 @@ ObjectQuery.prototype = {
 	returnRow:function(ele){
 		// get selected line
 		var acpt=$(this._accepter_id[this._queryindex]);
+		if(acpt==null){
+			this.close();
+			return;
+		}
       	acpt.value=ele.alt;
       	fireEvent(acpt,"change");
       	var fk_acpt=$("fk_"+ this._accepter_id[this._queryindex]);
@@ -237,6 +241,10 @@ ObjectQuery.prototype = {
 		var selectedAKs=Array();
 		var j;
 		var cks=$("q_fm_list_"+this._queryindex).getInputs('checkbox', 'itemid');
+		if(cks==null || cks.length==0){
+			this.close();
+			return;	
+		}
 		for(var i=0;i<cks.length;i++){
 			if( cks[i].checked){
 			  	selectedIds.push(cks[i].value);
@@ -365,16 +373,14 @@ ObjectQuery.prototype = {
 	_toggleButtons:function(disable){
 		if(disable){
 			$("btn-search").disable();
-			//$("btn-rsql").disable();
-			$("btn-value").disable();
-			$("btn-search").disable();
-			$("btn-sql").disable();
+			if($("btn-value")!=null)$("btn-value").disable();
+			if($("btn-search")!=null)$("btn-search").disable();
+			if($("btn-sql")!=null)$("btn-sql").disable();
 		}else{
 			$("btn-search").enable();
-			//$("btn-rsql").enable();
-			$("btn-value").enable();
-			$("btn-search").enable();
-			$("btn-sql").enable();
+			if($("btn-value")!=null)$("btn-value").enable();
+			if($("btn-search")!=null)$("btn-search").enable();
+			if($("btn-sql")!=null)$("btn-sql").enable();
 		}
 	},
 	/**
