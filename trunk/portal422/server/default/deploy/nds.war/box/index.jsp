@@ -55,6 +55,8 @@
     <script language="javascript" src="/html/nds/js/application.js"></script>
     <script language="javascript" src="/html/nds/js/alerts.js"></script>
     <script language="javascript" src="/box/oc.js"></script>
+    <script type="text/javascript" src="flash/FABridge.js"></script>
+    <script type="text/javascript" src="flash/playErrorSound.js"></script>
     <script language="javascript" src="/html/nds/js/dw_scroller.js"></script>
     <script type="text/javascript" src="/html/nds/js/init_object_query_zh_CN.js"></script>
     <script language="javascript" src="/html/nds/js/init_objcontrol_zh_CN.js"></script>
@@ -68,12 +70,30 @@
     jQuery(document).ready(function(){box.load()});
     jQuery(document).ready(function(){box.loadBox();});
 </script>
-
+<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+id="playErrorSoundTest" width="1" height="1"
+codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+	<param name="movie" value="flash/playErrorSound.swf"/>
+	<param name="flashvars" value="bridgeName=b_playErrorSound"/>
+	<param name="quality" value="high" />
+	<param name="allowScriptAccess" value="sameDomain"/>
+	<embed src="flash/playErrorSound.swf" quality="high"
+		width="1" height="1" name="playErrorSoundTest"
+		align="middle"
+		play="true"
+		loop="false"
+		quality="high"
+		allowScriptAccess="sameDomain"
+		type="application/x-shockwave-flash"
+		pluginspage="http://www.adobe.com/go/getflashplayer"
+		flashvars="bridgeName=b_playErrorSound">
+	</embed>
+</object>
 <input id="m_box_id" type="hidden" value="<%=m_box_id%>" >
 <div id="zh-container">
 <div id="zh-btn">
 <input name="" type="image" src="images/btn-bc.gif" width="58" height="20"  onclick="box.toSave();"/>
-<input name="" type="image" src="images/btn-sc.gif" width="58" height="20" onclick="box.del();"/>
+<input name="" type="image" src="images/btn-sc.gif" width="78" height="20" onclick="box.del();"/>
 <input name="" type="image" src="images/btn-td.gif" width="78" height="20" onclick="box.doSaveSettings();"/>
 <input name="" type="image" src="images/btn-dy.gif" width="78" height="20" onclick="box.getBoxNoId();"/>
 <input name="" type="image" src="images/btn-zx.gif" width="78" height="20" onclick="box.toSave('T');"/>
@@ -210,5 +230,6 @@
     <img src="/html/nds/images/submitted.gif"/>
 </div>
 <div id="alert-message" style="position:absolute;top:0pt;left:0pt;z-index:100;background-color:#000000;opacity:0.51;filter:alpha(opacity=41);height:100%;width:100%;display:none;" />
+
 </body>
 </html>
