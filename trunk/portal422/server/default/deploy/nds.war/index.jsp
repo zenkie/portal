@@ -1,4 +1,4 @@
-﻿<%@ page language="java" import="java.util.*,nds.velocity.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,nds.velocity.*" pageEncoding="utf-8"%>
 <%@ include file="/html/nds/common/init.jsp" %> 
 <%@ include file="/html/portal/init.jsp" %>
 <%
@@ -19,7 +19,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title>Burgeon Portal - 伯俊软件</title>
-<link href="/style_portal.css" rel="stylesheet" type="text/css" />
+<link href="/style-portal.css" rel="stylesheet" type="text/css" />
 <SCRIPT type=text/javascript>
 function onReturn(event){
   if (!event) event = window.event;
@@ -48,18 +48,39 @@ function submitForm(){
 </head>
 
 <body>
-<div id="container">
 <div id="head">
-<div id="head_left"><img src="/images/head_logo_left.gif" width="297" height="64" /></div>
-<div id="head_right"><img src="/images/head_logo_right.gif" width="232" height="64" /></div>
-<div id="head_pic"><img src="/images/head_pic.jpg" width="982" height="334" border="0" usemap="#Map" />
-<map name="Map" id="Map"><area shape="rect" coords="6,273,239,328" href="" /><area shape="rect" coords="255,272,485,330" href="" /><area shape="rect" coords="501,273,730,329" href="" /><area shape="rect" coords="744,272,976,327" href="" /></map></div>
+  <div id="nav-01"><div class="nav-right"></div>
+<div class="nav-left"></div>
+  </div>
+<ul class="hbox" id="ctas">
+<li><img src="images/btn-left.gif" width="192" height="40" />&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/btn-right.gif" width="192" height="40" />
+</li>
+</ul>
 </div>
-
+<div id="main">
 <div id="content">
-<div id="content_bg">
-<div class="content_left">
-<div class="content_left_login_bg">
+<div id="content-N">
+<div id="content-title">
+  <p>portal 标准版</p>
+  </div>
+<div id="content-text"><a href="#" class="P-text">适合中小型服装企业，零投入，低风险，快速上线，纯B/S架构省去安装步骤，Saas模式无需任何硬件投入。</a></div>
+</div>
+<div id="content-D">
+<div id="content-title">
+  <p>portal 订货会</p>
+</div>
+<div id="content-text"><a href="#" class="P-text">适合大型服装企业，帮助管理庞大的分销网络，生产直到终端零售业务流程全面掌控。</a></div>
+</div>
+<div id="content-P">
+<div id="content-title">
+<p>portal 企业版</p>
+</div>
+<div id="content-text"><a href="#" class="P-text">适合大型服装企业，帮助管理庞大的分销网络，生产直到终端零售业务流程全面掌控。大型服装企业ERP管理系统，企业数据整合利器，集OA/HR/CRM/DRP等众多功能模块于一身。</a></div>
+</div>
+</div>
+<div id="main-content">
+<div id="main-content-U">
+<div id="main-content-UBG">
 <form action="/c/portal/login" method="post" name="fm1">
      	   <input type="hidden" value="already-registered" name="cmd"/>
    <input type="hidden" value="already-registered" name="tabs1"/> 
@@ -91,13 +112,13 @@ function submitForm(){
 <div class="clear"></div>
 <li>
 <div class="left_text">验证码：</div>
-<div class="right_text"><input id="verifyCode" name="verifyCode" type="text" onKeyPress="onReturn(event)" class="Warning-601"  size="10" />
+<div class="right_text"><input id="verifyCode" name="verifyCode" type="text" onKeyPress="onReturn(event)" class="Warning-60"  size="8" />
 <img src="/servlets/vms" width="64" height="16" align="absmiddle" id="chkimg" onclick="javascript:document.getElementById('chkimg').src='/servlets/vms?'+Math.random()" />
 </div>
 </li>
 <div class="clear"></div>
 <li>
-<div class="right_text"><a href="#" onclick="javascript:submitForm()"><image  src="/images/content_dl.gif" width="81" height="25" border="0" /></a>
+<div class="right_text"><a href="#" onclick="javascript:submitForm()"><image src="/images/user-btn.gif" width="81" height="25" border="0" /></a>
 </div>
 </li>
 </c:otherwise>
@@ -106,94 +127,69 @@ function submitForm(){
 </div>
 </form>
 </div>
+<div id="main-content-U-contant"><img src="/images/contant.jpg" width="232" height="103" /></div>
 </div>
-
-<div class="content_middle">
-<h2>
-<a target="_blank" href="/news.jsp?newsstr=latest">更多</a>
-<img src="/images/content_ico_1.gif"/>
-最新动态</h2>
-<div id="content_middle_border">
-<div class="imgtxt01">
-<div class="it01img"><img src="images/content_pic01.jpg" width="138" height="101" /></div>
-<%   
+<div id="main-content-N">
+<div id="main-content-NBG">
+<div id="content-N-left">
+<div id="content-N-title">公司动态</div>
+<div id="content-N-text">
+<div class="width-left"><img src="images/news_pic02.jpg" width="112" height="82" /></div> 
+<%
      List newslist= QueryEngine.getInstance().doQueryList("select id,subject,content from u_news where doctype='hotspot' and ad_client_id=37 and rownum=1");
       if(newslist.size()>0){
         Object contentobj=((List)newslist.get(0)).get(2);
      String content="";
      content=((java.sql.Clob)contentobj).getSubString(1, (int) ((java.sql.Clob)contentobj).length()); 
 %>
-<div class="it01txt">
-<span class="it01bold"><%=((List)newslist.get(0)).get(1)%></span><br/>
-<span class="it01text"><a class="content_text" href="/news.jsp?id=<%=((List)newslist.get(0)).get(0)%>"><%=myweb.truString(content,45)%></a></span></div>
+<div class="width-right"><a href="#" class="width-text"><%=((List)newslist.get(0)).get(1)%></a></div>
 <%}%>
 </div>
-<div class="mdlist">
-<ul class="list_middle">
+<ul>
 <%
 	 List latest=myweb.getList("latest","latest");
 	 for(int k=0;k<latest.size();k++){
-%>
-<li><a href="<%=((List)latest.get(k)).get(0)%>" class="middle_list"><%=((List)latest.get(k)).get(1)%></a></li>
+%> 
+<li><a href="<%=((List)latest.get(k)).get(0)%>" class="middle_list"><%=((List)latest.get(k)).get(1)%></a></li> 
 <%}%>
-  </ul>
 </div>
-  </div>
+<div id="content-N-right">
+<div id="content-N-title">行业动态</div>
+<div id="content-N-text">
+<div class="width-left"><img src="/images/news_pic03.jpg" width="112" height="82" /></div>
+<div class="width-right01"><a href="#" class="width-text">讨论SaaS数据安全居安思危还是因噎废食？</a></div>
 </div>
-<div class="content_right">
-<h2>
-<a target="_blank" href="/news.jsp?newsstr=company">更多</a>
-<img src="/images/content_ico_1.gif"/>
-公司新闻
-</h2>
-<div id="content_right_border">
-<div class="imgtxt02">
-<div class="it02img"><img src="images/content_pic02.jpg" width="112" height="82" /></div>
-<div class="it02txt">
-<div class="mdlist">
-<ul class="ico_y">
- <%
+<ul>
+<%
 	 List companyportal=myweb.getList("company","company");
 	 for(int i=0;i<companyportal.size();i++){
 	%>
 <li><a href="<%=((List)companyportal.get(i)).get(0)%>" class="middle_list"><%=((List)companyportal.get(i)).get(1)%></a></li>
 <%}%>
-  </ul>
-</div></div>
+</ul>
 </div>
 </div>
-<br/>
-<h2>
-<a target="_blank" href="/news.jsp?newsstr=industry">更多</a>
-<img src="/images/content_ico_1.gif"/>
-行业新闻
-</h2>
-<div id="content_right_border">
-<div class="imgtxt02">
-<div class="it02img"><img src="images/content_pic02.jpg" width="112" height="82" /></div>
-<div class="it02txt">
-<div class="mdlist">
-<ul class="ico_y">
-	<%
-	 List industry=myweb.getList("industry","industry");
-	 for(int j=0;j<industry.size();j++){
-	%>
-<li><a href="<%=((List)industry.get(j)).get(0)%>" class="middle_list"><%=((List)industry.get(j)).get(1)%></a></li>
-<%}%>
-  </ul>
-</div></div>
 </div>
+<div id="main-content-A">
+<div id="content_A_right">
+<ul>
+<li><img src="/images/anli-logo.gif" width="205" height="223" /></li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div id="bottom">
-<div id="bottom_bg">
-<div id="bottom_text">&copy;2008 上海伯俊软件科技有限公司 版权所有 保留所有权&nbsp;&nbsp;|&nbsp;&nbsp;公司简介&nbsp;&nbsp;|&nbsp;&nbsp;联系我们</div>
+<div id="bottom-bg">
+<div id="bottom-left">
+了解更多产品请点击：<br />
+<a href="http://www.burgeon.com.cn" target="_parent" class="bottom-text">www.burgeon.com.cn</a></div>
+<div id="bottom-right">
+公司简介 | 联系我们 | 法律声明 | 服务体系 | 伯俊论坛<br />
+&copy;2008-2009 上海伯俊软件科技有限公司 版权所有
 </div>
 </div>
 </div>
 <%@ include file="/inc_progress.jsp" %>
 </body>
 </html>
-
