@@ -186,7 +186,7 @@
                                 <div class="desc-txt" align="right" style="color:blue;">物流备注*：</div>
                             </td>
                             <td class="ph-value" valign="top" align="left" colspan="2">
-                                <input type="text" class="notes" id="notes"/>
+                                <input type="text" name="canModify" class="notes" id="notes"/>
                             </td>
                         </tr>
                     </table>
@@ -210,7 +210,7 @@
                                 <div class="desc-txt" align="right" style="color:blue;">物流备注*：</div>
                             </td>
                             <td class="ph-value" valign="top" align="left" colspan="2">
-                                <input type="text" class="notes" id="orderNotes"/>
+                                <input type="text" name="canModify" class="notes" id="orderNotes"/>
                             </td>
                         </tr>
                     </table>
