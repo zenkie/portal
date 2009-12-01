@@ -526,10 +526,13 @@ BOX.prototype={
             }
             jQuery("#barcode").val("");
             if(!isMatch){
-                if(!app1){
-                    var app1=FABridge.b_playErrorSound.root();
+                if($("sound")){
+                    if(!app1){
+                        var app1=FABridge.b_playErrorSound.root();
+                        app1.setStr($("sound").value.strip()); 
+                    }
+                    app1.getErrorSound().play();
                 }
-		        app1.getErrorSound().play();
                 alert("没有匹配的商品，请检查条码是否正确！");
             }
             jQuery("#barcode").focus();
