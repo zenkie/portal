@@ -106,7 +106,7 @@ DIST.prototype={
                 return;
             }
         }
-        var m_allot_id=$("fund_balance").value||"null";
+        var m_allot_id=$("fund_balance").value||-1;
         var m_item=new Array();
         var inputItems=jQuery("#ph-from-right-table table input[title][value!='']");
         for(var i=0;i<inputItems.length;i++){
@@ -144,11 +144,11 @@ DIST.prototype={
     _onreShow:function(e){
         var data=e.getUserData();
         var ret=data.jsonResult.evalJSON();
-        $("column_26992").value=ret.C_ORIG;
+        $("column_26992").value=ret.C_ORIG||"";
         $("column_26993_fd").value=ret.DEST_FILTER||"(可用 = Y)";
-        $("column_26994_fd").value=ret.Product_Filter;
-        $("column_26995").value=ret.Billdatebeg;
-        $("column_269966").value=ret.Billdateend;
+        $("column_26994_fd").value=ret.Product_Filter||"";
+        $("column_26995").value=ret.Billdatebeg||"";
+        $("column_269966").value=ret.Billdateend||"";
         var isArray=ret.isarray;
         var status=ret.status;
         $("orderStatus").value=status;
@@ -165,12 +165,11 @@ DIST.prototype={
             jQuery("#ph-serach-bg>div input[type='image']").hide();
             alert("保存成功！");
             $("isChanged").value="false";
-            
         }else if(ret.data=="YES"){
             this.status=0;
             alert("提交成功！");
             $("isChanged").value="false";
-            window.close();
+            window.self.close();
         }else{
             alert("出现错误！可能原因："+ret.data);
         }
@@ -278,7 +277,7 @@ DIST.prototype={
         if(ret.searchord){
             $('Details').style.display='none';$('Documents').style.display='';
             $("column_40252_fd").value=ret.searchord;
-            jQuery("#Documents>table input").attr("disabled","true");
+            jQuery("#Documents>table input[name!='canModify']").attr("disabled","true");
             jQuery("#Documents>table img").css("display","none");
         }else{
             $('Details').style.display='';$('Documents').style.display='none';
@@ -492,7 +491,7 @@ DIST.prototype={
         $("showStyle").value="metrix";
         if($("load_type").value=="reload"){
             $('column_26991').disabled="true";
-            jQuery("#Details table td input").attr("disabled","true");
+            jQuery("#Details table td input[name!='canModify']").attr("disabled","true");
             jQuery("#Details table td img").css("display","none");
             $("menu").style.display = "none";
         }
