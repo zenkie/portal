@@ -29,6 +29,10 @@ MC.prototype={
       var result=mc.analyseM(response) ;
       var mstr=result[0];
       var title=result[1];
+      var mcount=result[2];
+      var urgentcount=result[3];
+      var shortTitle=result[2];
+      if (mcount)==0 return;
       mc.showMessages();
       jQuery("#dialog-dt").html(mstr);
       jQuery("#ui-dialog-title-dialog").html(title);
@@ -51,7 +55,10 @@ MC.prototype={
       var result=mc.analyseM(response) ;
       var mstr=result[0];
       var title=result[1];
+      var mcount=result[2];
+      var urgentcount=result[3];
       var shortTitle=result[2];
+      if (mcount)==0 mstr="";
 			jQuery("#dialog-dt").html(mstr);
 			jQuery("#dialog-title").html(shortTitle);
 			jQuery("#dialog-title").focus();
