@@ -1,4 +1,4 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ include file="/html/portal/init.jsp" %>
 <%
 com.liferay.portal.util.CookieKeys.addSupportCookie(response);
@@ -7,9 +7,8 @@ com.liferay.portal.util.CookieKeys.addSupportCookie(response);
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<meta http-equiv="X-UA-Compatible" content="IE=7" /><!-- Use IE7 mode for IE8 -->
-<title>Burgeon Portal - 伯俊软件</title>
-<link href="/style_portal.css" rel="stylesheet" type="text/css" />
+<title>burgeon portal--伯俊软件</title>
+<link href="/style-portal.css" rel="stylesheet" type="text/css" />
 <SCRIPT type=text/javascript>
 	function selectTag(showContent,selfObj){
 	// 2???
@@ -57,16 +56,15 @@ function submitForm(){
 </head>
 
 <body>
-<div id="container">
-<div id="head">
-<div id="head_left"><a href="/index.jsp"><img src="/images/head_logo_left.gif" width="297" height="64" /></a></div>
-<div id="head_right"><img src="/images/head_logo_right.gif" width="232" height="64" /></div>
-<div id="head_pic"><img src="/images/head_Loginpic.jpg" width="982" height="212" /></div>
+<div id="head-login">
+<div id="logo-01">
+<div class="logo-right"></div>
+<div class="logo-left"><a href="/index.jsp"><img src="/images/left-logo.png" width="136" height="150" border="0" /></a></div>
+  </div> 
 </div>
-
-	<div id="login_bg">
-		<div id="login_center">
-               <c:if test="<%=true %>">
+<div id="login-main">
+<div id="login-user">
+     <c:if test="<%=true %>">
                 <c:if test='<%= SessionMessages.contains(request, "user_added") %>'>
                   <%
 				String emailAddress = (String)SessionMessages.get(request, "user_added");
@@ -117,10 +115,9 @@ function submitForm(){
                 <c:if test="<%= SessionErrors.contains(request, "INACTIVE_USER") %>">
                   <div class="portlet-msg-error"> <%= LanguageUtil.get(pageContext, "inactive-user-exception") %> </div>
                   <br />
-                </c:if>
+                </c:if>                
               </c:if>
-
-  	<form action="/c/portal/login" method="post" name="fm1" id="fm1">
+<form action="/c/portal/login" method="post" name="fm1" id="fm1">
       <input type="hidden" value="already-registered" name="cmd"/>
        <input type="hidden" value="already-registered" name="tabs1"/>
 	<%
@@ -131,38 +128,42 @@ function submitForm(){
 		    }
 		 login =LoginAction.getLogin(request, "login", company);
 		%>
- <ul>
- <li>
- <div class="login_left_text">用户名：</div>
- <div class="login_right_text"><input id="login" name="login" type="text" class="Warning-130" size="23" value="<%=login %>" /></div>
+<div id="login-U">
+<ul>
+<li>
+<div class="left_text">用户名：</div>
+<div class="right_text"><input id="login" name="login" type="text" class="Warning-130" size="23" value="<%=login %>" /></div>
 </li>
 <div class="clear"></div>
 <li>
-<div class="login_left_text">密&nbsp;&nbsp;&nbsp;&nbsp;码：</div>
-<div class="login_right_text"><input id="password1" name="<%= SessionParameters.get(request, "password")%>" type="password" value=""  size="10" class="Warning-130"/></div>
+<div class="left_text">密&nbsp;&nbsp;&nbsp;&nbsp;码：</div>
+<div class="right_text"><input id="password1" name="<%= SessionParameters.get(request, "password")%>" type="password" value=""  size="10" class="Warning-130"/></div>
 </li>
 <div class="clear"></div>
 <li>
-<div class="login_left_text">验证码：</div>
-<div class="login_right_text"><input id="verifyCode" name="verifyCode" type="text" onKeyPress="onReturn(event)" class="Warning-70"  size="10" />
+<div class="left_text">验证码：</div>
+<div class="right_text"><input id="verifyCode" name="verifyCode" type="text" onKeyPress="onReturn(event)" class="Warning-70"  size="10" />
 <img src="/servlets/vms" width="64" height="16" align="absmiddle" id="chkimg" onclick="javascript:document.getElementById('chkimg').src='/servlets/vms?'+Math.random()" />
 </div>
 </li>
 <div class="clear"></div>
 <li>
-<div class="login_left_text">&nbsp;</div>
-<div class="login_right_text"><a href="#" onclick="javascript:submitForm()"><image  src="/images/login_dl.gif" width="107" height="33" border="0"/></a>
+<div class="right_text"><a href="#" onclick="javascript:submitForm()"><input type="image" src="/images/user-btn.gif" width="81" height="25" /></a>
 </div>
 </li>
+</ul>
 </div>
-</li>
-</ul> 
-</form>  
-</div>         
-
+</form>
+</div>
+</div>
 <div id="bottom">
-<div id="bottom_bg">
-<div id="bottom_text">&copy;2008 上海伯俊软件科技有限公司 版权所有 保留所有权&nbsp;&nbsp;|&nbsp;&nbsp;公司简介&nbsp;&nbsp;|&nbsp;&nbsp;联系我们</div>
+<div id="bottom-bg">
+<div id="bottom-left">
+了解更多产品请点击：<br />
+<a href="http://www.burgeon.com.cn" target="_parent" class="bottom-text">www.burgeon.com.cn</a></div>
+<div id="bottom-right">
+公司简介 | 联系我们 | 法律声明 | 服务体系 | 伯俊论坛<br />
+&copy;2008 上海伯俊软件科技有限公司 版权所有 保留所有权
 </div>
 </div>
 </div>
