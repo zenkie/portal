@@ -712,6 +712,7 @@ PortalControl.prototype = {
 			var evt={};
 			evt.webaction= actionId;
 			if(warn!=undefined && target!=null)evt.target=target;
+			evt["nds.control.ejb.UserTransaction"]="Y";
 			evt.command="ExecuteWebAction";
 			evt.query=this.getQuery();
 			evt.callbackEvent="ExecuteWebAction";
