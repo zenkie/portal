@@ -41,6 +41,13 @@ int status=0;
 
 int selectedTabId=-1;
 
+String fkURLTarget= ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("object.url.target");
+if(nds.util.Validator.isNotNull(fkURLTarget)){
+	fkURLTarget="target=\""+ fkURLTarget+"\"";
+}else{
+	fkURLTarget="";
+}
+
 %>
 <div id="inline-obj">
 <%

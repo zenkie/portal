@@ -84,4 +84,11 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/object.css">
 <%}%>
 <title><%=table==null?"Object":table.getCategory().getName()+ " - "+ table.getDescription(locale)%> - Agile NEA</title>
-
+<%
+String fkURLTarget= ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("object.url.target");
+if(nds.util.Validator.isNotNull(fkURLTarget)){
+	fkURLTarget="target=\""+ fkURLTarget+"\"";
+}else{
+	fkURLTarget="";
+}
+%>

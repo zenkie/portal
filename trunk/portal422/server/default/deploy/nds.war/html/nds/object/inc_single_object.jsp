@@ -256,7 +256,7 @@
     %>
     			<input type='hidden' name="<%=inputName%>" value="<%=dataDB==null?"":dataDB%>">
     			<%if(!nds.util.Validator.isNull((String)dataDB)){%>
-    				<a href="<%=dataDB%>"><img border=0 src="<%=dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>"  onmousewheel="resize_img_by_wheel(this);"></a>
+    				<a <%=fkURLTarget%> href="<%=dataDB%>"><img border=0 src="<%=dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>"  onmousewheel="resize_img_by_wheel(this);"></a>
     			<%}%>	
     <%  	}else if( ds.getObjectType()==DisplaySetting.OBJ_XML){
     			java.util.Hashtable hxml = new java.util.Hashtable();
@@ -274,13 +274,6 @@
             if(column.getReferenceTable() !=null){
                 if(isFixedColumn==false){
                 %>
-<!//-------------------------------------------------------------------------------------------------------------!>
-<script>
-//testing script by ken 
- //alert("table is tree?"+<%=table.isTree()%>);
-</script>
-<!//-------------------------------------------------------------------------------------------------------------!>
-
                 <span id="<%=namespace%>cbt_<%=column.getId()%>"  onaction="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
                 <script>
                 	<%if(Validator.isNotNull(column.getRegExpression())){%>
@@ -289,7 +282,7 @@
                 	createButton(document.getElementById("<%=namespace%>cbt_<%=column.getId()%>"));
                 </script>
                 <%if (coid !=-1){%>
-                	<a href='<%=QueryUtils.getTableRowURL(column.getReferenceTable(),true)+"&id="+coid%>'><img border="0" src="/html/nds/images/out.png"/></a>
+                	<a <%=fkURLTarget%> href='<%=QueryUtils.getTableRowURL(column.getReferenceTable(),true)+"&id="+coid%>'><img border="0" src="/html/nds/images/out.png"/></a>
                 <%}
                 }
             }
@@ -308,7 +301,7 @@
                 <%}else{
                 	String objectURL=QueryUtils.getTableRowURL(column.getReferenceTable(),true);
                 	%>
-                 	<a href='<%=objectURL+"&input=false&id="+coid%>'><span id="<%=column_acc_Id%>"><%=data%></span></a>
+                 	<a <%=fkURLTarget%> href='<%=objectURL+"&input=false&id="+coid%>'><span id="<%=column_acc_Id%>"><%=data%></span></a>
                  <%}
             }else{
                 // button check
@@ -323,7 +316,7 @@
 			        			int maximagewidth= (ds.getColumns()==1?200:500);
 			        			if(!nds.util.Validator.isNull((String)dataDB)){
 	                	 	%>
-	                	 	<a href="<%=dataDB%>"><img border=0 src="<%=dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>" onmousewheel="resize_img_by_wheel(this);"></a>
+	                	 	<a <%=fkURLTarget%> href="<%=dataDB%>"><img border=0 src="<%=dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>" onmousewheel="resize_img_by_wheel(this);"></a>
 	                	<%     }
 	                	 }else{
 	                		if(ds.getObjectType()==DisplaySetting.OBJ_TEXTAREA){
