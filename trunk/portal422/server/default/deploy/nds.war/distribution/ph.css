@@ -436,14 +436,14 @@ padding-top:5px;
 
 #auto-bg{
 background:url(images/zdlh-bg.jpg) no-repeat scroll;
-width:600px;
+width:580px;
 height:450px;
 margin:0 auto;
 padding:0;}
 
 #auto-main{
 margin:0 auto;
-width:520px;
+width:560px;
 padding-top:40px;
 color:#FFFFFF;}
 
@@ -502,7 +502,7 @@ text-align:center;}
 
 #auto-bl{
 background:url(images/auto-bl.gif) no-repeat scroll;
-text-align:center;
+text-align:left;
 height:70px;
 width:496px;}
 
@@ -550,7 +550,7 @@ height:10px;}
 
 #auto-cl{
 background:url(images/auto-cl.gif) no-repeat scroll;
-text-align:center;
+text-align:left;
 height:233px;
 width:496px;}
 

@@ -92,10 +92,11 @@
     <div id="ph-from-btn">
         <input type="hidden" id="fund_balance" value="<%=id!=-1?id:""%>"/>
         <input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/distribution/index.jsp?&&fixedcolumns=&id=-1';"/>
-        <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav')"/>
-        <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord')"/>
-        <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250)"/>
-        <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.showObject('auto_dist.jsp',600,450)" />
+        <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav');"/>
+        <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord');"/>
+        <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250);"/>
+        <!--<input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="var totCan=$('tot-can').innerHTML;dist.showObject('auto_dist.jsp?totcan='+(totCan||0),600,450)" />-->
+        <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.autoDist();" />
         <input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
     </div>
 </div>

@@ -3,7 +3,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>自动配货</title>
+    <%
+        int totCan=0;
+        try{
+            totCan=Integer.parseInt(request.getParameter("totcan"));
+        }catch (NullPointerException e){
+            totCan=0;
+        }
+    %>
 <link href="ph.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        function  generateCan(){
+            var totCan=<%=totCan%>;
+            totCan=parseInt(totCan);
+            var percentage=document.getElementById("percentage").value;
+            percentage=parseFloat(percentage);
+            if(percentage>1||percentage<0){
+                alert("请输入小于1的正小数！");
+                document.getElementById("percentage").value=0;
+            }else{
+                document.getElementById("currentCan").innerHTML=Math.round(totCan*percentage);
+            }
+        }
+    </script>
 </head>
 
 <body style="width:auto">
@@ -23,11 +45,11 @@
 <table width="440" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td width="100"><div class="ph-left-txt">当前可配总量：</div></td>
-    <td width="40"><div class="ph-right-txt">1000</div></td>
-    <td width="100"><div class="ph-left-txt">本次可配比例：</div></td>
-    <td width="60"><div class="ph-right-txt"><input name="" type="text" class="ipt-4-1" /></div></td>
+    <td width="40"><div class="ph-right-txt"><%=totCan%></div></td>
+    <td width="100"><div class="ph-left-txt" title="填入小数如：0.66">本次可配比例：</div></td>
+    <td width="60"><div class="ph-right-txt"><input type="text" class="ipt-4-1" id="percentage" onblur="generateCan();"/></div></td>
     <td width="100"><div class="ph-left-txt">本次可配数量：</div></td>
-    <td width="40"><div class="ph-right-txt">100</div></td>
+    <td width="40"><div class="ph-right-txt" id="currentCan"></div></td>
   </tr>
 </table>
 </div>
@@ -39,7 +61,7 @@
 <table width="440" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td width="13" align="center"><img src="images/icon-11.gif" width="11" height="11" /></td>
-    <td width="135"><div class="ph-left-txt">指定配化数量：</div></td>
+    <td width="135"><div class="ph-left-txt">指定配货数量<font color="red">*</font>：</div></td>
     <td width="312"><div class="ph-right-txt"><input name="" type="text" class="right-input" /></div></td>
     </tr>
   <tr>
@@ -48,21 +70,21 @@
     </tr>
   <tr>
     <td width="13" align="center"><img src="images/icon-11.gif" width="11" height="11" align="absmiddle" /></td>
-    <td width="135"><div class="ph-left-txt">按未配量比例配货：</div></td>
+    <td width="135"><div class="ph-left-txt">按未配量比例配货<font color="red">*</font>：</div></td>
     <td width="312"><div class="ph-right-txt"><input name="" type="text" class="right-input" /></div></td>
     </tr>
   <tr>
     <td width="13">&nbsp;</td>
-    <td colspan="2"><div class="ph-right-txt">说明：按照未配量<font color="red">*</font>此处指定的比例为所有商品配货。</div></td>
+    <td colspan="2"><div class="ph-right-txt">说明：按照未配量此处指定的比例为所有商品配货。</div></td>
     </tr>
   <tr>
     <td width="13" align="center"><img src="images/icon-11.gif" width="11" height="11" align="absmiddle" /></td>
-    <td width="135"><div class="ph-left-txt">按订单订货比例配货：</div></td>
+    <td width="135"><div class="ph-left-txt">按订单订货比例配货<font color="red">*</font>：</div></td>
     <td width="312"><div class="ph-right-txt"><input name="" type="text" class="right-input" /></div></td>
     </tr>
   <tr>
     <td width="13">&nbsp;</td>
-    <td colspan="2"><div class="ph-right-txt">说明：按照可配量<font color="red">*</font>订货比例为所有商品配货(订货比例指同一商品不同订单订
+    <td colspan="2"><div class="ph-right-txt">说明：按照可配量订货比例为所有商品配货(订货比例指同一商品不同订单订
 货数量占所有订单订货总量的比例)。</div></td>
     </tr>
     <td>&nbsp;</td>

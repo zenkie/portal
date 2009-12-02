@@ -8,7 +8,9 @@ DIST.prototype={
         this.manu=null;
         this.item=null;
         this.product=new Array();
+        this.totCan=0;
         this.status=0;
+        this.loadStatus="load";
         dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         dwr.util.setEscapeHtml(false);
         window.onunload=function(){
@@ -277,7 +279,7 @@ DIST.prototype={
         if(ret.searchord){
             $('Details').style.display='none';$('Documents').style.display='';
             $("column_40252_fd").value=ret.searchord;
-            jQuery("#Documents>table input[name!='canModify']").attr("disabled","true");
+            jQuery("#Documents>table input[name!=canModify]").attr("disabled","true");
             jQuery("#Documents>table img").css("display","none");
         }else{
             $('Details').style.display='';$('Documents').style.display='none';
@@ -342,14 +344,17 @@ DIST.prototype={
                                     item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">可配</td>";
                                     for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                         var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.can[w];
-                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtK\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
+                                        var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
+                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtK\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" name='"+barCode+"' title='"+itemMetrixTr+"'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
                                     }
                                 }
                                 if(con==2){
                                     item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">未配</td>";
                                     for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                         var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.rem[w];
-                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtW\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
+                                        var docno=colorArr[p].stores[pp].docnos[ppp].no;
+                                        var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
+                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtW\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" id='"+(docno+barCode)+"-rem'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
                                     }
                                 }
                                 if(con==3){
@@ -441,14 +446,17 @@ DIST.prototype={
                                 item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">可配</td>";
                                 for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                     var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.can[w];
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtK\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
+                                    var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtK\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" name='"+barCode+"' title='"+itemMetrixTr+"'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
                                 }
                             }
                             if(con==2){
                                 item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">未配</td>";
                                 for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                     var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.rem[w];
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtW\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
+                                    var docno=colorArr[p].stores[pp].docnos[ppp].no;
+                                    var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtW\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" id='"+(docno+barCode)+"-rem'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
                                 }
                             }
                             if(con==3){
@@ -491,8 +499,8 @@ DIST.prototype={
         $("showStyle").value="metrix";
         if($("load_type").value=="reload"){
             $('column_26991').disabled="true";
-            jQuery("#Details table td input[name!='canModify']").attr("disabled","true");
-            jQuery("#Details table td img").css("display","none");
+            jQuery("#Details table td input[name!=canModify]").attr("disabled","true");
+            jQuery("#Details table td span").css("display","none");
             $("menu").style.display = "none";
         }
         if($("orderStatus").value=="2"){
@@ -510,6 +518,34 @@ DIST.prototype={
         }
 
         this.autoView1();
+    },
+    autoDist:function(){
+        if(this.loadStatus=="load"){
+            this.loadStatus="already";
+        }else{
+           jQuery("#ph-from-right-table>table td[name][title]").each(function(){
+               jQuery(this).attr("title",jQuery(this).text());
+           });
+        }
+        var tot=parseInt($("tot-can").innerHTML);
+        this.totCan=isNaN(tot)?0:tot;
+        jQuery("#ph-from-right-table>table td input").each(function(){
+            var barCode=this.title;
+            var docno=this.name;
+            var totCan=dist.totCan;
+            var barcodecan=jQuery("#ph-from-right-table>table td[name="+barCode+"]:first").attr("title");
+            barcodecan=isNaN(parseInt(barcodecan))?0:parseInt(barcodecan);
+            var currentrem=jQuery("#"+docno+barCode+"-rem").text();
+            currentrem=isNaN(parseInt(currentrem))?0:parseInt(currentrem);
+            var min=Math.min(totCan,barcodecan,currentrem);
+            if(min>0){
+                this.value = min;
+                jQuery("#ph-from-right-table>table td[name="+barCode+"]:first").attr("title",(barcodecan-min));
+                dist.totCan=totCan-min;
+            }else{
+                this.value="";
+            }
+        });
     },
     /*
      ×Json对象转化为数组
