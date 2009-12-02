@@ -48,9 +48,14 @@ if(table!=null){
 request.setAttribute("table_help", new Integer(tableId));
 int selectedTabId=-1;
 
-%>
 
-<%
+String fkURLTarget= ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("object.url.target");
+if(nds.util.Validator.isNotNull(fkURLTarget)){
+	fkURLTarget="target=\""+ fkURLTarget+"\"";
+}else{
+	fkURLTarget="";
+}
+
 if(table!=null){
 	String object_page_url=NDS_PATH+"/object/object.jsp?table="+
 		 tableId+ "&id="+ objectId+ "&select_tab="+ selectedTabId+(isInput?"":"&input=false");

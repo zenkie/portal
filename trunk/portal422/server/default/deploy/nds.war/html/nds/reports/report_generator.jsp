@@ -85,9 +85,9 @@
     }else{
 	    event.setParameter("command", "ExportExcel");
 	}
-	nds.control.util.ValueHolder vh=controller.handleEvent(event);	
-  	request.setAttribute(nds.util.WebKeys.VALUE_HOLDER,vh);
-    if(vh.isOK()){
+	nds.control.util.ValueHolder vhRes=controller.handleEvent(event);	
+  	request.setAttribute(nds.util.WebKeys.VALUE_HOLDER,vhRes);
+    if(vhRes.isOK()){
 	    response.sendRedirect("/servlets/binserv/GetFile?filename="+fileName);
 	    return;
 	}else{
