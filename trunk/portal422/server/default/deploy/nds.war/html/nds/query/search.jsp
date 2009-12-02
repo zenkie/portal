@@ -53,9 +53,10 @@ Expression sexpr= userWeb.getSecurityFilter(table.getName(), 1);// read permissi
 PairTable fixedColumns=PairTable.parse(request.getParameter("fixedcolumns"), null);    // columnlink=value
 
 Expression fixedExpr=Expression.parsePairTable(fixedColumns);// nerver null, maybe empty
-if(mustBeActive && table.isAcitveFilterEnabled()) {
+
+/*if(mustBeActive && table.isAcitveFilterEnabled()) {
 fixedExpr=new Expression(new ColumnLink(new int[]{table.getColumn("isactive").getId()}),"=Y",null).combine(fixedExpr,Expression.SQL_AND,null);
-}
+} */
 
 int[] columnMasks= new int[]{Column.MASK_QUERY_LIST};
 int listViewPermissionType= 1;
