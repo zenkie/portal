@@ -1349,6 +1349,12 @@ GridControl.prototype = {
 	*/
 	updateGrid: function (e) {
 		var r=e.getUserData().data; //@see nds.control.ejb.command.UpdateGridData
+		if(r.refresh){
+			this._isDirty=false;
+			this.newLine(false);
+			this.refreshGrid();
+			return;	
+		}
 		var rs=r.results; //[] elements like: {rowIdx: 12, id:11, msg:null,action:"A"}
 		var qr=r.qresult;// QueryResultImpl.toJSONObject
 		var i, rsOne, oId,row,a,y, rowIdx,line,j;
