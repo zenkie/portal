@@ -51,6 +51,7 @@ qRequest.setResultHandler(NDS_PATH+"/query/ajax_result.jsp");
 Expression sexpr= userWeb.getSecurityFilter(table.getName(), 1);// read permission
 
 PairTable fixedColumns=PairTable.parse(request.getParameter("fixedcolumns"), null);    // columnlink=value
+
 Expression fixedExpr=Expression.parsePairTable(fixedColumns);// nerver null, maybe empty
 if(mustBeActive && table.isAcitveFilterEnabled()) {
 fixedExpr=new Expression(new ColumnLink(new int[]{table.getColumn("isactive").getId()}),"=Y",null).combine(fixedExpr,Expression.SQL_AND,null);
@@ -64,7 +65,9 @@ queryObj.put("table_id", table.getId());
 queryObj.put("table_desc", table.getDescription(locale));
 queryObj.put("column_masks", JSONUtils.toJSONArrayPrimitive(columnMasks));
 queryObj.put("dir_perm",listViewPermissionType);
-queryObj.put("param_expr",fixedExpr.toString());
+if(!fixedExpr.isEmpty()){
+	queryObj.put("param_expr",fixedExpr.toString());
+}
 queryObj.put("init_query",true);
 queryObj.put("start",0);
 queryObj.put("must_be_active",mustBeActive);
