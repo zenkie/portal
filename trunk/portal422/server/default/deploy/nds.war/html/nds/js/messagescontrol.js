@@ -29,10 +29,13 @@ MC.prototype={
       var result=mc.analyseM(response) ;
       var mstr=result[0];
       var title=result[1];
-      var mcount=result[2];
-      var urgentcount=result[3];
       var shortTitle=result[2];
-      if(mcount==0)return;
+      var mcount=result[3];
+      var urgentcount=result[4];
+      var noshow=result[5];
+      
+      if (mcount==0) return;
+      if(noshow==1)return;
       mc.showMessages();
       jQuery("#dialog-dt").html(mstr);
       jQuery("#ui-dialog-title-dialog").html(title);
@@ -52,13 +55,15 @@ MC.prototype={
 		url: mc.URL+"?t="+date.getTime(),
 		success: function(response) {
 			//alert(new XMLSerializer().serializeToString(response));
-			var result=mc.analyseM(response) ;
-			var mstr=result[0];
-			var title=result[1];
-			var mcount=result[2];
-			var urgentcount=result[3];
-			var shortTitle=result[2];
-			if(mcount==0)mstr="";
+      var result=mc.analyseM(response) ;
+      var mstr=result[0];
+      var title=result[1];
+      var shortTitle=result[2];
+      var mcount=result[3];
+      var urgentcount=result[4];
+      var noshow=result[5];
+
+      if (mcount==0) mstr="";
 			jQuery("#dialog-dt").html(mstr);
 			jQuery("#dialog-title").html(shortTitle);
 			jQuery("#dialog-title").focus();
@@ -72,6 +77,7 @@ MC.prototype={
 			
 			// loop through all tree children
 			var cs = mc.getChildren(root,"message");
+			var noshow=mc.getChildren(root,"noshow");
 			var str="<div style='height:150px;overflow-y:scroll;overflow-x:visible;'><table cellspacing='0' cellpadding='0' ><thead><tr><th></th><th>"+gMessageHolder.PRIORITY+"</th><th>"+gMessageHolder.RELEASETIME+"</th><th>"+gMessageHolder.SERIALNO+"</th><th>"+gMessageHolder.TITLE+"</th></tr></thead><tbody>";
 			var count=0;//count no. of most emergent message
 			var priority;
@@ -104,7 +110,7 @@ MC.prototype={
 			title+="&nbsp;<input type='button' value='"+gMessageHolder.ALL_NOTICES+"' style='vertical-align:middle;padding-top:4px;cusor:pointer;position:relative;left:"+((count>0)?"50":"120")+"px;' onclick='mc.go();'>";
 			mc.modal=(count>0);
 			mc.mcount=cs.length;
-			return [str,title,shortTitle,cs.length,count];
+			return [str,title,shortTitle,cs.length,count,noshow.length];
 		
 	},	
 	highlight:function(which){//alert(which);
