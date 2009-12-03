@@ -88,7 +88,7 @@
 	nds.control.util.ValueHolder vhRes=controller.handleEvent(event);	
   	request.setAttribute(nds.util.WebKeys.VALUE_HOLDER,vhRes);
     if(vhRes.isOK()){
-	    response.sendRedirect("/servlets/binserv/GetFile?filename="+fileName);
+	    response.sendRedirect("/servlets/binserv/GetFile?filename="+java.net.URLEncoder.encode(fileName,"UTF-8"));
 	    return;
 	}else{
 	    pageContext.getServletContext().getRequestDispatcher(NDS_PATH+"/reports/index.jsp").forward(request,response);

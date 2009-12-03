@@ -29,7 +29,8 @@ try{
  Column acceptorColumn=  TableManager.getInstance().getColumn(Tools.getInt(request.getParameter("column"),-1));
  if(acceptorColumn==null)acceptorColumn= QueryUtils.getReturnColumn(accepter_id);
  
-
+ int dropColumnCount=2;
+ if(table.getJSONProps()!=null && table.getJSONProps().optInt("drop_column_cnt",2)==1)dropColumnCount=1;
 
  
  PairTable fixedColumns=PairTable.parse(request.getParameter("fixedcolumns"), null);    // columnlink=value
@@ -40,11 +41,13 @@ try{
  
  	// show records directly, with only first 2 showable columns
  	qRequest.addSelection(table.getPrimaryKey().getId());
+ 	qRequest.addSelection(table.getAlternateKey().getId());
  	ArrayList columns=table.getShowableColumns(Column.QUERY_LIST);
  	int colCount= 0;
- 	for(int i=0;i< columns.size();i++){
+ 	for(int i=0;i< columns.size() && i<dropColumnCount-1;i++){
  		
 		Column col= (Column) columns.get(i);
+		if(col.isAlternateKey() || col.getName().equals("ID"))continue;
         if(col.getDisplaySetting().isUIController()) continue;
         if( col.getReferenceTable() !=null) {
            Column col2=col.getReferenceTable().getAlternateKey();
@@ -53,7 +56,7 @@ try{
             qRequest.addSelection(col.getId());
         }
         colCount++;
-        //if(colCount==2) break;		
+        //if(colCount==2) break;
  	}
  	qRequest.setResultHandler(NDS_PATH+"/query/dropdown_result.jsp");
  	

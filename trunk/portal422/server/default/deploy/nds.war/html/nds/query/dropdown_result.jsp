@@ -63,15 +63,21 @@ String strflag;
 org.json.JSONArray dropdownjson=new org.json.JSONArray();
 org.json.JSONArray tb=null;
 QueryResultMetaData meta;
+int dropColumnCount=2;
+Table table=TableManager.getInstance().getTable(tablename);
+if(table.getJSONProps()!=null && table.getJSONProps().optInt("drop_column_cnt",2)==1)dropColumnCount=1;
 while(result.next()){
     tb=new org.json.JSONArray();
     tb.put(result.getString(1, true));
     tb.put(result.getString(2, true));
-    strflag=result.getString(3, true);
-    if(strflag.equals("&nbsp;")){
-	    tb.put("");
-    }else{
-    	tb.put(strflag);
+    if(dropColumnCount==1)  tb.put("");
+    else{
+	    strflag=result.getString(3, true);
+	    if(strflag.equals("&nbsp;")){
+		    tb.put("");
+	    }else{
+	    	tb.put(strflag);
+	    }
     }
   	dropdownjson.put(tb);  	
 }
