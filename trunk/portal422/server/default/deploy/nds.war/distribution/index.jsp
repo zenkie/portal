@@ -199,10 +199,10 @@
                         <tr>
                             <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">单据号<font color="red">*</font>：</div></td>
                             <td class="ph-value" width="185" valign="top" nowrap="" align="left">
-                                <input name="Input2" type="text" readonly="true" class="ipt-4-2" id="column_39932_fd" value=""/>
-                                <input type="hidden" id="column_39932" name="DOCUMENT_ID" value="">
-                        <span id="column_39932_link" class="coolButton" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'b_so'+'&return_type=f&column=39932&accepter_id=column_39932', 'column_39932');"><img id='column_39932_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
-                                <script type="text/javascript" >createButton(document.getElementById('column_39932_link'));</script>
+                                <input name="Input2" type="text" readonly="true" class="ipt-4-2" id="column_41520_fd" value=""/>
+                                <input type="hidden" id="column_41520" name="DOCUMENT_ID" value="">
+                        <span id="column_41520_link" class="coolButton" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'b_so'+'&return_type=f&column=41520&accepter_id=column_41520', 'column_41520');"><img id='column_41520_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
+                                <script type="text/javascript" >createButton(document.getElementById('column_41520_link'));</script>
                             </td>
                             <td class="ph-value" width="180" valign="top" nowrap="nowrap" align="left">
                                 <%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject('doc')" /><%}%>
