@@ -101,7 +101,7 @@
 <tr>
 <td colspan="2" background="images/ph-pic-bg.gif"><div id="ph-serach">
   <div id="" class="djh-table">
-      <table width="660" border="0" cellspacing="1" cellpadding="0" class="obj" align="center">
+      <table width="660" border="0" cellspacing="1" cellpadding="0" class="obj" align="left">
     <tr>
       <td width="100" align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">订单号<font color="red">*</font>：</div></td>
         <td nowrap="" align="left" width="16%" valign="top" class="ph-value">
