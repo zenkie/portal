@@ -25,6 +25,8 @@
 	Locale locale =userWeb.getLocale();
 	int userId=userWeb.getUserId();
 
+
+  
    
 
 TableManager manager=TableManager.getInstance();
@@ -76,34 +78,38 @@ query.setRange(0, Integer.MAX_VALUE  );
 Expression sexpr= userWeb.getSecurityFilter(table.getName(), 1);// read permission
 query.addParam(sexpr);
 
+
 //query.addParam("priorityrule<='2'");
 result= QueryEngine.getInstance().doQuery(query);
 
 QueryResultMetaData meta=result.getMetaData();
+int urgentCount=0;
 
 out.println("<messages>");
+
 for(int j=0;j<result.getRowCount();j++){
     result.next();
-	out.println("<message>");
+    out.println("<message>");
     for(int k=1; k<=meta.getColumnCount();k++){
-		out.print("<"+table.getColumn(meta.getColumnId(k)).getName()+">"+result.getObject(k));
+		if("PRIORITYRULE".equals(table.getColumn(meta.getColumnId(k)).getName())){if("1".equals(result.getObject(k)))urgentCount++;}
+		out.print("<"+table.getColumn(meta.getColumnId(k)).getName()+">"+StringUtils.escapeHTMLTags(StringUtils.escapeForXML(result.getObject(k)+"")));
 		out.print("</"+table.getColumn(meta.getColumnId(k)).getName()+">");
 	}
 	out.println("</message>");
 }
-out.println("</messages>");
-/**
-out.println("<messages>");
-for(int j=0;j<result.getRowCount();j++){
-    result.next();
-	out.println("<message>");
-    for(int k=1; k<=meta.getColumnCount();k++){
-		out.print("<item>");
-		out.print("<name>"+meta.getColumnTitle(k)+"</name><value>"+result.getObject(k)+"</value>");
-		out.print("</item>");
-	}
-	out.println("</message>");
+if(urgentCount==0){
+	String mrt=userWeb.getUserOption("MESSAGES_RELOADTIME","15");
+	int message_reload_time=15;
+	try {message_reload_time=Integer.parseInt(mrt);}catch(Exception NumberFormatException){}
+	out.println("<reloadtime>"+message_reload_time+"</reloadtime>");
+	if(session.getAttribute("last_messages_showed")==null){
+		session.setAttribute("last_messages_showed",System.currentTimeMillis());}
+	else if((System.currentTimeMillis()-(Long)session.getAttribute("last_messages_showed"))<(60000*message_reload_time)){
+		out.print("<noshow/>");}
+	else{session.setAttribute("last_messages_showed",System.currentTimeMillis());}
 }
+out.println("<timelap>"+(System.currentTimeMillis()-(Long)session.getAttribute("last_messages_showed"))+"</timelap>");
 out.println("</messages>");
-*/
+
+
 %>
