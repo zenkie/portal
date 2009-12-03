@@ -38,11 +38,11 @@ DIST.prototype={
         var reg=/^\d{8}$/;
         var m_allot_id=$("fund_balance").value||"-1";
         if(style&&style=='doc'){
-            if(!$('column_40252').value){
+            if(!$('column_39932').value){
                 alert("单据号不能为空！");
                 return;
             }
-           var searchord=$('column_40252').value;
+           var searchord=$('column_39932').value;
            var param={"or_type":"","c_dest":"","c_orig":"","m_product":"",
                 "datest":"","datend":"","load_type":load_type,"m_allot_id":m_allot_id,"searchord":searchord,"porder":-1};
         }else{
@@ -278,11 +278,15 @@ DIST.prototype={
          $("isChanged").value='false';
         if(ret.searchord){
             $('Details').style.display='none';$('Documents').style.display='';
-            $("column_40252_fd").value=ret.searchord;
+            $("column_39932_fd").value=ret.searchord;
             jQuery("#Documents>table input[name!=canModify]").attr("disabled","true");
             jQuery("#Documents>table img").css("display","none");
         }else{
             $('Details').style.display='';$('Documents').style.display='none';
+        }
+        if(ret.p_display==1){
+            jQuery("#docnoType").show();
+            jQuery("#idocnoType").show();
         }
         var pdt=ret.data.m_product;
         var totCan=0;
@@ -319,6 +323,7 @@ DIST.prototype={
                                 ptotCan+=colorArr[p].stores[pp].docnos[ppp].tag.can[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.can[w]):0;
                                 ptotRem+=colorArr[p].stores[pp].docnos[ppp].tag.rem[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.rem[w]):0;
                             }
+                            var ss=colorArr[p].stores[pp].docnos[ppp].type;
                             for(var con=0;con<4;con++){
                                 item+="<tr>";
                                 if(pp==0&&ppp==0&&con==0){
@@ -328,9 +333,10 @@ DIST.prototype={
                                     item+="<td rowspan=\""+this.forStorSpan(colorArr[p].stores[pp])+"\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-left-txt01\">"+colorArr[p].stores[pp].name+"</td>"
                                 }
                                 if(con==0){
-                                    item+="<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\">"+colorArr[p].stores[pp].docnos[ppp].no+"</td>"+
-                                                  "<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\">"+this.forChangeDate(colorArr[p].stores[pp].docnos[ppp].date)+"</td>"+
-                                                  "<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">配货</td>";
+                                    item+="<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+colorArr[p].stores[pp].docnos[ppp].no+"</td>"+
+                                                  "<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+this.forChangeType(colorArr[p].stores[pp].docnos[ppp].type)+"</td>"+
+                                                  "<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+this.forChangeDate(colorArr[p].stores[pp].docnos[ppp].date)+"</td>"+
+                                                  "<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">配货</td>";
                                     for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                         var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.can[w];
                                         var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
@@ -341,7 +347,7 @@ DIST.prototype={
                                     }
                                 }
                                 if(con==1){
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">可配</td>";
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">可配</td>";
                                     for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                         var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.can[w];
                                         var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
@@ -349,7 +355,7 @@ DIST.prototype={
                                     }
                                 }
                                 if(con==2){
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">未配</td>";
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">未配</td>";
                                     for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                         var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.rem[w];
                                         var docno=colorArr[p].stores[pp].docnos[ppp].no;
@@ -358,7 +364,7 @@ DIST.prototype={
                                     }
                                 }
                                 if(con==3){
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">订单量</td>";
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">订单量</td>";
                                     for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                         var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.dest[w];
                                         item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtD\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
@@ -374,6 +380,7 @@ DIST.prototype={
                               "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">颜色</td>"+
                               "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">店仓</td>" +
                               "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">订单号</td>" +
+                              "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">订单类型</td>" +
                               "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">发货日期</td>"+
                               "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">尺寸</td>";
                 for(var e=0;e<sizeArr.length;e++){
@@ -421,6 +428,7 @@ DIST.prototype={
                             ptotCan+=colorArr[p].stores[pp].docnos[ppp].tag.can[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.can[w]):0;
                             ptotRem+=colorArr[p].stores[pp].docnos[ppp].tag.rem[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.rem[w]):0;
                         }
+                        var ss=colorArr[p].stores[pp].docnos[ppp].type;
                         for(var con=0;con<4;con++){
                             item+="<tr>";
                             if(pp==0&&ppp==0&&con==0){
@@ -430,9 +438,10 @@ DIST.prototype={
                                 item+="<td rowspan=\""+this.forStorSpan(colorArr[p].stores[pp])+"\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-left-txt01\">"+colorArr[p].stores[pp].name+"</td>"
                             }
                             if(con==0){
-                                item+="<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\">"+colorArr[p].stores[pp].docnos[ppp].no+"</td>"+
-                                              "<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\">"+this.forChangeDate(colorArr[p].stores[pp].docnos[ppp].date)+"</td>"+
-                                              "<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">配货</td>";
+                                item+="<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+colorArr[p].stores[pp].docnos[ppp].no+"</td>"+
+                                              "<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+this.forChangeType(colorArr[p].stores[pp].docnos[ppp].type)+"</td>"+
+                                              "<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+this.forChangeDate(colorArr[p].stores[pp].docnos[ppp].date)+"</td>"+
+                                              "<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">配货</td>";
                                 for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                     var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.can[w];
                                     var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
@@ -443,7 +452,7 @@ DIST.prototype={
                                 }
                             }
                             if(con==1){
-                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">可配</td>";
+                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">可配</td>";
                                 for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                     var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.can[w];
                                     var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
@@ -451,7 +460,7 @@ DIST.prototype={
                                 }
                             }
                             if(con==2){
-                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">未配</td>";
+                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">未配</td>";
                                 for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                     var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.rem[w];
                                     var docno=colorArr[p].stores[pp].docnos[ppp].no;
@@ -460,7 +469,7 @@ DIST.prototype={
                                 }
                             }
                             if(con==3){
-                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\">订单量</td>";
+                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">订单量</td>";
                                 for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                     var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.dest[w];
                                     item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtD\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
@@ -476,6 +485,7 @@ DIST.prototype={
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">颜色</td>"+
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">店仓</td>" +
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">订单号</td>" +
+                          "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">订单类型</td>" +
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">发货日期</td>"+
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">尺寸</td>";
             for(var e=0;e<sizeArr.length;e++){
@@ -518,6 +528,15 @@ DIST.prototype={
         }
 
         this.autoView1();
+    },
+    forChangeType:function(type){
+        if(type=="FWD"){
+            return "期货订单";
+        }else if(type=="INS"){
+            return "现货订单";
+        }else{
+            return "";
+        }
     },
     autoDist:function(){
         if(this.loadStatus=="load"){
@@ -566,6 +585,7 @@ DIST.prototype={
                                 docnoArr[jj]={};
                                 docnoArr[jj].date=itemDocno[jj].billdate;
                                 docnoArr[jj].no = itemDocno[jj].xmlns;
+                                docnoArr[jj].type = itemDocno[jj].sotype;
                                 var tag={};
                                 var itemTag=itemDocno[jj].q.array.tag_c;
                                 var size=new Array();
@@ -603,6 +623,7 @@ DIST.prototype={
                             docnoArr[0]={};
                             docnoArr[0].date=itemDocno.billdate;
                             docnoArr[0].no = itemDocno.xmlns;
+                            docnoArr[0].type=itemDocno.sotype;
                             var itemTag=itemDocno.q.array.tag_c;
                             var tag={};
                             var size=new Array();
@@ -648,6 +669,7 @@ DIST.prototype={
                             docnoArr[jj]={};
                             docnoArr[jj].date=itemDocno[jj].billdate;
                             docnoArr[jj].no = itemDocno[jj].xmlns;
+                            docnoArr[jj].type=itemDocno[jj].sotype;
                             var itemTag=itemDocno[jj].q.array.tag_c;
                             var tag={};
                             var size=new Array();
@@ -685,6 +707,7 @@ DIST.prototype={
                         docnoArr[0]={};
                         docnoArr[0].date=itemDocno.billdate;
                         docnoArr[0].no = itemDocno.xmlns;
+                        docnoArr[0].type=itemDocno.sotype;
                         var itemTag=itemDocno.q.array.tag_c;
                         var tag={};
                         var size=new Array();
@@ -738,6 +761,7 @@ DIST.prototype={
                             docnoArr[jj]={};
                             docnoArr[jj].date=itemDocno[jj].billdate;
                             docnoArr[jj].no = itemDocno[jj].xmlns;
+                            docnoArr[jj].type=itemDocno[jj].sotype;
                             var itemTag=itemDocno[jj].q.array.tag_c;
                             var tag={};
                             var size=new Array();
@@ -775,6 +799,7 @@ DIST.prototype={
                         docnoArr[0]={};
                         docnoArr[0].date=itemDocno.billdate;
                         docnoArr[0].no = itemDocno.xmlns;
+                        docnoArr[0].type=itemDocno.sotype;
                         var itemTag=itemDocno.q.array.tag_c;
                         var tag={};
                         var size=new Array();
@@ -820,6 +845,7 @@ DIST.prototype={
                         docnoArr[jj]={};
                         docnoArr[jj].date=itemDocno[jj].billdate;
                         docnoArr[jj].no = itemDocno[jj].xmlns;
+                        docnoArr[jj].type=itemDocno[jj].sotype;
                         var itemTag=itemDocno[jj].q.array.tag_c;
                         var tag={};
                         var size=new Array();
@@ -857,6 +883,7 @@ DIST.prototype={
                     docnoArr[0]={};
                     docnoArr[0].date=itemDocno.billdate;
                     docnoArr[0].no = itemDocno.xmlns;
+                    docnoArr[0].type=itemDocno.sotype;
                     var itemTag=itemDocno.q.array.tag_c;
                     var tag={};
                     var size=new Array();
@@ -915,7 +942,7 @@ DIST.prototype={
     },
     forTableShowStyle:function(tagTot){
         var str= "";
-        str+="<col width=\"50\"/><col width=\"70\"/><col width=\"110\"/><col width=\"65\"/><col width=\"65\">";
+        str+="<col width=\"50\"/><col width=\"70\"/><col width=\"110\"/><col width=\"65\"/><col width=\"65\"/><col width=\"65\">";
         for(var i=0;i<tagTot;i++) {
             str+="<col width=\"65\"/>";
         }

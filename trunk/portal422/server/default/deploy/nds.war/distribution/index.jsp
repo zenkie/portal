@@ -17,9 +17,6 @@
         id=Integer.parseInt(idS);
     }
     if(userWeb==null || userWeb.getUserId()==userWeb.GUEST_ID){
-        /*session.invalidate();
-        com.liferay.util.servlet.SessionErrors.add(request,PrincipalException.class.getName());
-        response.sendRedirect("/login.jsp");*/
         response.sendRedirect("/c/portal/login");
         return;
     }
@@ -72,9 +69,9 @@
     <script language="javascript" src="/html/nds/js/gridcontrol.js"></script>
     <script type="text/javascript" src="/html/nds/js/object_query.js"></script>
     <script language="javascript" src="/distribution/distribution.js"></script>
-    <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/header_aio_min.css">
-    <link typ e="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css">
-    <link href="ph.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/header_aio_min.css"/>
+    <link typ e="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css"/>
+    <link href="ph.css" rel="stylesheet" type="text/css"/>
 </head>
 <% if(id!=-1){ %>
 <script language="javascript">
@@ -144,7 +141,7 @@
                             <!--
                             <td class="ph-value" width="80" valign="top" nowrap="" align="left"><input id="switchModel" type="button" value="切换为矩阵模式" style="font-size:14px;" onclick="dist.switchModel();"></td>
                             -->
-
+                            <td></td>
                         </tr>
                         <tr>
                             <!--选择款号-->
@@ -181,6 +178,7 @@
                             <!--查询条件提交按钮-->
                             <td class="ph-value" width="80" valign="top" nowrap="" align="left"><%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject()" /><%}%>
                             </td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td class="ph-desc"  valign="top" nowrap="nowrap" align="right">
@@ -188,6 +186,9 @@
                             </td>
                             <td class="ph-value" valign="top" align="left" colspan="2">
                                 <input type="text" name="canModify" class="notes" id="notes"/>
+                            </td>
+                             <td class="ph-desc" valign="top" align="right">
+                                <div class="desc-txt" id="idocnoType" style="color:red;font-size:14px;display:none;">*期货优先</div>
                             </td>
                         </tr>
                     </table>
@@ -198,13 +199,15 @@
                         <tr>
                             <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">单据号<font color="red">*</font>：</div></td>
                             <td class="ph-value" width="185" valign="top" nowrap="" align="left">
-                                <input name="Input2" type="text" readonly="true" class="ipt-4-2" id="column_40252_fd" value=""/>
-                                <input type="hidden" id="column_40252" name="DOCUMENT_ID" value="">
-                        <span id="column_40252_link" class="coolButton" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table=12943&return_type=f&accepter_id=column_40252','column_40252');"><img id='column_40252_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
-                                <script type="text/javascript" >createButton(document.getElementById('column_40252_link'));</script>
+                                <input name="Input2" type="text" readonly="true" class="ipt-4-2" id="column_39932_fd" value=""/>
+                                <input type="hidden" id="column_39932" name="DOCUMENT_ID" value="">
+                        <span id="column_39932_link" class="coolButton" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'b_so'+'&return_type=f&column=39932&accepter_id=column_39932', 'column_39932');"><img id='column_39932_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
+                                <script type="text/javascript" >createButton(document.getElementById('column_39932_link'));</script>
                             </td>
-                            <td class="ph-value" width="362" valign="top" nowrap="nowrap" align="left">
-                                <%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject('doc')" /><%}%></td>
+                            <td class="ph-value" width="180" valign="top" nowrap="nowrap" align="left">
+                                <%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject('doc')" /><%}%>
+                            </td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td class="ph-desc"  valign="top" nowrap="" align="right">
@@ -212,6 +215,9 @@
                             </td>
                             <td class="ph-value" valign="top" align="left" colspan="2">
                                 <input type="text" name="canModify" class="notes" id="orderNotes"/>
+                            </td>
+                            <td class="ph-desc" valign="top" align="right">
+                                <div class="desc-txt" id="docnoType" style="color:red;font:bolder;font-size:14px;display:none;">*期货优先</div>
                             </td>
                         </tr>
                     </table>
