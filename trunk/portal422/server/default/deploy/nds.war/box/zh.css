@@ -23,7 +23,6 @@ a:hover{
 	}
 
 #zh-container{
-width:977px;
 margin:0 auto;
 padding:0;
 clear:both;}
@@ -32,7 +31,6 @@ clear:both;}
 height:10px;}
 
 #zh-btn{
-width:977px;
 margin:5px 0px;}
 
 .hd{
@@ -49,10 +47,10 @@ text-align:center;
 font-size:13px;}
 
 #zh-main{
-width:977px;
 margin:0 auto;}
 
 #zh-table{
+float:left;
 padding-top:5px;}
 
 .zh-desc {
@@ -125,7 +123,6 @@ white-space:nowrap;
     margin-left:0px;
 }
 #zh-from{
-width:961px;
 clear:both;
 padding:5px;
 height:300px;
@@ -249,12 +246,14 @@ line-height:20px;}
 
 #zh-cz-bg{
 background:url(images/zh-cz-bg.gif) no-repeat scroll;
-width:977px;
 height:86px;
 clear:both;}
 
 #zh-cz-height{
-padding-top:40px;}
+    float:left;
+    padding-left:20px;
+    padding-top:40px;
+}
 
 .zh-xh-height{
 text-align:center;

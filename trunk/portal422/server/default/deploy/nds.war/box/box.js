@@ -62,12 +62,16 @@ BOX.prototype={
                 jQuery(jQuery(es[i]).parent("td").siblings(":last")).children("div").html("");
                 jQuery(jQuery(es[i]).parents("tr")[0]).css("display","none");
             }
+        }else{
+            alert("请选择明细！")
         }
+        this.countBox();
+        this.countTot();
     },
     _onLoadBox:function(e){
         var data=e.getUserData();
         var ret=data.jsonResult.evalJSON();
-        this.returnData=ret;
+        this.returnData=ret;                                 
         if(ret.data=="null"){
             alert("没有数据！");
             return;
@@ -138,12 +142,12 @@ BOX.prototype={
                     if(ret.data[s].m_box_item.DESTINATION==destination[j]){
                         count++;
                         itemS+="<tr height=\"29\" style=\"display:none;\">"+
-                               "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><input type='checkbox'>"+count+"</td>"+
+                               "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><input type='checkbox'></td>"+
                                "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[s].m_box_item.NAME+"</div></td>"+
                                "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[s].m_box_item.VALUE+"</div></td>"+
                                "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[s].m_box_item.VALUE1+"</div></td>"+
                                "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[s].m_box_item.VALUE2+"</div></td>"+
-                               "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\" id=\""+destination[j]+ret.data[s].m_box_item.NO+"\" title=\""+ret.data[s].m_box_item.QTY+"\"></div></td></tr>";
+                               "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\" id=\""+destination[j]+ret.data[s].m_box_item.NO+"\" title=\""+ret.data[s].m_box_item.QTY+"\" name='scan'></div></td></tr>";
                     }
                 }
                 itemS+="</tbody></table></div>";
@@ -186,21 +190,21 @@ BOX.prototype={
             if(this.checkIsArray(ret.data)){
                 for(var h=0;h<ret.data.length;h++){
                     itemS+="<tr height=\"29\" style=\"display:none;\">"+
-                           "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><input type='checkbox'>"+(h+1)+"</td>"+
+                           "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><input type='checkbox'></td>"+
                            "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[h].m_box_item.NAME+"</div></td>"+
                            "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[h].m_box_item.VALUE+"</div></td>"+
                            "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[h].m_box_item.VALUE1+"</div></td>"+
                            "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[h].m_box_item.VALUE2+"</div></td>"+
-                           "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\" id=\""+destination+ret.data[h].m_box_item.NO+"\" title=\""+ret.data[h].m_box_item.QTY+"\"></div></td></tr>";
+                           "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\" id=\""+destination+ret.data[h].m_box_item.NO+"\" title=\""+ret.data[h].m_box_item.QTY+"\" name='scan'></div></td></tr>";
                 }
             }else{
                 itemS+="<tr height=\"29\" style=\"display:none;\">"+
-                       "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><input type='checkbox'>"+1+"</td>"+
+                       "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><input type='checkbox'></td>"+
                        "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.NAME+"</div></td>"+
                        "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.VALUE+"</div></td>"+
                        "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.VALUE1+"</div></td>"+
                        "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.VALUE2+"</div></td>"+
-                       "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\" id=\""+destination+ret.data.m_box_item.NO+"\" title=\""+ret.data.m_box_item.QTY+"\"></div></td></tr>";
+                       "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\" id=\""+destination+ret.data.m_box_item.NO+"\" title=\""+ret.data.m_box_item.QTY+"\" name='scan'></div></td></tr>";
             }
             itemS+="</table></div>";
         }
@@ -278,7 +282,8 @@ BOX.prototype={
         $("isSaved").value="save";
         this.codeModel();
         jQuery("#barcode").focus();
-
+        this.countBox();
+        this.countTot();
         if(!window.document.addEventListener){
             window.document.attachEvent("onkeydown",hand11);
             function hand11()
@@ -417,6 +422,8 @@ BOX.prototype={
     },
     delBox:function(category){
         this.dele(category);
+        this.countBox();
+        this.countTot();
     },
     dele:function(category){
         if(!$(category+"_"+$("selBox").value)){
@@ -427,6 +434,8 @@ BOX.prototype={
             if(jQuery("#"+category+"Num > li").length>2){
                 $(category+"_"+$("selBox").value).remove();
                 $(category+"Table"+"_"+$("selBox").value).remove();
+            }else{
+                alert("最后一箱不可删除！");
             }
             this.showFirst(category);
         }
@@ -459,6 +468,30 @@ BOX.prototype={
             tabs[i].style.display="none";
         }
         $(category+"Table"+"_"+(window.event?Event.element(window.event).innerHTML:Event.element(event).innerHTML).strip()).style.display="";
+        this.countBox();
+        this.countTot();
+    },
+    countBox:function(){
+        var count=0;
+       jQuery("#showContent>div:visible>table:visible tr:visible>td>div[name='scan']").each(function(){
+           if(this.innerHTML!=""){
+               var cou=parseInt(this.innerHTML);
+               cou=isNaN(cou)?0:cou;
+               count=count+cou;
+           }
+       });
+       jQuery("#currentBox").text(count);
+    },
+    countTot:function(){
+        var count=0;
+       jQuery("#showContent>div:visible>table tr:visible>td>div[name='scan']").each(function(){
+           if(this.innerHTML!=""){
+               var cou=parseInt(this.innerHTML);
+               cou=isNaN(cou)?0:cou;
+               count=count+cou;
+           }
+       });
+       jQuery("#totBox").text(count);
     },
     pdtModel:function(){
         jQuery("#barcode").unbind("keydown");
@@ -499,10 +532,10 @@ BOX.prototype={
                     }else{
                         rows[i].cells[5].firstChild.innerHTML=isNaN(parseInt(old))?-parseInt($("pdt_count").value):(parseInt(old)-parseInt($("pdt_count").value));
                     }
-                    if(this.totalBarCode($("selCategory").value,i)>parseInt(rows[i].cells[5].firstChild.title)){
+                    if(this.totalBarCode($("selCategory").value,i)>parseInt(rows[i].cells[5].firstChild.title)||this.totalBarCode($("selCategory").value,i)<0){
                         var oldColor=rows[i].cells[5].style.backgroundColor;
                         rows[i].cells[5].style.backgroundColor="#ff0000";
-                        alert("产品数量大于订单量，输入无效！");
+                        alert("产品数量大于订单量或小于0，输入无效！");
                         rows[i].cells[5].firstChild.innerHTML=old;
                         rows[i].cells[5].style.backgroundColor=oldColor;
                     }
@@ -537,6 +570,8 @@ BOX.prototype={
             }
             jQuery("#barcode").focus();
             $("isSaved").value="unSave";
+            box.countBox();
+            box.countTot();
         }
     },
     totalBarCode:function(category,n){
@@ -1210,6 +1245,8 @@ CSTABLE.prototype={
             }
         }
         $("isSaved").value="unSave";
+        box.countBox();
+        box.countTot();
     }
 }
 CSTABLE.main = function(){ cstable=new CSTABLE();},
