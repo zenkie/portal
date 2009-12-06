@@ -97,18 +97,26 @@ for(int j=0;j<result.getRowCount();j++){
 	}
 	out.println("</message>");
 }
+
 if(urgentCount==0){
 	String mrt=userWeb.getUserOption("MESSAGES_RELOADTIME","15");
 	int message_reload_time=15;
 	try {message_reload_time=Integer.parseInt(mrt);}catch(Exception NumberFormatException){}
 	out.println("<reloadtime>"+message_reload_time+"</reloadtime>");
 	if(session.getAttribute("last_messages_showed")==null){
-		session.setAttribute("last_messages_showed",System.currentTimeMillis());}
+		session.setAttribute("last_messages_showed",System.currentTimeMillis());
+	}
 	else if((System.currentTimeMillis()-(Long)session.getAttribute("last_messages_showed"))<(60000*message_reload_time)){
-		out.print("<noshow/>");}
-	else{session.setAttribute("last_messages_showed",System.currentTimeMillis());}
+		out.print("<noshow/>");
+	}else{
+		session.setAttribute("last_messages_showed",System.currentTimeMillis());
+	}
+
 }
-out.println("<timelap>"+(System.currentTimeMillis()-(Long)session.getAttribute("last_messages_showed"))+"</timelap>");
+	Long timelap=System.currentTimeMillis();
+	if(session.getAttribute("last_messages_showed")!=null)timelap=timelap-(Long)session.getAttribute("last_messages_showed");
+out.println("<timelap>"+(timelap)+"</timelap>");
+
 out.println("</messages>");
 
 
