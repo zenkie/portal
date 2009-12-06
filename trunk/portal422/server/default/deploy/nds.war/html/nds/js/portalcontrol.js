@@ -109,8 +109,11 @@ PortalControl.prototype = {
 	resize:function(){
 		//if(is_ie) return;//modified by ken to set table div in ie avoid overflow of table
 		var limitWidth;
-		if(!pc._resizable) limitWidth=15;
-		else limitWidth=245+15;//15 is added to reflect the addtion a toggle bar div between menu and table
+		//if(!pc._resizable) limitWidth=15;
+		//else limitWidth=245+15;//15 is added to reflect the addtion a toggle bar div between menu and table
+		//following modified by ken to estimated the client area after hiding of main navigation menu.	
+		limitWidth=(jQuery("#portal-menu").css("display")=="block")?jQuery("#portal-menu").width()+jQuery("#portal-separator").width():jQuery("#portal-separator").width();		
+		limitWidth=limitWidth+25;
 		
 		var e=$("embed-lines");
 		if(e==null)return;
@@ -712,7 +715,6 @@ PortalControl.prototype = {
 			var evt={};
 			evt.webaction= actionId;
 			if(warn!=undefined && target!=null)evt.target=target;
-			evt["nds.control.ejb.UserTransaction"]="Y";
 			evt.command="ExecuteWebAction";
 			evt.query=this.getQuery();
 			evt.callbackEvent="ExecuteWebAction";
@@ -1637,7 +1639,32 @@ PortalControl.prototype = {
 				}*/
 			
 		});
+	},
+	/*function control show hide navigation menu on the left hand side
+	  a modified version of resize is used to control the resize of right hand side table
+	*/
+	menu_hl:function(state){
+   if(state==1){
+	   	jQuery("#leftToggler").css("background-color","#678FC2");
+	} else {
+	   	jQuery("#leftToggler").css("background-color","#C3D9FF");
 	}
+	},
+	menu_toggle:function(e){
+   e.blur();
+   if(jQuery("#portal-menu").css("display")=="block" ){
+		jQuery("#leftToggler").height(jQuery("#leftToggler").height()-5);
+		jQuery("#portal-menu").css("display","none"); 
+		jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-right.gif");
+		pc.resize();
+	}else{
+		jQuery("#portal-menu").css("display","block");
+		jQuery("#leftToggler").height("100%");
+		jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-left.gif");
+		pc.resize();
+	}
+   	$('portal-bottom').focus();
+ }
 };
 // define static main method
 PortalControl.main = function () {
