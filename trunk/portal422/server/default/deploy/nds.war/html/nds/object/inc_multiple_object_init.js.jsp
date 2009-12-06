@@ -13,10 +13,13 @@
 	q.put("dir_perm", 1);
 	q.put("init_query",true);
 	q.put("fixedcolumns", fixedColumns.toURLQueryString(null));
-	q.put("start",0);
+	int startIndex=Tools.getInt( ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("object.tab.startidx"),0);
+	if( table.getJSONProps()!=null) {
+		startIndex=table.getJSONProps().optInt("startidx",startIndex);
+	}
+	q.put("start",startIndex);
+	
 	q.put("range",QueryUtils.DEFAULT_RANGE);
-	//[{"column":"M_PRODUCT_ID;NAME "},{"column":"M_ATTRIBUTESETINSTANCE_ID;VALUE1"},{"column":"M_ATTRIBUTESETINSTANCE_ID;VALUE2"}]
-	// if found m_product_id, M_ATTRIBUTESETINSTANCE_ID;VALUE1,M_ATTRIBUTESETINSTANCE_ID;VALUE2, will be first ones to order by
 	JSONArray sporder=null;
 	if( table.getJSONProps()!=null) sporder=table.getJSONProps().optJSONArray("orderby");
 	if(sporder!=null){

@@ -37,6 +37,7 @@ GridControl.prototype = {
 		this._tableActions= initObj.getTableActions();// table actions AMDS
 		this._supportAttributeDetail = initObj.supportAttributeDetail();// table support 
 		this._gridQuery= initObj.getGridQueryObj();
+		this._orig_startidx= this._gridQuery.start;
 		this._inlineMode= initObj.getInlineMode();
 		var metaObj=new EditableGridMetadata(initObj.getGridMetadata());
 		this._gridMetadata= metaObj;
@@ -427,7 +428,12 @@ GridControl.prototype = {
 		}
 	},
 
-	_executeQuery : function (queryObj) {
+	_executeQuery: function (queryObj) {
+		console.log(queryObj);
+		if(this._orig_startidx==-1 && queryObj.start>=0 && (queryObj.start+queryObj.range>=queryObj.totalRowCount)){
+			//always move to last page if reach end
+			this._gridQuery.start=-1;
+		}
 		var s= Object.toJSON(queryObj);
 		Controller.query(s, function(r){
 				//try{

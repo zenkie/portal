@@ -50,6 +50,8 @@ ImportXLS.prototype = {
 	         	return true;
 			}
 		});			
+		$("#file_format_xls")[0].checked=true;
+		this.updateFormat();
 	},
 	updateFormat:function(){
 		var fmt=$("input[name='file_format']:checked").val();
