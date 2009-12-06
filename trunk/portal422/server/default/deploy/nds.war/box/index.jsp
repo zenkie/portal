@@ -74,7 +74,7 @@
 <%if(!sound.equals("")){%>
 <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
         id="playErrorSoundTest" width="1" height="1"
-        codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+        codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab" style="float:right">
     <param name="movie" value="/flash/playErrorSound.swf"/>
     <param name="flashvars" value="bridgeName=b_playErrorSound"/>
     <param name="quality" value="high" />
@@ -98,11 +98,16 @@
     <div id="zh-btn">
         <input name="" type="image" src="images/btn-bc.gif" width="58" height="20"  onclick="box.toSave();"/>
         <input name="" type="image" src="images/btn-sc.gif" width="78" height="20" onclick="box.del();"/>
-        <input name="" type="image" src="images/btn-td.gif" width="78" height="20" onclick="box.doSaveSettings();"/>
-        <input name="" type="image" src="images/btn-dy.gif" width="78" height="20" onclick="box.getBoxNoId();"/>
+        <%if(!comp.equals("玖姿")){%>
+        <input type="button" value="打印含汇总箱单" width="91" id="box-button" onclick="box.doSaveSettings('cx778');"/>
+        <input name="" type="image" src="images/btn-dy.gif" width="78" height="20" onclick="box.savePrintSettingForSingleBox('cx662');"/>
+        <input name="" type="image" src="images/btn-td.gif" width="78" height="20" onclick="box.doSaveSettings('cx663');"/>
+        <%}else{%>
+        <input name="" type="image" src="images/btn-dy.gif" width="78" height="20" onclick="box.doSaveSettings('cx663');"/>
+        <input type="button" value="按单打印" width="60" id="box-button1" onclick="box.doSaveSettings('cx776');"/>
+        <%}%>
         <input name="" type="image" src="images/btn-zx.gif" width="78" height="20" onclick="box.toSave('T');"/>
         <input name="" type="image" src="images/btn-ck.gif" width="78" height="20" onclick="popup_window('/html/nds/object/object.jsp?table=14928&id=<%=m_box_id%>&fixedcolumns=','_blank')"/>
-        <input name="" type="image" src="images/btn-jh.gif" width="101" height="20" onclick="box.doPrint();"/>
         <input name="" type="image" src="images/btn-gb.gif" width="58" height="20" onclick="box.closePop()"/>
         <input type="hidden" id="status" value=""/>
         <%if(comp.equals("玖姿")){%><input type="hidden" id="customer" value="jz"><%}%>

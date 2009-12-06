@@ -19,6 +19,7 @@ BOX.prototype={
         application.addEventListener("DO_SAVE",this._onSave,this);
         application.addEventListener( "PrintJasper", this._onPrintJasper, this);
         application.addEventListener( "SavePrintSetting", this._onSavePrintSetting, this);
+        application.addEventListener( "SavePrintSettingForSingleBox", this._onSavePrintSettingForSingleBox, this);
     },
     loadBox:function(){
         var evt={};
@@ -32,17 +33,29 @@ BOX.prototype={
         evt.permission="r";
         this._executeCommandEvent(evt);
     },
-    doSaveSettings:function(){
+    doSaveSettings:function(tem){
         var evt={};
         evt.command="SavePrintSetting";
         evt.callbackEvent="SavePrintSetting";
         evt.tableid= "14928";
-        evt.template="cx663";
+        evt.template=tem;
+        evt.format="pdf";
+        this._executeCommandEvent(evt);
+    },
+    savePrintSettingForSingleBox:function(tem){
+        var evt={};
+        evt.command="SavePrintSetting";
+        evt.callbackEvent="SavePrintSettingForSingleBox";
+        evt.tableid= "14935";
+        evt.template=tem;
         evt.format="pdf";
         this._executeCommandEvent(evt);
     },
     _onSavePrintSetting:function(e){
         this.doPrint();
+    },
+    _onSavePrintSettingForSingleBox:function(e){
+        this.getBoxNoId();
     },
     doPrint:function(){
         var evt={};
@@ -338,7 +351,7 @@ BOX.prototype={
     },
     getBoxNoId:function(){
         jQuery.get("getBoxNoId.jsp",{"boxno":$("selBox").value,"boxid":$("m_box_id").value},function(data){
-            box.printBox(data);
+            box.printBox(data.strip());
         });
     },
     waitOneMomentToPrint:function(){

@@ -51,7 +51,7 @@ margin:0 auto;}
 
 #zh-table{
 float:left;
-padding-top:5px;}
+padding-top:9px;}
 
 .zh-desc {
 padding-left:5px;
@@ -249,6 +249,40 @@ background:url(images/zh-cz-bg.gif) no-repeat scroll;
 height:86px;
 clear:both;}
 
+#box-button {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:transparent url(/box/images/button_on.gif) repeat scroll 0 50%;
+border:1px solid #A7A7A7;
+cursor:pointer;
+height:20px;
+margin-top:0;
+vertical-align:top;
+}
+*html #box-button{
+    padding-top:3px;
+}
+*+html #box-button{
+    padding-top:3px;
+}
+#box-button1 {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:transparent url(/box/images/button_on.gif) repeat scroll 0 50%;
+border:1px solid #A7A7A7;
+cursor:pointer;
+height:20px;
+margin-top:0;
+vertical-align:top;
+}
+*html #box-button1{
+    padding-top:3px;
+}
+*+html #box-button1{
+    padding-top:3px;
+}
 #zh-cz-height{
     float:left;
     padding-left:20px;
