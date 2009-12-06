@@ -429,7 +429,6 @@ GridControl.prototype = {
 	},
 
 	_executeQuery: function (queryObj) {
-		console.log(queryObj);
 		if(this._orig_startidx==-1 && queryObj.start>=0 && (queryObj.start+queryObj.range>=queryObj.totalRowCount)){
 			//always move to last page if reach end
 			this._gridQuery.start=-1;
