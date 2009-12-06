@@ -44,7 +44,7 @@ try{
  	qRequest.addSelection(table.getAlternateKey().getId());
  	ArrayList columns=table.getShowableColumns(Column.QUERY_LIST);
  	int colCount= 0;
- 	for(int i=0;i< columns.size() && i<dropColumnCount-1;i++){
+ 	for(int i=0;i< columns.size() && colCount<dropColumnCount-1;i++){
  		
 		Column col= (Column) columns.get(i);
 		if(col.isAlternateKey() || col.getName().equals("ID"))continue;
