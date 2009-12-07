@@ -239,29 +239,38 @@ DIST.prototype={
         }
         $("fund_table1").innerHTML=fundStr;
     },
-    /*switchModel:function(){
-        if($("switchModel").value=="切换为矩阵模式"){
-            if(confirm("切换模式会重新装载，为避免数据丢失，建议先进行保存！确认切换？")){
-                $("switchModel").value="切换为列表模式";
-                $("load_model").value="metrix";
-                if($("load_type")=="load") {
-                   dist.queryObject();
-                }else{
-                    dist.reShow();
-                }
-            }
-        }else{
-           if(confirm("切换模式会重新装载，为避免数据丢失，建议先进行保存！确认切换？")){
-                $("switchModel").value="切换为矩阵模式";
-                $("load_model").value="list";
-                if($("load_type")=="load"){
-                   dist.queryObject();
-                }else{
-                    dist.reShow();
-                }
-            }
-        }
-    },*/
+    showDetail:function(){
+        $('Details').style.display='';$('Documents').style.display='none';
+        $("tot-can").innerHTML="";
+        $("tot-rem").innerHTML="";
+        $("tot-ready").innerHTML="";
+        $("input-5").innerHTML="";
+        $("input-4").innerHTML="";
+        $("input-2").innerHTML="";
+        $("rs").innerHTML="";
+        $("input-1").innerHTML="";
+        jQuery("#ph-serach-bg table td span[id$='_link']").attr("title","popup");
+        jQuery("#ph-serach-bg table td span[id$='_link']>img[id$='_img']").attr("src","/html/nds/images/filterobj.gif");
+        jQuery("#Documents input").val("");
+        jQuery("#category_manu").html("");
+        jQuery("#ph-from-right-table").html("");
+    },
+    showDocuments:function(){
+        $('Details').style.display='none';$('Documents').style.display='';
+        $("tot-can").innerHTML="";
+        $("tot-rem").innerHTML="";
+        $("tot-ready").innerHTML="";
+        $("input-5").innerHTML="";
+        $("input-4").innerHTML="";
+        $("input-2").innerHTML="";
+        $("rs").innerHTML="";
+        $("input-1").innerHTML="";
+        jQuery("#ph-serach-bg table td span[id$='_link']").attr("title","popup");
+        jQuery("#ph-serach-bg table td span[id$='_link']>img[id$='_img']").attr("src","/html/nds/images/filterobj.gif");
+        jQuery("#Details input[name!='billdatebeg'][name!='billdateend']").val("");
+        jQuery("#category_manu").html("");
+        jQuery("#ph-from-right-table").html("");
+    },
     _onLoadMetrix:function(e){
         dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         var data=e.getUserData();
@@ -279,8 +288,7 @@ DIST.prototype={
         if(ret.searchord){
             $('Details').style.display='none';$('Documents').style.display='';
             $("column_41520_fd").value=ret.searchord;
-            jQuery("#Documents>table input[name!=canModify]").attr("disabled","true");
-            jQuery("#Documents>table img").css("display","none");
+
         }else{
             $('Details').style.display='';$('Documents').style.display='none';
         }
@@ -512,6 +520,8 @@ DIST.prototype={
             jQuery("#Details table td input[name!=canModify]").attr("disabled","true");
             jQuery("#Details table td span").css("display","none");
             $("menu").style.display = "none";
+            jQuery("#Documents>table input[name!=canModify]").attr("disabled","true");
+            jQuery("#Documents>table td span").css("display","none");
         }
         if($("orderStatus").value=="2"){
             jQuery("#ph-from-right-table td input").attr("disabled","true");
@@ -528,6 +538,7 @@ DIST.prototype={
         }
 
         this.autoView1();
+        this.itemStr=null;
     },
     forChangeType:function(type){
         if(type=="FWD"){

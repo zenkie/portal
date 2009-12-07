@@ -104,10 +104,10 @@
         <div id="ph-serach">
             <div id="ph-serach-title">
                 <div id="menu">
-                    <a href="#" onclick="$('Details').style.display='';$('Documents').style.display='none'">
+                    <a href="#" onclick="dist.showDetail();">
                         <span class="left"></span>
                         明细查询 </a>
-                    <a href="#" onclick="$('Details').style.display='none';$('Documents').style.display=''">
+                    <a href="#" onclick="dist.showDocuments()">
                         <span class="left"></span>
                         单据号查询 </a>
                 </div>
