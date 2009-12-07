@@ -286,11 +286,10 @@ var Alerts = {
 		if (!options.noCenter) {
 			Alerts.center(msgHeight, msgWidth);
 		}
-		
 		return message;
 	},
 	
-	center : function(height, width) {
+	center : function(height, width,topabs) {//modify by zhou 2009.12.8 add a param topabs
 		if (Alerts.message) {
 	        var message = Alerts.message.wrapper;
             var body = document.getElementsByTagName("body")[0];
@@ -305,6 +304,9 @@ var Alerts = {
 	            else if (!height && width) {
 	            	mode = message.options.centerMode = "x";
 	            }
+                else if(height&&width&&topabs){//modify by zhou 2009.12.8
+                     mode=message.options.centerMode="abs";       
+                }
 	            else {
 	            	mode = message.options.centerMode = "none";
 	            }
@@ -324,8 +326,14 @@ var Alerts = {
                 var centerLeft = (body.offsetWidth - width) / 2;
                 var centerTop = (body.offsetHeight - height) / 2;
             }
-
-			if (mode == "xy" || mode == "y") {
+            if(mode=="abs"){//modify by zhou 2009.12.8
+                if(topabs){
+                    message.style.top=topabs + "px";
+                    message.style.left = centerLeft + "px";
+                }
+                return;
+            }
+			if (mode == "xy" || mode == "y"){
 	            message.style.top = centerTop + "px";
             }
             else {
