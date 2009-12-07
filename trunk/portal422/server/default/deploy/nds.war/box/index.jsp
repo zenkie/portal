@@ -100,7 +100,7 @@
         <input name="" type="image" src="images/btn-sc.gif" width="78" height="20" onclick="box.del();"/>
         <%if(!comp.equals("玖姿")){%>
         <input type="button" value="打印含汇总箱单" width="91" id="box-button" onclick="box.doSaveSettings('cx778');"/>
-        <input name="" type="image" src="images/btn-dy.gif" width="78" height="20" onclick="box.savePrintSettingForSingleBox('cx662');"/>
+        <input type="button" value="单箱打印" id="box-button1" width="78" height="20" onclick="box.savePrintSettingForSingleBox('cx662');"/>
         <input name="" type="image" src="images/btn-td.gif" width="78" height="20" onclick="box.doSaveSettings('cx663');"/>
         <%}else{%>
         <input name="" type="image" src="images/btn-dy.gif" width="78" height="20" onclick="box.doSaveSettings('cx663');"/>
