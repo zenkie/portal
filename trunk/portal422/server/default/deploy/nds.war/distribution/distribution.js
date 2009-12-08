@@ -11,12 +11,10 @@ DIST.prototype={
         this.totCan=0;
         this.status=0;
         this.loadStatus="load";
+        this.bodyWidth=0;
         dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         dwr.util.setEscapeHtml(false);
-        window.onunload=function(){
-               var e=window.opener||window.parent;
-               e.setTimeout("pc.doRefresh()",1);
-         }
+
         /** A function to call if something fails. */
         dwr.engine._errorHandler =  function(message, ex) {
             while(ex!=null && ex.cause!=null) ex=ex.cause;
@@ -111,6 +109,10 @@ DIST.prototype={
         var m_allot_id=$("fund_balance").value||-1;
         var m_item=new Array();
         var inputItems=jQuery("#ph-from-right-table table input[title][value!='']");
+        if(inputItems.length<1){
+            alert("没有数据可以保存！");
+            return;
+        }
         for(var i=0;i<inputItems.length;i++){
             var ii={};
             if(!isNaN(inputItems[i].value)){
@@ -272,23 +274,23 @@ DIST.prototype={
         jQuery("#ph-from-right-table").html("");
     },
     _onLoadMetrix:function(e){
+        window.self.onunload=function(){
+               var e=window.opener||window.parent;
+               e.setTimeout("pc.doRefresh()",1);
+         }
         dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         var data=e.getUserData();
         var ret=data.jsonResult.evalJSON();
         this.manuStr="";
         this.itemStr="";
-
         if(ret.data&&ret.data=="null"){
             $("ph-from-right-table").innerHTML="<div style='font-size:20px;color:red;text-align:center;font-weight:bold;vertical-align:middle'>没有数据！</div>";
-
             return;
         }
-
          $("isChanged").value='false';
         if(ret.searchord){
             $('Details').style.display='none';$('Documents').style.display='';
             $("column_41520_fd").value=ret.searchord;
-
         }else{
             $('Details').style.display='';$('Documents').style.display='none';
         }
@@ -392,7 +394,7 @@ DIST.prototype={
                               "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">发货日期</td>"+
                               "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">尺寸</td>";
                 for(var e=0;e<sizeArr.length;e++){
-                    this.itemStr+="<td bgcolor=\"#B6D0E7\" class=\"td-right-title\">"+sizeArr[e]+"</td>";
+                    this.itemStr+="<td width='65' bgcolor=\"#B6D0E7\" class=\"td-right-title\">"+sizeArr[e]+"</td>";
                 };
                 this.itemStr+="</tr>";
                 this.itemStr+=item;
@@ -497,7 +499,7 @@ DIST.prototype={
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">发货日期</td>"+
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">尺寸</td>";
             for(var e=0;e<sizeArr.length;e++){
-                this.itemStr+="<td bgcolor=\"#B6D0E7\" class=\"td-right-title\">"+sizeArr[e]+"</td>";
+                this.itemStr+="<td width='65' bgcolor=\"#B6D0E7\" class=\"td-right-title\">"+sizeArr[e]+"</td>";
             };
             this.itemStr+="</tr>";
             this.itemStr+=item;
@@ -542,9 +544,9 @@ DIST.prototype={
     },
     forChangeType:function(type){
         if(type=="FWD"){
-            return "期货订单";
+            return "新货订单";
         }else if(type=="INS"){
-            return "现货订单";
+            return "补货订单";
         }else{
             return "";
         }
@@ -1147,6 +1149,10 @@ DIST.prototype={
                     }else{
                         colForinput[0].focus();
                     }
+                }else if(event.which==8||event.which==46){
+                    if(this.value==""||this.value.strip()==""){
+                      this.value=0;
+                    }
                 }
             }
         });
@@ -1294,21 +1300,17 @@ DIST.prototype={
     showObject:function(url, theWidth, theHeight,option){
         if( theWidth==undefined || theWidth==null) theWidth=956;
         if( theHeight==undefined|| theHeight==null) theHeight=570;
-        var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"xy",maxButton:true};
-        if(option!=undefined)
+        var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",maxButton:true,onCenter:true};
+        if(option!=undefined){
             Object.extend(options, option);
+        }
         Alerts.popupIframe(url,options);
         Alerts.resizeIframe(options);
-        Alerts.center();
     }
 }
 DIST.main = function () {
     dist=new DIST();
 };
-
-/**
- * Init
- */
 jQuery(document).ready(DIST.main);
 jQuery(document).ready(function(){
    jQuery("body").bind("keyup",function(event){
@@ -1317,20 +1319,13 @@ jQuery(document).ready(function(){
        }
    });
 });
-
 String.prototype.trim=function(){
     return this.replace(/(^\s*)|(\s*$)/g, '');
 }
-/**
- *删除左边的空格
- */
 String.prototype.ltrim=function()
 {
     return this.replace(/(^s*)/g,'');
 }
-/**
- *删除右边的空格
- */
 String.prototype.rtrim=function()
 {
     return this.replace(/(s*$)/g,'');

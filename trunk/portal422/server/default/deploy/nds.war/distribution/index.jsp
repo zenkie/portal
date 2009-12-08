@@ -78,7 +78,7 @@
     jQuery(document).ready(function(){dist.reShow();});
 </script>
 <%}%>
-<body>
+<body id="boo">
 <input type="hidden" id="load_model" value="metrix"/>
 <input type="hidden" id="load_type" value="<%=id==-1?"load":"reload"%>"/>
 <input type="hidden" id="showStyle" value="list">
@@ -98,7 +98,7 @@
     </div>
 </div>
 <div id="ph-container">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table  border="0" cellspacing="0" cellpadding="0">
 <tr>
     <td colspan="2" class="ph-td-bg">
         <div id="ph-serach">
@@ -227,9 +227,10 @@
 </tr>
 <tr>
     <td colspan="2"><div class="ph-height"></div></td>
-</tr>    
+</tr>
 <tr>
-    <td colspan="2" bgcolor="#e6edf1"><div id="ph-pic">
+    <td colspan="2" bgcolor="#e6edf1">
+        <div id="ph-pic">
         <div id="ph-pic-img">
             <div id="ph-pic-img-width">
                 <div id="ph-pic-img-border"><img id="pdt-img" width="90" height="75" /></div>
@@ -303,15 +304,15 @@
                 </div>
             </div>
         </div></td>
-    <td width="99%" valign="top" align="left"><div class="ph-from-right"><div id="ph-from-right-border">
-        <div id="ph-from-right-b">
-            <div id="forTableTitle">
+    <td width="97%"  valign="top" align="left">
+        <div class="ph-from-right">
+            <div id="ph-from-right-border">
+                <div id="ph-from-right-b">
+                    <div id="ph-from-right-table"></div>
+                    <div style="height:17px"></div>
+                </div>
             </div>
-            <div id="ph-from-right-table"></div>
-            <div style="height:17px"></div>
         </div>
-
-    </div></div>
     </td>
 </tr>
 <tr>
@@ -324,7 +325,6 @@
 </tr>
 </table>
 </div>
-</form>
 <div id="submitImge" style="left:30px;top:80px;z-index:111;position:absolute;display:none;">
     <img src="/html/nds/images/submitted.gif"/>
 </div>
