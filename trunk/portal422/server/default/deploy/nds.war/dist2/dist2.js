@@ -11,7 +11,7 @@ DIST.prototype={
         this.status=0;
         dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         dwr.util.setEscapeHtml(false);
-        /** A function to call if something fails. */
+
         dwr.engine._errorHandler =  function(message, ex) {
             while(ex!=null && ex.cause!=null) ex=ex.cause;
             if(ex!=null)message=ex.message;// dwr.engine._debug("Error: " + ex.name + "," + ex.message+","+ ex.cause.message, true);
@@ -22,8 +22,7 @@ DIST.prototype={
         application.addEventListener( "DO_QUERY", this._onLoadMetrix, this);
         application.addEventListener("DO_SAVE",this._onsaveDate,this);
         application.addEventListener("RELOAD",this._onreShow,this);
-        /*  application.addEventListener("FUND_BALANCE",this._onfundQuery,this);
-         */
+        application.addEventListener("FUND_BALANCE",this._onfundQuery,this);
     },
     getCustomId:function(){
         var orderId=$("fk_column_40252").value||-1;
@@ -109,6 +108,69 @@ DIST.prototype={
         evt.permission="r";
         this._executeCommandEvent(evt);
     },
+     //经销商资金余额
+    fundQuery:function(){
+        var evt={};
+        evt.command="DBJSONXML";
+        evt.callbackEvent="FUND_BALANCE";
+        var w=window.parent;
+        if(!w)w=window.opener;
+        var m_allot_id=w.document.getElementById("fund_balance").value||"-1";
+        var param={"m_allot_id":m_allot_id};
+        evt.param=Object.toJSON(param);
+        evt.table="m_allot";
+        evt.action = "cus";
+        evt.permission="r";
+        this._executeCommandEvent(evt);
+    },
+    _onfundQuery:function(e){
+        dwr.util.useLoadingMessage(gMessageHolder.LOADING);
+        var data=e.getUserData();
+        var ret=data.jsonResult.evalJSON();
+        var fundStr= "<table  width=\"700\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" bordercolor=\"#8db6d9\" bordercolorlight=\"#FFFFFF\" bordercolordark=\"#FFFFFF\" bgcolor=\"#8db6d9\" class=\"modify_table\" align=\"center\">"+
+                     "<tr><td width=\"70\" bgcolor=\"#8db6d9\" class=\"table-title-bg\"><div class=\"td-title\">序号</div></td>"+
+                     "<td width=\"90\" bgcolor=\"#8db6d9\" class=\"table-title-bg\"><div class=\"td-title\">经销商</div></td>"+
+                     "<td width=\"80\" bgcolor=\"#8db6d9\" class=\"table-title-bg\"><div class=\"td-title\">资金余额</div></td>"+
+                     "<td width=\"90\" bgcolor=\"#8db6d9\" class=\"table-title-bg\"><div class=\"td-title\">已占用金额</div></td>"+
+                     "<td width=\"100\" bgcolor=\"#8db6d9\" class=\"table-title-bg\"><div class=\"td-title\">配货信用下限</div></td>"+
+                     "<td width=\"90\" bgcolor=\"#8db6d9\" class=\"table-title-bg\"><div class=\"td-title\">可用金额</div></td>"+
+                     "<td width=\"90\" bgcolor=\"#8db6d9\" class=\"table-title-bg\"><div class=\"td-title\">本次配货金额</div></td>"+
+                     "<td width=\"90\" bgcolor=\"#8db6d9\" class=\"table-title-bg\"><div class=\"td-title\">剩余金额</div></td>"+
+                     "</tr>";
+        if(ret.data=="null"){
+            fundStr="<div style='font-size:20px;color:red;text-align:center;font-weight:bold;vertical-align:middle'>您没有选择经销商！</div>";
+        }else{
+            var funditem=ret.data;
+            if(this.checkIsArray(funditem)){
+                for(var i=0;i<funditem.length;i++){
+                    fundStr+="<tr>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(i+1)+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.NAME||""+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEEREMAIN||0+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEECHECKED||0+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEELTAKE||0+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEECANTAKE||0+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEEALLOT||0+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEEREM||0+"</div></td>"+
+                             " </tr>";
+                }
+            }
+            else{
+                fundStr+="<tr>"+
+                         "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+1+"</div></td>"+
+                         "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem.facusitem.NAME||"")+"</div></td>"+
+                         "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem.facusitem.FEEREMAIN||0)+"</div></td>"+
+                         "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem.facusitem.FEECHECKED||0)+"</div></td>"+
+                         "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem.facusitem.FEELTAKE||0)+"</div></td>"+
+                         "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem.facusitem.FEECANTAKE||0)+"</div></td>"+
+                         "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem.facusitem.FEEALLOT||0)+"</div></td>"+
+                         "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem.facusitem.FEEREM||0)+"</div></td>"+
+                         " </tr>";
+            }
+            fundStr+="</table>";
+        }
+        $("fund_table1").innerHTML=fundStr;
+    },
     _onreShow:function(e){
         var data=e.getUserData();
         var ret=data.jsonResult.evalJSON();
@@ -141,6 +203,10 @@ DIST.prototype={
         }
     },
     _onLoadMetrix:function(e){
+        window.self.onunload=function(){
+               var e=window.opener||window.parent;
+               e.setTimeout("pc.doRefresh()",1);
+         }
         dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         var data=e.getUserData();
         var ret=data.jsonResult.evalJSON();
@@ -152,11 +218,15 @@ DIST.prototype={
         $("isChanged").value='false';
         this.manuStr="";
         this.itemStr="";
+        if(!pdts[0].color){
+            alert("此单据已失效！");
+            return;
+        }
         for(var i=0;i<pdts.length;i++){
             this.manuStr+="<li><div class='txt-on' name='"+pdts[i].dis+"' title='"+pdts[i].id+"'>"+pdts[i].pdtStyle+"</div></li>";
             this.itemStr+="<table title='"+this.getStyTotRem(pdts[i])+"' name='"+this.getStyTotCan(pdts[i])+"' id='"+pdts[i].id+"' style='display:none' cellspacing=\"1\" cellpadding=\"0\" border=\"0\" bgcolor=\"#8db6d9\">"
             var colors=pdts[i].color;
-            this.itemStr+="<tr><td bgcolor=\"#ffffff\" width=\"55\" class=\"td-left-title\">颜色</td>"+
+            this.itemStr+="<tr><td bgcolor=\"#ffffff\" width=\"55\" class=\"td-left-title\">色号</td>"+
                           "<td bgcolor=\"#ffffff\" width=\"132\" class=\"td-left-title\">店仓\\尺寸</td>";
             for(var c=0;c<colors[0].sizes.length;c++){
                 this.itemStr+="<td bgcolor=\"#b6d0e7\" width=\"65\" class=\"td-right-title\">"+colors[0].sizes[c]+"</td>";
@@ -602,6 +672,16 @@ DIST.prototype={
     },
     checkIsString:function (o) {
         return (typeof(o)=="string");
+    },
+    showObject:function(url, theWidth, theHeight,option){
+        if( theWidth==undefined || theWidth==null) theWidth=956;
+        if( theHeight==undefined|| theHeight==null) theHeight=570;
+        var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"abs",maxButton:true};
+        if(option!=undefined)
+            Object.extend(options, option);
+        Alerts.popupIframe(url,options);
+        Alerts.resizeIframe(options);
+        Alerts.center(theHeight,theWidth,200);
     },
     _executeCommandEvent :function(evt){
         Controller.handle( Object.toJSON(evt), function(r){

@@ -97,7 +97,7 @@
     </div>
 </div>
 <div id="ph-container">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table  border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td colspan="2" background="images/ph-pic-bg.gif"><div id="ph-serach">
   <div id="" class="djh-table">
@@ -186,16 +186,18 @@
               </ul>
 		  </div>
 </div>
-</div></td>
+</div>
+    </td>
     <td valign="top" width="99%" align="left">
         <div class="ph-from-right">
             <div id="ph-from-right-border">
-<div id="ph-from-right-b">
-  <div id="ph-from-right-table">
-  </div>
-  <div class="ph-height"></div>
-	  </div>
-</div></div></td>
+                <div id="ph-from-right-b">
+                    <div id="ph-from-right-table">
+                    </div>
+                    <div class="ph-height"></div>
+                </div>
+            </div></div>
+    </td>
   </tr>
 </table>
 </div>
