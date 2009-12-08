@@ -1645,9 +1645,11 @@ PortalControl.prototype = {
 	*/
 	menu_hl:function(state){
    if(state==1){
-	   	jQuery("#leftToggler").css("background-color","#678FC2");
+	   	//jQuery("#leftToggler").css("background-color","#678FC2");
+	   	jQuery("#leftToggler").attr("class",(jQuery("#portal-menu").css("display")=="block" )?"leftToggler1":"leftToggler3");
 	} else {
-	   	jQuery("#leftToggler").css("background-color","#C3D9FF");
+	   	//jQuery("#leftToggler").css("background-color","#C3D9FF");
+	   	jQuery("#leftToggler").attr("class",(jQuery("#portal-menu").css("display")=="block" )?"leftToggler":"leftToggler2");
 	}
 	},
 	menu_toggle:function(e){
@@ -1655,12 +1657,14 @@ PortalControl.prototype = {
    if(jQuery("#portal-menu").css("display")=="block" ){
 		jQuery("#leftToggler").height(jQuery("#leftToggler").height()-5);
 		jQuery("#portal-menu").css("display","none"); 
-		jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-right.gif");
+		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-right.gif");
+		jQuery("#leftToggler").attr("class","leftToggler2");
 		pc.resize();
 	}else{
 		jQuery("#portal-menu").css("display","block");
 		jQuery("#leftToggler").height("100%");
-		jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-left.gif");
+		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-left.gif");
+		jQuery("#leftToggler").attr("class","leftToggler");
 		pc.resize();
 	}
    	$('portal-bottom').focus();
