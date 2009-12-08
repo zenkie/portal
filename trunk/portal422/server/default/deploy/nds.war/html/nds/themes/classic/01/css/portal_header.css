@@ -669,20 +669,26 @@ padding:0px;
 width:100%;
 }
 
-.leftToggler{
-/*background:#c3d9ff url(/html/nds/themes/classic/01/images/arrow-left.gif) no-repeat scroll 1px 50%;*/
+.leftToggler,.leftToggler1,.leftToggler2,.leftToggler3{
 border-right:1px solid #a7c0d6;
-background-color:#c3d9ff;
 cursor:pointer;
 height:100%;
 margin:5 0 0 0;
 padding:0;
 overflow:hidden;
-/*width:7px;*/
-width:100%;
+width:7px;
 }
-#leftToggler:hover {
-background-color:#678fc2;
+.leftToggler{
+background:#c3d9ff url(/html/nds/themes/classic/01/images/arrow-left.gif) no-repeat scroll 1px 50%;
+}
+.leftToggler1{
+background:#678FC2 url(/html/nds/themes/classic/01/images/arrow-left.gif) no-repeat scroll 1px 50%;
+}
+.leftToggler2{
+background:#c3d9ff url(/html/nds/themes/classic/01/images/arrow-right.gif) no-repeat scroll 1px 50%;
+}
+.leftToggler3{
+background:#678FC2 url(/html/nds/themes/classic/01/images/arrow-right.gif) no-repeat scroll 1px 50%;
 }
 
 
