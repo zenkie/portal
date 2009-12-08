@@ -387,7 +387,7 @@ DIST.prototype={
                 }
                 this.itemStr+="<table id='"+pdt[ii].xmlns+ "'  title=\""+ptotCan+":"+ptotRem+"\" border=\"0\" cellpadding=\"0\" cellspacing=\"1\"  bgcolor=\"#8db6d9\""+(ii!=0?" style='display:none;table-layout:fixed'":" style='table-layout:fixed'")+">\n";
                 this.itemStr+=this.forTableShowStyle(tagLen)+"<tr>"+
-                              "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">颜色</td>"+
+                              "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">色号</td>"+
                               "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">店仓</td>" +
                               "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">订单号</td>" +
                               "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">订单类型</td>" +
@@ -492,7 +492,7 @@ DIST.prototype={
             }
             this.itemStr+="<table id='"+pdt.xmlns+ "'  title=\""+ptotCan+":"+ptotRem+"\" border=\"0\" cellpadding=\"0\" cellspacing=\"1\" width=\"\" bgcolor=\"#8db6d9\" style=\"table-layout:fixed;\">\n";
             this.itemStr+=this.forTableShowStyle(tagLen)+"<tr>"+
-                          "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">颜色</td>"+
+                          "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">色号</td>"+
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">店仓</td>" +
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">订单号</td>" +
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">订单类型</td>" +
