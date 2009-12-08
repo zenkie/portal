@@ -93,7 +93,7 @@ for(int wasi=0;wasi<waListButtons.size();wasi++){
 %>
 		<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "help",null)%>" onclick="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"/>
 	</div>
-	<div id="page-table-content" style="width:99%;">
+	<div id="page-table-content" style="width:100%;">
 	<%@ include file="table_list.js.jsp" %>
 	<%@ include file="table_list.jsp" %>
   </div>
