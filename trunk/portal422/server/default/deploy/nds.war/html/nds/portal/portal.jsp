@@ -114,9 +114,6 @@ jQuery(document).ready(loadWelcomePage);
 			</div>
 		   	</td><td id="portal-separator" style="vertical-align:top;width:7px;height:100%;" >
 			<div id="leftToggler" style="vertical-align:middle;" class="leftToggler" onclick="pc.menu_toggle(this);" onmouseover="pc.menu_hl(1);" onmouseout="pc.menu_hl(0);"  >
-<table  style="height:100%;" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:middle;">
-				<img id="separator-icon" src="/html/nds/themes/classic/01/images/arrow-left.gif" >
-</td></tr></table>
 
 				</div></td>
 			</tr></table></td>
