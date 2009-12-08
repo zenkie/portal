@@ -113,7 +113,7 @@ PortalControl.prototype = {
 		//else limitWidth=245+15;//15 is added to reflect the addtion a toggle bar div between menu and table
 		//following modified by ken to estimated the client area after hiding of main navigation menu.	
 		limitWidth=(jQuery("#portal-menu").css("display")=="block")?jQuery("#portal-menu").width()+jQuery("#portal-separator").width():jQuery("#portal-separator").width();		
-		limitWidth=limitWidth+25;
+		limitWidth=limitWidth+40;
 		
 		var e=$("embed-lines");
 		if(e==null)return;
