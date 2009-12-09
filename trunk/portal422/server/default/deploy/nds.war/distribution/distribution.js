@@ -313,7 +313,7 @@ DIST.prototype={
                               "$(\"ph-pic-img-txt\").innerHTML=\""+pdt[ii].xmlns+"<br/>"+pdt[ii].value+"\";" +
                               "dist.showContent1(\""+pdt[ii].xmlns+"\");" +
                               "this.style.backgroundColor=\"#8db6d9\"; this.style.color=\"white\";'"+
-                              (ii==0?"  style='background:#8db6d9'":"")+">"+pdt[ii].xmlns+"</div></li>\n";
+                              (ii==0?"  style='background:#8db6d9;color:white'":"")+">"+pdt[ii].xmlns+"</div></li>\n";
                 var itemColor=pdt[ii].color;
                 if(!itemColor){
                     alert("此单据已失效！");
@@ -416,7 +416,7 @@ DIST.prototype={
                           "$(\"ph-pic-img-txt\").innerHTML=\""+pdt.xmlns+"<br/>"+pdt.value+"\";" +
                           "dist.showContent1(\""+pdt.xmlns+"\"));" +
                           "this.style.backgroundColor=\"#8db6d9\"; this.style.color=\"white\";'"+
-                          "style='background:#8db6d9'>"+pdt.xmlns+"</div></li>\n";
+                          "style='background:#8db6d9;color:white'>"+pdt.xmlns+"</div></li>\n";
             var itemColor=pdt.color;
             if(!itemColor){
                 alert("此单据已失效！");
@@ -1009,6 +1009,42 @@ DIST.prototype={
                 return;
             }
         }
+        jQuery(document).bind("keydown",function(event){
+            if(event.ctrlKey==true&&event.which==38){
+                var divs=jQuery("#category_manu li>div");
+                var len=divs.length;
+                if(len>1){
+                    var tar;
+                    divs.each(function(i){
+                        if(this.style.color=='white'){
+                            tar=i;
+                        }
+                    });
+                    if(tar>0){
+                        jQuery(divs[tar-1]).click();
+                    }else{
+                        jQuery(divs[len-1]).click();
+                    }
+                }
+            }
+            else if(event.ctrlKey==true&&event.which==40){
+                var divs=jQuery("#category_manu li>div");
+                var len=divs.length;
+                if(len>1){
+                    var tar;
+                    divs.each(function(i){
+                        if(this.style.color=='white'){
+                            tar=i;
+                        }
+                    });
+                    if(tar<len-1){
+                        jQuery(divs[tar+1]).click();
+                    }else{
+                        jQuery(divs[0]).click();
+                    }
+                }
+            }
+        });
         jQuery("#ph-from-right-table table input").bind("focus",function(event){
             var e=Event.element(event)
             var tab=jQuery(e).parents("table")[0];
