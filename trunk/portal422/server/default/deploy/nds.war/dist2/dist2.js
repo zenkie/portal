@@ -307,6 +307,15 @@ DIST.prototype={
                 return;
             }
         }
+        if(!window.document.addEventListener){
+            window.document.attachEvent("onkeydown",hand11);
+            function hand11()
+            {
+                if(window.event.keyCode==13){
+                    return false;
+                }
+            }
+        }
     },
     fillItem:function(storeItem){
         var stores=new Array();
@@ -676,12 +685,12 @@ DIST.prototype={
     showObject:function(url, theWidth, theHeight,option){
         if( theWidth==undefined || theWidth==null) theWidth=956;
         if( theHeight==undefined|| theHeight==null) theHeight=570;
-        var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"abs",maxButton:true};
-        if(option!=undefined)
+        var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",maxButton:true,onCenter:true};
+          if(option!=undefined){
             Object.extend(options, option);
+        }
         Alerts.popupIframe(url,options);
         Alerts.resizeIframe(options);
-        Alerts.center(theHeight,theWidth,200);
     },
     _executeCommandEvent :function(evt){
         Controller.handle( Object.toJSON(evt), function(r){
