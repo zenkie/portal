@@ -67,6 +67,10 @@ BOX.prototype={
         this._executeCommandEvent(evt);
     },
     del:function(){
+        if($("status").value.strip()=="2"){
+            alert("单据已提交，不可操作！");
+            return;
+        }
         var es= jQuery("#showContent>div:visible table:visible tr:visible :checkbox:checked");
         var len=es.length;
         if(len>0){
@@ -76,7 +80,7 @@ BOX.prototype={
                 jQuery(jQuery(es[i]).parents("tr")[0]).css("display","none");
             }
         }else{
-            alert("请选择明细！")
+            alert("请选择明细！");
         }
         this.countBox();
         this.countTot();
@@ -158,8 +162,8 @@ BOX.prototype={
                                "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><input type='checkbox'></td>"+
                                "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[s].m_box_item.NAME+"</div></td>"+
                                "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[s].m_box_item.VALUE+"</div></td>"+
-                               "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[s].m_box_item.VALUE1+"</div></td>"+
-                               "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[s].m_box_item.VALUE2+"</div></td>"+
+                               "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[s].m_box_item.VALUE1_CODE+"</div></td>"+
+                               "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[s].m_box_item.VALUE2_CODE+"</div></td>"+
                                "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\" id=\""+destination[j]+ret.data[s].m_box_item.NO+"\" title=\""+ret.data[s].m_box_item.QTY+"\" name='scan'></div></td></tr>";
                     }
                 }
@@ -206,8 +210,8 @@ BOX.prototype={
                            "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><input type='checkbox'></td>"+
                            "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[h].m_box_item.NAME+"</div></td>"+
                            "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[h].m_box_item.VALUE+"</div></td>"+
-                           "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[h].m_box_item.VALUE1+"</div></td>"+
-                           "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[h].m_box_item.VALUE2+"</div></td>"+
+                           "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[h].m_box_item.VALUE1_CODE+"</div></td>"+
+                           "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data[h].m_box_item.VALUE2_CODE+"</div></td>"+
                            "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\" id=\""+destination+ret.data[h].m_box_item.NO+"\" title=\""+ret.data[h].m_box_item.QTY+"\" name='scan'></div></td></tr>";
                 }
             }else{
@@ -215,8 +219,8 @@ BOX.prototype={
                        "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><input type='checkbox'></td>"+
                        "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.NAME+"</div></td>"+
                        "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.VALUE+"</div></td>"+
-                       "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.VALUE1+"</div></td>"+
-                       "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.VALUE2+"</div></td>"+
+                       "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.VALUE1_CODE+"</div></td>"+
+                       "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+ret.data.m_box_item.VALUE2_CODE+"</div></td>"+
                        "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\" id=\""+destination+ret.data.m_box_item.NO+"\" title=\""+ret.data.m_box_item.QTY+"\" name='scan'></div></td></tr>";
             }
             itemS+="</table></div>";
@@ -422,6 +426,10 @@ BOX.prototype={
         }
     },
     addBox:function(category){
+        if($("status").value.strip()=="2"){
+            alert("单据已提交，不可操作！");
+            return;
+        }
         this.add(category);
     },
     add:function(category){
@@ -871,7 +879,6 @@ TOOLTIPS.prototype={
         if(code.length>0){
             if(box.checkIsArray(box.returnData.data)){
                 for(var i=0;i<box.returnData.data.length;i++){
-
                     if(reg.test(box.returnData.data[i].m_box_item.NAME)&&$("selCategory").value.strip()==box.returnData.data[i].m_box_item.DESTINATION){
                         if(styles[0].indexOf(box.returnData.data[i].m_box_item.NAME)==-1){
                             styles[0].push(box.returnData.data[i].m_box_item.NAME);
@@ -1010,10 +1017,6 @@ CSTABLE.prototype={
                 $("pop-up-title-0").innerHTML="款号:<span style='color:red;'>"+this.currentstyle+"</span>  装箱明细！";
 
             }
-            /*产品模式的时候兼容输入条码
-             else if(this.checkValidCode()){
-             box.codeRt(event);
-             }*/
         }
 
     },
@@ -1028,18 +1031,6 @@ CSTABLE.prototype={
         }
         return false;
     },
-    /*产品模式的时候兼容输入条码：验证是否是条码
-     checkValidCode:function(){
-     if(box.checkIsArray(box.returnData.data)){
-     for(var i=0;i<box.returnData.data.length;i++){
-     if(box.returnData.data[i].m_box_item.NO==this.currentstyle&&box.returnData.data[i].m_box_item.DESTINATION==$("selCategory").value.strip())
-     return true;
-     }
-     }else{
-     if(box.returnData.data.m_box_item.NO==this.currentstyle&&box.returnData.data.m_box_item.DESTINATION==$("selCategory").value.strip())return true;
-     }
-     return false;
-     },*/
     getSingleValueArray:function(source){
         var temp=[];
         for(var i=0;i<source.length;i++){
@@ -1051,19 +1042,20 @@ CSTABLE.prototype={
         jQuery("#stock_table").html("");
         this.styleDetail=[[],[],[],[]];
         if(box.checkIsArray(box.returnData.data)){
-            for(var i=0;i<box.returnData.data.length;i++){
-                if(box.returnData.data[i].m_box_item.NAME==this.currentstyle&&box.returnData.data[i].m_box_item.DESTINATION==$("selCategory").value.strip()){
-                    this.styleDetail[0].push(box.returnData.data[i].m_box_item.VALUE1);
-                    this.styleDetail[1].push(box.returnData.data[i].m_box_item.VALUE2);
-                    this.styleDetail[2].push(box.returnData.data[i].m_box_item.QTY);
-                    this.styleDetail[3].push(box.returnData.data[i].m_box_item.NO);
+            var sdata=ztools.sortJSON(box.returnData.data,"m_box_item.VALUE2_CODE",2);
+            for(var i=0;i<sdata.length;i++){
+                if(sdata[i].m_box_item.NAME==this.currentstyle&&sdata[i].m_box_item.DESTINATION==$("selCategory").value.strip()){
+                    this.styleDetail[0].push(sdata[i].m_box_item.VALUE1_CODE);
+                    this.styleDetail[1].push(sdata[i].m_box_item.VALUE2_CODE);
+                    this.styleDetail[2].push(sdata[i].m_box_item.QTY);
+                    this.styleDetail[3].push(sdata[i].m_box_item.NO);
                 }
             }
         }
         else{
             if(box.returnData.data.m_box_item.NAME==this.currentstyle&&box.returnData.data.m_box_item.DESTINATION==$("selCategory").value.strip()){
-                this.styleDetail[0].push(box.returnData.data.m_box_item.VALUE1);
-                this.styleDetail[1].push(box.returnData.data.m_box_item.VALUE2);
+                this.styleDetail[0].push(box.returnData.data.m_box_item.VALUE1_CODE);
+                this.styleDetail[1].push(box.returnData.data.m_box_item.VALUE2_CODE);
                 this.styleDetail[2].push(box.returnData.data.m_box_item.QTY);
                 this.styleDetail[3].push(box.returnData.data.m_box_item.NO);
             }
@@ -1092,7 +1084,7 @@ CSTABLE.prototype={
         for(var s=0;s<len+2;s++){
             str+="<col width=\"80\"/>";
         }
-        str+="<tr><td class='hd' bgcolor=\"#FFFFFF\">颜色/尺寸</td>";
+        str+="<tr><td class='hd' bgcolor=\"#FFFFFF\">色号/尺寸</td>";
         for (j=0;j<sizes.length;j++){
             str+="<td class='hd' bgcolor=\"#FFFFFF\">"+sizes[j]+"</td>";
         }
