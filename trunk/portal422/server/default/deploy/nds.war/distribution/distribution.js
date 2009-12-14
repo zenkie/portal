@@ -215,13 +215,13 @@ DIST.prototype={
                 for(var i=0;i<funditem.length;i++){
                     fundStr+="<tr>"+
                              "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(i+1)+"</div></td>"+
-                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.NAME||""+"</div></td>"+
-                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEEREMAIN||0+"</div></td>"+
-                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEECHECKED||0+"</div></td>"+
-                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEELTAKE||0+"</div></td>"+
-                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEECANTAKE||0+"</div></td>"+
-                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEEALLOT||0+"</div></td>"+
-                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+funditem[i].facusitem.FEEREM||0+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.NAME||"")+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.FEEREMAIN||0)+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.FEECHECKED||0)+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.FEELTAKE||0)+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.FEECANTAKE||0)+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.FEEALLOT||0)+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.FEEREM||0)+"</div></td>"+
                              " </tr>";
                 }
             }
@@ -353,31 +353,31 @@ DIST.prototype={
                                         var qtyAl=parseInt(colorArr[p].stores[pp].docnos[ppp].tag.qtyAl[w]);
                                         var docno=colorArr[p].stores[pp].docnos[ppp].no;
                                         qtyAl=isNaN(qtyAl)?0:qtyAl;
-                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?"<input title='"+barCode+"' name=\""+docno+"\" type=\"text\" class=\"td-txt-input\" value=\""+(qtyAl==0?'':qtyAl)+"\"/>":"")+"</td>";
+                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?"<input title='"+barCode+"' name=\""+docno+"\" type=\"text\" docType='"+ss+"' class=\"td-txt-input\" value=\""+(qtyAl==0?'':qtyAl)+"\"/>":"")+"</td>";
                                     }
                                 }
                                 if(con==1){
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">可配</td>";
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">可用库存</td>";
                                     for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                         var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.can[w];
                                         var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
-                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtK\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" name='"+barCode+"' title='"+itemMetrixTr+"'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
+                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtK\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" name='"+barCode+"' title='"+itemMetrixTr+"' docType='"+ss+"'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
                                     }
                                 }
                                 if(con==2){
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">未配</td>";
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">订单余量</td>";
                                     for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                         var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.rem[w];
                                         var docno=colorArr[p].stores[pp].docnos[ppp].no;
                                         var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
-                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtW\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" id='"+(docno+barCode)+"-rem'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
+                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtW\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" id='"+(docno+barCode)+"-rem' docType='"+ss+"'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
                                     }
                                 }
                                 if(con==3){
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">订单量</td>";
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">订单数量</td>";
                                     for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                         var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.dest[w];
-                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtD\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
+                                        item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtD\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" docType='"+ss+"'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
                                     }
                                 }
                                 item+="</tr>";
@@ -458,31 +458,31 @@ DIST.prototype={
                                     var qtyAl=parseInt(colorArr[p].stores[pp].docnos[ppp].tag.qtyAl[w]);
                                     var docno=colorArr[p].stores[pp].docnos[ppp].no;
                                     qtyAl=isNaN(qtyAl)?0:qtyAl;
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?"<input title='"+barCode+"' name=\""+docno+"\" type=\"text\" class=\"td-txt-input\" value=\""+(qtyAl==0?'':qtyAl)+"\"/>":"")+"</td>";
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?"<input title='"+barCode+"' name=\""+docno+"\" type=\"text\" docType='"+ss+"' class=\"td-txt-input\" value=\""+(qtyAl==0?'':qtyAl)+"\"/>":"")+"</td>";
                                 }
                             }
                             if(con==1){
-                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">可配</td>";
+                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">可用库存</td>";
                                 for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                     var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.can[w];
                                     var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtK\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" name='"+barCode+"' title='"+itemMetrixTr+"'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtK\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" name='"+barCode+"' docType='"+ss+"'  title='"+itemMetrixTr+"'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
                                 }
                             }
                             if(con==2){
-                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">未配</td>";
+                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">订单余量</td>";
                                 for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                     var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.rem[w];
                                     var docno=colorArr[p].stores[pp].docnos[ppp].no;
                                     var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtW\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" id='"+(docno+barCode)+"-rem'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtW\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" id='"+(docno+barCode)+"-rem' docType='"+ss+"' ")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
                                 }
                             }
                             if(con==3){
-                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">订单量</td>";
+                                item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">订单数量</td>";
                                 for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                     var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.dest[w];
-                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtD\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":"")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
+                                    item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtD\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" docType='"+ss+"'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
                                 }
                             }
                             item+="</tr>";
@@ -563,16 +563,17 @@ DIST.prototype={
         this.totCan=isNaN(tot)?0:tot;
         jQuery("#ph-from-right-table>table td input").each(function(){
             var barCode=this.title;
+            var parentT=jQuery(this).parents("table")[0];
             var docno=this.name;
             var totCan=dist.totCan;
-            var barcodecan=jQuery("#ph-from-right-table>table td[name="+barCode+"]:first").attr("title");
+            var barcodecan=jQuery("td[name="+barCode+"]:first",parentT).attr("title");
             barcodecan=isNaN(parseInt(barcodecan))?0:parseInt(barcodecan);
-            var currentrem=jQuery("#"+docno+barCode+"-rem").text();
+            var currentrem=jQuery("#\\"+docno+barCode+"-rem").text();
             currentrem=isNaN(parseInt(currentrem))?0:parseInt(currentrem);
             var min=Math.min(totCan,barcodecan,currentrem);
             if(min>0){
                 this.value = min;
-                jQuery("#ph-from-right-table>table td[name="+barCode+"]:first").attr("title",(barcodecan-min));
+                jQuery("td[name="+barCode+"]:first",parentT).attr("title",(barcodecan-min));
                 dist.totCan=totCan-min;
             }else{
                 this.value="";
@@ -963,8 +964,6 @@ DIST.prototype={
     },
     _executeCommandEvent :function (evt) {
         Controller.handle( Object.toJSON(evt), function(r){
-            //try{
-
             var result= r.evalJSON();
             if (result.code !=0 ){
                 alert(result.message);
@@ -1070,8 +1069,8 @@ DIST.prototype={
                 if(col[i]==jQuery(this).parent("td")[0]){
                         can=isNaN(parseInt(col[i+1].innerHTML,10))?0:parseInt(col[i+1].innerHTML,10);
                 }
-                if(i%4==0) {
-                    if(col[i].firstChild&&this.title==col[i].firstChild.title){
+                if(i%4==0){
+                    if(col[i].firstChild&&this.title==col[i].firstChild.title&&jQuery(col[i].firstChild).attr("docType")==jQuery(this).attr("docType")){
                         var coun=col[i].firstChild?col[i].firstChild.value:0;
                         qty+=isNaN(parseInt(coun,10))?0:parseInt(coun,10);
                     }
@@ -1114,7 +1113,6 @@ DIST.prototype={
                     var lenCj=tab.rows[j].cells.length;
                     col[j-1]=tab.rows[j].cells[index+indexD-(lenC0-lenCj)];
                 }
-
                 var colForinput=jQuery(col).find("input");
                 var colIndex=colForinput.index(e);
                 /*
@@ -1124,14 +1122,14 @@ DIST.prototype={
                     var can=0;
                     var qty=0;
                     $("isChanged").value='true';
-                    for(var i=0;i<col.length;i++) {
+                    for(var i=0;i<col.length;i++){
                         if(col[i]==jQuery(this).parent("td")[0]){
                             can=isNaN(parseInt(col[i+1].innerHTML,10))?0:parseInt(col[i+1].innerHTML,10);
                         }
-                        if(i%4==0) {
-                            if(col[i].firstChild&&col[i].firstChild.title==this.title){
+                        if(i%4==0){
+                            if(col[i].firstChild&&col[i].firstChild.title==this.title&&jQuery(col[i].firstChild).attr("docType"==jQuery(this).attr("docType"))){
                                 var coun=col[i].firstChild?col[i].firstChild.value:0;
-                                qty+=isNaN(parseInt(coun,10))?0:parseInt(coun,10);
+                                qty=isNaN(parseInt(coun,10))?0:parseInt(coun,10);
                             }
                         }
                     }
@@ -1336,7 +1334,7 @@ DIST.prototype={
     showObject:function(url, theWidth, theHeight,option){
         if( theWidth==undefined || theWidth==null) theWidth=956;
         if( theHeight==undefined|| theHeight==null) theHeight=570;
-        var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",maxButton:true,onCenter:true};
+        var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",maxButton:false,onCenter:true};
         if(option!=undefined){
             Object.extend(options, option);
         }
@@ -1344,7 +1342,7 @@ DIST.prototype={
         Alerts.resizeIframe(options);
     }
 }
-DIST.main = function () {
+DIST.main = function(){
     dist=new DIST();
 };
 jQuery(document).ready(DIST.main);

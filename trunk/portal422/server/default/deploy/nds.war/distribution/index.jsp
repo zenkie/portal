@@ -240,11 +240,11 @@
             <div id="ph-pic-txt">
                 <ul>
                     <li>
-                        <div class="left">可&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+                        <div class="left">可用库存：</div>
                         <div class="right" id="tot-can"></div>
                     </li>
                     <li>
-                        <div class="left">未&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+                        <div class="left">订单余量：</div>
                         <div class="right" id="tot-rem"></div>
                     </li>
                     <li>
@@ -258,11 +258,11 @@
             <div id="ph-pic-txt">
                 <ul>
                     <li>
-                        <div class="left">可&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+                        <div class="left">可用库存：</div>
                         <div class="right" id="input-5"></div>
                     </li>
                     <li>
-                        <div class="left">未&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+                        <div class="left">订单余量：</div>
                         <div class="right" id="input-4"></div>
                     </li>
                     <li>
@@ -276,7 +276,7 @@
             <div id="ph-pic-txt">
                 <ul>
                     <li>
-                        <div class="left">未&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+                        <div class="left">订单余量：</div>
                         <div class="right" id="rs"></div>
                     </li>
                     <li>
