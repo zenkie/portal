@@ -17,7 +17,28 @@
 <script>
 	document.title="<%=tabName%>";
 </script>
-<link href="/html/nds/css/printoptions.css" rel="stylesheet" type="text/css"/>
+<style>
+.buttons{
+padding-top: 3px;
+}
+#content{
+ padding-left: 10px;
+ padding-top: 0px;
+}
+#message {
+clear:both;
+margin:5px 0px 10px 5px;
+}
+#template{
+width:410px;
+float:left;
+}
+#format{
+padding-left:20px;
+width:200px;
+float:left;
+}	
+</style>	
 <%
     QueryRequestImpl qRequest =(QueryRequestImpl) request.getAttribute("query");
     int tableId= Tools.getInt(request.getParameter("table"), -1);
@@ -50,7 +71,6 @@
 	String format=props.getProperty("format", "pdf"); //default to htm format as output
     
 %>
-<iframe id="print_iframe" name="print_iframe" width="1" height="1" src="<%= contextPath %>/html/common/null.html"></iframe>
 <div id="content">
 <div class="buttons">
 	<input type="button" value="<%=PortletUtils.getMessage(pageContext, "print",null)%>" onclick="prt.doPrint()" name="Print" class="cbutton"/>
@@ -62,6 +82,7 @@
 <div id="message" class="nt">
 	<%=PortletUtils.getMessage(pageContext, "print-notice",null)%>
 </div>
+<br><br>
 <form id="form1" name= "form1">
 <div id="template">
 <fieldset>
@@ -168,11 +189,12 @@ for(int i=0;i< al.size();i++){
   <ul>
   	<li><input type="radio" name="fmt" value="pdf" <%=("pdf".equals(format) ? " checked":"")%>>PDF</li>
   	<li><input type="radio" name="fmt" value="htm" <%=("htm".equals(format) ? " checked":"")%>>HTML</li>
-  </ul>	
+  	<li><input type="radio" name="fmt" value="xls" <%=("xls".equals(format) ? " checked":"")%>>XLS</li>
+  	<li><input type="radio" name="fmt" value="csv" <%=("csv".equals(format) ? " checked":"")%>>CSV</li>
+  </ul>
 </fieldset>
 </div>	<!--template-->
 </form>
 </div><!--content-->
-
-
+<iframe id="print_iframe" name="print_iframe" style="display:none" width="1" height="1" src="<%= contextPath %>/html/common/null.html"></iframe>
 <%@ include file="/html/nds/footer_info.jsp" %>
