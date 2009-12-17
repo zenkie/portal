@@ -5,12 +5,10 @@ BOX.prototype={
         this.boxItem="";
         this.returnData=null;
         this.addr=null;
-        //dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         dwr.util.setEscapeHtml(false);
-        /** A function to call if something fails. */
         dwr.engine._errorHandler =  function(message, ex) {
             while(ex!=null && ex.cause!=null) ex=ex.cause;
-            if(ex!=null)message=ex.message;// dwr.engine._debug("Error: " + ex.name + "," + ex.message+","+ ex.cause.message, true);
+            if(ex!=null)message=ex.message;
             if (message == null || message == "") alert("A server error has occured. More information may be available in the console.");
             else if (message.indexOf("0x80040111") != -1) dwr.engine._debug(message);
             else alert(message);
@@ -75,17 +73,25 @@ BOX.prototype={
         var len=es.length;
         if(len>0){
             $("isSaved").value="unSave";
+            var count=0;
             for(var i=0;i<len;i++){
-                jQuery(jQuery(es[i]).parent("td").siblings(":last")).children("div").html("");
+                var divS=jQuery(jQuery(es[i]).parent("td").siblings(":last")).children("div");
+                count+=parseInt(divS.text(),10);
+                divS.html("");
                 jQuery(jQuery(es[i]).parents("tr")[0]).css("display","none");
             }
         }else{
             alert("请选择明细！");
         }
-        this.countBox();
-        this.countTot();
+        var oldBox=isNaN(parseInt(jQuery("#currentBox").text(),10))?0:parseInt(jQuery("#currentBox").text(),10);
+        jQuery("#currentBox").text(oldBox-count);
+        jQuery("#"+$("selCategory").value+"Table_"+$("selBox").value).attr("total",jQuery("#currentBox").text());
+        var oldTot=isNaN(parseInt(jQuery("#totBox").text(),10))?0:parseInt(jQuery("#totBox").text(),10);
+        jQuery("#totBox").text(oldTot-count);
     },
     _onLoadBox:function(e){
+        var time1=new Date();
+        time1=time1.getSeconds();
         var data=e.getUserData();
         var ret=data.jsonResult.evalJSON();
         this.returnData=ret;                                 
@@ -119,6 +125,7 @@ BOX.prototype={
         var manuBox="<input type =\"hidden\" id=\"selBox\" value=\"1\"/>";
         var itemS="";
         var destination=ret.DESTINATION;
+        var totBox=0;
         if(this.checkIsArray(destination)){
             for(var j=0;j<destination.length;j++){
                 manuS+="<li id=\""+destination[j]+"M\" style=\"cursor:pointer;width:110px;\" onclick=\"box.selCategorySty(event,'"+destination[j]+"',"+j+")\" ><span id=\""+destination[j]+"eq\"><img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/></span>"+destination[j]+"</li>";
@@ -139,9 +146,13 @@ BOX.prototype={
                             boxNoes.push(ret.M_BOX_LOAD.BOXNO);
                         }
                     }
-                    boxNoes=ztools.mergeArr(boxNoes);
-                    for(var nk=0;nk<boxNoes.length;nk++){
-                        manuBox+="<li id=\""+destination[j]+"_"+boxNoes[nk]+"\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination[j]+"');this.style.backgroundColor='#ddd';\">"+boxNoes[nk]+"</li>";
+                    if(boxNoes.length>0){
+                        boxNoes=ztools.mergeArr(boxNoes).sort();
+                        for(var nk=0;nk<boxNoes.length;nk++){
+                            manuBox+="<li id=\""+destination[j]+"_"+boxNoes[nk]+"\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination[j]+"');this.style.backgroundColor='#ddd';\">"+boxNoes[nk]+"</li>";
+                        }
+                    }else{
+                       manuBox+="<li id=\""+destination[j]+"_1\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination[j]+"');this.style.backgroundColor='#ddd';\">1</li>"; 
                     }
                 }
                 manuBox+="<li id=\""+destination[j]+"\" style=\"display:none;cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination[j]+"');this.style.backgroundColor='#ddd';\"></li>"+
@@ -188,9 +199,13 @@ BOX.prototype={
                         boxNoes.push(ret.M_BOX_LOAD.BOXNO);
                     }
                 }
-                boxNoes=ztools.mergeArr(boxNoes);
-                for(var nk=0;nk<boxNoes.length;nk++){
-                    manuBox+="<li id=\""+destination+"_"+boxNoes[nk]+"\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination+"');this.style.backgroundColor='#ddd';\">"+boxNoes[nk]+"</li>";
+                if(boxNoes.length>0){
+                    boxNoes=ztools.mergeArr(boxNoes).sort();
+                    for(var nk=0;nk<boxNoes.length;nk++){
+                        manuBox+="<li id=\""+destination+"_"+boxNoes[nk]+"\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination+"');this.style.backgroundColor='#ddd';\">"+boxNoes[nk]+"</li>";
+                    }
+                }else{
+                    manuBox+="<li id=\""+destination+"_1\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination+"');this.style.backgroundColor='#ddd';\">1</li>";
                 }
             }
             manuBox+="<li id=\""+destination+"\" style=\"display:none;cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination+"');this.style.backgroundColor='#ddd';\"></li>"+
@@ -225,82 +240,74 @@ BOX.prototype={
             }
             itemS+="</table></div>";
         }
-        $("destination").innerHTML=manuS;
-        $("zh-xh").innerHTML=manuBox;
-        $("showContent").innerHTML=itemS;
+        jQuery("#destination").html(manuS);
+        jQuery("#zh-xh").html(manuBox);
+        jQuery("#showContent").html(itemS);
+        var destinations=new Array();
         if(this.checkIsArray(destination)){
-            $("selCategory").value=destination[0];
-            for(var o=0;o<destination.length;o++){
+            destinations=destination;
+        }else{
+            destinations[0]=destination;
+        }
+        $("selCategory").value=destinations[0];
+            for(var o=0;o<destinations.length;o++){
                 if(!ret.M_BOX_LOAD){
-                    this.cloneT(destination[o]+"Table",1);
+                    this.cloneT(destinations[o]+"Table",1);
                 }else{
                     var tableState=false;
                     if(this.checkIsArray(ret.M_BOX_LOAD.m_product_no)){
                         var pdtNo=ret.M_BOX_LOAD.m_product_no;
                         for(var g=0;g<pdtNo.length;g++){
-                            if(ret.M_BOX_LOAD.categorymark[g]==destination[o]){
-                                this.cloneT(destination[o]+"Table",ret.M_BOX_LOAD.BOXNO[g]);
-                                $(destination[o]+ret.M_BOX_LOAD.m_product_no[g]+"_"+ret.M_BOX_LOAD.BOXNO[g]).innerHTML=ret.M_BOX_LOAD.QTYOUT[g];
-                                $(destination[o]+ret.M_BOX_LOAD.m_product_no[g]+"_"+ret.M_BOX_LOAD.BOXNO[g]).parentNode.parentNode.style.display="";
-                                tableState=true;
+                            if(ret.M_BOX_LOAD.categorymark[g]==destinations[o]){
+                                totBox+=isNaN(parseInt(ret.M_BOX_LOAD.QTYOUT[g],10))?0:parseInt(ret.M_BOX_LOAD.QTYOUT[g],10);
+                                if(g==0){
+                                    this.cloneT(destinations[o]+"Table",ret.M_BOX_LOAD.BOXNO[g]);
+                                    tableState=true;
+                                }
+                                if(ret.M_BOX_LOAD.BOXNO[g]==ret.M_BOX_LOAD.BOXNO[0]||g==0){
+                                    $(destinations[o]+ret.M_BOX_LOAD.m_product_no[g]+"_"+ret.M_BOX_LOAD.BOXNO[g]).innerHTML=ret.M_BOX_LOAD.QTYOUT[g];
+                                    jQuery("#"+destinations[o]+"Table_"+ret.M_BOX_LOAD.BOXNO[g]).attr("total",box.countBoxOnLoad(ret,destinations[o],ret.M_BOX_LOAD.BOXNO[g]));
+                                    $(destinations[o]+ret.M_BOX_LOAD.m_product_no[g]+"_"+ret.M_BOX_LOAD.BOXNO[g]).parentNode.parentNode.style.display="";
+                                }
                             }
                         }
                     }else{
-                        if(ret.M_BOX_LOAD.categorymark==destination[o]){
-                            this.cloneT(destination[o]+"Table",ret.M_BOX_LOAD.BOXNO);
-                            $(destination[o]+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).innerHTML=ret.M_BOX_LOAD.QTYOUT;
-                            $(destination[o]+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).parentNode.parentNode.style.display="";
+                        if(ret.M_BOX_LOAD.categorymark==destinations[o]){
+                            this.cloneT(destinations[o]+"Table",ret.M_BOX_LOAD.BOXNO);
+                            $(destinations[o]+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).innerHTML=ret.M_BOX_LOAD.QTYOUT;
+                            jQuery("#"+destinations[o]+"Table_"+ret.M_BOX_LOAD.BOXNO).attr("total",box.countBoxOnLoad(ret,destinations[o],ret.M_BOX_LOAD.BOXNO));
+                            totBox+=isNaN(parseInt(ret.M_BOX_LOAD.QTYOUT,10))?0:parseInt(ret.M_BOX_LOAD.QTYOUT,10);
+                            $(destinations[o]+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).parentNode.parentNode.style.display="";
                             tableState=true;
                         }
                     }
-                    if(!tableState)this.cloneT(destination[o]+"Table",1);
+                    if(!tableState)this.cloneT(destinations[o]+"Table",1);
                 }
-                jQuery("#"+destination[o]+"Num > li")[0].style.backgroundColor="#ddd";
-                if(o>0){
-                    $(destination[o]+"TableDiv").style.display="none";
-                    $(destination[o]+"Num").style.display="none";
+                jQuery("#"+destinations[o]+"Num > li")[0].style.backgroundColor="#ddd";
+               if(o>0){
+                    $(destinations[o]+"TableDiv").style.display="none";
+                    $(destinations[o]+"Num").style.display="none";
                 }
-                jQuery("#"+destination[o]+"TableDiv > table")[0].style.display="";
+                jQuery("#"+destinations[o]+"TableDiv > table")[0].style.display="";
             }
-        }else{
-            $("selCategory").value=destination;
-            if(!ret.M_BOX_LOAD){
-                this.cloneT(destination+"Table",1);
-            }else{
-                var tableState=false;
-                if(this.checkIsArray(ret.M_BOX_LOAD.m_product_no)){
-                    var pdtNo=ret.M_BOX_LOAD.m_product_no;
-                    for(var r=0;r<pdtNo.length;r++){
-                        if(ret.M_BOX_LOAD.categorymark[r]==destination){
-                            this.cloneT(destination+"Table",ret.M_BOX_LOAD.BOXNO[r]);
-                            $(destination+ret.M_BOX_LOAD.m_product_no[r]+"_"+ret.M_BOX_LOAD.BOXNO[r]).innerHTML=ret.M_BOX_LOAD.QTYOUT[r];
-                            $(destination+ret.M_BOX_LOAD.m_product_no[r]+"_"+ret.M_BOX_LOAD.BOXNO[r]).parentNode.parentNode.style.display="";
-                            tableState=true;
-                        }
-                    }
-                }else{
-                    if(ret.M_BOX_LOAD.categorymark==destination){
-                        this.cloneT(destination+"Table",ret.M_BOX_LOAD.BOXNO);
-                        $(destination+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).innerHTML=ret.M_BOX_LOAD.QTYOUT;
-                        $(destination+ret.M_BOX_LOAD.m_product_no+"_"+ret.M_BOX_LOAD.BOXNO).parentNode.parentNode.style.display="";
-                        tableState=true;
-                    }
-                }
-                if(!tableState)this.cloneT(destination+"Table",1);
-            }
-            jQuery("#"+destination+"Num > li")[0].style.backgroundColor="#ddd";
-            jQuery("#"+destination+"TableDiv > table")[0].style.display="";
-        }
         jQuery("#destination > li")[0].style.backgroundColor="#ddd";
         this.showFirst($("selCategory").value);
         if(ret.M_BOX_HD.STATUS==2){
             jQuery("#barcode").attr("disabled","true");
+            jQuery("#pdt_count").attr("disabled","true");
+            jQuery("#desc").attr("disabled","true");
+            jQuery("#model").attr("disabled","true");
         }
         $("isSaved").value="save";
         this.codeModel();
         jQuery("#barcode").focus();
-        this.countBox();
-        this.countTot();
+        jQuery("#totBox").text(totBox);
+        var time2=new Date();
+        time2=time2.getSeconds();
+        try{
+        console.log("create page time:"+(time2-time1));
+        }catch(e){
+        }
         if(!window.document.addEventListener){
             window.document.attachEvent("onkeydown",hand11);
             function hand11()
@@ -424,6 +431,7 @@ BOX.prototype={
         if(count>=0){
             $("address").value=this.addr[count];
         }
+        this.countBox();
     },
     addBox:function(category){
         if($("status").value.strip()=="2"){
@@ -443,10 +451,15 @@ BOX.prototype={
     },
     delBox:function(category){
         this.dele(category);
-        this.countBox();
-        this.countTot();
+        var currentBox=isNaN(parseInt(jQuery("#currentBox").text(),10))?0:parseInt(jQuery("#currentBox").text(),10);
+        var v=isNaN(parseInt(jQuery("#totBox").text(),10))?0:parseInt(jQuery("#totBox").text(),10);
+        jQuery("#totBox").text(v-currentBox);
     },
     dele:function(category){
+        if($("status").value.strip()=="2"){
+            alert("单据已提交，不可操作！");
+            return;
+        }
         if(!$(category+"_"+$("selBox").value)){
             alert("请选择箱号！");
             return;
@@ -474,8 +487,23 @@ BOX.prototype={
             tabs[i].style.display="none";
         }
         $(category+"Table"+"_"+$("selBox").value).style.display="";
+        this.countBox();
     },
     selSty:function(event,category){
+        var boxNo=Event.element(event).innerHTML.strip();
+        if(!$(category+"Table_"+boxNo)){
+            this.cloneT(category+"Table",boxNo);
+            var pdtNoes=this.returnData.M_BOX_LOAD.m_product_no;
+            if(this.checkIsArray(pdtNoes)){
+                 for(var i=0;i<pdtNoes.length;i++){
+                     if(boxNo==this.returnData.M_BOX_LOAD.BOXNO[i]&&category==this.returnData.M_BOX_LOAD.categorymark[i]){
+                         $(category+this.returnData.M_BOX_LOAD.m_product_no[i]+"_"+boxNo).innerHTML=this.returnData.M_BOX_LOAD.QTYOUT[i];
+                         jQuery("#"+category+"Table_"+boxNo).attr("total",box.countBoxOnLoad(this.returnData,category,boxNo));
+                         $(category+this.returnData.M_BOX_LOAD.m_product_no[i]+"_"+boxNo).parentNode.parentNode.style.display="";
+                     }
+                 }
+            }
+        }
         this.select(event,category);
     },
     select:function(event,category){
@@ -490,29 +518,31 @@ BOX.prototype={
         }
         $(category+"Table"+"_"+(window.event?Event.element(window.event).innerHTML:Event.element(event).innerHTML).strip()).style.display="";
         this.countBox();
-        this.countTot();
+    },
+    countBoxOnLoad:function(ret,selCategory,selBox){
+        var count=0;
+        var categorys=new Array();
+        var boxNoes=new Array();
+        var qtyout=new Array();
+        if(this.checkIsArray(ret.M_BOX_LOAD.categorymark)){
+            categorys=ret.M_BOX_LOAD.categorymark;
+            boxNoes=ret.M_BOX_LOAD.BOXNO;
+            qtyout=ret.M_BOX_LOAD.QTYOUT;
+        }else{
+            categorys[0]=ret.M_BOX_LOAD.categorymark;
+            boxNoes[0]=ret.M_BOX_LOAD.BOXNO;
+            qtyout[0]=ret.M_BOX_LOAD.QTYOUT;
+        }
+        var len=categorys.length;
+        for(var i=0;i<len;i++){
+           if(categorys[i]==selCategory&&boxNoes[i]==selBox){
+               count+=parseInt(qtyout[i]);
+           }
+        }
+        return count;
     },
     countBox:function(){
-        var count=0;
-       jQuery("#showContent>div:visible>table:visible tr:visible>td>div[name='scan']").each(function(){
-           if(this.innerHTML!=""){
-               var cou=parseInt(this.innerHTML);
-               cou=isNaN(cou)?0:cou;
-               count=count+cou;
-           }
-       });
-       jQuery("#currentBox").text(count);
-    },
-    countTot:function(){
-        var count=0;
-       jQuery("#showContent>div:visible>table tr:visible>td>div[name='scan']").each(function(){
-           if(this.innerHTML!=""){
-               var cou=parseInt(this.innerHTML);
-               cou=isNaN(cou)?0:cou;
-               count=count+cou;
-           }
-       });
-       jQuery("#totBox").text(count);
+       jQuery("#currentBox").text(jQuery("#"+$("selCategory").value+"Table_"+$("selBox").value).attr("total")||0);
     },
     pdtModel:function(){
         jQuery("#barcode").unbind("keydown");
@@ -567,6 +597,16 @@ BOX.prototype={
                     }else{
                         rows[i].style.display="none";
                     }
+                    var va1=isNaN(parseInt(jQuery("#currentBox").text(),10))?0:parseInt(jQuery("#currentBox").text(),10);
+                    var va2=isNaN(parseInt(jQuery("#totBox").text(),10))?0:parseInt(jQuery("#totBox").text(),10);
+                    if($("isRecoil").value=="normal"){
+                        jQuery("#currentBox").text(va1+parseInt($("pdt_count").value,10));
+                        jQuery("#totBox").text(va2+parseInt($("pdt_count").value,10));
+                    }else{
+                        jQuery("#currentBox").text(va1-parseInt($("pdt_count").value,10));
+                        jQuery("#totBox").text(va2-parseInt($("pdt_count").value,10));
+                    }
+                    jQuery("#"+$("selCategory").value+"Table_"+$("selBox").value).attr("total",jQuery("#currentBox").text());
                     isMatch=true;
                 }
                 if(this.totalBarCode($("selCategory").value,i)<parseInt(rows[i].cells[5].firstChild.title)){
@@ -591,8 +631,6 @@ BOX.prototype={
             }
             jQuery("#barcode").focus();
             $("isSaved").value="unSave";
-            box.countBox();
-            box.countTot();
         }
     },
     totalBarCode:function(category,n){
@@ -1204,6 +1242,7 @@ CSTABLE.prototype={
         count=parseInt(count);
         var rows=$($("selCategory").value+"Table_"+$("selBox").value).rows;
         var state=true;
+        var count1=0;
         for(var i=0;i<rows.length;i++){
             rows[i].style.backgroundColor="";
             if(rows[i].cells[5].firstChild.id.substring(0,rows[i].cells[5].firstChild.id.lastIndexOf("_"))==($("selCategory").value.strip()+code)){
@@ -1215,7 +1254,7 @@ CSTABLE.prototype={
                 }else{
                     rows[i].cells[5].firstChild.innerHTML=isNaN(parseInt(old))?-count:(parseInt(old)-count);
                 }
-                if(box.totalBarCode($("selCategory").value,i)>parseInt(rows[i].cells[5].firstChild.title)){
+                if(box.totalBarCode($("selCategory").value,i)>parseInt(rows[i].cells[5].firstChild.title,10)){
                     var oldColor=rows[i].cells[5].firstChild.style.backgroundColor;
                     rows[i].cells[5].firstChild.style.backgroundColor="#ff0000";
                     alert("扫描数量大于单据数量，输入无效！");
@@ -1224,6 +1263,7 @@ CSTABLE.prototype={
                 }
                 var f=parseInt(rows[i].cells[5].firstChild.innerHTML,10);
                 f=isNaN(f)?0:f;
+                count1+=(f-(isNaN(parseInt(old,10))?0:parseInt(old,10)));
                 if(f!=0){
                     rows[i].style.display="";
                 }else{
@@ -1239,7 +1279,6 @@ CSTABLE.prototype={
         }else{
             $($("selCategory").value+"eq").innerHTML="<img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/>";
         }
-
         if(!window.document.addEventListener){
             window.document.attachEvent("onkeydown",hand11);
             function hand11()
@@ -1250,8 +1289,11 @@ CSTABLE.prototype={
             }
         }
         $("isSaved").value="unSave";
-        box.countBox();
-        box.countTot();
+        var v1=isNaN(parseInt(jQuery("#currentBox").text()))?0:parseInt(jQuery("#currentBox").text());
+        var v2=isNaN(parseInt(jQuery("#totBox").text()))?0:parseInt(jQuery("#totBox").text());
+        jQuery("#currentBox").text(v1+count1);
+        jQuery("#"+$("selCategory").value+"Table_"+$("selBox").value).attr("total",jQuery("#currentBox").text());
+        jQuery("#totBox").text(v2+count1);
     }
 }
 CSTABLE.main = function(){ cstable=new CSTABLE();},

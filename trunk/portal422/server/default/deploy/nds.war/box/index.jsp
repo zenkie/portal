@@ -48,7 +48,6 @@
     <script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script>
     <script language="javascript" src="/html/js/dragdrop/coordinates.js"></script>
     <script language="javascript" src="/html/js/dragdrop/drag.js"></script>
-    <script language="javascript" src="/html/js/dragdrop/dragdrop.js"></script>
     <script language="javascript" src="/html/nds/js/calendar.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
@@ -224,14 +223,14 @@
     </div>
 </div>
 <iframe id="print_iframe" name="print_iframe" width="1" height="1" src="/html/common/null.html"></iframe>
-<div id="forCode" style="cursor:default;display:none;border: 1px solid rgb(0, 0, 0);background-color:white;width:200px; max-height:460px;z-index:99;" tabindex='0'></div>
+<div id="forCode" style="cursor:default;display:none;border: 1px solid rgb(0, 0, 0);background-color:white;width:auto; max-height:300px;z-index:99;overflow-y:auto;" tabindex='0'></div>
 <div id="dialouge" class="pop-up-outer" align="center" style="position:absolute;top:18%;left:18%;z-index:101;background-color:#FFFFFF;display:none;opacity:1;WIDTH:650px;;height:auto;">
     <table class="pop-up-header" cellspacing="0" cellpadding="0" border="0">
         <tr><td id="pop-up-title-0" class="pop-up-title" width="99%" align="left"></td>
             <td class="pop-up-close" width="1%">
-                <a onclick="cstable.removeMask();" title="Close" href="javascript:void(0)">
-                    <img border="0" src="/html/nds/images/close.gif"/></a>
-            </td></tr>
+                <a onclick="cstable.removeMask();" title="Close" href="javascript:void(0)"><img border="0" src="/html/nds/images/close.gif"/></a>
+            </td>
+        </tr>
     </table>
     <div id="stock_table" style="OVERFLOW: auto;width:100%;width:auto; max-height:300px;text-align:left;">
     </div>
