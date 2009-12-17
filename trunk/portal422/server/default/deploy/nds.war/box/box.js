@@ -126,6 +126,7 @@ BOX.prototype={
         var itemS="";
         var destination=ret.DESTINATION;
         var totBox=0;
+        var minBoxNo=1;
         if(this.checkIsArray(destination)){
             for(var j=0;j<destination.length;j++){
                 manuS+="<li id=\""+destination[j]+"M\" style=\"cursor:pointer;width:110px;\" onclick=\"box.selCategorySty(event,'"+destination[j]+"',"+j+")\" ><span id=\""+destination[j]+"eq\"><img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/></span>"+destination[j]+"</li>";
@@ -147,7 +148,8 @@ BOX.prototype={
                         }
                     }
                     if(boxNoes.length>0){
-                        boxNoes=ztools.mergeArr(boxNoes).sort();
+                        boxNoes=ztools.mergeArr(boxNoes).sort(function(a,b){return a-b});
+                        minBoxNo=boxNoes[0];
                         for(var nk=0;nk<boxNoes.length;nk++){
                             manuBox+="<li id=\""+destination[j]+"_"+boxNoes[nk]+"\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination[j]+"');this.style.backgroundColor='#ddd';\">"+boxNoes[nk]+"</li>";
                         }
@@ -200,7 +202,8 @@ BOX.prototype={
                     }
                 }
                 if(boxNoes.length>0){
-                    boxNoes=ztools.mergeArr(boxNoes).sort();
+                    boxNoes=ztools.mergeArr(boxNoes).sort(function(a,b){return a-b});
+                    minBoxNo=boxNoes[0];
                     for(var nk=0;nk<boxNoes.length;nk++){
                         manuBox+="<li id=\""+destination+"_"+boxNoes[nk]+"\" style=\"cursor:pointer;width:75px;\" onclick=\"box.selSty(event,'"+destination+"');this.style.backgroundColor='#ddd';\">"+boxNoes[nk]+"</li>";
                     }
@@ -218,7 +221,6 @@ BOX.prototype={
                    "<col width=\"130\">"+
                    "<col width=\"130\">"+
                    "<col width=\"auto\">";
-
             if(this.checkIsArray(ret.data)){
                 for(var h=0;h<ret.data.length;h++){
                     itemS+="<tr height=\"29\" style=\"display:none;\">"+
@@ -264,7 +266,7 @@ BOX.prototype={
                                     this.cloneT(destinations[o]+"Table",ret.M_BOX_LOAD.BOXNO[g]);
                                     tableState=true;
                                 }
-                                if(ret.M_BOX_LOAD.BOXNO[g]==ret.M_BOX_LOAD.BOXNO[0]||g==0){
+                                if(ret.M_BOX_LOAD.BOXNO[g]==minBoxNo){
                                     $(destinations[o]+ret.M_BOX_LOAD.m_product_no[g]+"_"+ret.M_BOX_LOAD.BOXNO[g]).innerHTML=ret.M_BOX_LOAD.QTYOUT[g];
                                     jQuery("#"+destinations[o]+"Table_"+ret.M_BOX_LOAD.BOXNO[g]).attr("total",box.countBoxOnLoad(ret,destinations[o],ret.M_BOX_LOAD.BOXNO[g]));
                                     $(destinations[o]+ret.M_BOX_LOAD.m_product_no[g]+"_"+ret.M_BOX_LOAD.BOXNO[g]).parentNode.parentNode.style.display="";

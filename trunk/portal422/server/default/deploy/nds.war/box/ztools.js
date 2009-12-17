@@ -45,7 +45,7 @@ ZTOOLS.prototype={
         for(var i=0;i<data.length;i++){
             itemArr.push(level==2?data[i][itemr[0]][itemr[1]]:data[i][item]);
         }
-        itemArr=itemArr.sort();
+        itemArr=itemArr.sort(function(a,b){return a-b});
         for(var j=0;j<itemArr.length;j++){
             if(j==0||itemArr[j]!=itemArr[j-1]){
                 for(var s=0;s<data.length;s++){
