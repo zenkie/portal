@@ -5,6 +5,9 @@ BOX.prototype={
         this.boxItem="";
         this.returnData=null;
         this.addr=null;
+        this.aa=true;
+        this.orderTotNum=0;
+        this.record=new Array();
         dwr.util.setEscapeHtml(false);
         dwr.engine._errorHandler =  function(message, ex) {
             while(ex!=null && ex.cause!=null) ex=ex.cause;
@@ -79,6 +82,7 @@ BOX.prototype={
                 count+=parseInt(divS.text(),10);
                 divS.html("");
                 jQuery(jQuery(es[i]).parents("tr")[0]).css("display","none");
+                es[i].checked=false;
             }
         }else{
             alert("请选择明细！");
@@ -259,13 +263,11 @@ BOX.prototype={
                     var tableState=false;
                     if(this.checkIsArray(ret.M_BOX_LOAD.m_product_no)){
                         var pdtNo=ret.M_BOX_LOAD.m_product_no;
+                        this.cloneT(destinations[o]+"Table",minBoxNo);
                         for(var g=0;g<pdtNo.length;g++){
                             if(ret.M_BOX_LOAD.categorymark[g]==destinations[o]){
                                 totBox+=isNaN(parseInt(ret.M_BOX_LOAD.QTYOUT[g],10))?0:parseInt(ret.M_BOX_LOAD.QTYOUT[g],10);
-                                if(g==0){
-                                    this.cloneT(destinations[o]+"Table",ret.M_BOX_LOAD.BOXNO[g]);
-                                    tableState=true;
-                                }
+                                tableState=true;
                                 if(ret.M_BOX_LOAD.BOXNO[g]==minBoxNo){
                                     $(destinations[o]+ret.M_BOX_LOAD.m_product_no[g]+"_"+ret.M_BOX_LOAD.BOXNO[g]).innerHTML=ret.M_BOX_LOAD.QTYOUT[g];
                                     jQuery("#"+destinations[o]+"Table_"+ret.M_BOX_LOAD.BOXNO[g]).attr("total",box.countBoxOnLoad(ret,destinations[o],ret.M_BOX_LOAD.BOXNO[g]));
@@ -354,6 +356,21 @@ BOX.prototype={
             return false;
         }
     },
+    getOrderTotNum:function(data){
+        var items=new Array();
+        if(this.checkIsArray(data)){
+            items=data;
+        }else{
+            items[0]=data;
+        }
+        var num=0;
+        for(var i=0;i<items.length;i++){
+            var numitem=parseInt(items[i].m_box_item.QTY);
+            numitem=isNaN(numitem)?0:numitem;
+            num+=numitem;
+        }
+        return num;
+    },
     printBox:function(boxNoId){
         var evt={};
         evt.tag="Print";
@@ -393,7 +410,7 @@ BOX.prototype={
                 popup_window(f);
             }
         }else{
-            $("print_iframe").onload=function () {
+            $("print_iframe").onload=function (){
                 setTimeout('box.waitOneMomentToPrint()', 1000);
             };
             ifm.location.href= f;
@@ -450,6 +467,7 @@ BOX.prototype={
         $(category+"_"+addBoxCount).innerHTML=addBoxCount;
         dwr.util.cloneNode(category+"Table",{idSuffix:"_"+addBoxCount});
         $("isSaved").value="unSave";
+        jQuery("#"+category+"_"+addBoxCount).click();
     },
     delBox:function(category){
         this.dele(category);
@@ -507,6 +525,10 @@ BOX.prototype={
             }
         }
         this.select(event,category);
+        if(this.aa){
+            this.orderTotNum=this.getOrderTotNum(this.returnData.data);
+            this.aa = false;
+        }
     },
     select:function(event,category){
         var lies=$(category+"Num").getElementsByTagName("li");
@@ -572,77 +594,93 @@ BOX.prototype={
     },
     codeRt:function(event){
         if(event.which==13){
-            var rows=$($("selCategory").value+"Table_"+$("selBox").value).rows;
-            var state=true;
-            var isMatch=false;
-            for(var i=0;i<rows.length;i++){
-                rows[i].style.backgroundColor="";
-                if(rows[i].cells[5].firstChild.id.substring(0,rows[i].cells[5].firstChild.id.lastIndexOf("_"))==($("selCategory").value.strip()+Event.element(event).value.strip())){
-                    rows[i].style.backgroundColor="#ddd";
-                    var old=rows[i].cells[5].firstChild.innerHTML;
-                    if($("isRecoil").value=="normal"){
-                        rows[i].cells[5].firstChild.innerHTML=isNaN(parseInt(old))?parseInt($("pdt_count").value):(parseInt(old)+parseInt($("pdt_count").value));
-                    }else{
-                        rows[i].cells[5].firstChild.innerHTML=isNaN(parseInt(old))?-parseInt($("pdt_count").value):(parseInt(old)-parseInt($("pdt_count").value));
+            var code=$("barcode").value.strip();
+            var targetD=$($("selCategory").value.strip()+code+"_"+$("selBox").value.strip());
+            if(!targetD){
+                if($("sound")){
+                    if(!app1){
+                        var app1=FABridge.b_playErrorSound.root();
+                        app1.setStr($("sound").value.strip());
                     }
-                    if(this.totalBarCode($("selCategory").value,i)>parseInt(rows[i].cells[5].firstChild.title)||this.totalBarCode($("selCategory").value,i)<0){
-                        var oldColor=rows[i].cells[5].style.backgroundColor;
-                        rows[i].cells[5].style.backgroundColor="#ff0000";
-                        alert("产品数量大于订单量或小于0，输入无效！");
-                        rows[i].cells[5].firstChild.innerHTML=old;
-                        rows[i].cells[5].style.backgroundColor=oldColor;
-                    }
-                    var f=parseInt(rows[i].cells[5].firstChild.innerHTML,10);
-                    f=isNaN(f)?0:f;
-                    if(f!=0){
-                        rows[i].style.display="";
-                    }else{
-                        rows[i].style.display="none";
-                    }
-                    var va1=isNaN(parseInt(jQuery("#currentBox").text(),10))?0:parseInt(jQuery("#currentBox").text(),10);
-                    var va2=isNaN(parseInt(jQuery("#totBox").text(),10))?0:parseInt(jQuery("#totBox").text(),10);
-                    if($("isRecoil").value=="normal"){
-                        jQuery("#currentBox").text(va1+parseInt($("pdt_count").value,10));
-                        jQuery("#totBox").text(va2+parseInt($("pdt_count").value,10));
-                    }else{
-                        jQuery("#currentBox").text(va1-parseInt($("pdt_count").value,10));
-                        jQuery("#totBox").text(va2-parseInt($("pdt_count").value,10));
-                    }
-                    jQuery("#"+$("selCategory").value+"Table_"+$("selBox").value).attr("total",jQuery("#currentBox").text());
-                    isMatch=true;
+                    app1.getErrorSound().play();
                 }
-                if(this.totalBarCode($("selCategory").value,i)<parseInt(rows[i].cells[5].firstChild.title)){
-                    state=false;
-                }
+                alert("没有匹配的商品，请检查条码是否正确！");
+                return;
             }
-            if(state){
+            var reco=this.record[this.record.length-1];
+            if(reco){
+                this.revertBackgroud(reco);
+            }
+            if(this.record.length>10){
+                this.record.shift();
+            }
+            this.record.push(code);
+            var count=parseInt($("pdt_count").value);
+            var targetTr=targetD.parentNode.parentNode;
+            jQuery(targetTr).children().css("backgroundColor","#ddd");
+            targetTr.style.display="";
+            var old=targetD.innerHTML;
+            old=isNaN(parseInt(old))?0:parseInt(old);
+            if($("isRecoil").value=="normal"){
+                targetD.innerHTML=old+count;
+            }else{
+                targetD.innerHTML=old-count;
+            }
+            if(box.barcodeAmount($("selCategory").value,code)>parseInt(targetD.title,10)){
+                var oldColor=targetD.style.backgroundColor;
+                targetD.style.backgroundColor="#ff0000";
+                alert("扫描数量大于单据数量，输入无效！");
+                targetD.innerHTML=old;
+                targetD.style.backgroundColor=oldColor;
+            }
+            var newn=targetD.innerHTML;
+            newn=isNaN(parseInt(newn))?0:parseInt(newn);
+            if(newn!=0){
+                targetTr.style.display="";
+            }else{
+                targetTr.style.display="none";
+            }
+           // alert($($("selCategory").value.strip()+"TableDiv").scrollTop);
+            //targetD.scrollTop=220;
+            var va=newn-old;
+            var va1=isNaN(parseInt(jQuery("#currentBox").text(),10))?0:parseInt(jQuery("#currentBox").text(),10);
+            var va2=isNaN(parseInt(jQuery("#totBox").text(),10))?0:parseInt(jQuery("#totBox").text(),10);
+            if($("isRecoil").value=="normal"){
+                jQuery("#currentBox").text(va1+va);
+                jQuery("#totBox").text(va2+va);
+            }else{
+                jQuery("#currentBox").text(va1-va);
+                jQuery("#totBox").text(va2-va);
+            }
+            jQuery("#"+$("selCategory").value+"Table_"+$("selBox").value).attr("total",jQuery("#currentBox").text());
+            var totB=isNaN(parseInt(jQuery("#totBox").text(),10))?0:parseInt(jQuery("#totBox").text(),10);
+            if(totB==box.orderTotNum){
                 $($("selCategory").value+"eq").innerHTML="<img name='eq' src=\"images/inco-eq.gif\"  width=\"16\" height=\"16\"/>";
             }else{
                 $($("selCategory").value+"eq").innerHTML="<img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/>";
             }
             jQuery("#barcode").val("");
-            if(!isMatch){
-                if($("sound")){
-                    if(!app1){
-                        var app1=FABridge.b_playErrorSound.root();
-                        app1.setStr($("sound").value.strip()); 
-                    }
-                    app1.getErrorSound().play();
-                }
-                alert("没有匹配的商品，请检查条码是否正确！");
-            }
+
             jQuery("#barcode").focus();
             $("isSaved").value="unSave";
         }
     },
-    totalBarCode:function(category,n){
-        var lies=jQuery("#"+category+"Num > li");
-        var tot=0;
-        for(var i=0;i<lies.length-1;i++){
-            var count=$(category+"Table_"+lies[i].innerHTML.strip()).rows[n].cells[5].firstChild.innerHTML;
-            tot+=isNaN(parseInt(count))?0:parseInt(count);
+    revertBackgroud:function(code){
+        var targetD=$($("selCategory").value.strip()+code+"_"+$("selBox").value.strip());
+        var targetTr=targetD.parentNode.parentNode;
+        jQuery(targetTr).children().css("backgroundColor","#E9F1F8");
+    },
+    //计算一个分类标识下一个条码的合计输入数
+    barcodeAmount:function(category,barcode){
+        var lies=jQuery("li",$(category+"Num"));
+        var amount=0;
+        for(var i=0;i<lies.length;i++){
+            var num=lies[i].innerHTML.strip();
+            if($(category+barcode+"_"+num)&&$(category+barcode+"_"+num).innerHTML){
+               amount+=parseInt($(category+barcode+"_"+num).innerHTML.strip(),10); 
+            }
         }
-        return tot;
+        return amount;
     },
     toSave:function(finish){
         if($("status").value.strip()=="2"){
@@ -820,8 +858,6 @@ TOOLTIPS.prototype={
         this.keymode=false;
         this.ieclicked=false;
         this.counter=0;
-        //jQuery(document).bind("keyup",function(e){tooltips.updnkeyHandler(e);});
-
     },
     bindevents:function(){
         for(var j=0;j<this.totaldata;j++){
@@ -903,7 +939,6 @@ TOOLTIPS.prototype={
                 .css("top",top-jQuery("#forCode").height()-5)
                 .css("height","auto")
                 .css("position","absolute")
-            //.css("display","block")
                 .css("z-index",999);
         if(jQuery("#forCode").css("bottom")>jQuery("#forCode").css("height")){
             jQuery("#forCode").css("top",top+jQuery("#barcode").height() + 5);
@@ -932,7 +967,7 @@ TOOLTIPS.prototype={
                     styles[1].push(box.returnData.data.m_box_item.VALUE);
                 }
             }
-        }//end of if code length
+        }
         return styles;
     },
     tipGet:function(){
@@ -1145,6 +1180,15 @@ CSTABLE.prototype={
         str+="<div style='display:inline-block;'></div>";
         $("stock_table").innerHTML=str;
         $("modify_table_product").width=(len+2)*80;
+        if(!window.document.addEventListener){
+            window.document.attachEvent("onkeydown",hand11);
+            function hand11()
+            {
+                if(window.event.keyCode==13){
+                    return false;
+                }
+            }
+        }
         jQuery("#stock_table table input").bind("keydown",function(event){
             var code=event.which;
             if(code==13&&jQuery("#dialouge").css("display")!="none"){
@@ -1232,64 +1276,49 @@ CSTABLE.prototype={
     },
     saveData:function(){
         this.removeMask();
-        var retDataes=jQuery("#stock_table table input");
+        var retDataes=jQuery("table input[value!='']",$("stock_table"));
         for(var i=0;i<retDataes.length;i++){
             var cou=isNaN(parseInt(retDataes[i].value,10))?0:parseInt(retDataes[i].value,10);
             if(cou!=0){
                 this.metrixRt(retDataes[i].name, cou);
             }
         }
+        var tot=isNaN(parseInt(jQuery("#totBox").text()))?0:parseInt(jQuery("#totBox").text());
+        if(tot==box.orderTotNum){
+           $($("selCategory").value+"eq").innerHTML="<img name='eq' src=\"images/inco-eq.gif\"  width=\"16\" height=\"16\"/>";
+        }else{
+           $($("selCategory").value+"eq").innerHTML="<img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/>";
+        }
     },
     metrixRt:function(code,count){
         count=parseInt(count);
-        var rows=$($("selCategory").value+"Table_"+$("selBox").value).rows;
-        var state=true;
         var count1=0;
-        for(var i=0;i<rows.length;i++){
-            rows[i].style.backgroundColor="";
-            if(rows[i].cells[5].firstChild.id.substring(0,rows[i].cells[5].firstChild.id.lastIndexOf("_"))==($("selCategory").value.strip()+code)){
-                rows[i].style.backgroundColor="#ddd";
-                rows[i].style.display="";
-                var old=rows[i].cells[5].firstChild.innerHTML;
-                if($("isRecoil").value=="normal"){
-                    rows[i].cells[5].firstChild.innerHTML=isNaN(parseInt(old))?count:(parseInt(old)+count);
-                }else{
-                    rows[i].cells[5].firstChild.innerHTML=isNaN(parseInt(old))?-count:(parseInt(old)-count);
-                }
-                if(box.totalBarCode($("selCategory").value,i)>parseInt(rows[i].cells[5].firstChild.title,10)){
-                    var oldColor=rows[i].cells[5].firstChild.style.backgroundColor;
-                    rows[i].cells[5].firstChild.style.backgroundColor="#ff0000";
-                    alert("扫描数量大于单据数量，输入无效！");
-                    rows[i].cells[5].firstChild.innerHTML=old;
-                    rows[i].cells[5].firstChild.style.backgroundColor=oldColor;
-                }
-                var f=parseInt(rows[i].cells[5].firstChild.innerHTML,10);
-                f=isNaN(f)?0:f;
-                count1+=(f-(isNaN(parseInt(old,10))?0:parseInt(old,10)));
-                if(f!=0){
-                    rows[i].style.display="";
-                }else{
-                    rows[i].style.display="none";
-                }
-            }
-            if(box.totalBarCode($("selCategory").value,i)<parseInt(rows[i].cells[5].firstChild.title)){
-                state=false;
-            }
-        }
-        if(state){
-            $($("selCategory").value+"eq").innerHTML="<img name='eq' src=\"images/inco-eq.gif\"  width=\"16\" height=\"16\"/>";
+        var targetD=$($("selCategory").value.strip()+code+"_"+$("selBox").value.strip());
+        var targetTr=targetD.parentNode.parentNode;
+        targetTr.style.display="";
+        var old=targetD.innerHTML;
+        old=isNaN(parseInt(old))?0:parseInt(old);
+        if($("isRecoil").value=="normal"){
+            targetD.innerHTML=old+count;
         }else{
-            $($("selCategory").value+"eq").innerHTML="<img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/>";
+            targetD.innerHTML=old-count;
         }
-        if(!window.document.addEventListener){
-            window.document.attachEvent("onkeydown",hand11);
-            function hand11()
-            {
-                if(window.event.keyCode==13){
-                    return false;
-                }
-            }
+        if(box.barcodeAmount($("selCategory").value,code)>parseInt(targetD.title,10)){
+            var oldColor=targetD.style.backgroundColor;
+            targetD.style.backgroundColor="#ff0000";
+            alert("扫描数量大于单据数量，输入无效！");
+            targetD.innerHTML=old;
+            targetD.style.backgroundColor=oldColor;
         }
+        var newn=targetD.innerHTML;
+        newn=isNaN(parseInt(newn))?0:parseInt(newn);
+
+        if(newn!=0){
+           targetTr.style.display="";
+        }else{
+           targetTr.style.display="none";  
+        }
+        count1+=(newn-old);
         $("isSaved").value="unSave";
         var v1=isNaN(parseInt(jQuery("#currentBox").text()))?0:parseInt(jQuery("#currentBox").text());
         var v2=isNaN(parseInt(jQuery("#totBox").text()))?0:parseInt(jQuery("#totBox").text());
