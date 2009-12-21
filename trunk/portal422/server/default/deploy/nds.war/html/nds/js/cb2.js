@@ -189,9 +189,13 @@ createButton.blurCoolButton = function () {
 
 createButton.getParentCoolButton = function (el) {
 	if (el == null) return null;
-	if (/coolButton/.test(el.className))
-		return el;
-	return createButton.getParentCoolButton(el.parentNode);
+	try{
+		if (/coolButton/.test(el.className))
+			return el;
+		return createButton.getParentCoolButton(el.parentNode);
+	}catch(ex){
+		return null;
+	}
 };
 
 /* end event listeners */
