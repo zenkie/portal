@@ -66,11 +66,12 @@
   	<td>&nbsp;</td>
   </tr>
    <% 
-     tabcategorylist=subsystemview.getTableCategories(request,subsystem.getId(),false);
+     tabcategorylist=subsystem.getTableCategories();
+     
      for(int x=0;x<tabcategorylist.size();x++){
-       al= (List)tabcategorylist.get(x);
-       tablecategory=(TableCategory)al.get(0);
-        %>
+       tablecategory=(TableCategory)tabcategorylist.get(x);
+       tablelist= tablecategory.getTables();
+   %>
    <tr>
   	<td>&nbsp;</td>
   	<td><%=tablecategory.getDescription(locale)%></td>
@@ -78,7 +79,6 @@
   	<td>&nbsp;</td>
    </tr>       
        <%
-	   tablelist= (List) al.get(1);
 	   for(int y=0;y<tablelist.size();y++){
 	    table =(Table)tablelist.get(y); 
    %>
