@@ -33,6 +33,106 @@ ObjectControl.prototype = {
 		this._closeWindow=false;// if true, will close window immdiately
 		ObjDropMenu.init();
 	},
+	/**
+	hide or show some columns when on column value changed
+	@param idx index in _masterObj.table.props.display_condition
+	*/
+	hideOrShowColumns:function(idx){
+		var i,col,hc,j;
+		var dc= this._masterObj.table.props.display_condition;
+		var columns=this._masterObj.columns;
+		for(i=0;i<columns.length;i++){
+			col= columns[i];
+			if(col.props!=null && col.props.fix_condition)hc= col.props.fix_condition;
+			else hc=-1;
+			var b=false;	
+			if(hc==idx){
+				if(dc[hc]==true){
+					//hide
+					b=true;
+				}else{
+					if(dc[hc].c!=null&&dc[hc].v!=null){
+						//find column value
+						var v=dwr.util.getValue($("column_" + dc[hc].c));
+						var a=dc[hc].v.split(",");
+						for(j=0;j<a.length;j++){
+							if( a[j].charAt(0)=="!"){
+							   b=(a[j].substr(1)!=v || ( v.trim().length>0 && a[j]=="!null" ));
+							}else{
+							   b=(a[j]==v || (v.trim().length==0 && a[j]=="null"));
+							}
+							if(b) break;
+						}
+					}
+				}
+				if(b){
+					$("column_"+col.id).hide();
+					if($("column_"+col.id+"_fd")!=null)$("column_"+col.id+"_fd").hide();
+					dwr.util.setValue($("column_"+col.id),"");
+				}else{
+					$("column_"+col.id).show();
+					if($("column_"+col.id+"_fd")!=null)$("column_"+col.id+"_fd").show();
+				}
+			}
+		}		
+	},
+	/**
+	fix some columns accroding to column fix_condition property
+	*/
+	initColumns:function(newMaskterObj){
+		if(newMaskterObj!=undefined && newMaskterObj!=null) this._masterObj=newMaskterObj;
+		var dc=null;//array
+		var i,col,hc,j;
+		if(this._masterObj.table.props!=null)dc= this._masterObj.table.props.display_condition;
+		if(dc!=null && dc.length>0){
+			//supervise on dc column/value list
+			for(i=0;i<dc.length;i++){
+				if(dc[i].c!=null && dc[i].v!=null){
+					jQuery("#column_" + dc[i].c).change(function(){
+						oc.hideOrShowColumns(i);
+					});
+				}
+			}	
+		}
+		if(dc!=null && dc.length>0){
+			var columns=this._masterObj.columns;
+			for(i=0;i<columns.length;i++){
+				col= columns[i];
+				if(col.props!=null && col.props.fix_condition)hc= col.props.fix_condition;
+				else hc=-1;
+				var b=false;	
+				if(hc<dc.length && hc>-1){
+					if(dc[hc]==true){
+						//hide
+						b=true;
+					}else{
+						if(dc[hc].c!=null&&dc[hc].v!=null){
+							//find column value
+							var v=dwr.util.getValue($("column_" + dc[hc].c));
+							var a=dc[hc].v.split(",");
+							for(j=0;j<a.length;j++){
+								if( a[j].charAt(0)=="!"){
+								   b=(a[j].substr(1)!=v || ( v.trim().length>0 && a[j]=="!null" ));
+								}else{
+								   b=(a[j]==v || (v.trim().length==0 && a[j]=="null"));
+								}
+								if(b) break;
+							}
+						}
+					}
+					if(b){
+						$("column_"+col.id).hide();
+						if($("column_"+col.id+"_fd")!=null)$("column_"+col.id+"_fd").hide();
+						dwr.util.setValue($("column_"+col.id),"");
+					}else{
+						$("column_"+col.id).show();
+						if($("column_"+col.id+"_fd")!=null)$("column_"+col.id+"_fd").show();
+					}
+				}
+			}
+		}
+		
+	},
 	webaction:function(actionId, warn,target){
 		if( (warn!=null && confirm(warn)) || warn==null){
 			var evt={};
