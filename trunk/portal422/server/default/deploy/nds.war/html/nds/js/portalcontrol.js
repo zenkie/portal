@@ -1216,13 +1216,14 @@ PortalControl.prototype = {
 		var fm= $("export_form");
 		$("exp_resulthandler").value=resulthandler; 
 		$("query_json").value=Object.toJSON(this._gridQuery);
-		var url=fm.readAttribute('action')+"?"+fm.serialize();
+		fm.submit();
+		/*var url=fm.readAttribute('action')+"?"+fm.serialize();
 		//http://support.microsoft.com/kb/q208427/, Maximum URL length is 2,083 characters in Internet Explorer
 		if(url.length>2080 && Prototype.Browser.IE)
 			fm.submit();
 		else{
 			showObject(url);
-		}
+		}*/
     },
     unselecListAll:function(){
     	var e=$("chk_select_all");
