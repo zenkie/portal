@@ -188,6 +188,15 @@ if(table!=null){
 	%>
 		<div class="msg-error"><%=msgError%></div>
 	<%}else{
+		JSONObject tableObj=table.toJSONObject(locale);
+		tableObj.put("description",table.getCategory().getName()+ " - "+ table.getDescription(locale));
+		//load table display condition info
+		JSONObject tableProps= WebUtils.loadObjectPropsForClient(table,objectId,userWeb.getSession());
+		JSONArray displayConditions=null;
+		if(tableProps!=null) {
+			tableObj.put("props", tableProps);
+			displayConditions=tableProps.optJSONArray("display_condition");
+		}
 	%>
 <script>
 var masterObject={
