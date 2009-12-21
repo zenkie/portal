@@ -23,13 +23,15 @@ String paramExpStr=(paremExpr==null?"":paremExpr.toHTMLInputElement());
 String desc="";
 nds.schema.Filter fo=new nds.schema.Filter();
 fo.setDescription(desc);
-if("a".equals(type)){
+/*if("a".equals(type)){
 	desc=query.getParamDesc(false);
 	fo.setSql(condition+" ("+ encode(query.toPKIDSQL(false))+")");
 }else{
 	desc=query.getParamDesc(true);
 	fo.setSql(condition+" ("+ encode(query.toPKIDSQL(true))+")");
-}
+}*/
+desc=query.getParamDesc(false);
+fo.setSql(condition+" ("+ encode(query.toPKIDSQL(false))+")");
 fo.setExpression(paramExpStr);
 //System.out.print(fo.getExpression());
 %> 
