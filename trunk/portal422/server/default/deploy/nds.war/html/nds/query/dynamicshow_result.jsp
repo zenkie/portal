@@ -11,14 +11,14 @@
  *      column      - the column id that will shown as dropdown list
  *			qdata		- query data of AK, can be omitted
  *      fixedcolumns - columns that willl be fixed during query
- *      将结果存放在一个JSONObject里
+		must has read permission 
  		
  */
+ Table table= TableManager.getInstance().getTable(Tools.getInt(request.getParameter("table"),-1));
  String accepter_id= request.getParameter("accepter_id");
  String qdata= request.getParameter("qdata");
- if(!Validator.isNull(qdata)){
+ if(!Validator.isNull(qdata) && userWeb.isPermissionEnabled(table.getSecurityDirectory(),nds.security.Directory.READ )){
  String sqlqdata="";
- Table table= TableManager.getInstance().getTable(Tools.getInt(request.getParameter("table"),-1));
  Column acceptorColumn=  TableManager.getInstance().getColumn(Tools.getInt(request.getParameter("column"),-1));
  //PairTable fixedColumns=PairTable.parse(request.getParameter("fixedcolumns"), null);    // columnlink=value
  //Expression fixedExpression=Expression.parsePairTable(fixedColumns);// nerver null, maybe empty
