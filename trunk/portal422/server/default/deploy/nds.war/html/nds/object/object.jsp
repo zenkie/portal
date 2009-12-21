@@ -197,6 +197,14 @@ if(table!=null){
 	<%}else{
 		JSONObject tableObj=table.toJSONObject(locale);
 		tableObj.put("description",table.getCategory().getName()+ " - "+ table.getDescription(locale));
+		//load table display condition info
+		JSONObject tableProps= WebUtils.loadObjectPropsForClient(table,objectId,userWeb.getSession());
+		JSONArray displayConditions=null;
+		if(tableProps!=null) {
+			tableObj.put("props", tableProps);
+			displayConditions=tableProps.optJSONArray("display_condition");
+		}
+		
 	%>
 <script>
 var masterObject={
@@ -249,7 +257,7 @@ if(status==2){
 <input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
 <table><tr><td>
 	  <script>
-	  	 	jQuery(document).ready(function(){try{dcq.createdynlist(<%=dcqjsonarraylist%>);}catch(ex){}});
+	  	 	jQuery(document).ready(function(){try{dcq.createdynlist(<%=dcqjsonarraylist%>);}catch(ex){};oc.initColumns();});
 	  	  	var ti=setInterval("try{dcq.dynquery();}catch(ex){}",500);
 	  </script>
 </td></tr></table>

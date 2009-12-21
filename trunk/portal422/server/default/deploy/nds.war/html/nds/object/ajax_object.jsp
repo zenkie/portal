@@ -184,6 +184,36 @@ if(table!=null){
 	%>
 		<div class="msg-error"><%=msgError%></div>
 	<%}else{
+		JSONObject tableObj=table.toJSONObject(locale);
+		tableObj.put("description",table.getCategory().getName()+ " - "+ table.getDescription(locale));
+		//load table display condition info
+		JSONObject tableProps= WebUtils.loadObjectPropsForClient(table,objectId,userWeb.getSession());
+		JSONArray displayConditions=null;
+		if(tableProps!=null) {
+			tableObj.put("props", tableProps);
+			displayConditions=tableProps.optJSONArray("display_condition");
+	%>
+<script>
+var masterObject={
+	hiddenInputs:{
+		id:<%=objectId %>,table:<%=tableId %>,namespace:"<%= namespace%>", tablename:"<%= table.getName()%>",
+			directory:"<%= directory%>",fixedcolumns:"<%= fixedColumns.toURLQueryString("")%>",
+			copyfromid:null
+	},
+	table:<%=tableObj%>,
+	<%
+	 ArrayList inputColumns=table.getColumns(new int[]{1,3}, false);// Columns input for Add/Modify 
+	 JSONArray inputColumnsJson=new JSONArray();
+	 for(int i=0;i<inputColumns.size();i++){
+	 	inputColumnsJson.put( ((Column)inputColumns.get(i)).toJSONObject(locale));
+	 } 
+	%>
+	columns:<%=inputColumnsJson.toString()%>
+};
+</script>	
+		
+	<%			
+		}
 		if("object_modify.jsp".equals(includePage)){
 	%>
 <%@ include file="object_modify.jsp"%>
