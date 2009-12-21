@@ -18,7 +18,7 @@ for(int i =0;i<selectRanges.length;i++){
 }
 %>
 </select><%= PortletUtils.getMessage(pageContext, "show-page-number-end",null)%>,
-<%if(canAdd){%>
+<%if(canAdd||canModify){%>
 <a href='javascript:gc.importGrid()'>[<span class="link_cn"><%= PortletUtils.getMessage(pageContext, "object.listimport",null)%></span>]</a>
 <%}%>
 <a href='javascript:gc.exportGrid()'>[<span class="link_cn"><%= PortletUtils.getMessage(pageContext, "export",null)%></span>]</a>
