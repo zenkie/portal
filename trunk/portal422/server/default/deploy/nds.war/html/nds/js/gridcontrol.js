@@ -329,7 +329,14 @@ GridControl.prototype = {
 	importGrid:function(){
 		if(this.checkDirty()) return;
 		if(this.checkNew()) return;
-		var l="/html/nds/objext/import_excel.jsp?objectid="+oc.getObjectId()+"&table="+this._gridMetadata.table+"&fixedcolumns="+encodeURIComponent(this._fixedColumnsStr);
+		var l;
+		if(this._tableActions.include("A")) l="import_excel.jsp";
+		else if( this._tableActions.include("M")) l="update_excel.jsp";
+		else{
+			alert("Not supported action");
+			return;
+		}
+		var l="/html/nds/objext/"+l+"?objectid="+oc.getObjectId()+"&table="+this._gridMetadata.table+"&fixedcolumns="+encodeURIComponent(this._fixedColumnsStr);
 		if(Prototype.Browser.IE)
 			showDialog(l,800,550,true);
 		else
