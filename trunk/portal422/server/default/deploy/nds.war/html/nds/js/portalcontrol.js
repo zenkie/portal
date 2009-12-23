@@ -1732,6 +1732,11 @@ function pop_up_or_clear(src, url, window_name, sObjectID){
 function showObject2(url,option, theWidth, theHeight){
 	if( theWidth==undefined) theWidth=956;
     if( theHeight==undefined) theHeight=570;
+    if(theWidth==-1){
+    	//full screen
+    	theWidth=screen.availWidth;
+    	theHeight=screen.availHeight;
+    }
 	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:true});
 	if(option!=undefined) options.merge(option);
 	if(option.iswindow==true){
