@@ -1,9 +1,9 @@
 <table border="0" cellpadding="0" cellspacing="2" id="scrolltb">
 <tr>
 <td><input type="checkbox" id="chk_select_all" value="1" onclick="pc.selectAll()"> <%= PortletUtils.getMessage(pageContext, "select-all",null)%></td>
-<%if(table.isSubTotalEnabled()){ %>
+<%/*if(table.isSubTotalEnabled()){ %>
 <td><input type="checkbox" id="chk_select_all_fullrange" value='1' onclick="pc.toggleSubTotal()"><%= PortletUtils.getMessage(pageContext, "show-total",null)%></td>
-<%}%>
+<%}*/%>
 <td id="begin_btn" onaction="pc.scrollPage('begin_btn')"><img src="<%=NDS_PATH%>/images/begin.gif" width="16" height="16"></td>
 <td id="prev_btn" onaction="pc.scrollPage('prev_btn')"><img src="<%=NDS_PATH%>/images/back.gif" width="16" height="16"></td>
 <td id="next_btn" onaction="pc.scrollPage('next_btn')"><img src="<%=NDS_PATH%>/images/next.gif" width="16" height="16"></td>

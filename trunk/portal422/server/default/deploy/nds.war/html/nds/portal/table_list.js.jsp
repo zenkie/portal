@@ -34,6 +34,9 @@
 	q.put("fixedcolumns", fixedColumns.toURLQueryString(null));
 	q.put("start",0);
 	q.put("range",QueryUtils.DEFAULT_RANGE);
+	if(table.isSubTotalEnabled()){
+		q.put("subtotal",true); // show sub total
+	}
 	q.put("show_alert",true); //show row css accroding to column value
 	//order by
 	JSONArray sporder=null;
@@ -86,8 +89,12 @@ pc.setWarningOnSubmit(<%=shouldWarn%>);
 <%
 StringBuffer dialogOption=new StringBuffer("{1:1");
 if(refreshGridWhenCloseDialog) dialogOption.append(",onClose:refreshPortalGrid");
-if(nds.util.Validator.isNotNull(table.getRowURL()) && "_blank".equals(table.getRowURLTarget())){
-	dialogOption.append(",iswindow:true,width:1000");
+if(nds.util.Validator.isNotNull(table.getRowURL())){
+	if("_blank".equals(table.getRowURLTarget())){
+		dialogOption.append(",iswindow:true,width:1000");
+	}else if("fullscreen".equals(table.getRowURLTarget())){
+		dialogOption.append(",iswindow:true,width:-1");
+	}
 }
 dialogOption.append("}");
 %>
