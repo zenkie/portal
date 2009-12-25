@@ -96,3 +96,14 @@ ObjectControl.main = function () {
     oc=new ObjectControl();
 };
 jQuery(document).ready(ObjectControl.main);
+
+function popup_window(url,tgt,theWidth,theHeight){
+    if(tgt==null|| tgt==undefined) tgt="_blank";
+    if(theWidth==null|| theWidth==undefined) theWidth=951;
+    if(theHeight==null|| theHeight==undefined) theHeight=570;
+	var theTop=(screen.height/2)-(theHeight/2);
+	var theLeft=(screen.width/2)-(theWidth/2);
+	var features="height="+theHeight+",width="+theWidth+",top="+theTop+",left="+theLeft+",dependent=yes,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,status=yes";
+    var newWindow=window.open(url,tgt,features);
+    newWindow.focus();
+}

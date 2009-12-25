@@ -1,13 +1,17 @@
 <%@ page language="java"  pageEncoding="utf-8"%>
-<%@ include file="/html/nds/common/init.jsp" %>
-<%@ page import="org.json.*" %>
-<%@page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="nds.control.util.*" %>
-<%@ page import="nds.web.config.*" %>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
-<%@ taglib uri="http://java.fckeditor.net" prefix="FCK" %>
+<%@ page import="nds.control.web.UserWebImpl" %>
+<%@ page import="nds.query.QueryEngine" %>
+<%@ page import="nds.control.web.WebUtils" %>
+<%@ page import="nds.schema.Table" %>
+<%@ page import="nds.schema.TableManager" %>
+<%@ page import="nds.schema.TableImpl" %>
 <%
+    UserWebImpl userWeb =null;
+    try{
+		userWeb= ((UserWebImpl)WebUtils.getSessionContextManager(session).getActor(nds.util.WebKeys.USER));
+	}catch(Throwable userWebException){
+		System.out.println("########## found userWeb=null##########"+userWebException);
+	}
     int m_box_id=Integer.parseInt(request.getParameter("id"));
     if(userWeb==null || userWeb.getUserId()==userWeb.GUEST_ID){
         response.sendRedirect("/c/portal/login");
@@ -19,17 +23,25 @@
         response.sendRedirect("/login.jsp");
         return;
     }
+    String tableName=TableManager.getInstance().getTable("m_box").getName();
+    boolean  hasWritePermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.WRITE);
+    boolean hasReadPermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.READ);
+    boolean hasSubmitPermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.SUBMIT);
     String sound=userWeb.getUserOption("ALERT_SOUND","");
     String comp=String.valueOf(QueryEngine.getInstance().doQueryOne("select VALUE from AD_PARAM where NAME='portal.company'"));
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <% if(!hasReadPermission){ %>
+    <script type="text/javascript">alert("您没有查看装箱单的权限！")</script>     
+    <% return;}%>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
     <link href="zh.css" rel="stylesheet" type="text/css" />
     <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/object_aio_min.css">
     <script language="javascript" language="javascript1.5" src="/html/nds/js/ieemu.js"></script>
     <script language="javascript" src="/html/nds/js/prototype.js"></script>
+    <script language="javascript" src="/html/nds/js/objdropmenu.js"></script>
     <script language="javascript" src="/html/nds/js/print.js"></script>
     <script language="javascript" src="/html/nds/js/cb2.js"></script>
     <script language="javascript" src="/html/nds/js/jquery1.2.3/jquery.js"></script>
@@ -37,18 +49,6 @@
     <script>
         jQuery.noConflict();
     </script>
-    <script language="javascript" src="/html/js/sniffer.js"></script>
-    <script language="javascript" src="/html/js/ajax.js"></script>
-    <script language="javascript" src="/html/js/util.js"></script>
-    <script language="javascript" src="/html/js/portal.js"></script>
-    <script language="javascript" src="/html/nds/js/objdropmenu.js"></script>
-    <script language="javascript" src="/html/nds/js/top_css_ext.js"></script>
-    <script language="javascript" src="/html/nds/js/formkey.js"></script>
-    <script type="text/javascript" src="/html/nds/js/selectableelements.js"></script>
-    <script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script>
-    <script language="javascript" src="/html/js/dragdrop/coordinates.js"></script>
-    <script language="javascript" src="/html/js/dragdrop/drag.js"></script>
-    <script language="javascript" src="/html/nds/js/calendar.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
@@ -57,10 +57,6 @@
     <script language="javascript" src="/box/oc.js"></script>
     <script type="text/javascript" src="/flash/FABridge.js"></script>
     <script type="text/javascript" src="/flash/playErrorSound.js"></script>
-    <script language="javascript" src="/html/nds/js/dw_scroller.js"></script>
-    <script type="text/javascript" src="/html/nds/js/init_object_query_zh_CN.js"></script>
-    <script language="javascript" src="/html/nds/js/init_objcontrol_zh_CN.js"></script>
-    <script language="javascript" src="/html/nds/js/obj_ext.js"></script>
     <script type="text/javascript" src="/box/ztools.js"></script>
     <script type="text/javascript" src="/box/box.js"></script>
     <title>检货装箱单</title>
@@ -95,8 +91,10 @@
 <input id="m_box_id" type="hidden" value="<%=m_box_id%>"/>
 <div id="zh-container">
     <div id="zh-btn">
+        <% if(hasWritePermission){%>
         <input name="" type="image" src="images/btn-bc.gif" width="58" height="20"  onclick="box.toSave();"/>
         <input name="" type="image" src="images/btn-sc.gif" width="78" height="20" onclick="box.del();"/>
+        <% }%>
         <%if(!comp.equals("玖姿")){%>
         <input type="button" value="打印含汇总箱单" width="91" id="box-button" onclick="box.doSaveSettings('cx778');"/>
         <input type="button" value="单箱打印" id="box-button1" width="78" height="20" onclick="box.savePrintSettingForSingleBox('cx662');"/>
@@ -106,7 +104,9 @@
         <input name="" type="image" src="images/btn-dy.gif" width="78" height="20" onclick="box.doSaveSettings('cx663');"/>
         <input type="button" value="按单打印" width="60" id="box-button1" onclick="box.doSaveSettings('cx776');"/>
         <%}%>
+        <% if(hasSubmitPermission){%>
         <input name="" type="image" src="images/btn-zx.gif" width="78" height="20" onclick="box.toSave('T');"/>
+        <%}%>
         <input name="" type="image" src="images/btn-ck.gif" width="78" height="20" onclick="popup_window('/html/nds/object/object.jsp?table=14928&id=<%=m_box_id%>&fixedcolumns=','_blank')"/>
         <input name="" type="image" src="images/btn-gb.gif" width="58" height="20" onclick="box.closePop()"/>
         <input type="hidden" id="status" value=""/>
@@ -212,12 +212,13 @@
                 </td>
                 <td class="zh-value" width="110" valign="top" nowrap="" align="left"><input id="barcode" class="ipt-4-2" name="" type="text"/></td>
                 <td class="zh-desc" width="60" valign="top" nowrap="" align="right"><div class="desc-txt" >数量：</div></td>
-                <td class="zh-value" width="110" valign="top" nowrap="" align="left"><input id="pdt_count" type="text" class="ipt-4-2" value="1" onblur="box.checkIsNum(event)" /></td>
+                <td class="zh-value" width="60" valign="top" nowrap="" align="left"><input id="pdt_count" width="58" type="text" class="ipt-4-2" value="1" onblur="box.checkIsNum(event)" /></td>
                 <td width="100"><nobr><input name="isRecoil" type="radio" value="normal" checked onclick="$('isRecoil').value='normal';"/>扫描&nbsp;<input name="isRecoil" type="radio" value="recoil" onclick="$('isRecoil').value='recoil';" />反冲</nobr></td>
-                <td class="zh-desc" width="140" valign="top" nowrap="" align="right"><div class="desc-txt" style="color:red;" >箱合计：</div></td>
-                <td class="zh-desc" width="40" valign="top" nowrap="" align="left"><div class="desc-txt" style="text-align:left;" id="currentBox"></div>
-                <td class="zh-desc" width="60" valign="top" nowrap="" align="right"><div class="desc-txt" style="color:red;" >总合计：</div></td>
-                <td class="zh-desc" width="40" valign="top" nowrap="" align="left"><div class="desc-txt" style="text-align:left;" id="totBox"></div></td>
+                <td class="zh-desc" width="110" valign="top" nowrap="" align="right"><div class="desc-txt" style="color:red;font-size:16px;font-weight:bold;" >箱合计：</div></td>
+                <td class="zh-desc" width="40" valign="top" nowrap="" align="left"><div class="desc-txt" style="text-align:left;font-size:16px;font-weight:bold;" id="currentBox"></div>
+                <td class="zh-desc" width="90" valign="top" nowrap="" align="right"><div class="desc-txt" style="color:red;font-size:16px;font-weight:bold;" >总合计：</div></td>
+                <td class="zh-desc" width="40" valign="top" nowrap="" align="left"><div class="desc-txt" style="text-align:left;font-size:16px;font-weight:bold;" id="totBox"></div></td>
+                <td><input type="button" class="command2_button" value="查看最近已扫条码" onclick="box.showCurrentBarcode()"></td>
             </tr>
         </table></div>
     </div>
@@ -237,6 +238,17 @@
     <div style="float:left;margin-left:8px;margin-top:5px;margin-bottom:5px;">
         <input id="but_J" class="command2_button" type="button" accesskey="J" value="保存(J)" name="createinstances" onclick="cstable.saveData();"/>
         <input id="but_Q" class="command2_button" type="button" accesskey="Q" value="取消(Q)" name="cancel" onclick="cstable.removeMask();"/>
+    </div>
+</div>
+<div id="showBarcode" class="pop-up-outer" align="center" style="position:absolute;top:18%;left:35%;z-index:101;background-color:#FFFFFF;display:none;opacity:1;WIDTH:203px;;height:auto;">
+    <table class="pop-up-header" cellspacing="0" cellpadding="0" border="0">
+        <tr><td class="pop-up-title" width="99%" align="left"></td>
+            <td class="pop-up-close" width="1%">
+                <a onclick="box.removeMask();" title="Close" href="javascript:void(0)"><img border="0" src="/html/nds/images/close.gif"/></a>
+            </td>
+        </tr>
+    </table>
+    <div id="barcode_table" style="OVERFLOW: auto;width:100%;width:auto; max-height:300px;text-align:center;">
     </div>
 </div>
 <div id="submitImge" style="left:30px;top:80px;z-index:111;position:absolute;display:none;">

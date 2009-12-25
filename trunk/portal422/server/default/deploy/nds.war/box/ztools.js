@@ -45,11 +45,19 @@ ZTOOLS.prototype={
         for(var i=0;i<data.length;i++){
             itemArr.push(level==2?data[i][itemr[0]][itemr[1]]:data[i][item]);
         }
-        itemArr=itemArr.sort(function(a,b){return a-b});
+        itemArr=itemArr.sort(function(a,b){
+            var v1=parseInt(a,10);
+            var v2=parseInt(b,10);
+            if(isNaN(v1)||isNaN(v2)){
+                return -1;
+            }else{
+                return v1-v2;
+            }
+        });
         for(var j=0;j<itemArr.length;j++){
             if(j==0||itemArr[j]!=itemArr[j-1]){
                 for(var s=0;s<data.length;s++){
-                    if((level==2?data[s][itemr[0]][itemr[1]]:data[i][item])==itemArr[j]){
+                    if((level==2?data[s][itemr[0]][itemr[1]]:data[s][item])==itemArr[j]){
                         newData.push(data[s])
                     }
                 }
