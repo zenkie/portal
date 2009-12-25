@@ -12,6 +12,7 @@ DIST.prototype={
         this.status=0;
         this.loadStatus="load";
         this.bodyWidth=0;
+        this.docNoes=new Array();
         dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         dwr.util.setEscapeHtml(false);
 
@@ -125,11 +126,13 @@ DIST.prototype={
         var param={};
         param.type=type;
         param.m_allot_id=m_allot_id;
+        param.notes=$("orderNotes").value.strip()||$("notes").value.strip()||"";
         param.m_item=(m_item.length==0?"null":m_item);
         evt.param=Object.toJSON(param);
         evt.table="m_allot";
         evt.action="save";
         evt.permission="r";
+        evt.isclob=true;
         this._executeCommandEvent(evt);
     },
     reShow:function(){
@@ -169,6 +172,8 @@ DIST.prototype={
             jQuery("#ph-serach-bg>div input[type='image']").hide();
             alert("保存成功！");
             $("isChanged").value="false";
+            jQuery("#amount").html(ret.feeallot||0).css("display","");
+            jQuery("#amount1").html(ret.feeallot||0).css("display","");
         }else if(ret.data=="YES"){
             this.status=0;
             alert("提交成功！");
@@ -290,18 +295,26 @@ DIST.prototype={
          $("isChanged").value='false';
         if(ret.searchord){
             $('Details').style.display='none';$('Documents').style.display='';
+            $("commonNotes").value=ret.description||"";
+
+            $("orderNotes").value=ret.notes||"";
             $("column_41520_fd").value=ret.searchord;
         }else{
+            $("notes").value=ret.notes||"";
             $('Details').style.display='';$('Documents').style.display='none';
         }
+        var orderAmount=ret.feeallot||0;
+        jQuery("#amount").html(orderAmount).css("display","");
+        jQuery("#amount1").html(orderAmount).css("display","");
         if(ret.p_display==1){
             jQuery("#docnoType").show();
             jQuery("#idocnoType").show();
         }
+        //alert(Object.toJSON(ret));
         var pdt=ret.data.m_product;
         var totCan=0;
         var totRem=0;
-        if(this.checkIsArray(pdt)) {
+        if(this.checkIsArray(pdt)){
             for(var ii=0;ii<pdt.length;ii++) {
                 var ptotRem=0;
                 var ptotCan=0;
@@ -343,6 +356,7 @@ DIST.prototype={
                                     item+="<td rowspan=\""+this.forStorSpan(colorArr[p].stores[pp])+"\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-left-txt01\">"+colorArr[p].stores[pp].name+"</td>"
                                 }
                                 if(con==0){
+                                    this.docNoes.push(colorArr[p].stores[pp].docnos[ppp].no);
                                     item+="<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+colorArr[p].stores[pp].docnos[ppp].no+"</td>"+
                                                   "<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+this.forChangeType(colorArr[p].stores[pp].docnos[ppp].type)+"</td>"+
                                                   "<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+this.forChangeDate(colorArr[p].stores[pp].docnos[ppp].date)+"</td>"+
@@ -448,6 +462,7 @@ DIST.prototype={
                                 item+="<td rowspan=\""+this.forStorSpan(colorArr[p].stores[pp])+"\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-left-txt01\">"+colorArr[p].stores[pp].name+"</td>"
                             }
                             if(con==0){
+                                this.docNoes.push(colorArr[p].stores[pp].docnos[ppp].no);
                                 item+="<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+colorArr[p].stores[pp].docnos[ppp].no+"</td>"+
                                               "<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+this.forChangeType(colorArr[p].stores[pp].docnos[ppp].type)+"</td>"+
                                               "<td rowspan=\"4\" valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-bg\""+(ss=='FWD'?" style='color:blue;'":"")+">"+this.forChangeDate(colorArr[p].stores[pp].docnos[ppp].date)+"</td>"+
@@ -528,19 +543,44 @@ DIST.prototype={
         if($("orderStatus").value=="2"){
             jQuery("#ph-from-right-table td input").attr("disabled","true");
         }
-
-        if(!window.document.addEventListener){
-            window.document.attachEvent("onkeydown",hand11);
-            function hand11()
-            {
-                if(window.event.keyCode==13){
-                    return false;
-                }
-            }
-        }
-
         this.autoView1();
         this.itemStr=null;
+        this.docNoes=this.docNoes.uniq();
+    },
+    analysis:function(){
+        var solist="";
+        for(var i=0;i<this.docNoes.length;i++){
+            if(i==0){
+                solist+="'"+this.docNoes[i]+"'";
+            }else{
+                solist+=",'"+this.docNoes[i]+"'";
+            }
+        }
+        this.execCxtab(solist);
+    },
+    execCxtab:function(solist){
+        var q={table:"RP_CUSTOMER_SORETSALE",column_masks:4,params:{column:"B_SO_ID;DOCNO", condition:"in ("+solist+")"}};
+        var evt={};
+        evt.command="ExecuteCxtab";
+        evt.callbackEvent="ExecuteCxtab";
+        evt.query=Object.toJSON(q);
+        evt.cxtab= "806";
+        evt.filetype="cub";
+        evt.isrest=true;
+        Controller.handle( Object.toJSON(evt), function(r){
+            var result= r.evalJSON();
+            if (result.code !=0 ){
+                alert(result.message);
+            }else {
+                var r=result.data;
+                if(r.message){
+                    alert(r.message.replace(/<br>/g,"\n"));
+                }
+                if(r.url){
+                    dist.showObject( r.url, 400, 200,null);
+                }
+            }
+        });
     },
     forChangeType:function(type){
         if(type=="FWD"){
@@ -579,6 +619,7 @@ DIST.prototype={
                 this.value="";
             }
         });
+        $("isChanged").value='true';
     },
     /*
      ×Json对象转化为数组
@@ -591,7 +632,7 @@ DIST.prototype={
                 var itemStor=itemColor[i].c_store;
                 var storArr=new Array();
                 if(this.checkIsArray(itemStor)){
-                    for(var j=0;j<itemStor.length;j++) {
+                    for(var j=0;j<itemStor.length;j++){
                         var itemDocno=itemStor[j].w.docno;
                         var docnoArr=new Array();
                         if(this.checkIsArray(itemDocno)){
@@ -957,7 +998,7 @@ DIST.prototype={
     forTableShowStyle:function(tagTot){
         var str= "";
         str+="<col width=\"50\"/><col width=\"70\"/><col width=\"110\"/><col width=\"65\"/><col width=\"65\"/><col width=\"65\">";
-        for(var i=0;i<tagTot;i++) {
+        for(var i=0;i<tagTot;i++){
             str+="<col width=\"65\"/>";
         }
         return str;
@@ -1334,7 +1375,7 @@ DIST.prototype={
     showObject:function(url, theWidth, theHeight,option){
         if( theWidth==undefined || theWidth==null) theWidth=956;
         if( theHeight==undefined|| theHeight==null) theHeight=570;
-        var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",maxButton:false,onCenter:true};
+        var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",maxButton:true,onCenter:true};
         if(option!=undefined){
             Object.extend(options, option);
         }

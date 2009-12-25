@@ -20,6 +20,45 @@ body,#boo{
     border-left:solid 1px;
 }
 /**************************************************************/
+
+.command2_button{
+    vertical-align:top;
+    margin-top:0;
+}
+#box-button1 {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:transparent url(/html/nds/themes/classic/01/images/button_bg.gif) repeat scroll 0 50%;
+border:1px solid #A7A7A7;
+cursor:pointer;
+height:20px;
+margin-top:0;
+vertical-align:top;
+}
+*html #box-button1{
+    padding-top:3px;
+}
+*+html #box-button1{
+    padding-top:3px;
+}
+#button2 {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:transparent url(/html/nds/themes/classic/01/images/button_bg.gif) repeat scroll 0 50%;
+border:1px solid #A7A7A7;
+cursor:pointer;
+height:20px;
+margin-top:0;
+vertical-align:top;
+}
+*html #button2{
+    padding-top:3px;
+}
+*+html #button2{
+    padding-top:3px;
+}
 #ph-btn{
 margin:5px 0;
 }

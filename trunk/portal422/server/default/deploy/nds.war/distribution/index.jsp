@@ -1,19 +1,25 @@
 <%@ page language="java"  pageEncoding="utf-8"%>
-<%@ include file="/html/nds/common/init.jsp" %>
-<%@ page import="org.json.*" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="nds.control.util.*" %>
-<%@ page import="nds.web.config.*" %>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
-<%@ taglib uri="http://java.fckeditor.net" prefix="FCK" %>
+<%@ page import="nds.control.web.UserWebImpl" %>
+<%@ page import="nds.query.QueryEngine" %>
+<%@ page import="nds.control.web.WebUtils" %>
+<%@ page import="nds.schema.Table" %>
+<%@ page import="nds.schema.TableManager" %>
+<%@ page import="nds.schema.TableImpl" %>
 <%
     response.setHeader("Pragma", "No-cache");
     response.setHeader("Cache-Control", "no-cache");
     response.setDateHeader("Expires", 0);
+    UserWebImpl userWeb =null;
+    try{
+        userWeb= ((UserWebImpl)WebUtils.getSessionContextManager(session).getActor(nds.util.WebKeys.USER));
+    }catch(Throwable userWebException){
+        System.out.println("########## found userWeb=null##########"+userWebException);
+    }
     String idS=request.getParameter("id");
     int id=-1;
-    if (idS != null) {
+    if (idS != null){
         id=Integer.parseInt(idS);
     }
     if(userWeb==null || userWeb.getUserId()==userWeb.GUEST_ID){
@@ -26,17 +32,28 @@
         response.sendRedirect("/login.jsp");
         return;
     }
+    Table t=TableManager.getInstance().getTable("M_ALLOT");
+     String directory=t.getSecurityDirectory();
+    int permission=userWeb.getPermission(directory);
+     if((permission&nds.security.Directory.READ)==0){
+%>
+<script type="text/javascript">
+    document.write("<span color='red' algin='center'>您没有权限！</span>")
+</script>
+<%
+            return;
+        }
+    String tableName=t.getName();
+    int distributionTableId=t.getId();
+    String comp=String.valueOf(QueryEngine.getInstance().doQueryOne("select VALUE from AD_PARAM where NAME='portal.company'"));
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>配货单</title>
-    <link rel="Shortcut Icon" href="/html/nds/images/portal.ico" />
     <script language="javascript" src="/html/nds/js/top_css_ext.js"></script>
     <script language="javascript" language="javascript1.5" src="/html/nds/js/ieemu.js"></script>
     <script language="javascript" src="/html/nds/js/cb2.js"></script>
-    <script language="javascript" src="/html/nds/js/xp_progress.js"></script>
-    <script language="javascript" src="/html/nds/js/helptip.js"></script>
     <script language="javascript" src="/html/nds/js/common.js"></script>
     <script language="javascript" src="/html/nds/js/print.js"></script>
     <script language="javascript" src="/html/nds/js/prototype.js"></script>
@@ -49,35 +66,36 @@
     <script language="javascript" src="/html/js/sniffer.js"></script>
     <script language="javascript" src="/html/js/ajax.js"></script>
     <script language="javascript" src="/html/js/util.js"></script>
-    <script language="javascript" src="/html/js/portal.js"></script>
-    <script language="javascript" src="/html/nds/js/objdropmenu.js"></script>
-    <script language="javascript" src="/html/nds/js/formkey.js"></script>
     <script type="text/javascript" src="/html/nds/js/selectableelements.js"></script>
     <script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script>
-    <script language="javascript" src="/html/js/dragdrop/coordinates.js"></script>
-    <script language="javascript" src="/html/js/dragdrop/drag.js"></script>
     <script language="javascript" src="/html/nds/js/calendar.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
     <script language="javascript" src="/html/nds/js/application.js"></script>
     <script language="javascript" src="/html/nds/js/alerts.js"></script>
-    <script language="javascript" src="/html/nds/js/dw_scroller.js"></script>
-    <script type="text/javascript" src="/html/nds/js/init_object_query_zh_CN.js"></script>
     <script language="javascript" src="/html/nds/js/init_objcontrol_zh_CN.js"></script>
-    <script language="javascript" src="/html/nds/js/obj_ext.js"></script>
-    <script language="javascript" src="/html/nds/js/gridcontrol.js"></script>
     <script type="text/javascript" src="/html/nds/js/object_query.js"></script>
     <script language="javascript" src="/distribution/distribution.js"></script>
     <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/header_aio_min.css"/>
     <link typ e="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css"/>
     <link href="ph.css" rel="stylesheet" type="text/css"/>
 </head>
-<% if(id!=-1){ %>
 <script language="javascript">
+<% if(id!=-1){ %>
     jQuery(document).ready(function(){dist.reShow();});
-</script>
 <%}%>
+    if(!window.document.addEventListener){
+        window.document.attachEvent("onkeydown",hand11);
+        function hand11()
+        {
+            if(window.event.keyCode==13){
+                return false;
+            }
+        }
+    }
+</script>
+
 <body id="boo">
 <input type="hidden" id="load_model" value="metrix"/>
 <input type="hidden" id="load_type" value="<%=id==-1?"load":"reload"%>"/>
@@ -89,12 +107,23 @@
     <div id="ph-from-btn">
         <input type="hidden" id="fund_balance" value="<%=id!=-1?id:""%>"/>
         <input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/distribution/index.jsp?&&fixedcolumns=&id=-1';"/>
+        <%if((permission&nds.security.Directory.WRITE)==nds.security.Directory.WRITE){%>
         <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav');"/>
+        <%
+            }
+            if((permission&nds.security.Directory.SUBMIT)==nds.security.Directory.SUBMIT){
+        %>
         <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord');"/>
+        <%}%>
         <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250);"/>
         <!--<input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="var totCan=$('tot-can').innerHTML;dist.showObject('auto_dist.jsp?totcan='+(totCan||0),600,450)" />-->
         <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.autoDist();" />
+        <%if(!comp.equals("玖姿")){%>
+        <input type="button" id="box-button1" value="定配分析" class="command2_button" width="78" height="20" onclick="dist.analysis();"/>
+        <%}%>
+         <input type="button" id="button2" value="刷新" onclick="window.location.reload();"/>
         <input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
+
     </div>
 </div>
 <div id="ph-container">
@@ -179,16 +208,20 @@
                             <td class="ph-value" width="80" valign="top" nowrap="" align="left"><%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject()" /><%}%>
                             </td>
                             <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td class="ph-desc"  valign="top" nowrap="nowrap" align="right">
-                                <div class="desc-txt" align="right" style="color:blue;">物流备注*：</div>
+                                <div class="desc-txt" align="center" style="color:blue;">物流备注*：</div>
                             </td>
                             <td class="ph-value" valign="top" align="left" colspan="2">
                                 <input type="text" name="canModify" class="notes" id="notes"/>
                             </td>
                              <td class="ph-desc" valign="top" align="right">
-                                <div class="desc-txt" id="idocnoType" style="color:red;font-size:14px;display:none;">*期货优先</div>
+                                <div class="desc-txt" align="center" id="idocnoType" style="color:red;font-size:14px;display:none;">*期货优先</div>
+                            </td>
+                            <td class="ph-desc" valign="top" width="120" align="left">
+                                  <div class="desc-txt" align="left" style="color:blue;float:left;font-size:15px;font-weight:bold;vertical-align:bottom;">本单金额：</div><div id="amount1" style="color:black;float:right;font-size:15px;margin-top:3px;"></div>
                             </td>
                         </tr>
                     </table>
@@ -198,32 +231,40 @@
                     <table style="padding-left:12px" border="0" cellspacing="1" cellpadding="0" class="obj" align="left">
                         <tr>
                             <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">单据号<font color="red">*</font>：</div></td>
-                            <td class="ph-value" width="185" valign="top" nowrap="" align="left">
+                            <td class="ph-value" width="165" valign="top" nowrap="" align="left">
                                 <input name="Input2" type="text" readonly="true" class="ipt-4-2" id="column_41520_fd" value=""/>
                                 <input type="hidden" id="column_41520" name="DOCUMENT_ID" value="">
                         <span id="column_41520_link" class="coolButton" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'b_so'+'&return_type=f&column=41520&accepter_id=column_41520', 'column_41520');"><img id='column_41520_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
                                 <script type="text/javascript" >createButton(document.getElementById('column_41520_link'));</script>
                             </td>
-                            <td class="ph-value" width="180" valign="top" nowrap="nowrap" align="left">
+                            <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">备注:</div></td>
+                            <td class="ph-value" width="185" valign="top" nowrap="" align="left">
+                                <input type="text" readonly="true" class="notes" id="commonNotes"/>
+                            </td>
+                            <td class="ph-value" width="150" valign="top" nowrap="nowrap" align="left">
                                 <%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject('doc')" /><%}%>
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td class="ph-desc"  valign="top" nowrap="" align="right">
-                                <div class="desc-txt" align="right" style="color:blue;">物流备注*：</div>
+                                <div class="desc-txt" align="center" style="color:blue;">物流备注*：</div>
                             </td>
                             <td class="ph-value" valign="top" align="left" colspan="2">
                                 <input type="text" name="canModify" class="notes" id="orderNotes"/>
                             </td>
                             <td class="ph-desc" valign="top" align="right">
-                                <div class="desc-txt" id="docnoType" style="color:red;font:bolder;font-size:14px;display:none;">*期货优先</div>
+                                <div class="desc-txt" align="center" id="docnoType" style="color:red;font-weight:bold;font-size:14px;display:none;">*期货优先</div>
+                            </td>
+                            <td class="ph-desc" valign="top" align="left">
+                                  <div class="desc-txt" align="left" style="color:blue;float:left;font-size:15px;font-weight:bold;vertical-align:bottom;" >本单金额：</div><div id="amount" style="color:black;float:right;font-size:15px;"></div>
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
-        </div></td>
+        </div>
+    </td>
 </tr>
 <tr>
     <td colspan="2"><div class="ph-height"></div></td>
