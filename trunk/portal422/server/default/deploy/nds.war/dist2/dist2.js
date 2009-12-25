@@ -93,6 +93,7 @@ DIST.prototype={
         evt.table="m_allot";
         evt.action="save";
         evt.permission="r";
+        evt.isClob=true;
         this._executeCommandEvent(evt);
     },
     reShow:function(){

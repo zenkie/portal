@@ -1,25 +1,28 @@
 <%@ page language="java"  pageEncoding="utf-8"%>
-<%@ include file="/html/nds/common/init.jsp" %>
-<%@ page import="org.json.*" %>
+<%@ page import="nds.control.web.UserWebImpl" %>
+<%@ page import="nds.query.QueryEngine" %>
+<%@ page import="nds.control.web.WebUtils" %>
+<%@ page import="nds.schema.Table" %>
+<%@ page import="nds.schema.TableManager" %>
+<%@ page import="nds.schema.TableImpl" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="nds.control.util.*" %>
-<%@ page import="nds.web.config.*" %>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
-<%@ taglib uri="http://java.fckeditor.net" prefix="FCK" %>
 <%
     response.setHeader("Pragma", "No-cache");
     response.setHeader("Cache-Control", "no-cache");
     response.setDateHeader("Expires", 0);
+    UserWebImpl userWeb =null;
+    try{
+        userWeb= ((UserWebImpl)WebUtils.getSessionContextManager(session).getActor(nds.util.WebKeys.USER));
+    }catch(Throwable userWebException){
+        System.out.println("########## found userWeb=null##########"+userWebException);
+    }
     String idS=request.getParameter("id");
     int id=-1;
-    if (idS != null) {
+    if (idS != null){
         id=Integer.parseInt(idS);
     }
     if(userWeb==null || userWeb.getUserId()==userWeb.GUEST_ID){
-        /*session.invalidate();
-        com.liferay.util.servlet.SessionErrors.add(request,PrincipalException.class.getName());
-        response.sendRedirect("/login.jsp");*/
         response.sendRedirect("/c/portal/login");
         return;
     }
@@ -29,6 +32,20 @@
         response.sendRedirect("/login.jsp");
         return;
     }
+    Table t=TableManager.getInstance().getTable("M_V_ALLOT");
+    String tableName=t.getName();
+    int dist2TableId=t.getId();
+    boolean hasReadPermission=userWeb.hasObjectPermission(tableName,id,nds.security.Directory.READ);
+    if(!hasReadPermission){
+%>
+     <script type="text/javascript">
+         document.write("<span color='red' algin='center'>您没有权限！</span>")
+     </script>
+<%
+        return;
+    }
+    boolean  hasWritePermission=userWeb.hasObjectPermission(tableName,id,nds.security.Directory.WRITE);
+    boolean hasSubmitPermission=userWeb.hasObjectPermission(tableName,id,nds.security.Directory.SUBMIT);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -38,8 +55,6 @@
     <script language="javascript" src="/html/nds/js/top_css_ext.js"></script>
     <script language="javascript" language="javascript1.5" src="/html/nds/js/ieemu.js"></script>
     <script language="javascript" src="/html/nds/js/cb2.js"></script>
-    <script language="javascript" src="/html/nds/js/xp_progress.js"></script>
-    <script language="javascript" src="/html/nds/js/helptip.js"></script>
     <script language="javascript" src="/html/nds/js/common.js"></script>
     <script language="javascript" src="/html/nds/js/print.js"></script>
     <script language="javascript" src="/html/nds/js/prototype.js"></script>
@@ -52,24 +67,16 @@
     <script language="javascript" src="/html/js/sniffer.js"></script>
     <script language="javascript" src="/html/js/ajax.js"></script>
     <script language="javascript" src="/html/js/util.js"></script>
-    <script language="javascript" src="/html/js/portal.js"></script>
     <script language="javascript" src="/html/nds/js/objdropmenu.js"></script>
-    <script language="javascript" src="/html/nds/js/formkey.js"></script>
     <script type="text/javascript" src="/html/nds/js/selectableelements.js"></script>
     <script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script>
-    <script language="javascript" src="/html/js/dragdrop/coordinates.js"></script>
-    <script language="javascript" src="/html/js/dragdrop/drag.js"></script>
     <script language="javascript" src="/html/nds/js/calendar.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
     <script language="javascript" src="/html/nds/js/application.js"></script>
     <script language="javascript" src="/html/nds/js/alerts.js"></script>
-    <script language="javascript" src="/html/nds/js/dw_scroller.js"></script>
-    <script type="text/javascript" src="/html/nds/js/init_object_query_zh_CN.js"></script>
     <script language="javascript" src="/html/nds/js/init_objcontrol_zh_CN.js"></script>
-    <script language="javascript" src="/html/nds/js/obj_ext.js"></script>
-    <script language="javascript" src="/html/nds/js/gridcontrol.js"></script>
     <script type="text/javascript" src="/html/nds/js/object_query.js"></script>
     <script language="javascript" src="dist2.js"></script>
     <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/header_aio_min.css">
@@ -88,20 +95,26 @@
         <input type="hidden" id="fund_balance" value="<%=id!=-1?id:""%>"/>
         <input type="hidden" id="isChanged" value="false">
         <input type="hidden" id="orderStatus" value="1"/>
+        <input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/dist2/index.jsp?&&fixedcolumns=&id=-1';"/>
+        <%if(hasWritePermission){%>
+        <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav');"/>
+        <%
+            }
+            if(hasSubmitPermission){
+        %>
+        <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord');"/>
+        <%}%>
         <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250)"/>
         <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.autoDist();" />
-        <input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/dist2/index.jsp?&&fixedcolumns=&id=-1';"/>
-        <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav');"/>
-        <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord');"/>
         <input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
     </div>
 </div>
 <div id="ph-container">
-<table  border="0" cellspacing="0" cellpadding="0">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td colspan="2" background="images/ph-pic-bg.gif"><div id="ph-serach">
   <div id="" class="djh-table">
-      <table width="660" border="0" cellspacing="1" cellpadding="0" class="obj" align="left">
+      <table width="660" border="0" cellspacing="1" cellpadding="0" class="obj" align="center">
     <tr>
       <td width="100" align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">订单号<font color="red">*</font>：</div></td>
         <td nowrap="" align="left" width="16%" valign="top" class="ph-value">
@@ -186,18 +199,16 @@
               </ul>
 		  </div>
 </div>
-</div>
-    </td>
+</div></td>
     <td valign="top" width="99%" align="left">
         <div class="ph-from-right">
             <div id="ph-from-right-border">
-                <div id="ph-from-right-b">
-                    <div id="ph-from-right-table">
-                    </div>
-                    <div class="ph-height"></div>
-                </div>
-            </div></div>
-    </td>
+<div id="ph-from-right-b">
+  <div id="ph-from-right-table">
+  </div>
+  <div class="ph-height"></div>
+	  </div>
+</div></div></td>
   </tr>
 </table>
 </div>
