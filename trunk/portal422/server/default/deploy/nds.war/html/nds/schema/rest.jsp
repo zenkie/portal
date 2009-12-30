@@ -65,13 +65,18 @@ AK 字段: <%=table.getAlternateKey().getName()+" "+ table.getAlternateKey().get
 	<%
 	List<WebAction> actions=table.getWebActions(WebAction.DisplayTypeEnum.ObjButton);
   	List<WebAction> was=table.getWebActions(WebAction.DisplayTypeEnum.ObjMenuItem);
+  	ArrayList actions2=new ArrayList();
+  	for(int wasi=0;wasi<actions.size();wasi++){
+  		WebAction wa=actions.get(wasi);
+  		actions2.add(wa);
+  	}
   	for(int wasi=0;wasi<was.size();wasi++){
   		WebAction wa=was.get(wasi);
-  		actions.add(wa);
+  		actions2.add(wa);
   	}
 
 	for(int i=0;i<actions.size();i++){
-		WebAction  act=actions.get(i); 
+		WebAction  act=(WebAction)actions2.get(i); 
 	%> 
 	<li><%=act.getName()%> (<%=act.getId()%>) <%=act.getDescription()%></li>
 	<%	
