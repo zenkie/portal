@@ -77,6 +77,7 @@ function resize_img_by_wheel(o){
 }
 function isValidDate(strDate){
 	strDate=String(strDate);
+	strDate=strDate.split(" ")[0];
 	var dteDate;
 	var day, month, year;
 	if (strDate.length==8 && !isNaN(parseInt(strDate,10))){
