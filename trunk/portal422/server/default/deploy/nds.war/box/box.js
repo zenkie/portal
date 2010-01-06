@@ -669,33 +669,45 @@ BOX.prototype={
                 this.record.shift();
             }
             this.record.push(code);
-            var count=parseInt($("pdt_count").value);
+            var count=parseInt($("pdt_count").value,10);
             var targetTr=targetD.parentNode.parentNode;
             jQuery(targetTr).children().css("backgroundColor","#ddd");
             targetTr.style.display="";
-            var old=targetD.innerHTML;
-            old=isNaN(parseInt(old))?0:parseInt(old);
-            if($("isRecoil").value=="normal"){
-                targetD.innerHTML=old+count;
+            if(targetD.innerHTML){
+                var old=targetD.innerHTML;
+                old=isNaN(parseInt(old,10))?0:parseInt(old,10);
             }else{
-                targetD.innerHTML=old-count;
+                var old=0
             }
-            if(box.barcodeAmount($("selCategory").value,code)>parseInt(targetD.title,10)){
-                var oldColor=targetD.style.backgroundColor;
-                targetD.style.backgroundColor="#ff0000";
-                alert("扫描数量大于单据数量，输入无效！");
-                targetD.innerHTML=old;
-                targetD.style.backgroundColor=oldColor;
+            var codeTotal=box.barcodeAmount($("selCategory").value,code);
+            if($("isRecoil").value=="normal"){
+                codeTotal+=count;
+                if(codeTotal>parseInt(targetD.title,10)){
+                    var oldColor=targetD.style.backgroundColor;
+                    targetD.style.backgroundColor="#ff0000";
+                    alert("扫描数量大于单据数量，输入无效！");
+                    targetD.style.backgroundColor=oldColor;
+                }else{
+                    targetD.innerHTML=(old+count);
+                }
+            }else{
+                //codeTotal-=count;
+                targetD.innerHTML=(old-count);
             }
-            var newn=targetD.innerHTML;
-            newn=isNaN(parseInt(newn))?0:parseInt(newn);
+            if(targetD.innerHTML){
+                var newn=targetD.innerHTML;
+                newn=isNaN(parseInt(newn,10))?0:parseInt(newn,10);
+            }else{
+                var newn=0;
+            }
+            //zhou
             if(newn!=0){
                 targetTr.style.display="";
             }else{
                 targetTr.style.display="none";
             }
             targetD.scrollIntoView();
-            var va=newn-old;
+            var va=(newn-old);
             var va1=isNaN(parseInt(jQuery("#currentBox").text(),10))?0:parseInt(jQuery("#currentBox").text(),10);
             var va2=isNaN(parseInt(jQuery("#totBox").text(),10))?0:parseInt(jQuery("#totBox").text(),10);
             jQuery("#currentBox").text(va1+va);
