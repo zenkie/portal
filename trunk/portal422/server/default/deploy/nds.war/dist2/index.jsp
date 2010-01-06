@@ -35,17 +35,16 @@
     Table t=TableManager.getInstance().getTable("M_V_ALLOT");
     String tableName=t.getName();
     int dist2TableId=t.getId();
-    boolean hasReadPermission=userWeb.hasObjectPermission(tableName,id,nds.security.Directory.READ);
-    if(!hasReadPermission){
+     String directory=t.getSecurityDirectory();
+    int permission=userWeb.getPermission(directory);
+     if((permission&nds.security.Directory.READ)==0){
 %>
-     <script type="text/javascript">
-         document.write("<span color='red' algin='center'>您没有权限！</span>")
-     </script>
+<script type="text/javascript">
+    document.write("<span color='red' algin='center'>您没有权限！</span>")
+</script>
 <%
-        return;
-    }
-    boolean  hasWritePermission=userWeb.hasObjectPermission(tableName,id,nds.security.Directory.WRITE);
-    boolean hasSubmitPermission=userWeb.hasObjectPermission(tableName,id,nds.security.Directory.SUBMIT);
+            return;
+        }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -96,11 +95,11 @@
         <input type="hidden" id="isChanged" value="false">
         <input type="hidden" id="orderStatus" value="1"/>
         <input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/dist2/index.jsp?&&fixedcolumns=&id=-1';"/>
-        <%if(hasWritePermission){%>
+        <%if((permission&nds.security.Directory.WRITE)==nds.security.Directory.WRITE){%>
         <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav');"/>
         <%
             }
-            if(hasSubmitPermission){
+            if((permission&nds.security.Directory.SUBMIT)==nds.security.Directory.SUBMIT){
         %>
         <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord');"/>
         <%}%>
