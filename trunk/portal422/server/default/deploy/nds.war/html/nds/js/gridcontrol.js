@@ -1326,15 +1326,18 @@ GridControl.prototype = {
 			this._prepareEditableFields(-1);
 			this._currentRow=-1;
 			$("legend_line").innerHTML= gMessageHolder.NEW_LINE ;
-			var cols=this._gridMetadata.columns,i,col;
-			for(i=4;i< cols.length;i++){
-				col= cols[i];
-				if(col.isVisible && $("eo_"+ col.name)!=null){
-					//check fixed columns
-					if( this._fixedColumns[col.columnId]!=undefined){
-						dwr.util.setValue("eo_"+ col.name,gMessageHolder.MAINTAIN_BY_SYS);				
-					}else{
-						this._setValue("eo_"+ col.name,col.defaultValue);
+			//added by yfzhu, if clear_after_insert is clear, will not clear current input
+			if( dwr.util.getValue("clear_after_insert")==true){
+				var cols=this._gridMetadata.columns,i,col;
+				for(i=4;i< cols.length;i++){
+					col= cols[i];
+					if(col.isVisible && $("eo_"+ col.name)!=null){
+						//check fixed columns
+						if( this._fixedColumns[col.columnId]!=undefined){
+							dwr.util.setValue("eo_"+ col.name,gMessageHolder.MAINTAIN_BY_SYS);				
+						}else{
+							this._setValue("eo_"+ col.name,col.defaultValue);
+						}
 					}
 				}
 			}

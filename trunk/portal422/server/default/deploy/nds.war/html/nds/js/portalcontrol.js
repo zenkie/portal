@@ -1490,9 +1490,23 @@ PortalControl.prototype = {
 		
 		var fm=$("list_query_form");
 	    toggleButtons($("list_query_form"),true);
-	    this._gridQuery.param_str= fm.serialize();
+	    if(this.hasValueInput(fm))
+	    	this._gridQuery.param_str= fm.serialize();
+	    else
+	    	this._gridQuery.param_str= "";
 	    this._gridQuery.start=0;
 		this._executeQuery(this._gridQuery);
+	},
+	/**
+	check is there any input has value set from ui
+	*/
+	hasValueInput:function(fm){
+		var inputs = fm.getInputs('text');
+		for (var i = 0, length = inputs.length; i < length; i++) {
+      		var input = inputs[i];
+      		if(!input.value.blank()) return true;
+    	}
+    	return false;
 	},
 	doRefresh:function(){
 		this.refreshGrid();
