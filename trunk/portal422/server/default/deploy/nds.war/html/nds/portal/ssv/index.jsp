@@ -38,6 +38,7 @@ if(nds.util.Validator.isNull(dialogURL)){
 <html>
 <head>
 <%@ include file="top_meta.jsp" %>
+<script language="javascript" src="/html/nds/js/portal_aio_<%=locale.toString()%>_min.js"></script>
 <script>
 <%
 	// check whether to check timeout for portal page
