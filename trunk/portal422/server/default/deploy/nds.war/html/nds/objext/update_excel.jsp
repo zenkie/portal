@@ -71,6 +71,9 @@ WebUtils.checkDirectoryWritePermission(directory, request);
 <input type="hidden" name="nds.control.ejb.UserTransaction" value="N">
 <input type='hidden' name="mainobjecttableid" value="<%= ParamUtils.getIntAttributeOrParameter(request, "mainobjecttableid",-1)%>">
 <input type='hidden' name="fixedcolumns" value="<%= fixedColumns.toURLQueryString("")%>">  
+<input type="hidden" name="partial_update" value="true">
+<input type='hidden' id="txt_token" name="txt_token" value="">
+<input type='hidden' id="txt_fix_len" name="txt_fix_len" value="">
 
 <table cellspacing="0" cellpadding="0" border="0" class="documentation">
 <tbody>
@@ -136,7 +139,9 @@ for(int i=0;i<columns.size();i++){
 <td valign="top" nowrap><strong><%=PortletUtils.getMessage(pageContext, "import-select-file",null)%></strong><br>
 	(<%=PortletUtils.getMessage(pageContext, "file-size-max",null)%>: <%=Tools.getInt( conf.getProperty("import.excel.maxsize", "1"),1)%>MB)
 	</td>
-<td valign="top"><div id="flashcontent"><input id="fileInput1" name="excel" size="35" type="file"/></div></td>
+<td valign="top"><div id="flashcontent"><input id="fileInput1" name="excel" size="35" type="file"/></div>
+	<div id="noflash" style="display:none"><a href="http://get.adobe.com/flashplayer"><%=PortletUtils.getMessage(pageContext, "download-flash",null)%></a></div>
+	</td>
 </tr>
 </tbody>
 </table>	
