@@ -337,10 +337,11 @@ GridControl.prototype = {
 			return;
 		}
 		var l="/html/nds/objext/"+l+"?objectid="+oc.getObjectId()+"&table="+this._gridMetadata.table+"&fixedcolumns="+encodeURIComponent(this._fixedColumnsStr);
-		if(Prototype.Browser.IE)
+		showDialog(l,800,550,true);
+		/*if(Prototype.Browser.IE)
 			showDialog(l,800,550,true);
 		else
-			popup_window(l);
+			popup_window(l);*/
 		//showDialog("/html/nds/objext/import_excel.jsp?objectid="+oc.getObjectId()+"&table="+this._gridMetadata.table+"&fixedcolumns="+encodeURIComponent(this._fixedColumnsStr),800,550,true);
 		//window.location=("/html/nds/objext/import_excel.jsp?objectid="+oc.getObjectId()+"&table="+this._gridMetadata.table+"&fixedcolumns="+encodeURIComponent(this._fixedColumnsStr));
 	},
