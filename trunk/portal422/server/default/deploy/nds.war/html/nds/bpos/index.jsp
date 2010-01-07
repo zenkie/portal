@@ -1,4 +1,11 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ include file="/html/nds/common/init.jsp" %>
 <% 
+if(userWeb==null || userWeb.isGuest()){
+	String redirect=java.net.URLEncoder.encode(request.getRequestURI()+"?"+request.getQueryString() ,"UTF-8");
+	response.sendRedirect("/login.jsp?redirect="+redirect);
+	return;
+}
   int objectId=Tools.getInt(request.getParameter("id") ,-1);
    if(objectId!=-1) {   
     	int retailTableId=TableManager.getInstance().getTable("m_retail").getId();
@@ -7,8 +14,6 @@
    }
   
 %>
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ include file="/html/nds/common/init.jsp" %>
 <liferay-util:include page="/html/nds/header.jsp">
 	<liferay-util:param name="html_title" value="上海伯俊" />
 	<liferay-util:param name="show_top" value="true" />
