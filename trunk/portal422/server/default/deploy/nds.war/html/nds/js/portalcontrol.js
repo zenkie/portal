@@ -1518,10 +1518,12 @@ PortalControl.prototype = {
     	this._submitToNewWindow("/html/nds/print/options.jsp");
     },
     doImport:function(){
-		if(Prototype.Browser.IE)
+    	showObject2("/html/nds/objext/import_excel.jsp?table="+this._tableObj.id,pc._dialogOption);
+		/*if(Prototype.Browser.IE)
 			showObject2("/html/nds/objext/import_excel.jsp?table="+this._tableObj.id,pc._dialogOption);
 		else
 			popup_window("/html/nds/objext/import_excel.jsp?table="+this._tableObj.id);
+		*/	
 
     },
 	doListCopyTo:function(){
