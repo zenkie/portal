@@ -74,7 +74,7 @@ WebUtils.checkDirectoryWritePermission(directory, request);
 <input type="hidden" name="partial_update" value="true">
 <input type='hidden' id="txt_token" name="txt_token" value="">
 <input type='hidden' id="txt_fix_len" name="txt_fix_len" value="">
-
+<input type='hidden' id="update_columns" name="update_columns" value="">
 <table cellspacing="0" cellpadding="0" border="0" class="documentation">
 <tbody>
 <tr>
@@ -122,7 +122,7 @@ for(int i=0;i<columns.size();i++){
 	Column col=(Column)columns.get(i);
 %>
 <td>	
-	<input type="checkbox" name="update_columns" value="<%=col.getName()%>" <%=(col.isAlternateKey()?"checked readonly disabled":"")%>>
+	<input type="checkbox" name="update_columns2" value="<%=col.getName()%>" <%=(col.isAlternateKey()?"checked readonly disabled":"")%>>
 </td>		
 <%	
 }
@@ -153,7 +153,7 @@ for(int i=0;i<columns.size();i++){
 <div id="btn">
 <input class="command2_button" type='button' id="btnImport" name='ImportExcel' value='<%=PortletUtils.getMessage(pageContext, "import-file",null)%>' onclick="javascript:impxls.beginImport();" >
 <input class="command2_button" type='button' id="btnPrint" name='print' value='<%=PortletUtils.getMessage(pageContext, "print",null)%>' onclick="javascript:window.print();" >
-<span id="tag_close_window"></span>
+<span id="tag_close_window"></span><span id="q_progress" style="display:none"><img src="/html/nds/images/progress.gif"><%=PortletUtils.getMessage(pageContext, "processing-and-wait",null)%></span>
 <Script language="javascript">
  // check show close window button or not
  if(  self==top){

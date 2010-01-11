@@ -210,6 +210,7 @@ if(udxColumns.size()>0){
 <input class="command2_button" type='button' id="btnImport" name='ImportExcel' value='<%=PortletUtils.getMessage(pageContext, "import-file",null)%>' onclick="javascript:impxls.beginImport();" >
 <input class="command2_button" type='button' id="btnPrint" name='print' value='<%=PortletUtils.getMessage(pageContext, "print",null)%>' onclick="javascript:window.print();" >
 <span id="tag_close_window"></span> <a href="update_excel.jsp?<%=request.getQueryString()%>"><%=PortletUtils.getMessage(pageContext, "click-here-to-update-import",null)%></a>
+<span id="q_progress" style="display:none"><img src="/html/nds/images/progress.gif"><%=PortletUtils.getMessage(pageContext, "processing-and-wait",null)%></span>
 <Script language="javascript">
  // check show close window button or not
  if(  self==top){
