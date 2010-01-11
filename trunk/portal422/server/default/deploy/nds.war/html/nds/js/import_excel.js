@@ -4,6 +4,7 @@ ImportXLS = Class.create();
 ImportXLS.prototype = {
 	initialize: function() {
 		$("#txt-param").css('display','none');
+		$("#q_progress").attr("display", "none");
 	},
 	isFlashInstalled:function(){
 		return false;//swfobject.getFlashPlayerVersion().major>9;
@@ -100,18 +101,18 @@ ImportXLS.prototype = {
 	beginImport:function(){
 		$("#btnImport").attr("disabled", "disabled");
 		$("#whole").html('');
-		
+		$("#q_progress").attr("display", "block");
 		var para=this._para;
 		var a=new Array();
 		if(para.partial_update){
-			$("input[name='update_columns']:checked").each(function(i){a.push($(this).val());});
+			$("input[name='update_columns2']:checked").each(function(i){a.push($(this).val());});
 			if(a.length==1){
 				alert($("#selcol").html());
 				$("#btnImport").attr("disabled", "");
 				return;
 			}
 			para.update_columns= a;
-			$("#update_columns").val(a.split(","));
+			$("#update_columns").val(a.join(","));
 		}
 		
 		var fmt=$("input[name='file_format']:checked").val();
