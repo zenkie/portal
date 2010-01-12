@@ -9,6 +9,8 @@ BOX.prototype={
         this.orderTotNum=0;
         this.record=new Array();
         this.m_item=new Array();
+        this.jo=null;
+        this.barcodeItem=new Object();
         dwr.util.setEscapeHtml(false);
         dwr.engine._errorHandler =  function(message, ex){
             while(ex!=null && ex.cause!=null) ex=ex.cause;
@@ -23,7 +25,8 @@ BOX.prototype={
         application.addEventListener( "SavePrintSetting", this._onSavePrintSetting, this);
         application.addEventListener( "SavePrintSettingForSingleBox", this._onSavePrintSettingForSingleBox, this);
     },
-    loadBox:function(){
+    loadBox:function(jo){
+        this.jo=jo;
         var evt={};
         evt.command="DBJSONXML";
         evt.callbackEvent="DO_LOAD";
@@ -76,12 +79,18 @@ BOX.prototype={
         }
         var es= jQuery("#showContent>div:visible table:visible tr:visible :checkbox:checked");
         var len=es.length;
+        var selCategory=$("selCategory").value.strip();
+        var selBox=$("selBox").value.strip();
         if(len>0){
             $("isSaved").value="unSave";
             var count=0;
             for(var i=0;i<len;i++){
                 var divS=jQuery(jQuery(es[i]).parent("td").siblings(":last")).children("div");
-                count+=parseInt(divS.text(),10);
+                var amount=parseInt(divS.text(),10);
+                count+=amount;
+                var id=divS.attr("id");
+                var barcode=id.replace(selCategory,"").replace("_"+selBox,"");
+                this.barcodeItem[barcode]=parseInt(this.barcodeItem[barcode],10)-amount;
                 divS.html("");
                 jQuery(jQuery(es[i]).parents("tr")[0]).css("display","none");
                 es[i].checked=false;
@@ -90,8 +99,8 @@ BOX.prototype={
             alert("请选择明细！");
         }
         var oldBox=isNaN(parseInt(jQuery("#currentBox").text(),10))?0:parseInt(jQuery("#currentBox").text(),10);
-        jQuery("#currentBox").text(oldBox-count);
-       jQuery("#"+$("selCategory").value+"Table_"+$("selBox").value).attr("total",jQuery("#currentBox").text());
+       jQuery("#currentBox").text(oldBox-count);
+       jQuery("#"+selCategory+"Table_"+selBox).attr("total",jQuery("#currentBox").text());
         var oldTot=isNaN(parseInt(jQuery("#totBox").text(),10))?0:parseInt(jQuery("#totBox").text(),10);
         jQuery("#totBox").text(oldTot-count);
     },
@@ -119,7 +128,7 @@ BOX.prototype={
                     ops[i].selected = true;
                 }
             }
-            var adds=ret.ADDRESS;
+            var adds=ret.ADDRESS||"";
             this.addr=adds;
             if(this.checkIsArray(adds)){
                 $("address").value=adds[0];
@@ -336,6 +345,9 @@ BOX.prototype={
         }
         $("isSaved").value="save";
         this.codeModel();
+        if(this.returnData.M_BOX_LOAD){
+            this.getBarcodeItem();
+        }
         jQuery("#barcode").focus();
         jQuery("#totBox").text(totBox);
         var time2=new Date();
@@ -644,10 +656,20 @@ BOX.prototype={
             }
         });
     },
+    getTargetD:function(code){
+	var targetD=$($("selCategory").value.strip()+code+"_"+$("selBox").value.strip());
+	return targetD;
+    },
     codeRt:function(event){
         if(event.which==13){
             var code=$("barcode").value.strip();
-            var targetD=$($("selCategory").value.strip()+code+"_"+$("selBox").value.strip());
+            var targetD=this.getTargetD(code);
+            if(!targetD){
+                if(this.jo[code]){
+                    code=this.jo[code];
+                    targetD=this.getTargetD(code);
+                }
+            }
             if(!targetD||!code){
                 if($("sound")){
                     if(!app1){
@@ -677,9 +699,9 @@ BOX.prototype={
                 var old=targetD.innerHTML;
                 old=isNaN(parseInt(old,10))?0:parseInt(old,10);
             }else{
-                var old=0
+                var old=0;
             }
-            var codeTotal=box.barcodeAmount($("selCategory").value,code);
+            var codeTotal=box.barcodeAmount(code);
             if($("isRecoil").value=="normal"){
                 codeTotal+=count;
                 if(codeTotal>parseInt(targetD.title,10)){
@@ -700,7 +722,6 @@ BOX.prototype={
             }else{
                 var newn=0;
             }
-            //zhou
             if(newn!=0){
                 targetTr.style.display="";
             }else{
@@ -712,6 +733,11 @@ BOX.prototype={
             var va2=isNaN(parseInt(jQuery("#totBox").text(),10))?0:parseInt(jQuery("#totBox").text(),10);
             jQuery("#currentBox").text(va1+va);
             jQuery("#totBox").text(va2+va);
+            if(this.barcodeItem[code]){
+                this.barcodeItem[code]=parseInt(this.barcodeItem[code],10)+va;
+            }else{
+                this.barcodeItem[code]=va;
+            }
             if(this.aa){
                 this.orderTotNum=this.getOrderTotNum(this.returnData.data);
                 this.aa = false;
@@ -733,17 +759,32 @@ BOX.prototype={
         var targetTr=targetD.parentNode.parentNode;
         jQuery(targetTr).children().css("backgroundColor","#E9F1F8");
     },
-    //计算一个分类标识下一个条码的合计输入数
-    barcodeAmount:function(category,barcode){
-        var lies=jQuery($(category+"Num")).children("li");
-        var amount=0;
-        for(var i=0;i<lies.length;i++){
-            var num=lies[i].innerHTML.strip();
-            if($(category+barcode+"_"+num)&&$(category+barcode+"_"+num).innerHTML){
-               amount+=parseInt($(category+barcode+"_"+num).innerHTML.strip(),10); 
-            }
+    //根据条码查找所在箱号；用于装载页面时有些箱号未装载情况无法条码扫描验证
+    getBarcodeItem:function(){
+        var barcodes=this.returnData.M_BOX_LOAD.m_product_no;
+        var qtys=this.returnData.M_BOX_LOAD.QTYOUT;
+        var qtyArr=new Array();
+        var barcodeArr=new Array();
+        if(this.checkIsArray(barcodes)){
+            barcodeArr=barcodes;
+            qtyArr=qtys;
+        }else{
+            barcodeArr[0]=barcodes;
+            qtyArr[0]=qtys;
         }
-        return amount;
+        for(var i=0;i<barcodeArr.length;i++){
+            var barcode=barcodeArr[i];
+            if(this.barcodeItem[barcode]){
+                this.barcodeItem[barcode]=parseInt(this.barcodeItem[barcode],10)+parseInt(qtyArr[i],10);
+            }else{
+                this.barcodeItem[barcode]=qtyArr[i];
+            }
+
+        }
+    },
+    //计算一个分类标识下一个条码的合计输入数
+    barcodeAmount:function(barcode){
+        return this.barcodeItem[barcode]||0;
     },
     toSave:function(finish){
         if(this.aa){
@@ -1376,13 +1417,16 @@ CSTABLE.prototype={
         var targetTr=targetD.parentNode.parentNode;
         targetTr.style.display="";
         var old=targetD.innerHTML;
+        var amount=0;
         old=isNaN(parseInt(old))?0:parseInt(old);
         if($("isRecoil").value=="normal"){
             targetD.innerHTML=old+count;
+            amount+=count;
         }else{
             targetD.innerHTML=old-count;
+            amount-=count;
         }
-        if(box.barcodeAmount($("selCategory").value,code)>parseInt(targetD.title,10)){
+        if((box.barcodeAmount(code)+amount)>parseInt(targetD.title,10)){
             var oldColor=targetD.style.backgroundColor;
             targetD.style.backgroundColor="#ff0000";
             alert("扫描数量大于单据数量，输入无效！");
@@ -1397,6 +1441,11 @@ CSTABLE.prototype={
            targetTr.style.display="none";  
         }
         count1+=(newn-old);
+        if(box.barcodeItem[code]){
+            box.barcodeItem[code]=parseInt(box.barcodeItem[code],10)+count1;
+        }else{
+            box.barcodeItem[code]=count1;
+        }
         $("isSaved").value="unSave";
         var v1=isNaN(parseInt(jQuery("#currentBox").text()))?0:parseInt(jQuery("#currentBox").text());
         var v2=isNaN(parseInt(jQuery("#totBox").text()))?0:parseInt(jQuery("#totBox").text());
