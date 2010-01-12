@@ -1506,6 +1506,11 @@ PortalControl.prototype = {
       		var input = inputs[i];
       		if(!input.value.blank()) return true;
     	}
+    	inputs=fm.getElementsByTagName('select');
+    	for (var i = 0, length = inputs.length; i < length; i++) {
+      		var input = inputs[i];
+      		if(dwr.util.getValue(input)!="0") return true;
+    	}
     	return false;
 	},
 	doRefresh:function(){
