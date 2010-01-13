@@ -604,7 +604,7 @@ BOX.prototype={
             var code=$("barcode").value.strip();
             var targetD=this.getTargetD(code);
             if(!targetD){
-                if(this.jo[code]){
+                if(this.jo&&this.jo[code]){
                     code=this.jo[code];
                     targetD=this.getTargetD(code);
                 }
