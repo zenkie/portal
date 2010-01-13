@@ -286,7 +286,7 @@ BOX.prototype={
         }
         $("isSaved").value="save";
         this.codeModel();
-        if(this.returnData.M_BOX_LOAD){
+        if(this.returnData.M_BOX_LOAD&&this.returnData.M_BOX_LOAD.m_product_no){
             this.getBarcodeItem();
         }
         jQuery("#barcode").focus();
@@ -725,7 +725,6 @@ BOX.prototype={
             }else{
                 this.barcodeItem[barcode]=qtyArr[i];
             }
-
         }
     },
     //计算一个分类标识下一个条码的合计输入数
