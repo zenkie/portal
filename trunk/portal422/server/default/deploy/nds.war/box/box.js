@@ -28,6 +28,7 @@ BOX.prototype={
         application.addEventListener( "SavePrintSettingForSingleBox", this._onSavePrintSettingForSingleBox, this);
     },
     loadBox:function(jo){
+        if(jo)
         this.jo=jo;
         var evt={};
         evt.command="DBJSONXML";
