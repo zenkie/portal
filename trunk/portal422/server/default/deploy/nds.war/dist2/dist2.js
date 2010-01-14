@@ -87,6 +87,7 @@ DIST.prototype={
         var param={};
         param.type=type;
         param.m_allot_id=m_allot_id;
+        param.notes=jQuery("#notes").val()||"";
         param.m_item=(m_item.length==0?"null":m_item);
         param.docno=docno;
         evt.param=Object.toJSON(param);
@@ -191,7 +192,7 @@ DIST.prototype={
         var ret=data.jsonResult.evalJSON();
         if(ret.data=="OK"){
             this.status=0;
-            jQuery("#ph-serach-bg>div input[type='image']").hide();
+            jQuery("#orderSearch>table input[type='image']").hide();
             alert("保存成功！");
             $("isChanged").value="false";
         }else if(ret.data=="YES"){
@@ -223,6 +224,7 @@ DIST.prototype={
             alert("此单据已失效！");
             return;
         }
+        $("notes").value=ret.notes||"";
         for(var i=0;i<pdts.length;i++){
             this.manuStr+="<li><div class='txt-on' name='"+pdts[i].dis+"' title='"+pdts[i].id+"'>"+pdts[i].pdtStyle+"</div></li>";
             this.itemStr+="<table title='"+this.getStyTotRem(pdts[i])+"' name='"+this.getStyTotCan(pdts[i])+"' id='"+pdts[i].id+"' style='display:none' cellspacing=\"1\" cellpadding=\"0\" border=\"0\" bgcolor=\"#8db6d9\">"
@@ -239,7 +241,7 @@ DIST.prototype={
                     if(jj==0){
                         this.itemStr+="<tr>"+
                                       "<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-left-txt\" rowspan='"+colors[j].rowSpan+"'>"+colors[j].colorName+"</td>"+
-                                      "<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txt\">可配</td>";
+                                      "<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txt\">可用库存</td>";
                         for(var s=0;s<colors[j].qtycan.length;s++){
                             if(colors[j].qtycan[s]!='no'){
                                 this.itemStr+="<td id='"+colors[j].barcode[s]+"-can' bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txtK\">"+colors[j].qtycan[s]+"</td>";
@@ -250,7 +252,7 @@ DIST.prototype={
                         this.itemStr+="</tr>";
                     }else if(jj==1){
                         this.itemStr+="<tr>"+
-                                      "<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txt\">未配</td>";
+                                      "<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txt\">订单余量</td>";
                         for(var s1=0;s1<colors[j].qtyrem.length;s1++){
                             if(colors[j].qtyrem[s1]!='no'){
                                 this.itemStr+="<td id='"+colors[j].barcode[s1]+"-rem' bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txtW\">"+colors[j].qtyrem[s1]+"</td>";
@@ -261,7 +263,7 @@ DIST.prototype={
                         this.itemStr+="</tr>";
                     }else if(jj==2){
                         this.itemStr+="<tr>"+
-                                      "<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txt\">订单量</td>";
+                                      "<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txt\">订单数量</td>";
                         for(var s2=0;s2<colors[j].qtyorder.length;s2++){
                             if(colors[j].qtyorder[s2]!='no'){
                                 this.itemStr+="<td id='"+colors[j].barcode[s2]+"-order' bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txtD\">"+colors[j].qtyorder[s2]+"</td>";
@@ -332,10 +334,10 @@ DIST.prototype={
         }
     },
     autoDist:function(){
-        jQuery("#ph-from-right-table>table input").each(function(){
+        jQuery("#ph-from-right-table>table:visible input").each(function(){
             this.value="";
         });
-        jQuery("#ph-from-right-table>table input").each(function(){
+        jQuery("#ph-from-right-table>table:visible input").each(function(){
             if(this.value==""){
                 var barcode=this.title;
                 var storsInput=jQuery("#ph-from-right-table>table input[title="+barcode+"]");
@@ -359,6 +361,7 @@ DIST.prototype={
                 }
             }
         });
+        $("isChanged").value='true';
     },
     /*当未点击产品类别时调用，如页面载入，模糊查询*/
     autoShowManuAndItem:function(){
@@ -375,15 +378,18 @@ DIST.prototype={
         jQuery(div).css("backgroundColor","#8db6d9").css("color","white");
         var styleId=jQuery(div).attr("title").strip();
         var styName=jQuery(div).attr("name").strip();
+        var status=$("orderStatus").value.strip();
         jQuery("#"+styleId).show();
         jQuery("#ph-pic-img-border>img").attr("src","/pdt/"+styleId+"_1_2.jpg");
         jQuery("#ph-pic-img-txt").html(jQuery(div).text()+"<br/>"+styName);
+        if(status!='2')
+        jQuery("#"+styleId+" td>input:first").focus();
         jQuery("#totStyleCan").html(jQuery("#"+styleId).attr("name"));
         jQuery("#totStyleRem").html(jQuery("#"+styleId).attr("title"));
         var inputs=jQuery("#"+styleId+" td>input");
         var totStyleAlready=0;
         for(var i=0;i<inputs.length;i++){
-            if(i==0){
+            if(i==0&&status!='2'){
                 inputs[i].focus();
             }
             var coun=parseInt(inputs[i].value,10);
@@ -392,6 +398,42 @@ DIST.prototype={
         jQuery("#totStyleAlready").html(totStyleAlready);
     },
     listener:function(){
+        jQuery(document).bind("keyup",function(event){
+            if(event.ctrlKey==true&&event.which==38){
+                var divs=jQuery("#styleManu>li>div");
+                var len=divs.length;
+                if(len>1){
+                    var tar;
+                    divs.each(function(i){
+                        if(this.style.color=='white'){
+                            tar=i;
+                        }
+                    });
+                    if(tar>0){
+                        jQuery(divs[tar-1]).click();
+                    }else{
+                        jQuery(divs[len-1]).click();
+                    }
+                }
+            }
+            else if(event.ctrlKey==true&&event.which==40){
+                var divs=jQuery("#styleManu>li>div");
+                var len=divs.length;
+                if(len>1){
+                    var tar;
+                    divs.each(function(i){
+                        if(this.style.color=='white'){
+                            tar=i;
+                        }
+                    });
+                    if(tar<len-1){
+                        jQuery(divs[tar+1]).click();
+                    }else{
+                        jQuery(divs[0]).click();
+                    }
+                }
+            }
+        });
         jQuery("#styleManu>li>div").bind("click",function(){
             dist.autoViewForStyle(this);
         });
@@ -410,6 +452,7 @@ DIST.prototype={
                 var coun=parseInt(inputs[j].value,10);
                 totStyleAlready+=isNaN(coun)?0:coun;
             }
+            dwr.util.selectRange(this,0,100);
             jQuery("#totStyleAlready").html(totStyleAlready);
         });
         jQuery("#quickSearch").bind("keyup",function(){
