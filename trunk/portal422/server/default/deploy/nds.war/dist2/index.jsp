@@ -112,7 +112,7 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td colspan="2" background="images/ph-pic-bg.gif"><div id="ph-serach">
-  <div id="" class="djh-table">
+  <div id="orderSearch" class="djh-table">
       <table width="660" border="0" cellspacing="1" cellpadding="0" class="obj" align="center">
     <tr>
       <td width="100" align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">订单号<font color="red">*</font>：</div></td>
@@ -151,11 +151,11 @@
 			<div id="ph-pic-txt">
 			<ul>
 			<li>
-			<div class="left">可&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+			<div class="left">可用库存：</div>
 			<div class="right" id="totStyleCan"></div>
 			</li>
 			<li>
-			<div class="left">未&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+			<div class="left">订单余量：</div>
 			<div class="right" id="totStyleRem"></div>
 			</li>
 			<li>
@@ -169,7 +169,7 @@
 			<div id="ph-pic-txt">
 			<ul>
 			<li>
-			<div class="left">未&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配：</div>
+			<div class="left">订单余量：</div>
 			<div class="right" id="barcodeRem"></div>
 			</li>
 			<li>
