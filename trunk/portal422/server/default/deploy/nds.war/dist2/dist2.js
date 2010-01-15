@@ -277,7 +277,7 @@ DIST.prototype={
                         this.itemStr+="<tr><td title='"+colors[j].stors[v].id+"' bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txt\">"+colors[j].stors[v].name+"</td>";
                         for(var g=0;g<colors[j].qtyrem.length;g++){
                             if(colors[j].qtyrem[g]!='no'){
-                                this.itemStr+="<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-bg\"><input type=\"text\" name='"+colors[j].sizes[g]+"' class=\"td-txt-input\" title='"+colors[j].barcode[g]+"' store='"+colors[j].stors[v].id+"'/></td>";
+                                this.itemStr+="<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-bg\"><input type=\"text\" id='"+(colors[j].barcode[g]+colors[j].stors[v].id)+"' name='"+colors[j].sizes[g]+"' class=\"td-txt-input\" title='"+colors[j].barcode[g]+"' store='"+colors[j].stors[v].id+"'/></td>";
                             }else{
                                 this.itemStr+="<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-bg\" style=\"background-color:#eeeeee\"></td>";
                             }
@@ -330,7 +330,7 @@ DIST.prototype={
             stores[0]=storeItem;
         }
         for(var j=0;j<stores.length;j++){
-            jQuery("#ph-from-right-table>table input[title='"+stores[j].m_product_alias+"'][store='"+stores[j].content+"']").val(stores[j].QTY_ALLOT);
+            $(stores[j].m_product_alias+stores[j].content).value=stores[j].QTY_ALLOT;
         }
     },
     autoDist:function(){
