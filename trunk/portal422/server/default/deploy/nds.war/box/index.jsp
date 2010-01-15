@@ -5,6 +5,7 @@
 <%@ page import="nds.schema.Table" %>
 <%@ page import="nds.schema.TableManager" %>
 <%@ page import="nds.schema.TableImpl" %>
+<%@ page import="java.util.List" %>
 <%
     UserWebImpl userWeb =null;
     try{
@@ -29,6 +30,11 @@
     boolean hasSubmitPermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.SUBMIT);
     String sound=userWeb.getUserOption("ALERT_SOUND","");
     String comp=String.valueOf(QueryEngine.getInstance().doQueryOne("select VALUE from AD_PARAM where NAME='portal.company'"));
+    java.util.List newOldBar=QueryEngine.getInstance().doQueryList("select distinct o.no,n.no from M_BOX_PICKUP i, M_PDT_ALIAS_CON c, M_PRODUCT_ALIAS n, M_PRODUCT_ALIAS o where n.ID=c.M_PDA_NEW_ID AND o.ID=c.M_PDA_OLD_ID and i.m_product_id=n.m_product_id and i.m_attributesetinstance_id=n.m_attributesetinstance_id and i.m_box_id="+m_box_id );
+    org.json.JSONObject jo=new org.json.JSONObject();
+    for(int joi=0;joi<newOldBar.size();joi++){
+     	jo.put( (String)((List)newOldBar.get(joi)).get(0),(String)((List)newOldBar.get(joi)).get(1) );
+    } 
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -64,7 +70,7 @@
 <body class="body-bg">
 <script language="javascript">
     jQuery(document).ready(function(){box.load()});
-    jQuery(document).ready(function(){box.loadBox();});
+    jQuery(document).ready(function(){box.loadBox(<%=jo%>);});
 </script>
 <%if(!sound.equals("")){%>
 <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
