@@ -428,7 +428,7 @@ DIST.prototype={
             this.manuStr+="\n<li><div class=\"txt-on\"  onclick='"+
                           "javascript:$(\"pdt-img\").src = \"/pdt/"+pdt.M_PRODUCT_LIST+"_1_2.jpg\";" +
                           "$(\"ph-pic-img-txt\").innerHTML=\""+pdt.xmlns+"<br/>"+pdt.value+"\";" +
-                          "dist.showContent1(\""+pdt.xmlns+"\"));" +
+                          "dist.showContent1(\""+pdt.xmlns+"\");" +
                           "this.style.backgroundColor=\"#8db6d9\"; this.style.color=\"white\";'"+
                           "style='background:#8db6d9;color:white'>"+pdt.xmlns+"</div></li>\n";
             var itemColor=pdt.color;
@@ -594,14 +594,15 @@ DIST.prototype={
     autoDist:function(){
         if(this.loadStatus=="load"){
             this.loadStatus="already";
-        }else{
+        }else if(this.loadStatus=="already"){
            jQuery("#ph-from-right-table>table td[name][title]").each(function(){
                jQuery(this).attr("title",jQuery(this).text());
            });
+           this.loadStatus = "alreadyed";
         }
         var tot=parseInt($("tot-can").innerHTML);
         this.totCan=isNaN(tot)?0:tot;
-        jQuery("#ph-from-right-table>table td input").each(function(){
+        jQuery("#ph-from-right-table>table:visible td input").each(function(){
             var barCode=this.title;
             var parentT=jQuery(this).parents("table")[0];
             var docno=this.name;
@@ -613,6 +614,7 @@ DIST.prototype={
             var min=Math.min(totCan,barcodecan,currentrem);
             if(min>0){
                 this.value = min;
+                jQuery("td[name="+barCode+"]:first",parentT).attr("title",(barcodecan-min));
                 jQuery("td[name="+barCode+"]:first",parentT).attr("title",(barcodecan-min));
                 dist.totCan=totCan-min;
             }else{
@@ -1049,7 +1051,7 @@ DIST.prototype={
                 return;
             }
         }
-        jQuery(document).bind("keydown",function(event){
+        jQuery(document).bind("keyup",function(event){
             if(event.ctrlKey==true&&event.which==38){
                 var divs=jQuery("#category_manu li>div");
                 var len=divs.length;
@@ -1127,6 +1129,7 @@ DIST.prototype={
             $("tot-ready").innerHTML=totAlready;
             $("input-1").innerHTML=can-qty;
             $("rs").innerHTML=isNaN(parseInt(col[rowIndex+1].innerHTML,10))?0:parseInt(col[rowIndex+1].innerHTML,10);
+            dwr.util.selectRange(this,0,100);
         });
         jQuery("#ph-from-right-table table input").bind("keydown",function(event){
             if(event.which==13){
@@ -1231,6 +1234,7 @@ DIST.prototype={
                 }
             }
         });
+        jQuery("#ph-from-right-table>table input:first").focus();
     },
     showContent:function(e){
         var lies=$("category_manu").getElementsByTagName("li");
@@ -1263,6 +1267,7 @@ DIST.prototype={
         var strA=$(tb).title.split(":");
         $("input-5").innerHTML=strA[0];
         $("input-4").innerHTML=strA[1];
+        jQuery("td>input:first",$(tb)).focus()
     },
     pdt_data:function(e){
         var arr=this.tabToArr(e);
