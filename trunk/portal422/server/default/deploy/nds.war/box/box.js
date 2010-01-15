@@ -104,8 +104,8 @@ BOX.prototype={
         var oldBox=isNaN(parseInt(jQuery("#currentBox").text(),10))?0:parseInt(jQuery("#currentBox").text(),10);
        jQuery("#currentBox").text(oldBox-count);
        jQuery("#"+selCategory+"Table_"+selBox).attr("total",jQuery("#currentBox").text());
-        var oldTot=isNaN(parseInt(jQuery("#totBox").text(),10))?0:parseInt(jQuery("#totBox").text(),10);
-        jQuery("#totBox").text(oldTot-count);
+       var oldTot=isNaN(parseInt(jQuery("#totBox").text(),10))?0:parseInt(jQuery("#totBox").text(),10);
+       jQuery("#totBox").text(oldTot-count);
     },
     _onLoadBox:function(e){
         var time1=new Date();
@@ -596,12 +596,12 @@ BOX.prototype={
         });
     },
     getTargetD:function(code){
-	var targetD=$($("selCategory").value.strip()+code+"_"+$("selBox").value.strip());
-	return targetD;
+        var targetD=$($("selCategory").value.strip()+code+"_"+$("selBox").value.strip());
+        return targetD;
     },
     codeRt:function(event){
         if(event.which==13){
-            var code=$("barcode").value.strip();
+            var code=$("barcode").value.strip().toUpperCase();
             var targetD=this.getTargetD(code);
             if(!targetD){
                 if(this.jo&&this.jo[code]){
@@ -640,7 +640,7 @@ BOX.prototype={
             }else{
                 var old=0;
             }
-            var codeTotal=box.barcodeAmount(code);
+            var codeTotal=parseInt(box.barcodeAmount(code),10);
             if($("isRecoil").value=="normal"){
                 codeTotal+=count;
                 if(codeTotal>parseInt(targetD.title,10)||(old+count)<0){
@@ -1374,7 +1374,7 @@ CSTABLE.prototype={
             targetD.innerHTML=old-count;
             amount-=count;
         }
-        if((box.barcodeAmount(code)+amount)>parseInt(targetD.title,10)){
+        if((parseInt(box.barcodeAmount(code),10)+amount)>parseInt(targetD.title,10)){
             var oldColor=targetD.style.backgroundColor;
             targetD.style.backgroundColor="#ff0000";
             alert("扫描数量大于单据数量，输入无效！");
