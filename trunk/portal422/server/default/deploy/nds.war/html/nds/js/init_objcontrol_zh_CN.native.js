@@ -72,5 +72,8 @@ var gMessageHolder={
 	CLOSE_AFTER_PRINT:"请在打印完成后，点击'确定'按钮关闭当前窗口",
 	NOT_INTEGER:"您输入的数字不是整数",
 	PRODUCT_NMNER_ZORE:"商品的数量为0!",
-	LINE:"行"
+	LINE:"行",
+	TURBO_SCAN:"急速扫描",
+	SCAN_ERROR:"扫描条码时发现异常:x。请输入0关闭当前提示(已累计错误y次)",
+	PROCESS_ING:"请在服务器处理完成后再输入"
 };

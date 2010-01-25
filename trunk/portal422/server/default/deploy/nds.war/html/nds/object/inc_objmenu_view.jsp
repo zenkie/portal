@@ -9,6 +9,11 @@ validCommands.add( commandFactory.newButtonInstance("CopyTo",
 		PortletUtils.getMessage(pageContext, "object.copyto",null),
 		"oc.doCopyTo("+ tableId+","+ objectId+",'"+java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""))+"')"
 		));
+validCommands.add( commandFactory.newButtonInstance("PrintFile", 
+		PortletUtils.getMessage(pageContext, "object.printfile",null),
+		"oc.PrintFile()",null
+		));	
+
 validCommands.add( commandFactory.newButtonInstance("PrintSetting", 
 		PortletUtils.getMessage(pageContext, "object.printsetting",null),
 		"oc.doPrintSetting()",null

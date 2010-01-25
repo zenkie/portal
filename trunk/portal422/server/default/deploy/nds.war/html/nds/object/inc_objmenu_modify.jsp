@@ -20,6 +20,10 @@ if( objectId == -1){
 			PortletUtils.getMessage(pageContext, "object.copyto",null),
 			"oc.doCopyTo()",null
 			));
+	validCommands.add( commandFactory.newButtonInstance("PrintFile", 
+			PortletUtils.getMessage(pageContext, "object.printfile",null),
+			"oc.doPrintFile()",null
+			));	
 	validCommands.add( commandFactory.newButtonInstance("PrintSetting", 
 			PortletUtils.getMessage(pageContext, "object.printsetting",null),
 			"oc.doPrintSetting()",null

@@ -71,6 +71,9 @@ var gMessageHolder={
 	CLOSE_AFTER_PRINT:"Click OK button when complete printing.",
 	NOT_INTEGER:"The value what you has been input is not integer",
 	PRODUCT_NMNER_ZORE:"The number of the product is zore!",
-	LINE:"Line"
+	LINE:"Line",
+	TURBO_SCAN:"Turbo Scan",
+	SCAN_ERROR:"Error found:x. please enter 0 to close this alert( err count:y)",
+	PROCESS_ING:"Please wait until server finishes last request"
 };
 

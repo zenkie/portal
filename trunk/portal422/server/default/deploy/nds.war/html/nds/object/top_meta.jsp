@@ -83,6 +83,9 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/ui.tabs.css">
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/object.css">
 <%}%>
+<script type="text/javascript" src="/flash/FABridge.js"></script>
+<script type="text/javascript" src="/flash/playErrorSound.js"></script>
+
 <title><%=table==null?"Object":table.getCategory().getName()+ " - "+ table.getDescription(locale)%> - Agile NEA</title>
 <%
 String fkURLTarget= ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("object.url.target");

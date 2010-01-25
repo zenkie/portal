@@ -17,6 +17,7 @@ GridControl.prototype = {
 		return this._isDestroied;
 	},
 	destroy:function(){
+		application.removeEventListener("TurboScan", this._onTurboScan, this);
 		application.removeEventListener("RefreshGrid", this._refreshGrid, this);
 		application.removeEventListener( "UpdateGrid", this.updateGrid, this);
 		application.removeEventListener( "CheckProductAttribute", this._checkProductAttribute, this);
@@ -59,7 +60,7 @@ GridControl.prototype = {
 		application.addEventListener( "UpdateGrid", this.updateGrid, this);
 		application.addEventListener( "CheckProductAttribute", this._checkProductAttribute, this);
 		application.addEventListener( "ShowProductAttribute", this._showProductAttribute, this);
-		
+		application.addEventListener( "TurboScan", this._onTurboScan, this);
 		// call _initGrid when recieved data
 		var q=Object.clone(this._gridQuery);
 		q.callbackEvent="RefreshGrid";
@@ -255,6 +256,129 @@ GridControl.prototype = {
 		return d;
 	},
 	/**
+	load an inline edit dialog for input only, without more interaction
+	*/
+	turboScan:function(){
+		var url = '/html/nds/object/turboscan.jsp?table='+gc._gridMetadata.tableId;
+		new Ajax.Request(url, {
+		  method: 'get',
+		  onSuccess: function(transport) {
+		  	var ele = Alerts.fireMessageBox(
+			{
+				width: 800,
+				Height:360,
+				modal: true,
+				closeButton:false,
+				title: gMessageHolder.TURBO_SCAN
+			});
+			ele.innerHTML=transport.responseText;
+			executeLoadedScript(ele);
+			$("so_M_PRODUCT_ID__NAME").focus();
+		  }
+		});
+		this._scanCount=0;
+		this._okCount=0;
+		this._scanError=false;
+	},
+	/**
+	 scan return pressed
+	*/
+	onScanReturn:function(event){
+		if (!event) event = window.event;
+		if (!(event && event.keyCode && event.keyCode == 13)) {
+			return true;
+		}
+		var cv= event.target != null ? event.target : event.srcElement;
+		if(cv!=null)dwr.util.selectRange(cv, 0, this.MAX_INPUT_LENGTH);
+		
+		var pdt=$("so_M_PRODUCT_ID__NAME").value;
+		if(pdt==""){
+			$("so_M_PRODUCT_ID__NAME").focus();
+			return false;
+		}
+		if(parseInt(pdt)==0){
+			//confirm error
+			$("turboscan_div").removeClassName("ts_error");
+			this._scanError=false;
+			$("so_M_PRODUCT_ID__NAME").value="";
+			$("so_M_PRODUCT_ID__NAME").focus();
+			return true;
+		}
+		if(parseInt(pdt)==1){
+			//add boxno
+			try{
+				$("so_SHELFNO").value= parseInt($("so_SHELFNO").value)+1;
+				$("so_M_PRODUCT_ID__NAME").value="";
+				$("so_M_PRODUCT_ID__NAME").focus();
+				return true;
+			}catch(ex){}
+		}
+		if(this._scanError){
+			return false;
+		}
+		if(this._isWaitScanResult==true){
+			alertScan(gMessageHolder.PROCESS_ING);
+			return false;
+		}
+		this._isWaitScanResult==true;
+		var evt={};
+		evt.command="TurboScan";
+		evt.callbackEvent="TurboScan";
+		evt.table= this._gridMetadata.tableId;
+		evt.masterTableId=oc._masterObj.table.id;
+		evt.masterObjId=oc._masterObj.hiddenInputs.id;
+		
+		evt["nds.control.ejb.UserTransaction"]="N";//transaction managed by self
+		var cols=this._gridMetadata.columns,i,col,v;
+		for(i=5;i<cols.length;i++){
+			col=cols[i];
+			if(col.isUploadWhenCreate){
+				v= this._getValue("so_"+ col.name);
+				evt[col.name]=v;
+			}
+		}
+		this._executeCommandEvent(evt);		
+	},
+	_onTurboScan:function(e){
+		var chkResult=e.getUserData().data; //data
+		this._scanCount++;
+		if(chkResult.isok){
+			this._okCount++;
+			$("ts_qty").innerHTML=String(this._okCount);
+		}else{
+			this._scanError=true;
+			$("turboscan_div").addClassName("ts_error");
+			playAlert();
+		}
+		var clsname;
+		var sp1 = document.createElement("span");
+		sp1.setAttribute("id", "tsrow_"+this._scanCount);
+		if(this._scanError){
+			clsname="ts_row_err";
+		}else{
+			if(this._scanCount%5==0) clsname="ts_row5"; 
+			else clsname= "ts_row";
+		}
+		sp1.setAttribute("class",clsname);
+		var sp1_content = document.createTextNode((this._scanCount)+": "+chkResult.row);
+		sp1.appendChild(sp1_content);
+		
+		var sp2 = document.getElementById("tsrow_"+(this._scanCount>0?this._scanCount-1:0));
+		var parentDiv = sp2.parentNode;
+		parentDiv.insertBefore(sp1, sp2);
+		if(this._scanCount>30){
+			parentDiv.removeChild(document.getElementById("tsrow_"+(this._scanCount-30)));
+		}
+		this._isWaitScanResult=false;
+	},
+	/**
+	Update main table AM
+	*/
+	closeTurboScan:function(){
+		Alerts.killAlert($("turboscan_div"));
+		if(this._okCount>0)oc.saveAll();
+	},
+	/**
 	array of selected rows' record id
 	*/
 	getSelectedRows:function(){
@@ -293,6 +417,8 @@ GridControl.prototype = {
 				}
 			}
 		}
+		//
+		if( dwr.util.getValue("quick_save")==true)oc.saveAll();
 	},
 	/**
 	 * @return false if discard modification or not dirty
@@ -1085,7 +1211,7 @@ GridControl.prototype = {
 		var chkProductAttribute=$("check_product_attribute");
 		var pdt=$("eo_"+chkProductAttribute.value);
 		if(chkResult.code!=0){
-			msgbox(chkResult.message);
+			alertScan(chkResult.message);
 			pdt.focus();
 			dwr.util.selectRange(pdt, 0, this.MAX_INPUT_LENGTH);			
 		}else{
@@ -1452,7 +1578,7 @@ GridControl.prototype = {
 	*Reload grid data according to query result
 	* @param qr QueryResult.toJSONObject()
 	*/
-	_refreshGrid :function (e) {
+	_refreshGrid:function (e) {
 		var qr=e.getUserData().data; 
 		var rowCount=qr.rowCount;
 		var i,s,a;
@@ -1472,6 +1598,16 @@ GridControl.prototype = {
 		this._syncGridControl(qr);
 		if(this._currentRow!=-1)this.newLine(false);
 		this._isDirty=false;
+		//focus on pdt if found 2010-1-9
+		try{
+			var chkProductAttribute=$("check_product_attribute");
+			if(chkProductAttribute!=null){
+				var pdt=$("eo_"+chkProductAttribute.value);
+				if(pdt!=null)pdt.focus();
+			}
+			
+		}catch(ex){}		
+		//try{$("itemdetail_form").focusFirstElement();}catch(e){}
 	},
 	/**
 	* Setup line template for input
@@ -1675,6 +1811,23 @@ EditableGridMetadata.prototype = {
 function msgbox(msg, title, boxType ) {
 	showProgressWindow(false);
 	alert(msg);
+}
+function playAlert(){
+		if($("sound")){
+        	if(!app1){
+            	var app1=FABridge.b_playErrorSound.root();
+                app1.setStr($("sound").value.strip());
+			}
+            app1.getErrorSound().play();
+        }
+}
+function alertScan(msg){
+	var errcnt=0;
+	while(true){
+		playAlert();
+		if(parseInt(prompt(gMessageHolder.SCAN_ERROR.replace(/x/i,msg).replace(/y/i,errcnt),"0"))==0)break;
+		errcnt++;
+	}
 }
 /**
 * Show table object info

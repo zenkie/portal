@@ -37,7 +37,7 @@ transaction:{
 	ja.put(tra);
 	
 	params.put("transactions", ja.toString());
-	vh=RestUtils.sendRequest("http://localhost/servlets/binserv/Rest", params,"POST");
+	vh=RestUtils.sendRequest("http://localhost:8001/servlets/binserv/Rest", params,"POST");
 }	
 %>
 <form name="p" method="post" action="testrest.jsp">

@@ -25,6 +25,7 @@ ObjectControl.prototype = {
 		application.addEventListener( "UnsubmitObject", this._onSubmitObject, this);// share the same handling method _onSubmitObject
 		application.addEventListener( "ExecuteAudit", this._onExecuteAudit, this);
 		application.addEventListener( "PrintJasper", this._onPrintJasper, this);
+		application.addEventListener( "ExportJasper", this._onExportJasper, this);
 		application.addEventListener( "ExecuteWebAction", this._onExecuteWebAction, this);
 		this.MAX_INPUT_LENGTH=1000;// this is used for selection range
 		this._tryAddCloseButton();
@@ -270,6 +271,19 @@ ObjectControl.prototype = {
 			this._masterObj.hiddenInputs.table + "&id=" + this._masterObj.hiddenInputs.id;
 	    window.location=url;
     },
+/**
+	@param e either string for file or object from server containing printfile attribute
+	*/
+	_onExportJasper:function(e){
+		oc._toggleButtons(false);
+		var pf;
+		if(typeof(e)=="string") pf=e;
+		else
+			pf=e.getUserData().data.printfile;
+		var f="/servlets/binserv/Download?filename="+encodeURIComponent(pf);
+		var ifm=window.print_iframe;
+		window.location.href=f;
+	},      
 	/**
 	@param e either string for file or object from server containing printfile attribute
 	*/
@@ -325,6 +339,15 @@ ObjectControl.prototype = {
 		evt.tag="Print";
 		evt.command="PrintJasper";
 		evt.callbackEvent="PrintJasper";
+		evt.params={"table":this._masterObj.hiddenInputs.table,"id":this._masterObj.hiddenInputs.id};	
+		this._executeCommandEvent(evt);
+
+    },
+    doPrintFile:function(){
+    	var evt={};
+		evt.tag="Print";
+		evt.command="PrintJasper";
+		evt.callbackEvent="ExportJasper";
 		evt.params={"table":this._masterObj.hiddenInputs.table,"id":this._masterObj.hiddenInputs.id};	
 		this._executeCommandEvent(evt);
 

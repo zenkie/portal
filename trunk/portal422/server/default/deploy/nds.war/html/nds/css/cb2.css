@@ -316,3 +316,50 @@ background-color:FFFF80;
  color:#ff0000;
  font-weight:bold;
 }
+
+#turboscan_div{
+ padding:5px;
+ 
+}
+#ts_output{
+ padding-top:10px;
+ clear:both;
+}
+#ts_sum{
+padding:10px;
+}
+#ts_desc{
+font-size:18px;
+font-weight:bold;
+float:left;
+}
+#ts_qty{
+font-size:18px;
+font-weight:bold;
+color:#ff0000;
+}
+#ts_close{
+float:right;
+}
+.ts_error{
+background-color:red;
+/*text-decoration: blink;*/
+}
+.ts_row{
+padding:2px 0px 2px 5px;
+display:block;
+}
+.ts_row_err{
+padding:2px 0px 2px 5px;
+color:#ff0000;
+display:block;
+}
+.ts_row5{
+padding:2px 0px 2px 5px;
+background-color:#D4D4D4;
+display:block;
+}
+#ts_whole{
+max-height:200px;
+overflow:auto;
+}

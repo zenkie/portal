@@ -27,6 +27,8 @@ FKObjectQueryModel fkQueryModel;
 TableQueryModel model= new TableQueryModel(tableId, new int[]{Column.MASK_CREATE_EDIT,Column.MASK_MODIFY_EDIT},true,true,locale);
 ButtonFactory commandFactory= ButtonFactory.getInstance(pageContext,locale);
 boolean hideInEditMode;
+boolean checkPdtBarcodeOnly=false;
+
 for( int i=0;i< editColumns.size();i++){
 	colIdx++;
     if(colIdx%columnsPerRow == 0){
@@ -114,7 +116,10 @@ for( int i=0;i< editColumns.size();i++){
             if(refTable!=null){		
             	fkQueryModel=new FKObjectQueryModel(false,refTable, columnDomId,column,null);
             	fkQueryModel.setQueryindex(-1);
-            	if(column.isAutoComplete()){
+				if("M_PRODUCT_ID".equals(column.getName())){
+            			checkPdtBarcodeOnly= ( column.getJSONProps()!=null?column.getJSONProps().optBoolean("barcode_only"):false);
+				}
+            	if(column.isAutoComplete() && ("M_PRODUCT_ID".equals(column.getName()) &&!checkPdtBarcodeOnly )){
             		h.put("onkeydown",fkQueryModel.getKeyEventScript());
 	            	dcqjsonObject=new org.json.JSONObject();
 					dcqjsonObject.put("column_acc_Id",columnDomId);
@@ -183,6 +188,8 @@ for( int i=0;i< editColumns.size();i++){
 	<%if(checkProductAttribute!=3 && columnMProductId!=null){%>
 	<input type="checkbox" id="check_product_attribute" name="<%=columnMProductAttributeSetInstanceId%>" value="<%=columnMProductId%>" <%=(checkProductAttribute==1?"checked":"")%> >
 	<%=PortletUtils.getMessage(pageContext, "check-attribute",null)+":"+TableManager.getInstance().getTable("M_PRODUCT").getDescription(locale)%>
+	<input type="checkbox" id="product_barcode_only" <%=(checkPdtBarcodeOnly?"checked":"")%> disabled>
+	<%=PortletUtils.getMessage(pageContext, "check-barcode-only",null)%>
 	<%}%>
 	<input type="checkbox" id="clear_after_insert" name="clear_after_save" checked><%=PortletUtils.getMessage(pageContext, "clear-after-insert",null)%>&nbsp;
 	<input type="checkbox" id="quick_save" name="quick_save" <%=(Tools.getYesNo(userWeb.getUserOption("QUICKSAVE","Y"),true)?"checked":"")%>><%=PortletUtils.getMessage(pageContext, "quick-save",null)%>
@@ -198,6 +205,10 @@ if(table.isMenuObject()){%>
 <%}
 if(table.isActionEnabled(Table.ADD)){%>
 <td id="btn_template" class="coolButton" onaction="gc.openLineTemplate()"><img src="<%=NDS_PATH%>/images/tb_template.gif" width="16" height="16" title="<%=PortletUtils.getMessage(pageContext, "object.template",null)%>"></td>
+<%}
+if(columnMProductId!=null && columnMProductAttributeSetInstanceId!=null){
+%>
+<td><input type="button" onclick="javascript:gc.turboScan()" value="<%=PortletUtils.getMessage(pageContext, "turbo-scan",null)%>" accesskey="G" class="cbutton"/></td>
 <%}%>
 <td><%=commandFactory.getButton("SaveLine").toHTML()%></td>
 <%if(table.isActionEnabled(Table.DELETE)){%>
