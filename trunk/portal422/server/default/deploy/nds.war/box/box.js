@@ -599,6 +599,15 @@ BOX.prototype={
         var targetD=$($("selCategory").value.strip()+code+"_"+$("selBox").value.strip());
         return targetD;
     },
+    playErrorSound:function(){
+        if($("sound")){
+            if(!app1){
+                var app1=FABridge.b_playErrorSound.root();
+                app1.setStr($("sound").value.strip());
+            }
+            app1.getErrorSound().play();
+        }
+    },
     codeRt:function(event){
         if(event.which==13){
             var code=$("barcode").value.strip().toUpperCase();
@@ -610,13 +619,7 @@ BOX.prototype={
                 }
             }
             if(!targetD||!code){
-                if($("sound")){
-                    if(!app1){
-                        var app1=FABridge.b_playErrorSound.root();
-                        app1.setStr($("sound").value.strip());
-                    }
-                    app1.getErrorSound().play();
-                }
+                this.playErrorSound();
                 alert("没有匹配的商品，请检查条码是否正确！");
                 jQuery("#barcode").val("");
                 jQuery("#barcode").focus();
@@ -646,6 +649,7 @@ BOX.prototype={
                 if(codeTotal>parseInt(targetD.title,10)||(old+count)<0){
                     var oldColor=targetD.style.backgroundColor;
                     targetD.style.backgroundColor="#ff0000";
+                    this.playErrorSound();
                     alert("不能为负或扫描数量大于单据数量，输入无效！");
                     targetD.style.backgroundColor=oldColor;
                 }else{
@@ -656,6 +660,7 @@ BOX.prototype={
                 if((old-count)<0){
                    var oldColor=targetD.style.backgroundColor;
                     targetD.style.backgroundColor="#ff0000";
+                    this.playErrorSound();
                     alert("不能为负，输入无效！");
                     targetD.style.backgroundColor=oldColor; 
                 }else{
