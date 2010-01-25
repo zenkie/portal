@@ -903,3 +903,10 @@ select-columns=选择至少2列导入字段，注意第一列内容必须选择并上传，系统以此定位要
 import-update=批量更新
 posfile-txt=从POS离线扫描导出的盘点文件格式，包含：货架号,条码,数量；以tab分隔
 download-flash=安装Flash Player以获取更佳效果
+turbo-scan=急速扫描
+close-turbo-scan=结束扫描
+turbo-scan-info=急速扫描将仅支持商品的条码输入，扫描时可以使用特殊条码进行动作控制。如使用00000条码（管理员可自定义）确认商品输入一次。<font color='red'>*注意*</font>急速扫描模式下不对单据头更新，务必在扫描完成后点击“结束扫描”按钮来关闭窗口并刷新单据头统计数。
+scan-sum=本次扫描合计
+turbo-scan-log=本次扫描记录(最近30条)
+check-barcode-only=不自动匹配商品
+object.printfile=生成可打印文件
