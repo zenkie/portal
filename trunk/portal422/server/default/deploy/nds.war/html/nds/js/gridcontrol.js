@@ -1822,6 +1822,11 @@ function playAlert(){
         }
 }
 function alertScan(msg){
+	 var _isIE7=(navigator.userAgent.indexOf('MSIE 7')>0);
+	if(_isIE7){
+		alert(msg);
+		return;
+	}
 	var errcnt=0;
 	while(true){
 		playAlert();
