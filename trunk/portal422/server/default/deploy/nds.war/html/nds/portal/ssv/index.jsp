@@ -69,8 +69,8 @@ if(nds.util.Validator.isNull(dialogURL)){
 	%>
 	<a class="top-text" href="/"><%= PortletUtils.getMessage(pageContext, "home",null)%></a>&nbsp;|&nbsp;
 	<%}%>
-	<a class="top-text" href="javascript:showObject('/html/nds/option/option.jsp',null,null,{maxButton:false,closeButton:false})"><%= PortletUtils.getMessage(pageContext, "option_setting",null)%></a>&nbsp;|&nbsp;
-	<a class="top-text" href="javascript:popup_window('/help/Wiki.jsp?page=Help')"><%= PortletUtils.getMessage(pageContext, "help",null)%></a>&nbsp;|&nbsp;
+<!--	<a class="top-text" href="javascript:showObject('/html/nds/option/option.jsp',null,null,{maxButton:false,closeButton:false})"><%= PortletUtils.getMessage(pageContext, "option_setting",null)%></a>&nbsp;|&nbsp;
+	<a class="top-text" href="javascript:popup_window('/help/Wiki.jsp?page=Help')"><%= PortletUtils.getMessage(pageContext, "help",null)%></a>&nbsp;|&nbsp;-->
 	<%if(session.getAttribute("saasvendor")==null){%>
 	<a class="top-text" href="<%= themeDisplay.getURLSignOut() %>"><bean:message key="sign-out" /></a>
 	<%}%>
