@@ -8,8 +8,6 @@
 	%>
 	<a class="ph" href="/"><%= PortletUtils.getMessage(pageContext, "home",null)%></a>|
 	<%}%>
-	<a class="ph" href="javascript:showObject('/html/nds/option/option.jsp',null,null,{maxButton:false,closeButton:false})"><%= PortletUtils.getMessage(pageContext, "option_setting",null)%></a>|
-	<a class="ph" href="javascript:popup_window('/help/Wiki.jsp?page=Help')"><%= PortletUtils.getMessage(pageContext, "help",null)%></a>|
 	<%if(session.getAttribute("saasvendor")==null){%>
 	<a class="ph" href="<%= themeDisplay.getURLSignOut() %>"><bean:message key="sign-out" /></a>
 	<%}%>
