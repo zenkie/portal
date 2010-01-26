@@ -72,7 +72,7 @@
     jQuery(document).ready(function(){box.load()});
     jQuery(document).ready(function(){box.loadBox(<%=jo%>);});
 </script>
-<%if(!sound.equals("")){%>
+<%if(!sound.equals("0")){%>
 <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
         id="playErrorSoundTest" width="1" height="1"
         codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab" style="float:right">
