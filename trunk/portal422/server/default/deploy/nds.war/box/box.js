@@ -600,7 +600,7 @@ BOX.prototype={
         return targetD;
     },
     playErrorSound:function(){
-        if($("sound")){
+        if($("sound").value&&$("sound").value.strip()!="0"){
             if(!app1){
                 var app1=FABridge.b_playErrorSound.root();
                 app1.setStr($("sound").value.strip());
