@@ -40,6 +40,9 @@ PrintControl.prototype = {
 		evt.command="PrintJasper";
 		evt.callbackEvent="PrintJasper";
 		evt.params=$H(Form.serializeElements( this._getInputs("form1"),true));	
+		evt.params.template=dwr.util.getValue("tmpl");
+		evt.params.format=dwr.util.getValue("fmt");
+
 		this._executeCommandEvent(evt);
     },
     /**
