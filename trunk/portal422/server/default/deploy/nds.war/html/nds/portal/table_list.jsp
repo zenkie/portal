@@ -254,9 +254,6 @@ if ( table.isSubTotalEnabled()){
     </tr>
   </table>-->
 </form>  
-<div id="result-scroll" >
- <%@ include file="/html/nds/portal/inc_result_scroll.jsp" %>
-</div>
 <div id="result-filter-desc">
      <font color='red'>*</font><%= PortletUtils.getMessage(pageContext, "current-filter",null)%>:
      <span class=sqldesc id="filter_setting">

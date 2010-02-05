@@ -90,9 +90,15 @@ boolean isModify=canModify;
 for(int wasi=0;wasi<waListButtons.size();wasi++){
 	out.println(waListButtons.get(wasi).toHTML(locale,null));
 }
+int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getDefaultAction()==nds.web.config.ObjectUIConfig.ACTION_EDIT)?3:1);
+
 %>
 		<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "help",null)%>" onclick="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"/>
 	</div>
+<div id="result-scroll" >
+ <%@ include file="/html/nds/portal/inc_result_scroll.jsp" %>
+</div>
+	
 	<div id="page-table-content" style="width:100%;">
 	<%@ include file="table_list.js.jsp" %>
 	<%@ include file="table_list.jsp" %>

@@ -24,7 +24,6 @@
 	/**
 	   2) QueryRequest
 	*/
-	int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getDefaultAction()==nds.web.config.ObjectUIConfig.ACTION_EDIT)?3:1);
 	JSONObject q=new JSONObject();
 	q.put("callbackEvent","RefreshGrid");
 	q.put("table", table.getName());
