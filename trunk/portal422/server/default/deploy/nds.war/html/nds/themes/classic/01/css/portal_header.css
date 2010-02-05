@@ -509,7 +509,7 @@ default setup that everything sees */
 height:0px;
 }
 #result-scroll{
-border:			1px solid #569CD1;
+/*border:			1px solid #569CD1;*/
 }
 #bottom-line{
  height:20px;
