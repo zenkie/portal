@@ -24,6 +24,11 @@
 	q.put("table", table.getName());
 	boolean firstDateColumnFound=false;	
 %>
+<div id="page-table-query">
+	<div id="page-table-query-tab">
+		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span></a></li></ul>
+		<div id="tab1" class="ui-tabs-panel">
+			<div id="rpt-search">
 <table border="0" cellspacing="0" cellpadding="0" align='center' width="98%"><tr><td>
 <div id="rpt-desc">
 	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "current-cxtab",null)%>:</span>
@@ -163,6 +168,11 @@
         }%>
 </table>
 <br>
+			</div>
+		</div>
+  </div>
+</div>
+
 <div id="rpt-sbtns">
 <%
 
@@ -188,6 +198,9 @@ if((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE ){
 <script>
  pc.initCxtabQuery(<%=q.toString()%>);
  pc.refreshCxtabHistoryFiles(<%=cxtabId%>);
+ jQuery('#page-table-query-tab ul').tabs();
+ jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
+ jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
 </script>	
 </div>      
 </form>
