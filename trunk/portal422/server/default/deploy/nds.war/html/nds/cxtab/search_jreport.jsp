@@ -109,12 +109,16 @@
 	            }else
 	            	h.put("class","qline");
 				if(column!=null && column.getReferenceTable() !=null){  
+					//override default value if user has option set on the same column name
+					String defaultValue2= userWeb.getUserOption(column.getName(),"");
+					if(nds.util.Validator.isNotNull(defaultValue2)) defaultValue="="+defaultValue2;
+				
 				    if(isMultipleSelection){                             
 	                    FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), inputName,column,null,false);
 	                    fkQueryModel.setQueryindex(-1);
 	                    
             %>
-	              		<input:text name="<%=inputName%>" attributes="<%= h %>" />
+	              		<input:text name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= h %>" />
 	                    <input type='hidden' name='<%=inputName+"/sql"%>' id='<%=inputName + "_sql"%>' />
 	                    <input type='hidden' name='<%=inputName+"/filter"%>' id='<%=inputName + "_filter"%>' />
                         <span id='<%=inputName+"_link"%>' title="popup" onaction="<%=fkQueryModel.getButtonClickEventScript()%>"><img id='<%=inputName+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' alt='<%=PortletUtils.getMessage(pageContext, "open-new-page-to-search",null)%>'></span>
@@ -125,8 +129,6 @@
 	                    FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), inputName,column,null,true);
 
 						DisplaySetting ds= column.getDisplaySetting();
-			            //h.put("id", inputName);
-			            //h.put("size", "" + ds.getCharsPerRow());
 		                
 			            %>
 			            <input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=defaultValue%>" />

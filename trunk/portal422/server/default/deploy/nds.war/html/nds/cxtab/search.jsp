@@ -168,7 +168,8 @@
                                 String column_acc_Id="tab"+tabIdx+"_column_"+column.getId();
                                 String column_acc_name= inputName;
                                 java.util.Hashtable h = new java.util.Hashtable();
-                                   h.put("size", "15");
+                                
+								h.put("size", "15");
 					            if((column.getReferenceTable()!=null && column.getReferenceTable().getAlternateKey().isUpperCase())||
 					            	column.isUpperCase()){
 					            	h.put("class","qline ucase");
@@ -180,8 +181,10 @@
 	                                h.put("id",column_acc_Id);
                                     FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column,null,false);
                                     fkQueryModel.setQueryindex(-1);
+                                    String defaultValue= userWeb.getUserOption(column.getName(),"");
+                                    if(nds.util.Validator.isNotNull(defaultValue)) defaultValue="="+defaultValue;
                             %>
-                              		<input:text name="<%=inputName%>" attributes="<%= h %>" /><%= type%>
+                              		<input:text name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= h %>" /><%= type%>
                                     <input type='hidden' name='<%=column_acc_name+"/sql"%>' id='<%=column_acc_Id + "_sql"%>' />
                                     <input type='hidden' name='<%=column_acc_name+"/filter"%>' id='<%=column_acc_Id + "_filter"%>' />
                                         <span id='<%=column_acc_Id+"_link"%>' title="popup" onaction="<%=fkQueryModel.getButtonClickEventScript(false)%>">
