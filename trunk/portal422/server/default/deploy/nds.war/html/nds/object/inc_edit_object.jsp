@@ -119,7 +119,7 @@ for( int i=0;i< editColumns.size();i++){
 				if("M_PRODUCT_ID".equals(column.getName())){
             			checkPdtBarcodeOnly= ( column.getJSONProps()!=null?column.getJSONProps().optBoolean("barcode_only"):false);
 				}
-            	if(column.isAutoComplete() && ("M_PRODUCT_ID".equals(column.getName()) &&!checkPdtBarcodeOnly )){
+            	if(column.isAutoComplete() && ( (!"M_PRODUCT_ID".equals(column.getName())) || ("M_PRODUCT_ID".equals(column.getName()) &&!checkPdtBarcodeOnly ))){
             		h.put("onkeydown",fkQueryModel.getKeyEventScript());
 	            	dcqjsonObject=new org.json.JSONObject();
 					dcqjsonObject.put("column_acc_Id",columnDomId);
