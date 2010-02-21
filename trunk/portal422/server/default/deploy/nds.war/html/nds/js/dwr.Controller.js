@@ -6,7 +6,7 @@ if (Controller == null) var Controller = {};
 Controller._path = '/servlets/dwr';
 Controller.handle = function(p0, callback) {
   dwr.engine._execute(Controller._path, 'Controller', 'handle', p0, 
-   		{	timeout:25*1000,
+   		{	timeout:120*1000,
 			timeoutFunc:function(batch){
 				if(batch && !batch.completed){
 					var e=	$("timeoutBox");
@@ -21,7 +21,7 @@ Controller.handle = function(p0, callback) {
 }
 Controller.query = function(p0, callback) {
   dwr.engine._execute(Controller._path, 'Controller', 'query', p0, 
-  		{	timeout:25*1000,
+  		{	timeout:120*1000,
 			timeoutFunc:function(batch){
 				if(batch && !batch.completed){
 					var e=	$("timeoutBox");
