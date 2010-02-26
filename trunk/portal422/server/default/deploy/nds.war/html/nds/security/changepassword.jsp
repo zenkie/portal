@@ -1,7 +1,18 @@
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/header.jsp" %> 
 <%
+    /**
+     * parameter:
+     *      1.  objectid  - user Id whose password will be changed, if not set,default to current user's id
+     */
+int userid= ParamUtils.getIntParameter(request, "objectid", -1);
+if(userid==-1) userid= userWeb.getUserId();
+
 	String tabName=PortletUtils.getMessage(pageContext, "change-password",null);
+	Configurations conf= (Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS);	
+	if(conf.getProperty("security.password.file")!=null){
+		response.sendRedirect(conf.getProperty("security.password.file")+"?objectid="+userid);
+	}
 %>
 <script>
 	document.title="<%=tabName%>";
@@ -10,12 +21,6 @@
 	<ul><li><a href="#tab1"><span><%=tabName%></span></a></li></ul>
 	<div id="tab1">
 <%
-    /**
-     * parameter:
-     *      1.  objectid  - user Id whose password will be changed, if not set,default to current user's id
-     */
-int userid= ParamUtils.getIntParameter(request, "objectid", -1);
-if(userid==-1) userid= userWeb.getUserId();
      /**------check permission---**/
 String directory;
 directory="USERS_LIST";
