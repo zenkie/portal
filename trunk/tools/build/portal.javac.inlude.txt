@@ -78,6 +78,9 @@ org/apache/jspc/html/nds/query/result_jsp.java
 org/apache/jspc/html/nds/query/search_005fresult_005ffilter_jsp.java
 org/apache/jspc/html/nds/query/search_005fresult_005fsql_jsp.java
 org/apache/jspc/html/nds/query/search_005fresult_jsp.java
+org/apache/jspc/html/nds/query/qlc_jsp.java
+org/apache/jspc/html/nds/query/querydef_jsp.java
+org/apache/jspc/html/nds/query/querydef_xml_jsp.java
 org/apache/jspc/html/nds/query/search_jsp.java
 org/apache/jspc/html/nds/reports/create_005freport_jsp.java
 org/apache/jspc/html/nds/reports/create_005fsms_005freport_jsp.java
