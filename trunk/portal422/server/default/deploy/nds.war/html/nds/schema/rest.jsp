@@ -94,7 +94,7 @@ AK 字段: <%=table.getAlternateKey().getName()+" "+ table.getAlternateKey().get
 	PairTable  paretable ;
 	boolean showMask=false;
 if(table.isActionEnabled(Table.ADD)){
-    columns=table.getColumns(new int[]{1}, false); 
+    columns=table.getColumns(new int[]{1}, true); 
 
 %>
 <tr><td class="td" colspan="6">
@@ -109,11 +109,16 @@ if(table.isActionEnabled(Table.MODIFY)){%>
 <a name="modify"><span class="anc">修改字段组织</span><br/>
 </td></tr>
 <%
-    columns=table.getColumns(new int[]{3}, false); 
+    columns=table.getColumns(new int[]{3}, true); 
 %>
 <%@ include file="inc_rest_cols.jsp"%>
 <%}
-columns=table.getAllColumns();
+ArrayList alc=table.getAllColumns();
+columns=new ArrayList();
+for(int j=0;j<alc.size();j++){
+	columns.add(alc.get(j));
+}
+
 for(int i=columns.size()-1;i>=0;i-- ){
 	col=(Column)columns.get(i);
 	if(col.getDisplaySetting().isUIController() ) {
@@ -121,7 +126,7 @@ for(int i=columns.size()-1;i>=0;i-- ){
 		continue;
 	}
 	int t=col.getDisplaySetting().getObjectType();
-	if(t==DisplaySetting.OBJ_FILE || t==DisplaySetting.OBJ_IMAGE || t==DisplaySetting.OBJ_XML){
+	if(t==DisplaySetting.OBJ_XML){
 		columns.remove(i);
 		continue;
 	}

@@ -9,11 +9,10 @@
 	tableObj.put("actionEXPORT", canExport);
 	tableObj.put("actionGROUPSUBMIT", canSubmit &&  table.isActionEnabled(Table.GROUPSUBMIT));
 	
-	int[] columnMasks= new int[]{Column.MASK_QUERY_LIST};
 	/**
 	  1) Metadata
 	*/
-	EditableGridMetadata meta=new EditableGridMetadata(table, locale, userWeb,columnMasks );
+	EditableGridMetadata meta=new EditableGridMetadata(table, locale, userWeb, (ArrayList<ColumnLink>)qlc.getSelections() );
 	JSONObject gridMetadata=meta.toJSONObject();
 	ArrayList al=new ArrayList();
 	for(int i=0;i< meta.getColumns().size();i++){
@@ -27,9 +26,9 @@
 	JSONObject q=new JSONObject();
 	q.put("callbackEvent","RefreshGrid");
 	q.put("table", table.getName());
-	q.put("column_masks", JSONUtils.toJSONArrayPrimitive(columnMasks));
+	q.put("qlcid", qlc.getId());
 	q.put("dir_perm",listViewPermissionType);
-	q.put("init_query",true);
+	q.put("init_query",false);
 	q.put("fixedcolumns", fixedColumns.toURLQueryString(null));
 	q.put("start",0);
 	q.put("range",QueryUtils.DEFAULT_RANGE);
@@ -37,8 +36,9 @@
 		q.put("subtotal",true); // show sub total
 	}
 	q.put("show_alert",true); //show row css accroding to column value
-	//order by
-	JSONArray sporder=null;
+	//order by, now contained with qlcid
+	q.put("qlcid",qlc.getId());
+	/*JSONArray sporder=null;
 	if( table.getJSONProps()!=null) sporder=table.getJSONProps().optJSONArray("orderby");
 	if(sporder!=null){
 		q.put("orderby", sporder);
@@ -48,9 +48,9 @@
 	}else{
 		q.put("order_columns", table.getColumn("id").getId());
 		q.put("order_asc", false);
-	}
+	}*/
 	// when this parameter set, system will try to load recent one week data
-	q.put("tryrecent",true);
+	//q.put("tryrecent",true);
 	
 	//String creationLink=WebUtils.getMainTableLink(request)+"table="+ tableId+"&fixedcolumns="+java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""),request.getCharacterEncoding())+"&next_screen="+java.net.URLEncoder.encode(StringUtils.escapeHTMLTags(urlOfThisPage),request.getCharacterEncoding());
 	String singleObjectPageURL="";

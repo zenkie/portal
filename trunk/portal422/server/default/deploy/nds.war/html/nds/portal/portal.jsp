@@ -14,12 +14,15 @@
 
 %>
 <%
- 
+ String dialogURL=request.getParameter("redirect");
  if(userWeb==null || userWeb.getUserId()==userWeb.GUEST_ID){
  	/*session.invalidate();
  	com.liferay.util.servlet.SessionErrors.add(request,PrincipalException.class.getName());
  	response.sendRedirect("/login.jsp");*/
- 	response.sendRedirect("/c/portal/login");
+ 	//System.out.println("portal.jsp:redirect to login");
+ 	response.sendRedirect("/c/portal/login"+
+ 		(nds.util.Validator.isNotNull(dialogURL)?"?redirect="+
+ 			java.net.URLEncoder.encode(dialogURL,"UTF-8"):""));
  	return;
  }
  if(!userWeb.isActive()){
@@ -29,7 +32,6 @@
  	return;
  }
 
-String dialogURL=request.getParameter("redirect");
 if(nds.util.Validator.isNotNull(dialogURL)){
 	response.sendRedirect(dialogURL);
  	return;

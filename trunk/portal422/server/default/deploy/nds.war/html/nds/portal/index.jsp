@@ -7,7 +7,9 @@
    
     */
  String referer=request.getHeader("Referer");
+ //System.out.println("/html/nds/portal/index.jsp:Referer:"+referer);
  String redirect ="";
+ 
  if(nds.util.Validator.isNotNull(referer)){
  	  java.net.URL url=new  java.net.URL(referer);
  	  String q=url.getQuery();
@@ -18,7 +20,9 @@
 	 	  	 redirect ="?redirect="+java.net.URLEncoder.encode(redirect,"UTF-8");
 	 	  }else  redirect ="";
  	  }
- }
+ }else if( nds.util.Validator.isNotNull( request.getParameter("redirect"))){
+ 	redirect ="?redirect="+java.net.URLEncoder.encode(request.getParameter("redirect"),"UTF-8");
+}
  if(userWeb==null || userWeb.getUserId()==userWeb.GUEST_ID){
  	/*session.invalidate();
  	com.liferay.util.servlet.SessionErrors.add(request,PrincipalException.class.getName());

@@ -57,7 +57,7 @@
 <table border="0" cellspacing="0" cellpadding="0" align='center' width="98%"><tr><td>
 <div id="rpt-desc">
 	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "current-cxtab",null)%>:</span>
-		<select name="rep_templet" id="rep_templet">
+		<select name="rep_templet" id="rep_templet" onchange="pc.reloadCxtabHistory()">
 					<%
 					List rep_templet=QueryEngine.getInstance().doQueryList("select id,name from ad_cxtab where ad_table_id="+tableId+" and ad_client_id="+userWeb.getAdClientId()+"and reporttype='S'");
 					String str="";

@@ -42,6 +42,8 @@ WebUtils.checkDirectoryReadPermission(table.getSecurityDirectory(), request);// 
 boolean isStatusValid= table.isActionEnabled(Table.SUBMIT);
 boolean isModify=canModify;
 /**------check permission end---**/
+//load list query configuration, 2010-2-25
+nds.web.config.QueryListConfig qlc=userWeb.getDefaultQueryListConf(tableId);
 
 /** -- add support for webaction of listbutton --**/
   Connection actionEnvConnection=null;
@@ -90,10 +92,21 @@ boolean isModify=canModify;
 for(int wasi=0;wasi<waListButtons.size();wasi++){
 	out.println(waListButtons.get(wasi).toHTML(locale,null));
 }
-int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getDefaultAction()==nds.web.config.ObjectUIConfig.ACTION_EDIT)?3:1);
-
+if(userWeb.isAdmin()){
 %>
-		<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "help",null)%>" onclick="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"/>
+<input type="button" class="cbutton"  title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "query-list-config",null)%>" onclick="javascript:pc.switchConfig()"/>
+<%
+}else{
+	if(nds.web.config.QueryListConfigManager.getInstance().getQueryListConfigs(tableId,false).size()>0){
+%>
+<input type="button" class="cbutton" title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "switch-config",null)%>" onclick="javascript:pc.switchConfig()"/>
+<%		
+	}
+}
+int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getDefaultAction()==nds.web.config.ObjectUIConfig.ACTION_EDIT)?3:1);
+%>
+		
+	<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "help",null)%>" onclick="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"/>
 	</div>
 <div id="result-scroll" >
  <%@ include file="/html/nds/portal/inc_result_scroll.jsp" %>

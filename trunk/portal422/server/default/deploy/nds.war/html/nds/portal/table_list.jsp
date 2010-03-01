@@ -1,19 +1,15 @@
 
 <form id="fm_list">
-<!--<table width="100%" cellspacing="0" cellpadding="0"  align="center">
-    <tr >
-    <td valign="top">-->
 <div id="embed-lines" > 
 <table id="inc_table" class="sort-table" style="width:100%">
 	<thead><tr>
   	<td nowrap align='center' width="40"><%=PortletUtils.getMessage(pageContext, "rowindex",null)%></td>
-  	<!--<td nowrap align='center' width="36"><%=PortletUtils.getMessage(pageContext, "rowstate",null)%></td>-->
 <%
-ArrayList columns=table.getColumns(new int[]{Column.MASK_QUERY_LIST},false );
+List<ColumnLink> columns=qlc.getSelections();
 int colWidth=15,maxLength=10;
 String cid;
 PairTable values;
-String colName,cId;
+String colName,cId,cIdInput;
 boolean isModifiable;
 Column col,col2;
 int type;
@@ -21,37 +17,38 @@ int type;
 Table refTable;
 String fixedColumnMark;
 boolean isFixedColumn;
-
+ColumnLink clink;
 for(int i=0;i< columns.size();i++){
-	col=(Column)columns.get(i);
+	clink=columns.get(i);
+	col=(Column)clink.getLastColumn();
+	cId= clink.toHTMLString();            
 	if(col.getReferenceTable()!=null){
 		col2=col.getReferenceTable().getAlternateKey();
-		colName=col.getName()+"__"+ col2.getName();	
+		colName=cId+"__"+ col2.getName();
 		maxLength=col2.getLength();
 		type= col2.getType();
 	}else{
-		colName=col.getName();
+		colName=cId;
 		maxLength=col.getLength();
 		type= col.getType();
 	}
-	cId= colName;            
     //typeIndicator= nds.query.web.TableQueryModel.toTypeIndicator(type,locale);
 	colWidth=15;
 	if(col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK) colWidth=5;
 	// for other columns that are modifiable in both creation form and modification form
-	isModifiable=isModify && col.isMaskSet(Column.MASK_MODIFY_EDIT);
+	isModifiable= isModify &&( clink.length()==1)&&  col.isMaskSet(Column.MASK_MODIFY_EDIT);
 	if(!isModifiable){
-		colWidth= col.isColumnLink()? col.getColumnLink().getLastColumn().getLength(): col.getLength();
+		colWidth=maxLength;
 		if(colWidth>30) colWidth=30;
 	}
  %>
   <td nowrap align='center'>
-    <span onClick="javascript:pc.orderGrid(<%=col.getId()%>)"><span id="title_<%=col.getId()%>"></span>
-    	<%=col.getDescription(locale)%>
+    <span onClick="javascript:pc.orderGrid2('<%=cId%>',event)"><span id="title_<%=cId%>"></span>
+    	<%=clink.getDescription(locale)%>
     </span>
   </td>
 <%
-}//for(int i=0;i< meta.getColumnCount();i++)
+}//for columns(selections)
 %>
   </tr>
  </thead><!--$GRIDTABLE_START-->
@@ -62,29 +59,27 @@ for(int i=0;i< columns.size();i++){
   	
 <%
 for(int i=0;i< columns.size();i++){
-	col=(Column)columns.get(i);
+	clink=columns.get(i);
+	col=(Column)clink.getLastColumn();
 	refTable=col.getReferenceTable();
+	cId= clink.toHTMLString(); 
 	if(refTable!=null){
 		col2=refTable.getAlternateKey();
-		colName=col.getName()+"__"+ col2.getName();	
+		colName=cId+"__"+ col2.getName();	
+		cIdInput=col.getName()+"__"+ col2.getName();
 		maxLength=col2.getLength();
 		colWidth= col2.getStatSize();
 		type= col2.getType();
 	}else{
-		colName=col.getName();
+		colName=cId;
+		cIdInput=col.getName();
 		maxLength=col.getLength();
 		colWidth= col.getStatSize();
 		type= col.getType();
 	}
-	cId= colName; 
-	isModifiable=isModify && col.isMaskSet(Column.MASK_MODIFY_EDIT);
+	isModifiable=isModify &&( clink.length()==1)&& col.isMaskSet(Column.MASK_MODIFY_EDIT);
 	if(colWidth<=0) colWidth=15;
-	//colWidth=colWidth>20? 20:colWidth;
 	if(col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK) colWidth=5;
-	/*if(!isModifiable){
-		colWidth= col.isColumnLink()? col.getColumnLink().getLastColumn().getLength(): col.getLength();
-		if(colWidth>15) colWidth=15;
-	}*/
 %>
 <td <%=(!isModifiable&& type==Column.NUMBER?"align='right'":"")%> nowrap>
 	<%
@@ -101,7 +96,7 @@ for(int i=0;i< columns.size();i++){
 	    }
 	    java.util.HashMap a = new java.util.HashMap();
 	    
-	    a.put("id",cId);
+	    a.put("id",cIdInput);
 	    //a.put("tabIndex", (++tabIndex)+"");
 	    a.put("onchange", "pc.cellChanged(event)");
 	    a.put("onkeydown", "pc.moveTableFocus(event)");
@@ -123,7 +118,7 @@ for(int i=0;i< columns.size();i++){
            		java.util.Hashtable h = new java.util.Hashtable();
            		h.put("size", colWidth+"");
            		h.put("maxlength", maxLength+"");
-           		h.put("id",cId);
+           		h.put("id",cIdInput);
            		h.put("onchange", "pc.cellChanged(event)");
            		h.put("onkeydown", "pc.moveTableFocus(event)");
            		//h.put("tabIndex", (++tabIndex)+"");
@@ -134,18 +129,18 @@ for(int i=0;i< columns.size();i++){
 					h.put("class","inputline"+ (isFixedColumn?" disabled":""));
                 }       		
                 %>
-<input:text name="<%=cId%>" attributes="<%=h %>" attributesText="<%=fixedColumnMark%>" />
+<input:text name="<%=cIdInput%>" attributes="<%=h %>" attributesText="<%=fixedColumnMark%>" />
 <%if(refTable!=null){%>
 <span id="fk<%=cId%>"></span>
 <%}
           }//end getObjectType!=DisplaySetting.OBJ_FILE ||OBJ_IMAGE
             else{// getObjectType==DisplaySetting.OBJ_FILE || OBJ_IMAGE
           %>
-          <span id="<%=cId%>"></span>
+          <span id="<%=cIdInput%>"></span>
 		  <%}
-         }// end rsColumns[i].isModifiable(Column.MODIFY))
+         }// modifiable
          else{%>
-<span id="<%=cId%>"></span>
+<span id="<%=cIdInput%>"></span>
          <%}
 	}%>
     &nbsp;</td>
@@ -162,22 +157,25 @@ for(int i=0;i< columns.size();i++){
   	<td width="70" nowrap><span id="$row"></span><span id="$errmsg"></span><span id="$state__"></span></td>
 <%
 for(int i=0;i< columns.size();i++){
-	col=(Column)columns.get(i);
+	clink=columns.get(i);
+	col=(Column)clink.getLastColumn();
 	refTable=col.getReferenceTable();
 	if(col.getReferenceTable()!=null){
 		col2=col.getReferenceTable().getAlternateKey();
 		colName=col.getName()+"__"+ col2.getName();	
+		cIdInput=col.getName()+"__"+ col2.getName();
 		maxLength=col2.getLength();
 		colWidth= col2.getStatSize();
 		type= col2.getType();
 	}else{
 		colName=col.getName();
+		cIdInput=col.getName();
 		maxLength=col.getLength();
 		colWidth= col.getStatSize();
 		type= col.getType();
 	}
 	cId= colName; 
-	isModifiable=false;//isModify && col.isMaskSet(Column.MASK_MODIFY_EDIT);
+	isModifiable=false;
 	if(colWidth<=0) colWidth=15;
 	//colWidth=colWidth>20? 20:colWidth;
 	if(col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK) colWidth=5;
@@ -197,20 +195,20 @@ for(int i=0;i< columns.size();i++){
 	    }
 	    java.util.HashMap a = new java.util.HashMap();
 	    
-	    a.put("id","$"+cId);
+	    a.put("id","$"+cIdInput);
 	    //a.put("tabIndex", (++tabIndex)+"");
 	    a.put("onchange", "pc.cellChanged(event)");
 	    a.put("onkeydown", "pc.moveTableFocus(event)");
         if(col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK){
 	 	%>
-<input type="checkbox" id="$<%=cId%>" value="Y" onchange="pc.cellChanged(event)" class="cbx" <%=isModifiable?"":"DISABLED"%> />
+<input type="checkbox" id="$<%=cIdInput%>" value="Y" onchange="pc.cellChanged(event)" class="cbx" <%=isModifiable?"":"DISABLED"%> />
        <%}else{%>
-<input:select name="<%=cId%>" default="<%=columnDataValue%>" attributes="<%= a %>" options="<%= o %>" attributesText="<%=isModifiable?"":"DISABLED"%>" />
+<input:select name="<%=cIdInput%>" default="<%=columnDataValue%>" attributes="<%= a %>" options="<%= o %>" attributesText="<%=isModifiable?"":"DISABLED"%>" />
 		<%}
 	}// end if(value != null)
     else{
     %>
-	<span id="$<%=cId%>"></span>
+	<span id="$<%=cIdInput%>"></span>
    <%
 	}%>
     &nbsp;&nbsp;</td>
@@ -225,9 +223,10 @@ if ( table.isSubTotalEnabled()){
 	<tr nowrap id="tr_pagesum" class="sumfooter"><td colspan="2"><%=PortletUtils.getMessage(pageContext, "page-sum",null)%></td>
 <%		
 	for(int i=1;i< columns.size();i++){
-    	col=(Column)columns.get(i);
+    	clink=columns.get(i);
+		col=(Column)clink.getLastColumn();
     	out.print("<td align='right'>&nbsp;");
-    	if(col.getSubTotalMethod()!=null) out.print("<span id='psum_"+ col.getId()+"'></span>");
+    	if(col.getSubTotalMethod()!=null) out.print("<span id='psum_"+ clink.toHTMLString()+"'></span>");
     	out.print("</td>");
     	
    	}
@@ -236,9 +235,10 @@ if ( table.isSubTotalEnabled()){
 	<tr nowrap id="tr_totalsum" class="sumfooter" style="display:none;"><td colspan="2"><%=PortletUtils.getMessage(pageContext, "total-sum",null)%></td>
 <%		
 	for(int i=1;i< columns.size();i++){
-    	col=(Column)columns.get(i);
+    	clink=columns.get(i);
+		col=(Column)clink.getLastColumn();
     	out.print("<td align='right'>&nbsp;");
-    	if(col.getSubTotalMethod()!=null) out.print("<span id='tsum_"+ col.getId()+"'></span>");
+    	if(col.getSubTotalMethod()!=null) out.print("<span id='tsum_"+ clink.toHTMLString()+"'></span>");
     	out.print("</td>");
    	}
 %>   	

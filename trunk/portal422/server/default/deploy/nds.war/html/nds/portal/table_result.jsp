@@ -54,7 +54,7 @@
   endIndex = (endIndex > totalCount)?totalCount:endIndex;
   if(startIndex > totalCount){startIndex=0;endIndex=0;}
   CollectionValueHashtable tableAlertHolder=new CollectionValueHashtable();
-    QueryResultMetaData meta=result.getMetaData();
+  QueryResultMetaData meta=result.getMetaData();
   if(result.getRowCount() == 0){
     out.print("<tr style='display: none;'><td colspan='"+ (meta.getColumnCount()+1) +"'></td></tr>");
 	return;
