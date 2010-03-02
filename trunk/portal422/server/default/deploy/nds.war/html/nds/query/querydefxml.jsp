@@ -50,10 +50,13 @@ for(int i=0;i< columns.size();i++){
 	String desc= col.getDescription(locale);
 	Table rftTable= col.getReferenceTable(true);
 	if(rftTable!=null){
-		String src= java.net.URLEncoder.encode("/html/nds/query/querydef.xml.jsp?table="+rftTable.getId()+"&parent="+clink,request.getCharacterEncoding());
-		clink = clink+";"+ rftTable.getAlternateKey().getName();
+		String src= java.net.URLEncoder.encode("/html/nds/query/querydefxml.jsp?table="+rftTable.getId()+"&parent="+clink,request.getCharacterEncoding());
+		//clink = clink+";"+ rftTable.getAlternateKey().getName();
 		String akDesc= parentDesc+desc +"."+ rftTable.getAlternateKey().getDescription(locale);
-%> <tree text="<%=desc%>" src="<%=src%>"/>
+		//for datenumber, will have addtional add action
+		String treeAction="";
+%> 	
+	<tree text="<%=desc%>" src="<%=src%>" action="javascript:qd.setColumn('<%=clink%>','<%=parentDesc+desc%>')"/>
 <%	}else{
 		if(col.getSubTotalMethod()!=null){
 %> <tree text="<%=desc%>" icon="<%=NDS_PATH%>/images/sum-column.gif" action="javascript:qd.setColumn('<%=clink%>','<%=parentDesc+desc%>')" />

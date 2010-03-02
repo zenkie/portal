@@ -28,7 +28,17 @@ QueryDefControl.prototype = {
 		createButton($("o_moveup"));
 		createButton($("o_movedown"));
 		createButton($("o_orderby"));
-		
+		this._tryUpdateTitle();
+	},
+	_tryUpdateTitle:function(){
+		var w = window.opener;
+		if(w==undefined)w= window.parent;
+		if (w ){
+			var te=w.document.getElementById("pop-up-title-0");
+			if(te){
+				te.innerHTML=document.title;
+			}
+		}
 	},
 	_getListByTag:function(listTag){
 		return (listTag=='d'? this._qdf.selections: listTag=='f'?this._qdf.conditions:this._qdf.orders);

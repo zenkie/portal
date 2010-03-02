@@ -99,7 +99,7 @@ webFXTreeConfig.iIcon			= "/html/nds/js/xloadtree111/images/xp/I.png";
 webFXTreeConfig.lIcon			= "/html/nds/js/xloadtree111/images/xp/L.png";
 webFXTreeConfig.tIcon			= "/html/nds/js/xloadtree111/images/xp/T.png";
 webFXTreeConfig.blankIcon		= "/html/nds/js/xloadtree111/images/xp/blank.png";
-var tree = new WebFXLoadTree("<%=table.getDescription(locale)%>", "<%=NDS_PATH+"/query/querydef.xml.jsp?table="+table.getId()%>");
+var tree = new WebFXLoadTree("<%=table.getDescription(locale)%>", "<%=NDS_PATH+"/query/querydefxml.jsp?table="+table.getId()%>");
 tree.setBehavior("classic");
 document.write(tree);
 </script>       	

@@ -53,9 +53,6 @@
 %>
 	 <tr><td align='left'>&nbsp; &nbsp;-- <%=(myqlcId==-1?"<img src='/html/nds/images/ok.gif'>":"")%>&nbsp;<a href="javascript:qlc.switchView(-1)">DEFAULT</a>
 	 	&nbsp;
-	 	<%if(isAdmin){%>
-	 		(<a href="javascript:qlc.modify(-1)"><%=PortletUtils.getMessage(pageContext, "modify",null)%></a>)
-	 	<%}%>	
 	 	</td></tr>
 	 <tr><td>
 	 	<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "object.newobject",null)%>" onclick="javascript:qlc.modify(-1)"/>

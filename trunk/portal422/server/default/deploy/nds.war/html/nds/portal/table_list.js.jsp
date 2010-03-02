@@ -38,6 +38,7 @@
 	q.put("show_alert",true); //show row css accroding to column value
 	//order by, now contained with qlcid
 	q.put("qlcid",qlc.getId());
+	q.put("orders", qlc.getOrderBys());
 	/*JSONArray sporder=null;
 	if( table.getJSONProps()!=null) sporder=table.getJSONProps().optJSONArray("orderby");
 	if(sporder!=null){

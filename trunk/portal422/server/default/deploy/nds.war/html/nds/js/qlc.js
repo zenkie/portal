@@ -16,6 +16,17 @@ QueryListConfig.prototype = {
 	  		else msgbox(message);
 		};
 		application.addEventListener( "QueryListConfig_SavePreference", this._saveQueryListConfig, this);
+		this._tryUpdateTitle();
+	},
+	_tryUpdateTitle:function(){
+		var w = window.opener;
+		if(w==undefined)w= window.parent;
+		if (w ){
+			var te=w.document.getElementById("pop-up-title-0");
+			if(te){
+				te.innerHTML=document.title;
+			}
+		}
 	},
 	setTable:function(tid){
 		this._tableId=tid;
@@ -40,7 +51,7 @@ QueryListConfig.prototype = {
 	 	code, message, id (if new), name
 	*/	
 	_saveQueryListConfig:function(e){
-		console.log(e);
+		//console.log(e);
 		var chkResult=e.getUserData(); // data
 		msgbox(chkResult.message);
 		if(chkResult.code==0){

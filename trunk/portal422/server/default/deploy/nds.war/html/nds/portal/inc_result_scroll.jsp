@@ -27,7 +27,7 @@ for(int i =0;i<selectRanges.length;i++){
 /**
 some company does not want to have edit feature here
 */
-if(canModify && listEditable){
+if(canModify && listEditable&&false){
 %>
 <a href='javascript:pc.switchView()'>[<span class="link_cn" id="switch-view-txt"><%=(listViewPermissionType==3? PortletUtils.getMessage(pageContext, "read-only-view",null):PortletUtils.getMessage(pageContext, "modify-view",null))%></span>]</a>
 <%}%>

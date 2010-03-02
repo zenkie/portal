@@ -2,7 +2,7 @@
 <form id="fm_list">
 <div id="embed-lines" > 
 <table id="inc_table" class="sort-table" style="width:100%">
-	<thead><tr>
+	<thead><tr id="titletr">
   	<td nowrap align='center' width="40"><%=PortletUtils.getMessage(pageContext, "rowindex",null)%></td>
 <%
 List<ColumnLink> columns=qlc.getSelections();
@@ -42,8 +42,8 @@ for(int i=0;i< columns.size();i++){
 		if(colWidth>30) colWidth=30;
 	}
  %>
-  <td nowrap align='center'>
-    <span onClick="javascript:pc.orderGrid2('<%=cId%>',event)"><span id="title_<%=cId%>"></span>
+  <td nowrap align='center' onClick="javascript:pc.orderGrid2('<%=cId%>',event)">
+    <span><span id="title_<%=cId%>" class="odr"></span>
     	<%=clink.getDescription(locale)%>
     </span>
   </td>

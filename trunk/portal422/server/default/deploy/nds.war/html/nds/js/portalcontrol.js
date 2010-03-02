@@ -406,12 +406,19 @@ PortalControl.prototype = {
 	_syncGridControl:function(qr){
 		this._gridQuery.totalRowCount=qr.totalRowCount;
 		this._gridQuery.start=qr.start;
-		//this._gridQuery.range=qr.range;
-		//dwr.util.setValue("range_select", qr.range);
-		if( this._gridQuery.order_columns!=null){
-			var ele=$("title_"+this._gridQuery.order_columns);
+		if( this._gridQuery.orders==null)this._gridQuery.orders=[];
+		var torders= $('titletr').getElementsByClassName('odr');
+		var j,i,ele,s;
+		for(j=0;j<torders.length;j++){
+			ele=torders[j];
+			ele.innerHTML="";
+		}
+		for(i=0;i<this._gridQuery.orders.length;i++){
+			ele=$("title_"+this._gridQuery.orders[i].c);
 			if(ele!=null){
-				ele.innerHTML="<img src='/html/nds/images/"+( this._gridQuery.order_asc?"up":"down")+"simple.png'>";
+				s="<img src='/html/nds/images/"+( this._gridQuery.orders[i].t==false?"down":"up")+"simple.png'>";
+				if(i<4) s+="<img src='/html/nds/images/m"+(i+1)+".png'>";
+				ele.innerHTML=s;
 			}
 		}
 		if($("txtRange")!=null){
@@ -1200,6 +1207,7 @@ PortalControl.prototype = {
 	orderGrid2: function(clinkid,event){
 		if(this._checkDirty()==false){
 			if (!event) event = window.event;
+			if(this._gridQuery.orders==null)this._gridQuery.orders=[];
 			var orders=this._gridQuery.orders;
 			var i,bFound=false;
 			if(event.ctrlKey||event.altKey || event.shiftKey){
