@@ -1,6 +1,6 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ include file="/html/nds/common/init.jsp" %> 
-<%@ include file="/html/portal/init.jsp" %>
+<%@page errorPage="/html/nds/error.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -29,10 +29,7 @@ TableManager manager=TableManager.getInstance();
 QueryEngine engine=QueryEngine.getInstance();
 List al=engine.doQueryList("select c.id,c.name from c_store c, users u where u.id="+userWeb.getUserId()+" and c.id=u.c_store_id");
 if(al.size()==0){
-%>
- 您不属于任何店铺，请向管理员咨询。<a href="/html/nds/portal/portal.jsp">进入PORTAL管理界面</a>
-</body><html>
-<%
+ throw new NDSException("您不属于任何店铺，请向管理员咨询。<a href='/html/nds/portal/portal.jsp'>进入PORTAL管理界面</a>");
 }
 int storeId=Tools.getInt( ((List)al.get(0)).get(0),-1);
 String storeName=(String )((List)al.get(0)).get(1);
