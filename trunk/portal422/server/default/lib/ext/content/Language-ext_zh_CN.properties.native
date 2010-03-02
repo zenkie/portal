@@ -910,7 +910,7 @@ scan-sum=本次扫描合计
 turbo-scan-log=本次扫描记录(最近30条)
 check-barcode-only=不自动匹配商品
 object.printfile=生成可打印文件
-query-define=查询定义
+query-define=查询模板定义
 current-table=当前表
 switch-template=切换模板
 set-as-default-dcq=设为当前表的默认查询模板(用户若未定义自己的默认模板，将以此模板显示查询界面)
@@ -925,4 +925,4 @@ input-template-name=新的模板名称
 cxtab-too-many-jobs-running=系统即时运行的报表任务数已达到极限(于0)，请稍后再做报表查询。
 query-list-config=配置
 switch-config=切换视图
-select-query-list-config=每个视图包含有不同的查询条件，列表字段和排序定义，点击下面的链接完成切换
+select-query-list-config=每个视图包含有不同的查询条件，列表字段和排序定义，点击下面的链接完成切换。您当前使用的模板用<img src='/html/nds/images/ok.gif'>标记
