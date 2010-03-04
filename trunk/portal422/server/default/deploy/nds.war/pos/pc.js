@@ -72,6 +72,38 @@ PortalControl.prototype = {
 	ssv:function(sid){
 		window.location="/html/nds/portal/portal.jsp?ss="+sid;
 	},
+	reloadCxtabHistory:function(){
+		this.refreshCxtabHistoryFiles(parseInt(dwr.util.getValue($("rep_templet"))));
+	},
+	/*
+	   @param cxtabId ad_cxtab.id, if undefined, will retrieve from internval value
+	*/
+	refreshCxtabHistoryFiles:function(cxtabId){
+		//load history
+		if(cxtabId==null) cxtabId=this._cxtabId;
+		else this._cxtabId=cxtabId;
+		var url="/html/nds/cxtab/history_files.jsp?id="+cxtabId;
+		new Ajax.Request(url, {
+		  method: 'get',
+		  onSuccess: function(transport) {
+		  	var pt=$("history_files");
+		    pt.innerHTML=transport.responseText;
+		    executeLoadedScript(pt);
+		  },
+		  onFailure:function(transport){
+		  	//try{
+		  	  	if(transport.getResponseHeader("nds.code")=="1"){
+		  	  		window.location="/c/portal/login";
+		  	  		return;
+		  	  	}
+		  	  	var exc=transport.getResponseHeader("nds.exception");
+		  	  	if(exc!=null && exc.length>0){
+		  	  		alert(decodeURIComponent(exc));	
+		  	  	}
+		  	//}catch(e){}
+		  }
+		});			
+	},	
 	/**
 	 Update last access time
 	*/
@@ -109,19 +141,18 @@ PortalControl.prototype = {
 	resize:function(){
 		//if(is_ie) return;//modified by ken to set table div in ie avoid overflow of table
 		var limitWidth;
-		//if(!pc._resizable) limitWidth=15;
-		//else limitWidth=245+15;//15 is added to reflect the addtion a toggle bar div between menu and table
-		//following modified by ken to estimated the client area after hiding of main navigation menu.	
-		limitWidth=(jQuery("#portal-menu").css("display")=="block")?jQuery("#portal-menu").width()+jQuery("#portal-separator").width():jQuery("#portal-separator").width();		
-		limitWidth=limitWidth+40;
+		//limitWidth=(jQuery("#portal-menu").css("display")=="block")?jQuery("#portal-menu").width()+jQuery("#portal-separator").width():jQuery("#portal-separator").width();		
+		limitWidth=230;//limitWidth+40;
 		
 		var e=$("embed-lines");
+		
 		if(e==null)return;
+		//e.style.width=760;
 		if (!is_safari) {
 				e.style.width= (document.body.clientWidth - limitWidth)+"px";
-    }else {
-        e.style.width= (document.body.offsetWidth - limitWidth)+"px";
-    }
+	    }else {
+	        e.style.width= (document.body.offsetWidth - limitWidth)+"px";
+	    }
 	},
 	/**
 	 * Create query input form for selected cxtab obj
@@ -829,6 +860,9 @@ PortalControl.prototype = {
 		this._initList();
 		this.resize();
 	},
+	switchConfig:function(){
+		showObject('/html/nds/query/qlc.jsp?table='+this._tableObj.id,null,null,{maxButton:false,closeButton:false})
+	},
 	/*
 	   @param cxtabId ad_cxtab.id, if undefined, will retrieve from internval value
 	*/
@@ -1491,9 +1525,9 @@ PortalControl.prototype = {
 		var fm=$("list_query_form");
 	    toggleButtons($("list_query_form"),true);
 	    if(this.hasValueInput(fm))
-	    	this._gridQuery.param_str= fm.serialize();
+	    	this._gridQuery.param_str2= fm.serialize();
 	    else
-	    	this._gridQuery.param_str= "";
+	    	this._gridQuery.param_str2= "";
 	    this._gridQuery.start=0;
 		this._executeQuery(this._gridQuery);
 	},

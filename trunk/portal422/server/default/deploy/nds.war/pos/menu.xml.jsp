@@ -30,8 +30,9 @@ Locale locale =userWeb.getLocale();
 %>
 <tree>
 <%
-System.out.println(posMenuActionId);
 WebAction action=(WebAction)TableManager.getInstance().getWebAction(posMenuActionId) ;
+if(action!=null){
 %>
 	<%=action.toHTML(locale,null)%>
+<%}%>
 </tree>
