@@ -19,7 +19,7 @@ org.json.JSONObject tb;
 org.json.JSONObject jc;
 
 int tabId= Integer.MAX_VALUE-1;
-
+boolean hasOnlyActions=true;//not show reports if has only actions in subsystem
 if(ssId==-1){
 	List subsystems =ssv.getSubSystems(request);
 	// list all subsystems, for backward compatibility
@@ -47,8 +47,10 @@ if(ssId==-1){
 	jc.put("desc",PortletUtils.getMessage(pageContext, "report-center",null));
 	jc.put("url", "/html/nds/cxtab/rpthome.jsp");
 	menuObjs.put(jc);
+	hasOnlyActions=false;
 }else{
 	// list table categories as menu
+	
 	List cats =ssv.getTableCategories(request,ssId);
 	for (int i=0; i< cats.size(); i++){   
 	     List child=(List)cats.get(i);
@@ -60,13 +62,25 @@ if(ssId==-1){
 			 jc.put("desc", tc.getName());
 			 jc.put("url","tablecategory.jsp?id="+tc.getId()); 
 			 menuObjs.put(jc);
+			 hasOnlyActions=false;
+	     }else if(o instanceof WebAction){
+			WebAction wa=(WebAction)o;
+			jc=new org.json.JSONObject();
+		     jc.put("id", "_"+wa.getId());//nerver equals to Tablecategory
+			 jc.put("desc", wa.getDescription());
+			 jc.put("url","webaction.jsp?id="+wa.getId()); 
+			 menuObjs.put(jc);     	
+	     }else{
+	     	throw new Error("Unsupported type in ssv:"+ o.getClass());	
 	     }
 	}
-	jc=new org.json.JSONObject();
-	jc.put("id",  tabId--);
-	jc.put("desc",PortletUtils.getMessage(pageContext, "report-center",null));
-	jc.put("url", "/html/nds/cxtab/rpthome.jsp");
-	menuObjs.put(jc);
+	if(!hasOnlyActions){
+		jc=new org.json.JSONObject();
+		jc.put("id",  tabId--);
+		jc.put("desc",PortletUtils.getMessage(pageContext, "report-center",null));
+		jc.put("url", "/html/nds/cxtab/rpthome.jsp");
+		menuObjs.put(jc);
+	}
 
 }	
 %>

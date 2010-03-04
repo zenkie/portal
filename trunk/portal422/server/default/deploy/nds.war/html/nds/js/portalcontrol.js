@@ -1816,8 +1816,8 @@ function showObject2(url,option, theWidth, theHeight){
     	theHeight=screen.availHeight;
     }
 	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:true});
-	if(option!=undefined) options.merge(option);
-	if(option.iswindow==true){
+	if(options!=undefined) options.merge(option);
+	if(options.iswindow==true){
 		popup_window(url,options.target, options.width,options.height);
 	}else{
 		Alerts.popupIframe(url,options);
