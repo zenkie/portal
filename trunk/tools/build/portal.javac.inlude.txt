@@ -62,7 +62,7 @@ org/apache/jspc/html/nds/portal/table_jsp.java
 org/apache/jspc/html/nds/portal/tablecategory_jsp.java
 org/apache/jspc/html/nds/portal/tablecategory_xml_jsp.java
 org/apache/jspc/html/nds/portal/webaction_xml_jsp.java
-org/apache/jspc/html/nds/portal/webaction.jsp.java
+org/apache/jspc/html/nds/portal/webaction_jsp.java
 org/apache/jspc/html/nds/portal/catrpt_xml_jsp.java
 org/apache/jspc/html/nds/portal/portletlist/view_jsp.java
 org/apache/jspc/html/nds/portal/ssv/index_jsp.java
