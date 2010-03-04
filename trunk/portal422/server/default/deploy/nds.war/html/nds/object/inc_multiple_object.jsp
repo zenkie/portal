@@ -24,7 +24,7 @@
 %>
 <div class="<%=divEmbedItemId%>" id="embed-items">
 <table id="modify_table" width="100%" border="1" cellspacing="0" cellpadding="0"  align="center" bordercolordark="#FFFFFF" bordercolorlight="#FFFFFF">
-	<thead><tr>
+	<thead><tr id="titletr">
   	<td nowrap align='center' width="70"><%=PortletUtils.getMessage(pageContext, "rowindex",null)%></td>
 <%
 ArrayList columns=table.getColumns(meta.ITEM_COLUMN_MASKS,false );
@@ -63,14 +63,17 @@ for(int i=0;i<colSizes.length;i++){
 	colSizes[i]=(int)( colSizes[i] * 100 / sizeAll);
 	if(colSizes[i]==0)colSizes[i]=1;
 }
-
+ColumnLink clink;String ordName=null;
 for(int i=0;i< columns.size();i++){
 	col=(Column)columns.get(i);
+	clink=new ColumnLink(new int[]{col.getId()});
+	ordName=clink.toHTMLString();
 	if(col.getReferenceTable()!=null){
 		col2=col.getReferenceTable().getAlternateKey();
 		colName=col.getName()+"__"+ col2.getName();	
 		maxLength=col2.getLength();
 		type= col2.getType();
+		ordName=ordName+";"+ col2.getName();
 	}else{
 		colName=col.getName();
 		maxLength=col.getLength();
@@ -86,9 +89,10 @@ for(int i=0;i< columns.size();i++){
 		colWidth= col.isColumnLink()? col.getColumnLink().getLastColumn().getLength(): col.getLength();
 		if(colWidth>30) colWidth=30;
 	}
+	
  %>
-  <td nowrap align='center'>
-    <span onClick="javascript:gc.orderGrid(<%=col.getId()%>)"><span id="title_<%=col.getId()%>"></span>
+  <td nowrap align='center' onClick="javascript:gc.orderGrid2('<%=ordName%>',event)">
+    <span><span id="title_<%=ordName%>" class="odr"></span>
     	<%=col.getDescription(locale)%><%= typeIndicator%>
     </span>
   </td>

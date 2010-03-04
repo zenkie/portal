@@ -193,6 +193,7 @@
 	            if(fkQueryModel!=null){
 	            	//add key catcher 
 	            	//h.put("onkeydown",fkQueryModel.getKeyEventScript());
+	            	//column.getRegExpression() may be a javascript function 
 	            	if(column.isFilteredByWildcard() && Validator.isNotNull(column.getRegExpression())){
 	            		h.put("readonly","readonly");
 	            	}
@@ -222,9 +223,9 @@
                 	h.put("onchange", column.getRegExpression()+"()");
                 }
                 h.put("title", model.getInputBoxIndicator(column,column_acc_Id,locale));
-                
+                String attributeText2= (column.getJSONProps()!=null?column.getJSONProps().optString("input_attr",""):"");
 	            %>
-	            <input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributesText+fixedColumnMark)%>"/><%= type%>
+	            <input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributeText2+" "+attributesText+fixedColumnMark)%>"/><%= type%>
 				<%if(fkQueryModel!=null){%>
 				<input type="hidden" id="fk_<%=column_acc_Id%>" name="<%=column.getName()%>" value="<%=(coid==-1?"":String.valueOf(coid))%>">
 				<%}

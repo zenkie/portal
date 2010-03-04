@@ -109,12 +109,19 @@ GridControl.prototype = {
 	_syncGridControl:function(qr){
 		this._gridQuery.totalRowCount=qr.totalRowCount;
 		this._gridQuery.start=qr.start;
-		//this._gridQuery.range=qr.range;
-		//dwr.util.setValue("range_select", qr.range);
-		if( this._gridQuery.order_columns!=null){
-			var ele=$("title_"+this._gridQuery.order_columns);
+		if( this._gridQuery.orders==null)this._gridQuery.orders=[];
+		var torders= $('titletr').getElementsByClassName('odr');
+		var j,i,ele,s;
+		for(j=0;j<torders.length;j++){
+			ele=torders[j];
+			ele.innerHTML="";
+		}
+		for(i=0;i<this._gridQuery.orders.length;i++){
+			ele=$("title_"+this._gridQuery.orders[i].c);
 			if(ele!=null){
-				ele.innerHTML="<img src='/html/nds/images/"+( this._gridQuery.order_asc?"up":"down")+"simple.png'>";
+				s="<img src='/html/nds/images/"+( this._gridQuery.orders[i].t==false?"down":"up")+"simple.png'>";
+				if(i<4) s+="<img src='/html/nds/images/m"+(i+1)+".png'>";
+				ele.innerHTML=s;
 			}
 		}
 		if($("txtRange")!=null){
@@ -545,23 +552,46 @@ GridControl.prototype = {
 	 * @param columnId the column id that will be ordered by, if the same as old
 	 * order by column, will toggle asc and desc, else do asc 
 	 */
-	orderGrid: function(columnId){
+	orderGrid2: function(clinkid,event){
 		if(this.checkNew()) return;
 		if(this.checkDirty()==false){
-			var oldOrderBy=this._gridQuery.order_columns;
-			var oldAsc=this._gridQuery.order_asc;
-			if(oldOrderBy==columnId ){
-				this._gridQuery.order_asc=!oldAsc;
+			if (!event) event = window.event;
+			if(this._gridQuery.orders==null)this._gridQuery.orders=[];
+			var orders=this._gridQuery.orders;
+			var i,bFound=false;
+			if(event.ctrlKey||event.altKey || event.shiftKey){
+				//more orders
+				for(i=0;i<orders.length;i++){
+					if(	orders[i].c==clinkid){
+						//reverse it
+						orders[i].t=(orders[i].t==false?true:false);
+						bFound=true;
+						break;
+					}
+				}
+				if(!bFound){
+					orders.push({c:clinkid,t:true});
+				}				
 			}else{
-				var ele=$("title_"+oldOrderBy);
-				if(ele!=null)ele.innerHTML="";
-				this._gridQuery.order_columns=columnId;
-				this._gridQuery.order_asc=true;
-			}		
+				//single order
+				var od;
+				for(i=0;i<orders.length;i++){
+					if(	orders[i].c==clinkid){
+						//reverse it
+						od= Object.clone(orders[i]);
+						od.t=(od.t==false?true:false);
+						bFound=true;
+						break;
+					}
+				}
+				if(!bFound){
+					od=({c:clinkid,t:true});
+				}
+				this._gridQuery.orders=new Array(od);	
+			}
 			this._executeQuery(this._gridQuery);
 		}
 	},
-
 	_executeQuery: function (queryObj) {
 		if(this._orig_startidx==-1 && queryObj.start>=0 && (queryObj.start+queryObj.range>=queryObj.totalRowCount)){
 			//always move to last page if reach end

@@ -20,20 +20,29 @@
 	q.put("start",startIndex);
 	
 	q.put("range",QueryUtils.DEFAULT_RANGE);
+	
 	JSONArray sporder=null;
+	ArrayList orders=new ArrayList();
 	if( table.getJSONProps()!=null) sporder=table.getJSONProps().optJSONArray("orderby");
 	if(sporder!=null){
-			q.put("orderby", sporder);
+		//order by format: {column, asc:boolean}[]
+		for(int i=0;i<sporder.length();i++){
+			ColumnLink cl=new ColumnLink(table.getName()+"."+sporder.getJSONObject(i).getString("column"));
+			cl.setTag(new Boolean(sporder.getJSONObject(i).optBoolean("asc",true)));
+			orders.add(cl);
+		}
 	}else{
 		if( table.getColumn("orderno")!=null){
-			q.put("order_columns", table.getColumn("orderno").getId());
-			q.put("order_asc", true);
+			ColumnLink cl=new ColumnLink(table.getName()+"."+table.getColumn("orderno").getName());
+			cl.setTag(Boolean.TRUE);
+			orders.add(cl);
 		}else{
-			
-			q.put("order_columns", table.getColumn("id").getId());
-			q.put("order_asc", false);
+			ColumnLink cl=new ColumnLink(table.getName()+"."+table.getColumn("ID").getName());
+			cl.setTag(Boolean.FALSE);
+			orders.add(cl);
 		}
 	}
+	q.put("orders", orders);
 	String creationLink=WebUtils.getMainTableLink(request)+"table="+ tableId+"&fixedcolumns="+java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""),request.getCharacterEncoding())+"&next_screen="+java.net.URLEncoder.encode(StringUtils.escapeHTMLTags(urlOfThisPage),request.getCharacterEncoding());
 	
 	String singleObjectPageURL=(

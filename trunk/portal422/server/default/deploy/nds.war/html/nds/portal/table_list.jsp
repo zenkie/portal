@@ -17,7 +17,7 @@ int type;
 Table refTable;
 String fixedColumnMark;
 boolean isFixedColumn;
-ColumnLink clink;
+ColumnLink clink;String ordName;
 for(int i=0;i< columns.size();i++){
 	clink=columns.get(i);
 	col=(Column)clink.getLastColumn();
@@ -27,10 +27,12 @@ for(int i=0;i< columns.size();i++){
 		colName=cId+"__"+ col2.getName();
 		maxLength=col2.getLength();
 		type= col2.getType();
+		ordName=cId+";"+ col2.getName();
 	}else{
 		colName=cId;
 		maxLength=col.getLength();
 		type= col.getType();
+		ordName=cId;
 	}
     //typeIndicator= nds.query.web.TableQueryModel.toTypeIndicator(type,locale);
 	colWidth=15;
@@ -42,8 +44,8 @@ for(int i=0;i< columns.size();i++){
 		if(colWidth>30) colWidth=30;
 	}
  %>
-  <td nowrap align='center' onClick="javascript:pc.orderGrid2('<%=cId%>',event)">
-    <span><span id="title_<%=cId%>" class="odr"></span>
+  <td nowrap align='center' onClick="javascript:pc.orderGrid2('<%=ordName%>',event)">
+    <span><span id="title_<%=ordName%>" class="odr"></span>
     	<%=clink.getDescription(locale)%>
     </span>
   </td>
