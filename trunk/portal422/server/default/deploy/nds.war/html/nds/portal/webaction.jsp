@@ -12,6 +12,6 @@
 <table><tr><td>
 <script type="text/javascript">
  webFXTreeConfig.autoExpandAll=true;
- var tree=pc.createTree("<%=desc%>","/html/nds/portal/webaction_xml.jsp?id=<%=actionId%>", null);
+ var tree=pc.createTree("<%=desc%>","/html/nds/portal/webactionxml.jsp?id=<%=actionId%>", null);
 </script>    
 </td></tr></table>
