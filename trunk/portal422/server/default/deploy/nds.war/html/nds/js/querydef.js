@@ -207,7 +207,8 @@ QueryDefControl.prototype = {
 			 opt= new Option(this._qdf.orders[i].d+ "("+ (this._qdf.orders[i].t==false?gMessageHolder.DESC:gMessageHolder.ASC)+")", i);
 			 s[i] =opt;
 		}
-		$("defquery").checked= this._qdf.default;
+		
+		$("defquery").checked= this._qdf.default ||($("seltemplate").options.length==1);
 		this._currentListTag='d';
 		this.info(gMessageHolder.WELCOME);
 	},
