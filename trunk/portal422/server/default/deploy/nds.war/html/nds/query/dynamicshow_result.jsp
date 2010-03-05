@@ -23,13 +23,22 @@
  //PairTable fixedColumns=PairTable.parse(request.getParameter("fixedcolumns"), null);    // columnlink=value
  //Expression fixedExpression=Expression.parsePairTable(fixedColumns);// nerver null, maybe empty
  if(acceptorColumn==null)acceptorColumn= QueryUtils.getReturnColumn(accepter_id);
+ int dropColumnCount=2;
+ if(table.getJSONProps()!=null && table.getJSONProps().optInt("drop_column_cnt",2)==1)dropColumnCount=1;
+
  QueryRequestImpl qRequest=QueryEngine.getInstance().createRequest(userWeb.getSession());
  qRequest.setMainTable(table.getId());
+
+
+// show records directly, with only first 2 showable columns
  	qRequest.addSelection(table.getPrimaryKey().getId());
+ 	qRequest.addSelection(table.getAlternateKey().getId());
  	ArrayList columns=table.getShowableColumns(Column.QUERY_LIST);
  	int colCount= 0;
- 	for(int i=0;i< columns.size()&&colCount<2;i++){
+ 	for(int i=0;i< columns.size() && colCount<dropColumnCount-1;i++){
+ 		
 		Column col= (Column) columns.get(i);
+		if(col.isAlternateKey() || col.getName().equals("ID"))continue;
         if(col.getDisplaySetting().isUIController()) continue;
         if( col.getReferenceTable() !=null) {
            Column col2=col.getReferenceTable().getAlternateKey();
@@ -38,25 +47,44 @@
             qRequest.addSelection(col.getId());
         }
         colCount++;
- 	}//if(colCount==2) break;
-  Expression sexpr= userWeb.getSecurityFilter(table.getName(), 1);
+        //if(colCount==2) break;
+ 	}
+
+  	Expression sexpr= userWeb.getSecurityFilter(table.getName(), 1);
  	Expression expr=(acceptorColumn==null?null:QueryUtils.getDropdownFilter(acceptorColumn));
  	if( expr!=null ){
  		sexpr= expr.combine(sexpr, SQLCombination.SQL_AND, null);
  	};
- //	if(sexpr!=null)sexpr= sexpr.combine(fixedExpression,  SQLCombination.SQL_AND, null);
- //	else sexpr=fixedExpression;
+ 
  	expr= WebUtils.parseWildcardFilter(acceptorColumn,request,userWeb);	
 	if(expr!=null)sexpr=expr.combine(sexpr,  SQLCombination.SQL_AND, null);
-	Column column=table.getDisplayKey();
+	//isactive checking
+	if(table.isAcitveFilterEnabled()){
+		expr=new Expression(new ColumnLink(table.getName()+".ISACTIVE"),"=Y",null);
+		sexpr=expr.combine(sexpr,  SQLCombination.SQL_AND, null);
+	}
+	//ak
+	Column column=table.getAlternateKey();
 	if(column.isUpperCase()){
     	sqlqdata=qdata.toUpperCase()+"%";
-  }else{
-			sqlqdata=qdata+"%";
+  	}else{
+		sqlqdata=qdata+"%";
   	}
 	expr=new Expression(null,table.getName()+"."+column.getName()+" like '"+sqlqdata+"'",null);
- 	//expr= new Expression(cl,"="+qdata,null);
-  if(expr!=null)sexpr= expr.combine(sexpr, SQLCombination.SQL_AND, null);
+  	
+  	//ak2
+  	column=table.getAlternateKey2();
+	if(column!=null){
+		if(column.isUpperCase()){
+	    	sqlqdata=qdata.toUpperCase()+"%";
+	  	}else{
+			sqlqdata=qdata+"%";
+	  	}
+	  	expr=expr.combine(new Expression(null,table.getName()+"."+column.getName()+" like '"+sqlqdata+"'",null),
+	  		SQLCombination.SQL_OR, null);
+	}
+	sexpr= expr.combine(sexpr, SQLCombination.SQL_AND, null);
+	
 	qRequest.addParam(sexpr);
 	Configurations conf=(Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS);
 	int listThreshold= Tools.getInt(conf.getProperty("query.dynamicquery.max"),7);
@@ -69,15 +97,19 @@
 	  org.json.JSONArray tb=null;
     QueryResultMetaData meta;
     int i=0;
-    while(result.next()&&i<10){
+    while(result.next()){
        tb=new org.json.JSONArray();
        tb.put(result.getString(2, true));
-       strflag=result.getString(3, true);
-       if(strflag.equals("&nbsp;")){
-	         tb.put("");
+       if(dropColumnCount>1){
+	       strflag=result.getString(3, true);
+	       if(strflag.equals("&nbsp;")){
+		         tb.put("");
+	        }else{
+	    	     tb.put(strflag);
+	        }
         }else{
-    	     tb.put(strflag);
-        }
+        	 tb.put("");
+		}
   	    dynshowjson.put(tb);  	
 	  }
 	  dynobject.put("dynshowjson",dynshowjson);

@@ -256,8 +256,10 @@
     			int maximagewidth= (ds.getColumns()==1?200:500);
     %>
     			<input type='hidden' name="<%=inputName%>" value="<%=dataDB==null?"":dataDB%>">
-    			<%if(!nds.util.Validator.isNull((String)dataDB)){%>
-    				<a <%=fkURLTarget%> href="<%=dataDB%>"><img border=0 src="<%=dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>"  onmousewheel="resize_img_by_wheel(this);"></a>
+    			<%if(!nds.util.Validator.isNull((String)dataDB)){
+    					//onmousewheel="resize_img_by_wheel(this);"
+    			%>
+    				<a <%=fkURLTarget%> href="<%=dataDB%>"><img border=0 src="<%=dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>"  ></a>
     			<%}%>	
     <%  	}else if( ds.getObjectType()==DisplaySetting.OBJ_XML){
     			java.util.Hashtable hxml = new java.util.Hashtable();
@@ -288,8 +290,9 @@
                 }
             }
             if ( ds.getObjectType()==DisplaySetting.OBJ_FILE ||ds.getObjectType()==DisplaySetting.OBJ_IMAGE ){
+            
             %>
-            	<a href="javascript:popup_window('<%=NDS_PATH+"/objext/upload.jsp?table="+tableId+"&column="+column.getId()+"&objectid="+objectId%>')"><img border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/attach.gif' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-config" ,null)%>'></a>
+            	<a href="javascript:showDialog('<%=NDS_PATH+"/objext/upload.jsp?table="+tableId+"&column="+column.getId()+"&objectid="+objectId%>',940, 400,true)"><img border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/attach.gif' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-config" ,null)%>'></a>
             <%
             }
                

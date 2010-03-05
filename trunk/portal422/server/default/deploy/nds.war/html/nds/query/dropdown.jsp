@@ -69,13 +69,20 @@ try{
  	if(sexpr!=null)sexpr= sexpr.combine(fixedExpression,  SQLCombination.SQL_AND, null);
  	else sexpr=fixedExpression;
  	//logger.debug("expr="+sexpr);
-
+	
 
     //wildcard filter handling
 	expr= WebUtils.parseWildcardFilter(acceptorColumn,request,userWeb);
 	if(expr!=null)request.setAttribute("wildcardfilter", expr.toString());
 	
 	if(expr!=null)sexpr=expr.combine(sexpr,  SQLCombination.SQL_AND, null);
+
+	//isactive checking
+	if(table.isAcitveFilterEnabled()){
+		expr=new Expression(new ColumnLink(table.getName()+".ISACTIVE"),"=Y",null);
+		sexpr=expr.combine(sexpr,  SQLCombination.SQL_AND, null);
+	}
+	
 	qRequest.addParam(sexpr);
 	//logger.debug("qRequest.expr:"+ qRequest.getParamExpression());
 	// limit records to fetch, if more, will be omitted.
