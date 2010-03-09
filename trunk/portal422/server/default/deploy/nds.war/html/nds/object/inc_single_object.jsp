@@ -101,7 +101,7 @@
         }
 		colIdx=colIdx+ds.getColumns()-1; 
 %>
-    <td width="<%=widthPerColumn*2/3%>%" nowrap align="left" valign='top' class="desc">
+    <td id="tdd_<%=column.getId()%>" width="<%=widthPerColumn*2/3%>%" nowrap align="left" valign='top' class="desc">
 	<%
 	// if button, or checkbox type(modify mode), will not display desc td
 	if(!(ds.getObjectType()==DisplaySetting.OBJ_BUTTON ) ){
@@ -109,7 +109,7 @@
     <div class="desc-txt"><%=desc%>:</div>
 	<%}%>
     </td>
-    <td class="value" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' <%=(ds.getColumns()-1)*2>0? "colspan='"+((ds.getColumns()-1)*2+1)+"'":"" %>>
+    <td  id="tdv_<%=column.getId()%>" class="value" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' <%=(ds.getColumns()-1)*2>0? "colspan='"+((ds.getColumns()-1)*2+1)+"'":"" %>>
       <%
       
     if(values != null){// combox or check
@@ -144,9 +144,9 @@
                     <input:select name="<%=inputName%>" default="<%=dataValue%>" attributes="<%= a %>" options="<%= o %>" attributesText="<%=(attributesText+fixedColumnMark)%>" />
                     <%
                     }
-                }else{
-                    out.print(data);
-                }
+                }else{%>
+                    <span id="<%=column_acc_Id%>"><%=data%></span>
+               <%}
             }else{
                 if( canEdit&&column.isModifiable(actionType)){
                 	a.put("tabIndex", (++tabIndex)+"");

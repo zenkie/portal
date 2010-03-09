@@ -41,8 +41,8 @@ if(objectId == -1 || (result!=null && result.getTotalRowCount()>0)){
 	model= new TableQueryModel(tableId, actionType,isInput,true,locale);
 	if(result!=null)result.next();
 	columnIndex=0;
-	//columns will be changed inside,some moved to hiddenColumns as hide_condition adapted
-	List hiddenColumns=WebUtils.filterHiddenColumns(result,columns,displayConditions);
+	//columns will be changed inside,some moved to hiddenColumns as hide_condition adapted, not used
+	//List hiddenColumns=WebUtils.filterHiddenColumns(result,columns,displayConditions);
 	%>
 	<div class="obj" id="obj_inputs_1"><!--OBJ_INPUTS1_BEGIN-->
 		<%@ include file="inc_single_object.jsp" %><!--OBJ_INPUTS1_END-->

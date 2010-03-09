@@ -363,7 +363,7 @@ z-index:60;
 background:#FDEEF8;
 }
 
-td.desc{
+td.desc{vertical-align:bottom;
 text-align:left; 
 background-color:#FCEEF9;
 padding-left:5px;

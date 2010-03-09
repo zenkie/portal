@@ -379,10 +379,11 @@ z-index:60;
 background:#EFF4FA;
 }
 
-td.desc{
+td.desc{vertical-align:bottom;
 background-color:#efefef; 
 text-align:left;
 padding-left:5px;
+
 }
 /*ta-columnsPerRow(table wide)-columsThisColumnOccupied(column specific)-rowsThisColumnOccupied(column specific)*/
 table.objtb textarea.ta-2-2-6,

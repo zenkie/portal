@@ -385,7 +385,7 @@ z-index:60;
 background:#96ACC4;
 }
 
-td.desc{ 
+td.desc{vertical-align:top;
 text-align:left;
 background-color:#96ACC4;
 padding-left:5px;
