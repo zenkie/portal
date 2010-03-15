@@ -43,11 +43,6 @@ document.bgColor="<%=colorScheme.getPortletBg()%>";
 <link type="text/css" rel="stylesheet" href="<%=NDS_PATH+"/js/xloadtree111/xtree.css"%>" />
 <script language="JavaScript" src="/html/nds/js/formkey.js"></script>
 <script type='text/javascript' src='/html/nds/js/util.js'></script> 
-<script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
-<script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
-<script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
-<script language="javascript" src="/html/nds/js/application.js"></script>
-<script language="javascript" src="/html/nds/js/alerts.js"></script>
 <script language="javascript" src="/html/nds/js/init_querydef_<%=locale.toString()%>.js"></script>
 <script language="javascript" src="/html/nds/js/querydef.js"></script>
 <link href="/html/nds/css/querydef.css" rel="stylesheet" type="text/css" />
@@ -154,7 +149,7 @@ document.write(tree);
 <div class="btns">
 <input class="cbutton" type='button' id="btn_save" size="20" name='executeCxrpt' value='<%=PortletUtils.getMessage(pageContext, "save",null)%>' onclick="javascript:qd.save()" >&nbsp;&nbsp;
 <input class="cbutton" type='button' id="btn_saveas" size="20" value='<%=PortletUtils.getMessage(pageContext, "save-as",null)%>' onclick="javascript:qd.openSaveDialog();" >
-<input class="cbutton" type='button' id="btn_delete" size="20" value='<%=PortletUtils.getMessage(pageContext, "delete-current-template",null)%>' onclick="javascript:qd.delete();" >
+<input class="cbutton" type='button' id="btn_delete" size="20" value='<%=PortletUtils.getMessage(pageContext, "delete-current-template",null)%>' onclick="javascript:qd.del();" >
 <input class="cbutton" type='button' id="btn_close" size="20" value='<%=PortletUtils.getMessage(pageContext, "close",null)%>' onclick="javascript:qd.tryClose();" >
 </div>
 	</div>
@@ -194,9 +189,6 @@ document.write(tree);
 </div>
 <br><br>
 <script>
-jQuery(document).ready(function(){
-	qd=new QueryDefControl();
-	qd.setSelected(<%=qdId%>,<%=tableId%>);
-});	
+	setTimeout("qd.setSelected(<%=qdId%>,<%=tableId%>);",500);
 </script>	
 <%@ include file="/html/nds/footer_info.jsp" %>
