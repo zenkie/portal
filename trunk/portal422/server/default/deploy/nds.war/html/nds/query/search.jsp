@@ -143,7 +143,9 @@ if(allowMultipleSelection){
 %>		
 <div id="query_content" align="right" <%=table.isDropdown()?"style='display:none'":""%>>
 <%
-	if(searchOnColumn!=null && searchOnColumn.isFilteredByWildcard() && !allowMultipleSelection){
+	if(searchOnColumn!=null && searchOnColumn.isFilteredByWildcard() 
+		/*marked 2010-3-15 && !allowMultipleSelection */
+		){
 		Expression expr= WebUtils.parseWildcardFilter(searchOnColumn,request,userWeb);
 %>
 <input type='hidden' id="q_form_param_expr_<%=queryindex%>" name='param_expr' value='<%=expr.toHTMLInputElement()%>'>	

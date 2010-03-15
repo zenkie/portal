@@ -106,14 +106,7 @@ function checkOptions(form){
     <td></td>
     	<td align='left'><br>
 <input  type='button' name='ChangePassword' value='<%=PortletUtils.getMessage(pageContext, "save",null)%>' onclick="javascript:checkOptions(document.password_modify);" > &nbsp;&nbsp;
-<span id="tag_close_window"></span>
-<script language="javascript">
- // check show close window button or not
- if(  self==top){
- 	document.getElementById("tag_close_window").innerHTML=
- 	 "<input type='button' name='Cancle' value='<%= PortletUtils.getMessage(pageContext, "close-window" ,null)%>' onclick='javascript:window.close();' >";
- }
-</script>
+<input  type='button' name='enterportal' value='<%= LanguageUtil.get(pageContext, "enter-view") %><%= LanguageUtil.get(pageContext, "backmanager") %>' onclick="window.location='/html/nds/portal/portal.jsp'" > &nbsp;&nbsp;
     	</td>
     	<td>
     	</td>

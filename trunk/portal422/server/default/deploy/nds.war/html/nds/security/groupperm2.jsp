@@ -1,5 +1,6 @@
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/header.jsp" %>
+<%@ page import="nds.security.*"%>
 <%
 	String tabName= PortletUtils.getMessage(pageContext, "groupperm2",null);
 %>
@@ -23,21 +24,24 @@
 <%!
     TableManager manager;
     /**
-     * @return array of 2 elements
+     * @return array of 3 elements
      *        1. int Directory.READ , Directory.WRITE or -1 if no permission found
      *        2. String description of sqlfilter, if null,means no
+     		  3. List<FkFilter> of current dirId;	
      */
-    private ArrayList getPermission(int groupId, int dirId)throws QueryException,java.sql.SQLException{
-    	int ret=0; String filterDesc=null;
-        ResultSet res= QueryEngine.getInstance().doQuery("select permission ,filterdesc from groupperm where groupId="+groupId +" and directoryid="+ dirId);
-        if(res.next()){
-            ret= res.getInt(1);
-            filterDesc= res.getString(2);
+    private ArrayList getPermission(int groupId, int dirId, nds.security.GroupFkFilter gff)throws Exception{
+    	int ret=0; String filterDesc=null, filterIds="";
+        List res= QueryEngine.getInstance().doQueryList("select permission ,filterdesc,SEC_FKFILTER_IDS from groupperm where groupId="+groupId +" and directoryid="+ dirId);
+        if(res.size()>0){
+        	List o=(List)res.get(0);
+            ret= Tools.getInt( o.get(0),-1);
+            filterDesc= (String) o.get(1);
+            filterIds= (String) o.get(2);
         }
-        res.close();
         ArrayList al=new ArrayList();
         al.add(new Integer(ret));
         al.add(filterDesc);
+        al.add(gff.list(filterIds));
         return al;
     }
     /**
@@ -77,6 +81,9 @@ if(!res.next()){
 String groupName=res.getString(1);
 String groupDesc= res.getString(2);
 res.close();
+
+nds.security.GroupFkFilter gff=new nds.security.GroupFkFilter(groupId);
+
 res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, d.ad_table_id from directory d, ad_table t where d.ad_tablecategory_id="+catalog+" and t.id(+)=d.ad_table_id and t.isactive='Y' and instr(t.name,'ITEM')=0 order by t.orderno");
 
 %>
@@ -227,9 +234,10 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
                     <td height="24"  width="49%">
                           <a target=_blank href="<%= url%>" title='<%= name%>'> <%=desc %></a>
                     <% 
-						ArrayList prms=getPermission( groupId,dirId);
+						ArrayList prms=getPermission( groupId,dirId,gff);
 						int permission=((Integer)prms.get(0)).intValue();
 						sqlDesc = (String)prms.get(1);
+						List<FkFilter> ffs=(List<FkFilter>) prms.get(2);
 						boolean isRead= (permission & 1)==1;
 						boolean isWrite= (permission & 3)==3;
 						boolean isSubmit= (permission & 5)==5;
@@ -242,7 +250,7 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
 								toggle_url="/html/nds/query/search.jsp?table="+table.getId()+"&return_type=a&accepter_id="+column_acc_Id;
 					%>
 								<span id='<%=column_acc_Id+"_link"%>' title="popup" onaction='oq.toggle_m("<%=toggle_url%>","<%=column_acc_Id%>");tab_action("<%=dirTag%>");'><img id='<%=column_acc_Id+"_img"%>' border=0 width=16 height=16 align=absmiddle src='/html/nds/images/add_filter.gif' alt='<%=PortletUtils.getMessage(pageContext, "open-new-page-to-search",null)%>'></span>
-                               	<script>createButton(document.getElementById("<%=column_acc_Id+"_link"%>"));</script>	
+                               	<script>createButton(document.getElementById("<%=column_acc_Id+"_link"%>"));</script>
                                	<input type="hidden" name="<%=column_acc_Id+"_expr"%>" id="<%=column_acc_Id+"_expr"%>"  value=''>
 								<input type="hidden" name="<%=column_acc_Id+"_sql"%>" id="<%=column_acc_Id+"_sql"%>" value=''>
 								<%if(request.getHeader("User-Agent").toString().indexOf("Firefox")!=-1){%>
@@ -257,6 +265,14 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
 									<div>
 									<input type="hidden" name="<%=column_acc_Id%>" id="<%=column_acc_Id%>" value='<%=sqlDesc==null?"":sqlDesc %>'></div>
 								<%}%>
+                               	<%
+                               	for(int ffi=0;ffi< ffs.size();ffi++){
+                               		FkFilter ff=ffs.get(ffi);
+                               	%>
+                               	<div class="fkfilter">
+                               		<%=ff.getDescription()%>
+                               	</div>
+                               	<%}//end for ffi%>
                             <%
 							}else{
 								out.print("<a href='#'><img border=0 width=16 height=16 align=absmiddle src='"+ NDS_PATH +"/images/no_filter.gif' alt='"+PortletUtils.getMessage(pageContext, "must-at-last-select-read-permission",null)+"' "+" /></a>");
@@ -281,7 +297,8 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
                       <input type="checkbox" name="tab_action" id=<%=dirTag+"t"%> value="<%=dirId%>" style="display:none">
                     </td>
                   </tr>
-                  <% }//end while(rs.next())
+                  <% }//end while(res.next())
+                  	res.close();
                    %>
                 </table>
                 <div align="center">

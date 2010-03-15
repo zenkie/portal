@@ -373,3 +373,15 @@ overflow:auto;
   padding: 0pt !IMPORTANT;
   margin: 0pt !IMPORTANT;
 }
+.fkfilter{
+background-color:#EEEEEE;
+background-image:url(/html/nds/images/filter.gif);
+background-position:left top;
+background-repeat:no-repeat;
+clear:both;
+margin:1px;
+padding-bottom:1px;
+padding-left:20px;
+padding-right:5px;
+white-space:normal;
+}
