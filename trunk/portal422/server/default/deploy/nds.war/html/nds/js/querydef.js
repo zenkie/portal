@@ -81,14 +81,14 @@ QueryDefControl.prototype = {
 		var evt={};
 		evt.command="QueryListConfig_Save";
 		evt.callbackEvent="QueryListConfig_Save";
-		this._qdf.default=$("defquery").checked;
+		this._qdf["default"]=$("defquery").checked;
 		evt.qdf=Object.clone(this._qdf);
 		this._executeCommandEvent(evt);
 	},
 	/**
 	Delete current template
 	*/
-	delete:function(){
+	del:function(){
 		if(this._qdf.id<1){
 			alert(	gMessageHolder.META_TEMPLATE_NOT_DELETE);
 			return;
@@ -208,7 +208,7 @@ QueryDefControl.prototype = {
 			 s[i] =opt;
 		}
 		
-		$("defquery").checked= this._qdf.default ||($("seltemplate").options.length==1);
+		$("defquery").checked= this._qdf["default"] ||($("seltemplate").options.length==1);
 		this._currentListTag='d';
 		this.info(gMessageHolder.WELCOME);
 	},
@@ -447,6 +447,7 @@ QueryDefControl.main = function () {
 	qd=new QueryDefControl();
 };
 
+jQuery(document).ready(QueryDefControl.main); 
 
 function msgbox(msg, title, boxType ) {
 	showProgressWindow(false);
