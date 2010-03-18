@@ -224,8 +224,11 @@ ObjectQuery.prototype = {
       	acpt.value=ele.alt;
       	fireEvent(acpt,"change");
       	var fk_acpt=$("fk_"+ this._accepter_id[this._queryindex]);
-      	if(fk_acpt!=null)fk_acpt.value=ele.id.replace(/chk_obj_/i, "") ;
-      	
+      	if(fk_acpt!=null){
+      		fk_acpt.value=ele.id.replace(/chk_obj_/i, "") ;
+      		
+      	}
+      	try{acpt.focus();}catch(ex){}
 		if(this._partialData!=null && acpt.onaction){
 			var rowIdx=Number(ele.title);
 			if(rowIdx>=0&& rowIdx<this._partialData.length){
