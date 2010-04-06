@@ -245,7 +245,9 @@ if("true".equals( ((Configurations)WebUtils.getServletContextManager().getActor(
       <input id="btn_run_jxls" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'xls')" value="<%=PortletUtils.getMessage(pageContext, "execute-jxls",null)%>">&nbsp;&nbsp;
       <input id="btn_run_jhtm" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'htm')" value="<%=PortletUtils.getMessage(pageContext, "execute-jhtm",null)%>">&nbsp;&nbsp;
       <input id="btn_run_jpdf" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'pdf')" value="<%=PortletUtils.getMessage(pageContext, "execute-jpdf",null)%>">&nbsp;&nbsp;
-    <%}%>
+    <%}else{%>
+      <input id="btn_run_jxls" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'xls')" value="<%=PortletUtils.getMessage(pageContext, "execute-rpt",null)%>">&nbsp;&nbsp;
+    <%}%>  
 <%	
   }
  int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
