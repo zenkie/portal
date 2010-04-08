@@ -385,6 +385,7 @@ text-align:left;
 padding-left:5px;
 
 }
+
 /*ta-columnsPerRow(table wide)-columsThisColumnOccupied(column specific)-rowsThisColumnOccupied(column specific)*/
 table.objtb textarea.ta-2-2-6,
 table.objtb textarea.ta-3-2-6,
@@ -604,4 +605,10 @@ text-align:left;
     background:url("/html/nds/themes/classic/01/images/end.gif") no-repeat right bottom;
     padding:3px 55px 3px 56px;
     color:#627EB7;
+}
+input[type="text"]:focus{
+border-bottom: 1px solid #678FC2 !important;	
+}
+.nl{
+background-color:#F0F0FF;
 }

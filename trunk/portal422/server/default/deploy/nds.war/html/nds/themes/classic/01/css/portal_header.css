@@ -544,11 +544,17 @@ border-style:none none solid;
 vertical-align: middle; 
 width:80px;
 }
+.qline:focus{
+border-bottom: 1px solid #678FC2 !important;
+}
 .qline2{
 border-bottom: 1px #999999 solid;
 border-style:none none solid; 
 vertical-align: middle; 
 width:120px;
+}
+.qline2:focus{
+border: 2px solid #6694E3 !important;
 }
 .smalltab{
 border:1px solid #ccc;
