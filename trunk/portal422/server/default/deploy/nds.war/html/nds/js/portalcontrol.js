@@ -107,6 +107,10 @@ PortalControl.prototype = {
 	 in firefox 3, embed-lines should be resized
 	*/
 	resize:function(){
+		var ifr=$("ifr");
+	    if(ifr!=null){
+	    	pc._resizeIfr();
+	    }
 		//if(is_ie) return;//modified by ken to set table div in ie avoid overflow of table
 		var limitWidth;
 		//if(!pc._resizable) limitWidth=15;
@@ -118,10 +122,11 @@ PortalControl.prototype = {
 		var e=$("embed-lines");
 		if(e==null)return;
 		if (!is_safari) {
-				e.style.width= (document.body.clientWidth - limitWidth)+"px";
-    }else {
-        e.style.width= (document.body.offsetWidth - limitWidth)+"px";
-    }
+			e.style.width= (document.body.clientWidth - limitWidth)+"px";
+	    }else {
+	        e.style.width= (document.body.offsetWidth - limitWidth)+"px";
+	    }
+	    
 	},
 	/**
 	 * Create query input form for selected cxtab obj
@@ -773,17 +778,53 @@ PortalControl.prototype = {
 				window.close();
 				break;
 		}
-	},	
+	},
+	_resizeIfr:function(){
+		try{
+			$("ifr").style.width=this._getContentWidth();
+			$("ifr").style.height=($("ifr").contentWindow.document.body.scrollHeight+10)+"px";
+		}catch(ex){alert(ex);}
+	},
+	/**
+		{width,height}
+	*/
+	_getContentWidth:function(){
+		var wd;
+		if (!is_safari) {
+			wd= (document.body.clientWidth - 240)+"px";
+		}else {
+    		wd= (document.body.offsetWidth - 240)+"px";
+		}
+		return wd;
+	},
 	/**
 	* @param tn  table name or real url
 	  @param tg, target of div to insert into, default to "portal-content"
 	*/
 	navigate:function(tn,tgt){
 		if(tgt==undefined || tgt==null || tgt=='null') tgt="portal-content";
+		//support iframe, create one if not exists
+		if(tgt=="ifr"){
+			var ifr=$("ifr");
+			if(ifr==null){
+				$("portal-content").innerHTML="<iframe id='ifr' name='ifr' src='/html/js/common/null.html' width='"+this._getContentWidth()+"' height='500px' FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING='auto'>";
+				ifr=$("ifr");
+			}
+			jQuery(ifr).load(function()
+				{
+					//alert("loaded iframe");
+					// Set inline style to equal the body height of the iframed content.
+					this.style.height = this.contentWindow.document.body.offsetHeight + 'px';
+				}
+			);
+			ifr.src=tn;
+			return;
+		}
 		if($(tgt)==null){
 			alert( "div id="+ tgt+" not found");
 			return;	
 		}
+		
 		this._lastAccessTime= (new Date()).getTime();
 		var url;
 		if(tn.indexOf(".")<0){
