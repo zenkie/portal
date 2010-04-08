@@ -199,7 +199,6 @@ ObjectControl.prototype = {
 				try{
 					if(gc!=null && !gc.isDestroied()){
 						gc.refreshGrid(true);
-						
 					}else  jQuery("#tabs > ul").tabs();//refresh current tab, only work for jquery ui tabs 3
 					return true;
 				}catch(e){}
