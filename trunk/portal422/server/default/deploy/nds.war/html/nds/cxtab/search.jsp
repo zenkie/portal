@@ -249,7 +249,9 @@ if("true".equals( ((Configurations)WebUtils.getServletContextManager().getActor(
       <input id="btn_run_jxls" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'xls')" value="<%=PortletUtils.getMessage(pageContext, "execute-rpt",null)%>">&nbsp;&nbsp;
     <%}%>  
 <%	
-  }
+}else{%>
+	<input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;
+<%}
  int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
 if((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE ){
 %>    
