@@ -78,7 +78,7 @@ WebUtils.checkDirectoryWritePermission(directory, request);
 <table cellspacing="0" cellpadding="0" border="0" class="documentation">
 <tbody>
 <tr>
-<td valign="top" width="100" nowrap><strong><%=PortletUtils.getMessage(pageContext, "import-select-format",null)%></strong></td>
+<td valign="top" width="70" nowrap><strong><%=PortletUtils.getMessage(pageContext, "import-select-format",null)%></strong></td>
 <td valign="top">
 <input type="radio" name="file_format" value="xls" id="file_format_xls" onclick="impxls.updateFormat()"> XLS <br>
 <div class="fmt-comment" id="fmt-xls"><font color='red'><%=PortletUtils.getMessage(pageContext, "attention",null)%> :</font><%=PortletUtils.getMessage(pageContext, "import-excel-3",null)%> </div>
@@ -131,13 +131,15 @@ for(int i=0;i<columns.size();i++){
 </table>
 </div>
 </div>
-<%=PortletUtils.getMessage(pageContext, "start-line",null)%> :<input id="startRow" class="inputline" type="text" name="startRow" value='2' size="4" >
+<%=PortletUtils.getMessage(pageContext, "start-line",null)%> :<input id="startRow" class="inputline" type="text" name="startRow" value='2' size="2" >
+<span id="start-column"><%=PortletUtils.getMessage(pageContext, "start-column",null)%> :<input id="startColumn" class="inputline" type="text" name="startColumn" value='1' size="2" ></span>
+<span id="start-skip"><%=PortletUtils.getMessage(pageContext, "start-skip",null)%> :<input id="startSkip" class="inputline" type="text" name="startSkip" value='0' size="2" ></span><br>
 <input type='checkbox' id="bgrun" name="bgrun" value="true"><%=PortletUtils.getMessage(pageContext, "run-at-background",null)%>
 </td>
 </tr>
 <tr>
 <td valign="top" nowrap><strong><%=PortletUtils.getMessage(pageContext, "import-select-file",null)%></strong><br>
-	(<%=PortletUtils.getMessage(pageContext, "file-size-max",null)%>: <%=Tools.getInt( conf.getProperty("import.excel.maxsize", "1"),1)%>MB)
+	<%=PortletUtils.getMessage(pageContext, "file-size-max",null)%>:<%=Tools.getInt( conf.getProperty("import.excel.maxsize", "1"),1)%>MB
 	</td>
 <td valign="top"><div id="flashcontent"><input id="fileInput1" name="excel" size="35" type="file"/></div>
 	<div id="noflash" style="display:none"><a href="http://get.adobe.com/flashplayer"><%=PortletUtils.getMessage(pageContext, "download-flash",null)%></a></div>

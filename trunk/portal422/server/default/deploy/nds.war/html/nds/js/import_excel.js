@@ -70,18 +70,25 @@ ImportXLS.prototype = {
 			$("#fmt-pd").css('display','none');
 			$("#txt-param").css('display','none');
 			$("#startRow").val("2");
+			$("#start-column").css('display','inline');
+			$("#start-skip").css('display','none');
 		}else if(fmt=="txt"){
 			$("#fmt-xls").css('display','none');
 			$("#fmt-txt").css('display','block');
 			$("#fmt-pd").css('display','none');
 			$("#txt-param").css('display','block');
 			$("#startRow").val("1");
+			$("#start-column").css('display','none');
+			$("#start-skip").css('display','none');
 		}else if(fmt=="pandian"){
 			$("#fmt-xls").css('display','none');
 			$("#fmt-txt").css('display','none');
 			$("#fmt-pd").css('display','block');
 			$("#txt-param").css('display','none');
 			$("#startRow").val("1");
+			$("#start-column").css('display','none');
+			$("#start-skip").css('display','none');
+			
 			$("#txt_type_fix").checked=true;
 			//$("#txt_fix_len").value="20,5,1";
 		}
@@ -92,10 +99,15 @@ ImportXLS.prototype = {
 			$("#txt-token").css('display','block');
 			$("#txt-fix").css('display','none');
 			$("#collen").css('display','none');
+			$("#start-column").css('display','inline');
+			$("#start-skip").css('display','none');
+			
 		}else{
 			$("#txt-token").css('display','none');
 			$("#txt-fix").css('display','block');
 			$("#collen").css('display','block');
+			$("#start-column").css('display','none');
+			$("#start-skip").css('display','inline');
 		}
 	},
 	beginImport:function(){
@@ -150,6 +162,12 @@ ImportXLS.prototype = {
 		}
 		para.startRow=parseInt($("#startRow").val());
 		if(para.startRow<=0)para.startRow=1;
+		//support startColumn 20100424 yfzhu
+		para.startColumn=parseInt($("#start-column").val());
+		if(para.startColumn<=0)para.startColumn=1;
+		para.startSkip=parseInt($("#start-skip").val());
+		if(para.startSkip<=0)para.startSkip=0;
+		
 		para.bgrun=$("#bgrun")[0].checked;
 		if($("#update_on_unique_constraints").length>0)
 			para.update_on_unique_constraints=$("#update_on_unique_constraints")[0].checked;
