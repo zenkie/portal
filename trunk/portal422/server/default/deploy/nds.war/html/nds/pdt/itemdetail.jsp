@@ -3,6 +3,11 @@
 <%!
 private nds.log.Logger logger= nds.log.LoggerManager.getInstance().getLogger("itemdetail.jsp");
 private final static int TABINDEX_START=20000;
+private static boolean showSizeDesc=false;//most company will not show size desc 
+static{
+	Configurations conf2= (Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS);
+	showSizeDesc="true".equals(conf2.getProperty("pdt.matrix.size.show_desc"));
+}
  
  /**
  * This is to record input element sequence, and will create next input element for each input
@@ -350,7 +355,11 @@ for(int i=0;i< attributes.size();i++){
 	String sql;
 	if( Tools.getInt(((List)attributes.get(i)).get(2),-1)==2){
 		//cloth size, not color, should display only value without name
-		sql="select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
+		if(!showSizeDesc){
+			sql="select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
+		}else{
+			sql="select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
+		}
 	}else{
 		sql="select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end "+
 								"from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
