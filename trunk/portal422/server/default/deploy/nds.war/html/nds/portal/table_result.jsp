@@ -94,9 +94,9 @@
     String tdAttributes;
     Column colmn;
     // get AK first
-    tmpAKValue = result.getAKValue();
+    /*tmpAKValue = result.getAKValue();
     if(tmpAKValue ==null)akData="";
-    else akData = tmpAKValue.toString();
+    else akData = tmpAKValue.toString();*/
     
 for(int i=0;i< meta.getColumnCount();i++){
 	tdAttributes="";

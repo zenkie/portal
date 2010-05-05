@@ -5,7 +5,7 @@
 	<thead><tr id="titletr">
   	<td nowrap align='center' width="40"><%=PortletUtils.getMessage(pageContext, "rowindex",null)%></td>
 <%
-List<ColumnLink> columns=qlc.getSelections();
+List<ColumnLink> columns=qlc.getSelections(userWeb.getSecurityGrade());
 int colWidth=15,maxLength=10;
 String cid;
 PairTable values;

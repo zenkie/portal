@@ -12,7 +12,7 @@
 	/**
 	  1) Metadata
 	*/
-	EditableGridMetadata meta=new EditableGridMetadata(table, locale, userWeb, (ArrayList<ColumnLink>)qlc.getSelections() );
+	EditableGridMetadata meta=new EditableGridMetadata(table, locale, userWeb, (ArrayList<ColumnLink>)qlc.getSelections(userWeb.getSecurityGrade()) );
 	JSONObject gridMetadata=meta.toJSONObject();
 	ArrayList al=new ArrayList();
 	for(int i=0;i< meta.getColumns().size();i++){
@@ -38,7 +38,7 @@
 	q.put("show_alert",true); //show row css accroding to column value
 	//order by, now contained with qlcid
 	q.put("qlcid",qlc.getId());
-	q.put("orders", qlc.getOrderBys());
+	q.put("orders", qlc.getOrderBys(userWeb.getSecurityGrade()));
 	/*JSONArray sporder=null;
 	if( table.getJSONProps()!=null) sporder=table.getJSONProps().optJSONArray("orderby");
 	if(sporder!=null){

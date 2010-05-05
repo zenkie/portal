@@ -136,7 +136,8 @@ CxtabDefControl.prototype = {
 			description:this._selectedColumn.description,
 			userfact:"",
 			valueformat:"#0.00",
-			function_:"SUM"
+			function_:"SUM",
+			sgrade:"0",
 		};
 		var m=$("measure").options;
 		m[m.length]=new Option(this._selectedColumn.description, m.length);
@@ -175,6 +176,7 @@ CxtabDefControl.prototype = {
 		$("mea_userfact").value="";
 		$("mea_valueformat").value="#0.00";
 		$("mea_valuename").value="";
+		$("mea_sgrade").value="0";
 		this._selectedMeasureIdx=-1;
 	},
 	editMeasure:function(){
@@ -197,6 +199,7 @@ CxtabDefControl.prototype = {
 		this._setValue($("mea_userfact"),m.userfact);
 		this._setValue($("mea_valueformat"),m.valueformat);
 		this._setValue($("mea_valuename"),m.valuename);
+		this._setValue($("mea_sgrade"),m.sgrade);
 	},
 	_setValue:function(ele, v){
 		if(v==null || v==undefined) v="";
@@ -216,7 +219,8 @@ CxtabDefControl.prototype = {
 		var m;
 		if(this._selectedMeasureIdx==-1){
 			m={column:$("mea_column").value,description:$("mea_description").value,function_:$("mea_function").value,
-			userfact:$("mea_userfact").value,valueformat:$("mea_valueformat").value, valuename:$("mea_valuename").value};
+			userfact:$("mea_userfact").value,valueformat:$("mea_valueformat").value, 
+			valuename:$("mea_valuename").value,sgrade:$("mea_sgrade").value};
 			this._measures[this._measures.length]=m;
 		}else{
 			m= this._measures[this._selectedMeasureIdx];
@@ -226,6 +230,7 @@ CxtabDefControl.prototype = {
 			m.userfact=$("mea_userfact").value;
 			m.valueformat=$("mea_valueformat").value;
 			m.valuename=$("mea_valuename").value;
+			m.sgrade=$("mea_sgrade").value;
 		}
 		// update ui
 		if(this._selectedMeasureIdx==-1){

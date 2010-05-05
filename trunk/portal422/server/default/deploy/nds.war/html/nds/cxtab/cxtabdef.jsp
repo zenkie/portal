@@ -273,7 +273,10 @@ document.write(tree);
     defaultValue= (column.getDefaultValue()==null?"0":userWeb.replaceVariables(column.getDefaultValue()));
 %>
 			<td width="15%" nowrap><%=column.getDescription(locale)%><font color="red">*</font>:</td>
-			<td width="85%" align="left"><input:select name="TMPLmea_valueformat" default="<%=defaultValue%>" attributes="<%= a %>" options="<%= o %>" />
+			<td width="85%" align="left"><input:select name="TMPLmea_valueformat" default="<%=defaultValue%>" attributes="<%= a %>" options="<%= o %>" /></td>
+		</tr><tr>
+			<td width="15%" nowrap><%=manager.getColumn("ad_cxtab_fact","sgrade").getDescription(locale)%>:</td>
+			<td width="85%" align="left"><input type="text"  id="TMPLmea_sgrade" value="0" size="3" maxlength="3" /></td>
 		</tr><tr>
 			<td colspan="2">
 				<input class="command2_button" type='button' id="TMPLbtn_save_dim" size="20" value='<%=PortletUtils.getMessage(pageContext, "command.ok",null)%>' onclick="javascript:cxtabDefControl.saveMeasure();" > &nbsp;&nbsp;

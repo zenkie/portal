@@ -77,6 +77,7 @@ function resize_img_by_wheel(o){
 }
 function isValidDate(strDate){
 	strDate=String(strDate);
+	if(strDate.indexOf("sysdate")>-1) return true;//support sysdate 20100428 yfzhu
 	strDate=strDate.split(" ")[0];
 	var dteDate;
 	var day, month, year;

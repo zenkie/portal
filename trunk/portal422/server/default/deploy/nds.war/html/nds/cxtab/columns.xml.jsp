@@ -44,7 +44,7 @@ ArrayList columns=table.getAllColumns();
 <%
 for(int i=0;i< columns.size();i++){ 
 	Column col= (Column)columns.get(i);
-	if(col.getUIConstructor()!=null) continue;
+	if(col.getUIConstructor()!=null|| col.getSecurityGrade()> userWeb.getSecurityGrade()) continue;
 	if(col.getDisplaySetting().isUIController()) continue;
 	String clink=( parent==null? table.getName()+"."+ col.getName():parent+";"+col.getName());
 	String desc= col.getDescription(locale);

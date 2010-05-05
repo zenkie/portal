@@ -17,6 +17,16 @@
         }
         return fs;
     }
+    /**
+     Convert to time
+     @param du should be seconds
+    */
+    private String convertDuration(Object du){
+    	int seconds= Tools.getInt(du, 0);
+    	if(seconds>3600) return  (int)(seconds/3600)+"h"+  (int)((seconds%3600)/60)+"m";
+    	if(seconds>60) return (int)(seconds/60)+"m" + (seconds%60)+"s";
+    	return seconds+"s";
+    }
     private final static String[] extTypes=new String[]{"pdf","xls","csv","taxifc","txt","log","html","htm","cub"};
     /**
     * get file type image according to file extension
@@ -64,6 +74,21 @@
                  <%= PortletUtils.getMessage(pageContext, "creation-time",null)%>
                 </td>
     </tr></thead>
+    	<%
+			List al=QueryEngine.getInstance().doQueryList("select last_duration,last_rows,tot_time/cnt,tot_rows/cnt from ad_cxtab_stat where user_id="+userWeb.getUserId()+" and ad_cxtab_id="+cxtabId);
+			if(al.size()>0){
+				String lastDuration=convertDuration( ((List)al.get(0)).get(0));
+				int lastRows=Tools.getInt( ((List)al.get(0)).get(1),0);
+				String avgDuration= convertDuration( ((List)al.get(0)).get(2));
+				int avgRows= Double.valueOf( (((List)al.get(0)).get(3)).toString() ).intValue();
+				
+		%>	
+    <tr height="12" class='even-row'><td colspan="3">
+    	<%= PortletUtils.getMessage(pageContext, "cxtab-duration-info",null).replace("V1",lastDuration).replace("V2",String.valueOf(lastRows)).replace("V3",avgDuration).replace("V4",String.valueOf(avgRows)) %>
+    </td></tr>
+		<%	
+			}
+    	%>
 <%
     ReportUtils ru = new ReportUtils(request);
     String name = ru.getUserName();
