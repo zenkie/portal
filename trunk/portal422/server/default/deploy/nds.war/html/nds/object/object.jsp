@@ -215,7 +215,7 @@ var masterObject={
 	},
 	table:<%=tableObj%>,
 	<%
-	 ArrayList inputColumns=table.getColumns(new int[]{1,3}, false);// Columns input for Add/Modify 
+	 ArrayList inputColumns=table.getColumns(new int[]{1,3}, false,userWeb.getSecurityGrade());// Columns input for Add/Modify 
 	 JSONArray inputColumnsJson=new JSONArray();
 	 for(int i=0;i<inputColumns.size();i++){
 	 	inputColumnsJson.put( ((Column)inputColumns.get(i)).toJSONObject(locale));
