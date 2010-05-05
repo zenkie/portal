@@ -928,3 +928,4 @@ switch-config=切换视图
 select-query-list-config=每个视图包含有不同的查询条件，列表字段和排序定义，点击下面的链接完成切换。您当前使用的模板用<img src='/html/nds/images/ok.gif'>标记
 start-column=起始列
 start-skip=忽略的首字符数
+cxtab-duration-info=您对当前报表最近一次的运行时长为V1，检索记录数V2；累积平均运行时长V3,平均记录数V4
