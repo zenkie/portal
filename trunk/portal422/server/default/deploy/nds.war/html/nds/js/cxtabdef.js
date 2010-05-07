@@ -137,7 +137,7 @@ CxtabDefControl.prototype = {
 			userfact:"",
 			valueformat:"#0.00",
 			function_:"SUM",
-			sgrade:"0",
+			sgrade:"0"
 		};
 		var m=$("measure").options;
 		m[m.length]=new Option(this._selectedColumn.description, m.length);
