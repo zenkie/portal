@@ -24,19 +24,6 @@ if(userWeb==null || userWeb.isGuest()){
 	response.sendRedirect("/login.jsp?redirect="+redirect);
 	return;
 }
-QueryEngine engine=QueryEngine.getInstance();
-// check user has audit records on this object
-int cnt=Tools.getInt(engine.doQueryOne("select count(*) from au_pi_user where au_pi_id="+ auditid+
-	" and ((ad_user_id="+userWeb.getUserId()+" and assignee_id is null ) or (assignee_id="+ userWeb.getUserId()+")) and state='W'"),-1);
-if(cnt<1){
-	throw new NDSException("@no-permission@");
-}
-PairTable fixedColumns=PairTable.EMPTY_PAIRTABLE;
-boolean isInput=false;
-String namespace="";
-int status=0;
-org.json.JSONArray dcqjsonarraylist=new org.json.JSONArray();
-org.json.JSONObject dcqjsonObject=null;
 TableManager manager=TableManager.getInstance();
 Table table=null;
 int tableId= Tools.getInt(tableName,-1);
@@ -48,6 +35,32 @@ if(tableId==-1){
 }else{
 	table=manager.getTable(tableId);
 }
+QueryEngine engine=QueryEngine.getInstance();
+// if auditid not set, search over au_phaseinstance for current user and current object,
+// if multiple found, latest one will be located.
+if(auditid==-1){
+	auditid=Tools.getInt(engine.doQueryOne("select pi.id from au_phaseinstance pi, au_pi_user u where u.au_pi_id=pi.id and pi.ad_table_id="+
+		tableId+" and pi.record_id="+objectId+" and pi.state='W' and ((u.ad_user_id="+userWeb.getUserId()+
+		" and u.assignee_id is null ) or (u.assignee_id="+ userWeb.getUserId()+")) and u.state='W' order by id desc"),-1);
+	
+	if(auditid<1){
+		throw new NDSException("@no-permission@");
+	}
+}else{
+	// check user has audit records on this object
+	int cnt=Tools.getInt(engine.doQueryOne("select count(*) from au_pi_user where au_pi_id="+ auditid+
+		" and ((ad_user_id="+userWeb.getUserId()+" and assignee_id is null ) or (assignee_id="+ userWeb.getUserId()+")) and state='W'"),-1);
+	if(cnt<1){
+		throw new NDSException("@no-permission@");
+	}
+}
+PairTable fixedColumns=PairTable.EMPTY_PAIRTABLE;
+boolean isInput=false;
+String namespace="";
+int status=0;
+org.json.JSONArray dcqjsonarraylist=new org.json.JSONArray();
+org.json.JSONObject dcqjsonObject=null;
+
 //check user read permission on this record
 if(!userWeb.hasObjectPermission(table.getName(),objectId,nds.security.Directory.READ)){
 	//check read permission on real table, if has
@@ -154,7 +167,7 @@ if(table!=null){
 	boolean canDelete= table.isActionEnabled(Table.DELETE) && isWriteEnabled && status !=2;
 	boolean canAdd= table.isActionEnabled(Table.ADD) && isWriteEnabled ;
 	boolean canModify= table.isActionEnabled(Table.MODIFY) && isWriteEnabled && status !=2;
-	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status !=2;
+	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status ==1;
 	boolean canEdit= canModify || canAdd;
 	/**------check permission end---**/
 	List<WebAction> waObjButtons=new ArrayList<WebAction>(), waObjMenuItems=new ArrayList<WebAction>();
@@ -244,7 +257,7 @@ columns=table.getShowableColumns(actionType);
 %>
 <div id="obj-top">
 <div class="buttons">
-	<%= LanguageUtil.get(pageContext, "audit-comments",null)%>:<input id="comments" class="form-text" type="text" value="" name="comments" maxlength="255" size="20"/>&nbsp;
+	<%= LanguageUtil.get(pageContext, "audit-comments",null)%>:<input id="comments" class="form-text" type="text" value="" name="comments" maxlength="255" size="80"/>&nbsp;
 	<span id="buttons"><!--BUTTONS_BEGIN-->
 	<%
 	 validCommands.add(commandFactory.newButtonInstance("Accept", PortletUtils.getMessage(pageContext, "object.accept",null),"oc.audit('accept',"+auditid+")","A"));

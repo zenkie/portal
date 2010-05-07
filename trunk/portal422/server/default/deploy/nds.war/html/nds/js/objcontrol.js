@@ -353,6 +353,7 @@ ObjectControl.prototype = {
 		this._executeCommandEvent(evt);
 
     },
+    
     doPrintFile:function(){
     	var evt={};
 		evt.tag="Print";
@@ -361,6 +362,9 @@ ObjectControl.prototype = {
 		evt.params={"table":this._masterObj.hiddenInputs.table,"id":this._masterObj.hiddenInputs.id};	
 		this._executeCommandEvent(evt);
 
+    },
+    doGoAuditPage:function(){
+    	window.location="/html/nds/object/audit.jsp?table="+this._masterObj.hiddenInputs.table+"&id="+this._masterObj.hiddenInputs.id;
     },
 	doGoModifyPage:function(tableId, objectId, url){
 		window.location=url;

@@ -126,7 +126,7 @@ if(table!=null){
 	boolean canDelete= table.isActionEnabled(Table.DELETE) && isWriteEnabled && status !=2;
 	boolean canAdd= table.isActionEnabled(Table.ADD) && isWriteEnabled;
 	boolean canModify= table.isActionEnabled(Table.MODIFY) && isWriteEnabled && status !=2;
-	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status !=2;
+	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status ==1;
 	boolean canEdit= canModify || canAdd;
 	/**------check permission end---**/
 

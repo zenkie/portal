@@ -121,7 +121,7 @@ if(table!=null){
 	boolean canDelete= table.isActionEnabled(Table.DELETE) && isWriteEnabled && status !=2;
 	boolean canAdd= table.isActionEnabled(Table.ADD) && isWriteEnabled;
 	boolean canModify= table.isActionEnabled(Table.MODIFY) && isWriteEnabled && status !=2;
-	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status !=2;
+	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status ==1;
 	boolean canEdit= canModify || canAdd;
 	/**------check permission end---**/
 	
@@ -188,10 +188,4 @@ inlineObject={
 <%}
 %>
 </div><!--inline-obj-->
-<%
-if(status==2){
-%>
-<div id="inline_statusimg">
-	<img src="<%=NDS_PATH+"/images/submitted-small" + ("CN".equals(locale.getCountry())? "_zh_CN":"")+".gif"%>" width="74" height="58">
-</div>
-<%}%>
+

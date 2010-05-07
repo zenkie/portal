@@ -23,6 +23,12 @@ if(canSubmit){
 	));
 	
 }
+if(status==3){
+	validCommands.add( commandFactory.newButtonInstance("GoAuditPage", 
+		PortletUtils.getMessage(pageContext, "object.goauditpage",null),
+		"oc.doGoAuditPage()","G"
+	));
+}
 //unsubmit support
 if( table.isActionEnabled(Table.AUDIT) && table.isActionEnabled(Table.SUBMIT) && status==2){
 	//
