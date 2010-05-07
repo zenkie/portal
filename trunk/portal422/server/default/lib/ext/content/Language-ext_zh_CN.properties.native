@@ -929,3 +929,6 @@ select-query-list-config=Ã¿¸öÊÓÍ¼°üº¬ÓĞ²»Í¬µÄ²éÑ¯Ìõ¼ş£¬ÁĞ±í×Ö¶ÎºÍÅÅĞò¶¨Òå£¬µã»÷Ï
 start-column=ÆğÊ¼ÁĞ
 start-skip=ºöÂÔµÄÊ××Ö·ûÊı
 cxtab-duration-info=Äú¶Ôµ±Ç°±¨±í×î½üÒ»´ÎµÄÔËĞĞÊ±³¤ÎªV1£¬¼ìË÷¼ÇÂ¼ÊıV2£»ÀÛ»ıÆ½¾ùÔËĞĞÊ±³¤V3,Æ½¾ù¼ÇÂ¼ÊıV4
+worflow-audit-status=µ±Ç°ÉóºË×´Ì¬
+comments-empty=¿Õ
+object.goauditpage=ÉóÅú½çÃæ
