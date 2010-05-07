@@ -4,6 +4,8 @@
 <%
 	String tabName= PortletUtils.getMessage(pageContext, "select-table",null);
 %>
+<p>
+	Please note only Internet Explorer is supported.<p>
 <script>
 	document.title="<%=tabName%>";
 </script>

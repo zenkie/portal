@@ -29,6 +29,7 @@ if(! "true".equalsIgnoreCase(props.getProperty("modify","true"))){
 <td><br>
          <%=PortletUtils.getMessage(pageContext, "import-schema-defintion-desc",null)%>
 	<p>
+	Please note only Internet Explorer is supported.<p>
 <form name="prefer_form" method="post" enctype="multipart/form-data" action="<%=NDS_PATH%>/schema/import2.jsp">
   <%=PortletUtils.getMessage(pageContext, "file",null)%>:
   <input type="file" name="uploadfile" size="50" > 
