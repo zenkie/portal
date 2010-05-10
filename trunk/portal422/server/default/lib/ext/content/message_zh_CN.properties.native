@@ -238,3 +238,4 @@ enough_goods=有
 lack_goods=无
 current-qlc=你的默认模板变更为:
 report-rows-exeed-limit=报表太大，数据行超过限制，请补充过滤条件
+fail-to-lock-table=其他用户正在修改本记录，请稍侯再试

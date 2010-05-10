@@ -932,3 +932,4 @@ cxtab-duration-info=您对当前报表最近一次的运行时长为V1，检索记录数V2；累积平均运
 worflow-audit-status=当前审核状态
 comments-empty=空
 object.goauditpage=审批界面
+fail-to-lock-table=其他用户正在修改本记录，请稍侯再试
