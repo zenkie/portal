@@ -145,6 +145,10 @@ if(table!=null){
   HashMap actionEnv=new HashMap();
   try{
   	actionEnvConnection=QueryEngine.getInstance().getConnection();
+	
+	//try lock record
+	QueryUtils.lockRecord(table,objectId,actionEnvConnection);
+	
 	actionEnv.put("httpservletrequest", request);
 	actionEnv.put("userweb", userWeb);
 	actionEnv.put("connection", actionEnvConnection);
