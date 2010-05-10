@@ -24,7 +24,7 @@ int widthPerColumn= (int)(100/(columnsPerRow*2));
 String columnDomId,columnDomName,colDisplayName;
 int maxInputLength;
 FKObjectQueryModel fkQueryModel;
-TableQueryModel model= new TableQueryModel(tableId, new int[]{Column.MASK_CREATE_EDIT,Column.MASK_MODIFY_EDIT},true,true,locale);
+TableQueryModel model= new TableQueryModel(tableId, new int[]{Column.MASK_CREATE_EDIT,Column.MASK_MODIFY_EDIT},true,true,locale,userWeb.getSecurityGrade());
 ButtonFactory commandFactory= ButtonFactory.getInstance(pageContext,locale);
 boolean hideInEditMode;
 boolean checkPdtBarcodeOnly=false;

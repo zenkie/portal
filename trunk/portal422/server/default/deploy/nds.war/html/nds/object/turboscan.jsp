@@ -38,7 +38,7 @@ String columnDomId,columnDomName,colDisplayName;
 boolean hideInEditMode;
 int maxInputLength;
 FKObjectQueryModel fkQueryModel;
-TableQueryModel model= new TableQueryModel(tableId, new int[]{Column.MASK_CREATE_EDIT},true,true,locale);
+TableQueryModel model= new TableQueryModel(tableId, new int[]{Column.MASK_CREATE_EDIT},true,true,locale,userWeb.getSecurityGrade());
 String typeIndicator;
 for( int i=0;i< editColumns.size();i++){
 	colIdx++;
