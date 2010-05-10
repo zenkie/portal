@@ -9,7 +9,7 @@
 	<thead><tr>
   	<td nowrap align='center' width="40"><%=PortletUtils.getMessage(pageContext, "rowindex",null)%></td>
 <%
-ArrayList columns=table.getColumns(new int[]{Column.MASK_QUERY_LIST},false );
+ArrayList columns=table.getColumns(new int[]{Column.MASK_QUERY_LIST},false,userWeb.getSecurityGrade() );
 int colWidth=15,maxLength=10;
 String cid;
 PairTable values;

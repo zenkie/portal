@@ -22,7 +22,7 @@ ArrayList editColumns=new ArrayList();//table.getColumns(new int[]{Column.MASK_C
 Column editColumn= table.getColumn("m_product_id");
 if(editColumn==null) throw new NDSException("Internal Error: column named m_product_id not found in table "+ table);
 editColumns.add(editColumn);
-ArrayList allcolumns=table.getColumns(new int[]{0,1},false);
+ArrayList allcolumns=table.getColumns(new int[]{0,1},false,userWeb.getSecurityGrade());
 editColumn=null;
 for(int i=0;i< allcolumns.size();i++){
 	if( ((Column)allcolumns.get(i)).getName().indexOf("QTY")>-1){

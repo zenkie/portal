@@ -94,7 +94,7 @@ AK 字段: <%=table.getAlternateKey().getName()+" "+ table.getAlternateKey().get
 	PairTable  paretable ;
 	boolean showMask=false;
 if(table.isActionEnabled(Table.ADD)){
-    columns=table.getColumns(new int[]{1}, true); 
+    columns=table.getColumns(new int[]{1}, true,userWeb.getSecurityGrade()); 
 
 %>
 <tr><td class="td" colspan="6">
@@ -109,7 +109,7 @@ if(table.isActionEnabled(Table.MODIFY)){%>
 <a name="modify"><span class="anc">修改字段组织</span><br/>
 </td></tr>
 <%
-    columns=table.getColumns(new int[]{3}, true); 
+    columns=table.getColumns(new int[]{3}, true,userWeb.getSecurityGrade()); 
 %>
 <%@ include file="inc_rest_cols.jsp"%>
 <%}

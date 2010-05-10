@@ -3,6 +3,7 @@
 	  1) Metadata
 	*/
 	EditableGridMetadata meta=new EditableGridMetadata(table, locale, userWeb,EditableGridMetadata.ITEM_COLUMN_MASKS);
+	
 	/**
 	   2) QueryRequest
 	*/

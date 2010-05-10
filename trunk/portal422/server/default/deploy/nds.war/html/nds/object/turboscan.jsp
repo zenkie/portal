@@ -30,7 +30,7 @@ boolean isFixedColumn;
 <tr>
 <%
 
-ArrayList editColumns=table.getColumns(new int[]{Column.MASK_CREATE_EDIT},false ); // not to show uiController
+ArrayList editColumns=table.getColumns(new int[]{Column.MASK_CREATE_EDIT},false,userWeb.getSecurityGrade() ); // not to show uiController
 String columnClasses;
 int colIdx=-1; // colIdx max to columnsPerRow(equal), each row has (columnsPerRow x 2) <td>;
 int widthPerColumn= (int)(100/(columnsPerRow*2));

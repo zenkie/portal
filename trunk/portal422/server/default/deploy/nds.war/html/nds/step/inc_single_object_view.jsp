@@ -1,7 +1,7 @@
 <table class="<%=uiConfig.getCssClass()%>" cellspacing="1" cellpadding="0" align="center">
 <%
     actionType= Column.QUERY_OBJECT;
-	columns=table.getColumns(new int[]{Column.MASK_QUERY_SUBLIST}, false);
+	columns=table.getColumns(new int[]{Column.MASK_QUERY_SUBLIST}, false,userWeb.getSecurityGrade());
     colIdx=-1;
     for(int i=0;i< columns.size()&i<6;i++){
     	colIdx++;

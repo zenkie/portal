@@ -21,7 +21,7 @@
 	<thead><tr>
   	<td nowrap align='center' width="70"><%=PortletUtils.getMessage(pageContext, "rowindex",null)%></td>
 <%
-ArrayList columns=table.getColumns(meta.ITEM_COLUMN_MASKS,false );
+ArrayList columns=table.getColumns(meta.ITEM_COLUMN_MASKS,false,userWeb.getSecurityGrade() );
 int colWidth=15,maxLength=10;
 String cid;
 PairTable values;
