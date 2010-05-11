@@ -27,6 +27,7 @@ org/apache/jspc/html/nds/fair/order_jsp.java
 org/apache/jspc/html/nds/fair/image_jsp.java
 org/apache/jspc/html/nds/help/index_jsp.java
 org/apache/jspc/html/nds/object/audit_jsp.java
+org/apache/jspc/html/nds/object/locked_jsp.java
 org/apache/jspc/html/nds/object/turboscan_jsp.java
 org/apache/jspc/html/nds/object/ajaxtab_jsp.java
 org/apache/jspc/html/nds/object/ajax_005fobject_jsp.java
