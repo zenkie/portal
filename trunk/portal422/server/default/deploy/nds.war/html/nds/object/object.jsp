@@ -141,10 +141,10 @@ if(table!=null){
 	//try lock record
 	try{
 		QueryUtils.lockRecord(table,objectId);
-	}catch(NDSException lr){
+	}catch(Throwable lr){
 		String redirect=java.net.URLEncoder.encode(request.getRequestURI()+"?"+request.getQueryString() ,"UTF-8");
 		response.sendRedirect("locked.jsp?redirect="+redirect);
-		return;
+		return; 
 	}
 	/** -- add support for webaction of listbutton --**/
   Connection actionEnvConnection=null;
