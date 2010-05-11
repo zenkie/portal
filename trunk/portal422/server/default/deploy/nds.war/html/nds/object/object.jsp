@@ -147,8 +147,13 @@ if(table!=null){
   	actionEnvConnection=QueryEngine.getInstance().getConnection();
 	
 	//try lock record
-	QueryUtils.lockRecord(table,objectId,actionEnvConnection);
-	
+	try{
+		QueryUtils.lockRecord(table,objectId,actionEnvConnection);
+	}catch(Throwable lr){
+		String redirect=java.net.URLEncoder.encode(request.getRequestURI()+"?"+request.getQueryString() ,"UTF-8");
+		response.sendRedirect("locked.jsp?redirect="+redirect);
+		return;
+	}
 	actionEnv.put("httpservletrequest", request);
 	actionEnv.put("userweb", userWeb);
 	actionEnv.put("connection", actionEnvConnection);
