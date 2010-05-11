@@ -138,7 +138,14 @@ if(table!=null){
 	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status ==1;
 	boolean canEdit= canModify || canAdd;
 	/**------check permission end---**/
-
+	//try lock record
+	try{
+		QueryUtils.lockRecord(table,objectId);
+	}catch(NDSException lr){
+		String redirect=java.net.URLEncoder.encode(request.getRequestURI()+"?"+request.getQueryString() ,"UTF-8");
+		response.sendRedirect("locked.jsp?redirect="+redirect);
+		return;
+	}
 	/** -- add support for webaction of listbutton --**/
   Connection actionEnvConnection=null;
   List<WebAction> waObjButtons=new ArrayList<WebAction>(), waObjMenuItems=new ArrayList<WebAction>();
@@ -146,14 +153,7 @@ if(table!=null){
   try{
   	actionEnvConnection=QueryEngine.getInstance().getConnection();
 	
-	//try lock record
-	try{
-		QueryUtils.lockRecord(table,objectId,actionEnvConnection);
-	}catch(Throwable lr){
-		String redirect=java.net.URLEncoder.encode(request.getRequestURI()+"?"+request.getQueryString() ,"UTF-8");
-		response.sendRedirect("locked.jsp?redirect="+redirect);
-		return;
-	}
+	
 	actionEnv.put("httpservletrequest", request);
 	actionEnv.put("userweb", userWeb);
 	actionEnv.put("connection", actionEnvConnection);
@@ -175,7 +175,9 @@ if(table!=null){
   		}
   	}
   }finally{
-  	if(actionEnvConnection!=null)try{actionEnvConnection.close();}catch(Throwable ace){}
+  	if(actionEnvConnection!=null)try{
+  		actionEnvConnection.close();
+  	}catch(Throwable ace){}
   }
   /** -- end support for webaction of listbutton --**/
 	
