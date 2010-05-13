@@ -24,7 +24,11 @@
         response.sendRedirect("/login.jsp");
         return;
     }
-    String tableName=TableManager.getInstance().getTable("m_box").getName();
+    Table t=TableManager.getInstance().getTable("m_box");
+    Table t2=TableManager.getInstance().getTable("M_BOXITEM");
+    String tableName=t.getName();
+    int tableId=t.getId();
+    int tableId2=t2.getId();
     boolean  hasWritePermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.WRITE);
     boolean hasReadPermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.READ);
     boolean hasSubmitPermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.SUBMIT);
@@ -102,18 +106,26 @@
         <input name="" type="image" src="images/btn-sc.gif" width="78" height="20" onclick="box.del();"/>
         <% }%>
         <%if(!comp.equals("玖姿")){%>
-        <input type="button" value="打印含汇总箱单" width="91" id="box-button" onclick="box.doSaveSettings('cx778');"/>
-        <input type="button" value="单箱打印" id="box-button1" width="78" height="20" onclick="box.savePrintSettingForSingleBox('cx662');"/>
-        <input name="" type="image" src="images/btn-td.gif" width="78" height="20" onclick="box.doSaveSettings('cx663');"/>
+        <%
+        	String lilyallprint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='装箱单（lily）'"));
+        	String singleBoxPrint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='按箱打印'"));
+        	String allBoxPrint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='按单套打'"));
+        %>
+        <input type="button" value="打印含汇总箱单" width="91" id="box-button" onclick="box.doSaveSettings('cx<%=lilyallprint%>',<%=tableId%>);"/>
+        <input type="button" value="单箱打印" id="box-button1" width="78" height="20" onclick="box.savePrintSettingForSingleBox('cx<%=singleBoxPrint%>',<%=tableId2%>);"/>
+        <input name="" type="image" src="images/btn-td.gif" width="78" height="20" onclick="box.doSaveSettings('cx<%=allBoxPrint%>',<%=tableId%>);"/>
         <%}else{%>
-        <input type="button" value="打印含汇总箱单" width="91" id="box-button" onclick="box.doSaveSettings('cx778');"/>
-        <input name="" type="image" src="images/btn-dy.gif" width="78" height="20" onclick="box.doSaveSettings('cx663');"/>
-        <input type="button" value="按单打印" width="60" id="box-button1" onclick="box.doSaveSettings('cx776');"/>
+        <%
+        	String singleBoxPrint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='按箱打印'"));
+        	String orderPrint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='按单打印'"));
+        %>        	
+        <input name="" type="image" src="images/btn-dy.gif" width="78" height="20" onclick="box.doSaveSettings('cx<%=singleBoxPrint%>',<%=tableId%>);"/>
+        <input type="button" value="按单打印" width="60" id="box-button1" onclick="box.doSaveSettings('cx<%=orderPrint%>',<%=tableId%>);"/>
         <%}%>
         <% if(hasSubmitPermission){%>
         <input name="" type="image" src="images/btn-zx.gif" width="78" height="20" onclick="box.toSave('T');"/>
         <%}%>
-        <input name="" type="image" src="images/btn-ck.gif" width="78" height="20" onclick="popup_window('/html/nds/object/object.jsp?table=14928&id=<%=m_box_id%>&fixedcolumns=','_blank')"/>
+        <input name="" type="image" src="images/btn-ck.gif" width="78" height="20" onclick="popup_window('/html/nds/object/object.jsp?table=<%=tableId%>&id=<%=m_box_id%>&fixedcolumns=','_blank')"/>
         <input name="" type="image" src="images/btn-gb.gif" width="58" height="20" onclick="box.closePop()"/>
         <input type="hidden" id="status" value=""/>
         <%if(comp.equals("玖姿")){%><input type="hidden" id="customer" value="jz"><%}%>
@@ -260,6 +272,22 @@
 <div id="submitImge" style="left:30px;top:80px;z-index:111;position:absolute;display:none;">
     <img src="/html/nds/images/submitted.gif"/>
 </div>
-<div id="alert-message" style="position:absolute;top:0pt;left:0pt;z-index:100;background-color:#000000;opacity:0.51;filter:alpha(opacity=41);height:100%;width:100%;display:none;" />
+<div id="alert-message" style="position:absolute;top:0pt;left:0pt;z-index:100;background-color:#000000;opacity:0.51;filter:alpha(opacity=41);height:100%;width:100%;display:none;"></div>
+
+<div id="alert-error" style="position:absolute;top:0pt;left:0pt;z-index:111;opacity:0.81;height:100%;width:100%;display:none;background-color:#024770">
+ <div height="400px"  width="100%" id="errorMeg" style="color:#FF0000;font-size:16pt;FONT-WEIGHT:bold;margin-top:100px;" align="center" valign="middle">
+</div>
+ <div width="100%" style="margin-top:20px;"> 
+	<table width="100%">
+	<tr>
+		<td width="50%" style="color:#FF0000;font-size:14pt" align="right">
+			请输入确认码(默认为0)：
+		</td>
+		<td nowrap="" width="50%" valign="top" align="left" class="zh-value"><input type="text" style="border:1px solid #7F9DB9;color:#333333;padding-top:2px;vertical-align:bottom;width:170px;" id="correctErrorCode"></td>
+	</tr>
+	</table>
+ </div>
+</div>
+
 </body>
 </html>

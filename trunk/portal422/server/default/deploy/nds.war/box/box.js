@@ -13,6 +13,8 @@ BOX.prototype={
         this.barcodeItem=new Object();
         this.category=new Object();
         this.data=new Array();
+        this.barCodeError=0;//当扫描发生错误时，此值为1，否则为0
+        this.correctErrorCode=0;//纠错确认代码，默认为0;
         dwr.util.setEscapeHtml(false);
         dwr.engine._errorHandler =  function(message, ex){
             while(ex!=null && ex.cause!=null) ex=ex.cause;
@@ -41,21 +43,21 @@ BOX.prototype={
         evt.permission="r";
         this._executeCommandEvent(evt);
     },
-    doSaveSettings:function(tem){
+    doSaveSettings:function(tem,tableId){
         var evt={};
         evt.command="SavePrintSetting";
         evt.callbackEvent="SavePrintSetting";
-        evt.tableid= "14928";
+        evt.tableid= tableId;
         evt.template=tem;
         evt.format="pdf";
         this._executeCommandEvent(evt);
     },
 
-    savePrintSettingForSingleBox:function(tem){
+    savePrintSettingForSingleBox:function(tem,tableId){
         var evt={};
         evt.command="SavePrintSetting";
         evt.callbackEvent="SavePrintSettingForSingleBox";
-        evt.tableid= "14935";
+        evt.tableid= tableId;
         evt.template=tem;
         evt.format="pdf";
         this._executeCommandEvent(evt);
@@ -297,6 +299,7 @@ BOX.prototype={
         console.log("create page time:"+(time2-time1));
         }catch(e){
         }
+        jQuery("#correctErrorCode").bind("keyup",function(event){if(event.target==this&&event.which==13){box.onCorrectError();}});
         if(!window.document.addEventListener){
             window.document.attachEvent("onkeydown",hand11);
             function hand11()
@@ -608,9 +611,38 @@ BOX.prototype={
             app1.getErrorSound().play();
         }
     },
+    /**
+     * edit by Robin 2010.5.10
+     * 当条码扫描错误时，弹出红色界面后输入验证码（默认为0）时解除红色界面
+     */    
+    onCorrectError:function(){
+    	if((parseInt(jQuery("#correctErrorCode").val())+"")==(this.correctErrorCode+"")){
+				jQuery("#alert-error").hide();
+				jQuery("#correctErrorCode").val("");
+		    jQuery("#barcode").val("");
+        jQuery("#barcode").focus();
+    	}else{
+    		this.playErrorSound();
+    	}
+    },
+    /**
+     * edit by Robin 2010.5.10
+     * 当条码扫描错误时，弹出红色界面
+     */
+    onBarCodeError:function(errorMeg){
+    	jQuery("#alert-error").show();
+    	jQuery("#alert-error").focus();
+    	jQuery("#correctErrorCode").focus();
+    	jQuery("#errorMeg").html(errorMeg);
+    },
     codeRt:function(event){
         if(event.which==13){
             var code=$("barcode").value.strip().toUpperCase();
+            if($("customer")&&code.length > 15){
+            	this.playErrorSound();
+							this.onBarCodeError("条码过长！");
+            	return;
+            }
             var targetD=this.getTargetD(code);
             if(!targetD){
                 if(this.jo&&this.jo[code]){
@@ -620,9 +652,7 @@ BOX.prototype={
             }
             if(!targetD||!code){
                 this.playErrorSound();
-                alert("没有匹配的商品，请检查条码是否正确！");
-                jQuery("#barcode").val("");
-                jQuery("#barcode").focus();
+                this.onBarCodeError("没有匹配的商品，请检查条码是否正确！");
                 return;
             }
             var reco=this.record[this.record.length-1];
@@ -650,7 +680,7 @@ BOX.prototype={
                     var oldColor=targetD.style.backgroundColor;
                     targetD.style.backgroundColor="#ff0000";
                     this.playErrorSound();
-                    alert("不能为负或扫描数量大于单据数量，输入无效！");
+                    this.onBarCodeError("不能为负或扫描数量大于单据数量，输入无效！");
                     targetD.style.backgroundColor=oldColor;
                 }else{
                     targetD.innerHTML=(old+count);
@@ -661,7 +691,7 @@ BOX.prototype={
                    var oldColor=targetD.style.backgroundColor;
                     targetD.style.backgroundColor="#ff0000";
                     this.playErrorSound();
-                    alert("不能为负，输入无效！");
+                    this.onBarCodeError("不能为负，输入无效！");
                     targetD.style.backgroundColor=oldColor; 
                 }else{
                     targetD.innerHTML=(old-count);
@@ -701,7 +731,9 @@ BOX.prototype={
                 $($("selCategory").value+"eq").innerHTML="<img name='uneq' src=\"images/inco-uneq.gif\"  width=\"16\" height=\"16\"/>";
             }
             jQuery("#barcode").val("");
-            jQuery("#barcode").focus();
+						if(jQuery("#alert-error").is(":hidden")){
+           	 		jQuery("#barcode").focus();
+          	}
             $("isSaved").value="unSave";
         }
     },
