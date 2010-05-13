@@ -1,4 +1,4 @@
-<%@ page language="java"  pageEncoding="utf-8"%>
+﻿<%@ page language="java"  pageEncoding="utf-8"%>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="nds.control.web.UserWebImpl" %>
@@ -116,7 +116,7 @@
         <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord');"/>
         <%}%>
         <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250);"/>
-        <!--<input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="var totCan=$('tot-can').innerHTML;dist.showObject('auto_dist.jsp?totcan='+(totCan||0),600,450)" />-->
+        <!--<input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="var totCan=$('tot-can').innerHTML;dist.showObject('auto_dist.jsp?totcan='+(totCan||0),650,500)" />-->
         <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.autoDist();" />
         <%if(!comp.equals("玖姿")){%>
         <input type="button" id="box-button1" value="定配分析" class="command2_button" width="78" height="20" onclick="dist.analysis();"/>
@@ -156,7 +156,7 @@
                             <td class="ph-desc" width="75" valign="top" nowrap="" align="right"><div class="desc-txt">发货店仓<font color="red">*</font>：</div></td>
                             <td class="ph-value" width="180" valign="top" nowrap="" align="left"><input name="c_orig_id__name" readonly="" type="text" class="ipt-4-2"  id="column_26992"  value="" />
                                 <input type="hidden" id="fk_column_26992" name="C_ORIG_ID" value="">
-                  <span  class="coolButton" id="cbt_26992" onaction="oq.toggle('/html/nds/query/search.jsp?table=14610&return_type=s&column=26992&accepter_id=column_26992&qdata='+encodeURIComponent(document.getElementById('column_26992').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_26992')"><img width="16" height="16" border="0" align="absmiddle" title="Find" src="images/find.gif"/></span>
+                  <span  class="coolButton" id="cbt_26992" onaction="oq.toggle('/html/nds/query/search.jsp?table=16956&return_type=s&column=26992&accepter_id=column_26992&qdata='+encodeURIComponent(document.getElementById('column_26992').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_26992')"><img width="16" height="16" border="0" align="absmiddle" title="Find" src="images/find.gif"/></span>
                       <script type="text/javascript" >createButton(document.getElementById("cbt_26992"));</script>
                             </td>
                             <!--收货店仓-->
@@ -164,7 +164,7 @@
                             <td class="ph-value" width="180" valign="top" nowrap="" align="left">
                                 <input type='hidden' id='column_26993' name="column_26993" value=''>
                                 <input name="" readonly type="text" class="ipt-4-2" id='column_26993_fd' value="" >
-                                    <span  class="coolButton" id="column_26993_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table=C_V_STORE2&return_type=f&accepter_id=column_26993', 'column_26993');"><img id='column_26993_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
+                                    <span  class="coolButton" id="column_26993_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table=C_V_ALLOTSTORE2&return_type=f&accepter_id=column_26993', 'column_26993');"><img id='column_26993_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
                                 <script type="text/javascript" >createButton(document.getElementById('column_26993_link'));</script>
                             </td>
                             <!--
@@ -214,14 +214,21 @@
                             <td class="ph-desc"  valign="top" nowrap="nowrap" align="right">
                                 <div class="desc-txt" align="center" style="color:blue;">物流备注*：</div>
                             </td>
-                            <td class="ph-value" valign="top" align="left" colspan="2">
+                            <td class="ph-value" valign="top" align="left" >
                                 <input type="text" name="canModify" class="notes" id="notes"/>
+                            </td>
+                            <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">配货时间<font color="red">*</font>：</div></td>
+                            <td class="ph-value"  valign="top" nowrap="" align="left">
+                                <input type="text" name="canModify" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="distdate" value="<%=end%>" />
+                                <span  class="coolButton" name="canShow">
+                                    <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar3',false,'distdate',null,null,true);"><img id="imageCalendar3" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
+                                </span>
                             </td>
                              <td class="ph-desc" valign="top" align="right">
                                 <div class="desc-txt" align="center" id="idocnoType" style="color:red;font-size:14px;display:none;">*期货优先</div>
                             </td>
-                            <td class="ph-desc" valign="top" width="120" align="left">
-                                  <div class="desc-txt" align="left" style="color:blue;float:left;font-size:15px;font-weight:bold;vertical-align:bottom;">本单金额：</div><div id="amount1" style="color:black;float:right;font-size:15px;margin-top:3px;"></div>
+                            <td class="ph-desc" valign="top" align="left">
+                                  <div class="desc-txt" align="left" style="color:blue;float:left;font-size:15px;font-weight:bold;vertical-align:bottom;">本单金额：</div><div id="amount1" style="color:black;float:left;font-size:15px;margin-top:3px;"></div>
                             </td>
                         </tr>
                     </table>
@@ -237,28 +244,32 @@
                         <span id="column_41520_link" class="coolButton" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'b_so'+'&return_type=f&column=41520&accepter_id=column_41520', 'column_41520');"><img id='column_41520_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
                                 <script type="text/javascript" >createButton(document.getElementById('column_41520_link'));</script>
                             </td>
-                            <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">备注:</div></td>
+                            <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">备&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  注：</div></td>
                             <td class="ph-value" width="185" valign="top" nowrap="" align="left">
                                 <input type="text" readonly="true" class="notes" id="commonNotes"/>
                             </td>
-                            <td class="ph-value" width="150" valign="top" nowrap="nowrap" align="left">
+                            <td class="ph-value" width="150" valign="top" nowrap="nowrap" align="center">
                                 <%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject('doc')" /><%}%>
                             </td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="ph-desc"  valign="top" nowrap="" align="right">
                                 <div class="desc-txt" align="center" style="color:blue;">物流备注*：</div>
                             </td>
-                            <td class="ph-value" valign="top" align="left" colspan="2">
+                            <td class="ph-value" valign="top" align="left">
                                 <input type="text" name="canModify" class="notes" id="orderNotes"/>
                             </td>
-                            <td class="ph-desc" valign="top" align="right">
-                                <div class="desc-txt" align="center" id="docnoType" style="color:red;font-weight:bold;font-size:14px;display:none;">*期货优先</div>
+                            <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">配货时间<font color="red">*</font>：</div></td>
+                            <td class="ph-value"  valign="top" nowrap="" align="left">
+                                <input type="text" name="canModify" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="distdate1" value="<%=end%>" />
+                                <span  class="coolButton" name="canShow">
+                                    <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar31',false,'distdate1',null,null,true);"><img id="imageCalendar31" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
+                                </span>
                             </td>
-                            <td class="ph-desc" valign="top" align="left">
-                                  <div class="desc-txt" align="left" style="color:blue;float:left;font-size:15px;font-weight:bold;vertical-align:bottom;" >本单金额：</div><div id="amount" style="color:black;float:right;font-size:15px;"></div>
+                            <td class="ph-desc" valign="top" width="200">
+                                <span name="canShow" id="docnoType" style="color:red;font-weight:bold;font-size:14px;display:none;">*期货优先</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span name="canShow"  style="color:blue;font-size:15px;font-weight:bold;vertical-align:bottom;" >本单金额：</span><span name="canShow" id="amount" style="color:black;font-size:15px;"></span>
                             </td>
+                          
                         </tr>
                     </table>
                 </div>
@@ -378,6 +389,128 @@
         jQuery(document).ready(function(){dcq.createdynlist([])});
         var ti=setInterval("dcq.dynquery();",500);
     </script>
-</td></tr></table>
+</td></tr>
+</table>
+	<div id="alert-auto-dist" style="position:absolute;top:0pt;left:0pt;z-index:100;background-color:#024770;height:100%;width:100%;display:none;">
+		<div id="auto-bg">
+		<div id="auto-menu"><input name="" type="image" src="images/btn-gb.gif" width="21" height="21" /></div>
+			<div id="auto-main">
+				<div id="tabsG">
+  				<ul>
+    				<li>请选择配货模式</li>
+	<li><input id="all-order" name="auto-model" type="radio" value="all-order" can-dist="" checked="checked" onclick='dist.allOrderDist();' />整单</li>
+    <li><input id="current-style" name="auto-model" type="radio" value="current-style" can-dist="" onclick='dist.currentStyleDist();' />当前款</li>
+  				</ul>
+			 </div>
+			<div id="auto-border">
+				<div id="auto-bl">
+					<div id="auto-bl-title">设置可配总量比例</div>
+					<div id="auto-bl-txt">
+						<table width="440" border="0" align="center" cellpadding="0" cellspacing="0">
+  						<tr>
+								<td width="100"><div class="ph-left-txt">当前可配总量：</div></td>
+								<td width="40"><div id="all-can-dist" class="ph-right-txt"></div></td>
+								<td width="100"><div class="ph-left-txt" title="填入小数如：0.66">本次可配比例：</div></td>
+								<td width="60"><div class="ph-right-txt"><input type="text" class="ipt-4-1" value="1" id="percentage" onblur="generateCan();"/></div></td>
+								<td width="100"><div class="ph-left-txt">本次可配数量：</div></td>
+								<td width="40"><div class="ph-right-txt" id="currentCan"></div></td>
+							</tr>
+						</table>
+					</div>
+        </div>
+				<div class="auto-height"></div>
+				<div id="auto-cl">
+					<div id="auto-bl-title">选择配货策略</div>
+					<div id="auto-cl-txt">
+							<table width="440" border="0" align="center" cellpadding="0" cellspacing="0">
+							  <tr>
+							    <td width="13" align="right"><label>
+      <input name="dist_type" onclick="checkType(event);" type="radio" value="spec_number" checked="checked" />
+      </label></td>
+							    <td width="150"><div class="ph-left-txt">指定配货数量<font color="red">*</font>：</div></td>
+							    <td width="297"><div class="ph-right-txt"><input name="" id="specNumber" type="text" class="right-input" /></div></td>
+							  </tr>
+							  <tr>
+							    <td width="13">&nbsp;</td>
+							    <td colspan="2"><div class="ph-right-txt">说明：所有商品均按此外指定的数量配货。</div></td>
+							  </tr>
+							  <tr>
+							    <td width="13" align="right"><label>
+      <input type="radio" onclick="checkType(event);" name="dist_type" value="not_order" />
+      </label></td>
+							    <td width="150"><div class="ph-left-txt">按未配量比例配货<font color="red">*</font>：</div></td>
+							    <td width="297"><div class="ph-right-txt"><input onblur="checkFloat(event)" disabled="true" id="fowNotOrderPercent" name="" type="text" class="right-input" /></div></td>
+							  </tr>
+							  <tr>
+							    <td width="13">&nbsp;</td>
+							    <td colspan="2"><div class="ph-right-txt">说明：按照未配量此处指定的比例为所有商品配货。</div></td>
+							  </tr>
+							  <tr>
+    							<td width="13" align="right">
+    								<label>
+      								<input type="radio" value="order" name="dist_type" onclick="checkType(event);">
+      							</label>
+      						</td>
+   							 <td width="160" align=left colspan=2><font color="red">*</font>按订单订货比例配货<font color="red">*</font></td>
+  							</tr>
+							  <tr>
+							    <td width="13">&nbsp;</td>
+							    <td colspan="2"><div class="ph-right-txt">说明：按照可配量订货比例为所有商品配货(订货比例指同一商品不同订单订
+							货数量占所有订单订货总量的比例)。</div></td>
+							  </tr>
+							  <tr>
+							    <td colspan="3" height="10"></td>
+							  </tr>
+							  <tr>
+							    <td colspan="3"><div class="ph-right-notes">注意：无论选择哪种配货策略，均受到可配货总量的限制，即配货总数量不能大于
+							      可配货总量。</div></td>
+							  </tr>
+							</table>
+						</div>
+					</div>
+					<div class="auto-height"></div>
+					<div id="auto-btn"><input name="" type="image" src="images/btn-cd.gif" onclick="dist.exec_dist();" width="34" height="20" />&nbsp;&nbsp;<input name="" type="image" src="images/btn-qx.gif" width="34" height="20" onclick="dist.closeAuto();" /></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="dist_type" value="specNumber"/>
+	<script type="text/javascript">
+        function  generateCan(){
+            var totCan=parseInt(jQuery("#all-can-dist").html());
+            var percentage=jQuery("#percentage").val();
+            percentage=isNaN(parseFloat(percentage))?0:parseFloat(percentage);
+            if(percentage>1||percentage<0){
+                alert("请输入小于1的正小数！");
+                jQuery("#percentage").val("1");
+                jQuery("#percentage").focus();
+            }
+            jQuery("#currentCan").html(Math.round(totCan*parseFloat(jQuery("#percentage").val())));
+        }
+        function checkFloat(event){
+        	var e=Event.element(event);
+        	var percent=jQuery(e).val();
+        	percent=isNaN(parseFloat(percent))?0:parseFloat(percent);
+		      if(percent>1||percent<0){
+		          alert("请输入小于1的正小数！");
+		          jQuery(e).val("1");
+		          jQuery(e).focus();
+		      }
+		  }
+        function checkType(event){
+        	var e=Event.element(event);
+        	jQuery("#specNumber,#fowNotOrderPercent,#fowOrderPercent").attr("disabled","true").val("");
+        	if(e.value=="spec_number"){
+        		jQuery("#specNumber").removeAttr("disabled");
+        		jQuery("#dist_type").val("specNumber");
+        	}else if(e.value=="not_order"){
+        		jQuery("#fowNotOrderPercent").removeAttr("disabled");
+        		jQuery("#dist_type").val("fowNotOrderPercent");
+        	}else if(e.value=="order"){
+        		jQuery("#fowOrderPercent").removeAttr("disabled");
+        		jQuery("#dist_type").val("fowOrderPercent");
+        	}
+        }
+    </script>
 </body>
 </html>

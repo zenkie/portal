@@ -464,6 +464,10 @@ width:560px;
 padding-top:40px;
 color:#FFFFFF;}
 
+#auto-menu{
+float:right;
+margin:8px 30px 0 0;} 
+
  #tabsG {
       float:left;
 
@@ -472,14 +476,18 @@ color:#FFFFFF;}
       }
     #tabsG ul {
 	margin:0;
-	padding:5px 10px 0 20px;
+	padding:5px 10px 5px 20px;
 	list-style:none;
       }
     #tabsG li {
       display:inline;
       margin:0;
       padding:0;
-      }
+	  color:#FFFF00;
+	  font-weight:bold;
+	  font-size:13px;
+      } 
+      
     #tabsG a {
       float:left;
       background:url("images/tableftG.gif") no-repeat left top;
@@ -492,7 +500,7 @@ color:#FFFFFF;}
       display:block;
       background:url("images/tabrightG.gif") no-repeat right top;
       padding:5px 15px 4px 6px;
-      color:#FFF;
+      color:#000;
       }
     /* Commented Backslash Hack hides rule from IE5-Mac \*/
     #tabsG a span {float:none;}
@@ -530,7 +538,7 @@ font-weight:bold;
 width:130px;
 margin-left:15px;
 padding-top:5px;
-+padding-top:8px;/*IE��ִ��*/
++padding-top:8px;/*IE可执行*/
 }
 
 #auto-bl-txt{
@@ -540,13 +548,20 @@ padding-top:20px;
 text-align:center;}
 
 .ph-left-txt {
-margin:3px 0 4px 2px;
+margin:3px 0 4px 0px;
 text-align:right;
+font-weight:bold;
 }
 
 .ph-right-txt {
 margin:1px 0 4px 2px;
 text-align:left;
+}
+
+.ph-right-notes {
+margin:1px 0 4px 2px;
+text-align:left;
+color:#d9dc00;
 }
 
 .ipt-4-1 {
