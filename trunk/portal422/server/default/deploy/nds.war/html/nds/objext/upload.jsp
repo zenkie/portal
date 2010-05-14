@@ -64,6 +64,9 @@ if(!userWeb.hasObjectPermission(table.getName(),objectId,  nds.security.Director
                 <td width="10%" align="center">
                   <span><%=PortletUtils.getMessage(pageContext, "file-version",null)%></span>
                 </td>
+                <td width="10%" align="center">
+                  <span><%=PortletUtils.getMessage(pageContext, "name",null)%></span>
+                </td>
                 <td width="40%" align="center">
                   <span><%=PortletUtils.getMessage(pageContext, "file-date",null)%></span>
                 </td>
@@ -80,6 +83,7 @@ if(!userWeb.hasObjectPermission(table.getName(),objectId,  nds.security.Director
               %>
               	<tr> 
               		<td><a href="<%=request.getContextPath()+"/servlets/binserv/Attach?table="+tableId+"&column="+columnId+"&objectid="+ objectId +"&version="+att.getVersion() %>"><%=att.getVersion()%></a></td>
+              		<td><%=att.getOrigFileName()%></td>
               		<td><%=((java.text.SimpleDateFormat)QueryUtils.dateTimeSecondsFormatter.get()).format(att.getLastModified())%></td>
               		<td><%=att.getAuthor()%></td>
               		<td><%=Tools.formatSize(att.getSize())%></td>
