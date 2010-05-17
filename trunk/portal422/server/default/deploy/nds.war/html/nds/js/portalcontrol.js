@@ -1365,6 +1365,7 @@ PortalControl.prototype = {
 		var i; 
 		evt.parsejson="N";
 		evt.column_masks=meta.column_masks;
+		evt.qlcid=this._gridQuery.qlcid;
 		evt.table=meta.table;
 		evt.fixedColumns= this._fixedColumnsStr;
 		evt.bestEffort=true;//each line will have a seperate transaction
