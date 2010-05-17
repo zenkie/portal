@@ -414,6 +414,9 @@ ObjectControl.prototype = {
 			if(gc!=undefined)gc.fillProcessEvent(evt); // grid control
 			// hash type
 			evt.masterobj=$H(Form.serializeElements( this._getInputs("obj_inputs_1"),true));
+			// special treatment on clob type column
+			evt.masterobj.merge(this._loadClobs());
+
 			var addtionalInputs=$("obj_inputs_2");
 			if(addtionalInputs!=null){
 				evt.masterobj.merge(Form.serializeElements( this._getInputs(addtionalInputs),true));
@@ -448,6 +451,9 @@ ObjectControl.prototype = {
 			if(gc!=undefined)gc.fillProcessEvent(evt); // grid control
 			// hash type
 			evt.masterobj=$H(Form.serializeElements( this._getInputs("obj_inputs_1"),true));
+			// special treatment on clob type column
+			evt.masterobj.merge(this._loadClobs());
+
 			var addtionalInputs=$("obj_inputs_2");
 			if(addtionalInputs!=null){
 				evt.masterobj.merge(Form.serializeElements( this._getInputs(addtionalInputs),true));
@@ -577,7 +583,7 @@ ObjectControl.prototype = {
 		this._executeCommandEvent(evt);
 	},
 	/**
-	 * Load clob objects
+	 * Load clob objects, and will remove hidden object's input value
 	 * @return Hash object
 	 */
 	_loadClobs:function(){
@@ -590,6 +596,7 @@ ObjectControl.prototype = {
 				var oEditor = FCKeditorAPI.GetInstance("column_"+ col.id) ;
 				if(oEditor!=null){
 					clobs[col.name.toLowerCase()] = oEditor.GetHTML();
+					clobs["column_"+ col.id]="";
 				}
 			}
 		}		
@@ -621,7 +628,6 @@ ObjectControl.prototype = {
 	*/
 	_executeCommandEvent :function (evt) {
 		//showProgressWindow(true);
-		
 		Controller.handle( Object.toJSON(evt), function(r){
 				//try{
 					$("timeoutBox").style.visibility = 'hidden';
