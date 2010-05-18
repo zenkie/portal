@@ -121,6 +121,7 @@
         <%if(!comp.equals("玖姿")){%>
         <input type="button" id="box-button1" value="定配分析" class="command2_button" width="78" height="20" onclick="dist.analysis();"/>
         <%}%>
+	      <input type="image" name="imageField6" src="images/btn-ck.gif" onclick="dist.showObject('mingxi.jsp?m_allot_id='+jQuery('#fund_balance').val(),930,400)"/>
          <input type="button" id="button2" value="刷新" onclick="window.location.reload();"/>
         <input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
 
@@ -221,7 +222,7 @@
                             <td class="ph-value"  valign="top" nowrap="" align="left">
                                 <input type="text" name="canModify" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="distdate" value="<%=end%>" />
                                 <span  class="coolButton" name="canShow">
-                                    <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar3',false,'distdate',null,null,true);"><img id="imageCalendar3" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
+                                    <a onclick="window.event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar3',false,'distdate',null,null,true);"><img id="imageCalendar3" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
                                 </span>
                             </td>
                              <td class="ph-desc" valign="top" align="right">
@@ -263,7 +264,7 @@
                             <td class="ph-value"  valign="top" nowrap="" align="left">
                                 <input type="text" name="canModify" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="distdate1" value="<%=end%>" />
                                 <span  class="coolButton" name="canShow">
-                                    <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar31',false,'distdate1',null,null,true);"><img id="imageCalendar31" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
+                                    <a onclick="window.event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar31',false,'distdate1',null,null,true);"><img id="imageCalendar31" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
                                 </span>
                             </td>
                             <td class="ph-desc" valign="top" width="200">

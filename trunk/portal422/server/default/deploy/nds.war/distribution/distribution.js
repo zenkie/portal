@@ -2,26 +2,27 @@ var dist=null;
 var DIST=Class.create();
 DIST.prototype={
     initialize: function() {
-        this.itemStr="";
+        dwr.util.useLoadingMessage(gMessageHolder.LOADING);
+        dwr.util.setEscapeHtml(false);
+        this.windowLocation=window.location;
+    	  this.itemStr="";
         this.manuStr="";
         this.allot_id=null;
         this.manu=null;
         this.item=null;
-        this.product=new Array();
+
         this.totCan=0;
         this.status=0;
         this.loadStatus="load";
-        this.data=new Array();//向数据库获得数据组成单元数组
+    	  this.product=new Array();
+    	  this.totCan=0;
+    	  this.data=new Array();//向数据库获得数据组成单元数组
         this.dataForQtyCan={};//库存可用量JSON对象
         this.dataForStyleQtyAl={};//所有款已配量的json对象
         this.allQtyAl=0;//总已配量
         this.tot_can_dist=0;//自动配货总可配量
         this.bodyWidth=0;
         this.docNoes=new Array();
-        
-        dwr.util.useLoadingMessage(gMessageHolder.LOADING);
-        dwr.util.setEscapeHtml(false);
-
         /** A function to call if something fails. */
         dwr.engine._errorHandler =  function(message, ex) {
             while(ex!=null && ex.cause!=null) ex=ex.cause;
@@ -36,6 +37,24 @@ DIST.prototype={
         application.addEventListener("RELOAD",this._onreShow,this);
     },
     queryObject: function(style){
+    	  this.itemStr="";
+        this.manuStr="";
+        this.allot_id=null;
+        this.manu=null;
+        this.item=null;
+
+        this.totCan=0;
+        this.status=0;
+        this.loadStatus="load";
+    	  this.product=new Array();
+    	  this.totCan=0;
+    	  this.data=new Array();//向数据库获得数据组成单元数组
+        this.dataForQtyCan={};//库存可用量JSON对象
+        this.dataForStyleQtyAl={};//所有款已配量的json对象
+        this.allQtyAl=0;//总已配量
+        this.tot_can_dist=0;//自动配货总可配量
+        this.bodyWidth=0;
+        this.docNoes=new Array();
         var evt={};
         evt.command="DBJSONXML";
         evt.callbackEvent="DO_QUERY";
@@ -125,7 +144,7 @@ DIST.prototype={
         var date2=distdate.substring(6,8);
         var dist=month2+"/"+date2+"/"+year2;
         if(!this.checkIsDate(month2,date2,year2)||!reg.test(distdate)){
-            alert("配货时间日期格式不对！请输入8位有效数字。");
+            alert("配货日期格式不对！请输入8位有效数字。");
             return;
         }
         /*end*/
@@ -137,7 +156,7 @@ DIST.prototype={
             return;
         }
         for(var i=0;i<this.data.length;i++){
-        	if(parseInt(this.data[i].qtyAl)>0){
+        	if(parseInt(this.data[i].qtyAl)>=0){
         		var ii={};
         		ii.qty_ady=this.data[i].qtyAl;
         		ii.m_product_alias_id=this.data[i].barCode;
@@ -289,7 +308,7 @@ DIST.prototype={
         $("input-1").innerHTML="";
         jQuery("#ph-serach-bg table td span[id$='_link']").attr("title","popup");
         jQuery("#ph-serach-bg table td span[id$='_link']>img[id$='_img']").attr("src","/html/nds/images/filterobj.gif");
-        jQuery("#Documents input").val("");
+        jQuery("#Documents input[id!='distdate1']").val("");
         jQuery("#category_manu").html("");
         jQuery("#ph-from-right-table").html("");
     },
@@ -305,7 +324,7 @@ DIST.prototype={
         $("input-1").innerHTML="";
         jQuery("#ph-serach-bg table td span[id$='_link']").attr("title","popup");
         jQuery("#ph-serach-bg table td span[id$='_link']>img[id$='_img']").attr("src","/html/nds/images/filterobj.gif");
-        jQuery("#Details input[name!='billdatebeg'][name!='billdateend']").val("");
+        jQuery("#Details input[name!='billdatebeg'][name!='billdateend'][id!='distdate']").val("");
         jQuery("#category_manu").html("");
         jQuery("#ph-from-right-table").html("");
     },
@@ -471,7 +490,8 @@ DIST.prototype={
                                 var v3=0;
                                 item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txt\""+(ss=='FWD'?" style='color:blue;'":"")+">订单数量</td>";
                                 for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
-                                    var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.dest[w];
+                                    var        	
+ itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.dest[w];
                                     v3+=isNaN(parseInt(itemMetrixTr,10))?0:parseInt(itemMetrixTr,10);
                                     item+="<td valign=\"top\" bgcolor=\"#8db6d9\" class=\"td-right-txtD\""+(itemMetrixTr=='non'?" style=\"background-color:#eeeeee\"":" docType='"+ss+"'")+">"+(itemMetrixTr!='non'?itemMetrixTr:"")+"</td>";
                                 }
@@ -490,7 +510,9 @@ DIST.prototype={
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">订单类型</td>" +
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">发货日期</td>"+
                           "<td bgcolor=\"#FFFFFF\" class=\"td-left-title\">尺寸</td>";
-            /*Edit by Robin 2010.5.10 新增列合计及总款合计*/
+            /*
+            Edit by Robin 2010.5.10 新增列合计及总款合计
+            */
             var tot_qty_al_for_col="<tr>"+
                     "<td bgcolor=\"#FFFFFA\" class=\"td-left-title\" colspan=\"6\">款已配量合计</td>";
             var tot_for_style=0;
@@ -576,7 +598,9 @@ DIST.prototype={
     		var barcode=dataForTemp[0].barCode;
     		var docType=dataForTemp[0].docType;
     		var qtyCan=parseInt(dataForTemp[0].qtyCan);
-    		/*数组逐渐减少，循环遍历，index递减*/
+    		/*
+    		数组逐渐减少，循环遍历，index递减
+    		*/
     		var i=dataForTemp.length-1;
     		while(i>=0){
     			if(dataForTemp[i].barCode==barcode&&docType==dataForTemp[i].docType){
@@ -1221,12 +1245,15 @@ DIST.prototype={
     },
     autoView1:function(){
         window.onbeforeunload=function(){
-            if( $("isChanged").value=='true'){
-                return "页面数据已改动，还未保存！";
-            }else{
-                return;
-            }
-        }
+        		if(window.location==dist.windowLocation){
+            	if( $("isChanged").value=='true'){
+ 	               		return "页面数据已改动，还未保存！";
+		            }else{
+		                return;
+		            }
+          	}
+       	 }
+  
         jQuery(document).bind("keyup",function(event){
             if(event.ctrlKey==true&&event.which==38){
                 var divs=jQuery("#category_manu li>div");

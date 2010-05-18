@@ -1,13 +1,15 @@
 <%@ page language="java"  pageEncoding="utf-8"%>
-<%@ include file="/html/nds/common/init.jsp" %>
-<%@ page import="org.json.*" %>
-<%@page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="nds.control.util.*" %>
-<%@ page import="nds.web.config.*" %>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
-<%@ taglib uri="http://java.fckeditor.net" prefix="FCK" %>
+<%@ page import="nds.control.web.*,com.liferay.portal.util.ShutdownUtil" %>
 <%
+	UserWebImpl userWeb =null;
+	if(ShutdownUtil.isShutdown()){
+		session.invalidate();
+	}
+	try{
+		userWeb= ((UserWebImpl)WebUtils.getSessionContextManager(session).getActor(nds.util.WebKeys.USER));	
+	}catch(Throwable userWebException){
+		System.out.println("########## found userWeb=null##########"+userWebException);
+	}
     String idS=request.getParameter("id");
     int id=-1;
     if (idS != null) {
@@ -32,16 +34,11 @@
 <head>
 <title>经销商资金</title>
 <link href="ph.css" rel="stylesheet" type="text/css" />
-<script language="javascript" language="javascript1.5" src="/html/nds/js/ieemu.js"></script>
-<script language="javascript" src="/html/nds/js/cb2.js"></script>
 <script language="javascript" src="/html/nds/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.2.3/jquery.js"></script>
-<script language="javascript" src="/html/nds/js/jquery1.2.3/hover_intent.js"></script>
-<script language="javascript" src="/html/nds/js/jquery1.2.3/ui.tabs.js"></script>
 <script>
 jQuery.noConflict();
 </script>
-<script language="javascript" src="/html/js/ajax.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
@@ -49,7 +46,6 @@ jQuery.noConflict();
 <script type="text/javascript" src="/distribution/distribution.js"></script> 
 <script type="text/javascript" src="/html/nds/js/init_object_query_zh_CN.js"></script>
 <script language="javascript" src="/html/nds/js/init_objcontrol_zh_CN.js"></script>
-<script language="javascript" src="/html/nds/js/obj_ext.js"></script>
 </head>
 <script language="javascript">
 	jQuery(document).ready(function(){dist.fundQuery();});
