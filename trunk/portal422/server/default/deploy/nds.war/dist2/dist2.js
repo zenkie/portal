@@ -226,7 +226,7 @@ DIST.prototype={
     	jQuery("#alert-auto-dist").hide();
     },
     exec_dist:function(dist_type){
-     	if(!confirm("确认放弃已编辑内容？")){
+     	if(!confirm("自动配货会清空已编辑内容，确认放弃？")){
           return;
       }
     	var expr;
@@ -712,10 +712,7 @@ DIST.prototype={
         });
         jQuery("#ph-from-right-table>table td>input").bind("keyup",function(event){
             if(event.target==this){
-                var row=jQuery(jQuery(this).parents("tr")[0]).find("input");
-                var indexOfRow=row.index(this);
-                var col=jQuery("#ph-from-right-table>table:visible td>input[name="+this.name+"]");
-                var indexOfCol=col.index(this);
+                
                 if((event.which>=48&&event.which<=57)||(event.which>=96&&event.which<=105)){
                     $("isChanged").value='true';
                     if(this.value.strip()!=""){
@@ -759,31 +756,37 @@ DIST.prototype={
                    	dist.update_for_cell_change(cellData1,real_qty_change);
                    	jQuery("#barcodeAlready").html(dist.get_barcode_qty(cellData.barcode).qtyAl);
                    	jQuery("#totStyleAlready").html(jQuery("#"+jQuery(this).attr("sty")+"-tot").html());
-                }else if(event.which==37){
+                }else if(event.which==37||event.which==39||event.which==38||event.which==40){
+                	var row=jQuery(jQuery(this).parents("tr")[0]).find("input");
+                	var indexOfRow=row.index(this);
+                	var col=jQuery("#ph-from-right-table>table:visible td>input[name="+this.name+"]");
+                	var indexOfCol=col.index(this);
+                	if(event.which==37){
                     if(indexOfRow>0){
                         row[indexOfRow-1].focus();
                     }else{
                         row[row.length-1].focus();
                     }
-                }else if(event.which==39){
+                	}else if(event.which==39){
                     if(indexOfRow<(row.length-1)){
                         row[indexOfRow+1].focus();
                     }else{
                         row[0].focus();
                     }
-                }else if(event.which==38){
+               		}else if(event.which==38){
                     if(indexOfCol>0){
                         col[indexOfCol-1].focus();
                     }else{
                         col[col.length-1].focus();
                     }
-                }else if(event.which==40){
+                	}else if(event.which==40){
                     if(indexOfCol<col.length-1){
                         col[indexOfCol+1].focus();
                     }else{
                         col[0].focus();
                     }
-                }
+                	}
+              	}
             }
         });
         jQuery("#ph-from-right-table>table td>input").bind("keydown",function(event){
