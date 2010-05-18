@@ -1,4 +1,4 @@
-<%@ page language="java"  pageEncoding="utf-8"%>
+﻿<%@ page language="java"  pageEncoding="utf-8"%>
 <%@ page import="nds.control.web.UserWebImpl" %>
 <%@ page import="nds.query.QueryEngine" %>
 <%@ page import="nds.control.web.WebUtils" %>
@@ -81,6 +81,14 @@
     <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/header_aio_min.css">
     <link typ e="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css">
     <link href="ph.css" rel="stylesheet" type="text/css"/>
+    <%
+            Date tody=new Date();
+            SimpleDateFormat fmt=new SimpleDateFormat("yyyyMMdd");
+            String end=fmt.format(tody);
+            Long stL=tody.getTime()-24*60*60*1000*10l;
+            Date std=new Date(stL);
+            String st=fmt.format(std);
+     %>
 </head>
 <% if(id!=-1){ %>
 <script language="javascript">
@@ -88,6 +96,7 @@
 </script>
 <%}%>
 <body class="body-bg">
+<iframe id="CalFrame" name="CalFrame" frameborder=0 src=/html/nds/common/calendar.jsp style="display:none;position:absolute; z-index:9999"></iframe>
 <div id="ph-btn">
 	<div id="ph-from-btn">
         <input type="hidden" id="load_type" value="<%=id==-1?"load":"reload"%>"/>
@@ -104,7 +113,8 @@
         <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord');"/>
         <%}%>
         <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250)"/>
-        <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.autoDist();" />
+        <input type="image" name="imageField2" src="images/btn-k.gif" onclick="dist.exec_dist('all');" />
+        <input type="image" name="imageField2" src="images/btn-zd.gif" onclick="dist.exec_dist('all');" />
         <input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
     </div>
 </div>
@@ -129,6 +139,13 @@
             <input name="" readonly type="text" class="ipt-4-2" id='column_26993_fd' value="" >
             <span  class="coolButton" id="column_26993_link" title=popup onaction="dist.getCustomId();"><img id='column_26993_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
             <script type="text/javascript" >createButton(document.getElementById('column_26993_link'));</script>
+        </td>
+        <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">配货时间<font color="red">*</font>：</div></td>
+        <td class="ph-value"  valign="top" nowrap="" align="left">
+            <input type="text" name="canModify" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="distdate" value="<%=end%>" />
+                                <span  class="coolButton" name="canShow">
+                                    <a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar3',false,'distdate',null,null,true);"><img id="imageCalendar3" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
+                                </span>
         </td>
         <td class="ph-value" width="80" valign="top" nowrap="" align="left"><%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject()" /><%}%>
         </td>
