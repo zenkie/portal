@@ -156,7 +156,7 @@ DIST.prototype={
             return;
         }
         for(var i=0;i<this.data.length;i++){
-        	if(parseInt(this.data[i].qtyAl)>=0){
+        	if(parseInt(this.data[i].qtyAl,10)>=0){
         		var ii={};
         		ii.qty_ady=this.data[i].qtyAl;
         		ii.m_product_alias_id=this.data[i].barCode;
@@ -405,10 +405,10 @@ DIST.prototype={
                              * edit by Robin 2010.5.6
                              * 增加以配货编辑单元格为单元
                              */
-                             var qtyAl=colorArr[p].stores[pp].docnos[ppp].tag.qtyAl[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.qtyAl[w]):0;//已配量
-                             var qtyCan = colorArr[p].stores[pp].docnos[ppp].tag.can[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.can[w]):0;//可用库存
-                             var qtyRem = colorArr[p].stores[pp].docnos[ppp].tag.rem[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.rem[w]):0;//订单余量
-                             var qtyDest= colorArr[p].stores[pp].docnos[ppp].tag.dest[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.dest[w]):0;//订单量
+                             var qtyAl=colorArr[p].stores[pp].docnos[ppp].tag.qtyAl[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.qtyAl[w],10):0;//已配量
+                             var qtyCan = colorArr[p].stores[pp].docnos[ppp].tag.can[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.can[w],10):0;//可用库存
+                             var qtyRem = colorArr[p].stores[pp].docnos[ppp].tag.rem[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.rem[w],10):0;//订单余量
+                             var qtyDest= colorArr[p].stores[pp].docnos[ppp].tag.dest[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.dest[w],10):0;//订单量
                           if(colorArr[p].stores[pp].docnos[ppp].tag.barCode[w]!='non'){
                             var cellData={};//每个单元的数据，即配货编辑的单元
                             cellData.sty = pdt[ii].xmlns;//款号
@@ -450,10 +450,10 @@ DIST.prototype={
                                 for(var w=0;w<colorArr[p].stores[pp].docnos[ppp].tag.size.length;w++){
                                     var itemMetrixTr=colorArr[p].stores[pp].docnos[ppp].tag.can[w];
                                     var barCode=colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];
-                                    var qtyAl=parseInt(colorArr[p].stores[pp].docnos[ppp].tag.qtyAl[w]);
-                                    var qtyRem=parseInt(colorArr[p].stores[pp].docnos[ppp].tag.rem[w]);
-                                    var qtyDest= colorArr[p].stores[pp].docnos[ppp].tag.dest[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.dest[w]):0;
-                                    var qtyCan = colorArr[p].stores[pp].docnos[ppp].tag.can[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.can[w]):0;
+                                    var qtyAl=parseInt(colorArr[p].stores[pp].docnos[ppp].tag.qtyAl[w],10);
+                                    var qtyRem=parseInt(colorArr[p].stores[pp].docnos[ppp].tag.rem[w],10);
+                                    var qtyDest= colorArr[p].stores[pp].docnos[ppp].tag.dest[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.dest[w],10):0;
+                                    var qtyCan = colorArr[p].stores[pp].docnos[ppp].tag.can[w]!='non'?parseInt(colorArr[p].stores[pp].docnos[ppp].tag.can[w],10):0;
                                     var docno=colorArr[p].stores[pp].docnos[ppp].no;
                                     qtyAl=isNaN(qtyAl)?0:qtyAl;
                                     qtyRem=isNaN(qtyRem)?0:qtyRem;
@@ -597,14 +597,14 @@ DIST.prototype={
     		var totAlForBarCode=0;
     		var barcode=dataForTemp[0].barCode;
     		var docType=dataForTemp[0].docType;
-    		var qtyCan=parseInt(dataForTemp[0].qtyCan);
+    		var qtyCan=parseInt(dataForTemp[0].qtyCan,10);
     		/*
     		数组逐渐减少，循环遍历，index递减
     		*/
     		var i=dataForTemp.length-1;
     		while(i>=0){
     			if(dataForTemp[i].barCode==barcode&&docType==dataForTemp[i].docType){
-    				totAlForBarCode+=parseInt(dataForTemp[i].qtyAl);
+    				totAlForBarCode+=parseInt(dataForTemp[i].qtyAl,10);
     				dataForTemp.splice(i,1);
     			}
     			i--;
@@ -621,9 +621,9 @@ DIST.prototype={
      * @param realQtyAlChange 实际配货改变量
      */    
     update_style_tot_al_for_col:function(size,style,realQtyAlChange){
-        var oldcoltot=parseInt(jQuery("#"+style+size).html());
+        var oldcoltot=parseInt(jQuery("#"+style+size).html(),10);
         jQuery("#"+style+size).html((oldcoltot+realQtyAlChange)+"");
-        var oldstyletot=parseInt(jQuery("#style-"+style).html());
+        var oldstyletot=parseInt(jQuery("#style-"+style).html(),10);
         oldstyletot=isNaN(oldstyletot)?0:oldstyletot;
         jQuery("#style-"+style).html((oldstyletot+realQtyAlChange)+"");
     },
@@ -639,7 +639,7 @@ DIST.prototype={
         var datas=this.v2m_get_ret(cellData);
         var tot=0;
         for(var i=0;i<datas.length;i++){
-            tot+=parseInt(datas[i].qtyAl);
+            tot+=parseInt(datas[i].qtyAl,10);
         }
         return tot;
     },
@@ -707,7 +707,7 @@ DIST.prototype={
      * @param realQtyAlChange 实际配货改变量
      */    
     update_style_qty_al:function(style,realQtyAlChange){
-    	var old=parseInt(this.dataForStyleQtyAl[style]);
+    	var old=parseInt(this.dataForStyleQtyAl[style],10);
     	this.dataForStyleQtyAl[style]=old+realQtyAlChange;
     },
     /**
@@ -718,7 +718,7 @@ DIST.prototype={
      */
     get_barcode_can_dist:function(barCode,docType){
       if(barCode){
-      	return parseInt(this.dataForQtyCan[barCode+docType]);
+      	return parseInt(this.dataForQtyCan[barCode+docType],10);
       }else{
       	return 0;
       }
@@ -736,7 +736,7 @@ DIST.prototype={
     	var datas=this.v2m_get_ret(cellData);
     	var sumQtyRem=0;
     	for(var i=0;i<datas.length;i++){
-    		sumQtyRem+=parseInt(datas[i].qtyRem);
+    		sumQtyRem+=parseInt(datas[i].qtyRem,10);
     	}
     	return sumQtyRem;
     },
@@ -748,7 +748,7 @@ DIST.prototype={
      * @param docType 订单类型
      */    
     update_barcode_can_dist:function(barCode,docType,realQtyAlChange){
-    	this.dataForQtyCan[barCode+docType]=parseInt(this.dataForQtyCan[barCode+docType])-realQtyAlChange;
+    	this.dataForQtyCan[barCode+docType]=parseInt(this.dataForQtyCan[barCode+docType],10)-realQtyAlChange;
     },
     /**
      * edit by Robin 2010.5.7
@@ -772,7 +772,7 @@ DIST.prototype={
     update_row_count:function(cellData,realQtyAlChange){
     		if(cellData.docNo&&cellData.store&&cellData.color){
       			var e =jQuery("#"+cellData.color+cellData.docNo+cellData.store);
-      			e.html((parseInt(e.html())+realQtyAlChange)+"");
+      			e.html((parseInt(e.html(),10)+realQtyAlChange)+"");
         }
     },
     analysis:function(){
@@ -842,7 +842,7 @@ DIST.prototype={
     	if(jQuery("#"+dist_type)[0]){
     		var dist_param=jQuery("#"+dist_type).val();
     	}
-    	var tot_can_dist=parseInt(jQuery("#currentCan").html());
+    	var tot_can_dist=parseInt(jQuery("#currentCan").html(),10);
     	tot_can_dist=isNaN(tot_can_dist)?0:tot_can_dist;
     	jQuery(expr0).each(function(){
     		dist.autoDistForCell(0,this);
@@ -857,13 +857,13 @@ DIST.prototype={
     	jQuery("#alert-auto-dist").hide();
     },
     auto_dist_for_specNumber:function(dist_param,tot_can_dist,expr){
-    	dist_param=parseInt(dist_param);
+    	dist_param=parseInt(dist_param,10);
     	dist_param=isNaN(dist_param)?0:dist_param;
     	this.tot_can_dist=tot_can_dist;
     	jQuery(expr).each(function(){
     		var qtyCan=dist.get_barcode_can_dist(jQuery(this).attr("barCode"),jQuery(this).attr("docType"));
     		if(qtyCan>0){
-		  		var qtyRem=parseInt(jQuery(this).attr("qtyRem"));
+		  		var qtyRem=parseInt(jQuery(this).attr("qtyRem"),10);
 					
 					var qty=Math.min(dist_param,qtyCan,qtyRem);
 		  		if((dist.tot_can_dist-dist_param)<0){
@@ -880,7 +880,7 @@ DIST.prototype={
     	jQuery(expr).each(function(){
     		var qtyCan=dist.get_barcode_can_dist(jQuery(this).attr("barCode"),jQuery(this).attr("docType"));
     		if(qtyCan>0){
-	    		var qty=parseInt(dist_param*parseInt(jQuery(this).attr("qtyRem")));
+	    		var qty=parseInt(dist_param*parseInt(jQuery(this).attr("qtyRem"),10),10);
 	    		if(qty>qtyCan){
 	    			qty=qtyCan;
 	    		}
@@ -896,11 +896,11 @@ DIST.prototype={
     	jQuery(expr).each(function(){
     		var qtyCanDist=dist.get_barcode_can_dist(jQuery(this).attr("barCode"),jQuery(this).attr("docType"));
     		if(qtyCanDist>0){
-		  		var qtyRem=parseInt(jQuery(this).attr("qtyRem"));
-		  		var qtyCan=parseInt(jQuery(this).attr("qtyCan"));;
+		  		var qtyRem=parseInt(jQuery(this).attr("qtyRem"),10);
+		  		var qtyCan=parseInt(jQuery(this).attr("qtyCan"),10);;
 		  		var qtyRemForAllOrder=dist.get_qty_rem_for_all_order(jQuery(this).attr("barCode"),jQuery(this).attr("docType"));
 		  		var percent=qtyRem/qtyRemForAllOrder;
-		  		var qty=parseInt(percent*qtyCan);
+		  		var qty=parseInt(percent*qtyCan,10);
 		  		qty=qty>qtyRem?qtyRem:qty;
 		  		if(qty>qtyCanDist){
 		  			qty=qtyCanDist;
@@ -917,9 +917,9 @@ DIST.prototype={
      */    
     autoDist:function(){
     	jQuery("#alert-auto-dist").show();
-    	var tot_can=parseInt(jQuery("#tot-can").html());
+    	var tot_can=parseInt(jQuery("#tot-can").html(),10);
     	
-    	var tot_can1=parseInt(jQuery("#input-5").html());
+    	var tot_can1=parseInt(jQuery("#input-5").html(),10);
     	
     	jQuery("#all-order").attr("checked","checked");
     	jQuery("#all-order").attr("can-dist",tot_can);
@@ -941,13 +941,13 @@ DIST.prototype={
       cellData1.store=jQuery(e).attr("store");
       
       var dataCell1=dist.v2m_get_ret(cellData1)[0];
-      var oldQtyAl=parseInt(dataCell1.qtyAl);//未编辑前的单元的已配量
+      var oldQtyAl=parseInt(dataCell1.qtyAl,10);//未编辑前的单元的已配量
       var nowQty=qty;
       
       var qtyAlChange=nowQty-oldQtyAl;//改变的数量
       
       var barCodeCanDist=dist.get_barcode_can_dist(jQuery(e).attr("barCode"),jQuery(e).attr("docType"));
-     	var qtyRem=parseInt(dataCell1.qtyRem);
+     	var qtyRem=parseInt(dataCell1.qtyRem,10);
       if(qtyAlChange>barCodeCanDist||nowQty>qtyRem) {
       	return 0;
       }else{
@@ -967,18 +967,18 @@ DIST.prototype={
       }
     },
     allOrderDist:function(){
-    	var all_order_can_dist=parseInt(jQuery("#all-order").attr("can-dist"));
+    	var all_order_can_dist=parseInt(jQuery("#all-order").attr("can-dist"),10);
     	var percentage=jQuery("#percentage").val();
       percentage=isNaN(parseFloat(percentage))?0:parseFloat(percentage);
     	jQuery("#all-can-dist").html(all_order_can_dist);
-    	jQuery("#currentCan").html(parseInt(all_order_can_dist*percentage));
+    	jQuery("#currentCan").html(parseInt(all_order_can_dist*percentage,10));
     },
     currentStyleDist:function(){
-    	var current_style_can_dist=parseInt(jQuery("#current-style").attr("can-dist"));
+    	var current_style_can_dist=parseInt(jQuery("#current-style").attr("can-dist"),10);
     	var percentage=jQuery("#percentage").val();
       percentage=isNaN(parseFloat(percentage))?0:parseFloat(percentage);
     	jQuery("#all-can-dist").html(current_style_can_dist);
-    	jQuery("#currentCan").html(parseInt(current_style_can_dist*percentage));
+    	jQuery("#currentCan").html(parseInt(current_style_can_dist*percentage,10));
   	},
     /*
      ×Json对象转化为数组
@@ -1308,11 +1308,11 @@ DIST.prototype={
         jQuery("#ph-from-right-table table input").bind("keydown",function(event){
             if(event.which==13){
             	if(event.target=this){
-                var x=parseInt(jQuery(this).attr("x-index"));
-                var y=parseInt(jQuery(this).attr("y-index"));
+                var x=parseInt(jQuery(this).attr("x-index"),10);
+                var y=parseInt(jQuery(this).attr("y-index"),10);
                 var style=jQuery(this).attr("sty");
-                var xMax=parseInt(jQuery("#"+style).attr("x-length"))-1;
-    						var yMax=parseInt(jQuery("#"+style).attr("y-length"))-1;
+                var xMax=parseInt(jQuery("#"+style).attr("x-length"),10)-1;
+    						var yMax=parseInt(jQuery("#"+style).attr("y-length"),10)-1;
     						dist.get_next_cell(x,y,style,xMax,yMax);
               }
             }
@@ -1332,8 +1332,8 @@ DIST.prototype={
 				            cellData1.store=jQuery(this).attr("store");
 				            
 				            var dataCell1=dist.v2m_get_ret(cellData1)[0];
-				            var oldQtyAl=parseInt(dataCell1.qtyAl);//未编辑前的单元的已配量
-				            var nowQty=parseInt(jQuery(this).val());//响应事件后的数量
+				            var oldQtyAl=parseInt(dataCell1.qtyAl,10);//未编辑前的单元的已配量
+				            var nowQty=parseInt(jQuery(this).val(),10);//响应事件后的数量
 				            if(isNaN(nowQty)){
 				            	jQuery(this).val("0");
 				            	nowQty=0;
@@ -1347,13 +1347,13 @@ DIST.prototype={
                         this.value = 0;
                         dwr.util.selectRange(this,0,100);
                     }
-										var qtyRem=parseInt(dataCell1.qtyRem);
+										var qtyRem=parseInt(dataCell1.qtyRem,10);
                     if(nowQty>qtyRem){
                         alert("配置量大于未配量，请重新配置！");
                         this.value=0;
                         dwr.util.selectRange(this,0,100);
                     }
-                    var newQtyAl=parseInt(jQuery(this).val());
+                    var newQtyAl=parseInt(jQuery(this).val(),10);
                     var cellData={};
                     cellData.color = jQuery(this).attr("color");
                     cellData.barCode=jQuery(this).attr("barCode");
@@ -1377,28 +1377,28 @@ DIST.prototype={
                     
                     //alert(Object.toJSON(dist.v2m_get_ret(cellData)));
                 }else if(event.which==37){ //响应左键事件，及表格中输入框中移动
-                		var x=parseInt(jQuery(this).attr("x-index"));
-                		var y=parseInt(jQuery(this).attr("y-index"));
+                		var x=parseInt(jQuery(this).attr("x-index"),10);
+                		var y=parseInt(jQuery(this).attr("y-index"),10);
                 		var style=jQuery(this).attr("sty");
-                		var xMax=parseInt(jQuery("#"+style).attr("x-length"))-1;
+                		var xMax=parseInt(jQuery("#"+style).attr("x-length"),10)-1;
                     dist.get_next_x_cell_left(x,y,style,xMax);
                 }else if(event.which==39){//右
-                		var x=parseInt(jQuery(this).attr("x-index"));
-                		var y=parseInt(jQuery(this).attr("y-index"));
+                		var x=parseInt(jQuery(this).attr("x-index"),10);
+                		var y=parseInt(jQuery(this).attr("y-index"),10);
                 		var style=jQuery(this).attr("sty");
-                		var xMax=parseInt(jQuery("#"+style).attr("x-length"))-1;
+                		var xMax=parseInt(jQuery("#"+style).attr("x-length"),10)-1;
                     dist.get_next_x_cell_right(x,y,style,xMax);
                 }else if(event.which==38){//上
-                		var x=parseInt(jQuery(this).attr("x-index"));
-                		var y=parseInt(jQuery(this).attr("y-index"));
+                		var x=parseInt(jQuery(this).attr("x-index"),10);
+                		var y=parseInt(jQuery(this).attr("y-index"),10);
                 		var style=jQuery(this).attr("sty");
-                		var yMax=parseInt(jQuery("#"+style).attr("y-length"))-1;                	
+                		var yMax=parseInt(jQuery("#"+style).attr("y-length"),10)-1;                	
                 		dist.get_next_y_cell_up(x,y,style,yMax)
                 }else if(event.which==40){//下
-                		var x=parseInt(jQuery(this).attr("x-index"));
-                		var y=parseInt(jQuery(this).attr("y-index"));
+                		var x=parseInt(jQuery(this).attr("x-index"),10);
+                		var y=parseInt(jQuery(this).attr("y-index"),10);
                 		var style=jQuery(this).attr("sty");
-                		var yMax=parseInt(jQuery("#"+style).attr("y-length"))-1;                	
+                		var yMax=parseInt(jQuery("#"+style).attr("y-length"),10)-1;                	
                 		dist.get_next_y_cell_down(x,y,style,yMax)
                 }else if(event.which==8||event.which==46){
                     if(this.value==""||this.value.strip()==""){
