@@ -1,4 +1,4 @@
-<%@ page language="java"  pageEncoding="utf-8"%>
+﻿<%@ page language="java"  pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -17,7 +17,7 @@
             var totCan=<%=totCan%>;
             totCan=parseInt(totCan);
             var percentage=document.getElementById("percentage").value;
-            percentage=parseFloat(percentage);
+            percentage=isNaN(parseFloat(percentage))?0:parseFloat(percentage);
             if(percentage>1||percentage<0){
                 alert("请输入小于1的正小数！");
                 document.getElementById("percentage").value=0;
@@ -31,11 +31,13 @@
 <body style="width:auto">
 <form action="" method="get">
 <div id="auto-bg">
+<div id="auto-menu"><input name="" type="image" src="images/btn-gb.gif" width="21" height="21" /></div>
 <div id="auto-main">
 <div id="tabsG">
   <ul>
-    <li><a href="#" title="Link 1"><span>全部</span></a></li>
-    <li><a href="#" title="Link 2"><span>当前</span></a></li>
+    <li>请选择配货模式</li>
+	<li><input name="" type="radio" value="" checked="checked" />整单</li>
+    <li><input name="" type="radio" value="" />当前款</li>
   </ul>
 </div>
 <div id="auto-border">
@@ -60,39 +62,43 @@
 <div id="auto-cl-txt">
 <table width="440" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="13" align="center"><img src="images/icon-11.gif" width="11" height="11" /></td>
-    <td width="135"><div class="ph-left-txt">指定配货数量<font color="red">*</font>：</div></td>
-    <td width="312"><div class="ph-right-txt"><input name="" type="text" class="right-input" /></div></td>
+    <td width="13" align="right"><label>
+      <input name="radiobutton" type="radio" value="radiobutton" checked="checked" />
+      </label></td>
+    <td width="150"><div class="ph-left-txt">指定配货数量<font color="red">*</font>：</div></td>
+    <td width="297"><div class="ph-right-txt"><input name="" type="text" class="right-input" /></div></td>
     </tr>
   <tr>
     <td width="13">&nbsp;</td>
     <td colspan="2"><div class="ph-right-txt">说明：所有商品均按此外指定的数量配货。</div></td>
     </tr>
   <tr>
-    <td width="13" align="center"><img src="images/icon-11.gif" width="11" height="11" align="absmiddle" /></td>
-    <td width="135"><div class="ph-left-txt">按未配量比例配货<font color="red">*</font>：</div></td>
-    <td width="312"><div class="ph-right-txt"><input name="" type="text" class="right-input" /></div></td>
+    <td width="13" align="right"><label>
+      <input type="radio" name="radiobutton" value="radiobutton" />
+      </label></td>
+    <td width="150"><div class="ph-left-txt">按未配量比例配货<font color="red">*</font>：</div></td>
+    <td width="297"><div class="ph-right-txt"><input name="" type="text" class="right-input" /></div></td>
     </tr>
   <tr>
     <td width="13">&nbsp;</td>
     <td colspan="2"><div class="ph-right-txt">说明：按照未配量此处指定的比例为所有商品配货。</div></td>
     </tr>
   <tr>
-    <td width="13" align="center"><img src="images/icon-11.gif" width="11" height="11" align="absmiddle" /></td>
-    <td width="135"><div class="ph-left-txt">按订单订货比例配货<font color="red">*</font>：</div></td>
-    <td width="312"><div class="ph-right-txt"><input name="" type="text" class="right-input" /></div></td>
+    <td width="13" align="right"><label>
+      <input type="radio" name="radiobutton" value="radiobutton" />
+      </label></td>
+    <td width="160"><div class="ph-left-txt">按订单订货比例配货<font color="red">*</font>：</div></td>
+    <td width="290"><div class="ph-right-txt"><input name="" type="text" class="right-input" /></div></td>
     </tr>
   <tr>
     <td width="13">&nbsp;</td>
     <td colspan="2"><div class="ph-right-txt">说明：按照可配量订货比例为所有商品配货(订货比例指同一商品不同订单订
 货数量占所有订单订货总量的比例)。</div></td>
     </tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td colspan="3" height="10"></td>
     </tr>
   <tr>
-    <td colspan="3"><div class="ph-right-txt">注意：无论选择哪种配货策略，均受到可配货总量的限制，即配货总数量不能大于
+    <td colspan="3"><div class="ph-right-notes">注意：无论选择哪种配货策略，均受到可配货总量的限制，即配货总数量不能大于
       可配货总量。</div></td>
     </tr>
 </table>
