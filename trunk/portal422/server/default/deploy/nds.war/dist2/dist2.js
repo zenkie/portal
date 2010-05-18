@@ -246,10 +246,10 @@ DIST.prototype={
     auto_dist_for_specNumber:function(expr){
     	jQuery(expr).each(function(){
     		var barcode_cell=dist.get_barcode_qty(jQuery(this).attr("barcode"));
-    		var qtyCan=parseInt(barcode_cell.qtyCan);
+    		var qtyCan=parseInt(barcode_cell.qtyCan,10);
     		if(qtyCan>0){
-    			var dist_param=Math.ceil(parseInt(barcode_cell.qtyRem)/dist.store_count);
-		  		var qtyRem=parseInt(barcode_cell.qtyRem)-parseInt(barcode_cell.qtyAl);
+    			var dist_param=Math.ceil(parseInt(barcode_cell.qtyRem,10)/dist.store_count);
+		  		var qtyRem=parseInt(barcode_cell.qtyRem,10)-parseInt(barcode_cell.qtyAl,10);
 					var qty=Math.min(dist_param,qtyCan,qtyRem);
 					dist.autoDistForCell(qty,this);
     		}
@@ -258,7 +258,7 @@ DIST.prototype={
     get_order_tot_can:function(){
     	var tot_can=0;
     	for(var i=0;i<this.barcode_data.length;i++){
-    		tot_can+=parseInt(this.barcode_data[i].qtyCan);
+    		tot_can+=parseInt(this.barcode_data[i].qtyCan,10);
     	}
     	return tot_can;
     },        
@@ -273,15 +273,15 @@ DIST.prototype={
       cellData1.store=jQuery(e).attr("store");
       
       var dataCell1=dist.v2m_get_ret(cellData1)[0];
-      var oldQtyAl=parseInt(dataCell1.qtyAl);//未编辑前的单元的已配量
+      var oldQtyAl=parseInt(dataCell1.qtyAl,10);//未编辑前的单元的已配量
       var nowQty=qty;
       
       var qtyAlChange=nowQty-oldQtyAl;//改变的数量
       
       var barcode_qty=dist.get_barcode_qty(jQuery(e).attr("barcode"));
       var barCodeCanDist=barcode_qty.qtyCan;
-     	var qtyRem=parseInt(barcode_qty.qtyRem);
-     	var barcodeQtyAl=parseInt(barcode_qty.qtyAl);
+     	var qtyRem=parseInt(barcode_qty.qtyRem,10);
+     	var barcodeQtyAl=parseInt(barcode_qty.qtyAl,10);
       if(qtyAlChange>barCodeCanDist||(barcodeQtyAl+qtyAlChange)>qtyRem){
       	return 0;
       }else{
@@ -331,7 +331,7 @@ DIST.prototype={
             }
             this.itemStr+="<td bgcolor=\"#b6d0e7\" width=\"65\" class=\"td-right-title\">合计</td>";
             this.itemStr+="</tr>";
-						this.store_count=parseInt(colors[0].rowSpan)-3;
+						this.store_count=parseInt(colors[0].rowSpan,10)-3;
             for(var j=0;j<colors.length;j++){
                 var stors=colors[j].stors;
                 for(var jj=0;jj<colors[j].rowSpan;jj++){
@@ -349,13 +349,13 @@ DIST.prototype={
                         		barcode_cell.barcode=colors[j].barcode[s];
                         		barcode_cell.qtyAl=0;//已配量
                         		barcode_cell.qtyRem=colors[j].qtyrem[s];//未配量
-                        		barcode_cell.qtyCan=parseInt(colors[j].qtycan[s]);//可配量
+                        		barcode_cell.qtyCan=parseInt(colors[j].qtycan[s],10);//可配量
                         		barcode_cell.qtyDest=colors[j].qtyorder[s];//订单量
                         		this.barcode_data.push(barcode_cell);
                         	}
                         		//end
                             if(colors[j].qtycan[s]!='no'){
-                            		tot_can_row+=parseInt(colors[j].qtycan[s]);
+                            		tot_can_row+=parseInt(colors[j].qtycan[s],10);
                                 this.itemStr+="<td id='"+colors[j].barcode[s]+"-can' bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txtK\">"+colors[j].qtycan[s]+"</td>";
                             }else{
                                 this.itemStr+="<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txtK\" style=\"background-color:#eeeeee\"></td>";
@@ -369,7 +369,7 @@ DIST.prototype={
 												var tot_rem_row=0;                                      
                         for(var s1=0;s1<colors[j].qtyrem.length;s1++){
                             if(colors[j].qtyrem[s1]!='no'){
-                            		tot_rem_row+=parseInt(colors[j].qtyrem[s1]);
+                            		tot_rem_row+=parseInt(colors[j].qtyrem[s1],10);
                                 this.itemStr+="<td id='"+colors[j].barcode[s1]+"-rem' bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txtW\">"+colors[j].qtyrem[s1]+"</td>";
                             }else{
                                 this.itemStr+="<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txtW\" style=\"background-color:#eeeeee\"></td>";
@@ -383,7 +383,7 @@ DIST.prototype={
 												var tot_order_row=0;                                      
                         for(var s2=0;s2<colors[j].qtyorder.length;s2++){
                             if(colors[j].qtyorder[s2]!='no'){
-                            		tot_order_row+=parseInt(colors[j].qtyorder[s2]);
+                            		tot_order_row+=parseInt(colors[j].qtyorder[s2],10);
                                 this.itemStr+="<td id='"+colors[j].barcode[s2]+"-order' bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txtD\">"+colors[j].qtyorder[s2]+"</td>";
                             }else{
                                 this.itemStr+="<td bgcolor=\"#8db6d9\" valign=\"top\" class=\"td-right-txtD\" style=\"background-color:#eeeeee\"></td>";
@@ -494,7 +494,7 @@ DIST.prototype={
     	var tot_row=0;
     	for(var i=0;i<this.data.length;i++){
     		if(this.data[i].sty==style&&this.data[i].color==color&&this.data[i].store==store){
-    			tot_row+=parseInt(this.data[i].qtyAl);
+    			tot_row+=parseInt(this.data[i].qtyAl,10);
     		}
     	}
     	jQuery("#"+style+color+store).html(tot_row);	    	
@@ -508,7 +508,7 @@ DIST.prototype={
     	var tot_col=0;
     	for(var i=0;i<this.data.length;i++){
     		if(this.data[i].sty==style&&this.data[i].size==size){
-    			tot_col+=parseInt(this.data[i].qtyAl);
+    			tot_col+=parseInt(this.data[i].qtyAl,10);
     		}
     	}
     	jQuery("#"+style+size).html(tot_col);	
@@ -522,8 +522,8 @@ DIST.prototype={
     update_barcode_cell:function(store){
     	for(var i=0;i<this.barcode_data.length;i++){
     		if(store.m_product_alias==this.barcode_data[i].barcode){
-    			this.barcode_data[i].qtyAl+=parseInt(store.QTY_ALLOT);
-    			this.barcode_data[i].qtyCan-=parseInt(store.QTY_ALLOT);
+    			this.barcode_data[i].qtyAl+=parseInt(store.QTY_ALLOT,10);
+    			this.barcode_data[i].qtyCan-=parseInt(store.QTY_ALLOT,10);
     			return;
     		}
     	}
@@ -536,7 +536,7 @@ DIST.prototype={
     update_data_cell:function(store){
     	for(var i=0;i<this.data.length;i++){
     		if(store.m_product_alias==this.data[i].barcode&&store.content==this.data[i].store){
-    			this.data[i].qtyAl+=parseInt(store.QTY_ALLOT);
+    			this.data[i].qtyAl+=parseInt(store.QTY_ALLOT,10);
     			return;
     		}
     	}    	
@@ -594,13 +594,13 @@ DIST.prototype={
     	}
     },
     update_row_tot_for_change:function(cellData,real_qty_change){
-    	var old_qty=parseInt(jQuery("#"+cellData.sty+cellData.color+cellData.store).html());
+    	var old_qty=parseInt(jQuery("#"+cellData.sty+cellData.color+cellData.store).html(),10);
     	old_qty=isNaN(old_qty)?0:old_qty;
     	jQuery("#"+cellData.sty+cellData.color+cellData.store).html((old_qty+real_qty_change));
     },
     update_col_tot_for_change:function(cellData,real_qty_change){
-    	var old_qty=parseInt(jQuery("#"+cellData.sty+cellData.size).html());
-    	var old_qty_tot=parseInt(jQuery("#"+cellData.sty+"-tot").html());
+    	var old_qty=parseInt(jQuery("#"+cellData.sty+cellData.size).html(),10);
+    	var old_qty_tot=parseInt(jQuery("#"+cellData.sty+"-tot").html(),10);
     	old_qty=isNaN(old_qty)?0:old_qty;
     	old_qty_tot=isNaN(old_qty_tot)?0:old_qty_tot;
     	jQuery("#"+cellData.sty+cellData.size).html((old_qty+real_qty_change));    	
@@ -719,7 +719,7 @@ DIST.prototype={
                 if((event.which>=48&&event.which<=57)||(event.which>=96&&event.which<=105)){
                     $("isChanged").value='true';
                     if(this.value.strip()!=""){
-                        var count=parseInt(this.value.strip());
+                        var count=parseInt(this.value.strip(),10);
                         this.value=count;
                         if(isNaN(count)||count<0){
                             alert("请输入非负的整数！");
@@ -727,7 +727,7 @@ DIST.prototype={
                             dwr.util.selectRange(this,0,20);
                         }
                     }
-                    var now_qty=parseInt(this.value);
+                    var now_qty=parseInt(this.value,10);
                     
                     var cellData={};
                     cellData.store=jQuery(this).attr("store");
@@ -738,15 +738,15 @@ DIST.prototype={
                     
                     var barcode_data=dist.get_barcode_qty(cellData.barcode);
                     var qty_can=barcode_data.qtyCan;
-                    var qty_rem=parseInt(barcode_data.qtyRem);
-                    var qty_al=parseInt(barcode_data.qtyAl);
+                    var qty_rem=parseInt(barcode_data.qtyRem,10);
+                    var qty_al=parseInt(barcode_data.qtyAl,10);
                     var qty_change=now_qty-old_qty;
                     if(qty_change>qty_can||(qty_change+qty_al)>qty_rem){
                     	alert("已配量不得大于可配量和未配量！");
                     	this.value = 0;
                     	dwr.util.selectRange(this,0,100);
                     }
-                   	var new_qty=parseInt(this.value);
+                   	var new_qty=parseInt(this.value,10);
                    	var real_qty_change=new_qty-old_qty;
                    	var cellData1={};
                    	cellData1.sty=jQuery(this).attr("sty");
