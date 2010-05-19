@@ -63,6 +63,7 @@ function TableCommands(oTable) {
 	}
 	if(oTable.actionMODIFY){
 		a1[a1.length]="Modify";
+		a2[a2.length]="Import";
 	}
 	if(oTable.actionDELETE){
 		a1[a1.length]="Delete";
@@ -71,9 +72,9 @@ function TableCommands(oTable) {
 		a1[a1.length]="Submit";
 	}
 	a2[a2.length]="ListCopyTo";
-	if(oTable.actionEXPORT){
+	/*if(oTable.actionEXPORT){
 		a2[a2.length]="SmsList";
-	}
+	}*/
 	
 	for(i=0;i<a1.length &&i<4;i++){
 		this._buttons[this._buttons.length]=a1[i];

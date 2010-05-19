@@ -65,7 +65,7 @@ document.bgColor="<%=colorScheme.getPortletBg()%>";
 <%= cxtabTable.getDescription(locale)%>:<input type="text" id="cxtabName" name="cxtabName" size="30" value="<%=cxtabName%>" readonly="true">
 <%}else{%>
 	<%= cxtabTable.getDescription(locale)%>:<input type="text" id="cxtabName" name="cxtabName" value="<%=cxtabName%>" readonly="true">
-<%}%>
+<%}%><a href="/html/nds/object/object.jsp?table=<%=cxtabTable.getId()%>&id=<%=cxtabId%>"><img border="0" src="/html/nds/images/out.png"/></a>
 <input type="hidden" id="cxtabId" name="cxtabId" value="<%=cxtabId%>">
 </td></tr>	
 <tr><td><br>

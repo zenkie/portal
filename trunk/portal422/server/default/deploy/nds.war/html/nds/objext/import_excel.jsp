@@ -9,6 +9,29 @@
         mainobjecttableid - sheet table' tableId, may exists in param or attribute
         fixedcolumns - fixed colums of the import
      */
+
+	TableManager tableManager=TableManager.getInstance();
+	int tableId= ParamUtils.getIntAttributeOrParameter(request, "table", -1);
+	int objectId= ParamUtils.getIntAttributeOrParameter(request, "objectid", -1);
+	PairTable fixedColumns=PairTable.parseIntTable(request.getParameter("fixedcolumns"), null);	
+	Table table;
+	if( tableId == -1) {
+    	String tableName=  request.getParameter("table") ;
+    	table= tableManager.getTable(tableName);
+    	if( table !=null) tableId= table.getId();
+    	else {
+        	out.println(PortletUtils.getMessage(pageContext, "object-type-not-set",null));
+        	return;
+    	}
+	}else{
+    	table= tableManager.getTable(tableId);
+	}
+	if(!table.isActionEnabled(Table.ADD) && table.isActionEnabled(Table.MODIFY)){
+		response.sendRedirect("/html/nds/objext/update_excel.jsp?"+request.getQueryString());
+		return;
+	}
+	String tabName= PortletUtils.getMessage(pageContext, "import",null)+" - "+ table.getDescription(locale);
+   
 %><html>
 <head>
 <%@ include file="/html/common/themes/top_meta.jsp" %>
@@ -27,25 +50,6 @@
 <title>Import</title>
 </head>
 <body id="maintab-body">
-<%
-	TableManager tableManager=TableManager.getInstance();
-	int tableId= ParamUtils.getIntAttributeOrParameter(request, "table", -1);
-	int objectId= ParamUtils.getIntAttributeOrParameter(request, "objectid", -1);
-	PairTable fixedColumns=PairTable.parseIntTable(request.getParameter("fixedcolumns"), null);	
-	Table table;
-	if( tableId == -1) {
-    	String tableName=  request.getParameter("table") ;
-    	table= tableManager.getTable(tableName);
-    	if( table !=null) tableId= table.getId();
-    	else {
-        	out.println(PortletUtils.getMessage(pageContext, "object-type-not-set",null));
-        	return;
-    	}
-	}else{
-    	table= tableManager.getTable(tableId);
-	}
-	String tabName= PortletUtils.getMessage(pageContext, "import",null)+" - "+ table.getDescription(locale);
-%>
 <fieldset id="setting">
   <legend><%=tabName%></legend>
   <div id="tab1">
@@ -95,13 +99,8 @@ WebUtils.checkDirectoryWritePermission(directory, request);
 <%=PortletUtils.getMessage(pageContext, "import-txt-1",null)%>:
 <div class="txt-columns">
 <%
-ArrayList asc=table.getShowableColumns(Column.ADD);
 // filter not modifiable columns
-ArrayList columns=new ArrayList();
-for( int i=0;i< asc.size();i++){
-    Column col= (Column) asc.get(i);
-    if( col.isModifiable(Column.ADD)) columns.add(col);
-}
+ArrayList columns=table.getColumns(new int[]{Column.MASK_CREATE_EDIT}, false, 0);
 boolean hasQtyColumn=false;
 %>
 <table class="cols">
