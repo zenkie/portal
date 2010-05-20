@@ -58,6 +58,8 @@ PairTable fixedColumns=PairTable.EMPTY_PAIRTABLE;
 boolean isInput=false;
 String namespace="";
 int status=0;
+boolean canVoid=false;
+boolean isVoid=false;
 org.json.JSONArray dcqjsonarraylist=new org.json.JSONArray();
 org.json.JSONObject dcqjsonObject=null;
 
