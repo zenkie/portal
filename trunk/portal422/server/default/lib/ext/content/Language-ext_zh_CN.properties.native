@@ -939,3 +939,5 @@ object-importing=对象正在执行明细的导入
 object-heavy-updating=对象正在进行长时间的更新计算
 wait-second-or=秒后自动返回，或者
 return-locked-page=立刻返回对象的显示页面
+object.void=作废
+object.unvoid=取消作废
