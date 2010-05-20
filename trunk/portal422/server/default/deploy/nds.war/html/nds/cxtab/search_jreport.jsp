@@ -9,6 +9,11 @@
 */
 	TableManager manager=TableManager.getInstance();
 	int cxtabId= ParamUtils.getIntAttributeOrParameter(request, "cxtab", -1);
+	if(cxtabId ==-1){
+		//try loading as name
+		cxtabId=Tools.getInt( QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where ad_client_id="+
+				userWeb.getAdClientId()+" and name="+QueryUtils.TO_STRING(request.getParameter("cxtab"))) ,-1);
+	}	
 	if(cxtabId ==-1) throw new NDSException("Internal error, cxtab id="+ cxtabId + " does not exist");
 	List list=QueryEngine.getInstance().doQueryList("select ad_table_id,name, description,attr1,attr2 from ad_cxtab where id="+ cxtabId);
  	if(list.size()==0)throw new NDSException("Internal error, cxtab id="+ cxtabId + " does not exist");
