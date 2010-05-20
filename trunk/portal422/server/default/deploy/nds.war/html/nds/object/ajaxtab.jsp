@@ -59,6 +59,10 @@ if( mainTableObjectId==-1){
     mainTableObjectId=ParamUtils.getIntParameter(request,nds.util.WebKeys.VALUE_HOLDER_PREFIX+"objectid", -1);
 }
 int status=0;
+boolean isVoid=QueryUtils.isVoid(mainTable,mainTableObjectId,null);
+if(isVoid){
+	isInput=false;
+}
 if(mainTableObjectId!=-1){
 try{
 if( manager.getColumn(mainTable.getName(), "status")!=null )
@@ -67,6 +71,7 @@ if( manager.getColumn(mainTable.getName(), "status")!=null )
 	e.printStackTrace();
 }
 }
+
 //System.out.println("mainTable="+mainTable+",id="+mainTableObjectId+",status="+ status );
 
 if(status==2) {

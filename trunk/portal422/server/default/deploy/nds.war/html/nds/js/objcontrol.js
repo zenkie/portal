@@ -22,6 +22,8 @@ ObjectControl.prototype = {
 		application.addEventListener( "SaveObjectNew", this._onSaveObjectNew, this);
 		application.addEventListener( "DeleteObject", this._onDeleteObject, this);
 		application.addEventListener( "SubmitObject", this._onSubmitObject, this);
+		application.addEventListener( "VoidObject", this._onVoidObject, this);
+		application.addEventListener( "UnvoidObject", this._onUnvoidObject, this);
 		application.addEventListener( "UnsubmitObject", this._onSubmitObject, this);// share the same handling method _onSubmitObject
 		application.addEventListener( "ExecuteAudit", this._onExecuteAudit, this);
 		application.addEventListener( "PrintJasper", this._onPrintJasper, this);
@@ -484,6 +486,30 @@ ObjectControl.prototype = {
 		if(oc._toggleButtons(true) ==false) return;
 		this._executeCommandEvent(evt);
     },
+    doVoid:function(){
+    	if (!confirm(gMessageHolder.DO_YOU_CONFIRM_VOID )) {
+            return false;
+        }
+		var evt=$H();
+		evt.command=this._masterObj.table.name+"Void";
+		evt.parsejson="Y";
+		evt.callbackEvent="VoidObject";
+		evt.merge(this._masterObj.hiddenInputs);
+		if(oc._toggleButtons(true) ==false) return;
+		this._executeCommandEvent(evt);
+    },
+    doUnvoid:function(){
+    	if (!confirm(gMessageHolder.DO_YOU_CONFIRM_UNVOID )) {
+            return false;
+        }
+		var evt=$H();
+		evt.command=this._masterObj.table.name+"Unvoid";
+		evt.parsejson="Y";
+		evt.callbackEvent="UnvoidObject";
+		evt.merge(this._masterObj.hiddenInputs);
+		if(oc._toggleButtons(true) ==false) return;
+		this._executeCommandEvent(evt);
+    },
     _onSubmitObject:function(e){
     	//console.log(e);
 		var r=e.getUserData(); 
@@ -506,7 +532,23 @@ ObjectControl.prototype = {
 			this._closeWindowOrShowMessage(r.message);
 		}
     },
-    
+    _onVoidObject:function(e){
+		var r=e.getUserData(); 
+		if(r.code!=0){
+			this._showMessage(r.message,true);
+		}else{
+			this._closeWindowOrShowMessage(r.message);
+		}
+    },
+    _onUnvoidObject:function(e){
+		var r=e.getUserData(); 
+		if(r.code!=0){
+			this._showMessage(r.message,true);
+		}else{
+			//refresh
+			window.location=this._url;
+		}
+    },
     _closeWindowOrShowMessage:function(msg){
 		var isclosed=false;
     	var w = window.opener;

@@ -28,7 +28,7 @@ PairTable fixedColumns= PairTable.parseIntTable(request.getParameter("fixedcolum
 boolean isInput= "view".equals(request.getParameter("action"))? false: ParamUtils.getBooleanParameter(request, "input",true);
 String namespace="";
 int status=0;
-	
+boolean isVoid=false;	
 TableManager manager=TableManager.getInstance();
 QueryEngine engine=QueryEngine.getInstance();
 org.json.JSONArray dcqjsonarraylist=new org.json.JSONArray();
@@ -128,15 +128,20 @@ if(table!=null){
 	}catch(Exception e){
 		
 	}
+	isVoid=QueryUtils.isVoid(table,objectId,null);
 	boolean hasWritePermission=false;
-	boolean isWriteEnabled= ( ((perm & 3 )==3)) && status!=3 && status!=2;
-	boolean isSubmitEnabled= ( ((perm & 5 )==5)) ;
+	boolean isWriteEnabled= ( ((perm & 3 )==3)) && status!=3 && status!=2 && !isVoid;
+	boolean isSubmitEnabled= ( ((perm & 5 )==5)) && !isVoid ;
 	
-	boolean canDelete= table.isActionEnabled(Table.DELETE) && isWriteEnabled && status !=2;
+	boolean canVoid= table.isActionEnabled(Table.VOID) && !isVoid;
+	boolean canUnvoid=table.isActionEnabled(Table.VOID) && isVoid;
+	boolean canDelete= table.isActionEnabled(Table.DELETE) && 
+		(( ((perm & 3 )==3)) && status!=3 && status!=2) && (isVoid || !table.isActionEnabled(Table.VOID) );
 	boolean canAdd= table.isActionEnabled(Table.ADD) && isWriteEnabled ;
 	boolean canModify= table.isActionEnabled(Table.MODIFY) && isWriteEnabled && status !=2;
 	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status ==1;
 	boolean canEdit= canModify || canAdd;
+	
 	/**------check permission end---**/
 	//try lock record
 	try{
@@ -184,7 +189,7 @@ if(table!=null){
 	String includePage=null;
 	String msgError=null;
 	if(objectId !=-1){
-			hasWritePermission=(canDelete || canModify ||canSubmit) && 
+			hasWritePermission=!isVoid && (canDelete || canModify ||canSubmit) && 
 				userWeb.hasObjectPermission(table.getName(),objectId,nds.security.Directory.WRITE);
 		 	if(isInput==true && hasWritePermission){
 		 		includePage="object_modify.jsp";
@@ -264,6 +269,12 @@ if(status==2){
 <%}else if(status==3){%>
 <div id="statusimg">
 	<img src="<%=NDS_PATH+"/images/auditing" + ("CN".equals(locale.getCountry())? "_zh_CN":"")+".gif"%>" width="74" height="58">
+</div>
+<%}
+if(isVoid){
+%>
+<div id="statusimg">
+	<img src="<%=NDS_PATH+"/images/void" + ("CN".equals(locale.getCountry())? "_zh_CN":"")+".gif"%>" width="74" height="58">
 </div>
 <%}%>
 <div id="obj-bottom">

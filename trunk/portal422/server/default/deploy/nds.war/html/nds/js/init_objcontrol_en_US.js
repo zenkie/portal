@@ -74,6 +74,9 @@ var gMessageHolder={
 	LINE:"Line",
 	TURBO_SCAN:"Turbo Scan",
 	SCAN_ERROR:"Error found:x. please enter 0 to close this alert( err count:y)",
-	PROCESS_ING:"Please wait until server finishes last request"
+	PROCESS_ING:"Please wait until server finishes last request",
+	DO_YOU_CONFIRM_UNVOID:"Confirm to unvoid current object?",
+	DO_YOU_CONFIRM_VOID:"Confirm to void current object?"
+
 };
 

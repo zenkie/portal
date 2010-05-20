@@ -43,6 +43,8 @@ TableCommand.prototype.makeTemplate=function(){
 (new TableCommand("ExportList", gMessageHolder.CMD_EXPORT_LIST,"tb_export.gif",null)).makeTemplate();
 (new TableCommand("SmsList", gMessageHolder.CMD_SMS_LIST,"tb_sms.gif",null)).makeTemplate();
 (new TableCommand("Refresh", gMessageHolder.CMD_REFRESH,"tb_refresh.gif","J")).makeTemplate();
+(new TableCommand("Void", gMessageHolder.CMD_VOID,"tb_void.gif",null)).makeTemplate();
+(new TableCommand("Unvoid", gMessageHolder.CMD_UNVOID,"tb_unvoid.gif",null)).makeTemplate();
 
 function TableCommands(oTable) {
 	this.id= oTable.id;
@@ -63,7 +65,7 @@ function TableCommands(oTable) {
 	}
 	if(oTable.actionMODIFY){
 		a1[a1.length]="Modify";
-		a2[a2.length]="Import";
+		if(!oTable.actionADD)a2[a2.length]="Import";
 	}
 	if(oTable.actionDELETE){
 		a1[a1.length]="Delete";
@@ -75,7 +77,10 @@ function TableCommands(oTable) {
 	/*if(oTable.actionEXPORT){
 		a2[a2.length]="SmsList";
 	}*/
-	
+	if(oTable.actionVOID){
+		a2[a2.length]="Void";
+		a2[a2.length]="Unvoid";
+	}
 	for(i=0;i<a1.length &&i<4;i++){
 		this._buttons[this._buttons.length]=a1[i];
 	}

@@ -56,6 +56,10 @@ var gMessageHolder={
 	ALREADY_CHOOSED:"Already Choosed",
 	ALREADY_EXCLUDE:"Already Exclude",
 	SET_ALREADY_CHOOSED:"The set already has been choosed",
-	SET_ALREADY_EXCLUDE:"The set already has been excluded"
+	SET_ALREADY_EXCLUDE:"The set already has been excluded",
+	CMD_VOID:"Void",
+	CMD_UNVOID:"Unvoid",
+	DO_YOU_CONFIRM_VOID:"Do you confirm to void all selection records",
+	DO_YOU_CONFIRM_UNVOID:"Do you confirm to unvoid all selection records"
 };
 

@@ -20,6 +20,12 @@ if( objectId == -1){
 			"oc.doDelete()","X"
 		));
 	}
+	if(canVoid){
+		validCommands.add( commandFactory.newButtonInstance("Void", 
+			PortletUtils.getMessage(pageContext, "object.void",null),
+			"oc.doVoid()","V"
+		));
+	}
 	if(canSubmit){
 		boolean shouldWarn=Tools.getYesNo(userWeb.getUserOption("WARN_ON_SUBMIT","Y"),true);
 		validCommands.add( commandFactory.newButtonInstance("Submit", 

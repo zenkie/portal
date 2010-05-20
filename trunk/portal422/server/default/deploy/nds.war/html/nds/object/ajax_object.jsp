@@ -119,15 +119,21 @@ if(table!=null){
 	}catch(Exception e){
 		
 	}
+	boolean isVoid=QueryUtils.isVoid(table,objectId,null);
 	boolean hasWritePermission=false;
-	boolean isWriteEnabled= ( ((perm & 3 )==3)) ;
-	boolean isSubmitEnabled= ( ((perm & 5 )==5)) ;
+	boolean isWriteEnabled= ( ((perm & 3 )==3)) && status!=3 && status!=2 && !isVoid;
+	boolean isSubmitEnabled= ( ((perm & 5 )==5)) && !isVoid ;
 	
-	boolean canDelete= table.isActionEnabled(Table.DELETE) && isWriteEnabled && status !=2;
+	boolean canVoid= table.isActionEnabled(Table.VOID) && !isVoid;
+	boolean canUnvoid=table.isActionEnabled(Table.VOID) && isVoid;
+	boolean canDelete= table.isActionEnabled(Table.DELETE) && 
+		(( ((perm & 3 )==3)) && status!=3 && status!=2) && (isVoid || !table.isActionEnabled(Table.VOID) );
+	
 	boolean canAdd= table.isActionEnabled(Table.ADD) && isWriteEnabled;
 	boolean canModify= table.isActionEnabled(Table.MODIFY) && isWriteEnabled && status !=2;
 	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status ==1;
 	boolean canEdit= canModify || canAdd;
+	
 	/**------check permission end---**/
 
 	/** -- add support for webaction of listbutton --**/
@@ -163,7 +169,7 @@ if(table!=null){
 	String includePage=null;
 	String msgError=null;
 	if(objectId !=-1){
-			hasWritePermission=userWeb.hasObjectPermission(table.getName(),objectId,nds.security.Directory.WRITE);
+			hasWritePermission=!isVoid && userWeb.hasObjectPermission(table.getName(),objectId,nds.security.Directory.WRITE) ;
 		 	if(isInput==true && hasWritePermission){
 		 		includePage="object_modify.jsp";
 		 	}else if(userWeb.hasObjectPermission(table.getName(),objectId,nds.security.Directory.READ)){

@@ -64,5 +64,9 @@ var gMessageHolder={
 	TITLE:"标题",
 	URGENT_MESSAGE:"你有$$条紧急消息必需马上处理",
 	CONFIRM_MESSAGE:"共有$$条需要确认",
-	ALL_NOTICES:"全部通告"
+	ALL_NOTICES:"全部通告",
+	CMD_VOID:"作废",
+	CMD_UNVOID:"取消作废",
+	DO_YOU_CONFIRM_VOID:"你确认要作废所选单据吗？",
+	DO_YOU_CONFIRM_UNVOID:"你确认要取消作废所选单据吗？"
 };

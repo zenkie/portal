@@ -8,6 +8,7 @@
 	tableObj.put("actionSUBMIT", canSubmit);
 	tableObj.put("actionEXPORT", canExport);
 	tableObj.put("actionGROUPSUBMIT", canSubmit &&  table.isActionEnabled(Table.GROUPSUBMIT));
+	tableObj.put("actionVOID", canVoid);
 	
 	/**
 	  1) Metadata

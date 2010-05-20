@@ -29,15 +29,17 @@ if(tableId==-1){
 PairTable fixedColumns=new PairTable();
 /**------check permission---**/
 int perm= WebUtils.getDirectoryPermission(table.getSecurityDirectory(), request);
+
 boolean isWriteEnabled= ( ((perm & 3 )==3));
 boolean isSubmitEnabled= ( ((perm & 5 )==5));
+boolean canVoid= table.isActionEnabled(Table.VOID) && isWriteEnabled ;
 boolean canExport= ( ((perm & 17 )==17));
 boolean canDelete= table.isActionEnabled(Table.DELETE) && isWriteEnabled ;
 boolean canAdd= table.isActionEnabled(Table.ADD) && isWriteEnabled ;
 boolean canModify=listEditable&& table.isActionEnabled(Table.MODIFY) && isWriteEnabled ;
 boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled ;
 
-boolean hasCommand=  canDelete || canSubmit ; 
+boolean hasCommand=  canDelete || canSubmit || canVoid; 
 WebUtils.checkDirectoryReadPermission(table.getSecurityDirectory(), request);// -- This is commented by Tony
 boolean isStatusValid= table.isActionEnabled(Table.SUBMIT);
 boolean isModify=canModify;

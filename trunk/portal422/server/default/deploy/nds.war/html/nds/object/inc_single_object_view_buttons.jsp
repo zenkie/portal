@@ -41,6 +41,18 @@ if( table.isActionEnabled(Table.AUDIT) && table.isActionEnabled(Table.SUBMIT) &&
 		));
 	}
 }
+if(canUnvoid){
+		validCommands.add( commandFactory.newButtonInstance("Unvoid", 
+			PortletUtils.getMessage(pageContext, "object.unvoid",null),
+			"oc.doUnvoid()","V"
+		));
+		if(canDelete){
+			validCommands.add( commandFactory.newButtonInstance("Delete", 
+			PortletUtils.getMessage(pageContext, "object.delete",null),
+			"oc.doDelete()","X"
+			));
+		}
+}
 if(objectId!=-1){
     // get extended buttones
     validCommands.addAll(table.getExtendButtons(objectId, userWeb));

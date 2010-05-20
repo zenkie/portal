@@ -75,5 +75,7 @@ var gMessageHolder={
 	LINE:"行",
 	TURBO_SCAN:"急速扫描",
 	SCAN_ERROR:"扫描条码时发现异常:x。请输入0关闭当前提示(已累计错误y次)",
-	PROCESS_ING:"请在服务器处理完成后再输入"
+	PROCESS_ING:"请在服务器处理完成后再输入",
+	DO_YOU_CONFIRM_UNVOID:"确认要取消作废当前对象吗？",
+	DO_YOU_CONFIRM_VOID:"确认要作废当前对象吗？"
 };

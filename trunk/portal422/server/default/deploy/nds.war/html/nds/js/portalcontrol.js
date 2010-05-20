@@ -43,6 +43,7 @@ PortalControl.prototype = {
 		application.addEventListener( "UpdateGrid", this._updateGrid, this);
 		application.addEventListener( "ListSubmit", this._onListSubmit, this);
 		application.addEventListener( "ListDelete", this._onListDelete, this);
+		application.addEventListener( "ListVoid", this._onListVoid, this);
 		application.addEventListener( "ExecuteCxtab", this._onExecuteCxtab, this);
 		application.addEventListener( "DeleteFile", this._onDeleteFile, this);
 		application.addEventListener( "ExecuteAudit", this._onExecuteAudit, this);
@@ -183,6 +184,9 @@ PortalControl.prototype = {
 		}
     },
     _onListSubmit:function(e){
+    	this._onListOperation(e,true);
+    },
+    _onListVoid:function(e){
     	this._onListOperation(e,true);
     },
 	onSearchReturn :function(event) {
@@ -1505,6 +1509,42 @@ PortalControl.prototype = {
 			}
     	}
 			
+    },
+    /**
+     * @param b if true, void, false: unvoid
+     */
+    doVoid:function(){
+    	var evt={};
+		evt.command="ListVoid";
+		evt.callbackEvent="ListVoid";
+		evt.table=this._tableObj.id;
+		evt.itemid=this._getSelectedItemIds();
+		if(evt.itemid.length==0){
+ 			alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
+            return;				
+		}
+		if (!confirm( gMessageHolder.DO_YOU_CONFIRM_VOID)) {
+        	return;
+    	}		
+		this.executeCommandEvent(evt);  
+    },
+    /**
+     * @param b if true, void, false: unvoid
+     */
+    doUnvoid:function(){
+    	var evt={};
+		evt.command="ListUnvoid";
+		evt.callbackEvent="ListVoid";
+		evt.table=this._tableObj.id;
+		evt.itemid=this._getSelectedItemIds();
+		if(evt.itemid.length==0){
+ 			alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
+            return;				
+		}
+		if (!confirm( gMessageHolder.DO_YOU_CONFIRM_UNVOID)) {
+        	return;
+    	}		
+		this.executeCommandEvent(evt);  
     },
 	doAdd:function(){
     	showObject2(gridInitObject.mainobjurl+"-1",this._dialogOption);
