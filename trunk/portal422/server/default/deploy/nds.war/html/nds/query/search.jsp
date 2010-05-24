@@ -144,7 +144,7 @@ if(allowMultipleSelection){
 <div id="query_content" align="right" <%=table.isDropdown()?"style='display:none'":""%>>
 <%
 	if(searchOnColumn!=null && searchOnColumn.isFilteredByWildcard() 
-		/*marked 2010-3-15 && !allowMultipleSelection */
+		 && !allowMultipleSelection 
 		){
 		Expression expr= WebUtils.parseWildcardFilter(searchOnColumn,request,userWeb);
 %>
