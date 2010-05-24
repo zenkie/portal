@@ -107,7 +107,7 @@
 	<%
 	if(shouldDescTdDisplay){
     %>
-    <div class="desc-txt"><%=desc%>:</div>
+    <div class="desc-txt<%=column.isNullable()?"":" nn"%>"><%=desc%>:</div>
 	<%}%>
     </td>
     <td  id="tdv_<%=column.getId()%>" class="value" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' <%=(ds.getColumns()-1)*2>0? "colspan='"+((ds.getColumns()-1)*2+1)+"'":"" %>>

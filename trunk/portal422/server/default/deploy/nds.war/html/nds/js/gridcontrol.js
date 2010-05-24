@@ -1739,6 +1739,8 @@ GridControl.prototype = {
 		if(e.type == "checkbox"){
 			if(val=="Y") val=true;
 			else if(val=="N") val=false;
+		}else if(e.tagName=="SPAN"){
+			val=dwr.util.escapeHtml(val);	
 		}
 		dwr.util.setValue(e,val,options);
 		}catch(ex){

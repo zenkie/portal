@@ -48,7 +48,7 @@
 	// if(columnId!=-1) url=request.getContextPath()+"/servlets/query?table="+TableManager.getInstance().getColumn(columnId).getTable().getId()+"&return_type=s&accepter_id=form1."+name;
 %>
   <table>
-    <tr><td height="18" width="200" align="middle" ><%=desc%><%="Y".equals(nullable)?"":"<font color='red'>*</font>"%>:</td>
+    <tr><td height="18" width="200" align="left" ><%=desc%><%="Y".equals(nullable)?"":"<font color='red'>*</font>"%>:</td>
     <td height="18" width="250" align="left">
     	<%
     	 String column_acc_Id="column_"+columnId;

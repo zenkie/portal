@@ -70,7 +70,7 @@ for( int i=0;i< editColumns.size();i++){
     colDisplayName=  model.getDescriptionForColumn(column);
 %>
 <td height="18" width="<%=widthPerColumn*2/3%>%" nowrap align="right" valign='top' class="desc">
-<div id="lb_<%=columnDomId%>" class="desc-txt"> <%=colDisplayName%>:</div>
+<div id="lb_<%=columnDomId%>" class="desc-txt<%=column.isNullable()?"":" nn"%>"> <%=colDisplayName%>:</div>
 </td>
 <td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' class="value">
 	<div id="tf_<%=columnDomId%>">
