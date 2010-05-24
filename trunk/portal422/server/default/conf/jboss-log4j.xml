@@ -14,7 +14,7 @@
    | owebsite: http://jakarta.apache.org/log4j
  -->
 
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false" threshold="info">
 
    <!-- ================================= -->
    <!-- Preserve messages in a local file -->
@@ -35,13 +35,42 @@
 
       <layout class="org.apache.log4j.PatternLayout">
          <!-- The default pattern: Date Priority [Category] Message\n -->
-         <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
+         <param name="ConversionPattern" value="%d %-5p %X{user} %X{ip} %X{sid} [%c] %m%n"/>
 
          <!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n
          <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
           -->
       </layout>
    </appender>
+<!--   
+<appender name="JDBC" class="org.apache.log4j.jdbcplus.JDBCAppender">
+	<param name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+	<param name="dbclass" value="oracle.jdbc.driver.OracleDriver"/>
+	<param name="username" value="neands3"/>
+	<param name="password" value="abc123"/>
+	<param name="table" value="c_serverlog"/>
+	<param name="column" value="id~ORACLE_SEQUENCE~SEQ_C_SERVERLOG"/>
+	<param name="column" value="prio~PRIO"/>
+	<param name="column" value="iprio~IPRIO"/>
+	<param name="column" value="cat~CAT"/>
+	<param name="column" value="thread~THREAD"/>
+	<param name="column" value="msg~MSG"/>
+	<param name="column" value="layout_msg~LAYOUT"/>
+	<param name="column" value="throwable~THROWABLE"/>
+	<param name="column" value="ndc~EMPTY"/>
+	<param name="column" value="mdc~MDC~user"/>
+	<param name="column" value="mdc2~MDC~ip"/>
+	<param name="column" value="mdc3~MDC~sid"/>
+	<param name="column" value="mdc4~MDC~tra"/>
+	<param name="column" value="info~EMPTY"/>
+	<param name="column" value="addon~EMPTY"/>
+	<param name="column" value="the_date~EMPTY"/>
+	<param name="column" value="the_time~EMPTY"/>
+	<param name="column" value="the_timestamp~TIMESTAMP"/>
+	<param name="column" value="created_by~STATIC~SVR1"/>
+	<param name="usePreparedStatements" value="true"/>
+	<param name="throwableMaxChars" value="4000"/>
+</appender>	-->
 
    <!-- A size based file rolling appender
    <appender name="FILE" class="org.jboss.logging.appender.RollingFileAppender">
@@ -68,7 +97,7 @@
 
       <layout class="org.apache.log4j.PatternLayout">
          <!-- The default pattern: Date Priority [Category] Message\n -->
-         <param name="ConversionPattern" value="%d{ISO8601} %-5p [%c{1}] %m%n"/>
+         <param name="ConversionPattern" value="%d{ISO8601} %-5p %X{user} %X{ip} %X{sid} [%c{1}] %m%n"/>
       </layout>
    </appender>
 
@@ -283,7 +312,7 @@
    <category name="org.jboss">
      <priority value="INFO"/>
    </category>
-   <category name="nds.control.web.">
+   <category name="nds.control.web">
      <priority value="INFO"/>
    </category>
    <category name="nds.control">
@@ -308,11 +337,9 @@
    <category name="nds.control.web" >
      <priority value="DEBUG"/>
    </category>
-<!--     <appender-ref ref="JDBC"/> 
-     <appender-ref ref="CONSOLE"/> -->
 
 <category name="nds.control.web.reqhandler" >
-     <priority value="INFO"/>
+     <priority value="DEBUG"/>
    </category>
    <category name="nds.query">
      <priority value="DEBUG"/>
@@ -354,7 +381,7 @@
      <priority value="ERROR"/>
    </category>   
    <category name="nds.process">
-     <priority value="DEBUG"/>
+     <priority value="INFO"/>
    </category>   
    <category name="nds.process.ProcessUtils">
      <priority value="DEBUG"/>
@@ -383,6 +410,7 @@
    <root>
       <appender-ref ref="CONSOLE"/>
       <appender-ref ref="FILE"/>
+      <!--<appender-ref ref="JDBC"/>-->
    </root>
 
    <!-- Clustering logging -->
