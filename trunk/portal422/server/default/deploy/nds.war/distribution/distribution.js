@@ -419,10 +419,11 @@ DIST.prototype={
                             cellData.docType =colorArr[p].stores[pp].docnos[ppp].type;//订单类型
                             cellData.store = colorArr[p].stores[pp].name;//店仓
                             cellData.barCode =colorArr[p].stores[pp].docnos[ppp].tag.barCode[w];//所属条码
-                            cellData.qtyAl = qtyAl;
-                            cellData.qtyCan = qtyCan;
-                            cellData.qtyRem = qtyRem;//订单余量
-                            cellData.qtyDest= qtyDest;//订单量
+                            cellData.qtyAl = isNaN(parseInt(qtyAl))?0:parseInt(qtyAl);
+
+                            cellData.qtyCan = isNaN(parseInt(qtyCan))?0:parseInt(qtyCan);
+                            cellData.qtyRem = isNaN(parseInt(qtyRem))?0:parseInt(qtyRem);//订单余量
+                            cellData.qtyDest= isNaN(parseInt(qtyDest))?0:parseInt(qtyDest);//订单量
                             this.data.push(cellData);
                             /* end */
                           }
@@ -826,7 +827,7 @@ DIST.prototype={
     	jQuery("#alert-auto-dist").hide();
     },
     exec_dist:function(){
-     	if(!confirm("确认放弃已编辑内容？")){
+     	if(!confirm("自动配货会清空已编辑内容，确认继续？")){
           return;
       }
     	var expr;
@@ -835,8 +836,8 @@ DIST.prototype={
     		expr="#ph-from-right-table>table input[docType][sty][store]";
     		expr0="#ph-from-right-table>table input[docType][sty][store][value!=''][value!='0']";
     	}else{
-    		expr="#ph-from-right-table>table[:visible] input[docType][sty][store]";
-    		expr0="#ph-from-right-table>table[:visible] input[docType][sty][store][value!=''][value!='0']"
+    		expr="#ph-from-right-table>table:visible input[docType][sty][store]";
+    		expr0="#ph-from-right-table>table:visible input[docType][sty][store][value!=''][value!='0']"
     	}
     	var dist_type=jQuery("#dist_type").val();
     	if(jQuery("#"+dist_type)[0]){
@@ -916,6 +917,9 @@ DIST.prototype={
      ×显示自动配货界面
      */    
     autoDist:function(){
+      if($("orderStatus").value=="2"){
+          return;
+      }    	
     	jQuery("#alert-auto-dist").show();
     	var tot_can=parseInt(jQuery("#tot-can").html(),10);
     	
