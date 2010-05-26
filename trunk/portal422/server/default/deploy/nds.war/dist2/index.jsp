@@ -1,6 +1,5 @@
 ﻿<%@ page language="java"  pageEncoding="utf-8"%>
 <%@ page import="nds.control.web.UserWebImpl" %>
-<%@ page import="nds.query.QueryEngine" %>
 <%@ page import="nds.control.web.WebUtils" %>
 <%@ page import="nds.schema.Table" %>
 <%@ page import="nds.schema.TableManager" %>
@@ -113,7 +112,7 @@
         <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord');"/>
         <%}%>
         <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250)"/>
-        <input type="image" name="imageField2" src="images/btn-k.gif" onclick="dist.exec_dist('all');" />
+        <input type="image" name="imageField2" src="images/btn-k.gif" onclick="dist.exec_dist('style');" />
         <input type="image" name="imageField2" src="images/btn-zd.gif" onclick="dist.exec_dist('all');" />
         <input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
     </div>
@@ -129,7 +128,7 @@
         <td nowrap="" align="left" width="16%" valign="top" class="ph-value">
             <input type="text" value="" id="column_40252" readonly="true" class="ipt-4-2" size="20" maxlength="80" tabindex="1" name="b_so_id__docno"/>
             <input type="hidden" value="" name="B_SO_ID" id="fk_column_40252"/>
-            <span onaction="oq.toggle('/html/nds/query/search.jsp?table=12943&amp;return_type=s&amp;column=40252&amp;accepter_id=column_40252&amp;qdata='+encodeURIComponent(document.getElementById('column_40252').value)+'&amp;queryindex=','column_40252')" id="cbt_40252" class="coolButton"><img height="16" border="0" align="absmiddle" width="16" title="Find" src="/html/nds/images/find.gif"/></span>
+            <span onaction="oq.toggle('/html/nds/query/search.jsp?table=b_so&amp;return_type=s&amp;column=40252&amp;accepter_id=column_40252&amp;qdata='+encodeURIComponent(document.getElementById('column_40252').value)+'&amp;queryindex=','column_40252')" id="cbt_40252" class="coolButton"><img height="16" border="0" align="absmiddle" width="16" title="Find" src="/html/nds/images/find.gif"/></span>
             <script>
                 createButton(document.getElementById("cbt_40252"));
             </script>
@@ -140,7 +139,7 @@
             <span  class="coolButton" id="column_26993_link" title=popup onaction="dist.getCustomId();"><img id='column_26993_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
             <script type="text/javascript" >createButton(document.getElementById('column_26993_link'));</script>
         </td>
-        <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">配货时间<font color="red">*</font>：</div></td>
+        <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">配单日期<font color="red">*</font>：</div></td>
         <td class="ph-value"  valign="top" nowrap="" align="left">
             <input type="text" name="canModify" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="distdate" value="<%=end%>" />
                                 <span  class="coolButton" name="canShow">

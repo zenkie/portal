@@ -38,6 +38,16 @@ DIST.prototype={
         });
     },
     queryObject: function(style){
+        this.itemStr="";
+        this.manuStr="";
+        this.allot_id=null;
+        this.manu=null;
+        this.item=null;
+        this.product=new Array();
+        this.status=0;
+        this.data=new Array();//向数据库获得数据组成单元数组
+        this.barcode_data=new Array();//条码数据数组
+        this.store_count=0;    	
         var evt={};
         evt.command="DBJSONXML";
         evt.callbackEvent="DO_QUERY";
@@ -226,7 +236,10 @@ DIST.prototype={
     	jQuery("#alert-auto-dist").hide();
     },
     exec_dist:function(dist_type){
-     	if(!confirm("自动配货会清空已编辑内容，确认放弃？")){
+      if($("orderStatus").value=="2"){
+          return;
+      }     	
+     	if(!confirm("自动配货会清空已编辑内容，确认继续？")){
           return;
       }
     	var expr;
@@ -235,8 +248,8 @@ DIST.prototype={
     		expr="#ph-from-right-table>table input[sty][store]";
     		expr0="#ph-from-right-table>table input[sty][store][value!=''][value!='0']";
     	}else{
-    		expr="#ph-from-right-table>table[:visible] input[sty][store]";
-    		expr0="#ph-from-right-table>table[:visible] input[sty][store][value!=''][value!='0']"
+    		expr="#ph-from-right-table>table:visible input[sty][store]";
+    		expr0="#ph-from-right-table>table:visible input[sty][store][value!=''][value!='0']"
     	}
     	jQuery(expr0).each(function(){
     		dist.autoDistForCell(0,this);
@@ -482,7 +495,6 @@ DIST.prototype={
         		this.update_row_tot(pdts[y].pdtStyle,pdts[y].color[m].colorName,pdts[y].color[m].stors[l].id);
         	}
       	}
-
       	jQuery("#"+pdts[y].pdtStyle+"-tot").html(tot_style);
       }    	
     },
