@@ -99,12 +99,10 @@ DIST.prototype={
         var m_item=new Array();
         for(var i=0;i<this.data.length;i++){
         	var ii={};
-        	if(this.data[i].qtyAl>0){
-        		ii.qty_ady=this.data[i].qtyAl;
-        		ii.m_product_alias_id=this.data[i].barcode;
-        		ii.store_id=this.data[i].store;
-        		m_item.push(ii);
-        	}
+      		ii.qty_ady=this.data[i].qtyAl;
+      		ii.m_product_alias_id=this.data[i].barcode;
+      		ii.store_id=this.data[i].store;
+      		m_item.push(ii);
         }
         var docno=$("column_40252").value;
         var param={};
