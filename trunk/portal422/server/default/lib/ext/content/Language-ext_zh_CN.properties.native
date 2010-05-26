@@ -941,3 +941,5 @@ wait-second-or=秒后自动返回，或者
 return-locked-page=立刻返回对象的显示页面
 object.void=作废
 object.unvoid=取消作废
+fast-export=快速导出
+info-on-cube-def=越少的分类字段，Cube生成的时间越短。另外，执行快速导出时，仅行定义的分类字段会被使用。
