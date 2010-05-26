@@ -193,6 +193,7 @@ document.write(tree);
 		<%@ include file="/html/nds/common/helpbtn.jsp"%>
 		</td>
 	</tr>
+	<tr><td width="600" colspan="3" height="40"><img src="/html/nds/images/suggest.png" ><%=PortletUtils.getMessage(pageContext, "info-on-cube-def",null)%></td></tr>
 </table>
 </td></tr>
 </form>

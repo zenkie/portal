@@ -244,7 +244,10 @@ if("true".equals( ((Configurations)WebUtils.getServletContextManager().getActor(
 <%}%>      
 <%if(Validator.isNotNull(jReportPath)){
 	if(jReportPath.endsWith(".jrxml")){%>
-	  <%if(hasDimension){%><input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;<%}%>
+	  <%if(hasDimension){%>
+	  	<input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;
+	  	<input id="btn_run_csv" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'csv')" value="<%=PortletUtils.getMessage(pageContext, "fast-export",null)%>">&nbsp;&nbsp;
+	  <%}%>
       <input id="btn_run_jxls" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'xls')" value="<%=PortletUtils.getMessage(pageContext, "execute-jxls",null)%>">&nbsp;&nbsp;
       <input id="btn_run_jhtm" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'htm')" value="<%=PortletUtils.getMessage(pageContext, "execute-jhtm",null)%>">&nbsp;&nbsp;
       <input id="btn_run_jpdf" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'pdf')" value="<%=PortletUtils.getMessage(pageContext, "execute-jpdf",null)%>">&nbsp;&nbsp;
@@ -253,7 +256,10 @@ if("true".equals( ((Configurations)WebUtils.getServletContextManager().getActor(
     <%}%>  
 <%	
 }else{%>
-	<%if(hasDimension){%><input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;<%}%>
+	<%if(hasDimension){%>
+	<input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;
+	<input id="btn_run_csv" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'csv')" value="<%=PortletUtils.getMessage(pageContext, "fast-export",null)%>">&nbsp;&nbsp;
+	<%}%>
 <%}
  int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
 if((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE ){

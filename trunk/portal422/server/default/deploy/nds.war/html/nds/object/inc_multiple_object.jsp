@@ -193,7 +193,8 @@ for(int i=0;i< columns.size();i++){
           <span id="<%=cId%>"></span>
 		  <%}
          }// end rsColumns[i].isModifiable(Column.MODIFY))
-         else{%>
+         else{
+         	%>
 <span id="<%=cId%>"></span>
          <%}
 	}%></td>

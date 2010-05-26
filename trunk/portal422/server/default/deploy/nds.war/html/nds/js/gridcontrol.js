@@ -1145,11 +1145,17 @@ GridControl.prototype = {
 		}
 		$( line[0]+"_jsonobj" ).innerHTML=jsonhtml;
 		var canModify=(this._tableActions.indexOf("M")>=0);
-		var ele;
+		var ele; var escapeHTMLOption={escapeHtml:true}; var opt;
 		for(i=4;i< cols.length;i++){
 			col= cols[i];
 			if(col.isVisible){
-				this._setValue(line[0]+"_"+ col.name,line[i] );
+				if(col.dsptype > 5 && col.dsptype<12){
+					//allow html for these one	
+					opt={};
+				}else{
+					opt=escapeHTMLOption;//escape html, so no html can be written to html
+				}
+				this._setValue(line[0]+"_"+ col.name,line[i],opt );
 				if(col.objIdPos!=-1 && col.rTableId!=-1){
 					if(line[col.objIdPos]!=null){
 						ele=$(line[0]+"_"+ col.name+"_url");
@@ -1739,8 +1745,6 @@ GridControl.prototype = {
 		if(e.type == "checkbox"){
 			if(val=="Y") val=true;
 			else if(val=="N") val=false;
-		}else if(e.tagName=="SPAN"){
-			val=dwr.util.escapeHtml(val);	
 		}
 		dwr.util.setValue(e,val,options);
 		}catch(ex){
