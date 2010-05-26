@@ -1,5 +1,5 @@
 ﻿<%@ page language="java"  pageEncoding="utf-8"%>
-<%@ page import="java.util.Date" %>
+<%@ page import="java.util.Date,java.util.regex.Pattern,java.util.regex.Matcher" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="nds.control.web.UserWebImpl" %>
 <%@ page import="nds.query.QueryEngine" %>
@@ -46,6 +46,14 @@
     String tableName=t.getName();
     int distributionTableId=t.getId();
     String comp=String.valueOf(QueryEngine.getInstance().doQueryOne("select VALUE from AD_PARAM where NAME='portal.company'"));
+    String orgStore=String.valueOf(QueryEngine.getInstance().doQueryOne("SELECT b.ad_table_id from ad_column a,ad_column b where a.name= 'M_ALLOT.C_ORIG_ID' and a.ref_column_id=b.id"));
+    String destStore=String.valueOf(QueryEngine.getInstance().doQueryOne("select a.REGEXPRESSION from ad_column a where a.name= 'M_ALLOT.DEST_FILTER'"));
+    String column=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_column where name='M_ALLOT.B_SO_FILTER'"));
+   	Pattern p=Pattern.compile("\"table\":\"(\\w+)\"");
+    Matcher m=p.matcher(destStore);
+    if(m.find()){
+        destStore=m.group(1);
+     }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -157,7 +165,7 @@
                             <td class="ph-desc" width="75" valign="top" nowrap="" align="right"><div class="desc-txt">发货店仓<font color="red">*</font>：</div></td>
                             <td class="ph-value" width="180" valign="top" nowrap="" align="left"><input name="c_orig_id__name" readonly="" type="text" class="ipt-4-2"  id="column_26992"  value="" />
                                 <input type="hidden" id="fk_column_26992" name="C_ORIG_ID" value="">
-                  <span  class="coolButton" id="cbt_26992" onaction="oq.toggle('/html/nds/query/search.jsp?table=16956&return_type=s&column=26992&accepter_id=column_26992&qdata='+encodeURIComponent(document.getElementById('column_26992').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_26992')"><img width="16" height="16" border="0" align="absmiddle" title="Find" src="images/find.gif"/></span>
+                  <span  class="coolButton" id="cbt_26992" onaction="oq.toggle('/html/nds/query/search.jsp?table=<%=orgStore%>&return_type=s&column=26992&accepter_id=column_26992&qdata='+encodeURIComponent(document.getElementById('column_26992').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_26992')"><img width="16" height="16" border="0" align="absmiddle" title="Find" src="images/find.gif"/></span>
                       <script type="text/javascript" >createButton(document.getElementById("cbt_26992"));</script>
                             </td>
                             <!--收货店仓-->
@@ -165,7 +173,7 @@
                             <td class="ph-value" width="180" valign="top" nowrap="" align="left">
                                 <input type='hidden' id='column_26993' name="column_26993" value=''>
                                 <input name="" readonly type="text" class="ipt-4-2" id='column_26993_fd' value="" >
-                                    <span  class="coolButton" id="column_26993_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table=C_V_ALLOTSTORE2&return_type=f&accepter_id=column_26993', 'column_26993');"><img id='column_26993_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
+                                    <span  class="coolButton" id="column_26993_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table=<%=destStore%>&return_type=f&accepter_id=column_26993', 'column_26993');"><img id='column_26993_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
                                 <script type="text/javascript" >createButton(document.getElementById('column_26993_link'));</script>
                             </td>
                             <!--
@@ -218,7 +226,7 @@
                             <td class="ph-value" valign="top" align="left" >
                                 <input type="text" name="canModify" class="notes" id="notes"/>
                             </td>
-                            <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">配货时间<font color="red">*</font>：</div></td>
+                            <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">配单日期<font color="red">*</font>：</div></td>
                             <td class="ph-value"  valign="top" nowrap="" align="left">
                                 <input type="text" name="canModify" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="distdate" value="<%=end%>" />
                                 <span  class="coolButton" name="canShow">
@@ -242,7 +250,7 @@
                             <td class="ph-value" width="165" valign="top" nowrap="" align="left">
                                 <input name="Input2" type="text" readonly="true" class="ipt-4-2" id="column_41520_fd" value=""/>
                                 <input type="hidden" id="column_41520" name="DOCUMENT_ID" value="">
-                        <span id="column_41520_link" class="coolButton" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'b_so'+'&return_type=f&column=41520&accepter_id=column_41520', 'column_41520');"><img id='column_41520_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
+                        <span id="column_41520_link" class="coolButton" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'b_so'+'&return_type=f&column=<%=column%>&accepter_id=column_41520', 'column_41520');"><img id='column_41520_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
                                 <script type="text/javascript" >createButton(document.getElementById('column_41520_link'));</script>
                             </td>
                             <td align="right" valign="top" nowrap="nowrap" class="ph-desc"><div class="desc-txt">备&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  注：</div></td>
@@ -260,7 +268,7 @@
                             <td class="ph-value" valign="top" align="left">
                                 <input type="text" name="canModify" class="notes" id="orderNotes"/>
                             </td>
-                            <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">配货时间<font color="red">*</font>：</div></td>
+                            <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">配单日期<font color="red">*</font>：</div></td>
                             <td class="ph-value"  valign="top" nowrap="" align="left">
                                 <input type="text" name="canModify" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="distdate1" value="<%=end%>" />
                                 <span  class="coolButton" name="canShow">
@@ -394,7 +402,7 @@
 </table>
 	<div id="alert-auto-dist" style="position:absolute;top:0pt;left:0pt;z-index:100;background-color:#024770;height:100%;width:100%;display:none;">
 		<div id="auto-bg">
-		<div id="auto-menu"><input name="" type="image" src="images/btn-gb.gif" width="21" height="21" /></div>
+		<div id="auto-menu"><input name="" type="image" src="images/btn-gb.gif" width="21" height="21" onclick="dist.closeAuto();" /></div>
 			<div id="auto-main">
 				<div id="tabsG">
   				<ul>
@@ -440,7 +448,7 @@
       <input type="radio" onclick="checkType(event);" name="dist_type" value="not_order" />
       </label></td>
 							    <td width="150"><div class="ph-left-txt">按未配量比例配货<font color="red">*</font>：</div></td>
-							    <td width="297"><div class="ph-right-txt"><input onblur="checkFloat(event)" disabled="true" id="fowNotOrderPercent" name="" type="text" class="right-input" /></div></td>
+							    <td width="297"><div class="ph-right-txt"><input onblur="checkFloat(event)" disabled="true" id="fowNotOrderPercent" name="" type="text" value="1" class="right-input" /></div></td>
 							  </tr>
 							  <tr>
 							    <td width="13">&nbsp;</td>
