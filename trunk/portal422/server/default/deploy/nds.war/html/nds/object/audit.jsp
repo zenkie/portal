@@ -10,7 +10,8 @@
      如果用户尚未登录系统，将引导向登录窗口
      * Things needed in this page:
      *  1.  table     main table that queried on(can be id or name),如果审核人没有访问此表的权限，自动尝试对应的real_table的相应记录的权限
-     *  2.  id        id of object to be displayed, -1 means not found
+     *  2.  id        id of object to be displayed, -1 means not found, when param table is set, id should be pk of the table specified
+     				  if table is not set, it will be id of table V_AUDITBILL(view of AU_PHASEINSTANCE)
      *  3.  auditid   用于审核人审核单据所定义工作流的id 即 au_phaseinstance.id; 
      */
     String urlOfThisPage;
@@ -24,6 +25,7 @@ if(userWeb==null || userWeb.isGuest()){
 	response.sendRedirect("/login.jsp?redirect="+redirect);
 	return;
 }
+QueryEngine engine=QueryEngine.getInstance();
 TableManager manager=TableManager.getInstance();
 Table table=null;
 int tableId= Tools.getInt(tableName,-1);
@@ -35,7 +37,19 @@ if(tableId==-1){
 }else{
 	table=manager.getTable(tableId);
 }
-QueryEngine engine=QueryEngine.getInstance();
+// if table is null, id should be pk of V_AUDITBILL
+if(table==null){
+	List al=engine.doQueryList("select ad_table_id, record_id from AU_PHASEINSTANCE where id="+objectId);
+	if(al.size()>0){
+		auditid=objectId;
+		tableId= Tools.getInt( ((List)al.get(0)).get(0),-1);
+		objectId=Tools.getInt( ((List)al.get(0)).get(1),-1);
+		table= manager.getTable(tableId);
+		if(table==null || objectId==-1) throw new NDSException("Parameter error");
+	}else{
+		throw new NDSException("Parameter error");
+	}
+}
 // if auditid not set, search over au_phaseinstance for current user and current object,
 // if multiple found, latest one will be located.
 if(auditid==-1){
