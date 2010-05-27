@@ -104,7 +104,7 @@ for(int i=0;i< columns.size();i++){
 	    a.put("onkeydown", "pc.moveTableFocus(event)");
         if(col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK){
 	 	%>
-<input type="checkbox" id="<%=cId%>" value="Y" onchange="pc.cellChanged(event)" class="cbx" <%=isModifiable?"":"DISABLED"%> />
+<input type="checkbox" id="<%=cIdInput%>" value="Y" onchange="pc.cellChanged(event)" class="cbx" <%=isModifiable?"":"DISABLED"%> />
        <%}else{%>
 <input:select name="<%=cId%>" default="<%=columnDataValue%>" attributes="<%= a %>" options="<%= o %>" attributesText="<%=isModifiable?"":"DISABLED"%>" />
 		<%}

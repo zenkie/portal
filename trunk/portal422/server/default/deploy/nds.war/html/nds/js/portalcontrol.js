@@ -587,6 +587,7 @@ PortalControl.prototype = {
 			col= cols[i];
 			if(col.isVisible){
 				e=$(line[0]+"_"+ col.name);
+				//console.log( "e======"+line[0]+"_"+ col.name);
 				if(col.rTableId!=-1 && line[col.objIdPos]!=null && line[i]!=null){
 					if(e.tagName.toLowerCase() =="span"){
 						v="<a href='javascript:pc.fk("+ col.rTableId+","+ line[col.objIdPos] +")'>"+ line[i]+"</a>";
