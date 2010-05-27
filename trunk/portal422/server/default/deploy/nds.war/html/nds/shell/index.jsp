@@ -42,7 +42,7 @@ function selectScript(){
 </script>
 <div id="obj-content">
 <br>	
-<a name="top"/>
+
 <form method="POST" action="/servlets/eval">
 <b><%=PortletUtils.getMessage(pageContext, "script",null)%></b>
 <select name="bsh.type"><option value="beanshell" <%=isPython?"":"selected"%>>BeanShell</option>
@@ -89,6 +89,6 @@ if(nds.util.Validator.isNotNull(scriptResult)){
 <%=scriptResult%>
 </td></tr></table>
 <%}%>
-<a href="#top">top</a>
+
 </div>
 <%@ include file="/html/nds/footer_info.jsp" %>

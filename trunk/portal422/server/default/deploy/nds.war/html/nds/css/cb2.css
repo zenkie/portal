@@ -386,5 +386,12 @@ padding-right:5px;
 white-space:normal;
 }
 .nn{color:#ff0000;}
-	
+#breadcrumb{
+ font-size: 11px;
+ color:#666;
+}
+#breadcrumb a{
+ font-size: 11px;
+ color:#666;
+}
 	

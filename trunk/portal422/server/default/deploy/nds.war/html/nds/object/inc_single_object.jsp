@@ -325,7 +325,7 @@
 	                	 	<a <%=fkURLTarget%> href="<%=dataDB%>"><img border=0 src="<%=dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>" onmousewheel="resize_img_by_wheel(this);"></a>
 	                	<%     }
 	                	 }else{
-	                		if(ds.getObjectType()==DisplaySetting.OBJ_TEXTAREA){
+	                		if(ds.getObjectType()==DisplaySetting.OBJ_TEXTAREA || ds.getObjectType()==DisplaySetting.OBJ_XML){
             					java.util.Hashtable htextArea = new java.util.Hashtable();
             					htextArea.put("cols", ""+ ds.getCharsPerRow());
             					htextArea.put("rows", ""+  ds.getRows());

@@ -75,6 +75,18 @@ nds.web.config.QueryListConfig qlc=userWeb.getDefaultQueryListConf(tableId);
   	if(actionEnvConnection!=null)try{actionEnvConnection.close();}catch(Throwable ace){}
   }
 %>
+<div id="breadcrumb" style="width:99%">
+<%
+StringBuffer sb=new StringBuffer();
+TableManager tmgr=TableManager.getInstance();
+for(Iterator it=userWeb.getVisitTables();it.hasNext();){
+	Table tr=tmgr.getTable( Tools.getInt( it.next(),-1));
+	if(tr!=null) sb.append("&nbsp;&#9642; <a href=\"javascript:pc.navigate('").append(tr.getId())
+		.append("')\">").append(tr.getDescription(locale)).append("</a>");
+}
+%>
+&nbsp;&nbsp;<%=PortletUtils.getMessage(pageContext, "my-recent-visit",null)%>:&nbsp;<%=sb.toString()%>
+</div>
 <div id="page-table-query" style="width:99%">
 	<div id="page-table-query-tab" style="width:100%">
 		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "query-setting",null)%>&nbsp;-&nbsp;<%=table.getDescription(locale)%></span></a></li></ul>
@@ -85,9 +97,9 @@ nds.web.config.QueryListConfig qlc=userWeb.getDefaultQueryListConf(tableId);
 		</div>
   </div>
 </div>  
-  	<div id="page-nav-commands">
-	</div>
-  <div class="table-buttons">       	        	
+<div id="page-nav-commands">
+</div>
+ <div class="table-buttons">       	        	
 	 &nbsp; <input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "object.search",null)%>" onclick="javascript:pc.queryList()"/>
 <%
 // these are list buttons of webaction
@@ -134,9 +146,7 @@ if(waListMenuItems.size()>0){
 
 pc.addListMenuItems("<%=StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\"")%>");
 <%}
+//log visit in the end so this table will not show as last visited one on the breadcrumb
+userWeb.registerVisit(tableId);
 %>
 </script>  
-
-
-
-

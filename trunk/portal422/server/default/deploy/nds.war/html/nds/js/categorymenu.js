@@ -70,6 +70,10 @@ function TableCommands(oTable) {
 	if(oTable.actionDELETE){
 		a1[a1.length]="Delete";
 	}
+	if(oTable.actionVOID){
+		a1[a1.length]="Void";
+		//a2[a2.length]="Unvoid"; always not show unvoid in list
+	}
 	if(oTable.actionSUBMIT){
 		a1[a1.length]="Submit";
 	}
@@ -77,10 +81,7 @@ function TableCommands(oTable) {
 	/*if(oTable.actionEXPORT){
 		a2[a2.length]="SmsList";
 	}*/
-	if(oTable.actionVOID){
-		a2[a2.length]="Void";
-		a2[a2.length]="Unvoid";
-	}
+	
 	for(i=0;i<a1.length &&i<4;i++){
 		this._buttons[this._buttons.length]=a1[i];
 	}

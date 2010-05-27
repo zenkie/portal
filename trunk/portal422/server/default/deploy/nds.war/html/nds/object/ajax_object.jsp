@@ -125,7 +125,7 @@ if(table!=null){
 	boolean isSubmitEnabled= ( ((perm & 5 )==5)) && !isVoid ;
 	
 	boolean canVoid= table.isActionEnabled(Table.VOID) && !isVoid;
-	boolean canUnvoid=table.isActionEnabled(Table.VOID) && isVoid;
+	boolean canUnvoid=table.isActionEnabled(Table.VOID) && isVoid && (!"false".equals(((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("table.action.unvoid", "true")));
 	boolean canDelete= table.isActionEnabled(Table.DELETE) && 
 		(( ((perm & 3 )==3)) && status!=3 && status!=2) && (isVoid || !table.isActionEnabled(Table.VOID) );
 	
