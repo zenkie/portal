@@ -82,6 +82,22 @@ border:1px solid #a7c0d6;
 	border:#7f9db9 1px solid;
 }
 
+.ipt-4-160 {
+	color:#333333;
+	padding-top:2px;
+	vertical-align:bottom;
+	width:160px;
+	border:#7f9db9 1px solid;
+}
+
+.ipt-4-40 {
+	color:#333333;
+	padding-top:2px;
+	vertical-align:bottom;
+	width:50px;
+	border:#7f9db9 1px solid;
+}
+
 .ipt-4-220 {
 	color:#333333;
 	padding-top:2px;

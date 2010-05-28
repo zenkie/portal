@@ -25,10 +25,13 @@
         return;
     }
     Table t=TableManager.getInstance().getTable("m_box");
-    Table t2=TableManager.getInstance().getTable("M_BOXITEM");
+    Table t2=TableManager.getInstance().getTable("m_boxitem");
     String tableName=t.getName();
     int tableId=t.getId();
-    int tableId2=t2.getId();
+    int tableId2=0;
+    try{
+    	tableId2=t2.getId();
+    }catch(Exception e){}
     boolean  hasWritePermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.WRITE);
     boolean hasReadPermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.READ);
     boolean hasSubmitPermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.SUBMIT);
@@ -228,9 +231,9 @@
                         </select>
                     </div>
                 </td>
-                <td class="zh-value" width="110" valign="top" nowrap="" align="left"><input id="barcode" class="ipt-4-2" name="" type="text"/></td>
-                <td class="zh-desc" width="60" valign="top" nowrap="" align="right"><div class="desc-txt" >数量：</div></td>
-                <td class="zh-value" width="60" valign="top" nowrap="" align="left"><input id="pdt_count" width="58" type="text" class="ipt-4-2" value="1" onblur="box.checkIsNum(event)" /></td>
+                <td class="zh-value" width="110" valign="top" nowrap="" align="left"><input id="barcode" class="ipt-4-160" name="" type="text"/></td>
+                <td class="zh-desc" width="70" valign="top" nowrap="" align="right"><div class="desc-txt" >数量：</div></td>
+                <td class="zh-value" width="50" valign="top" nowrap="" align="left"><input id="pdt_count" width="48" type="text" class="ipt-4-40" value="1" onblur="box.checkIsNum(event)" /></td>
                 <td width="100"><nobr><input name="isRecoil" type="radio" value="normal" checked onclick="$('isRecoil').value='normal';"/>扫描&nbsp;<input name="isRecoil" type="radio" value="recoil" onclick="$('isRecoil').value='recoil';" />反冲</nobr></td>
                 <td class="zh-desc" width="110" valign="top" nowrap="" align="right"><div class="desc-txt" style="color:red;font-size:16px;font-weight:bold;" >箱合计：</div></td>
                 <td class="zh-desc" width="40" valign="top" nowrap="" align="left"><div class="desc-txt" style="text-align:left;font-size:16px;font-weight:bold;" id="currentBox"></div>
@@ -269,8 +272,8 @@
     <div id="barcode_table" style="OVERFLOW: auto;width:100%;width:auto; max-height:300px;text-align:center;">
     </div>
 </div>
-<div id="submitImge" style="left:30px;top:80px;z-index:111;position:absolute;display:none;">
-    <img src="/html/nds/images/submitted.gif"/>
+<div id="submitImge" style="height:60px;top:0px;z-index:111;position:absolute;right:0px;width:80px;display:none;">
+    <img src="/html/nds/images/submitted-small_zh_CN.gif"/>
 </div>
 <div id="alert-message" style="position:absolute;top:0pt;left:0pt;z-index:100;background-color:#000000;opacity:0.51;filter:alpha(opacity=41);height:100%;width:100%;display:none;"></div>
 
