@@ -5,6 +5,8 @@
    params:
    cxtab* - cxtab id, or cxtab name 
    if ad_cxtab.pre_procedure is not null, will direct page to search_jreport.jsp for query form construction, since parameters will be from ad_cxtab_jpara
+
+   will try loading last executed cxtab of the same parent
 */
 	int cxtabId= ParamUtils.getIntAttributeOrParameter(request, "cxtab", -1);
 	if(cxtabId ==-1){
@@ -13,6 +15,13 @@
 				userWeb.getAdClientId()+" and name="+QueryUtils.TO_STRING(request.getParameter("cxtab"))) ,-1);
 	}
 	if(cxtabId==-1) throw new NDSException("Internal error, cxtab id="+ request.getParameter("cxtab") + " does not exist");
+	
+	int origCxtabId=cxtabId;
+	//load last executed cxtab of the same parent
+	String cxtabRootId=String.valueOf( QueryEngine.getInstance().doQueryOne("select nvl(parent_id, id) from ad_cxtab where id="+ cxtabId));
+	int lastExecCxtabId=Tools.getInt( userWeb.getPreferenceValue("cxtab"+cxtabRootId,cxtabRootId,false),-1);
+	if(lastExecCxtabId!=-1)cxtabId= lastExecCxtabId;
+	
 	List list=QueryEngine.getInstance().doQueryList("select ad_table_id,name, description,attr1,attr2,pre_procedure from ad_cxtab where id="+ cxtabId);
  	if(list.size()==0)throw new NDSException("Internal error, cxtab id="+ cxtabId + " does not exist");
   	int tableId= Tools.getInt( ((List)list.get(0)).get(0),-1);
@@ -28,7 +37,7 @@
   		request.getRequestDispatcher("search_jreport.jsp").forward(request, response);
   		return;
   	}	
-	boolean hasDimension=Tools.getInt(QueryEngine.getInstance().doQueryOne("select count(*) from ad_cxtab_dimension where ad_cxtab_id="+cxtabId),-1)>0;
+	int dimensionCnt=Tools.getInt(QueryEngine.getInstance().doQueryOne("select count(*) from ad_cxtab_dimension where ad_cxtab_id="+cxtabId),-1);
 	
 	TableManager manager=TableManager.getInstance();
 	Table table= manager.getTable(tableId);
@@ -62,7 +71,8 @@
 		<select name="rep_templet" id="rep_templet" onchange="pc.reloadCxtabHistory()">
 					<%
 					// only current cxtab and private ones will be shown
-					List rep_templet=QueryEngine.getInstance().doQueryList("select id,name from ad_cxtab where ad_table_id="+tableId+" and ad_client_id="+userWeb.getAdClientId()+"and reporttype='S' and (id="+cxtabId+" or ISPUBLIC='N')");
+					List rep_templet=QueryEngine.getInstance().doQueryList("select id,name from ad_cxtab where ad_table_id="+tableId+" and ad_client_id="+
+						userWeb.getAdClientId()+"and reporttype='S' and (id="+cxtabId+" or ISPUBLIC='N' or id="+origCxtabId+")");
 					String str="";
 					int rep_templet_id;
 					if(rep_templet.size()>0){
@@ -244,7 +254,7 @@ if("true".equals( ((Configurations)WebUtils.getServletContextManager().getActor(
 <%}%>      
 <%if(Validator.isNotNull(jReportPath)){
 	if(jReportPath.endsWith(".jrxml")){%>
-	  <%if(hasDimension){%>
+	  <%if(dimensionCnt>0){%>
 	  	<input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;
 	  	<input id="btn_run_csv" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'csv')" value="<%=PortletUtils.getMessage(pageContext, "fast-export",null)%>">&nbsp;&nbsp;
 	  <%}%>
@@ -256,7 +266,7 @@ if("true".equals( ((Configurations)WebUtils.getServletContextManager().getActor(
     <%}%>  
 <%	
 }else{%>
-	<%if(hasDimension){%>
+	<%if(dimensionCnt>0){%>
 	<input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;
 	<input id="btn_run_csv" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'csv')" value="<%=PortletUtils.getMessage(pageContext, "fast-export",null)%>">&nbsp;&nbsp;
 	<%}%>
@@ -272,7 +282,15 @@ if((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE ){
  jQuery('#page-table-query-tab ul').tabs();
  jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
  jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
-
+<%
+ int warningDimCnt=Tools.getInt( ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("xtab.dimension.threshold", "5"), 5);
+ if(dimensionCnt>warningDimCnt){
+%> 
+ if(confirm("<%=PortletUtils.getMessage(pageContext, "too-many-dims-warning",null)%>")){
+ 	pc.shrinkrep(<%=cxtabRootId%>);
+ }
+<%}
+%> 
 </script>
  </div>
 <div id="history_files"></div>

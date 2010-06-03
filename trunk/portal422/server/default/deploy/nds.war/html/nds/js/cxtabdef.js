@@ -25,8 +25,22 @@ CxtabDefControl.prototype = {
 		application.addEventListener( "LoadCxtabJson", this._loadCxtabDef, this);
 		application.addEventListener( "SaveCxtabJson", this._saveCxtabDef, this);
 		this._cxtabId=initObj.getCxtabId();
-		if(this._cxtabId!=-1)
+		this._parentId=initObj.getParentCxtabId();
+		if(this._cxtabId!=-1){
 			this.loadCxab();
+		}else if(this._parentId!=-1){
+			this.loadParentCxab();
+		}
+	},
+	//do not load p and h
+	loadParentCxab: function(){
+		var evt={};
+		evt.command="LoadCxtabJson";
+		evt.callbackEvent="LoadCxtabJson";
+		evt.cxtabId=this._parentId;
+		evt.axisH=false;
+		evt.axisP=false;
+		this._executeCommandEvent(evt);
 	},
 	loadCxab: function(){
 		var evt={};
@@ -38,23 +52,25 @@ CxtabDefControl.prototype = {
 	/**
 	 * Save all
 	 */
-	saveCxtab:function(savetype){
+	saveCxtab:function(savetype, fileName){
 		if(this._measures.length==0){
 			msgbox(gMessageHolder.REQUIRE_AT_LEAST_ONE_MEASURE);
 			return false;
 		}
+		if(fileName==undefined)fileName="";
 		var evt={};
 		var info=null;
 		evt.command="SaveCxtabJson";
 		evt.callbackEvent="SaveCxtabJson";
 		evt.cxtabId=this._cxtabId;
+		evt.parentId=this._parentId;
 		evt.axisP= this._axisP;
 		evt.axisH= this._axisH;
 		evt.axisV= this._axisV;
 		evt.measures= this._measures;
 		evt.savetype=savetype;
 		if(savetype=="A"){
-			info=prompt(gMessageHolder.TEMPLET_NAME);
+			info=prompt(gMessageHolder.TEMPLET_NAME,fileName);
 			if(info!=null&&info!=""){ 
 				evt.name=info;
 				this._executeCommandEvent(evt);
@@ -124,6 +140,20 @@ CxtabDefControl.prototype = {
 			return false;
 		}
 		return true;
+	},
+	/**
+	This is called when parent column is selected in list
+	*/
+	onSelectParentColumn:function(){
+		var i;
+		var d=null;
+		var s=$("parent_columns").options;
+		for(i=0; i<s.length; i++){
+		    if(s[i].selected){
+				this.setColumn( s[i].value,s[i].label);
+		    	break;
+		    }
+		}
 	},
 	addColumnToMeasure:function(){
 		if(this._checkSelectedColumn()==false) return;

@@ -3,23 +3,33 @@
 /**
   param 
 	 id   - ad_cxtab.id, -1 for new
+	 parentid - ad_cxtab.parent_id -> ad_cxtab.id only used when id is -1
 */
 int cxtabId= nds.util.Tools.getInt( request.getParameter("id"),-1);
+int parentId=nds.util.Tools.getInt( request.getParameter("parentid"),-1);
 TableManager manager=TableManager.getInstance();
 QueryEngine engine =QueryEngine.getInstance();
 Table cxtabTable=manager.getTable("ad_cxtab");
 String title= PortletUtils.getMessage(pageContext, "crosstab-define",null);
-List qr=engine.doQueryList("select ad_table_id, name from ad_cxtab where id="+ cxtabId);
-int ownerId=Tools.getInt(QueryEngine.getInstance().doQueryOne("select ownerid from ad_cxtab where id="+cxtabId), -1);
+List qr=engine.doQueryList("select ad_table_id, name, ownerid, parent_id from ad_cxtab where id="+ (cxtabId==-1?parentId:cxtabId));
 if(qr.size()==0)  throw new NDSException("@object-not-find@");
-// check write permission
-int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
-if((objPerm & nds.security.Directory.WRITE )!= nds.security.Directory.WRITE ){
-	if(objPerm==0) throw new NDSException("@no-permission@");
+
+// check write permission on id or read permission on parentid
+if(cxtabId!=-1){
+	int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
+	if((objPerm & nds.security.Directory.WRITE )!= nds.security.Directory.WRITE )
+		if(objPerm==0) throw new NDSException("@no-permission@");
+}else{
+	//check read permission on parentid record
+	int objPerm= userWeb.getObjectPermission("AD_CXTAB", parentId);
+	if((objPerm & nds.security.Directory.READ )!= nds.security.Directory.READ )throw new NDSException("@no-permission@");	
 }
 
 int factTableId=Tools.getInt( ((List)qr.get(0)).get(0),-1);
 String cxtabName=(String)((List)qr.get(0)).get(1);
+int ownerId=Tools.getInt( ((List)qr.get(0)).get(2) , -1);
+//only when parent id is -1, will get parent from 
+if(parentId==-1)parentId=Tools.getInt( ((List)qr.get(0)).get(3) , -1);
 Table factTable=manager.getTable(factTableId);
 request.setAttribute("page_help", "CxtabDefine");
 String tabName=title;
@@ -38,9 +48,7 @@ document.bgColor="<%=colorScheme.getPortletBg()%>";
 <script type="text/javascript" src="<%=NDS_PATH+"/js/xloadtree111/xmlextras.js"%>"></script>
 <script type="text/javascript" src="<%=NDS_PATH+"/js/xloadtree111/xloadtree.js"%>"></script>
 <link type="text/css" rel="stylesheet" href="<%=NDS_PATH+"/js/xloadtree111/xtree.css"%>" />
-
 <script language="JavaScript" src="/html/nds/js/formkey.js"></script>
-
 <script type='text/javascript' src='/html/nds/js/util.js'></script> 
 <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
@@ -69,11 +77,47 @@ document.bgColor="<%=colorScheme.getPortletBg()%>";
 <input type="hidden" id="cxtabId" name="cxtabId" value="<%=cxtabId%>">
 </td></tr>	
 <tr><td><br>
-<table cellpadding="0" cellspacing="0" width="600" height="420">
+<table cellpadding="0" cellspacing="0" width="720" height="420">
 	<tr>
-		<td valign="top" width="200" rowspan="2"><!--tree-->
+		<td valign="top" width="270" rowspan="2"><!--tree-->
 <%= PortletUtils.getMessage(pageContext, "available-columns",null)%>:<br>
-<div style="border-width:1;border-style:inset;padding:0px;border-color:#cccccc;width:200px; height:400px;overflow-y: auto; overflow-x: auto;"> 	
+<div id="avcolumns">
+<ul>
+	<%if(parentId!=-1){%>
+	<li><a href="#tab_parent_columns"><span><%= PortletUtils.getMessage(pageContext, "cxtab-parent-columns",null)%></span></a></li>
+	<%}%>
+	<li><a href="#tab_fact_columns"><span><%= PortletUtils.getMessage(pageContext, "cxtab-fact-table-columns",null)%></span></a></li>
+</ul>
+<%
+if(parentId!=-1){
+%>
+<div id="tab_parent_columns">
+	<div style="padding: 15px; overflow: auto; text-align: center; width: 200px; height: 370px;">
+		<select id="parent_columns" class="selectbox" size="25" onchange="cxtabDefControl.onSelectParentColumn()">
+			<optgroup label="<%=PortletUtils.getMessage(pageContext, "adcxtab-dimension",null)%>">
+			<%
+			List pdims=engine.doQueryList("select columnlink, description from ad_cxtab_dimension where ad_cxtab_id="+ parentId+" order by POSITION_, ORDERNO");
+			for(int i=0;i<pdims.size();i++){%>
+			<option value="<%=((List)pdims.get(i)).get(0)%>" label="<%=((List)pdims.get(i)).get(1)%>"><%=((List)pdims.get(i)).get(1)%></option>
+			<%}%>
+			</optgroup>
+			<optgroup label="<%=PortletUtils.getMessage(pageContext, "adcxtab-fact",null)%>">
+			<%
+			List pmeas=engine.doQueryList("select AD_COLUMN_ID, description from ad_cxtab_fact where ad_cxtab_id="+ parentId+" order by ORDERNO");
+			for(int i=0;i<pmeas.size();i++){
+				Column pmeac= manager.getColumn( Tools.getInt(((List)pmeas.get(i)).get(0),-1));
+				if(pmeac==null || pmeac.getSecurityGrade()> userWeb.getSecurityGrade())continue;
+			%>
+			<option value="<%=(pmeac.getTable().getName()+"."+pmeac.getName())%>" label="<%=((List)pmeas.get(i)).get(1)%>"><%=((List)pmeas.get(i)).get(1)%></option>
+			<%}%>
+			</optgroup>
+		</select>
+	</div>
+</div>
+<%}//end if parentId!=-1
+%>
+<div id="tab_fact_columns">
+<div style="/*border-width:1;border-style:inset;padding:0px;border-color:#cccccc;*/padding-left:15px;width:230px; height:400px;overflow-y: auto; overflow-x: auto;"> 	
 <script type="text/javascript">
 /// XP Look
 webFXTreeConfig.rootIcon		= "<%=NDS_PATH%>/images/table.gif";
@@ -94,8 +138,10 @@ var tree = new WebFXLoadTree("<%=factTable.getDescription(locale)%>", "<%=NDS_PA
 tree.setBehavior("classic");
 document.write(tree);
 </script>       	
-</div>	
-		<!--end tree--></td>
+</div></div>
+
+</div><!--end avcolumns-->
+</td>
 <td rowspan="2">
 <img border="0" hspace="0" width="10" height="10" src="<%=NDS_PATH%>/images/spacer.gif" vspace="0">
 </td>
@@ -181,16 +227,16 @@ document.write(tree);
 </td>
 	</tr>
 	<tr>
-		<td width="600" height="50"><!--btn-->
-			<%
-				if(ownerId==userWeb.getUserId()){
-			%>
-					<input class="cbutton" type='button' id="btn_save_cxtab" size="20" name='executeCxrpt' value='<%=PortletUtils.getMessage(pageContext, "modify-save-cxtab",null)%>' onclick="javascript:cxtabDefControl.saveCxtab('M');" >&nbsp;&nbsp;
-					<input class="cbutton" type='button' id="btn_add_cxtab" size="20" value='<%=PortletUtils.getMessage(pageContext, "add-save-cxtab",null)%>' onclick="javascript:cxtabDefControl.saveCxtab('A');" >
-		<%}else{%>
-				 <input class="cbutton" type='button' id="btn_add_cxtab" size="20" value='<%=PortletUtils.getMessage(pageContext, "add-save-cxtab",null)%>' onclick="javascript:cxtabDefControl.saveCxtab('A');" >
+		<td width="400" height="50"><!--btn-->
+		<%
+		String newFileName= cxtabName+"-"+userWeb.getUserDescription();
+		if(cxtabId!=-1 && ownerId==userWeb.getUserId()){%>
+			<input class="cbutton" type='button' id="btn_save_cxtab" size="20" name='executeCxrpt' value='<%=PortletUtils.getMessage(pageContext, "modify-save-cxtab",null)%>' onclick="javascript:cxtabDefControl.saveCxtab('M');" >&nbsp;&nbsp;
 		<%}%>
+		<input class="cbutton" type='button' id="btn_add_cxtab" size="20" value='<%=PortletUtils.getMessage(pageContext, "add-save-cxtab",null)%>' onclick="javascript:cxtabDefControl.saveCxtab('A','<%=newFileName%>');" >
+		<!--
 		<%@ include file="/html/nds/common/helpbtn.jsp"%>
+		-->
 		</td>
 	</tr>
 	<tr><td width="600" colspan="3" height="40"><img src="/html/nds/images/suggest.png" ><%=PortletUtils.getMessage(pageContext, "info-on-cube-def",null)%></td></tr>
@@ -292,4 +338,10 @@ document.write(tree);
 <br><br>
 </div>
 </div>
+<script>
+try{
+	jQuery('#avcolumns ul').tabs();
+}catch(ex){
+}
+</script>
 <%@ include file="/html/nds/footer_info.jsp" %>

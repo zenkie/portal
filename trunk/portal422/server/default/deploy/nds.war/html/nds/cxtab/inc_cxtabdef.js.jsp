@@ -2,7 +2,8 @@
 var NDS_PATH="<%=NDS_PATH%>";
 function CxtabDefInitObject(){}
 CxtabDefInitObject.prototype={
-	getCxtabId:function(){return <%=cxtabId%>; }
+	getCxtabId:function(){return <%=cxtabId%>; },
+	getParentCxtabId:function(){return <%=parentId%>; }
 };
 
 var gMessageHolder={
