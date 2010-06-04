@@ -18,7 +18,8 @@
 	
 	int origCxtabId=cxtabId;
 	//load last executed cxtab of the same parent
-	String cxtabRootId=String.valueOf( QueryEngine.getInstance().doQueryOne("select nvl(parent_id, id) from ad_cxtab where id="+ cxtabId));
+	int parent_id=Tools.getInt( QueryEngine.getInstance().doQueryOne("select parent_id from ad_cxtab where id="+cxtabId), -1);
+	String cxtabRootId= String.valueOf((parent_id==-1? cxtabId:parent_id));
 	int lastExecCxtabId=Tools.getInt( userWeb.getPreferenceValue("cxtab"+cxtabRootId,cxtabRootId,false),-1);
 	if(lastExecCxtabId!=-1)cxtabId= lastExecCxtabId;
 	
@@ -70,9 +71,10 @@
 	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "current-cxtab",null)%>:</span>
 		<select name="rep_templet" id="rep_templet" onchange="pc.reloadCxtabHistory()">
 					<%
-					// only current cxtab and private ones will be shown
+					// current cxtab, brothers of the same parent, parent, sons will be chosen
 					List rep_templet=QueryEngine.getInstance().doQueryList("select id,name from ad_cxtab where ad_table_id="+tableId+" and ad_client_id="+
-						userWeb.getAdClientId()+"and reporttype='S' and (id="+cxtabId+" or ISPUBLIC='N' or id="+origCxtabId+")");
+						userWeb.getAdClientId()+" and reporttype='S' and (id="+origCxtabId+" or parent_id="+origCxtabId+
+						 (parent_id==-1?"":"or id="+ parent_id+" or parent_id="+parent_id)+")");
 					String str="";
 					int rep_templet_id;
 					if(rep_templet.size()>0){
@@ -282,15 +284,6 @@ if((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE ){
  jQuery('#page-table-query-tab ul').tabs();
  jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
  jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
-<%
- int warningDimCnt=Tools.getInt( ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("xtab.dimension.threshold", "5"), 5);
- if(dimensionCnt>warningDimCnt){
-%> 
- if(confirm("<%=PortletUtils.getMessage(pageContext, "too-many-dims-warning",null)%>")){
- 	pc.shrinkrep(<%=cxtabRootId%>);
- }
-<%}
-%> 
 </script>
  </div>
 <div id="history_files"></div>

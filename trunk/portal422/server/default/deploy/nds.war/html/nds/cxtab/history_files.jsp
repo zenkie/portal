@@ -60,6 +60,7 @@
 	  
 	*/
 	int cxtabId=Tools.getInt( request.getParameter("id"),-1);
+	int parentId=Tools.getInt( QueryEngine.getInstance().doQueryOne("select parent_id from ad_cxtab where id="+ cxtabId),-1);
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd,HH:mm");
 %>	
 <table width="98%" align="center" cellpadding="2" cellspacing="1" class="sort-table">
@@ -168,6 +169,18 @@
 		<%if(files!=null&& files.length>0){%>
         	<input id="btn_clear_cxtab_files" type="button" class="cbutton" onclick="javascript:pc.deleteCxtabFiles(<%=cxtabId%>)" value="<%=PortletUtils.getMessage(pageContext, "delete-cxtab-files",null)%>">
         <%}%>
+        <script>
+<%
+ int dimensionCnt=Tools.getInt(QueryEngine.getInstance().doQueryOne("select count(*) from ad_cxtab_dimension where ad_cxtab_id="+cxtabId),-1);
+ int warningDimCnt=Tools.getInt( ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("xtab.dimension.threshold", "5"), 5);
+ if(dimensionCnt>warningDimCnt){
+%> 
+ if(confirm("<%=PortletUtils.getMessage(pageContext, "too-many-dims-warning",null).replace("0",dimensionCnt+">"+warningDimCnt)%>")){
+ 	pc.shrinkrep(<%=cxtabId%>,<%=parentId%>);
+ }
+<%}
+%> 
+        </script>
         </td>
         </tr>
         

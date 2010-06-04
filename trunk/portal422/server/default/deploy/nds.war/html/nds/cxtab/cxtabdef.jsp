@@ -1,35 +1,34 @@
 <%@ include file="/html/nds/common/init.jsp" %>
 <%
 /**
+  If user has write permission on cxtab, will show as modify current cxtab,
+  if user has read permission on cxtab, will show as create new cxtab with parent set to old one
+  if user has no read permission on cxtab, will throw exception
+  
   param 
-	 id   - ad_cxtab.id, -1 for new
-	 parentid - ad_cxtab.parent_id -> ad_cxtab.id only used when id is -1
+	 id   - ad_cxtab.id
+	 
 */
 int cxtabId= nds.util.Tools.getInt( request.getParameter("id"),-1);
-int parentId=nds.util.Tools.getInt( request.getParameter("parentid"),-1);
 TableManager manager=TableManager.getInstance();
 QueryEngine engine =QueryEngine.getInstance();
 Table cxtabTable=manager.getTable("ad_cxtab");
 String title= PortletUtils.getMessage(pageContext, "crosstab-define",null);
-List qr=engine.doQueryList("select ad_table_id, name, ownerid, parent_id from ad_cxtab where id="+ (cxtabId==-1?parentId:cxtabId));
+List qr=engine.doQueryList("select ad_table_id, name, ownerid, parent_id from ad_cxtab where id="+ cxtabId);
 if(qr.size()==0)  throw new NDSException("@object-not-find@");
-
-// check write permission on id or read permission on parentid
-if(cxtabId!=-1){
-	int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
-	if((objPerm & nds.security.Directory.WRITE )!= nds.security.Directory.WRITE )
-		if(objPerm==0) throw new NDSException("@no-permission@");
-}else{
-	//check read permission on parentid record
-	int objPerm= userWeb.getObjectPermission("AD_CXTAB", parentId);
-	if((objPerm & nds.security.Directory.READ )!= nds.security.Directory.READ )throw new NDSException("@no-permission@");	
-}
 
 int factTableId=Tools.getInt( ((List)qr.get(0)).get(0),-1);
 String cxtabName=(String)((List)qr.get(0)).get(1);
 int ownerId=Tools.getInt( ((List)qr.get(0)).get(2) , -1);
 //only when parent id is -1, will get parent from 
-if(parentId==-1)parentId=Tools.getInt( ((List)qr.get(0)).get(3) , -1);
+int parentId=Tools.getInt( ((List)qr.get(0)).get(3) , -1);
+
+// check write permission on id or read permission on parentid
+int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
+if(objPerm==0) throw new NDSException("@no-permission@");
+boolean hasWritePermssion=(objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE;
+if(!hasWritePermssion) parentId=cxtabId;
+
 Table factTable=manager.getTable(factTableId);
 request.setAttribute("page_help", "CxtabDefine");
 String tabName=title;
@@ -67,14 +66,9 @@ document.bgColor="<%=colorScheme.getPortletBg()%>";
   <input type='hidden' name="command" value="CreateCxtabRunnerProcessInstance">
 <tr><td><br>
 <%= manager.getColumn("ad_cxtab","ad_table_id").getDescription(locale)%>: <a href="<%=NDS_PATH%>/object/object.jsp?table=ad_table&id=<%=factTableId%>"><%=factTable.getDescription(locale)%></a>&nbsp;&nbsp;
-<%
-	if(ownerId==userWeb.getUserId()){
-%>
-<%= cxtabTable.getDescription(locale)%>:<input type="text" id="cxtabName" name="cxtabName" size="30" value="<%=cxtabName%>" readonly="true">
-<%}else{%>
-	<%= cxtabTable.getDescription(locale)%>:<input type="text" id="cxtabName" name="cxtabName" value="<%=cxtabName%>" readonly="true">
-<%}%><a href="/html/nds/object/object.jsp?table=<%=cxtabTable.getId()%>&id=<%=cxtabId%>"><img border="0" src="/html/nds/images/out.png"/></a>
+<%= cxtabTable.getDescription(locale)%>:<a href="/html/nds/object/object.jsp?table=<%=cxtabTable.getId()%>&id=<%=cxtabId%>"><%=cxtabName%></a>	
 <input type="hidden" id="cxtabId" name="cxtabId" value="<%=cxtabId%>">
+<input type="hidden" id="cxtabName" name="cxtabName" value="<%=cxtabName%>">
 </td></tr>	
 <tr><td><br>
 <table cellpadding="0" cellspacing="0" width="720" height="420">
@@ -230,7 +224,7 @@ document.write(tree);
 		<td width="400" height="50"><!--btn-->
 		<%
 		String newFileName= cxtabName+"-"+userWeb.getUserDescription();
-		if(cxtabId!=-1 && ownerId==userWeb.getUserId()){%>
+		if(hasWritePermssion){%>
 			<input class="cbutton" type='button' id="btn_save_cxtab" size="20" name='executeCxrpt' value='<%=PortletUtils.getMessage(pageContext, "modify-save-cxtab",null)%>' onclick="javascript:cxtabDefControl.saveCxtab('M');" >&nbsp;&nbsp;
 		<%}%>
 		<input class="cbutton" type='button' id="btn_add_cxtab" size="20" value='<%=PortletUtils.getMessage(pageContext, "add-save-cxtab",null)%>' onclick="javascript:cxtabDefControl.saveCxtab('A','<%=newFileName%>');" >

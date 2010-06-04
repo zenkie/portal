@@ -15,6 +15,14 @@
 				userWeb.getAdClientId()+" and name="+QueryUtils.TO_STRING(request.getParameter("cxtab"))) ,-1);
 	}	
 	if(cxtabId ==-1) throw new NDSException("Internal error, cxtab id="+ cxtabId + " does not exist");
+
+	int origCxtabId=cxtabId;
+	//load last executed cxtab of the same parent
+	int parent_id=Tools.getInt( QueryEngine.getInstance().doQueryOne("select parent_id from ad_cxtab where id="+cxtabId), -1);
+	String cxtabRootId= String.valueOf((parent_id==-1? cxtabId:parent_id));
+	int lastExecCxtabId=Tools.getInt( userWeb.getPreferenceValue("cxtab"+cxtabRootId,cxtabRootId,false),-1);
+	if(lastExecCxtabId!=-1)cxtabId= lastExecCxtabId;
+
 	List list=QueryEngine.getInstance().doQueryList("select ad_table_id,name, description,attr1,attr2 from ad_cxtab where id="+ cxtabId);
  	if(list.size()==0)throw new NDSException("Internal error, cxtab id="+ cxtabId + " does not exist");
   	int tableId= Tools.getInt( ((List)list.get(0)).get(0),-1);
@@ -37,9 +45,13 @@
 <table border="0" cellspacing="0" cellpadding="0" align='center' width="98%"><tr><td>
 <div id="rpt-desc">
 	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "current-cxtab",null)%>:</span>
-			<select name="rep_templet" id="rep_templet">
+			<select name="rep_templet" id="rep_templet" onchange="pc.reloadCxtabHistory()">
 					<%
-					List rep_templet=QueryEngine.getInstance().doQueryList("select id,name from ad_cxtab where ad_table_id="+tableId+" and ad_client_id="+userWeb.getAdClientId()+"and reporttype='S'");
+					//List rep_templet=QueryEngine.getInstance().doQueryList("select id,name from ad_cxtab where ad_table_id="+tableId+" and ad_client_id="+userWeb.getAdClientId()+"and reporttype='S'");
+					// current cxtab, brothers of the same parent, parent, sons will be chosen
+					List rep_templet=QueryEngine.getInstance().doQueryList("select id,name from ad_cxtab where ad_table_id="+tableId+" and ad_client_id="+
+						userWeb.getAdClientId()+" and reporttype='S' and (id="+origCxtabId+" or parent_id="+origCxtabId+
+						 (parent_id==-1?"":"or id="+ parent_id+" or parent_id="+parent_id)+")");					
 					String str="";
 					int rep_templet_id;
 					if(rep_templet.size()>0){
