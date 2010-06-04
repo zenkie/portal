@@ -947,4 +947,4 @@ cxtab-parent-columns=推荐字段
 cxtab-fact-table-columns=更多
 adcxtab-dimension=分组字段
 adcxtab-fact=汇总字段
-too-many-dims-warning=性能警告：当前模板的分组字段太多，建议减少以提高报表生成速度。请点击确定进入修改界面。
+too-many-dims-warning=性能警告：当前模板的分组字段太多(0)，建议减少以提高报表生成速度。请点击确定进入修改界面。
