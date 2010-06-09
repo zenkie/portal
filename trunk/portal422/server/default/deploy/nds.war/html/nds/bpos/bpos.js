@@ -115,7 +115,7 @@ BPOS.prototype={
     }
         
     },	
-	insertLine:function(){
+	insertLine:function(){//验证输入商品
 		var evt={};
 		evt.command="DBJSON";
 		evt.callbackEvent="BPOS_INSERT_LINE";
