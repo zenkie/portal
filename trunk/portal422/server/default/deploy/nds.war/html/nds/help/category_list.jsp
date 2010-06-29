@@ -5,11 +5,12 @@
   */
   TableManager manager=TableManager.getInstance();
   String tableName= request.getParameter("table");
-  Table table= manager.getTable(tableName);
+  Table table= manager.findTable(tableName);
   if(table ==null){
   	out.print("table not found.");
   	return;
   }
+  
 %>
 <span class='tablehead'><%= PortletUtils.getMessage(pageContext, "same-category-items",null)%></span><p>
 <%  

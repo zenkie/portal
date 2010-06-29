@@ -706,3 +706,11 @@ margin-top:3px;
 background:#c3d9ff url(/html/nds/themes/classic/01/images/arrow-right.gif) no-repeat scroll 2px 50%;
 left:0;
 }
+#cmdline {
+background-color:#024770;
+border:0 none;
+color:#FFFFFF;
+height:18px;
+position:absolute;
+top:2px;
+}

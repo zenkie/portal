@@ -5,7 +5,7 @@
   */
   TableManager manager=TableManager.getInstance();
   String tableName= request.getParameter("table");
-  Table table= manager.getTable(tableName);
+  Table table= manager.findTable(tableName);
   if(table ==null){
   	out.print("table not found.");
   	return;

@@ -29,7 +29,7 @@ int tableId= ParamUtils.getIntAttributeOrParameter(request, "table", -1);
 Table table;
 if( tableId == -1) {
     String tableName=  request.getParameter("table") ;
-    table= manager.getTable(tableName);
+    table= manager.findTable(tableName);
     if( table !=null) tableId= table.getId();
     else {
         out.println("Internal Error:object-not-set");

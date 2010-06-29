@@ -36,7 +36,7 @@ org.json.JSONObject dcqjsonObject=null;
 Table table=null;
 int tableId= Tools.getInt(tableName,-1);
 if(tableId==-1){
-	table=manager.getTable(tableName);
+	table=manager.findTable(tableName);
 	if(table!=null){
 		tableId= table.getId();
 	}

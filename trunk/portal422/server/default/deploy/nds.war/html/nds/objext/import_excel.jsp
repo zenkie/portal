@@ -17,7 +17,7 @@
 	Table table;
 	if( tableId == -1) {
     	String tableName=  request.getParameter("table") ;
-    	table= tableManager.getTable(tableName);
+    	table= tableManager.findTable(tableName);
     	if( table !=null) tableId= table.getId();
     	else {
         	out.println(PortletUtils.getMessage(pageContext, "object-type-not-set",null));

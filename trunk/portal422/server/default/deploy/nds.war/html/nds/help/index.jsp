@@ -10,7 +10,7 @@
 	String helpHomePage= conf.getProperty("help.homepage","/manual/yunbao56.html");
 
 	int tableId= Tools.getInt(request.getParameter("table"),-1);
-	Table table=  TableManager.getInstance().getTable(tableId);
+	Table table=  TableManager.getInstance().findTable(request.getParameter("table"));
 	if( table ==null){
 		response.sendRedirect(helpHomePage);
     	return;

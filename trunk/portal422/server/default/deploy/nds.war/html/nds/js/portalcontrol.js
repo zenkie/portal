@@ -1476,6 +1476,13 @@ PortalControl.prototype = {
 		}
 		this.executeCommandEvent(evt);    	
     },
+    cmdline:function(event){
+		if (!event) event = window.event;
+  		if (event && event.keyCode && event.keyCode == 13){
+  			this.navigate($("cmdline").value);
+  			dwr.util.selectRange($("cmdline"), 0, 255);
+  		}
+    },
     /**
      * Do submit when at least has one line checked. Will confirm all rows update successfully
      * before submit. Any row that failed to update will stop all rows from submiting

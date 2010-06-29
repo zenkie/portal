@@ -27,6 +27,7 @@
  	/*session.invalidate();
  	com.liferay.util.servlet.SessionErrors.add(request,PrincipalException.class.getName());
  	response.sendRedirect("/login.jsp");*/
+ 	
  	response.sendRedirect("/c/portal/login");
  	return;
  }
@@ -36,7 +37,6 @@
  	response.sendRedirect("/login.jsp");
  	return;
  } 
- 
  boolean isPopupPortal=Tools.getYesNo(userWeb.getUserOption("POPUP_PORTAL","N"), true);
  if(!isPopupPortal || nds.util.Validator.isNotNull(redirect)){
  	response.sendRedirect("/html/nds/portal/portal.jsp"+redirect);
