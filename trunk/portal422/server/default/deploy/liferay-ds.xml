@@ -8,6 +8,11 @@
 		<user-name>nealportal4</user-name>
 		<password>nealportal4</password>
 		<connection-property name="SetBigStringTryClob">true</connection-property>
+		<connection-property name="oracle.jdbc.ReadTimeout">600000</connection-property>
+		<check-valid-connection-sql>select sysdate from dual</check-valid-connection-sql>
+		<query-timeout>600</query-timeout>
+		<background-validation>true</background-validation>
+		<background-validation-minutes>10</background-validation-minutes> 
 		<min-pool-size>5</min-pool-size>
 		<max-pool-size>50</max-pool-size>
 	</local-tx-datasource>
@@ -18,6 +23,11 @@
 		<user-name>neands3</user-name>
 		<password>abc123</password>
 		<connection-property name="SetBigStringTryClob">true</connection-property>
+		<connection-property name="oracle.jdbc.ReadTimeout">600000</connection-property>
+		<check-valid-connection-sql>select sysdate from dual</check-valid-connection-sql>
+		<query-timeout>600</query-timeout>
+		<background-validation>true</background-validation>
+		<background-validation-minutes>10</background-validation-minutes> 
 		<min-pool-size>5</min-pool-size>
 		<max-pool-size>50</max-pool-size>
 	</local-tx-datasource>
