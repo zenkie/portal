@@ -103,7 +103,7 @@ PortalClient.prototype = {
 		if(valueType==undefined) valueType="ak";
 		var params={webaction:webaction};
 		params[valueType]=value;
-    	var trans={id:1, command:cmd,params:params};
+    	var trans={id:1, command:"ExecuteWebAction",params:params};
     	var a=new Array(1);
 		a[0]=trans;
 		return this.sendRequest(a, callback);

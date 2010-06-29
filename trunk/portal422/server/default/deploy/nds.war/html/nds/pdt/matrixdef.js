@@ -237,9 +237,9 @@ MatrixDef.prototype = {
 	    }
 		portalClient.modifyObject("m_product",{id:this._pdtId,colors:colors.join(","),sizes:sizes.join(",")}, function(response){
 			if(!mx.checkResponse(response,0))return;
-			/*portalClient.execWebAction("pdt_addalias",this._pdtId,"id",function(rs){
+			portalClient.execWebAction("pdt_addalias",mx._pdtId,"id",function(rs){
 				if(!mx.checkResponse(rs,0))return;
-			});*/
+			});
 			alert("±£´æ³É¹¦");
 		});
 	},
