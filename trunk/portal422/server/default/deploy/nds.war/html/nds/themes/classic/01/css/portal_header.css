@@ -708,7 +708,7 @@ background:#c3d9ff url(/html/nds/themes/classic/01/images/arrow-right.gif) no-re
 left:0;
 }
 #cmdline {
-background-color:#024770;
+background: transparent;
 border:0 none;
 color:#FFFFFF;
 height:18px;
