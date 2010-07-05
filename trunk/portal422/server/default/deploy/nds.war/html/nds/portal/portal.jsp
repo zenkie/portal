@@ -124,10 +124,10 @@ jQuery(document).ready(loadWelcomePage);
 	</td></tr>
 	</table>
 </div>
+<div id="cmdmsg" style="display:none;" ondblclick="$('cmdmsg').hide()"></div>
 <div id="portal-bottom">
 	<%@ include file="bottom.jsp" %>
 </div>
-
 </body>
 </html>
 

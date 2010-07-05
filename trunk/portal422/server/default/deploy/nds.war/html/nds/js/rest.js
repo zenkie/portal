@@ -175,10 +175,8 @@ PortalClient.prototype = {
 			new Ajax.Request(url, {
 				  method: 'post',
 				  onLoading:function(){
-				  		console.log("loading";
 					},
 					onComplete:function(){
-						console.log("complete";
 					},	
 				  onSuccess: function(transport) {
 				  	var res= portalClient._createResponse(transport.getResponseHeader("sip_status"), transport.responseText);

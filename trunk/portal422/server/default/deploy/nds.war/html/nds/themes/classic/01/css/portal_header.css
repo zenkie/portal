@@ -80,7 +80,8 @@ color:#fff;
 
 #bottom-adv {
 position:absolute;
-left:10px;
+left:2px;
+width:18px;
 }
 
 /*#bottom-company-img {
@@ -713,4 +714,36 @@ color:#FFFFFF;
 height:18px;
 position:absolute;
 top:2px;
+left:28px;
+}
+#cmdloading{
+height:18px;
+width:18px;
+background:transparent url(/html/nds/images/loading.gif) no-repeat scroll 2px 50%;	
+}
+#cmdmsg { 
+position: absolute; 
+bottom:20px;
+left:0px;
+z-index:100;
+background:#FBFFE1;
+padding:5px;
+border:2px solid #F28A17;;
+text-align:left; 
+width:450px;
+max-height:300px;
+overflow-x:auto;
+}
+#cmdbtns{
+ text-align:right;
+ padding:10px 20px 5px 5px;
+}
+#cmdhelp{
+ clear:both;
+ padding:10px 0px 5px 10px;
+}
+.cmdh{
+float:left;
+padding:5px 20px 5px 20px;
+width:40px;
 }

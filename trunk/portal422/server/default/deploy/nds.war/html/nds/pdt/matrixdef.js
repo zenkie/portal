@@ -45,8 +45,6 @@ MatrixDef.prototype = {
 			alert("¥¶¿Ì“Ï≥£:"+ response.data[transIdx].message+"("+response.data[transIdx].code+")");
 			return false;
 		}
-		console.log("reponse :"+response.data[transIdx].message);
-		console.log(response.data[transIdx]);
 		return true;
 	},
 	/**

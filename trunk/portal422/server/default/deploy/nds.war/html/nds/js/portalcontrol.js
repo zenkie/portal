@@ -1112,7 +1112,7 @@ PortalControl.prototype = {
 	editRow:function(row){
 		var line= this._data[row];
 		if(["D","E","N"].indexOf(line[1])>-1) return;
-		 (gridInitObject.mainobjurl+line[4],this._dialogOption);
+		showObject2(gridInitObject.mainobjurl+line[4],this._dialogOption);
 	},
 	mo:function(tid){
 		if($(tid+"_p_step")!=null){
@@ -1476,12 +1476,65 @@ PortalControl.prototype = {
 		}
 		this.executeCommandEvent(evt);    	
     },
-    cmdline:function(event){
+    _getEnv:function(){
+    	var env={};
+    	if(this._tableObj!=null) env.table=this._tableObj.id;
+    	return env;
+    },
+    cmdconfirm:function(msg){
+    	var html=msg +"<br><div id='cmdbtns'><input type='button' value='OK' onclick='pc.cmdexe(null,true)'>&nbsp;<input type='button' value='Cancel' onclick='$(\"cmdmsg\").hide();'></div>";
+		this.cmdmsgbox(html);
+    },
+    cmdmsgbox:function(html,help){
+    	html=html||"";
+    	if(help!=undefined && help !=null) html+="<div id='cmdhelp'>"+help+"</div>";
+    	$("cmdmsg").innerHTML=html;
+    	$("cmdmsg").show();
+    },
+    cmdline:function(event,force){
 		if (!event) event = window.event;
-  		if (event && event.keyCode && event.keyCode == 13){
-  			this.navigate($("cmdline").value);
+  		if ( event && event.keyCode && event.keyCode == 13){
+  			var cmdline=$("cmdline").value;
+  			if(cmdline=="")return;
   			dwr.util.selectRange($("cmdline"), 0, 255);
-  		}
+  			this.cmdexe(cmdline);
+		}
+    },
+    cmdexe:function(cmdline,force){
+    	if(cmdline==null) cmdline=$("cmdline").value;
+    	var env=this._getEnv();
+    	if(force ==true) env.force=true;
+	  	$("cmdmsg").hide();
+		var cmd="cmdline="+encodeURIComponent(cmdline)+"&env="+encodeURIComponent(Object.toJSON(env));
+		new Ajax.Request("/servlets/binserv/Shell?"+cmd, {
+			  method: 'post',
+			  onLoading:function(t){
+			  	$("cmdloading").show();
+			  },
+			  onInteractive:function(t){
+			  	$("cmdloading").hide();
+			  },
+			  onSuccess: function(transport) {
+			  	 var ret=transport.responseText;
+			  	 try{
+			  	 	ret= ret.evalJSON();	
+			  	 	if(ret.message!=null || ret.help!=null)pc.cmdmsgbox(ret.message,ret.help);
+				  	if(ret.code!=0){
+				  	 	if(ret.message==null|| ret.message=="") pc.cmdmsgbox("Server error, code:"+ ret.code);
+				  	}else{
+				  	 	if(ret.script!=null) eval(ret.script);
+				  	 	if(ret.force!=null) pc.cmdconfirm(ret.force);
+				  	}
+			  	 }catch(ex){
+			  	 	pc.cmdmsgbox("Error:"+ex);
+			  	 	return;
+			  	 }
+			  },
+			  onFailure:function(transport){
+			  	pc.cmdmsgbox("cmd failed, check network connection:");
+			  }
+			}
+		);  			
     },
     /**
      * Do submit when at least has one line checked. Will confirm all rows update successfully
