@@ -6,8 +6,6 @@ DIST.prototype={
         dwr.util.setEscapeHtml(false);
         this.windowLocation=window.location;
         this.allot_id=null;
-        this.manu=null;
-        this.item=null;
 
         this.cell_data=new Array();
         this.status=0;
@@ -16,6 +14,8 @@ DIST.prototype={
     	  this.data=new Array();//按店仓排序数据
 				this.data1=new Array();//按款号排序数据    	  
         this.dataForQtyCan=new Array();//所有可配量数组
+        this.totQtyRem=0;//总订单量
+        this.totQtyAl=0;//总配货量
         this.bodyWidth=0;
         this.docNoes=new Array();
         /** A function to call if something fails. */
@@ -32,12 +32,26 @@ DIST.prototype={
         application.addEventListener("RELOAD",this._onreShow,this);
     },
     queryObject: function(style){
+	    	
+	    	//得到cookie中的数据用于自动配货
+	    	//end
+	    	
+    	  this.cell_data=new Array();
+        this.status=0;
+        this.loadStatus="load";
+        this.ylen=0;
+    	  this.data=new Array();//按店仓排序数据
+				this.data1=new Array();//按款号排序数据    	  
+        this.dataForQtyCan=new Array();//所有可配量数组
+        this.bodyWidth=0;
+        this.docNoes=new Array();
     	  var evt={};
         evt.command="DBJSONXML";
         evt.callbackEvent="DO_QUERY";
         var load_type=$("load_type").value;
         var reg=/^\d{8}$/;
         var m_allot_id=$("fund_balance").value||"-1";
+        //var isstore=jQuery("#model").is(":checked")?;
         if(style&&style=='doc'){
             if(!$('column_41520').value){
                 alert("单据号不能为空！");
@@ -71,6 +85,7 @@ DIST.prototype={
             var billdatebeg=$("column_26995").value.strip();
             var year=billdatebeg.substring(0,4);
             var month=billdatebeg.substring(4,6);
+       
             var date=billdatebeg.substring(6,8);
             var beg=month+"/"+date+"/"+year;
             if(!this.checkIsDate(month,date,year)||!reg.test(billdatebeg)){
@@ -86,9 +101,13 @@ DIST.prototype={
                 alert("结束日期格式不对！请输入8位有效数字。");
                 return;
             }
+            var isprepack="N";
+            if(jQuery("#isprepack").is(":checked")){
+            	isprepack="Y";
+            }
             var param={"or_type":doctype,"c_dest":orig_in_sql,"c_orig":orig_out_fk,"m_product":product_filter,
                 "datest":billdatebeg,"datend":billdateend,"load_type":load_type,
-                "m_allot_id":m_allot_id,"searchord":"","porder":-1};
+                "m_allot_id":m_allot_id,"searchord":"","porder":-1,"isprepack":isprepack,"isstore":0};
         }
         evt.param=Object.toJSON(param);
         evt.table="m_allot";
@@ -127,6 +146,11 @@ DIST.prototype={
         /*end*/
         var m_allot_id=$("fund_balance").value||-1;
         var m_item=new Array();
+        var celllen=this.cell_data.length;
+        if(0==celllen){
+        	alert("没有数据！");
+        	return;
+        }
         for(var i=0;i<this.cell_data.length;i++){
         		var ii={};
         		ii.qty_ady=this.cell_data[i].qtyal;
@@ -137,6 +161,11 @@ DIST.prototype={
        
         //end
         var param={};
+        var isprepack="N";
+        if(jQuery("#isprepack").is(":checked")){
+        	isprepack="Y";
+        }
+        param.isprepack=isprepack;
         param.type=type;
         param.m_allot_id=m_allot_id;
         param.notes=$("notes").value.strip()||"";
@@ -158,7 +187,7 @@ DIST.prototype={
         evt.command="DBJSONXML";
         evt.callbackEvent="RELOAD";
         var m_allot_id=$("fund_balance").value||"-1";
-        var param={"or_type":"-1","c_dest":"-1","c_orig":"-1","m_product":"-1","datest":"-1","datend":"-1","load_type":"reload","m_allot_id":m_allot_id,"porder":-1};
+        var param={"or_type":"-1","c_dest":"-1","c_orig":"-1","m_product":"-1","datest":"-1","datend":"-1","load_type":"reload","m_allot_id":m_allot_id,"porder":-1,"isstore":0};
         evt.param=Object.toJSON(param);
         evt.table="m_allot";
         evt.action="distribution_jnby";
@@ -170,13 +199,11 @@ DIST.prototype={
         var ret=data.jsonResult.evalJSON();
         $("column_26992").value=ret.C_ORIG||"";
         $("column_26993_fd").value=ret.DEST_FILTER||"(可用 = Y)";
-        $("column_26994_fd").value=ret.Product_Filter||"";
+        $("column_26994_fd").value=ret.Product_Filter||"(可用 = Y)";
         $("column_26995").value=ret.Billdatebeg||"";
         $("column_269966").value=ret.Billdateend||"";
         //alert(ret.distdate);
-        jQuery("#distdate1").val(ret.distdate||"");
         jQuery("#distdate").val(ret.distdate||"");
-        var isArray=ret.isarray;
         var status=ret.status;
         $("orderStatus").value=status;
         if(status=="2"){
@@ -189,7 +216,7 @@ DIST.prototype={
         var ret=data.jsonResult.evalJSON();
         if(ret.data=="OK"){
             this.status=0;
-            jQuery("#ph-serach-bg>div input[type='image']").hide();
+            jQuery("#jnby-serach-bg>div input[type='image']").hide();
 
             alert("保存成功！");
             $("isChanged").value="false";
@@ -266,6 +293,8 @@ DIST.prototype={
         $("fund_table1").innerHTML=fundStr;
     },
     _onLoadMetrix:function(e){
+    	var time1=new Date();
+      time1=time1.getSeconds();
     	var datastart=new Date();
         window.self.onunload=function(){
                var e=window.opener||window.parent;
@@ -274,28 +303,33 @@ DIST.prototype={
         dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         var data=e.getUserData();
         var ret=data.jsonResult.evalJSON();
-        this.manuStr="";
-        this.itemStr="";
-        if(ret.data&&ret.data=="null"){
+        if(!(ret.data)||(ret.data&&ret.data=="null")){
             $("table-main").innerHTML="<div style='font-size:20px;color:red;text-align:center;font-weight:bold;vertical-align:middle'>没有数据！</div>";
             return;
         }
         var orderAmount=ret.feeallot||0;
         jQuery("#amount").html(orderAmount).css("display","");
-        if(this.checkIsArray(ret.data1)){
-        	this.data=ret.data1;
-        }else{
-        	this.data[0]=ret.data1;
+        jQuery("#fund_balance").val(ret.m_allot_id);
+        jQuery("#notes").val(ret.notes);
+        //alert(Object.toJSON(ret));
+        if(ret.isprepack&&ret.isprepack=='Y'){
+        	jQuery("#isprepack").attr("checked","checked");
         }
+        if(this.checkIsArray(ret.data)){
+        	this.data=ret.data;
+        }else{
+        	this.data[0]=ret.data;
+        }
+        /*
         if(this.checkIsArray(ret.data)){
         	this.data1=ret.data;
         }else{
         	this.data1[0]=ret.data;
-        }
+        }*/
         //alert(Object.toJSON(ret));
         var str="";
         var str1="";
-        this.ylen=this.data1.length;
+        this.ylen=this.data.length;
         for(var i=0;i<this.ylen;i++){
         	var cell={};
         	cell.docno=this.data[i].m_allotitem.DOCNO;
@@ -306,37 +340,53 @@ DIST.prototype={
         	cell.stylevalue=this.data[i].m_allotitem.VALUE;
         	cell.color=this.data[i].m_allotitem.VALUE1;
         	cell.size=this.data[i].m_allotitem.VALUE2;
-        	cell.qtyrem=this.data[i].m_allotitem.QTYREM;
+        	cell.qtyrem=isNaN(parseInt(this.data[i].m_allotitem.QTYREM,10))?0:parseInt(this.data[i].m_allotitem.QTYREM,10);
         	cell.qtyconsign=isNaN(parseInt(this.data[i].m_allotitem.QTYCONSIGN,10))?0:parseInt(this.data[i].m_allotitem.QTYCONSIGN,10);
         	cell.qtycan=isNaN(parseInt(this.data[i].m_allotitem.QTYCAN,10))?0:parseInt(this.data[i].m_allotitem.QTYCAN,10);
         	cell.qtyaddnow=isNaN(parseInt(this.data[i].m_allotitem.QTYADDNOW,10))?0:parseInt(this.data[i].m_allotitem.QTYADDNOW,10);
         	cell.qtyadd=isNaN(parseInt(this.data[i].m_allotitem.QTYADD,10))?0:parseInt(this.data[i].m_allotitem.QTYADD,10);
         	cell.destqty=isNaN(parseInt(this.data[i].m_allotitem.DESTQTY,10))?0:parseInt(this.data[i].m_allotitem.DESTQTY,10);
         	cell.doctype=this.data[i].m_allotitem.DOCTYPE;
+        	cell.qty=isNaN(parseInt(this.data[i].m_allotitem.QTY,10))?0:parseInt(this.data[i].m_allotitem.QTY,10);//订单量
+        	cell.qtyaldist=cell.qty-cell.qtyrem;//已配量，指已配过提交的
+        	cell.origqty=isNaN(parseInt(this.data[i].m_allotitem.ORIGQTY,10))?0:parseInt(this.data[i].m_allotitem.ORIGQTY,10);
+        	cell.allotstate=parseInt(this.data[i].m_allotitem.ALLOTSTATE,10);
         	this.cell_data.push(cell);
         	this.UpdateDataForQtyCan(cell);
+        	this.totQtyRem+=cell.qtyrem;
+        	this.totQtyAl+=cell.qtyal;
+        	
+        	var allotstate="正常";
+        	if(cell.allotstate!=1){
+        		switch(cell.allotstate){
+        			case 2: allotstate="全可发"; break;
+        			case 3: allotstate="全不可发";break;
+        		}
+        	}
         	
         	str1+=this.data[i].m_allotitem.DOCTYPE=="FWD"?"<div class=\"table-sidebar row\">":"<div class=\"table-sidebar row highlight-xian\">";
         	str1+="<div class=\"row-line\">"+
 								"<div class=\"span-18\">"+(i+1)+"</div>"+
-                "<div class=\"span-15\">"+this.data[i].m_allotitem.NAME+"</div>"+
-								"<div class=\"span-15\">"+this.data[i].m_allotitem.VALUE+"</div>"+
-							  "<div class=\"span-12\">"+this.data[i].m_allotitem.VALUE1+"</div>"+
-							  "<div class=\"span-12\">"+this.data[i].m_allotitem.VALUE2+"</div>"+
-							  "<div class=\"span-15\">"+this.data[i].m_allotitem.NO+"</div>"+
-							  "<div class=\"span-14\">"+(this.data[i].m_allotitem.AREA||"无")+"</div>"+
-							  "<div class=\"span-15\">"+this.data[i].m_allotitem.C_STORE+"</div>"+
-							  "<div class=\"span-15\">"+this.data[i].m_allotitem.DOCNO+"</div>"+
-							  "<div class=\"span-12\">"+this.data[i].m_allotitem.QTYREM+"</div>"+
-							  "<div class=\"span-12\"><input id='"+cell.barcode+"-"+cell.docno+"' y='"+(i+1)+"' docno='"+cell.docno+"' doctype='"+cell.doctype+"' store='"+cell.store+"' barcode='"+cell.barcode+"' qtycan='"+cell.qtycan+"' qtyrem='"+cell.qtyrem+"' value='"+cell.qtyal+"' type=\"text\" class=\"ipt-25\" /></div>"+
-							  "<div class=\"span-12\">"+this.data[i].m_allotitem.QTYCAN+"</div>"+
-							  "<div class=\"span-13\">"+this.data[i].m_allotitem.QTYCONSIGN+"</div>"+
-							  "<div class=\"span-14\">"+this.data[i].m_allotitem.QTYADDNOW+"</div>"+
-							  "<div class=\"span-13\">"+this.data[i].m_allotitem.QTYADD+"</div>"+
-							  "<div class=\"span-14\">"+this.data[i].m_allotitem.DESTQTY+"</div>"+
-							  "<div class=\"span-13\">"+(this.data[i].m_allotitem.ALLOTSTATE==1?"正常":"全可发")+"</div>"+
-							  "<div class=\"span-17\">"+(this.data[i].m_allotitem.PREDATEOUT||"无")+"</div></div>";
+                "<div class=\"span-15\">"+(this.data[i].m_allotitem.NAME||"无")+"</div>"+
+								"<div class=\"span-15\">"+(this.data[i].m_allotitem.VALUE||"无")+"</div>"+
+							  "<div class=\"span-12\">"+(this.data[i].m_allotitem.VALUE1||"无")+"</div>"+
+							  "<div class=\"span-12\">"+(this.data[i].m_allotitem.VALUE2||"无")+"</div>"+
+							  "<div class=\"span-15\">"+(this.data[i].m_allotitem.C_STORE||"无")+"</div>"+
+							  "<div class=\"span-15\">"+(this.data[i].m_allotitem.DOCNO||"无")+"</div>"+
+							  "<div class=\"span-12\">"+(cell.qty||0)+"</div>"+
+							  "<div class=\"span-12\">"+(cell.qtyaldist||0)+"</div>"+
+							  "<div class=\"span-16\">"+(cell.origqty||0)+"</div>"+
+							  "<div class=\"span-12\">"+(this.data[i].m_allotitem.QTYREM||0)+"</div>"+
+							  "<div class=\"span-12\"><input id='"+cell.barcode+"-"+cell.docno+"' y='"+(i+1)+"' docno='"+cell.docno+"' style=\"color:red\" doctype='"+cell.doctype+"' store='"+cell.store+"' barcode='"+cell.barcode+"' qtycan='"+cell.qtycan+"' qtyrem='"+cell.qtyrem+"' value='"+cell.qtyal+"' type=\"text\" class=\"ipt-25\" /></div>"+
+							  "<div class=\"span-12\">"+(this.data[i].m_allotitem.QTYCAN||0)+"</div>"+
+							  "<div class=\"span-13\">"+(this.data[i].m_allotitem.QTYCONSIGN||0)+"</div>"+
+							  "<div class=\"span-14\">"+(this.data[i].m_allotitem.QTYADDNOW||0)+"</div>"+
+							  "<div class=\"span-13\">"+(this.data[i].m_allotitem.QTYADD||0)+"</div>"+
+							  "<div class=\"span-14\">"+(this.data[i].m_allotitem.DESTQTY||0)+"</div>"+
+							  "<div class=\"span-13\">"+allotstate+"</div>"+
+							  "<div class=\"span-17\">"+(this.data[i].m_allotitem.PREDATEOUT||"无")+"</div></div></div>";
         }
+        /*
         for(var i=0;i<this.data1.length;i++){
         	var cell={};
         	cell.docno=this.data1[i].m_allotitem.DOCNO;
@@ -347,7 +397,7 @@ DIST.prototype={
         	cell.stylevalue=this.data1[i].m_allotitem.VALUE;
         	cell.color=this.data1[i].m_allotitem.VALUE1;
         	cell.size=this.data1[i].m_allotitem.VALUE2;
-        	cell.qtyrem=this.data1[i].m_allotitem.QTYREM;
+        	cell.qtyrem=parseInt(this.data1[i].m_allotitem.QTYREM);
         	cell.qtyconsign=this.data1[i].m_allotitem.QTYCONSIGN;
         	cell.qtycan=this.data1[i].m_allotitem.QTYCAN;
         	
@@ -355,30 +405,69 @@ DIST.prototype={
         	cell.qtyadd=this.data1[i].m_allotitem.QTYADD;
         	cell.destqty=this.data1[i].m_allotitem.DESTQTY;
         	cell.doctype=this.data1[i].m_allotitem.DOCTYPE;
+        	cell.qty=parseInt(this.data1[i].m_allotitem.QTY);
+        	cell.qty=isNaN(cell.qty)?0:cell.qty;
+        	cell.qtyrem=isNaN(cell.qtyrem)?0:cell.qtyrem;
+        	cell.qtyaldist=cell.qty-cell.qtyrem;
+        	cell.allotstate=parseInt(this.data1[i].m_allotitem.ALLOTSTATE,10);
+        	
+        	var allotstate="正常";
+        	if(cell.allotstate!=1){
+        		switch(cell.allotstate){
+        			case 2: allotstate="全可发"; break;
+        			case 3: allotstate="全不可发";break;
+        		}
+        	}
+        	
         	str+=this.data1[i].m_allotitem.DOCTYPE=="FWD"?"<div class=\"table-sidebar row\">":"<div class=\"table-sidebar row highlight-xian\">";
         	str+="<div class=\"row-line\">"+
 							 "<div class=\"span-18\">"+(i+1)+"</div>"+
-							 "<div class=\"span-14\">"+(this.data1[i].m_allotitem.AREA||"无")+"</div>"+
-							 "<div class=\"span-15\">"+this.data1[i].m_allotitem.C_STORE+"</div>"+
-							 "<div class=\"span-15\">"+this.data1[i].m_allotitem.NAME+"</div>"+
-							 "<div class=\"span-15\">"+this.data1[i].m_allotitem.VALUE+"</div>"+
-							 "<div class=\"span-12\">"+this.data1[i].m_allotitem.VALUE1+"</div>"+
-							 "<div class=\"span-12\">"+this.data1[i].m_allotitem.VALUE2+"</div>"+
-							 "<div class=\"span-15\">"+this.data1[i].m_allotitem.NO+"</div>"+
-							 "<div class=\"span-15\">"+this.data1[i].m_allotitem.DOCNO+"</div>"+
-							 "<div class=\"span-12\">"+this.data1[i].m_allotitem.QTYREM+"</div>"+
-							 "<div class=\"span-12\"><input y='"+(i+1)+"' id='"+cell.barcode+"-"+cell.docno+"-1' doctype='"+cell.doctype+"' store='"+cell.store+"' barcode='"+cell.barcode+"' qtycan='"+cell.qtycan+"' docno='"+cell.docno+"' qtyrem='"+cell.qtyrem+"' value='"+cell.qtyal+"' type=\"text\" class=\"ipt-25\" /></div>"+
-							 "<div class=\"span-12\">"+this.data1[i].m_allotitem.QTYCAN+"</div>"+
-							 "<div class=\"span-13\">"+this.data1[i].m_allotitem.QTYCONSIGN+"</div>"+
-							 "<div class=\"span-14\">"+this.data1[i].m_allotitem.QTYADDNOW+"</div>"+
-							 "<div class=\"span-13\">"+this.data1[i].m_allotitem.QTYADD+"</div>"+
-							 "<div class=\"span-14\">"+this.data1[i].m_allotitem.DESTQTY+"</div>"+
-							 "<div class=\"span-13\">"+(this.data1[i].m_allotitem.ALLOTSTATE==1?"正常":"全可发")+"</div>"+
-							 "<div class=\"span-17\">"+(this.data1[i].m_allotitem.PREDATEOUT||"无")+"</div></div>";
-        }
+							 "<div class=\"span-15\">"+(this.data1[i].m_allotitem.C_STORE||"无")+"</div>"+
+							 "<div class=\"span-15\">"+(this.data1[i].m_allotitem.NAME||"无")+"</div>"+
+							 "<div class=\"span-15\">"+(this.data1[i].m_allotitem.VALUE||"无")+"</div>"+
+							 "<div class=\"span-12\">"+(this.data1[i].m_allotitem.VALUE1||"无")+"</div>"+
+							 "<div class=\"span-12\">"+(this.data1[i].m_allotitem.VALUE2||"无")+"</div>"+
+							 "<div class=\"span-15\">"+(this.data1[i].m_allotitem.DOCNO||"无")+"</div>"+
+							 "<div class=\"span-12\">"+(this.data1[i].m_allotitem.QTY||0)+"</div>"+
+							 "<div class=\"span-12\">"+(cell.qtyaldist||0)+"</div>"+
+							 "<div class=\"span-16\">"+(this.data1[i].m_allotitem.ORIGQTY||0)+"</div>"+
+							 "<div class=\"span-12\">"+(this.data1[i].m_allotitem.QTYREM||0)+"</div>"+
+							 "<div class=\"span-12\"><input y='"+(i+1)+"' id='"+cell.barcode+"-"+cell.docno+"-1' doctype='"+cell.doctype+"' store='"+cell.store+"' barcode='"+cell.barcode+"' qtycan='"+cell.qtycan+"' docno='"+cell.docno+"' qtyrem='"+cell.qtyrem+"' value='"+cell.qtyal+"' type=\"text\" style=\"color:red\" class=\"ipt-25\" /></div>"+
+							 "<div class=\"span-12\">"+(this.data1[i].m_allotitem.QTYCAN||0)+"</div>"+
+							 "<div class=\"span-13\">"+(this.data1[i].m_allotitem.QTYCONSIGN||0)+"</div>"+
+							 "<div class=\"span-14\">"+(this.data1[i].m_allotitem.QTYADDNOW||0)+"</div>"+
+							 "<div class=\"span-13\">"+(this.data1[i].m_allotitem.QTYADD||0)+"</div>"+
+							 "<div class=\"span-14\">"+(this.data1[i].m_allotitem.DESTQTY||0)+"</div>"+
+							 "<div class=\"span-13\">"+allotstate+"</div>"+
+							 "<div class=\"span-17\">"+(this.data1[i].m_allotitem.PREDATEOUT||"无")+"</div></div></div>";
+        }*/
+        var time2=new Date();
+        time2=time2.getSeconds();
+        try{
+        console.log("create html str time:"+(time2-time1));
+        }catch(e){
+        }        
         jQuery("#table-main1").html(str1);
-        jQuery("#table-main").html(str);
+        //jQuery("#table-main").html(str);
+
+        if($("load_type").value=="reload"){
+            $('column_26991').disabled="true";
+            jQuery("#queryDetail>table td input[name!=canModify]").attr("disabled","true");
+            jQuery("#queryDetail>table td span[name!=canShow]").css("display","none");
+        }
+        if($("orderStatus").value=="2"){
+            jQuery("#jnby-from input").attr("disabled","true");
+            jQuery("#jnby-from1 input").attr("disabled","true");
+        }
         this.listener();
+        var time3=new Date();
+        time3=time3.getSeconds();
+        try{
+        console.log("create page time:"+(time3-time2));
+        }catch(e){
+        } 
+        jQuery("#jnby-tot-qty").html(this.totQtyRem); 
+        jQuery("#jnby-tot-qty-al").html(this.totQtyAl+"");      
         //alert(Object.toJSON(this.dataForQtyCan));
         //alert(Object.toJSON(this.dataForQtyAddNow));
         
@@ -449,7 +538,7 @@ DIST.prototype={
             }
         });
     },
-    _executeCommandEvent :function (evt) {
+    _executeCommandEvent :function (evt){
         Controller.handle( Object.toJSON(evt), function(r){
             var result= r.evalJSON();
             if (result.code !=0 ){
@@ -461,13 +550,13 @@ DIST.prototype={
             }
         });
     },
-    checkIsObject:function(o) {
+    checkIsObject:function(o){
         return (typeof(o)=="object");
     },
-    checkIsArray: function(o) {
+    checkIsArray: function(o){
         return (this.checkIsObject(o) && (o.length) &&(!this.checkIsString(o)));
     },
-    checkIsString:function (o) {
+    checkIsString:function (o){
         return (typeof(o)=="string");
     },
     checkIsDate:function(month,date,year){
@@ -479,16 +568,18 @@ DIST.prototype={
     auto_dist:function(){
     	var height=document.body.clientHeight;
     	var width=document.body.clientWidth;
+			
     	jQuery("#auto_dist").css("top",height/2-200).css("left",width/2-300).show();
     },
     closeAuto:function(){
     	jQuery("#auto_dist").hide();
+    	jQuery.post("writecookie.jsp",{"disttype":jQuery("#dist_type").val(),"distvalue":jQuery("#"+jQuery("#dist_type").val()).val()});
     },
     exec_dist:function(){
      	if(!confirm("自动配货会清空已编辑内容，确认继续？")){
           return;
       }
-    	var expr="#jnby-from>div:visible input[y]";
+    	var expr="#jnby-main>div:visible input[y]";
     	var dist_type=jQuery("#dist_type").val();
     	if(jQuery("#"+dist_type)[0]){
     		var dist_param=jQuery("#"+dist_type).val();
@@ -504,7 +595,7 @@ DIST.prototype={
     	}else if(dist_type=="fowOrderPercent"){
     		this.auto_dist_for_fowOrderPercent(expr);
     	}
-    	jQuery("#auto_dist").hide();
+    	this.closeAuto();
     },
     auto_dist_for_specNumber:function(dist_param,expr){
     	dist_param=parseInt(dist_param,10);
@@ -518,7 +609,9 @@ DIST.prototype={
     	dist_param=parseFloat(dist_param);
     	dist_param=isNaN(dist_param)?0:dist_param;
     	jQuery(expr).each(function(){
-	    	var qty=parseInt(dist_param*parseInt(jQuery(this).attr("qtyRem"),10),10);
+    		var qtyrem=parseInt(jQuery(this).attr("qtyRem"),10);
+	    	var qty=Math.ceil(dist_param*qtyrem);
+	    	qty=qty<0?0:qty;
 		    jQuery(this).val(qty);
     		dist.updatecell(this,false);  		
     	});    	
@@ -554,19 +647,28 @@ DIST.prototype={
 			var cells=this.v2m_get_ret(cellData);
 			var totrem=0;
 			for(var i=0;i<cells.length;i++){
-				totrem+=cells.qtyrem;
+				totrem+=cells[i].qtyrem;
 			}
 			return totrem;
 		},
     auto_dist_for_fowOrderPercent:function(expr){
     	jQuery(expr).each(function(){
     		var totrem=dist.get_totrem_for_param(jQuery(this).attr("barcode"),jQuery(this).attr("doctype"));
+    		
 				var qtyrem=jQuery(this).attr("qtyrem");
 				qtyrem=isNaN(parseInt(qtyrem))?0:parseInt(qtyrem);
+				
 				var qtycan=jQuery(this).attr("qtycan");
 				qtycan=isNaN(parseInt(qtycan))?0:parseInt(qtycan);
+				var qtycan1=qtycan;
+				if(jQuery(this).attr("doctype")!="FWD"){
+	    		var cell1=dist.get_data_cell(this);
+	    		qtycan=Math.min(qtycan,cell1.qtyconsign,cell1.qtyaddnow);
+	    	}
 		  	var percent=qtyrem/totrem;
-		  	var qty=parseInt(percent*qtycan,10);
+		  	
+		  	var qty=Math.ceil(percent*qtycan);
+		  	qty=qty<0?0:qty;
 		  	jQuery(this).val(qty);
     		dist.updatecell(this,false);
     	});     
@@ -576,11 +678,11 @@ DIST.prototype={
     */
     next_cell:function(e){
     	 var y=parseInt(jQuery(e).attr("y"),10);
-       var cell=jQuery("#jnby-from>div:visible input[y='"+(y+1)+"']")[0];
+       var cell=jQuery("#jnby-main>div:visible input[y='"+(y+1)+"']")[0];
        if(cell){
            cell.focus();
         }else{
-           var cell=jQuery("#jnby-from>div:visible input[y='1']")[0].focus();
+           var cell=jQuery("#jnby-main>div:visible input[y='1']")[0].focus();
         }
     },
     /**
@@ -588,11 +690,11 @@ DIST.prototype={
     */
     next_cell_up:function(e){
     	 var y=parseInt(jQuery(e).attr("y"),10);
-       var cell=jQuery("#jnby-from>div:visible input[y='"+(y-1)+"']")[0];
+       var cell=jQuery("#jnby-main>div:visible input[y='"+(y-1)+"']")[0];
        if(cell){
            cell.focus();
         }else{
-           var cell=jQuery("#jnby-from>div:visible input[y='"+this.ylen+"']")[0].focus();
+           var cell=jQuery("#jnby-main>div:visible input[y='"+this.ylen+"']")[0].focus();
         }
     },
     /**
@@ -607,6 +709,16 @@ DIST.prototype={
     		}
     	}
     	return -1;
+    },
+    get_qty_al_for_all_can_dist:function(cell){
+    	var barcode=cell.barcode;
+    	var qtyal=0;
+    	for(var i=0;i<this.cell_data.length;i++){
+    		if(barcode==this.cell_data[i].barcode){
+    			qtyal+=this.cell_data[i].qtyal;
+    		}
+    	} 
+    	return qtyal;   	
     },
     /**
     给定元素节点返回对应数据单元
@@ -630,6 +742,7 @@ DIST.prototype={
     		jQuery("#qty-can").html(cell.qtycan+"");
     		jQuery("#qty-consign").html(cell.qtyconsign+"");
     		jQuery("#qty-addnow").html(cell.qtyaddnow+"");
+    		jQuery("#jnby-tot-qty-al").html(this.totQtyAl);
     	}
     },
     //当编辑配货数可配时，更新数据层和编辑单元的数据
@@ -638,10 +751,30 @@ DIST.prototype={
 	    		cell1.qtyconsign-=newdiffqty;
 	    		cell1.qtyaddnow-=newdiffqty;
 	    		cell.qtyal+=newdiffqty;
+	    		
+	    		this.totQtyAl+=newdiffqty;
+	    		
 	    		var barcode=cell.barcode;
 	    		var docno=cell.docno;
+	    		jQuery("#jnby-tot-qty-al").html(this.totQtyAl);
 	    		jQuery("#"+barcode+"-"+docno).val(newqty);
-	    		jQuery("#"+barcode+"-"+docno+"-1").val(newqty);
+	    		//jQuery("#"+barcode+"-"+docno+"-1").val(newqty);
+    },
+    get_qtycan:function(cell,cell1){
+    	var qtycan=0;
+    	if(cell.allotstate==1){
+    		if(cell.doctype=="FWD"){
+	    		qtycan=Math.min((cell.qtyrem-cell.qtyal),cell1.qtycan);
+	    	}else{
+	    		qtycan=Math.min((cell.qtyrem-cell.qtyal),cell1.qtyconsign,cell1.qtyaddnow);
+	    	}
+    	}else if(cell.allotstate==2){
+    		var qtycanforalldoc=cell.qtycan-this.get_qty_al_for_all_can_dist(cell);
+    		qtycan=Math.min((cell.qtyrem-cell.qtyal),qtycanforalldoc);
+    	}else{
+    		qtycan=0;
+    	}
+    	return qtycan;
     },
     //传入在编辑的单元，更新数据
     updatecell:function(e,aler){
@@ -657,13 +790,12 @@ DIST.prototype={
     			return;
     		}
 	    	var diffqty=nowqty-cell.qtyal;
-	    	var qtycan=Math.min(cell1.qtycan,cell1.qtyconsign,cell1.qtyaddnow);
+	    	var qtycan=this.get_qtycan(cell,cell1);
 	    	if(diffqty>qtycan){
 	    		var newqty=qtycan+cell.qtyal;
 	    		var newdiffqty;
-	    		if(!newqty<0){
+	    		if(!(newqty<0)){
 	    			newdiffqty=qtycan;
-
 	    		}else{
 	    			newqty=0;
 	    			newdiffqty=0-cell.qtyal;
@@ -680,6 +812,16 @@ DIST.prototype={
     		return;
     	}
     },
+    refresh_data:function(){
+    	for(var i=0;i<this.cell_data.length;i++){
+    			var cell=this.cell_data[i];
+    			var barcode=cell.barcode;
+	    		var docno=cell.docno;
+	    		var qtyal=cell.qtyal;
+	    		jQuery("#"+barcode+"-"+docno).val(qtyal);
+	    		//jQuery("#"+barcode+"-"+docno+"-1").val(qtyal);
+    	}
+    },
     listener:function(){
         window.onbeforeunload=function(){
         		if(window.location==dist.windowLocation){
@@ -691,7 +833,7 @@ DIST.prototype={
           	}
        	 }
 
-        jQuery("#jnby-from>div input[y]").bind("focus",function(event){
+        jQuery("#jnby-main>div input[y]").bind("focus",function(event){
         	if(event.target==this){
             
             dist.updatecell(this,false);
@@ -699,7 +841,7 @@ DIST.prototype={
             dwr.util.selectRange(this,0,100);
           }
         });
-        jQuery("#jnby-from>div input[y]").bind("keydown",function(event){
+        jQuery("#jnby-main>div input[y]").bind("keydown",function(event){
             if(event.which==13){
             	if(event.target=this){
             		dist.next_cell(this);
@@ -707,7 +849,7 @@ DIST.prototype={
               }
             }
         });
-        jQuery("#jnby-from>div input[y]").bind("keyup",function(event){
+        jQuery("#jnby-main>div input[y]").bind("keyup",function(event){
             if(event.target==this){
                 this.status=1;
                 if((event.which>=48&&event.which<=57)||(event.which>=96&&event.which<=105)){
@@ -725,7 +867,8 @@ DIST.prototype={
                    
             }
         });
-        jQuery("#model").bind("click",function(){
+        /*jQuery("#model").bind("click",function(){
+        	dist.refresh_data();
         	if(jQuery("#model").is(":checked")){
         		jQuery("#jnby-from").show();
         		jQuery("#jnby-from1").hide();
@@ -733,8 +876,8 @@ DIST.prototype={
          		jQuery("#jnby-from1").show();
         		jQuery("#jnby-from").hide();       		
         	}
-        });
-        jQuery("#jnby-from>div:visible input[y]:first").focus();
+        });*/
+        jQuery("#jnby-main>div:visible input[y]:first").focus();
     },
     showObject:function(url, theWidth, theHeight,option){
         if( theWidth==undefined || theWidth==null) theWidth=956;

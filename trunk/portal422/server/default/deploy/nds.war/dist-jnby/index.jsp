@@ -11,6 +11,21 @@
     response.setHeader("Pragma", "No-cache");
     response.setHeader("Cache-Control", "no-cache");
     response.setDateHeader("Expires", 0);
+    
+    //得到保存自动配货方式和值到COOKIE下次自动引用
+    String autoDistType="-1";
+    String autoDistValue=null;
+    Cookie[] cookies=request.getCookies();
+    for(int c=0;c<cookies.length;c++){
+    	Cookie cookie=cookies[c];
+    	if(cookie.getName().equals("JNBYAUTODISTTYPE")){
+    		autoDistType=cookie.getValue();
+    	}else if(cookie.getName().equals("JNBYAUTODISTVALUE")){
+    		autoDistValue=cookie.getValue();	
+    	}
+    }
+    //end
+    
     UserWebImpl userWeb =null;
     try{
         userWeb= ((UserWebImpl)WebUtils.getSessionContextManager(session).getActor(nds.util.WebKeys.USER));
@@ -113,6 +128,8 @@
 <input type="hidden" id="orderStatus" value="1"/>
 <input type="hidden" id="fund_balance" value="<%=id!=-1?id:""%>"/>
 <input type="hidden" id="isChanged" value="false"/>
+<input type="hidden" id="autoDistType" value="<%=autoDistType%>">
+<input type="hidden" id="autoDistValue" value="<%=autoDistValue%>">
 	<iframe id="CalFrame" name="CalFrame" frameborder=0 src=/html/nds/common/calendar.jsp style="display:none;position:absolute; z-index:9999"></iframe>
 <div id="jnby-btn">
 	<div id="jnby-from-btn">
@@ -129,7 +146,7 @@
 <tr>
 <td colspan="2" bordercolor="#f0f0f0">
 <div id="jnby-serach-bg">
-<div id="" class="obj">
+<div id="queryDetail" class="obj">
 			<table width="970" border="0" cellspacing="1" cellpadding="0" class="obj" align="center">
   <tr>
      <td class="jnby-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">订单类型<font color="red">*</font>：</div></td>
@@ -140,8 +157,8 @@
 				<option value="INS">现货订单</option>
 				<option selected="selected" value="ALL">全部</option>
 			</select>
-      <label>
-      <input name="checkbox" type="checkbox" value="checkbox" checked="checked" />是否预配</label>
+      <label style="display:none">
+      <input id="isprepack" name="canModify" type="checkbox" value="checkbox"/>是否预发</label>
     </td>
     <td class="jnby-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">发货店仓<font color="red">*</font>：</div></td>
     <td class="jnby-value" width="170" valign="top" nowrap="" align="left"><input id="column_26992" name="" type="text" class="ipt-4-2" /><input type="hidden" id="fk_column_26992" name="C_ORIG_ID" value=""><span  class="coolButton" id="cbt_26992" onaction="oq.toggle('/html/nds/query/search.jsp?table=<%=orgStore%>&return_type=s&column=<%=orgStoreColumn %>&accepter_id=column_26992&qdata='+encodeURIComponent(document.getElementById('column_26992').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_26992')"><img width="16" height="16" border="0" align="absmiddle" title="Find" src="images/find.gif"/></span>
@@ -167,7 +184,7 @@
       Date tody=new Date();
       SimpleDateFormat fmt=new SimpleDateFormat("yyyyMMdd");
       String end=fmt.format(tody);
-      Long stL=tody.getTime()-24*60*60*1000*10l;
+      Long stL=tody.getTime()-24*60*60*1000*180l;
       Date std=new Date(stL);
       String st=fmt.format(std);
   %>
@@ -183,7 +200,7 @@
   </tr>
   <tr>
     <td class="jnby-desc" valign="top" nowrap="" align="right">物流备注<font color="red">*</font>：</td>
-    <td width="220" align="left" valign="top" nowrap="" class="jnby-value"><input id="notes" type="text" class="ipt-4-220" /></td>
+    <td width="220" align="left" valign="top" nowrap="" class="jnby-value"><input id="notes" type="text" name="canModify" class="ipt-4-220" /></td>
     <td class="jnby-desc" valign="top" nowrap="" align="right">配单日期<font color="red">*</font>：</td>
     <td class="jnby-value" valign="top" nowrap="" align="left">
     	<input id="distdate" name="canModify" type="text" title="8位日期，如20070823" value="<%=end%>" class="ipt-4-2" />
@@ -193,7 +210,7 @@
     	</td>
     <td class="jnby-desc" valign="top" nowrap="" align="right"><div class="jnby-txt">本单金额：</div></td>
     <td class="jnby-value" valign="top" nowrap="" align="left" width="180" id="amount"></td>
-    <td width="120" align="left" valign="top" nowrap="" class="jnby-value"><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject()" /></td>
+    <td width="120" align="left" valign="top" nowrap="" class="jnby-value"><%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject()" /><%}%></td>
   </tr>
 </table>
 			</div>
@@ -204,9 +221,9 @@
   </tr>
 <tr>
 <td colspan="2" bgcolor="#e6edf1">
-			<table width="720" border="0" cellspacing="1" cellpadding="0" class="obj" align="left">
+			<table width="1120" border="0" cellspacing="1" cellpadding="0" class="obj" align="left">
   <tr>
-  	<td class="jnby-desc" width="80" valign="top" nowrap="" align="right"><div id="jnby-serach-title">
+  	<td class="jnby-desc" width="80" valign="top" nowrap="" align="right"><div id="jnby-serach-title" style="display:none">
 <input id="model" name="" type="checkbox" value="" checked="checked" />
 店仓模式
           </div></td>
@@ -214,10 +231,15 @@
     <td class="jnby-value" width="120" valign="top" nowrap="" align="left"><div class="jnby-txt" id="qty-can">0</div></td>
     <td class="jnby-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">追单可配：</div></td>
     <td class="jnby-value" width="120" valign="top" nowrap="" align="left"><div class="jnby-txt" id="qty-consign">0</div></td>
-    <td class="jnby-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">当前放量可配：</div></td>
-    <td class="jnby-value" width="120" valign="top" nowrap="" align="left"><div class="jnby-txt" id="qty-addnow">0</div></td>
+    <td class="jnby-desc" width="90" valign="top" nowrap="" align="right"><div class="desc-txt">当前放量可配：</div></td>
+    <td class="jnby-value" width="110" valign="top" nowrap="" align="left"><div class="jnby-txt" id="qty-addnow">0</div></td>
+    <td width="120" class="jnby-desc" align="right"><div class="jnby-test">总未配量：</div></td>
+    <td width="80" class="jnby-value" align="left"><div id="jnby-tot-qty" class="jnby-txt"></div></td>
+    <td width="120" class="jnby-desc" align="right"><div class="jnby-test">总配货量：</div></td>
+    <td width="80" class="jnby-value" align="left"><div id="jnby-tot-qty-al" class="jnby-txt"></div></td>
     </tr>
 </table>
+
 </td>
 </tr>
   <tr>
@@ -225,18 +247,20 @@
   </tr>
   <tr>
 <td valign="top" align="center" colspan="2">
-<div id="jnby-from">	
+<div id="jnby-main">
+<div id="jnby-from" style="display:none">	
 	<div class="table" >
 	<div class="table-head">
 	<div class="span-18">序<br />号</div>
-	<div class="span-14">收货<br />区域</div>
-<div class="span-15">接受<br />店仓</div>
+<div class="span-15">收货<br />店仓</div>
 <div class="span-15">款<br />号</div>
 <div class="span-15">品<br />名</div>
 <div class="span-12">颜<br />色</div>
 <div class="span-12">尺<br />寸</div>
-<div class="span-15">条<br />码</div>
 <div class="span-15">单据<br />编号</div>
+<div class="span-12">订单<br />量</div>
+<div class="span-12">已配<br />量</div>
+<div class="span-16">发货仓<br />库存</div>
 <div class="span-12">未<br />配</div>
 <div class="span-12">配<br />货</div>
 <div class="span-12">可<br />配</div>
@@ -247,13 +271,13 @@
 <div class="span-13">状<br />态</div>
 <div class="span-16">发货<br />日期</div>
 </div>
-<div id="table-main" class="main_content" style="height: 340px; width: 1056px; visibility: visible; opacity: 1;">
+<div id="table-main" class="main_content" style="height: 480px; width: 1056px; visibility: visible; opacity: 1;">
 
 </div>
 </div>
 </div>
 
-<div id="jnby-from1" style="display:none">	
+<div id="jnby-from1" >	
 <div class="table" >
 <div class="table-head">
 <div class="span-18">序<br />号</div>
@@ -261,10 +285,11 @@
 <div class="span-15">品<br />名</div>
 <div class="span-12">颜<br />色</div>
 <div class="span-12">尺<br />寸</div>
-<div class="span-15">条<br />码</div>
-<div class="span-14">收货<br />区域</div>
-<div class="span-15">接受<br />店仓</div>
+<div class="span-15">收货<br />店仓</div>
 <div class="span-15">单据<br />编号</div>
+<div class="span-12">订单<br />量</div>
+<div class="span-12">已配<br />量</div>
+<div class="span-16">发货仓<br />库存</div>
 <div class="span-12">未<br />配</div>
 <div class="span-12">配<br />货</div>
 <div class="span-12">可<br />配</div>
@@ -277,6 +302,7 @@
 </div>
 <div id="table-main1" class="main_content" style="height: 340px; width: 1056px; visibility: visible; opacity: 1;">
 
+</div>
 </div>
 </div>
 </div>
@@ -297,7 +323,7 @@
 <div id="auto_dist" style="z-index:100;display:none;position:absolute;">
 <div id="auto-bg">
 <div id="auto-menu">
-<div id="auto-menu-right"><input name="" type="image" src="images/btn-gb.gif" width="21" height="21" /></div>
+<div id="auto-menu-right"><input onclick="dist.closeAuto();" type="image" src="images/btn-gb.gif" width="21" height="21" /></div>
 <div id="auto-menu-left">自动配货</div>
 </div>
 <div id="auto-main">
@@ -307,9 +333,9 @@
 <table width="440" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td width="13" align="right"><label>
-      <input name="dist_type" onclick="checkType(event);" type="radio" value="spec_number" checked="checked" />
+      <input id='spec_number' name="dist_type" onclick="checkType(event);" type="radio" value="spec_number" checked="checked" />
       </label></td>
-    <td width="135"><div class="jnby-left-txt">指定配化数量：</div></td>
+    <td width="135"><div class="jnby-left-txt">指定配货数量：</div></td>
     <td width="312"><div class="jnby-right-txt"><input name="" id="specNumber"  type="text" class="right-input" /></div></td>
     </tr>
   <tr>
@@ -318,7 +344,7 @@
     </tr>
   <tr>
     <td width="13" align="right"><label>
-      <input type="radio" onclick="checkType(event);" name="dist_type" value="not_order"/>
+      <input id='not_order' type="radio" onclick="checkType(event);" name="dist_type" value="not_order"/>
       </label></td>
     <td width="135"><div class="jnby-left-txt">按未配量比例配货：</div></td>
     <td width="312"><div class="jnby-right-txt"><input name="" type="text" class="right-input" onblur="checkFloat(event)" disabled="true" value="1" id="fowNotOrderPercent"/></div></td>
@@ -329,7 +355,7 @@
     </tr>
   <tr>
     <td width="13" align="right"><label>
-      <input type="radio" value="order" name="dist_type" onclick="checkType(event);"/>
+      <input id='order' type="radio" value="order" name="dist_type" onclick="checkType(event);"/>
       </label></td>
     <td width="150"><div class="jnby-left-txt"><font color="red">*</font>按订单订货比例配货<font color="red">*</font></div></td>
     <td></td>
@@ -342,16 +368,27 @@
     <td colspan="3" height="10"></td>
     </tr>
   <tr>
-    <td colspan="3"><div class="jnby-right-notes">注意：无论选择哪种配货策略，均受到可配货总量的限制，即配货总数量不能大于草莓
-      可配货总量。</div></td>
+    <td colspan="3"><div class="jnby-right-notes">注意：无论选择哪种配货策略，均受到可配货总量的限制，即配货总数量不能大于可配货总量。</div></td>
     </tr>
 </table>
 </div>
 </div>
 <div class="auto-height"></div>
 <div id="auto-btn"><input type="image" src="images/btn-cd.gif" width="34" height="20" onclick="dist.exec_dist();"/>&nbsp;&nbsp;<input name="" type="image" src="images/btn-qx.gif" onclick="dist.closeAuto();" width="34" height="20" /></div>
-	<input type="hidden" id="dist_type" value="specNumber"/>
+	<input type="hidden" id="dist_type" value='<%=autoDistType.equals("-1")?"specNumber":autoDistType%>'/>
 	<script type="text/javascript">
+	var disttype='<%=autoDistType%>';
+	if(disttype!='-1'){
+		if(disttype=="specNumber"){
+			jQuery("#spec_number").attr("checked","checked");
+			jQuery("#specNumber").val(<%=autoDistValue%>);
+		}else if(disttype=="fowNotOrderPercent"){
+			jQuery("#not_order").attr("checked","checked");
+			jQuery("#fowNotOrderPercent").val(<%=autoDistValue%>);
+		}else{
+			jQuery("#order").attr("checked","checked");
+		}
+	}
         function checkFloat(event){
         	var e=Event.element(event);
         	var percent=jQuery(e).val();
@@ -364,7 +401,6 @@
 		  	}
         function checkType(event){
         	var e=Event.element(event);
-        	jQuery("#specNumber,#fowNotOrderPercent,#fowOrderPercent").attr("disabled","true").val("");
         	if(e.value=="spec_number"){
         		jQuery("#specNumber").removeAttr("disabled");
         		jQuery("#dist_type").val("specNumber");
