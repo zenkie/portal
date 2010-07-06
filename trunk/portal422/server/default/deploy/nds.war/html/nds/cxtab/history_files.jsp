@@ -172,7 +172,7 @@
         <script>
 <%
  int dimensionCnt=Tools.getInt(QueryEngine.getInstance().doQueryOne("select count(*) from ad_cxtab_dimension where ad_cxtab_id="+cxtabId),-1);
- int warningDimCnt=Tools.getInt( ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("xtab.dimension.threshold", "5"), 5);
+ int warningDimCnt=Tools.getInt( ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("cxtab.dimension.threshold", "5"), 5);
  if(dimensionCnt>warningDimCnt){
 %> 
  if(confirm("<%=PortletUtils.getMessage(pageContext, "too-many-dims-warning",null).replace("0",dimensionCnt+">"+warningDimCnt)%>")){

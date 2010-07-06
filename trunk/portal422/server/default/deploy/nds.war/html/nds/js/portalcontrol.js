@@ -1508,13 +1508,11 @@ PortalControl.prototype = {
 		var cmd="cmdline="+encodeURIComponent(cmdline)+"&env="+encodeURIComponent(Object.toJSON(env));
 		new Ajax.Request("/servlets/binserv/Shell?"+cmd, {
 			  method: 'post',
-			  onLoading:function(t){
+			  onCreate:function(t){
 			  	$("cmdloading").show();
 			  },
-			  onInteractive:function(t){
-			  	$("cmdloading").hide();
-			  },
 			  onSuccess: function(transport) {
+			  	$("cmdloading").hide();
 			  	 var ret=transport.responseText;
 			  	 try{
 			  	 	ret= ret.evalJSON();	
@@ -1531,6 +1529,7 @@ PortalControl.prototype = {
 			  	 }
 			  },
 			  onFailure:function(transport){
+			  	$("cmdloading").hide();
 			  	pc.cmdmsgbox("cmd failed, check network connection:");
 			  }
 			}
