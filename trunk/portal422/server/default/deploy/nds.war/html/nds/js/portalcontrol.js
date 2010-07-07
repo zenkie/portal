@@ -1514,6 +1514,7 @@ PortalControl.prototype = {
 			  onSuccess: function(transport) {
 			  	$("cmdloading").hide();
 			  	 var ret=transport.responseText;
+			  	 if(ret==null || ret=="") return;
 			  	 try{
 			  	 	ret= ret.evalJSON();	
 			  	 	if(ret.message!=null || ret.help!=null)pc.cmdmsgbox(ret.message,ret.help);
@@ -1994,4 +1995,20 @@ function checkTimeoutForPortal(secondsForInactive){
 		//refresh page forcefully
 		window.location="/c/portal/logout";
 	}
+}
+function startUpload(){
+      document.getElementById('f1_upload_process').style.visibility = 'visible';
+      document.getElementById('f1_upload_form').style.visibility = 'hidden';
+      document.getElementById('fuform').submit();
+}
+
+function stopUpload(code){
+      var result = '';
+      if (code == 0){
+         result = '<font color="green">Success!</font><br/><br/>';
+      }else {
+         result = '<font color="red">Fail!</font><br/><br/>';
+      }
+      document.getElementById('f1_upload_process').innerHTML = result;
+      return true;   
 }
