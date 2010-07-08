@@ -238,7 +238,7 @@ background:#f1f5f9;
 display:inline-block;
 table-layout:fixed;
 text-align:center;
-width:1058px;}
+width:1018px;}
 
 #jnby-from1{
 margin-top:5px;
@@ -248,13 +248,13 @@ background:#f1f5f9;
 display:inline-block;
 table-layout:fixed;
 text-align:center;
-width:1058px;
+width:1018px;
 }
 
 .table{
 overflow-x:auto;
 overflow-y:hidden;
-width:1056px;
+width:1016px;
 clear:both;
 font-size:11px;
 text-align:center;

@@ -1,4 +1,4 @@
-var dist=null;
+﻿var dist=null;
 var DIST=Class.create();
 DIST.prototype={
     initialize: function() {
@@ -7,17 +7,21 @@ DIST.prototype={
         this.windowLocation=window.location;
         this.allot_id=null;
 
-        this.cell_data=new Array();
+        this.cell_data=new Array();//单元数量
+        this.cell_data_index={};//为“单元数量”专门建立的索引JSON
         this.status=0;
         this.loadStatus="load";
         this.ylen=0;
     	  this.data=new Array();//按店仓排序数据
 				this.data1=new Array();//按款号排序数据    	  
         this.dataForQtyCan=new Array();//所有可配量数组
+        this.dataForQtyCan_index={};//为“所有可配量数组”专门建立的索引JSON
+        this.barcodeQtyAl={};
         this.totQtyRem=0;//总订单量
         this.totQtyAl=0;//总配货量
         this.bodyWidth=0;
         this.docNoes=new Array();
+        //this.allinputs=null;
         /** A function to call if something fails. */
         dwr.engine._errorHandler =  function(message, ex) {
             while(ex!=null && ex.cause!=null) ex=ex.cause;
@@ -217,11 +221,13 @@ DIST.prototype={
         if(ret.data=="OK"){
             this.status=0;
             jQuery("#jnby-serach-bg>div input[type='image']").hide();
-
+						jQuery("#amount").html(ret.feeallot);
             alert("保存成功！");
+            
             $("isChanged").value="false";
         }else if(ret.data=="YES"){
             this.status=0;
+            jQuery("#amount").html(ret.feeallot);
             alert("提交成功！");
             $("isChanged").value="false";
             window.self.close();
@@ -296,10 +302,11 @@ DIST.prototype={
     	var time1=new Date();
       time1=time1.getSeconds();
     	var datastart=new Date();
+        /*
         window.self.onunload=function(){
                var e=window.opener||window.parent;
                e.setTimeout("pc.doRefresh()",1);
-         }
+         }*/
         dwr.util.useLoadingMessage(gMessageHolder.LOADING);
         var data=e.getUserData();
         var ret=data.jsonResult.evalJSON();
@@ -351,8 +358,14 @@ DIST.prototype={
         	cell.qtyaldist=cell.qty-cell.qtyrem;//已配量，指已配过提交的
         	cell.origqty=isNaN(parseInt(this.data[i].m_allotitem.ORIGQTY,10))?0:parseInt(this.data[i].m_allotitem.ORIGQTY,10);
         	cell.allotstate=parseInt(this.data[i].m_allotitem.ALLOTSTATE,10);
+        	this.cell_data_index[cell.barcode+cell.docno]=this.cell_data.length;
         	this.cell_data.push(cell);
         	this.UpdateDataForQtyCan(cell);
+        	if(this.barcodeQtyAl[cell.barcode]){
+        		this.barcodeQtyAl[cell.barcode]+=cell.qtyal;
+        	}else{
+        		this.barcodeQtyAl[cell.barcode]=cell.qtyal;
+        	}
         	this.totQtyRem+=cell.qtyrem;
         	this.totQtyAl+=cell.qtyal;
         	
@@ -377,12 +390,13 @@ DIST.prototype={
 							  "<div class=\"span-12\">"+(cell.qtyaldist||0)+"</div>"+
 							  "<div class=\"span-16\">"+(cell.origqty||0)+"</div>"+
 							  "<div class=\"span-12\">"+(this.data[i].m_allotitem.QTYREM||0)+"</div>"+
-							  "<div class=\"span-12\"><input id='"+cell.barcode+"-"+cell.docno+"' y='"+(i+1)+"' docno='"+cell.docno+"' style=\"color:red\" doctype='"+cell.doctype+"' store='"+cell.store+"' barcode='"+cell.barcode+"' qtycan='"+cell.qtycan+"' qtyrem='"+cell.qtyrem+"' value='"+cell.qtyal+"' type=\"text\" class=\"ipt-25\" /></div>"+
+							  "<div class=\"span-12\"><input id='"+cell.barcode+"-"+cell.docno+"' y='"+(i+1)+"' docno='"+cell.docno+"' style=\"color:red\" doctype='"+cell.doctype+"' store='"+cell.store+"' barcode='"+cell.barcode+"' qtycan='"+cell.qtycan+"' qtyrem='"+cell.qtyrem+"' value='"+cell.qtyal+"' type=\"text\" class=\"ipt-25\" onfocus=\"var e=jQuery(this);dist.updatecell(e,false);dist.updatetitle(e);dwr.util.selectRange(this,0,100);\""+
+							   " onkeydown=\"var code=event.which?event.which:event.keyCode; if(code==13){	dist.next_cell(this);}\""+
+							   " onkeyup=\"dist.keyuplistener(event);\"/></div>"+
 							  "<div class=\"span-12\">"+(this.data[i].m_allotitem.QTYCAN||0)+"</div>"+
 							  "<div class=\"span-13\">"+(this.data[i].m_allotitem.QTYCONSIGN||0)+"</div>"+
 							  "<div class=\"span-14\">"+(this.data[i].m_allotitem.QTYADDNOW||0)+"</div>"+
 							  "<div class=\"span-13\">"+(this.data[i].m_allotitem.QTYADD||0)+"</div>"+
-							  "<div class=\"span-14\">"+(this.data[i].m_allotitem.DESTQTY||0)+"</div>"+
 							  "<div class=\"span-13\">"+allotstate+"</div>"+
 							  "<div class=\"span-17\">"+(this.data[i].m_allotitem.PREDATEOUT||"无")+"</div></div></div>";
         }
@@ -432,7 +446,7 @@ DIST.prototype={
 							 "<div class=\"span-12\">"+(cell.qtyaldist||0)+"</div>"+
 							 "<div class=\"span-16\">"+(this.data1[i].m_allotitem.ORIGQTY||0)+"</div>"+
 							 "<div class=\"span-12\">"+(this.data1[i].m_allotitem.QTYREM||0)+"</div>"+
-							 "<div class=\"span-12\"><input y='"+(i+1)+"' id='"+cell.barcode+"-"+cell.docno+"-1' doctype='"+cell.doctype+"' store='"+cell.store+"' barcode='"+cell.barcode+"' qtycan='"+cell.qtycan+"' docno='"+cell.docno+"' qtyrem='"+cell.qtyrem+"' value='"+cell.qtyal+"' type=\"text\" style=\"color:red\" class=\"ipt-25\" /></div>"+
+							 "<div class=\"span-12\"><input y='"+(i+1)+"' id='"+cell.barcode+"-"+cell.docno+"-1' doctype='"+cell.doctype+"' store='"+cell.store+"' barcode='"+cell.barcode+"' qtycan='"+cell.qtycan+"' docno='"+cell.docno+"' qtyrem='"+cell.qtyrem+"' value='"+cell.qtyal+"' type=\"text\" style=\"color:red\" class=\"ipt-25\" onfocus="var e=jQuery(this);dist.updatecell(e,false);dist.updatetitle(e);dwr.util.selectRange(e,0,100);" /></div>"+
 							 "<div class=\"span-12\">"+(this.data1[i].m_allotitem.QTYCAN||0)+"</div>"+
 							 "<div class=\"span-13\">"+(this.data1[i].m_allotitem.QTYCONSIGN||0)+"</div>"+
 							 "<div class=\"span-14\">"+(this.data1[i].m_allotitem.QTYADDNOW||0)+"</div>"+
@@ -456,18 +470,21 @@ DIST.prototype={
             jQuery("#queryDetail>table td span[name!=canShow]").css("display","none");
         }
         if($("orderStatus").value=="2"){
-            jQuery("#jnby-from input").attr("disabled","true");
+            //jQuery("#jnby-from input").attr("disabled","true");
             jQuery("#jnby-from1 input").attr("disabled","true");
         }
-        this.listener();
+        //this.listener();
+        jQuery("#jnby-main>div:visible input[y='1']")[0].focus();
         var time3=new Date();
         time3=time3.getSeconds();
         try{
         console.log("create page time:"+(time3-time2));
         }catch(e){
         } 
-        jQuery("#jnby-tot-qty").html(this.totQtyRem); 
-        jQuery("#jnby-tot-qty-al").html(this.totQtyAl+"");      
+        $("jnby-tot-qty").innerHTML=this.totQtyRem;
+        //jQuery("#jnby-tot-qty").html(this.totQtyRem); 
+        $("jnby-tot-qty-al").innerHTML=this.totQtyAl+"";
+        //jQuery("#jnby-tot-qty-al").html(this.totQtyAl+"");      
         //alert(Object.toJSON(this.dataForQtyCan));
         //alert(Object.toJSON(this.dataForQtyAddNow));
         
@@ -499,7 +516,8 @@ DIST.prototype={
     		cellForQtyCan.qtyaddnow=isNaN(parseInt(cell.qtyaddnow,10))?0:parseInt(cell.qtyaddnow,10);
     		cellForQtyCan.qtyaddnow-=cell.qtyal;
     		cellForQtyCan.qtyconsign=isNaN(parseInt(cell.qtyconsign,10))?0:parseInt(cell.qtyconsign,10);
-    		cellForQtyCan.qtyconsign-=cell.qtyal;    		
+    		cellForQtyCan.qtyconsign-=cell.qtyal;    
+    		this.dataForQtyCan_index[cellForQtyCan.barcode+cellForQtyCan.doctype]=	this.dataForQtyCan.length;	
     		this.dataForQtyCan.push(cellForQtyCan);
     	}
     },
@@ -570,51 +588,67 @@ DIST.prototype={
     	var width=document.body.clientWidth;
 			
     	jQuery("#auto_dist").css("top",height/2-200).css("left",width/2-300).show();
+    	
     },
     closeAuto:function(){
     	jQuery("#auto_dist").hide();
     	jQuery.post("writecookie.jsp",{"disttype":jQuery("#dist_type").val(),"distvalue":jQuery("#"+jQuery("#dist_type").val()).val()});
     },
+    set_inputes_zero:function(){
+			for(var i=0;i<this.cell_data.length;i++){
+				var cell=this.cell_data[i];
+				cell.qtyal=0;
+				var cell1=this.dataForQtyCan[this.dataForQtyCan_index[cell.barcode+cell.doctype]];
+				cell1.qtycan=cell.qtycan;
+				cell1.qtyaddnow=cell.qtyaddnow;
+				cell1.qtyconsign=cell.qtyconsign;
+			}
+			this.totQtyAl=0;
+    },
     exec_dist:function(){
      	if(!confirm("自动配货会清空已编辑内容，确认继续？")){
           return;
       }
-    	var expr="#jnby-main>div:visible input[y]";
+      this.set_inputes_zero();
     	var dist_type=jQuery("#dist_type").val();
     	if(jQuery("#"+dist_type)[0]){
     		var dist_param=jQuery("#"+dist_type).val();
     	}
-    	jQuery(expr).each(function(){
-    		jQuery(this).val("0");
-    		dist.updatecell(this,false);
-    	});
+			
+			
+    	
     	if(dist_type=="specNumber"){
-    		this.auto_dist_for_specNumber(dist_param,expr);
+    		this.auto_dist_for_specNumber(dist_param);
     	}else if(dist_type=="fowNotOrderPercent"){
-    		this.auto_dist_for_fowNotOrderPercent(dist_param,expr);
+    		this.auto_dist_for_fowNotOrderPercent(dist_param);
     	}else if(dist_type=="fowOrderPercent"){
-    		this.auto_dist_for_fowOrderPercent(expr);
+    		this.auto_dist_for_fowOrderPercent();
     	}
     	this.closeAuto();
+    	this.refresh_data();
     },
-    auto_dist_for_specNumber:function(dist_param,expr){
+    auto_dist_for_specNumber:function(dist_param){
     	dist_param=parseInt(dist_param,10);
     	dist_param=isNaN(dist_param)?0:dist_param;
-    	jQuery(expr).each(function(){
-    		jQuery(this).val(dist_param);
-    		dist.updatecell(this,false);
-    	});
+    	for(var i=0;i<this.cell_data.length;i++){
+    		var cell=this.cell_data[i];
+    		var cell1=this.dataForQtyCan[this.dataForQtyCan_index[cell.barcode+cell.doctype]];
+    		//var ele=$(cell.barcode+"-"+cell.docno);
+				this.updatecellforauto(cell,cell1,dist_param);
+    	}   	
     },
-    auto_dist_for_fowNotOrderPercent:function(dist_param,expr){
+    auto_dist_for_fowNotOrderPercent:function(dist_param){
     	dist_param=parseFloat(dist_param);
     	dist_param=isNaN(dist_param)?0:dist_param;
-    	jQuery(expr).each(function(){
-    		var qtyrem=parseInt(jQuery(this).attr("qtyRem"),10);
+    	for(var i=0;i<this.cell_data.length;i++){
+    		var cell=this.cell_data[i];
+    		var cell1=this.dataForQtyCan[this.dataForQtyCan_index[cell.barcode+cell.doctype]];
+    		//var ele=$(cell.barcode+"-"+cell.docno);
+    		var qtyrem=cell.qtyrem;
 	    	var qty=Math.ceil(dist_param*qtyrem);
-	    	qty=qty<0?0:qty;
-		    jQuery(this).val(qty);
-    		dist.updatecell(this,false);  		
-    	});    	
+	    	qty=qty<0?0:qty;    		
+    		this.updatecellforauto(cell,cell1,qty);
+    	}    	
     },
     /**
      * edit by Robin 2010.5.7
@@ -652,26 +686,29 @@ DIST.prototype={
 			return totrem;
 		},
     auto_dist_for_fowOrderPercent:function(expr){
-    	jQuery(expr).each(function(){
-    		var totrem=dist.get_totrem_for_param(jQuery(this).attr("barcode"),jQuery(this).attr("doctype"));
-    		
-				var qtyrem=jQuery(this).attr("qtyrem");
-				qtyrem=isNaN(parseInt(qtyrem))?0:parseInt(qtyrem);
-				
-				var qtycan=jQuery(this).attr("qtycan");
-				qtycan=isNaN(parseInt(qtycan))?0:parseInt(qtycan);
-				var qtycan1=qtycan;
-				if(jQuery(this).attr("doctype")!="FWD"){
-	    		var cell1=dist.get_data_cell(this);
+    	for(var i=0;i<this.cell_data.length;i++){
+    		var cell=this.cell_data[i];
+    		var cell1=this.dataForQtyCan[this.dataForQtyCan_index[cell.barcode+cell.doctype]];
+    		//var ele=$(cell.barcode+"-"+cell.docno);
+    		var totrem=dist.get_totrem_for_param(cell.barcode,cell.doctype);
+    		var qtyrem=cell.qtyrem;
+    		var qtycan=cell.qtycan;
+    		//qtycan=isNaN(parseInt(qtycan))?0:parseInt(qtycan);
+				//var qtycan1=qtycan;
+				if(cell.doctype!="FWD"){
+					
+	    		//var cell1=dist.get_data_cell(ele);
 	    		qtycan=Math.min(qtycan,cell1.qtyconsign,cell1.qtyaddnow);
 	    	}
 		  	var percent=qtyrem/totrem;
 		  	
 		  	var qty=Math.ceil(percent*qtycan);
 		  	qty=qty<0?0:qty;
-		  	jQuery(this).val(qty);
-    		dist.updatecell(this,false);
-    	});     
+		  	//jQuery(this.allinputs[i]).val(qty);
+    		//this.updatecell(this.allinputs[i],false);	    	
+    		this.updatecellforauto(cell,cell1,qty);		
+    	}    	
+    	    
     },        
     /**
     *传入元素聚焦下个编辑
@@ -703,34 +740,41 @@ DIST.prototype={
     get_qty_cell:function(e){
     	var barcode=jQuery(e).attr("barcode");
     	var doctype=jQuery(e).attr("doctype");
-    	for(var i=0;i<this.dataForQtyCan.length;i++){
+    	var cell=this.dataForQtyCan[this.dataForQtyCan_index[barcode+doctype]];
+    	if(cell){
+    		return cell;
+    	}
+    	/*for(var i=0;i<this.dataForQtyCan.length;i++){
     		if(barcode==this.dataForQtyCan[i].barcode&&this.dataForQtyCan[i].doctype==doctype){
     			return this.dataForQtyCan[i];
     		}
-    	}
+    	}*/
     	return -1;
     },
     get_qty_al_for_all_can_dist:function(cell){
-    	var barcode=cell.barcode;
+    	/*var barcode=cell.barcode;
     	var qtyal=0;
     	for(var i=0;i<this.cell_data.length;i++){
     		if(barcode==this.cell_data[i].barcode){
     			qtyal+=this.cell_data[i].qtyal;
     		}
-    	} 
-    	return qtyal;   	
+    	}
+    	*/ 
+    	return this.barcodeQtyAl[cell.barcode];   	
     },
     /**
     给定元素节点返回对应数据单元
     */
    get_data_cell:function(e){
     	var barcode=jQuery(e).attr("barcode");
-    	var docno=jQuery(e).attr("docno");			   	
-    	for(var i=0;i<this.cell_data.length;i++){
+    	var docno=jQuery(e).attr("docno");	
+    	var cell=this.cell_data[this.cell_data_index[barcode+docno]];
+    	if(cell)return cell;		   	
+    	/*for(var i=0;i<this.cell_data.length;i++){
     		if(barcode==this.cell_data[i].barcode&&this.cell_data[i].docno==docno){
     			return this.cell_data[i];
     		}
-    	}
+    	}*/
     	return -1;
    }, 
     /**
@@ -745,19 +789,31 @@ DIST.prototype={
     		jQuery("#jnby-tot-qty-al").html(this.totQtyAl);
     	}
     },
+    update_m_data:function(cell,cell1,newqty,newdiffqty){
+	    		cell1.qtycan-=newdiffqty;
+	    		cell1.qtyconsign-=newdiffqty;
+	    		cell1.qtyaddnow-=newdiffqty;
+	    		cell.qtyal+=newdiffqty;
+	    		this.totQtyAl+=newdiffqty;
+	    		  	
+    },
     //当编辑配货数可配时，更新数据层和编辑单元的数据
     updatedata:function(cell,cell1,newqty,newdiffqty){
+    	/*
 	    		cell1.qtycan-=newdiffqty;
 	    		cell1.qtyconsign-=newdiffqty;
 	    		cell1.qtyaddnow-=newdiffqty;
 	    		cell.qtyal+=newdiffqty;
 	    		
 	    		this.totQtyAl+=newdiffqty;
-	    		
+	    	*/
+	    	this.update_m_data(cell,cell1,newqty,newdiffqty);
 	    		var barcode=cell.barcode;
 	    		var docno=cell.docno;
-	    		jQuery("#jnby-tot-qty-al").html(this.totQtyAl);
-	    		jQuery("#"+barcode+"-"+docno).val(newqty);
+	    		$("jnby-tot-qty-al").innerHTML=this.totQtyAl;
+	    		//jQuery("#jnby-tot-qty-al").html(this.totQtyAl);
+	    		$(barcode+"-"+docno).value=newqty;
+	    		//jQuery("#"+barcode+"-"+docno).val(newqty);
 	    		//jQuery("#"+barcode+"-"+docno+"-1").val(newqty);
     },
     get_qtycan:function(cell,cell1){
@@ -775,6 +831,12 @@ DIST.prototype={
     		qtycan=0;
     	}
     	return qtycan;
+    },
+    updatecellforauto:function(cell,cell1,qty){
+    	var qtycan=this.get_qtycan(cell,cell1);
+    	var qtynow=qty>qtycan?qtycan:qty;
+    	qtynow=qtynow<0?0:qtynow;
+    	this.update_m_data(cell,cell1,qtynow,qtynow);
     },
     //传入在编辑的单元，更新数据
     updatecell:function(e,aler){
@@ -821,6 +883,24 @@ DIST.prototype={
 	    		jQuery("#"+barcode+"-"+docno).val(qtyal);
 	    		//jQuery("#"+barcode+"-"+docno+"-1").val(qtyal);
     	}
+    	$("jnby-tot-qty-al").innerHTML=this.totQtyAl;
+    },
+    keyuplistener:function(event){
+    	var code=event.which?event.which:event.keyCode;
+    	var ele=event.target?event.target:event.srcElement;
+    	dist.status=1;
+      if((code>=48&&code<=57)||(code>=96&&code<=105)){
+  				dist.updatecell(ele,true);
+ 				  dist.updatetitle(ele);
+      }else if(code==38){//上
+					dist.next_cell_up(ele);
+      }else if(code==40){//下
+      		dist.next_cell(ele);
+      }else if(code==8||code==46){
+          if(ele.value==""||ele.value.strip()==""){
+            ele.value=0;
+          }
+      }
     },
     listener:function(){
         window.onbeforeunload=function(){
@@ -832,15 +912,17 @@ DIST.prototype={
 		            }
           	}
        	 }
-
+/* 
         jQuery("#jnby-main>div input[y]").bind("focus",function(event){
         	if(event.target==this){
-            
+           
             dist.updatecell(this,false);
             dist.updatetitle(this);
             dwr.util.selectRange(this,0,100);
+            
           }
         });
+        
         jQuery("#jnby-main>div input[y]").bind("keydown",function(event){
             if(event.which==13){
             	if(event.target=this){
@@ -851,7 +933,7 @@ DIST.prototype={
         });
         jQuery("#jnby-main>div input[y]").bind("keyup",function(event){
             if(event.target==this){
-                this.status=1;
+                dist.status=1;
                 if((event.which>=48&&event.which<=57)||(event.which>=96&&event.which<=105)){
             				dist.updatecell(this,true);
            				  dist.updatetitle(this);
@@ -867,6 +949,7 @@ DIST.prototype={
                    
             }
         });
+        */
         /*jQuery("#model").bind("click",function(){
         	dist.refresh_data();
         	if(jQuery("#model").is(":checked")){

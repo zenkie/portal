@@ -266,12 +266,11 @@
 <div class="span-12">可<br />配</div>
 <div class="span-13">追单<br />可配</div>
 <div class="span-14">当前放<br />量可配</div>
-<div class="span-13">放量<br />可配</div>
-<div class="span-14">目标店<br />库存</div>
+<div class="span-13">放量</div>
 <div class="span-13">状<br />态</div>
 <div class="span-16">发货<br />日期</div>
 </div>
-<div id="table-main" class="main_content" style="height: 480px; width: 1056px; visibility: visible; opacity: 1;">
+<div id="table-main" class="main_content" style="height: 480px; width: 1016px; visibility: visible; opacity: 1;">
 
 </div>
 </div>
@@ -295,12 +294,11 @@
 <div class="span-12">可<br />配</div>
 <div class="span-13">追单<br />可配</div>
 <div class="span-14">当前放<br />量可配</div>
-<div class="span-13">放量<br />可配</div>
-<div class="span-14">目标店<br />库存</div>
+<div class="span-13">放量</div>
 <div class="span-13">状<br />态</div>
 <div class="span-16">发货<br />日期</div>
 </div>
-<div id="table-main1" class="main_content" style="height: 340px; width: 1056px; visibility: visible; opacity: 1;">
+<div id="table-main1" class="main_content" style="height: 340px; width: 1016px; visibility: visible; opacity: 1;">
 
 </div>
 </div>
