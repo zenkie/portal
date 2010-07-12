@@ -75,6 +75,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>配货单</title>
 <link href="jnby.css" rel="stylesheet" type="text/css" />
     <script language="javascript" src="/html/nds/js/top_css_ext.js"></script>
@@ -134,6 +135,7 @@
 <div id="jnby-btn">
 	<div id="jnby-from-btn">
 	  <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250)"/>
+    <input type="image" name="imageField2" src="images/btn-yp.gif" onclick="dist.auto_dist()" />
     <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.auto_dist()" />
 		<input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/dist-jnby/index.jsp?&id=-1';"/>
     <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav')"/>
@@ -210,7 +212,7 @@
     	</td>
     <td class="jnby-desc" valign="top" nowrap="" align="right"><div class="jnby-txt">本单金额：</div></td>
     <td class="jnby-value" valign="top" nowrap="" align="left" width="180" id="amount"></td>
-    <td width="120" align="left" valign="top" nowrap="" class="jnby-value"><%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject()" /><%}%></td>
+    <td width="120" align="left" valign="top" nowrap="" class="jnby-value"><%if(id==-1){%><input id="query-dist" type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject()" /><%}%></td>
   </tr>
 </table>
 			</div>
@@ -247,6 +249,33 @@
   </tr>
   <tr>
 <td valign="top" align="center" colspan="2">
+<div id="result-scroll">
+ <table cellspacing="2" cellpadding="0" border="0" id="scrolltb">
+<tbody>
+<tr>
+<td onaction="dist.start_page();" id="begin_btn" class="coolButtonDisabled"><img height="16" width="16" src="/html/nds/images/begin.gif"></td>
+<td onaction="dist.pre_page();" id="prev_btn" class="coolButtonDisabled"><img height="16" width="16" src="/html/nds/images/back.gif"></td>
+<td onaction="dist.next_page();" id="next_btn" class="coolButton"><img height="16" width="16" src="/html/nds/images/next.gif"></td>
+<td onaction="dist.end_page();" id="end_btn" class="coolButton"><img height="16" width="16" src="/html/nds/images/end.gif"></td>
+<td>
+<select onchange="dist.change_range()" id="range_select" size="1">
+  <option selected="" value="20">20</option>
+  <option value="30">30</option>
+  <option value="50">50</option>
+  <option value="100">100</option>
+  <option value="200">200</option>
+</select>行/页,
+<span id="txtRange">0-0/0</span>
+</td>
+</tr></tbody></table>
+<script>
+createButton(document.getElementById("begin_btn"));
+createButton(document.getElementById("prev_btn"));
+createButton(document.getElementById("next_btn"));
+createButton(document.getElementById("end_btn"));
+</script>	
+       
+</div>
 <div id="jnby-main">
 <div id="jnby-from"  style="display:none">	
 	<div class="table" >
@@ -266,7 +295,7 @@
 <div class="span-12">可<br />配</div>
 <div class="span-13">追单<br />可配</div>
 <div class="span-14">当前放<br />量可配</div>
-<div class="span-13">放量</div>
+<div class="span-13">放<br />量 </div>
 <div class="span-13">状<br />态</div>
 <div class="span-16">发货<br />日期</div>
 </div>
@@ -294,7 +323,7 @@
 <div class="span-12">可<br />配</div>
 <div class="span-13">追单<br />可配</div>
 <div class="span-14">当前放<br />量可配</div>
-<div class="span-13">放量</div>
+<div class="span-13">放<br />量 </div>
 <div class="span-13">状<br />态</div>
 <div class="span-16">发货<br />日期</div>
 </div>

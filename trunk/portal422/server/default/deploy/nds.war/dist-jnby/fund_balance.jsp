@@ -43,7 +43,7 @@ jQuery.noConflict();
 <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
 <script language="javascript" src="/html/nds/js/application.js"></script>
-<script type="text/javascript" src="/distribution/distribution.js"></script> 
+<script type="text/javascript" src="/dist-jnby/dist-jnby.js"></script> 
 <script type="text/javascript" src="/html/nds/js/init_object_query_zh_CN.js"></script>
 <script language="javascript" src="/html/nds/js/init_objcontrol_zh_CN.js"></script>
 </head>
@@ -52,8 +52,6 @@ jQuery.noConflict();
 </script>
 <body style="width:auto;height:auto;">
 <div id="fund_table1">
-   <table id="fund_table" width="700" border="1" cellpadding="0" cellspacing="0" bordercolor="#8db6d9" bordercolorlight="#FFFFFF" bordercolordark="#FFFFFF" bgcolor="#8db6d9" class="modify_table" align="center">
-</table> 
 </div>
 </body>
 </html>
