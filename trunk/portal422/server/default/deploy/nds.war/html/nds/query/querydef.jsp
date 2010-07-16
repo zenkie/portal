@@ -15,7 +15,7 @@ TableManager manager=TableManager.getInstance();
 QueryEngine engine =QueryEngine.getInstance();
 QueryListConfig qlc=null;
 if(qdId!=-1)qlc=QueryListConfigManager.getInstance().getQueryListConfig(qdId);
-else qlc=QueryListConfigManager.getInstance().getMetaDefault(tableId);
+else qlc=QueryListConfigManager.getInstance().getMetaDefault(tableId,userWeb.getSecurityGrade());
 
 Table table=manager.getTable(qlc.getTableId());
 String title= PortletUtils.getMessage(pageContext, "query-define",null);
