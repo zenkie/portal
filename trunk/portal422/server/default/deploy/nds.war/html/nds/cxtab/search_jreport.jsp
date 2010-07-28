@@ -47,11 +47,12 @@
 	<span style="width:100px;"><%=PortletUtils.getMessage(pageContext, "current-cxtab",null)%>:</span>
 			<select name="rep_templet" id="rep_templet" onchange="pc.reloadCxtabHistory()">
 					<%
-					//List rep_templet=QueryEngine.getInstance().doQueryList("select id,name from ad_cxtab where ad_table_id="+tableId+" and ad_client_id="+userWeb.getAdClientId()+"and reporttype='S'");
 					// current cxtab, brothers of the same parent, parent, sons will be chosen
-					List rep_templet=QueryEngine.getInstance().doQueryList("select id,name from ad_cxtab where ad_table_id="+tableId+" and ad_client_id="+
-						userWeb.getAdClientId()+" and reporttype='S' and (id="+origCxtabId+" or parent_id="+origCxtabId+
-						 (parent_id==-1?"":"or id="+ parent_id+" or parent_id="+parent_id)+")");					
+					// limit only too root and me(2010-7-28)
+					List rep_templet=QueryEngine.getInstance().doQueryList("select distinct x.id,x.name from ad_cxtab x, users u where x.ad_table_id="+tableId+" and x.ad_client_id="+
+						userWeb.getAdClientId()+" and x.reporttype='S' and (x.id="+origCxtabId+" or x.parent_id="+origCxtabId+
+						 (parent_id==-1?"":"or x.id="+ parent_id+" or x.parent_id="+parent_id)+") and u.id=x.ownerid and (x.ownerid="+ userWeb.getUserId()+" or u.name='root')");
+
 					String str="";
 					int rep_templet_id;
 					if(rep_templet.size()>0){
@@ -211,7 +212,7 @@ if(Validator.isNotNull(excelPath)){%>
 <%	
   }
  int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
-if((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE ){
+if((objPerm & nds.security.Directory.READ )== nds.security.Directory.READ ){
 %>    
       <input type="button" class="cbutton" onclick="javascript:showObject('/html/nds/cxtab/cxtabdef.jsp?id=<%=cxtabId%>')" value="<%=PortletUtils.getMessage(pageContext, "define-cxtab",null)%>">
 <%}%>      
