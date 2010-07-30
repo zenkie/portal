@@ -4,6 +4,7 @@
   If user has write permission on cxtab, will show as modify current cxtab,
   if user has read permission on cxtab, will show as create new cxtab with parent set to old one
   if user has no read permission on cxtab, will throw exception
+  if user is owner of the cxtab, can also save current tab
   
   param 
 	 id   - ad_cxtab.id
@@ -26,7 +27,7 @@ int parentId=Tools.getInt( ((List)qr.get(0)).get(3) , -1);
 // check write permission on id or read permission on parentid
 int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
 if(objPerm==0) throw new NDSException("@no-permission@");
-boolean hasWritePermssion=(objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE;
+boolean hasWritePermssion=((objPerm & nds.security.Directory.WRITE )== nds.security.Directory.WRITE)||(ownerId==userWeb.getUserId());
 if(!hasWritePermssion) parentId=cxtabId;
 
 Table factTable=manager.getTable(factTableId);
@@ -339,3 +340,4 @@ try{
 }
 </script>
 <%@ include file="/html/nds/footer_info.jsp" %>
+
