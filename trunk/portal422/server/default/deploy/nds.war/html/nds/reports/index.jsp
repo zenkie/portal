@@ -57,14 +57,22 @@
 <tr><td height="30" valign='top'>
 <input  type='button'  value='<%= PortletUtils.getMessage(pageContext, "object.delete",null)%>'  onclick='submitForm(form1)'>
 <input  type='button'  value='<%= PortletUtils.getMessage(pageContext, "object.refresh",null)%>' onclick='javascript:window.location="<%=NDS_PATH%>/reports/index.jsp"' >
-
+<script>
+function selectAll(){
+	 var es=document.getElementsByClassName("checkbox");
+	 var b= document.getElementById("seall").checked;
+	 if(es!=null)for(var i=0;i<es.length;i++){
+	 	es[i].checked=b;
+	}
+}
+</script>	
 </td></tr>
 <tr><td>
 			<table width="100%" cellspacing="0" cellpadding="0" border="1" align="center" bordercolorlight="#FFFFFF" bordercolordark="#FFFFFF" id="modify_table">
 			<thead>
               <tr>
                 <td align="center" nowrap>
-                <%= PortletUtils.getMessage(pageContext, "select",null)%>
+                <%= PortletUtils.getMessage(pageContext, "select",null)%><input id="seall" type="checkbox" onchange="selectAll()">
                 </td>
                 <td align="center">
                  <%= PortletUtils.getMessage(pageContext, "file-name",null)%>
