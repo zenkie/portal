@@ -102,7 +102,7 @@
     int fi =1; //line no
     File[] files=null;
     if(dir.exists() && dir.isDirectory()){
-    	TableFilter tf=new TableFilter("CXR_"+cxtabId);
+    	TableFilter tf=new TableFilter("CXR_"+cxtabId+"_");
         files = dir.listFiles(tf);
         files = sort(files);
         for(int i=0;i<files.length;i++){
