@@ -258,12 +258,12 @@ DIST.prototype={
     	jQuery(expr).each(function(){
     		var barcode_cell=dist.get_barcode_qty(jQuery(this).attr("barcode"));
     		var qtyCan=parseInt(barcode_cell.qtyCan,10);
-    		if(qtyCan>0){
-    			var dist_param=Math.ceil(parseInt(barcode_cell.qtyRem,10)/dist.store_count);
-		  		var qtyRem=parseInt(barcode_cell.qtyRem,10)-parseInt(barcode_cell.qtyAl,10);
-					var qty=Math.min(dist_param,qtyCan,qtyRem);
-					dist.autoDistForCell(qty,this);
-    		}
+  			var dist_param=Math.ceil(parseInt(barcode_cell.qtyRem,10)/dist.store_count);
+	  		var qtyRem=parseInt(barcode_cell.qtyRem,10)-parseInt(barcode_cell.qtyAl,10);
+				var qty=Math.min(dist_param,qtyCan,qtyRem);
+				qty=qty<0?0:qty;
+				dist.autoDistForCell(qty,this);
+
     	});
     },
     get_order_tot_can:function(){
@@ -290,7 +290,7 @@ DIST.prototype={
       var qtyAlChange=nowQty-oldQtyAl;//改变的数量
       
       var barcode_qty=dist.get_barcode_qty(jQuery(e).attr("barcode"));
-      var barCodeCanDist=barcode_qty.qtyCan;
+      var barCodeCanDist=barcode_qty.qtyCan<0?0:barcode_qty.qtyCan;
      	var qtyRem=parseInt(barcode_qty.qtyRem,10);
      	var barcodeQtyAl=parseInt(barcode_qty.qtyAl,10);
       if(qtyAlChange>barCodeCanDist||(barcodeQtyAl+qtyAlChange)>qtyRem){
