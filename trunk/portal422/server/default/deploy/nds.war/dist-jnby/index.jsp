@@ -135,10 +135,10 @@
 <div id="jnby-btn">
 	<div id="jnby-from-btn">
 	  <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250)"/>
-    <input type="image" name="imageField2" src="images/btn-yp.gif" onclick="dist.auto_dist()" />
+    <input type="image" name="imageField2" src="images/btn-yp.gif" onclick="dist.showObject('show-item.jsp',730,390)" />
     <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.auto_dist()" />
 		<input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/dist-jnby/index.jsp?&id=-1';"/>
-    <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav')"/>
+    <!--<input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav')"/>-->
     <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord')"/>
 		<input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
   </div>
@@ -178,7 +178,7 @@
     <td class="jnby-value" width="220" valign="top" nowrap="" align="left">
     	<input type='hidden' id='column_26994' name="product_filter" value=''>
       <input type="text" class="ipt-4-2"  readonly id='column_26994_fd' value="" />
-      <span  class="coolButton" id="column_26994_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'m_product'+'&return_type=f&accepter_id=column_26994', 'column_26994');"><img id='column_26994_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
+      <span  class="coolButton" id="column_26994_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table=M_ALLOT_PRODUCT&return_type=f&accepter_id=column_26994', 'column_26994');"><img id='column_26994_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
       <script type="text/javascript" >createButton(document.getElementById('column_26994_link'));</script>
    </td>
    <!--起止时间-->

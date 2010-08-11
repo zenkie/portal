@@ -21,11 +21,67 @@ DIST.prototype={
         application.addEventListener("FUND_BALANCE",this._onfundQuery,this);
         application.addEventListener("DO_SAVE",this._onsaveDate,this);
         application.addEventListener("RELOAD",this._onreShow,this);
+        application.addEventListener("SHOW_ITEM",this._showitem,this);
+    },
+    showitem:function(){
+    	var evt={};   	
+      evt.command="DBJSONXML";
+     	evt.callbackEvent="SHOW_ITEM";
+      var w=window.parent;
+      if(!w)w=window.opener;
+      var m_allot_id=w.document.getElementById("fund_balance").value||"-1";
+      var param={"m_allot_id":m_allot_id};
+      evt.param=Object.toJSON(param);
+      evt.table="m_allot";
+      evt.action = "STOREJNBY";
+      evt.permission="r";
+      this._executeCommandEvent(evt);
+    },
+    _showitem:function(e){
+  	  dwr.util.useLoadingMessage(gMessageHolder.LOADING);
+      var data=e.getUserData();
+      var ret=data.jsonResult.evalJSON();
+      //alert(Object.toJSON(ret));
+      /*
+      var items=new Array();
+      if(ret.data.length&&ret.data.length>1){
+      	items=ret.data;
+      }else{
+      	items[0]=ret.data;
+      }*/
+      var str="";
+      if(this.checkIsArray(ret.NAME)){
+	      for(var i=0;i<ret.NAME.length;i++){
+	      	var dtydoc=parseInt(ret.QTYDOC[i],10);
+	      	dtydoc=isNaN(dtydoc)?0:dtydoc;
+	      	var dtyrem=parseInt(ret.QTYREM[i],10);
+	      	dtyrem=isNaN(dtyrem)?0:dtyrem;
+	      	str+="<div class=\"mingxi-sidebar row\"><div class=\"row-line\">"+
+							 "<div class=\"span-20\">"+(ret.C_STORE[i]||"无")+"</div>"+
+							 "<div class=\"span-21\">"+dtydoc+"</div>"+
+							 "<div class=\"span-21\">"+(dtydoc-dtyrem)+"</div>"+
+							 "<div class=\"span-21\">"+dtyrem+"</div>"+
+							 "<div class=\"span-22\">"+(ret.QTYALLOT[i]||0)+"</div></div></div>";
+	      }
+	    }else{
+	    	var dtydoc=parseInt(ret.QTYDOC,10);
+      	dtydoc=isNaN(dtydoc)?0:dtydoc;
+      	var dtyrem=parseInt(ret.QTYREM,10);
+      	dtyrem=isNaN(dtyrem)?0:dtyrem;
+      	str+="<div class=\"mingxi-sidebar row\"><div class=\"row-line\">"+
+						 "<div class=\"span-20\">"+(ret.C_STORE||"无")+"</div>"+
+						 "<div class=\"span-21\">"+dtydoc+"</div>"+
+						 "<div class=\"span-21\">"+(dtydoc-dtyrem)+"</div>"+
+						 "<div class=\"span-21\">"+dtyrem+"</div>"+
+						 "<div class=\"span-22\">"+(ret.QTYALLOT||0)+"</div></div></div>";
+	    }
+      jQuery("#mingxi-main").html(str);
+      //this.sum_dist_item(items);
     },
     refresh_param:function(){
     	this.cell_data=new Array();
       this.status=0;
-      this.loadStatus="load";
+      //this.loadStatus="load";
       this.ylen=0;
   	  this.data=new Array();//按店仓排序数据
 			
@@ -42,7 +98,7 @@ DIST.prototype={
       this.totremarea={};
     },
     queryObject: function(style){ 
-    		//this.refresh_param();
+    		this.refresh_param();
     	  var evt={};
         evt.command="DBJSONXML";
         evt.callbackEvent="DO_QUERY";
@@ -50,69 +106,61 @@ DIST.prototype={
         var reg=/^\d{8}$/;
         var m_allot_id=$("fund_balance").value||"-1";
         //var isstore=jQuery("#model").is(":checked")?;
-        if(style&&style=='doc'){
-            if(!$('column_41520').value){
-                alert("单据号不能为空！");
-                return;
-            }
-           var searchord=$('column_41520').value;
-           var param={"or_type":"","c_dest":"","c_orig":"","m_product":"",
-                "datest":"","datend":"","load_type":load_type,"m_allot_id":m_allot_id,"searchord":searchord,"porder":-1};
-        }else{
-            var doctype=$("column_26991").value;
-            if(!doctype){
-                alert("订单类型不能为空！");
-                return;
-            }
-            var orig_out_fk=$("fk_column_26992").value;
-            if(!orig_out_fk){
-                alert("发货店仓不能为空！");
-                return;
-            }
-            if(!$("column_26993").value){
-                alert("收货店仓不能为空！");
-                return;
-            }
-            var orig_in_sql=$("column_26993").value;
-
-            if(!$("column_26994").value){
-                alert("款号不能为空！");
-                return;
-            }
-            var product_filter=$("column_26994").value;
-            var billdatebeg=$("column_26995").value.strip();
-            var year=billdatebeg.substring(0,4);
-            var month=billdatebeg.substring(4,6);
        
-            var date=billdatebeg.substring(6,8);
-            var beg=month+"/"+date+"/"+year;
-            if(!this.checkIsDate(month,date,year)||!reg.test(billdatebeg)){
-                alert("开始日期格式不对！请输入8位有效数字。");
-                return;
-            }
-            var billdateend=$("column_269966").value.strip();
-            var year1=billdateend.substring(0,4);
-            var month1=billdateend.substring(4,6);
-            var date1=billdateend.substring(6,8);
-            var end=month1+"/"+date1+"/"+year1;
-            if(!this.checkIsDate(month1,date1,year1)||!reg.test(billdateend)){
-                alert("结束日期格式不对！请输入8位有效数字。");
-                return;
-            }
-            var isprepack="N";
-            if(jQuery("#isprepack").is(":checked")){
-            	isprepack="Y";
-            }
-            var param={"or_type":doctype,"c_dest":orig_in_sql,"c_orig":orig_out_fk,"m_product":product_filter,
-                "datest":billdatebeg,"datend":billdateend,"load_type":load_type,
-                "m_allot_id":m_allot_id,"searchord":"","porder":-1,"isprepack":isprepack,"isstore":'N'};
+        var doctype=$("column_26991").value;
+        if(!doctype){
+            alert("订单类型不能为空！");
+            return;
         }
+        var orig_out_fk=$("fk_column_26992").value;
+        if(!orig_out_fk){
+            alert("发货店仓不能为空！");
+            return;
+        }
+        if(!$("column_26993").value){
+            alert("收货店仓不能为空！");
+            return;
+        }
+        var orig_in_sql=$("column_26993").value;
+
+        if(!$("column_26994").value){
+            alert("款号不能为空！");
+            return;
+        }
+        var product_filter=$("column_26994").value;
+        var billdatebeg=$("column_26995").value.strip();
+        var year=billdatebeg.substring(0,4);
+        var month=billdatebeg.substring(4,6);
+   
+        var date=billdatebeg.substring(6,8);
+        var beg=month+"/"+date+"/"+year;
+        if(!this.checkIsDate(month,date,year)||!reg.test(billdatebeg)){
+            alert("开始日期格式不对！请输入8位有效数字。");
+            return;
+        }
+        var billdateend=$("column_269966").value.strip();
+        var year1=billdateend.substring(0,4);
+        var month1=billdateend.substring(4,6);
+        var date1=billdateend.substring(6,8);
+        var end=month1+"/"+date1+"/"+year1;
+        if(!this.checkIsDate(month1,date1,year1)||!reg.test(billdateend)){
+            alert("结束日期格式不对！请输入8位有效数字。");
+            return;
+        }
+        var isprepack="N";
+        if(jQuery("#isprepack").is(":checked")){
+        	isprepack="Y";
+        }
+        var param={"or_type":doctype,"c_dest":orig_in_sql,"c_orig":orig_out_fk,"m_product":product_filter,
+            "datest":billdatebeg,"datend":billdateend,"load_type":load_type,
+            "m_allot_id":m_allot_id,"searchord":"","porder":-1,"isprepack":isprepack,"isstore":'N'};
         evt.param=Object.toJSON(param);
+        //alert(evt.param);
         evt.table="m_allot";
         evt.action="distribution_jnby";
         evt.permission="r";
         jQuery("#ph-from-right-table").html("");
-        jQuery("#query-dist").css("display","none");
+        //jQuery("#query-dist").css("display","none");
         this._executeCommandEvent(evt);
     },
     saveDate:function(type){
@@ -181,6 +229,7 @@ DIST.prototype={
         evt.isclob=true;
         this._executeCommandEvent(evt);
     },
+    //单据已存在，reload
     reShow:function(){
         var evt={};
         evt.command="DBJSONXML";
@@ -275,7 +324,7 @@ DIST.prototype={
                              "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.FEECANTAKE||0)+"</div></td>"+
                              "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.FEEALLOT||0)+"</div></td>"+
                              "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.FEEREM||0)+"</div></td>"+
-                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.FEEREM||0)+"</div></td>"+
+                             "<td bgcolor=\"#8db6d9\" class=\"td-bg\"><div class=\"td-font\">"+(funditem[i].facusitem.TOT_AMT_WMS||0)+"</div></td>"+
                              " </tr>";
                 }
             }
@@ -296,6 +345,7 @@ DIST.prototype={
         }
         $("fund_table1").innerHTML=fundStr;
     },
+    //处理数据，初始化页面
     _onLoadMetrix:function(e){
     	var datastart=new Date();  
         window.self.onunload=function(){
@@ -312,7 +362,9 @@ DIST.prototype={
         var orderAmount=ret.feeallot||0;
         jQuery("#amount").html(orderAmount).css("display","");
         jQuery("#fund_balance").val(ret.m_allot_id);
-        jQuery("#notes").val(ret.notes);
+        if(jQuery("#load_type").val()=="reload"){
+        	jQuery("#notes").val(ret.notes);
+      	}
         if(ret.isprepack&&ret.isprepack=='Y'){
         	jQuery("#isprepack").attr("checked","checked");
         }
@@ -367,12 +419,10 @@ DIST.prototype={
         this.end=this.end>(this.ylen-1)?(this.ylen-1):this.end;
         this.create_html(this.start,this.end);
         if($("load_type").value=="reload"){
+        		
             $('column_26991').disabled="true";
-            jQuery("#queryDetail>table td input[name!=canModify]").attr("disabled","true");
-            jQuery("#queryDetail>table td span[name!=canShow]").css("display","none");
-        }
-        if($("orderStatus").value=="2"){
-            jQuery("#jnby-from1 input").attr("disabled","true");
+            jQuery("#queryDetail>table td input"+(($("orderStatus").value!="2")?"[name!=canModify]":"")).attr("disabled","true");
+            jQuery("#queryDetail>table td span"+(($("orderStatus").value!="2")?"[name!=canShow]":"")).css("display","none");
         }
         jQuery("#jnby-main>div:visible input[y='1']")[0].focus(); 
         $("jnby-tot-qty").innerHTML=this.totQtyRem;
@@ -428,6 +478,7 @@ DIST.prototype={
     	var str1="";
     	for(var i=start;i<=end;i++){
     			var cell=this.cell_data[i];
+    			var disabled=($("orderStatus").value=="2")?"disabled='true'":"";
         	var allotstate="正常";
         	if(cell.allotstate!=1){
         		switch(cell.allotstate){
@@ -448,7 +499,7 @@ DIST.prototype={
 							  "<div class=\"span-12\">"+(cell.qtyaldist||0)+"</div>"+
 							  "<div class=\"span-16\">"+(cell.origqty||0)+"</div>"+
 							  "<div class=\"span-12\">"+(this.data[i].m_allotitem.QTYREM||0)+"</div>"+
-							  "<div class=\"span-12\"><input id='"+cell.barcode+"-"+cell.docno+"' y='"+(i+1)+"' area='"+cell.area+"'"+
+							  "<div class=\"span-12\"><input "+disabled+" id='"+cell.barcode+"-"+cell.docno+"' y='"+(i+1)+"' area='"+cell.area+"'"+
 							  " docno='"+cell.docno+"' style=\"color:red\" doctype='"+cell.doctype+"' store='"+cell.store+"' barcode='"+cell.barcode+"' qtycan='"+cell.qtycan+"' qtyrem='"+cell.qtyrem+"' value='"+cell.qtyal+"' type=\"text\" class=\"ipt-25\" onfocus=\" var e=jQuery(this);dist.updatecell(e,false);dist.updatetitle(e);dwr.util.selectRange(this,0,100);\""+
 							   " onkeydown=\"var code=event.which?event.which:event.keyCode; if(code==13){	dist.next_cell(this);}\""+
 							   " onkeyup=\"dist.keyuplistener(event);\"/></div>"+
@@ -527,7 +578,7 @@ DIST.prototype={
         });
     },
     _executeCommandEvent :function (evt){
-        Controller.handle( Object.toJSON(evt), function(r){
+        Controller.handle( Object.toJSON(evt),function(r){
             var result= r.evalJSON();
             if (result.code !=0 ){
                 alert(result.message);
@@ -657,7 +708,10 @@ DIST.prototype={
 				if(cell.doctype!="FWD"){
 	    		qtycan=Math.min(qtycan,cell1.qtyconsign,qtyaddnow);
 	    	}*/
-		  	var percent=qtyrem/totrem;
+		  	var percent=0;
+		  	if(totrem!=0){
+		  		percent=qtyrem/totrem;
+		  	}
 		  	percent=parseFloat(percent);
 		  	percent=isNaN(percent)?0:percent;
 		  	
@@ -730,6 +784,7 @@ DIST.prototype={
     	}
     },
     update_m_data:function(cell,cell1,newqty,newdiffqty){
+    			
 	    		cell1.qtycan-=newdiffqty;
 	    		this.qtyaddnows[cell.barcode+cell.doctype+cell.area]-=newdiffqty;
 	    		cell1.qtyconsign-=newdiffqty;
@@ -780,6 +835,7 @@ DIST.prototype={
     	var cell=this.get_data_cell(e);
     	//alert(this.qtyconsigns[cell.barcode+cell.doctype+cell.area]);
     	var cell1=this.get_qty_cell(e);
+    	//alert(Object.toJSON(cell1));
     	if(cell!=-1&&cell1!=-1){
     		if(nowqty<0){
     			jQuery(e).val(cell.qtyal);
@@ -788,6 +844,7 @@ DIST.prototype={
     		}
 	    	var diffqty=nowqty-cell.qtyal;
 	    	var qtycan=this.get_qtycan(cell,cell1);
+	    	//alert(qtycan+"--------"+diffqty);
 	    	if(diffqty>qtycan){
 	    		var newqty=qtycan+cell.qtyal;
 	    		var newdiffqty;
@@ -837,6 +894,7 @@ DIST.prototype={
           }
       }
     },
+    
     showObject:function(url, theWidth, theHeight,option){
         if( theWidth==undefined || theWidth==null) theWidth=956;
         if( theHeight==undefined|| theHeight==null) theHeight=570;
@@ -846,7 +904,34 @@ DIST.prototype={
         }
         Alerts.popupIframe(url,options);
         Alerts.resizeIframe(options);
+    },
+    sum_dist_item:function(datas){
+    	var items=datas.slice(0);
+    	var i=0;
+    	while(items[i]){
+    		this.del_same_items(items[i],i,items);
+    		i++;
+    	}
+			alert(Object.toJSON(items));
+    },
+    /**
+    *从数组中移除相同的元素
+    *@param:item 数组中的一个元素
+    *@param:index 参数1元素在数组中的索引
+    *@param:items 数组
+    */
+    del_same_items:function(item,index,items){
+    	var sames=new Array();
+    	for(var i=index+1;i<items.length;i++){
+    		if(items[i].m_allotitem.NAME==item.m_allotitem.NAME&&items[i].m_allotitem.C_STORE==item.m_allotitem.C_STORE){
+    			sames.unshift(i);
+    		}
+    	}
+    	for(var j=0;j<sames.length;j++){
+    		items.splice(sames[j],1);
+    	}
     }
+    
 }
 DIST.main = function(){
     dist=new DIST();

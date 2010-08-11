@@ -135,10 +135,10 @@
 <div id="jnby-btn">
 	<div id="jnby-from-btn">
 	  <input type="image" name="imageField" src="images/ph-btn-zj.gif"  onclick="dist.showObject('fund_balance.jsp',710,250)"/>
-    <input type="image" name="imageField2" src="images/btn-yp.gif" onclick="dist.auto_dist()" />
+    <input type="image" name="imageField2" src="images/btn-yp.gif" onclick="dist.showObject('show-item.jsp',730,390)" />
     <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.auto_dist()" />
-		<input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/dist-jnby/index.jsp?&id=-1';"/>
-    <input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav')"/>
+		<input type="image" name="imageField4" src="images/ph-btn-xz.gif" onclick="window.location='/dist-jnby/index-pre.jsp?&id=-1';"/>
+    <!--<input type="image" name="imageField3" src="images/ph-btn-bc.gif" onclick="dist.saveDate('sav')"/>-->
     <input type="image" name="imageField4" src="images/ph-btn-dj.gif" onclick="dist.saveDate('ord')"/>
 		<input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
   </div>
@@ -151,7 +151,7 @@
 <div id="queryDetail" class="obj">
 			<table width="970" border="0" cellspacing="1" cellpadding="0" class="obj" align="center">
   <tr>
-     <td class="jnby-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">订单类型<font color="red">*</font>：</div></td>
+     <td class="jnby-desc" width="80" valign="top" nowrap="" align="right">订单类型<font color="red">*</font>：</td>
      <td class="jnby-value" width="220" valign="top" nowrap="" align="left">
     	<select id="column_26991" class="objsl" tabindex="1" name="doctype" disabled="true">
 				<option value="FWD" selected="selected">期货订单</option>
@@ -162,10 +162,10 @@
       <input id="isprepack" name="canModify" checked="true" type="checkbox" value="checkbox"/>是否预发</label>
       
     </td>
-    <td class="jnby-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">发货店仓<font color="red">*</font>：</div></td>
+    <td class="jnby-desc" width="100" valign="top" nowrap="" align="right">发货店仓<font color="red">*</font>：</td>
     <td class="jnby-value" width="170" valign="top" nowrap="" align="left"><input id="column_26992" name="" type="text" class="ipt-4-2" /><input type="hidden" id="fk_column_26992" name="C_ORIG_ID" value=""><span  class="coolButton" id="cbt_26992" onaction="oq.toggle('/html/nds/query/search.jsp?table=<%=orgStore%>&return_type=s&column=<%=orgStoreColumn %>&accepter_id=column_26992&qdata='+encodeURIComponent(document.getElementById('column_26992').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_26992')"><img width="16" height="16" border="0" align="absmiddle" title="Find" src="images/find.gif"/></span>
     <script type="text/javascript" >createButton(document.getElementById("cbt_26992"));</script></td>
-    <td class="jnby-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">收货店仓<font color="red">*</font>：</div></td>
+    <td class="jnby-desc" width="100" valign="top" nowrap="" align="right">收货店仓<font color="red">*</font>：</td>
     <td class="jnby-value" width="180" valign="top" nowrap="" align="left">
     	<input type='hidden' id='column_26993' name="column_26993" value=''>
       <input name="" readonly type="text" class="ipt-4-2" id='column_26993_fd' value="" >
@@ -174,9 +174,9 @@
     <td class="jnby-value" width="120" valign="top" nowrap="" align="left"><img src="images/color-p.gif" width="16" height="16" align="absmiddle" /> 现货订单</td>
   </tr>
   <tr>
-    <td class="jnby-desc" width="80" valign="top" nowrap="" align="right"><div class="desc-txt">选择款号<font color="red">*</font>：</div></td>
-    <td class="jnby-value" width="220" valign="top" nowrap="" align="left">
-    	<input type='hidden' id='column_26994' name="product_filter" value=''>
+    <td class="jnby-desc" width="80" valign="top" nowrap="" align="right" style="display:none"><div class="desc-txt">选择款号<font color="red">*</font>：</div></td>
+    <td class="jnby-value" width="220" valign="top" nowrap="" align="left" style="display:none">
+    	<input type='hidden' id='column_26994' name="product_filter" value='(可用 = Y)'>
       <input type="text" class="ipt-4-2"  readonly id='column_26994_fd' value="" />
       <span  class="coolButton" id="column_26994_link" title=popup onaction="oq.toggle_m('/html/nds/query/search.jsp?table='+'m_product'+'&return_type=f&accepter_id=column_26994', 'column_26994');"><img id='column_26994_img' width="16" height="16" border="0" align="absmiddle" title="Find" src="images/filterobj.gif"/></span>
       <script type="text/javascript" >createButton(document.getElementById('column_26994_link'));</script>
@@ -190,10 +190,10 @@
       Date std=new Date(stL);
       String st=fmt.format(std);
   %>
-   <td class="jnby-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt"> 订单时间(起)<font color="red">*</font>：</div></td>
+   <td class="jnby-desc" width="100" valign="top" nowrap="" align="right"> 订单时间(起)<font color="red">*</font>：</td>
    <td class="jnby-value" width="170" valign="top" nowrap="" align="left"><input name="" type="text" class="ipt-4-2" title="8位日期，如20070823" id="column_26995" value="<%=st%>"/><span id="cbt_26992" class="coolButton">
    	<a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar23',false,'column_26995',null,null,true);"><img id="imageCalendar23" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a></span></td>
-    <td class="jnby-desc" width="100" valign="top" nowrap="" align="right"><div class="desc-txt">订单时间(止)<font color="red">*</font>：</div></td>
+    <td class="jnby-desc" width="100" valign="top" nowrap="" align="right">订单时间(止)<font color="red">*</font>：</td>
     <td class="jnby-value" width="180" valign="top" nowrap="" align="left"><input name="" type="text" class="ipt-4-2" title="8位日期，如20070823" id="column_269966"  value="<%=end%>" /><span id="cbt_26992" class="coolButton">
     	<a onclick="event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar144',false,'column_269966',null,null,true);">
     	<img id='imageCalendar144' width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a></span>
