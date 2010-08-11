@@ -13,6 +13,7 @@
  private static boolean defaultSsviewFirst="true".equals( ((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("portal.ssview","false"));
 
 %>
+
 <%
  String dialogURL=request.getParameter("redirect");
  if(userWeb==null || userWeb.getUserId()==userWeb.GUEST_ID){

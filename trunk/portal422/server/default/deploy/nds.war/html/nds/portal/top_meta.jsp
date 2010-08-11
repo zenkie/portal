@@ -55,7 +55,9 @@
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.bgiframe.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/ui.tabs.js"></script>
 <script language="javascript" src="/html/nds/js/messagescontrol.js"></script>
+<!--
 <script language="javascript" src="/html/nds/js/ztools/querytool.js"></script>
+-->
 <link type="text/css" rel="stylesheet" href="/html/nds/js/xloadtree111/xtree.css" />
 <link type="text/css" rel="StyleSheet" href="/html/nds/css/portlet.css">
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/object.css">
