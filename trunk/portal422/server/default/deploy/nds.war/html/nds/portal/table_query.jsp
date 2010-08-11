@@ -98,11 +98,19 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
             		<%	firstDateColumnFound=true;
             		}else if(column.getType()==Column.NUMBER){
             		%>
-            		<input:text name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= h %>" /><%= type%>
+            		<input:text id="<%=inputName%>" name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= h %>" /><%= type%>
+            		    <span id='<%=inputName+"_link"%>' title="popup" onaction="qt.toggle(<%=inputName%>)">
+                    	<img id='<%=inputName+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/filterobj.gif'>
+                    </span>
+								<script>createButton(document.getElementById("<%=inputName+"_link"%>"));</script>	
             		<%
             		}else if(column.getType()==Column.STRING){
             		%>
             		<input:text name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= h %>" /><%= type%>
+            		    <span id='<%=inputName+"_link"%>' title="popup" onaction="qt.toggle(<%=inputName%>)">
+                    	<img id='<%=inputName+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/filterobj.gif'>
+                    </span>
+								<script>createButton(document.getElementById("<%=inputName+"_link"%>"));</script>	
             		<%
             		}
             	}
