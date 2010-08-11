@@ -179,6 +179,11 @@ var Alerts = {
 		 * maxURL(string) - max url for button
 		 * onClose (function) - executes after closing
 		 * closeButton(boolean) default to true
+		 * 
+		 * modify by Robin 20100810 add 'top' and 'left'
+		 * top(int) - starting top of message box
+		 * left(int) -  starting left of message box
+		 * modify end
 		 */
 		var body = document.body;
 		
@@ -193,6 +198,10 @@ var Alerts = {
 		var noCenter = options.noCenter;
 		var title = options.title;
 		var maxButton = options.options;
+		//edit by robin
+		var msgTop=options.top;
+		var msgLeft=options.left;
+		//end
 
 		var message = document.createElement("div");
 		message.align = "left";
@@ -218,7 +227,14 @@ var Alerts = {
 				message.style.minHeight = msgHeight + "px";
 			}
 		}
-		
+		//edit by robin
+		if(msgTop){
+			message.style.top=msgTop+"px";
+		}
+		if(msgLeft){
+			message.style.left=msgLeft+"px";
+		}
+		//end
 		if (msgWidth) {
 			wrapper.style.width = msgWidth + "px";
 		}
@@ -263,6 +279,8 @@ var Alerts = {
 		}
 
 		Event.observe(window, "resize", Alerts.center);
+		
+		
 		
 		body.appendChild(wrapper);
 		window.focus();
