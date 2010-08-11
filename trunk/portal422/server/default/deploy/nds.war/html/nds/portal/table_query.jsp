@@ -33,7 +33,7 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
 			String desc= clink.getDescription(locale);
 			String inputName=clink.toHTMLString();
 			int inputSize= (column.getReferenceTable()!=null? column.getReferenceTable().getAlternateKey().getLength():column.getLength());
-          	String type=TableQueryModel.toTypeDesc(column,locale);
+      String type=TableQueryModel.toTypeDesc(column,locale);
 			nds.util.PairTable values = column.getValues(locale);
 			if(i%columnsPerRow == 0)out.print("<tr>");
         %>
@@ -72,10 +72,9 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
 	            	h.put("class","qline ucase");
 	            }else
 	            	h.put("class","qline");
-	            h.put("onkeypress", "pc.onSearchReturn(event)");
-                   
+	            	h.put("onkeypress", "pc.onSearchReturn(event)");
+              	h.put("id",inputName);                  
             	if(column.getReferenceTable() !=null){                                   
-                    h.put("id",inputName);
                     //String url="/html/nds/query/search.jsp?table="+column.getReferenceTable().getId()+"&column="+column.getId()+"&return_type=m&accepter_id="+inputName;
                     FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), inputName,column,null,false);
                     fkQueryModel.setQueryindex(-1);
@@ -99,7 +98,7 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
             		}else if(column.getType()==Column.NUMBER){
             		%>
             		<input:text name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= h %>" /><%= type%>
-            		    <span id='<%=inputName+"_link"%>' title="popup" onaction="qt.toggle(<%=inputName%>)">
+            		    <span id='<%=inputName+"_link"%>' title="popup" onaction="oq.tog('<%=inputName%>')">
                     	<img id='<%=inputName+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/filterobj.gif'>
                     </span>
 								<script>createButton(document.getElementById("<%=inputName+"_link"%>"));</script>	
@@ -107,7 +106,7 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
             		}else if(column.getType()==Column.STRING){
             		%>
             		<input:text name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= h %>" /><%= type%>
-            		    <span id='<%=inputName+"_link"%>' title="popup" onaction="qt.toggle(<%=inputName%>)">
+            		    <span id='<%=inputName+"_link"%>' title="popup" onaction="oq.tog('<%=inputName%>')">
                     	<img id='<%=inputName+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/filterobj.gif'>
                     </span>
 								<script>createButton(document.getElementById("<%=inputName+"_link"%>"));</script>	

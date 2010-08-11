@@ -9,12 +9,12 @@
 <script language="javascript" src="/html/nds/js/portal_aio_<%=locale.toString()%>_min.js"></script>
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/portal_aio_min.css">
 <%}else{%>
+<script language="javascript" src="/html/nds/js/common.js"></script>
 <script language="javascript" src="/html/nds/js/top_css_ext.js"></script>
 <script language="javascript1.5" src="/html/nds/js/ieemu.js"></script>
 <script language="javascript" src="/html/nds/js/cb2.js"></script>
 <script language="javascript" src="/html/nds/js/xp_progress.js"></script>
 <script language="javascript" src="/html/nds/js/helptip.js"></script>
-<script language="javascript" src="/html/nds/js/common.js"></script>
 <script language="javascript" src="/html/nds/js/print.js"></script>
 <script language="javascript" src="/html/nds/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.3.2.min.js"></script>
@@ -55,9 +55,6 @@
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.bgiframe.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/ui.tabs.js"></script>
 <script language="javascript" src="/html/nds/js/messagescontrol.js"></script>
-<!--
-<script language="javascript" src="/html/nds/js/ztools/querytool.js"></script>
--->
 <link type="text/css" rel="stylesheet" href="/html/nds/js/xloadtree111/xtree.css" />
 <link type="text/css" rel="StyleSheet" href="/html/nds/css/portlet.css">
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/object.css">
