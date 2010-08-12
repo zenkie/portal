@@ -60,15 +60,15 @@
             }else
             	h.put("class","qline3");
             	h.put("onkeypress", "oq.onSearchReturn(event)");
-            	
+            	//edit by Robin 2010-08-12
+            	h.put("id",column_acc_Id);
                inputName += "/value";
 			if(column.getReferenceTable() !=null){                                   
-                h.put("id",column_acc_Id);
                	FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column,null,false);
                	fkQueryModel.setQueryindex(queryindex);
                	
         %>
-          		<input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=defaultValue%>"/><%= type%>
+        <input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=defaultValue%>"/><%= type%>
 				<input type='hidden' name='<%=column_acc_name+"/sql"%>' id='<%=column_acc_Id + "_sql"%>' />
 				<input type='hidden' name='<%=column_acc_name+"/filter"%>' id='<%=column_acc_Id + "_filter"%>' />
 				<span id='<%=column_acc_Id+"_link"%>' title="popup" onaction="<%=fkQueryModel.getButtonClickEventScript()%>">
@@ -93,10 +93,22 @@
         		}else if(column.getType()==Column.NUMBER){
         		%>
         		<input:text name="<%=inputName%>" attributes="<%= h %>" /><%= type%>
+        		<!--Edit by robin 2010-08-12-->
+        		<span id='<%=column_acc_Id+"_link"%>' title="popup" onaction="oq.tog('<%=column_acc_Id%>')">
+							<img id='<%=column_acc_Id+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/record.gif'>
+						</span>
+						<script>createButton(document.getElementById("<%=column_acc_Id+"_link"%>"));</script>	
+        		<!--end-->
         		<%
         		}else if(column.getType()==Column.STRING){
         		%>
         		<input:text name="<%=inputName%>" attributes="<%= h %>" /><%= type%>
+        		<!--Edit by robin 2010-08-12-->
+        		<span id='<%=column_acc_Id+"_link"%>' title="popup" onaction="oq.tog('<%=column_acc_Id%>')">
+							<img id='<%=column_acc_Id+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/record.gif'>
+						</span>
+						<script>createButton(document.getElementById("<%=column_acc_Id+"_link"%>"));</script>	
+						<!--end-->
         		<%
         		}
         	}
