@@ -37,25 +37,17 @@ ObjectQuery.prototype = {
      *@param clniptid 字段条件 input 框ID
      */
 		tog:function(clniptid){
-				var offset=jQuery($(clniptid)).offset();
-				
-				var top=offset.top;
-				top=parseInt(top,10);
-				var left=offset.left;
-				left=parseInt(left,10);
 					var ele = Alerts.fireMessageBox(
 				{
-					"top":top,
-					"left":left,
-					"width": 258,
+					"width": 410,
 					"innerAlign":"center",
 					"modal": true,
 					title: gMessageHolder.EDIT_MEASURE
 				});
 				
-				var str="<div id='"+clniptid+"-dlg' style=\"width:250px; height:150px; font-size:12px;\">"+
+				var str="<div id='"+clniptid+"-dlg' style=\"width:400px; height:250px; font-size:12px;\">"+
 								"<div style=\"font-size:14px; font-weight:bold; color:#000; height:24px; line-height:24px;\">输入内容</div>"+
-								"<div><textarea id=\""+clniptid+"-ta\" cols=\"35\" rows=\"5\" style=\"font-size:12px; color:#000;\"></textarea>"+
+								"<div><textarea id=\""+clniptid+"-ta\" cols=\"54\" rows=\"10\" style=\"font-size:12px; color:#000;\"></textarea>"+
 								"</div><div style=\"height:24px; line-height:24px; text-align:center\">"+
 								"<input type=\"button\" value=\"确定\" onclick=\"var val=$('"+clniptid+"-ta').value;val=jQuery.trim(val);var vs=val.split('\\n');for(var i=0;i\<vs.length;i++){	vs[i]=jQuery.trim(vs[i]);}  $('"+clniptid+"').value=vs.join(',');Alerts.killAlert($('"+clniptid+"-dlg'));\"  style=\"width:46px; height:20px; font-size:12px;\"/>&nbsp;&nbsp;"+
 								"<input type=\"button\" onclick=\"Alerts.killAlert($('"+clniptid+"-dlg'));\" name=\"Submit\" value=\"取消\"  style=\"width:46px; height:20px; font-size:12px;\" /></div></div>";
