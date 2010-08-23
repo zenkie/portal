@@ -179,12 +179,6 @@ var Alerts = {
 		 * maxURL(string) - max url for button
 		 * onClose (function) - executes after closing
 		 * closeButton(boolean) default to true
-		 * 
-		 * modify by Robin 20100810 add 'top' , 'left' and 'innerAlign'
-		 * top(int) - starting top of message box
-		 * left(int) -  starting left of message box
-		 * innerAlign(string)- align style of inner message box(left,right,center)
-		 * modify end
 		 */
 		var body = document.body;
 		
@@ -199,18 +193,9 @@ var Alerts = {
 		var noCenter = options.noCenter;
 		var title = options.title;
 		var maxButton = options.options;
-		//edit by robin
-		var msgTop=options.top;
-		var msgLeft=options.left;
-		var innerAlign=options.innerAlign;
-		//end
 
 		var message = document.createElement("div");
-		if(innerAlign){
-			message.align = innerAlign;
-		}else{
-			message.align = "left";
-		}
+		message.align = "left";
 		
 		var wrapper = Alerts.createWrapper(message, title,options);
 		wrapper.style.position = "absolute";
@@ -218,14 +203,7 @@ var Alerts = {
 		wrapper.style.left = 0;
 		wrapper.style.zIndex = ZINDEX.ALERT + 1;
 		wrapper.options = options;
-		//edit by robin		
-		if(msgTop){
-			wrapper.style.top=msgTop+"px";
-		}
-		if(msgLeft){
-			wrapper.style.left=msgLeft+"px";
-		}
-		//end
+		
 		if (myMessage) {
 			message.innerHTML = myMessage;
 		}
@@ -240,7 +218,7 @@ var Alerts = {
 				message.style.minHeight = msgHeight + "px";
 			}
 		}
-
+		
 		if (msgWidth) {
 			wrapper.style.width = msgWidth + "px";
 		}
@@ -281,13 +259,10 @@ var Alerts = {
 			Alerts.center();
 		}
 		else {
-			if(!msgTop&&!msgLeft)Alerts.center(msgHeight, msgWidth);
+			Alerts.center(msgHeight, msgWidth);
 		}
 
 		Event.observe(window, "resize", Alerts.center);
-
-
-		
 		
 		body.appendChild(wrapper);
 		window.focus();
