@@ -157,7 +157,7 @@ WebFXLoadTreeItem.prototype.reload = function () {
 
 function loadXML(xmlStr)
 {
-	   var xmlDoc=null;
+	   var xmlDoc='';
      if(!window.DOMParser && window.ActiveXObject){   //window.DOMParser ≈–∂œ «∑Ò «∑«ie‰Ø¿¿∆˜
         var xmlDomVersions = ['MSXML.2.DOMDocument.6.0','MSXML.2.DOMDocument.3.0','Microsoft.XMLDOM'];
        for(var i=0;i<xmlDomVersions.length;i++){
