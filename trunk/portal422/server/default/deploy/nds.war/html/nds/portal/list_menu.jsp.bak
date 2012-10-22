@@ -13,7 +13,7 @@ String istree=userWeb.getUserOption("ISTREE","Y");
 if("N".equalsIgnoreCase(istree)){
 //System.out.println("ASDFASDFASDF");
 %>
-<div><div id="rpt-list-outlook">
+<div class="search"><div id="rpt-list-outlook">
 <%
 }else{
 %>

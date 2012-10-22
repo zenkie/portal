@@ -99,10 +99,10 @@ System.out.println(qColumns.size());
             		}else if(column.getType()==Column.NUMBER){
             		%>
             		<input:text name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= h %>" /><%= type%>
-            		    <!--span id='<%=inputName+"_link"%>' title="popup" onaction="oq.tog('<%=inputName%>')">
+            		    <span id='<%=inputName+"_link"%>' title="popup" onaction="oq.tog('<%=inputName%>')">
                     	<img id='<%=inputName+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/record.gif'>
-                    </span-->
-								<!--script>createButton(document.getElementById("<%=inputName+"_link"%>"));</script-->	
+                    </span>
+								<script>createButton(document.getElementById("<%=inputName+"_link"%>"));</script>	
             		<%
             		}else if(column.getType()==Column.STRING){
             		%>

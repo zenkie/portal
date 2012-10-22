@@ -16,7 +16,7 @@
 <script language="javascript" src="/html/nds/js/xp_progress.js"></script>
 <script language="javascript" src="/html/nds/js/helptip.js"></script>
 <script language="javascript" src="/html/nds/js/print.js"></script>
-<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
+<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.8.2.js"></script>
 <script>
    jQuery.noConflict();
 </script>

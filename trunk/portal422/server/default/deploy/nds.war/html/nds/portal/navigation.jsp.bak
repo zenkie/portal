@@ -84,7 +84,7 @@ if(ssId==-1){
 
 }	
 %>
-<ul id="page-nav-container"></ul>
+<div id="page-nav-container"></div>
 <script>
 	var gMenuObjects=<%=menuObjs.toString()%>;
 </script>

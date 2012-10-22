@@ -33,7 +33,7 @@
  if(!userWeb.isActive()){
  	session.invalidate();
  	com.liferay.util.servlet.SessionErrors.add(request,"USER_NOT_ACTIVE");
- 	response.sendRedirect("/login.jsp");
+ 	response.sendRedirect("/login2.jsp");
  	return;
  } 
  boolean isPopupPortal=Tools.getYesNo(userWeb.getUserOption("POPUP_PORTAL","N"), true);
