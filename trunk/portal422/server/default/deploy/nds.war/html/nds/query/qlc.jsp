@@ -15,8 +15,8 @@
 <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
-<script language="javascript" src="/html/nds/js/application.js"></script>
-<script language="javascript" src="/html/nds/js/alerts.js"></script>
+<!--script language="javascript" src="/html/nds/js/application.js"></script>
+<script language="javascript" src="/html/nds/js/alerts.js"></script-->
 <script language="javascript" src="/html/nds/js/qlc.js"></script>
 <div id="maintab">
 	<ul><li><a href="#tab1"><span><%=tabName%></span></a></li></ul>
@@ -56,7 +56,7 @@
 	 	</td></tr>
 	 <tr><td>
 	 	<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "object.newobject",null)%>" onclick="javascript:qlc.modify(-1)"/>
-	 	<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "close",null)%>" onclick="javascript:qlc.tryClose()"/>
+	 	<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "close",null)%>" onclick="javascript:qlc.tryClose('popup-iframe-0')"/>
 	 </td></tr>	
 </table>
     </div>

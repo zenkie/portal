@@ -197,7 +197,7 @@ if(allowMultipleSelection){
 <%
 if(allowMultipleSelection){
 %>
-<div id="mulit-info_<%=queryindex%>" style="margin-top:30px">
+<div id="mulit-info_<%=queryindex%>" style="margin-top:30px;width:600px">
 </div>
 <%}%>
 <div id="query-data_<%=queryindex%>" align="right" style="display:none;">
