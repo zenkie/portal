@@ -221,10 +221,13 @@
 				<input:textarea name="<%=inputName%>" attributes="<%= htextArea %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributesText+fixedColumnMark)%>"/><%= type%>
 				
     <%      }else if( ds.getObjectType()==DisplaySetting.OBJ_CLOB){
+    		/**
     				net.fckeditor.FCKeditor fckEditor = new net.fckeditor.FCKeditor(request,column_acc_Id,"98%","370px",null, null, "/html/nds/js/fckeditor");
     				fckEditor.setValue(dataWithoutNBSP==null?"":dataWithoutNBSP);
+				**/
 				%>
-				<%=fckEditor%>
+				<!--%=fckEditor%-->
+				<ckeditor:editor basePath="/html/nds/js/ckedit/ckeditor/"  editor="<%=column_acc_Id%>" value="<%=dataWithoutNBSP%>" />
     <%      }else if ( ds.getObjectType()==DisplaySetting.OBJ_FILE){
     %>		
     			<input type='hidden' name="<%=inputName%>" value="<%=dataDB==null?"":dataDB%>">
