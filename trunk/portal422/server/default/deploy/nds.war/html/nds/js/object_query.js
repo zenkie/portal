@@ -37,21 +37,24 @@ ObjectQuery.prototype = {
      *@param clniptid 字段条件 input 框ID
      */
 		tog:function(clniptid){
+			/*
 					var ele = Alerts.fireMessageBox(
 				{
 					"width": 410,
 					"innerAlign":"center",
 					"modal": true,
 					title: gMessageHolder.EDIT_MEASURE
-				});
+				});*/
+				
 				
 				var str="<div id='"+clniptid+"-dlg' style=\"width:400px; height:250px; font-size:12px;\">"+
 								"<div style=\"font-size:14px; font-weight:bold; color:#000; height:24px; line-height:24px;\">输入内容</div>"+
 								"<div><textarea id=\""+clniptid+"-ta\" cols=\"54\" rows=\"10\" style=\"font-size:12px; color:#000;\"></textarea>"+
 								"</div><div style=\"height:24px; line-height:24px; text-align:center\">"+
-								"<input type=\"button\" value=\"确定\" onclick=\"var val=$('"+clniptid+"-ta').value;val=jQuery.trim(val);var vs=val.split('\\n');for(var i=0;i\<vs.length;i++){	vs[i]=jQuery.trim(vs[i]);}  $('"+clniptid+"').value=vs.join(',');Alerts.killAlert($('"+clniptid+"-dlg'));\"  style=\"width:46px; height:20px; font-size:12px;\"/>&nbsp;&nbsp;"+
+								"<input type=\"button\" value=\"确定\" onclick=\"var val=$('"+clniptid+"-ta').value;val=jQuery.trim(val);var vs=val.split('\\n');for(var i=0;i\<vs.length;i++){	vs[i]=jQuery.trim(vs[i]);}  $('"+clniptid+"').value=vs.join('~~');Alerts.killAlert($('"+clniptid+"-dlg'));\"  style=\"width:46px; height:20px; font-size:12px;\"/>&nbsp;&nbsp;"+
 								"<input type=\"button\" onclick=\"Alerts.killAlert($('"+clniptid+"-dlg'));\" name=\"Submit\" value=\"取消\"  style=\"width:46px; height:20px; font-size:12px;\" /></div></div>";
-				ele.innerHTML=str;
+				
+        ele.innerHTML=str;
 				executeLoadedScript(ele);
 				$(clniptid+"-ta").focus();
 		},
@@ -61,27 +64,56 @@ ObjectQuery.prototype = {
 	 * accepter_id id of input control that accepts query result
 	 */
 	toggle: function(url, accepter_id, options) {
+		//alert(accepter_id);
+		//alert(options);
+		try{
+	art.dialog.get("artDialog1").close();}
+	catch(ex){};
 		var l= $(accepter_id+"_link");
 		if( l==null || (l!=null &&l.title=="popup")){
 			url=reconstructQueryURL(url, options,accepter_id);
+			//alert(url);
 			if(url==null) return; // find error
 			this._queryindex=this._queryindex+1;
 			this.multi_result[this._queryindex]=new Array();
 			this._accepter_id[this._queryindex]=accepter_id;
+			/* 
 			var popup = Alerts.fireMessageBox({
 					width: 610,modal:true,noCenter: true,title: gMessageHolder.SEARCH,queryindex:this._queryindex,
 					onClose: function() {oq.close_query();}
 				});
+			 */
+			var options=$H({queryindex:this._queryindex,width:'auto',height:'auto',left: 100,top:'top',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,closeFn:function(){oq.close_query();}});
+	    //
 			//AjaxUtil.update(url, popup, null);
+			
 			new Ajax.Request(url, {
 			  method: 'get',
 			  onSuccess: function(transport) {
-			  	var pt=$(popup);
-			    pt.innerHTML=transport.responseText;
-			    executeLoadedScript(pt);
+			  	 //var pt=$(popup);
+			     //pt.innerHTML=transport.responseText;
+			     //executeLoadedScript(pt);
+			    //alert(transport.responseText);
+			   // par.content(transport.responseText);
+			    //var par=art.dialog(options);
+			    
+			    //var pt=$(par);
+			    options.content=transport.responseText;
+			    var par=art.dialog(options);
+			    //par.content(transport.responseText);
+			    //alert(transport.getResponseHeader("nds.code"));
+			    
+			    //alert(par.data.id);
+			   // par.content(transport.responseText);
+			    //par.content=transport.responseText;
+			    //executeLoadedScript(par);
+			    var pdiv=$(par.data.id);
+			    executeLoadedScript(pdiv);
+			    //alert(par.data.content);
 			  },
 			  onFailure:function(transport){
 			  	//try{
+			  	//alert(transport.getResponseHeader("nds.code"));
 			  	  	if(transport.getResponseHeader("nds.code")=="1"){
 			  	  		window.location="/c/portal/login";
 			  	  		return;
@@ -90,9 +122,12 @@ ObjectQuery.prototype = {
 			  	  	if(exc!=null && exc.length>0){
 			  	  		alert(decodeURIComponent(exc));	
 			  	  	}else{
-			  	  		var pt=$(popup);
-			    		pt.innerHTML=transport.responseText;
-			    		executeLoadedScript(pt);
+			  	  		var par=art.dialog(options);
+			  	  		var pdiv=$(par.data.id);
+			  	  		executeLoadedScript(pdiv);
+			  	  		//var pt=$(popup);
+			    		//pt.innerHTML=transport.responseText;
+			    		//executeLoadedScript(pt);
 			  	  	}
 			  	//}catch(e){}
 			  }
@@ -125,17 +160,28 @@ ObjectQuery.prototype = {
 				this._queryindex=this._queryindex+1;
 				this.multi_result[this._queryindex]=new Array();
 				this._accepter_id[this._queryindex]=accepter_id;
+				 /*
 				var popup = Alerts.fireMessageBox({
 						width: 790,modal:true,noCenter: true,title: gMessageHolder.SEARCH,queryindex:this._queryindex,
 						onClose: function() {oq.close_query();}
-					});
+					}); 
+					*/
 				//AjaxUtil.update(url, popup, null);
+				var options=$H({queryindex:this._queryindex,width:610,height:'auto',left: 100,top:'top',border: true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,closeFn:function(){oq.close_query();}});
+
 				new Ajax.Request(url, {
 				  method: 'get',
 				  onSuccess: function(transport) {
+				 /*
 				  	var pt=$(popup);
 				    pt.innerHTML=transport.responseText;
 				    executeLoadedScript(pt);
+				*/
+					options.content=transport.responseText;
+			    var par=art.dialog(options);
+			    var pdiv=$(par.data.id);
+			    executeLoadedScript(pdiv);
+				   
 				  },
 				  onFailure:function(transport){
 				  	//try{
@@ -147,9 +193,13 @@ ObjectQuery.prototype = {
 				  	  	if(exc!=null && exc.length>0){
 				  	  		alert(decodeURIComponent(exc));	
 				  	  	}else{
+				  	  		/*
 				  	  		var pt=$(popup);
 				    		pt.innerHTML=transport.responseText;
-				    		executeLoadedScript(pt);
+				    		executeLoadedScript(pt);*/
+				    		var par=art.dialog(options);
+			  	  		var pdiv=$(par.data.id);
+			  	  		executeLoadedScript(pdiv);
 				  	  	}
 				  }
 				});	
@@ -373,7 +423,13 @@ ObjectQuery.prototype = {
 		
 	},
 	close:function(){
-		window.setTimeout("Alerts.killAlert(document.getElementById('pop-up-title-"+this._queryindex+"'))",1);
+		//window.setTimeout("Alerts.killAlert(document.getElementById('pop-up-title-"+this._queryindex+"'))",1);
+		var pid=jQuery("#pop-up-title-"+this._queryindex).parents(".aui_dialog_wrap").attr("id");
+		//art.dialog.close();
+		//alert(pid)
+		//art.dialog.get(pid).close();
+		window.setTimeout("art.dialog.get('"+pid+"').close()",1);
+		//alert(pid);
 	},
 	close_query:function(){
 		this.multi_result[this._queryindex]=null;
@@ -506,15 +562,60 @@ ObjectQuery.prototype = {
      * Init list table to handle selection action
      */
     _initGridSelectionControl:function(){
-		var tb= new SelectableTableRows(document.getElementById("q_inc_table"), false);// set as global object
+		//var tb= new SelectableTableRows(document.getElementById("q_inc_table"), false);// set as global object
+		    var tb=jQuery('#q_grid_table_'+this._queryindex).selectable({filter:'tr',tolerance:"touch",cancel:":input,a,.ui-selected",
+        stop: function(event, ui) {
+        	
+        	if(jQuery(".ui-selected").length>1){
+      		jQuery( ".ui-selected", this ).each(function() {
+					     //var index = $( "#selectable li" ).index( this );
+					     //alert(this);
+					      //var index = jQuery( "#grid_table tr" ).index( this ); 
+					      this.children[0].children[0].checked=true;
+					      this.children[0].children[0].focus=true;
+					      //alert(index);
+					     //result.append( " #" + ( index + 1 ) );
+					     
+				   });
+				   
+				  // jQuery("input:checkbox").attr("checked",true);
+				  }
+        },
+        unselected:function(event, ui){
+        	//alert(jQuery(".ui-selected").length);
+          //alert(ui);
+          ui.unselected.children[0].children[0].checked=false;
+        	} 
+        //selected: function(event, ui) {}
+		    	});
 		if(this._returnType[this._queryindex]!="s"){//"m" or "f"
+			/*
 			tb.ondoubleclick=function(trElement){
 				oq.mo(trElement.id.replace(/_qtemplaterow/i, ""));
 			};
+			*/
+			tb.dblclick(
+ 		   function(trElement){
+		   if(trElement.target.nodeName=="SPAN"){
+		   		var pid=trElement.target.parentElement.parentElement.id.replace(/_qtemplaterow/i, "");
+		   	}else{
+		   	var pid=trElement.target.parentElement.id.replace(/_qtemplaterow/i, "");
+		   	}
+		    oq.mo(pid);
+		   }
+		   );
 		}else{
-			tb.ondoubleclick=function(trElement){
+			tb.dblclick(function(trElement){
 				//$(oq._accepter_id).value=$("chk_obj_"+trElement.id.replace(/_qtemplaterow/i, "") ).alt;
-				var ele=$("chk_obj_"+trElement.id.replace(/_qtemplaterow/i, ""));
+		   if(trElement.target.nodeName=="SPAN"){
+		   		var pid=trElement.target.parentElement.parentElement.id.replace(/_qtemplaterow/i, "");
+		   	}else{
+		   	var pid=trElement.target.parentElement.id.replace(/_qtemplaterow/i, "");
+		   	}
+		   	this._queryindex=0;
+		   	//获取PID
+				//var ele=$("chk_obj_"+trElement.id.replace(/_qtemplaterow/i, ""));
+				var ele=$("chk_obj_"+pid);
 				var acpt=$(oq._accepter_id[this._queryindex]);
 		      	acpt.value=ele.alt;
 		      	var fk_acpt=$("fk_"+ oq._accepter_id[this._queryindex]);
@@ -528,7 +629,7 @@ ObjectQuery.prototype = {
 					}
 				}				
 				oq.close();
-			};
+			});
 		}
     },
 	fk:function(tableId, objId){
@@ -702,6 +803,7 @@ ObjectQuery.prototype = {
 	_onReturn_Result:function(e){
 		var r=e.getUserData(); 
 		var ret=r.data;
+		//alert(ret.desc);
 		if(this._returnType[this._queryindex]=="f"){
 			if(ret.desc==""){
 				$(this._accepter_id[this._queryindex]+"_fd").value=gMessageHolder.AVAILABLE;
@@ -831,7 +933,7 @@ DropdownQuery.prototype = {
 			if(query==null) return;// found error
 			// load div every time
 			if(dropdownDiv!=null){
-				dropdownDiv.innerHTML ="<div id='content_"+ accepter_id+"' style='width:160;position: relative; z-index: 10;'><span id='dwrloading_"+ accepter_id+"' style='width:160;height:20;'>"+gMessageHolder.LOADING+"</span></div><iframe id='json_"+accepter_id+"' frameborder='0' style='width:160px; height:20; position: absolute; top: 0; left: 0; z-index: 9;'></iframe>";						
+				dropdownDiv.innerHTML ="<div id='content_"+ accepter_id+"' style='width:160px;position: relative; z-index: 10;'><span id='dwrloading_"+ accepter_id+"' style='width:160;height:20;'>"+gMessageHolder.LOADING+"</span></div><iframe id='json_"+accepter_id+"' frameborder='0' style='width:160px; height:20; position: absolute; top: 0; left: 0; z-index: 9;'></iframe>";						
 				notLoadedDiv=document.getElementById("dwrloading_"+accepter_id);
 			}
 		}
@@ -841,8 +943,8 @@ DropdownQuery.prototype = {
 				dropdownDiv=document.createElement("div");
 				dropdownDiv.id=dropdownDivId;
 				dropdownDiv.className = "comboBoxList";				
-				//dropdownDiv.style.width = (acceptorEle.offsetWidth ? acceptorEle.offsetWidth : 100) + "px";
-				dropdownDiv.innerHTML ="<div id='content_"+ accepter_id+"' style='width:160;position: relative; z-index: 10;'><span id='dwrloading_"+ accepter_id+"' style='width:160;height:20;'>"+gMessageHolder.LOADING+"</span></div><iframe id='json_"+accepter_id+"' frameborder='0' style='width:160px; height:20; position: absolute; top: 0; left: 0; z-index: 9;'></iframe>";
+				dropdownDiv.style.width = (acceptorEle.offsetWidth ? acceptorEle.offsetWidth : 100) + "px";
+				dropdownDiv.innerHTML ="<div id='content_"+ accepter_id+"' style='width:160px;position: relative; z-index: 10;'><span id='dwrloading_"+ accepter_id+"' style='width:160;height:20;'>"+gMessageHolder.LOADING+"</span></div><iframe id='json_"+accepter_id+"' frameborder='0' style='width:160px; height:20; position: absolute; top: 0; left: 0; z-index: 9;'></iframe>";
 	
 				document.body.appendChild(dropdownDiv);
 			}
@@ -1012,6 +1114,7 @@ scrollPage: function (t,accepterId) {
 	this._hidePopupWindow();
 },
  _init_result : function(tableId){
+ 	/*
 	this._selTb= new SelectableTableRows(document.getElementById(tableId), false);
 	
 	this._selTb.ondoubleclick=function(trElement){
@@ -1025,6 +1128,25 @@ scrollPage: function (t,accepterId) {
 		}				
 		dq._hidePopupWindow();
 	};
+	*/
+	
+	var tb=jQuery('#'+tableId).selectable({filter:'tr',tolerance:"fit",cancel:":input,a,.ui-selected"});
+		
+		tb.dblclick(function(trElement){
+			//alert(trElement);
+		//alert("123")
+		var ele=$("chk_obj_"+trElement.target.parentElement.title);
+		var acpt=$(dq._accepter_id);
+		//alert(ele);
+	  acpt.value=ele.title;
+	  var fk_acpt=$("fk_"+ dq._accepter_id);
+	  if(fk_acpt!=null)fk_acpt.value=trElement.target.parentElement.title ;
+		if(acpt.onaction){
+			acpt.onaction(trElement.target.parentElement.title);
+		}				
+		dq._hidePopupWindow();
+	});
+	
 },
 _hidePopupWindow:function(){
 	var e= document.getElementById("div_"+this._accepter_id);
@@ -1051,14 +1173,14 @@ _hidePopupWindow:function(){
 	    var dropdownDiv = document.getElementById("div_"+accepterId);
 		if(dropdwon_json.length==0){
 		  str="<iframe id='json_"+accepterId+"' frameborder='0' style='position: absolute; top: 0; left: 0; z-index: 9;'>";
-		    str="<table id=\"table_"+accepterId+"\" style='width:140; overflow:hidden;'  border='0' cellspacing='0' cellpadding='0'  align='center'"+"onselectstart='if(window.event.ctrlKey || window.event.shiftKey) return false;else return true;'>";
+		    str="<table id=\"table_"+accepterId+"\" style='width:140px; overflow:hidden;'  border='0' cellspacing='0' cellpadding='0'  align='center'"+"onselectstart='if(window.event.ctrlKey || window.event.shiftKey) return false;else return true;'>";
 		    str=str+"<tr>";
 		    str=str+"<td align=\"center\">"+gMessageHolder.NO_DATA+"</td>";
 		    str=str+"</tr></table>";		  
 		}else{	
 		var str="<iframe id='json_"+accepterId+"' frameborder='0' style='width:160; position: absolute; top: 0; left: 0; z-index: 9;'>";
-		 str="<table id=\"table_"+accepterId+"\"   border='0' cellspacing='0' cellpadding='0' align='center'"+"onselectstart='if(window.event.ctrlKey || window.event.shiftKey) return false;else return true;'>";
-		str=str+"<tbady>";
+		 str="<table id=\"table_"+accepterId+"\" style='width:140px;' border='0' cellspacing='0' cellpadding='0' align='center'"+"onselectstart='if(window.event.ctrlKey || window.event.shiftKey) return false;else return true;'>";
+		str=str+"<tbody>";
 		var i=0;
 		for(i=0;i<dropdwon_json.length;i++){
 		dataid=dropdwon_json[i][0];
