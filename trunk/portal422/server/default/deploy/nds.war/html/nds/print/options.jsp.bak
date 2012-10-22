@@ -96,7 +96,7 @@ float:left;
 	<input type='hidden' name='isjreport' value='N'>
 	<%if(qRequest!=null){%>
 	  <%
-	    out.println("***********:"+String.valueOf(qRequest.getOrderColumnLink()[0]));
+	    out.println(String.valueOf(qRequest.getOrderColumnLink()[0]));
 	    System.out.println("***********:"+String.valueOf(qRequest.getOrderColumnLink()[0]));
 	  %> 
 		<input type='hidden' name='order_by' value='<%=new ColumnLink(qRequest.getOrderColumnLink())%>'>		
