@@ -23,10 +23,17 @@
 }
 
 .sort-table thead td {
+/*
 	border:			1px solid #fff;
 	/*border-color:	ButtonHighlight ButtonShadow
-					ButtonShadow ButtonHighlight;*/
+					ButtonShadow ButtonHighlight;
 	cursor: pointer;
+*/
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #BEBEBE;
+    cursor: pointer;
+    margin: 0;
+    padding: 0 2px;
 	_cursor:hand;
 }
 .sort-table tr {
@@ -39,10 +46,23 @@
 }
 
 .even-row {
+/*
 	background:	#fff; 
-}
+*/
+    background-color: #F1F5FA;
+	/*
+    border-bottom: 1px solid #fff;
+    */
+	clear: both;
+    line-height: 24px;
+    white-space: nowrap;
+	}
 .odd-row {
-	background:	#fff;
+/*
+	background:	#fff; 
+*/
+background-color: #F1F5FA;
+
 }
 .row-M {
 	background:	#ffffdd;
@@ -60,12 +80,16 @@
 	background:	#999999;
 }
 .cbx{
- 	height:14px;
- 	width:14px;
+/*
+ 	height:18px;
+ 	width:18px;
+	*/
 }
 .cbx2{
- 	height:14px;
- 	width:14px;
+/*
+ 	height:18px;
+ 	width:18px;
+	*/
 }
 .readonly-text { border-color: #CCCCCC; border-style: solid; border-width: 1px;}
 .comboBoxList {position:absolute;padding: 0px;border: 1px solid  #000;}
@@ -260,3 +284,66 @@ TR.odd { background-color: #EEEEEE; color: #000000; font-family: Tahoma, Arial; 
 .portlet-form-field-label { color: #000000; font-family: Tahoma, Arial; font-size: medium; }
 .portlet-form-field { color: #000000; font-family: Tahoma, Arial; font-size: medium; }
 
+#navBar {
+    background: url("/html/nds/themes/classic/01/images/hmenuarrowhover.gif") no-repeat scroll right center #43779F;
+    clear: both;
+    color: #FFFFFF;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 25px;
+    margin: 0px 0 0;
+    padding: 0 10px;
+}
+#navBar a{
+color:#FFFFFF;
+}
+#breadcrumb {
+    color: #FFFFFF;
+    
+    margin: 5px 0 0 450px;
+    
+	float:right;
+	position: absolute;
+	/*
+    margin: 3 0 -17 500;
+	*/
+    width: 99%;
+}
+#breadcrumb a{
+    color: #FFFFFF;
+}
+.ui-selecting { background: #FECA40; }	
+
+.ui-selected { background: #F39814; color: white; }
+
+.fa_mu {
+background-image: url(/html/nds/themes/classic/01/images/ui-icons_2e83ff_256x240.png);
+background-repeat: none;
+background-position: -18px -193px;
+text-indent: -9999em;
+_font-size: 0;
+cursor: pointer;
+_line-height: 17px;
+position: absolute;
+outline: none;
+right: 142px;
+width: 13px;
+	}
+	
+.fa_mu:hover {	
+background-image: url(/html/nds/themes/classic/01/images/ui-icons_cd0a0a_256x240.png);
+background-repeat: none;
+background-position: -18px -193px;
+}
+
+.obj-rms_v {
+color:red;
+white-space: normal;
+text-overflow£ºnormal;
+font-family:"Microsoft YaHei" ! important;
+font-size:11px;
+line-height:18px;
+text-shadow:1px 0px 1px #999999;
+display:none;
+}

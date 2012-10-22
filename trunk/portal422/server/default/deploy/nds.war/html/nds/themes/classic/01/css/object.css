@@ -52,14 +52,14 @@ overflow:auto;
  padding:8px 0px;
  width:902px;
 }
-.embed-items-short{height: expression( this.scrollHeight > 260 ? "260px": (this.scrollHeight < 100 ?"100px": "auto") );max-height:260px;min-height:100px;width:891px;overflow:auto;padding:0px;}
+.embed-items-short{height: expression( this.scrollHeight > 278 ? "278px": (this.scrollHeight < 100 ?"100px": "auto") );max-height:278px;min-height:100px;width:100%;overflow:auto;padding:0px;}
 .embed-items{
 /*height: expression( this.scrollHeight > 260 ? "260px": (this.scrollHeight < 100 ?"100px": "auto") );
 max-height:260px;
 min-height:100px;
 */
 height:260px;
-width:891px;
+width:100%;
 overflow:auto;
 padding:0px;
 }	
@@ -101,6 +101,15 @@ text-decoration:none;
 padding:0px 0px 0px 12px;
 }
 
+table.inlineobjtb td div.tabnav span, table.inlineobjtb td div.tabnav-2 span, table.inlineobjtb td div.tabnav-3 span, table.inlineobjtb td div.tabnav-4 span {
+    background: url("/html/nds/images/bullet_orange.gif") no-repeat scroll 0 0 transparent;
+    color: #11449E;
+    display: inline;
+    padding: 0 0 0 12px;
+    position: relative;
+    text-decoration: none;
+}
+
 /* begin objtb*/
 div.objtb div.msg-error{
 color:#FF0000;
@@ -131,15 +140,30 @@ z-index:1;
 padding:2px;
 }
 div.objtb div.obj{
+	/*
     width:902px;
     clear:both;
     border: 1px solid #678FC2;
     background-color:#fff;
     padding:3px 0px;
     margin:3px 0px 0px 0px;
+     border-radius: 3px 3px 3px 3px;
+    */
+    width:902px;
+    clear:both;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+      border-radius: 17px 17px 17px 17px;
+    box-shadow: 0 0 0.25em #CCCCCC;
+    clear: left;
+    padding: 1em 1em;
+    position: relative;
+    z-index: 2;
+     margin: 0 0 11px;
 }
 div.objtb div.obj table.objtb{
-    width:100%;
+   /* width:100%;*/
+	width:902px;
     clear:both;
 }
 div.objtb div.comments span.linknote{
@@ -356,8 +380,10 @@ text-align:left;
 #inc-edit-line{
 background-color:#fff;
 border:1px solid #74A2DE;
-margin:2px 2px;
-width:891px;
+/*margin:2px 2px;*/
+width:100%;
+margin: 2px 0px -19px 0px;
+padding: 14px 0px 0 0px;
 }
 #statusimg{
 height:60px;
@@ -379,10 +405,11 @@ z-index:60;
 background:#EFF4FA;
 }
 
-td.desc{vertical-align:bottom;
+td.desc{vertical-align:top;
 background-color:#efefef; 
 text-align:left;
 padding-left:5px;
+white-space: nowrap;
 
 }
 
@@ -409,6 +436,7 @@ table.objtb input.ipt-2-2,
 table.objtb input.ipt-3-1,
 table.objtb input.ipt-3-2,
 table.objtb input.ipt-4-1,
+table.objtb input.ipt-4-4,
 table.objtb input.ipt-4-2{ 
 	border-top-style: none;
 	border-right-style: none;
@@ -457,9 +485,13 @@ table.objtb input.ipt-4-2{
 }
 .value{
 vertical-align:center;
-padding:4px;
+/*padding:3px;
+*/
 text-align:left;
+/*
+单对象标签下移 
 vertical-align: bottom;
+*/
 }
 .sort-table thead td {
 background-color:#FFFFFF;
@@ -606,6 +638,10 @@ text-align:left;
     padding:3px 55px 3px 56px;
     color:#627EB7;
 }
+/*
+.sqldesc {
+		width:400px;
+}*/
 /*input[type="text"]:focus{
 border-bottom: 1px solid #678FC2 !important;
 }*/
