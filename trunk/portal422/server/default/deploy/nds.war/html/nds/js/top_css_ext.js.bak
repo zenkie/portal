@@ -101,7 +101,7 @@ function pop_self(url,warning){
     return;
     });
 	}else{
-	this.location=url;
+	window.location=url;
 	}
 }
 function pop_top(url,warning){
@@ -125,7 +125,7 @@ function pop_parent(url,warning){
     return;
     });		
 	}else{
-	   this.location=url;
+	   parent.location=url;
 	}
 }
 function btnreq(url, theWidth, theHeight){

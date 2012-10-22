@@ -675,7 +675,7 @@ ObjectControl.prototype = {
 					//clobs[col.name.toLowerCase()] = oEditor.GetHTML();
 					clobs[col.name.toLowerCase()]=oEditor.getData();
 					clobs["column_"+ col.id]="";
-					oEditor.destroy();	
+					//oEditor.destroy();	
 				}
 			}
 		}

@@ -983,7 +983,7 @@ PortalControl.prototype = {
 	},
 	switchConfig:function(){
 		var tb_id=this._tableObj.id;
-		showObject('/html/nds/query/qlc.jsp?table='+this._tableObj.id,null,null,{maxButton:false,closeButton:false,closeFn:function(){pc.navigate(tb_id.toString());}})
+		showObject('/html/nds/query/qlc.jsp?table='+this._tableObj.id,null,null,{maxButton:false,closeButton:false,closeFn:function(){pc.navigate(tb_id);}})
 	},
 	_executeQuery : function (queryObj) {
 		this._lastAccessTime= (new Date()).getTime();

@@ -7,8 +7,8 @@ ImportXLS.prototype = {
 		jQuery("#q_progress").attr("display", "none");
 	},
 	isFlashInstalled:function(){
-		return true;//
-    //swfobject.getFlashPlayerVersion().major>9;
+		//return false;//
+		swfobject.getFlashPlayerVersion().major>9;
 	},
 	initForm:function(upinit,para){
 		jQuery("#btnImport").removeAttr('disabled');

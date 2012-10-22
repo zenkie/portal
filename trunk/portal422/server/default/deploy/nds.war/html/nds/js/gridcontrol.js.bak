@@ -1659,8 +1659,6 @@ GridControl.prototype = {
 		this._gridTable= new SelectableTableRows($("modify_table"), false);
 		this._gridTable.ondoubleclick = function (trRow) {
 			gc.editRow(trRow.sectionRowIndex);
-			cyl 10 16
-			¸üÐÂSelectableTableRows to  selectable
 		};	
 			*/
 		var tb=jQuery('#modify_table').selectable({filter:'tr',tolerance:"fit",cancel:":input,a,.ui-selected"});

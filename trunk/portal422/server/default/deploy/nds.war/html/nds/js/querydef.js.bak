@@ -434,7 +434,7 @@ QueryDefControl.prototype = {
 	    		//w.setTimeout("Alerts.killAlert(document.getElementById('popup-iframe-0'))",1);
 				//reload window
 				var pid=jQuery("#popup-iframe-1",parent.document.body).parents(".aui_chrome").attr("id");
-				window.setTimeout("parent.art.dialog.get('"+pid+"').close()",1);
+				window.setTimeout("art.dialog.get('"+pid+"').close()",1);
 				if(bReload)w.location.reload();
 	    		isclosed=true;
     		}

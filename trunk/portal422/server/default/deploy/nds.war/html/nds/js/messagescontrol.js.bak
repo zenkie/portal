@@ -144,7 +144,7 @@ MC.prototype={
 				jQuery("#dialog").parent().css('opacity',1);
 				});
 		jQuery("#dialog").parent().fadeOut(3000,function(){jQuery("#dialog").dialog('close');});
-		//mc.playsound();
+		mc.playsound();
 	 },
 	 go:function(targetId){
       if(targetId==null){

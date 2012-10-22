@@ -188,7 +188,7 @@ CategoryTabItem.prototype.deSelect = function() {
 CategoryTabItem.prototype.toString= function() {
 	//var str = "<div id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\"><div class=\"page-tab-text\">" +
 		//			this.oTableCategory.desc+"</div></div>";
-	var str = "<li id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\"><a class=\"page-tab-text\">" +
+	var str = "<li id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\"><a style=\"background-position: -20px 35px;\" class=\"page-tab-text\">" +
 	this.oTableCategory.desc+"</a></li>";
 	return str;			
 		

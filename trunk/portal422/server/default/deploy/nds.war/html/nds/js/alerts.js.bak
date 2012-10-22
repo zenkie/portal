@@ -93,7 +93,6 @@ var Alerts = {
 		
 		if (title) {
 			cell0.innerHTML = title;
-			alert(title);
 		}
 		
 		var closeButton= options.closeButton;

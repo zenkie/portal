@@ -619,8 +619,8 @@ BPOS.prototype={
 	    }
 	    this.line[j].m_retail_priceactual=ret.m_retail_priceactual;
 	    this.line[j].m_retail_price=ret.m_retail_price;
-	     this.line[j].m_retail_discount=ret.m_retail_discount;
-	  	 this.tot_payable=Math.round(parseFloat(this.tot_payable-this.price1 +parseFloat(this.line[j].m_retail_price))*100)/100;
+	    this.line[j].m_retail_discount=ret.m_retail_discount;
+	    this.tot_payable=Math.round(parseFloat(this.tot_payable-this.price1 +parseFloat(this.line[j].m_retail_price))*100)/100;
 	   $("tot_payable").innerHTML=this.tot_payable;
 	   $(retailid+"_m_retail_price").innerHTML=this.line[j].m_retail_price;
 	   $(retailid+"_m_retail_priceactual").innerHTML=this.line[j].m_retail_priceactual;
