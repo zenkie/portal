@@ -143,7 +143,7 @@ for( int i=0;i< editColumns.size();i++){
             if(refTable !=null){
               if(!isFixedColumn){
     %>
-    <span id="cbt_<%=columnDomId%>"  onaction="<%=fkQueryModel.getButtonClickEventScript() %>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
+    <span id="cbt_<%=columnDomId%>"  onclick="<%=fkQueryModel.getButtonClickEventScript() %>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
     <script>
     	<%if(Validator.isNotNull(column.getRegExpression())){%>
     		createAction("<%=columnDomId%>", "<%=column.getRegExpression()%>");

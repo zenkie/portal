@@ -3,8 +3,7 @@
 <%@ page import="org.json.*" %>
 <%@ page import="nds.control.util.*" %>
 <%@ page import="nds.web.config.*" %>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
-<%@ taglib uri="http://java.fckeditor.net" prefix="FCK" %>
+
 
 <%! 
     /** 
@@ -57,8 +56,11 @@ request.setAttribute("table_help", new Integer(tableId));
 int selectedTabId=-1;
 
 %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">	
 <%@ include file="top_meta.jsp" %>
 </head>
 <body id="obj-body">
@@ -95,6 +97,7 @@ if(table!=null){
 	String fixedColumnMark; boolean isFixedColumn;
 	DisplaySetting ds;
 	int colIdx=-1; // colIdx max to columnsPerRow(equal), each row has (columnsPerRow x 2) <td>;
+	//String lable_des=new String();
 	Table refTable;
 	Column column;
 	String inputName;
@@ -215,10 +218,15 @@ if(table!=null){
 		tableObj.put("description",table.getCategory().getName()+ " - "+ table.getDescription(locale));
 		//load table display condition info
 		JSONObject tableProps= WebUtils.loadObjectPropsForClient(table,objectId,userWeb.getSession());
+		//out.print(tableId);
 		JSONArray displayConditions=null;
+		
 		if(tableProps!=null) {
 			tableObj.put("props", tableProps);
 			displayConditions=tableProps.optJSONArray("display_condition");
+			int webact_id=tableProps.getInt("bfclose_ac");
+			tableObj.put("webact_id", webact_id);
+			//out.print(webact_id);
 		}
 		
 	%>
@@ -285,6 +293,10 @@ if(isVoid){
 	  <script>
 	  	 	jQuery(document).ready(function(){try{dcq.createdynlist(<%=dcqjsonarraylist%>);}catch(ex){};oc.initColumns();});
 	  	  	var ti=setInterval("try{dcq.dynquery();}catch(ex){}",500);
+//	  	  	jQuery(document).ready(
+//	  	  	function(){try{
+//	  	  	jQuery("#artDialog1").remove();
+//	  	  art.dialog.get("artDialog1").close();}catch(ex){};});
 	  </script>
 </td></tr></table>
 </body>

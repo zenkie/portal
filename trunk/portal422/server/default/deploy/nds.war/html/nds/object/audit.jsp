@@ -4,7 +4,8 @@
 <%@ page import="nds.control.util.*" %>
 <%@ page import="nds.web.config.*" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
-<%@ taglib uri="http://java.fckeditor.net" prefix="FCK" %>
+<!--%@ taglib uri="http://java.fckeditor.net" prefix="FCK" %-->
+<%@ taglib uri="http://ckeditor.com" prefix="ckeditor" %>
 <%! 
     /** 
      如果用户尚未登录系统，将引导向登录窗口

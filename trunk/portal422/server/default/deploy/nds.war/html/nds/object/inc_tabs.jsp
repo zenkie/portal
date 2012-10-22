@@ -22,11 +22,15 @@ if(totalTabs>1){ // skip table itself, as in first tab
 /**
  Will hide first, then show. 
  After loaded into html, and execute all scripts, will call load()
+ 	//jQuery('#tabs ul').tabs({ cache:false})
 */
 %>
 <script>
-	jQuery('#tabs ul').tabs({ cache:false})
-	.bind('select.ui-tabs', function(e, ui) {
+	jQuery('#tabs').tabs({cache:false,collapsible:true})
+	//tabsselect
+	//.bind('select.ui-tabs', function(e, ui) {
+	.bind('tabsselect', function(e, ui) {
+		//alert(222);
 		if(gc!=null && gc.checkDirty()==true) return false;
         <%
         for (int iRFTPtr = 1; iRFTPtr < rfts.size(); iRFTPtr++) {
@@ -38,9 +42,12 @@ if(totalTabs>1){ // skip table itself, as in first tab
         inlineObject=null;
         return true;
     })
-    .bind('load.ui-tabs', function(e, ui) {
+    //.bind('load.ui-tabs', function(e, ui) {
+    .bind('tabsload', function(e, ui) {
+    	//alert(333);
         if(gc!=null)gc.destroy();
 		if( $("embed-items")!=null){
+			//alert(123);
 			GridControl.main();
 			gc.setObjectPage("/html/nds/object/object.jsp");
 		}

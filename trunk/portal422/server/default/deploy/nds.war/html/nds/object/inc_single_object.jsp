@@ -1,10 +1,15 @@
 <table class="<%=uiConfig.getCssClass()%>" cellspacing="1" cellpadding="0" align="center">
 <%
     colIdx=-1;
+    //lable_des="<a>&nbsp;</a>";
+    //String lable_des;
+    //String rms;
     for(int i=columnIndex;i< columns.size();i++){
     	colIdx++;
     	columnIndex++;
         column=(Column)columns.get(i);
+        String showcomment=column.getShowcomment();
+        //out.print("showcomment "+showcomment);
         ds= column.getDisplaySetting();
         String attributesText="";//Validator.isNull(column.getRegExpression())? " ": column.getRegExpression()+" ";
         if(colIdx%columnsPerRow == 0){
@@ -106,9 +111,46 @@
     <td id="tdd_<%=column.getId()%>" width="<%=widthPerColumn*2/3%>%" nowrap align="left" valign='top' <%=(shouldDescTdDisplay?"class='desc'":"")%>>
 	<%
 	if(shouldDescTdDisplay){
+	//cyl lable 动态关联字段
+		if(column.getJSONProps()!=null){
+			JSONObject jor=column.getJSONProps();
+			if(jor.has("islable")){
+				//System.out.println("adsfasdfadsf");
+				//System.out.println(data);
+				//lable_des=dataWithoutNBSP;
+				continue;
+			}else if(jor.has("lable")){
+		  JSONObject jo=column.getJSONProps().getJSONObject("lable");
+		  int lable_id=jo.optInt("id",0);
+		  String lable_name=jo.optString("name","");
+		  Column lable_col=(Column)table.getColumn(lable_id);
+		  //lable_des=lable_col.getDefaultValue(bReplaceVariable);
+		  String lable_des=new String();
+		  //QueryResultMetaData meta= result.getMetaData();
+		  if(result !=null){
+      int pos = result.getMetaData().findPositionInSelection(
+								lable_col);// starts from 0
+		  lable_des= result.getString(pos+1,false);
+		  }
+			else{
+			lable_des= objprefs.getProperty(lable_col.getName(),
+						userWeb.getUserOption(lable_col.getName(),lable_col.getDefaultValue(bReplaceVariable)));
+				}
+		  //System.out.println(lable_col.getDefaultValue(bReplaceVariable));
+		  //System.out.println(dataWithoutNBSP1);
+		  System.out.println(desc);
+		  //System.out.println(tableId);
+		  //支持lable_id change write
     %>
+    <div id="tdc_<%=lable_id%>" onclick="oc.lable_change(<%=lable_id%>);" class="desc-txt<%=column.isNullable()?"":" nn"%>"><FONT face='华文行楷' color='blue' size=5><%=lable_des%>:</FONT></div>
+    <input style="display:none;width:83px;" name="<%=lable_name%>" id="column_<%=lable_id%>" type="text" maxLength="16" value="<%=lable_des%>"/>
+   <%} else {%>
+   	<div class="desc-txt<%=column.isNullable()?"":" nn"%>"><%=desc%>:</div>
+	 <%}%>
+   <%}else{ %>
     <div class="desc-txt<%=column.isNullable()?"":" nn"%>"><%=desc%>:</div>
-	<%}%>
+	 <%}%>
+<%}%>
     </td>
     <td  id="tdv_<%=column.getId()%>" class="value" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' <%=(ds.getColumns()-1)*2>0? "colspan='"+((ds.getColumns()-1)*2+1)+"'":"" %>>
       <%
@@ -226,6 +268,7 @@
                 }
                 h.put("title", model.getInputBoxIndicator(column,column_acc_Id,locale));
                 String attributeText2= (column.getJSONProps()!=null?column.getJSONProps().optString("input_attr",""):"");
+                System.out.println(column.getName()+"~~~"+attributeText2+"!!!!!!!!!!!!!!!!!");
 	            %>
 	            <input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributeText2+" "+attributesText+fixedColumnMark)%>"/><%= type%>
 				<%if(fkQueryModel!=null){%>
@@ -243,13 +286,25 @@
 				<input:textarea name="<%=inputName%>" attributes="<%= htextArea %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributesText+fixedColumnMark)%>"/><%= type%>
 				
     <%      }else if( ds.getObjectType()==DisplaySetting.OBJ_CLOB){
+    				/**
     				net.fckeditor.FCKeditor fckEditor = new net.fckeditor.FCKeditor(request,column_acc_Id,"98%","370px",null, null, "/html/nds/js/fckeditor");
     				fckEditor.setValue(dataWithoutNBSP==null?"":dataWithoutNBSP);
+							**/
+				com.ckeditor.CKEditorConfig settings = new com.ckeditor.CKEditorConfig();
+				settings.addConfigValue("width", "800");
+				//settings.addConfigValue("width", "200");				 
+				com.ckeditor.EventHandler eventHandler = new com.ckeditor.EventHandler();
+				eventHandler.addEventHandler("instanceReady", "function iResize(ev) {var iFrames = jQuery('iframe');var height=0;for (var i = 0, j = iFrames.length; i < j; i++) {height += iFrames[i].contentWindow.document.body.offsetHeight;}ev.editor.resize(800,height+200);}");
+
+            
 				%>
-				<div class="toggleFCKeditorBar"><a href="javascript:toggleFCKeditor(FCKeditorAPI.GetInstance('<%=column_acc_Id%>'));">
+				<textarea cols="80" id="<%=column_acc_Id%>" name="<%=column_acc_Id%>" rows="10"><%=dataWithoutNBSP==null?"":dataWithoutNBSP%></textarea>
+				<ckeditor:replace replace="<%=column_acc_Id%>" config="<%=settings%>" events="<%=eventHandler%>" basePath="/html/nds/js/ckedit/ckeditor/" />
+				<!--div class="toggleFCKeditorBar"><a href="javascript:toggleFCKeditor(FCKeditorAPI.GetInstance('<%=column_acc_Id%>'));">
 					<span id="<%=column_acc_Id%>_tb"><%= PortletUtils.getMessage(pageContext, "switch-fckeditor",null)%></span></a>
-				</div>
-				<%=fckEditor%>
+				</div-->
+				<!--%=fckEditor%-->
+				<!--ckeditor:editor basePath="/html/nds/js/ckedit/ckeditor/" config="<%=settings%>" events="<%=eventHandler%>" editor="<%=column_acc_Id%>" value="<%=dataWithoutNBSP%>" /-->
     <%      }else if ( ds.getObjectType()==DisplaySetting.OBJ_FILE){
     %>		
     			<input type='hidden' name="<%=inputName%>" value="<%=dataDB==null?"":dataDB%>">
@@ -290,6 +345,16 @@
                 	<a <%=fkURLTarget%> href='<%=QueryUtils.getTableRowURL(column.getReferenceTable(),true)+"&id="+coid%>'><img border="0" src="/html/nds/images/out.png"/></a>
                 <%}
                 }
+            }else if(column.getJSONProps()!=null){
+            	//动态配置弹出动作定义qlink
+			      JSONObject jor=column.getJSONProps();
+						if(jor.has("qlink")){
+							JSONObject jo=column.getJSONProps().getJSONObject("qlink");
+							String on_ac=jo.optString("ac","");
+              %>
+                <span id="<%=namespace%>cbt_<%=column.getId()%>"  onclick="<%=on_ac%>"><img border=0 width=16 height=16 align=absmiddle src='/html/nds/images/find.gif' title='Find'></span>
+              <%
+							}
             }
             if ( ds.getObjectType()==DisplaySetting.OBJ_FILE ||ds.getObjectType()==DisplaySetting.OBJ_IMAGE ){
             
@@ -297,6 +362,23 @@
             	<a href="javascript:showDialog('<%=NDS_PATH+"/objext/upload.jsp?table="+tableId+"&column="+column.getId()+"&objectid="+objectId%>',940, 400,true)"><img border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/attach.gif' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-config" ,null)%>'></a>
             <%
             }
+            //自动备注显示 cyl 10.11
+            //out.print(showcomment);
+            if (showcomment.equals("Y")){
+            	//out.print(showcomment);
+            	String rms=TableManager.getInstance().getComments(column);
+            	%>
+              <div id="rms_<%=column.getId()%>" class="obj-rms_v"><%=rms==null?"":rms%></div>
+              <script type="text/javascript">  
+        			jQuery(function(){  
+            			jQuery("#column_"+<%=column.getId()%>).focus(function () {  
+  									jQuery("#rms_"+<%=column.getId()%>).css('display','block'); 
+            			 }).blur(function () {  
+                		jQuery("#rms_"+<%=column.getId()%>).css('display','none');
+            			});  
+        				});  
+    					</script>
+            	<%}
                
         }// end if column isModifiable()
         else{ // begin column not isModifiable()
@@ -335,10 +417,20 @@
 							%>
 								<input:textarea name="<%=inputName%>" attributes="<%= htextArea %>" default="<%=dataWithoutNBSP %>" attributesText="readonly"/>
 							<%}else if( ds.getObjectType()==DisplaySetting.OBJ_CLOB){
+								/**
     							net.fckeditor.FCKeditor fckEditor = new net.fckeditor.FCKeditor(request,column_acc_Id,"98%","370px","None", null, "/html/nds/js/fckeditor");
     							fckEditor.setValue(dataWithoutNBSP==null?"":dataWithoutNBSP);
+							   **/
+							   com.ckeditor.CKEditorConfig settings = new com.ckeditor.CKEditorConfig();
+								settings.addConfigValue("width", "800");				 
+								com.ckeditor.EventHandler eventHandler = new com.ckeditor.EventHandler();
+								eventHandler.addEventHandler("instanceReady", "function iResize(ev) {var iFrames = jQuery('iframe');var height=200;for (var i = 0, j = iFrames.length; i < j; i++) {height += iFrames[i].contentWindow.document.body.offsetHeight;}ev.editor.resize(800,height);}");
+
 							%>
-								<%=fckEditor%>
+								<!--%=fckEditor%-->
+								<!--ckeditor:editor basePath="/html/nds/js/ckedit/ckeditor/" config="<%=settings%>" events="<%=eventHandler%>" editor="<%=column_acc_Id%>" value="<%=dataWithoutNBSP%>" /-->
+    						<textarea cols="80" id="<%=column_acc_Id%>" name="<%=column_acc_Id%>" rows="10"><%=dataWithoutNBSP==null?"":dataWithoutNBSP%></textarea>
+    						<ckeditor:replace replace="<%=column_acc_Id%>" config="<%=settings%>" events="<%=eventHandler%>" basePath="/html/nds/js/ckedit/ckeditor/" />			
     						<%}else {%>
 	                	 	<span id="<%=column_acc_Id%>"><%=data%></span>
 	                	 	 <%}
