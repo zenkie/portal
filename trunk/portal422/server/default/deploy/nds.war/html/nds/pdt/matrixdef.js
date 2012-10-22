@@ -9,10 +9,12 @@ MatrixDef.prototype = {
 		var query=parseQueryString();
 		this._pdtId=query.pdtid[0];
 		this._loadInfo();
+		var brandid=0;
+		//this._brandid="";
 	},
 	_loadInfo:function(){
 		var expr={column:"id",condition:"="+this._pdtId};
-	  	var params={table:"m_product", columns:["colors","sizes","M_SIZEGROUP_ID"],params:expr, range:1};
+	  	var params={table:"m_product", columns:["colors","sizes","M_SIZEGROUP_ID","M_DIM1_ID"],params:expr, range:1};
 		var trans={id:1, command:"Query",params:params};
 		var a=new Array(1);
 		a[0]=trans;
@@ -20,7 +22,9 @@ MatrixDef.prototype = {
 			if(!mx.checkResponse(response,0))return;
 			var rows=response.data[0].rows;
 			var colors= rows[0][0];
-			var colorExpr={column:"id",condition:"in("+colors+")"};
+			brandid=rows[0][3];
+			//alert(this._brandid);
+			var colorExpr={combine:"and",expr1:{column:"M_DIM1_ID",condition:brandid},expr2:{column:"id",condition:"in("+colors+") and isactive=\'Y\'"}};
 			mx.listColors(colorExpr,"sel_colors");
 			
 			var sizes= rows[0][1];
@@ -63,7 +67,7 @@ MatrixDef.prototype = {
 		if (!event) event = window.event;
 	  	if (event && event.keyCode && event.keyCode == 13) {
 		  	var v=$("inscolor").value;
-		  	var expr={combine:"or",expr1:{column:"name",condition:"="+v},expr2:{column:"value",condition:"="+v}};
+		  	var expr={combine:"or",expr1:{column:"name",condition:"="+v,column:"M_DIM1_ID",condition:brandid},expr2:{column:"value",condition:"="+v,column:"M_DIM1_ID",condition:brandid}};
 		  	var params={table:"m_color", columns:["id","value","name"],params:expr, range:5000};
 			var trans={id:1, command:"Query",params:params};
 			var a=new Array(1);
@@ -138,9 +142,15 @@ MatrixDef.prototype = {
 	@param ele default to "all_colors"
 	*/
 	listColors:function(expr,ele){
+		//alert(expr);
+		//alert(ele);
+		//alert(brandid);
+		if(ele==undefined){expr={"combine":"and","expr1":{"column":"isactive","condition":"Y"},"expr2":{"column":"M_DIM1_ID","condition":brandid}}}
 		var params={table:"m_color", columns:["id","value","name"],params:(expr==undefined?null:expr),
 			orderby:[{column:"name",asc:true}], range:5000};
+		//alert(expr["combine"]);		
 		var trans={id:1, command:"Query",params:params};
+		
 		var a=new Array(1);
 		a[0]=trans;
 		portalClient.sendRequest(a, function(response){
@@ -196,7 +206,7 @@ MatrixDef.prototype = {
 	@param ele default to "all_sizes"
 	*/
 	listSizes:function(expr,ele){
-		var params={table:"m_size", columns:["id","value","name"],params:(expr==undefined?null:expr),
+		var params={table:"m_size", columns:["id","value","name"],params:(expr==undefined?"isactive='Y'":expr),
 			orderby:[{column:"martixcol",asc:true}], range:5000};
 		var trans={id:1, command:"Query",params:params};
 		var a=new Array(1);
@@ -239,6 +249,7 @@ MatrixDef.prototype = {
 				if(!mx.checkResponse(rs,0))return;
 			});
 			alert("±£´æ³É¹¦");
+			//mx.cancel();
 		});
 	},
 	cancel:function(){
