@@ -8,14 +8,12 @@ margin: 0;
 padding: 0;
 border: 0;
 overflow: hidden;
-height: 100%; 
-max-height: 100%; 
 font-family:Tahoma,Arial;
 font-size:12px;
 }
 
 * html body{ /*IE6 hack*/
-padding: 60px 0 258px 0; /*Set value to (HeightOfFrameDiv 0 0 0)*/
+padding: 60px 0 20px 0; /*Set value to (HeightOfFrameDiv 0 0 0)*/
 }
 
 * html #ssv-main{ /*IE6 hack*/ 
@@ -45,8 +43,8 @@ a.IMG{
     border:1px #acd3f0 solid;
 	font-size: 12px;
 	color: #000;
-	width:80px;
-  height:80px;
+	width:110px;
+  height:110px;
   padding-top:5px;
   display: block;
 }
@@ -57,8 +55,8 @@ a.IMG:hover{
     font-size: 12px;
     COLOR:#0000FF;
     TEXT-DECORATION: underline;
-	  width:80px;
-    height:80px;
+	  width:110px;
+    height:110px;
     padding-top:5px;
     display: block;
 	}
@@ -69,8 +67,8 @@ a.IMG01{
 	TEXT-DECORATION: none;
 	font-size: 12px;
 	color: #000;
-	width:80px;
-  height:80px;
+	width:110px;
+  height:110px;
   padding-top:5px;
   display: block;
 
@@ -82,15 +80,14 @@ a.IMG01:hover{
     font-size: 12px;
     COLOR:#0000FF;
     TEXT-DECORATION: underline;
-	  width:80px;
-    height:80px;
+	  width:110px;
+    height:110px;
     padding-top:5px;
     display: block;
 	}
 
 #ssv-top{
 top:0;
-bottom:auto;
 position:absolute;
 height:60px;
 left:0;
@@ -144,17 +141,22 @@ a.top-text:hover{
 #ssv-main {
 left:0;
 right:0;
-height:80%;
 top:60px;
-bottom:256px;
+bottom:20px;
 overflow:auto;
 position:absolute;
+margin:0 auto;
+}
+
+#ssv-height{
+height:4px;
+background-color: #b8d2f2;
 }
 
 #ssv-table {
 
-padding:0;
-width:100%;
+padding:0 0 0 30px;
+width:520px;
 font-size:12px;
 text-algin:left;
 }
@@ -165,14 +167,13 @@ vertical-align:top;
 }
 
 #ssv-content {
-margin:0px;
+margin:0 auto;
 padding:0 5px;
+width:520px;
 }
 
 #ssv-v {
-background-color:#fbfbfb;
-border:1px solid #ccc;
-margin:5px 0;
+margin10px 0;
 clear:both;
 }
 
@@ -207,16 +208,16 @@ float:left;
 margin:5px;
 text-align:center;
 padding:5px;
-	width:80px;
-  height:80px;}
+	width:110px;
+  height:110px;
+position:relative;
+}
   
 .sst{
 padding:2px 0 0 0;
 }
 
 #ssv-l {
-background-color:#fbfbfb;
-border:1px solid #ccc;
 margin:5px 0;
 clear:both;
 }
@@ -230,9 +231,7 @@ margin:0;}
 float:left;}
 
 #ssv-w {
-background-color:#fbfbfb;
-border:1px solid #ccc;
-margin:5px 0;
+margin:0 0 10px 0;
 clear:both;
 }
 
@@ -289,8 +288,7 @@ padding:5px 0 0 20px;}
 
 #ssv-bottom1 {
 color:#333333;
-height:62px;
-+height:60px;/*IEø…÷¥––*/
+height:20px;
 bottom:0px;
 left:0;
 top: auto;
@@ -314,8 +312,41 @@ width:100%;
 
 #bottom-company-txt {
 position:absolute;
-right:100px;
+right:30px;
 text-align:right;
 top:2px;
 font-size:12px;
+}
+
+.hot{
+background:url(/html/nds/portal/ssv/images/hot.png) no-repeat scroll 0 0 transparent;
+display:block;
+height:40px;
+left:3px;
+overflow:hidden;
+position:absolute;
+width:70px;
+z-index:99;
+}
+
+.hot-1{
+background:url(/html/nds/portal/ssv/images/hot-1.png) no-repeat scroll 0 0 transparent;
+display:block;
+height:40px;
+left:3px;
+overflow:hidden;
+position:absolute;
+width:70px;
+z-index:99;
+}
+
+.hot-2{
+background:url(/html/nds/portal/ssv/images/hot-2.png) no-repeat scroll 0 0 transparent;
+display:block;
+height:40px;
+left:3px;
+overflow:hidden;
+position:absolute;
+width:70px;
+z-index:99;
 }
