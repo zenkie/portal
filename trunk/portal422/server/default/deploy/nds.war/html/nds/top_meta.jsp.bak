@@ -41,8 +41,8 @@
 	<script language="JavaScript" src="/html/nds/js/print.js"></script>
 	<script language="JavaScript" src="/html/js/ajax.js"></script>
 	<script language="JavaScript" src="/html/js/util.js"></script>
-<!--script type="text/javascript" src="/html/nds/js/selectableelements.js"></script>
-<script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script-->
+<script type="text/javascript" src="/html/nds/js/selectableelements.js"></script>
+<script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script>
 <script language="JavaScript" src="/html/js/dragdrop/coordinates.js"></script>
 <script language="JavaScript" src="/html/js/dragdrop/drag.js"></script>
 <!--script language="JavaScript" src="/html/js/dragdrop/dragdrop.js"></script-->
