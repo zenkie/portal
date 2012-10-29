@@ -35,6 +35,7 @@ var gMessageHolder={
 	CMD_UPDATE_SELECTION:"修改选中行",
 	CMD_UPDATE_RESULTSET:"修改结果集",
 	CMD_PRINT_LIST:"打印",
+	CMD_PRINT_SELECT:"套打",
 	CMD_EXPORT_LIST:"导出",
 	CMD_SMS_LIST:"短信",
 	CAN_NOT_QUICK_SEARCH:"查询异常，请刷新当前网页后再试",
