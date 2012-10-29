@@ -63,6 +63,7 @@ PortalControl.prototype = {
 		application.addEventListener( "LoadCxtabSearchForm", this._onLoadCxtabSearchForm, this);
 		application.addEventListener( "DeleteCxtabFiles", this._onDeleteCxtabFiles, this);
 		application.addEventListener( "ExecuteWebAction", this._onExecuteWebAction, this);
+		application.addEventListener("PrintJasper",this._onPrintJasper,this);
 		// init tree.js, this is for report center
 		/// XP Look
 		webFXTreeConfig.rootIcon		= "/html/nds/js/xloadtree111/images/xp/folder.png";
@@ -1746,6 +1747,74 @@ PortalControl.prototype = {
 	},
     doPrintList:function(){
     	this._submitToNewWindow("/html/nds/print/options.jsp");
+    },
+    doPrintSelect:function(){
+        var A={};
+        A.tag="Print";
+        A.command="PrintJasper";
+        A.callbackEvent="PrintJasper";
+        A.params={
+            table:this._tableObj.id,id:this._getSelectedItemIds()
+        };
+        if(A.params.id.length==0){
+        	  //alert(123);
+            alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
+            return 
+        }
+        this.executeCommandEvent(A)
+    },
+    //下载打印文件
+        _onPrintJasper:function(D){
+        var A;
+        if(typeof (D)=="string"){
+            A=D
+        }
+        else{
+            A=D.getUserData().data.printfile
+        }
+        var C="/servlets/binserv/GetFile?filename="+encodeURIComponent(A)+"&del=Y";
+        var B=window.print_iframe;
+        if(Prototype.Browser.IE){
+            popup_window(C)
+        }
+        else{
+            $("print_iframe").onload=function(){
+                setTimeout("pc.waitOneMomentToPrint()",1000)
+            };
+            B.location.href=C
+        }
+        
+    },
+    //等待打印
+    waitOneMomentToPrint:function(){
+        
+        // detect if browser is Chrome
+        //chrome print 忽略
+       // Good! Bug fixed. The bug was fixed as part of v.23 if I'm not wrong
+				if(navigator.userAgent.toLowerCase().indexOf("chrome") >  -1) {
+				    // wrap private vars in a closure
+				    (function() {
+				        var realPrintFunc = window.print;
+				        var interval = 2500; // 2.5 secs
+				        var nextAvailableTime = +new Date(); // when we can safely print again
+				
+				        // overwrite window.print function
+				        window.print = function() {
+				            var now = +new Date();
+				            // if the next available time is in the past, print now
+				            if(now > nextAvailableTime) {
+				                realPrintFunc();
+				                nextAvailableTime = now + interval;
+				            } else {
+				                // print when next available
+				                setTimeout(realPrintFunc, nextAvailableTime - now);
+				                nextAvailableTime += interval;
+				            }
+				        }
+				    })();
+				}
+				window.print_iframe.focus();
+        window.print_iframe.print()
     },
     doImport:function(){
     	showObject2("/html/nds/objext/import_excel.jsp?table="+this._tableObj.id,pc._dialogOption);
