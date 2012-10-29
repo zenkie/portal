@@ -45,6 +45,7 @@ TableCommand.prototype.makeTemplate=function(){
 (new TableCommand("Refresh", gMessageHolder.CMD_REFRESH,"tb_refresh.gif","J")).makeTemplate();
 (new TableCommand("Void", gMessageHolder.CMD_VOID,"tb_void.gif",null)).makeTemplate();
 (new TableCommand("Unvoid", gMessageHolder.CMD_UNVOID,"tb_unvoid.gif",null)).makeTemplate();
+(new TableCommand("PrintSelect", gMessageHolder.CMD_PRINT_SELECT,"tb_print.gif",null)).makeTemplate();
 
 function TableCommands(oTable) {
 	this.id= oTable.id;
@@ -57,6 +58,8 @@ function TableCommands(oTable) {
 		//a2[a2.length]="Report";
 		a2[a2.length]="ExportList";
 		a2[a2.length]="PrintList";
+		a2[a2.length]="PrintSelect";
+		
 	}
 	if(oTable.actionADD){
 		a1[a1.length]="Add";
