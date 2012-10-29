@@ -203,6 +203,7 @@ a1.enable();
 </div>
 <div id="cmdmsg" style="display:none;" ondblclick="$('cmdmsg').hide()"></div>
 <div id="portal-bottom">
+	<iframe id="print_iframe" name="print_iframe" width="1" height="1" src="<%= contextPath %>/html/common/null.html"></iframe>
 	<%@ include file="bottom.jsp" %>
 </div>
 <div id="roll" style="display:none; "><div title="" id="roll_top"></div><div title="" id="roll_bottom"></div></div>
