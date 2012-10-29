@@ -116,6 +116,7 @@
               </script>
               <select name="extension" onChange="javascript:checkExtension()">
                <option value="xls" selected>Excel</option>
+               <option value="xlsx" selected>(2007)Excel</option>
                <option value="csv" ><%= PortletUtils.getMessage(pageContext, "csv-ext",null)%></option>
                <option value="txt"><%= PortletUtils.getMessage(pageContext, "txt-ext",null)%></option>
               </select>

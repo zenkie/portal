@@ -80,10 +80,16 @@
 
     ClientControllerWebImpl controller=(ClientControllerWebImpl)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.WEB_CONTROLLER);
     boolean isExcel=extension.equalsIgnoreCase("xls");
-	if (! isExcel){
-	    event.setParameter("command", "ExportText");
-    }else{
+    boolean isnewExcel=extension.equalsIgnoreCase("xlsx");
+    System.out.println(extension);
+    System.out.println(isnewExcel); 
+	if (isExcel){
 	    event.setParameter("command", "ExportExcel");
+    }else if(isnewExcel){ 
+    	System.out.println("newxlsx"); 
+    	 event.setParameter("command", "ExportExcel");
+    }else{
+	    event.setParameter("command", "ExportText");
 	}
 	nds.control.util.ValueHolder vhRes=controller.handleEvent(event);	
   	request.setAttribute(nds.util.WebKeys.VALUE_HOLDER,vhRes);
