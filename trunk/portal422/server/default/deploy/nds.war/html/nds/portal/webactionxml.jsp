@@ -19,8 +19,10 @@ try{
 	System.out.println("########## found userWeb=null##########"+userWebException);
 }
 Locale locale =userWeb.getLocale();
-
+HashMap actionEnv = new HashMap();
+actionEnv.put("httpservletrequest", request);
+actionEnv.put("userweb", userWeb);
 %>
 <tree>
-	<%=action.toHTML(locale,null)%>
+	<%=action.toHTML(locale,actionEnv)%>
 </tree>    
