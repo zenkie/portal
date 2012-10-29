@@ -31,6 +31,7 @@ var gMessageHolder={
 	CMD_UPDATE_SELECTION:"\u4fee\u6539\u9009\u4e2d\u884c",
 	CMD_UPDATE_RESULTSET:"\u4fee\u6539\u7ed3\u679c\u96c6",
 	CMD_PRINT_LIST:"\u6253\u5370",
+	CMD_PRINT_SELECT:"\u5957\u6253",
 	CMD_EXPORT_LIST:"\u5bfc\u51fa",
 	CMD_SMS_LIST:'\u77ed\u4fe1',
 	IFRAME_TITLE:'\u5bf9\u8bdd\u6846 ',
