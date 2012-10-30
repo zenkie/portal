@@ -25,6 +25,10 @@ List categoryChildren=ssv.getChildrenOfTableCategory(request,tablecategoryId,tru
 Locale locale =userWeb.getLocale();
 int tableId;
 Table table;
+//Locale locale =userWeb.getLocale();
+HashMap actionEnv = new HashMap();
+actionEnv.put("httpservletrequest", request);
+actionEnv.put("userweb", userWeb);
 
 String url,cdesc,tdesc;
 %>
@@ -41,7 +45,7 @@ for(int j=0;j<categoryChildren.size();j++){
 	}else if(categoryChildren.get(j)  instanceof WebAction){
 		WebAction action=(WebAction)categoryChildren.get(j);
 %>
-	<%=action.toHTML(locale,null)%>
+	<%=action.toHTML(locale,actionEnv)%>
 <%			
 	}
 }
