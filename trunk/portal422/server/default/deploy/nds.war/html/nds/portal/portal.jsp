@@ -78,9 +78,6 @@ return;}
 <head>
 <!--meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"-->
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"/>
-<!--IEÈ«ÆÁ(ÁÖÁø·çËæhttp://t.qq.com/denggaopan)-->
-<OBJECT id="max" type="application/x-oleobject" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11">
-<PARAM name="Command" value="Maximize"></OBJECT>
 <!--script language = javascript>max.Click();</script-->
 <script type="text/javascript" src="/flash/FABridge.js"></script>
 <script type="text/javascript" src="/flash/playErrorSound.js"></script>
