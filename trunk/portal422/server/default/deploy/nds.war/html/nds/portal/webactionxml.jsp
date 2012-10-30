@@ -10,6 +10,7 @@
      */
      
 int actionId=  ParamUtils.getIntAttributeOrParameter(request, "id", -1);
+System.out.println("sdfasdfasdfasdfasdf"+actionId);
 TableManager manager=TableManager.getInstance();
 WebAction action=manager.getWebAction(actionId);
 UserWebImpl userWeb =null;
@@ -22,7 +23,15 @@ Locale locale =userWeb.getLocale();
 HashMap actionEnv = new HashMap();
 actionEnv.put("httpservletrequest", request);
 actionEnv.put("userweb", userWeb);
+WebAction.ActionTypeEnum ate= action.getActionType();
+WebAction.DisplayTypeEnum dst=action.getDisplayType();
+if(ate.equals(WebAction.ActionTypeEnum.URL)&&dst.equals(WebAction.DisplayTypeEnum.Accord)){
 %>
+<!--div-->
+<%=action.toHTML(locale,actionEnv)%>
+<!--/div-->
+<%}else{%>
 <tree>
 	<%=action.toHTML(locale,actionEnv)%>
-</tree>    
+</tree>
+<%}%>    
