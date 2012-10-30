@@ -99,7 +99,7 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 </div>  
 <div id="page-nav-commands">
 </div>
- <div class="table-buttons2" style="width:300px;">       	        	
+ <div class="table-buttons2" style="width:100%;">       	        	
 	 &nbsp; <input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "object.search",null)%>" onclick="javascript:pc.queryList()"/>
 <%
 // these are list buttons of webaction
