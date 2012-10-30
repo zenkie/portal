@@ -20,6 +20,10 @@ try{
 }
 Configurations conf= (Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS);
 nds.query.web.SubSystemView ssv=new nds.query.web.SubSystemView();
+//get WEBaction 传入参数环境
+HashMap actionEnv = new HashMap();
+actionEnv.put("httpservletrequest", request);
+actionEnv.put("userweb", userWeb);
 
 List categoryChildren=ssv.getChildrenOfTableCategorybymenu(request,tablecategoryId,true/*include webaction*/ );
 Locale locale =userWeb.getLocale();
@@ -66,6 +70,7 @@ List tab=(List)als.get(1);
 //System.out.println(tab.size());
 //String higthp=String.valueOf((tab.size()+1)*23);
 String Inable = new String();
+String Inaction = new String();
 
 for(int e=0;e<tab.size();e++){
 	String tabimg = new String();
@@ -80,25 +85,37 @@ for(int e=0;e<tab.size();e++){
 		Inable=Inable+"<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tableId+"')\">"+tabimg+"<a>"+StringUtils.escapeForXML(tdesc)+"</a></div>";
 		//System.out.println(Inable);
   }else if(tab.get(e)  instanceof WebAction){
+  	/*
 			WebAction action=(WebAction)tab.get(e);
 			WebAction.ActionTypeEnum ate= action.getActionType();
 			WebAction.DisplayTypeEnum dst=action.getDisplayType();
 			if(ate.equals(WebAction.ActionTypeEnum.JavaScript)&&dst.equals(WebAction.DisplayTypeEnum.TreeNode)){
-			//System.out.println("sdfsdfsdfdsf");
+			System.out.println("sdfsdfsdfdsf");
 			Inable=Inable+"<div class=\"accordion_headings\" onclick=\""+action.getScript()+"\"><a>"+StringUtils.escapeForXML(action.getDescription())+"</a></div>";
 		}
+		*/
+		//扩展webaction treenode 支持 outlook 方式
+		WebAction action=(WebAction)tab.get(e);
+		Inaction=Inaction+action.toHTML(locale,actionEnv);
+		
 	}
 }
- 
-if(tab.size()>=12){
+//自适应调整OUTLOOK 菜单高度
+
+System.out.println(Inable);
+
+if(tab.size()>=12&&Inable!=null){
 	tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div style=\"height:300px;max-height:269px\">"+Inable+"</div></div>";
-	}else{
+	}else if(Inable != null && Inable.length() != 0){
   tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div>"+Inable+"</div></div>";
-}
+	}else{
+	tabout=" ";
+	}
+System.out.println(tabout);
  /*
 tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div>"+Inable+"</div></div>";
 */
-tabout1=tabout1+tabout;
+tabout1=tabout1+tabout+Inaction;
 }
 //System.out.println(tabout1);
 out.print("<div id=\"tab_accordion\">"+tabout1+"</div>");
