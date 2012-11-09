@@ -53,10 +53,11 @@
 	int rowcount = result.getRowCount();
   	int totalCount = result.getTotalRowCount();
   	int start = qRequest.getStartRowIndex()+1;// 0 is the begin
-	int divHeight=(rowcount== 0 ?40:rowcount*20+61);
+  int divHeight=(rowcount== 0 ?40:(rowcount>15?320:rowcount*23+20));
+	//int divHeight=(rowcount== 0 ?40:rowcount*20+61);
 %>
 
-<div id="<%="tdv_"+accepter_id%>" Style="width:160px;height:<%=divHeight%>px;position: relative; z-index: 11;overflow-y: scroll; overflow-x:visible;padding:0px"> 
+<div id="<%="tdv_"+accepter_id%>" Style="width:160px;height:<%=divHeight%>px;overflow-y: scroll; overflow-x:visible;padding:0px"> 
    
 <%
 String strflag;
