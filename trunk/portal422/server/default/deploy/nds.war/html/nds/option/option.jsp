@@ -29,7 +29,7 @@ List params= QueryEngine.getInstance().doQueryList("select name,description,comm
 	<liferay-util:param name="enable_context_menu" value="true" />	
 	<liferay-util:param name="table_width" value="100%" />
 </liferay-util:include>
-<iframe id=CalFrame name=CalFrame frameborder=0 src=<%=NDS_PATH%>/common/calendar.jsp style=display:none;position:absolute;z-index:99999></iframe>
+<!--iframe id=CalFrame name=CalFrame frameborder=0 src=<%=NDS_PATH%>/common/calendar.jsp style=display:none;position:absolute;z-index:99999></iframe-->
 <script language="javascript">
 document.bgColor="<%=colorScheme.getPortletBg()%>";
 </script>
@@ -77,7 +77,7 @@ function optionsave(){
 }
 </script>
 <script language="JavaScript" src="/html/nds/js/formkey.js"></script>
-<script language="javascript" src="<%=NDS_PATH%>/js/calendar.js"></script>
+<!--script language="javascript" src="<%=NDS_PATH%>/js/calendar.js"></script-->
 <script language="JavaScript" src="/html/nds/js/option.js"></script>
 <script type='text/javascript' src='/html/nds/js/util.js'></script> 
 <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
