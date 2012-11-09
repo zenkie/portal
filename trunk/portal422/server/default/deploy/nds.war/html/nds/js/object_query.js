@@ -933,18 +933,23 @@ DropdownQuery.prototype = {
 			if(query==null) return;// found error
 			// load div every time
 			if(dropdownDiv!=null){
-				dropdownDiv.innerHTML ="<div id='content_"+ accepter_id+"' style='width:160px;position: relative; z-index: 10;'><span id='dwrloading_"+ accepter_id+"' style='width:160;height:20;'>"+gMessageHolder.LOADING+"</span></div><iframe id='json_"+accepter_id+"' frameborder='0' style='width:160px; height:20; position: absolute; top: 0; left: 0; z-index: 9;'></iframe>";						
+				//position: relative; z-index: 10;
+				dropdownDiv.innerHTML ="<div id='content_"+ accepter_id+"' style='width:160px;'><span id='dwrloading_"+ accepter_id+"' style='width:160;height:20;'>"+gMessageHolder.LOADING+"</span></div><iframe id='json_"+accepter_id+"' frameborder='0' style='display:none;width:160px; height:20; position: absolute; top: 0; left: 0; z-index: 9;'></iframe>";						
 				notLoadedDiv=document.getElementById("dwrloading_"+accepter_id);
 			}
 		}
 		if(dropdownDiv==null || notLoadedDiv!=null){
 			//create and show div
+			//alert(123);
 			if(dropdownDiv==null){
 				dropdownDiv=document.createElement("div");
 				dropdownDiv.id=dropdownDivId;
 				dropdownDiv.className = "comboBoxList";				
+				dropdownDiv.style.position="absolute";
+				dropdownDiv.style.zIndex="101";
 				dropdownDiv.style.width = (acceptorEle.offsetWidth ? acceptorEle.offsetWidth : 100) + "px";
-				dropdownDiv.innerHTML ="<div id='content_"+ accepter_id+"' style='width:160px;position: relative; z-index: 10;'><span id='dwrloading_"+ accepter_id+"' style='width:160;height:20;'>"+gMessageHolder.LOADING+"</span></div><iframe id='json_"+accepter_id+"' frameborder='0' style='width:160px; height:20; position: absolute; top: 0; left: 0; z-index: 9;'></iframe>";
+				//position: relative; z-index: 10;
+				dropdownDiv.innerHTML ="<div id='content_"+ accepter_id+"' style='width:160px;'><span id='dwrloading_"+ accepter_id+"' style='width:160;height:20;'>"+gMessageHolder.LOADING+"</span></div><iframe id='json_"+accepter_id+"' frameborder='0' style='display:none;width:160px; height:20; position: absolute; top: 0; left: 0; z-index: 9;'></iframe>";
 	
 				document.body.appendChild(dropdownDiv);
 			}
@@ -956,34 +961,48 @@ DropdownQuery.prototype = {
 				path = query.substring(0, pos);
 				queryString = query.substring(pos + 1, query.length);
 			}
+			
 		loadPage(path,queryString,this._returnQuery,accepter_id);
+		//alert(123);
 			if(dqComboboxes==null){
 				dqComboboxes=new Array();
 				dqComboboxQueries={};
 				dqtemps={};				
+				
+			
 				Event.observe(document.body, 'mousedown', function(event) {
+				  var b=$(Event.element(event));
+				  //alert(b.id + " " + b.type + " " + b.value);
 					var elt = $(Event.element(event)).up('.comboBoxList');
 					var i, ee;
+					//alert(elt);
 					for(i=dqComboboxes.length-1;i>=0;i--){
 						ee= $(dqComboboxes[i]);
 						if(ee!=null && ee.style.display == 'block'){
 							if(elt==null || elt.id!=ee.id){
 								ee.style.display = 'none';
+
 							}
 						}
 					}
 				});
-				
+			  
 			}
+			 
 			var j,f=false;
 			for(j=0;j<dqComboboxes.length;j++ ){
 				if(dqComboboxes[j]==dropdownDivId){
 					f=true;break;
 				}
 			}
+			 
 			if(f==false){
 				dqComboboxes[dqComboboxes.length]=dropdownDivId;
 			}
+			 //修改下拉
+			var tab_span=accepter_id.replace("column","cbt");
+			//alert(tab_span);
+			jQuery("#div_"+accepter_id).position({of:jQuery("#"+accepter_id),my:"left top",at:"left bottom",collision:"flip flipfit"});
 		}else{
 			if (dropdownDiv.style.display == "none") {
 				this._repos(accepter_id);
@@ -997,12 +1016,34 @@ DropdownQuery.prototype = {
 	_repos : function(accepter_id) {
 		
 		var dropdownDiv = document.getElementById("div_"+accepter_id);
-		var offsets = getOffsets(accepter_id);
-		var acceptorEle=document.getElementById(accepter_id);
-		dropdownDiv.style.top = offsets.y + (acceptorEle.offsetHeight ? acceptorEle.offsetHeight : 22) + "px";
-		dropdownDiv.style.left = offsets.x + "px";
+		//var offsets = getOffsets(accepter_id);
+		//var acceptorEle=document.getElementById(accepter_id);
+		//dropdownDiv.style.top = offsets.y + (acceptorEle.offsetHeight ? acceptorEle.offsetHeight : 22) + "px";
+		//dropdownDiv.style.left = offsets.x + "px";
+		//dropdownDiv.style.display = "block";
+		//--dropdownDiv.scrollIntoView();
+		//修改下拉
+		//alert(333);
 		dropdownDiv.style.display = "block";
-		//dropdownDiv.scrollIntoView();
+		var offset=jQuery("#"+accepter_id).offset();
+		
+		//alert(jQuery("#obj-top").offset().top);
+		//alert(jQuery("#"+accepter_id).scrollTop());
+		//alert(offset.top);
+		//alert(jQuery(window).height()); //浏览器时下窗口可视区域高度  
+		//alert(jQuery(document).height());
+		//alert(jQuery(window).height()-offset.top);
+		
+		//如果高度小于DROPlist高度下拉上翻
+		dorphight=jQuery("#div_"+accepter_id).height();
+		
+		//alert(dorphight);
+		if(((jQuery(window).height()-offset.top))<dorphight){
+		jQuery("#div_"+accepter_id).position({of:jQuery("#"+accepter_id),my:"left bottom",at:"left top",collision:"flip flipfit"});
+		}else{
+		jQuery("#div_"+accepter_id).position({of:jQuery("#"+accepter_id),my:"left top",at:"left bottom",collision:"flip flipfit"});	
+			}
+		//jQuery("#div_"+accepter_id).focusout(function(){jQuery("#div_"+accepter_id).remove();});
 	},
 	_resize : function (accepter_id) {
 		
@@ -1390,6 +1431,7 @@ DynamicQuery.prototype = {
 		if(document.body.clientHeight-offsets.y-15<dataheight){
 			div_top=div_top-dataheight-20;
 		}
+		//alert(Prototype.Browser.IE?$(this._accepter_id).offsetWidth+20:$(this._accepter_id).offsetWidth+20);
 		$("div_dyn").style.width=(Prototype.Browser.IE?$(this._accepter_id).offsetWidth+20:$(this._accepter_id).offsetWidth+20);
 		$("div_dyn").style.top=div_top+"px";
 		$("div_dyn").style.left=offsets.x;
@@ -1405,7 +1447,9 @@ DynamicQuery.prototype = {
 		$("tdiv_"+this._accepter_id).style.top=div_top+"px";
 		$("tdiv_"+this._accepter_id).style.left=offsets.x;
 		$("tdiv_"+this._accepter_id).style.display="";
+		/*
 		if(Prototype.Browser.IE){
+			//alert(123);
 	 		var sug_ie=$("sug_ie");
 	  		if(sug_ie==null){
 	  			sug_ie=document.createElement("div");
@@ -1426,6 +1470,9 @@ DynamicQuery.prototype = {
 			}
 	  		sug_ie.appendChild($("div_dyn"));
 		}
+		修改定位坐标POSTION
+		*/
+		jQuery("#div_dyn").position({of:jQuery("#"+this._accepter_id),my:"left top",at:"left bottom",collision:"flip flip"});
 		this._tr_cloosed_index=-1;
 	},
 	
