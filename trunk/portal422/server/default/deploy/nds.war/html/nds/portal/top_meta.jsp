@@ -38,7 +38,7 @@
 <script language="javascript" src="/html/nds/js/selectabletablerows.js"></script->
 <!--script language="javascript" src="/html/js/dragdrop/coordinates.js"></script>
 <script language="javascript" src="/html/js/dragdrop/drag.js"></script-->
-<script language="javascript" src="/html/nds/js/calendar.js"></script>
+<!--script language="javascript" src="/html/nds/js/calendar.js"></script-->
 <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
@@ -52,11 +52,14 @@
 <script language="javascript" src="/html/nds/js/categorymenu.js"></script>
 <script language="javascript" src="/html/nds/js/dockmenu.js"></script>
 <script language="javascript" src="/html/nds/js/outline.js"></script>
+<script language="javascript" src="/html/nds/js/jdate/My97DatePicker/WdatePicker.js"></script>
+
+<!--[if IE]><script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.bgiframe.js"></script><![endif]-->
 <!--script language="javascript" src="/html/nds/js/jquery1.3.2/ui.core.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/ui.dialog.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/ui.draggable.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/ui.resizable.js"></script>
-<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.bgiframe.js"></script>
+
 <script language="javascript" src="/html/nds/js/jquery1.3.2/ui.tabs.js"></script>
 <script language="javascript" src="/html/nds/js/messagescontrol.js"--></script>
 <!--script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.bgiframe.js"></script-->
@@ -81,8 +84,8 @@
 <link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/aple_menu.css" />
 <!--link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/pag-tab.css" /-->
 <link type="text/css" href="/html/nds/js/jquery1.3.2/css/smoothness/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
+<link type="text/css" rel="StyleSheet" href="/html/nds/js/jdate/My97DatePicker/skin/WdatePicker.css"/>
 <!--link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/jquery-ui-1.7.3.custom.css" /-->
-
 <!--link type="text/css" rel="stylesheet" href="/html/nds/themes/ui-lightness/ui.all.css" /-->
 <script language="javascript" src="/html/nds/js/objdropmenu.js"></script>
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/objdropmenu.css">
