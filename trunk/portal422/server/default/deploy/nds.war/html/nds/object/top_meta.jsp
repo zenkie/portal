@@ -66,7 +66,8 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <!--script language="javascript" src="/html/js/dragdrop/coordinates.js"></script>
 <script language="javascript" src="/html/js/dragdrop/drag.js"></script-->
 <!--script language="javascript" src="/html/js/dragdrop/dragdrop.js"></script-->
-<script language="javascript" src="/html/nds/js/calendar.js"></script>
+<!--script language="javascript" src="/html/nds/js/calendar.js"></script-->
+<script language="javascript" src="/html/nds/js/jdate/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
@@ -92,6 +93,7 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/aple_menu.css">
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/object.css">
 <link type="text/css" rel="stylesheet" href="/html/nds/js/artdialog/skin/chrome.css" />
+<link type="text/css" rel="StyleSheet" href="/html/nds/js/jdate/My97DatePicker/skin/WdatePicker.css"/>
 <%}%>
 <script type="text/javascript" src="/flash/FABridge.js"></script>
 <script type="text/javascript" src="/flash/playErrorSound.js"></script>
