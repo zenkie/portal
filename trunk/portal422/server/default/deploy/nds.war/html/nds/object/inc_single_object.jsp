@@ -108,7 +108,7 @@
 		// if button, or security grade greater than user's sgrade, will not display
 		boolean shouldDescTdDisplay=!(ds.getObjectType()==DisplaySetting.OBJ_BUTTON || column.getSecurityGrade()>userWeb.getSecurityGrade());
 %>
-    <td id="tdd_<%=column.getId()%>" width="<%=widthPerColumn*2/3%>%" nowrap align="left" valign='top' <%=(shouldDescTdDisplay?"class='desc'":"")%>>
+    <td id="tdd_<%=column.getId()%>" width="<%=widthPerColumn*2/3%>%" nowrap align="left" valign='middle' <%=(shouldDescTdDisplay?"class='desc'":"")%>>
 	<%
 	if(shouldDescTdDisplay){
 	//cyl lable ¶¯Ì¬¹ØÁª×Ö¶Î
@@ -152,7 +152,7 @@
 	 <%}%>
 <%}%>
     </td>
-    <td  id="tdv_<%=column.getId()%>" class="value" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' <%=(ds.getColumns()-1)*2>0? "colspan='"+((ds.getColumns()-1)*2+1)+"'":"" %>>
+    <td  id="tdv_<%=column.getId()%>" class="value" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='middle' <%=(ds.getColumns()-1)*2>0? "colspan='"+((ds.getColumns()-1)*2+1)+"'":"" %>>
       <%
     //check security grade
     if( userWeb.getSecurityGrade()>=column.getSecurityGrade()){
@@ -266,6 +266,12 @@
 				if(Validator.isNotNull(column.getRegExpression())){
                 	h.put("onchange", column.getRegExpression()+"()");
                 }
+                
+         //System.out.print(inputName+"       "+column.getSQLType());
+        if(column.getSQLType()==23){
+                 h.put("onfocus","WdatePicker()");
+              //System.out.print(column.getSQLType());
+         }        
                 h.put("title", model.getInputBoxIndicator(column,column_acc_Id,locale));
                 String attributeText2= (column.getJSONProps()!=null?column.getJSONProps().optString("input_attr",""):"");
                 System.out.println(column.getName()+"~~~"+attributeText2+"!!!!!!!!!!!!!!!!!");
