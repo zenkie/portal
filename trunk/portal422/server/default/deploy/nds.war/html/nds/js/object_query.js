@@ -67,7 +67,15 @@ ObjectQuery.prototype = {
 		//alert(accepter_id);
 		//alert(options);
 		try{
-	art.dialog.get("artDialog1").close();}
+			/*
+			var list = art.dialog.list;
+			for (var i in list) {
+   			 list[i].close();
+			};
+    */
+			
+			//art.dialog.get("artDialog1").close();
+	}
 	catch(ex){};
 		var l= $(accepter_id+"_link");
 		if( l==null || (l!=null &&l.title=="popup")){
@@ -83,10 +91,10 @@ ObjectQuery.prototype = {
 					onClose: function() {oq.close_query();}
 				});
 			 */
-			var options=$H({queryindex:this._queryindex,width:'auto',height:'auto',left: 100,top:'top',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,closeFn:function(){oq.close_query();}});
+			var options=$H({queryindex:this._queryindex,padding: 0,width:'auto',height:'auto',left: 100,top:'top',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,close:function(){oq.close_query();}});
 	    //
 			//AjaxUtil.update(url, popup, null);
-			
+						
 			new Ajax.Request(url, {
 			  method: 'get',
 			  onSuccess: function(transport) {
@@ -107,8 +115,11 @@ ObjectQuery.prototype = {
 			   // par.content(transport.responseText);
 			    //par.content=transport.responseText;
 			    //executeLoadedScript(par);
-			    var pdiv=$(par.data.id);
-			    executeLoadedScript(pdiv);
+			    
+			    //4.6 转载时自动运行SCRIPT脚本
+			    //var pdiv=$(par.data.id);
+			    //alert(pdiv);
+			    //executeLoadedScript(pdiv);
 			    //alert(par.data.content);
 			  },
 			  onFailure:function(transport){
@@ -123,8 +134,9 @@ ObjectQuery.prototype = {
 			  	  		alert(decodeURIComponent(exc));	
 			  	  	}else{
 			  	  		var par=art.dialog(options);
-			  	  		var pdiv=$(par.data.id);
-			  	  		executeLoadedScript(pdiv);
+			  	  		 //4.6 转载时自动运行SCRIPT脚本
+			  	  		//var pdiv=$(par.data.id);
+			  	  		//executeLoadedScript(pdiv);
 			  	  		//var pt=$(popup);
 			    		//pt.innerHTML=transport.responseText;
 			    		//executeLoadedScript(pt);
@@ -167,7 +179,7 @@ ObjectQuery.prototype = {
 					}); 
 					*/
 				//AjaxUtil.update(url, popup, null);
-				var options=$H({queryindex:this._queryindex,width:610,height:'auto',left: 100,top:'top',border: true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,closeFn:function(){oq.close_query();}});
+				var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:'auto',left: 100,top:'top',border: true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,close:function(){oq.close_query();}});
 
 				new Ajax.Request(url, {
 				  method: 'get',
@@ -179,8 +191,9 @@ ObjectQuery.prototype = {
 				*/
 					options.content=transport.responseText;
 			    var par=art.dialog(options);
-			    var pdiv=$(par.data.id);
-			    executeLoadedScript(pdiv);
+			    //4.6 转载时自动运行SCRIPT脚本
+			    //var pdiv=$(par.data.id);
+			    //executeLoadedScript(pdiv);
 				   
 				  },
 				  onFailure:function(transport){
@@ -198,8 +211,9 @@ ObjectQuery.prototype = {
 				    		pt.innerHTML=transport.responseText;
 				    		executeLoadedScript(pt);*/
 				    		var par=art.dialog(options);
-			  	  		var pdiv=$(par.data.id);
-			  	  		executeLoadedScript(pdiv);
+				    		//4.6 转载时自动运行SCRIPT脚本
+			  	  		//var pdiv=$(par.data.id);
+			  	  		//executeLoadedScript(pdiv);
 				  	  	}
 				  }
 				});	
@@ -424,12 +438,21 @@ ObjectQuery.prototype = {
 	},
 	close:function(){
 		//window.setTimeout("Alerts.killAlert(document.getElementById('pop-up-title-"+this._queryindex+"'))",1);
-		var pid=jQuery("#pop-up-title-"+this._queryindex).parents(".aui_dialog_wrap").attr("id");
+		//var pid=jQuery("#pop-up-title-"+this._queryindex).parents(".aui_dialog_wrap").attr("id");
 		//art.dialog.close();
 		//alert(pid)
 		//art.dialog.get(pid).close();
-		window.setTimeout("art.dialog.get('"+pid+"').close()",1);
+		//window.setTimeout("art.dialog.get('"+pid+"').close()",1);
 		//alert(pid);
+		//获取当前正在打开的dialog窗口
+		 var now_popw=jQuery(".aui_state_focus .aui_title")[0].id;
+	   var list = art.dialog.list;
+			for (var i in list) {
+   				var title_id=list[i].DOM.title[0].id;
+   				if(now_popw==title_id){
+   					 list[i].close();
+   					}
+			};
 	},
 	close_query:function(){
 		this.multi_result[this._queryindex]=null;
@@ -1038,7 +1061,7 @@ DropdownQuery.prototype = {
 		dorphight=jQuery("#div_"+accepter_id).height();
 		
 		//alert(dorphight);
-		if(((jQuery(window).height()-offset.top))<dorphight){
+		if(((jQuery(window).height()-offset.top))>dorphight){
 		jQuery("#div_"+accepter_id).position({of:jQuery("#"+accepter_id),my:"left bottom",at:"left top",collision:"flip flipfit"});
 		}else{
 		jQuery("#div_"+accepter_id).position({of:jQuery("#"+accepter_id),my:"left top",at:"left bottom",collision:"flip flipfit"});	
