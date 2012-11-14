@@ -50,7 +50,7 @@ for(int e=0;e<fa_tab.size();e++){
 		famus=famus+"<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+fa_tableId+"')\">"+fa_tabimg+"<a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+fa_tableId+"');\">"+fa_tableId+"</a><a>"+StringUtils.escapeForXML(fa_tdesc)+"</a></div>";
 					}
 					
-			}
+		}
 				//System.out.println(famus);
 	}
 }
@@ -102,7 +102,7 @@ for(int e=0;e<tab.size();e++){
 }
 //自适应调整OUTLOOK 菜单高度
 
-System.out.println(Inable);
+//System.out.println(Inable);
 
 if(tab.size()>=12&&Inable!=null){
 	tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div style=\"height:300px;max-height:269px\">"+Inable+"</div></div>";
@@ -111,7 +111,7 @@ if(tab.size()>=12&&Inable!=null){
 	}else{
 	tabout=" ";
 	}
-System.out.println(tabout);
+//System.out.println(tabout);
  /*
 tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div>"+Inable+"</div></div>";
 */
