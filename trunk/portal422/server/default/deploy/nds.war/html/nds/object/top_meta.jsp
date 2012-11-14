@@ -80,7 +80,9 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <script language="javascript" src="/html/nds/js/gridcontrol.js"></script>
 <script type="text/javascript" src="/html/nds/js/object_query.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-ui-1.8.21.custom.min.js"></script>
-<script language="javascript" src="/html/nds/js/artdialog/artDialog.js"></script>
+<script language="javascript" src="/html/nds/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
+<script language="javascript" src="/html/nds/js/artDialog4/plugins/iframeTools.js"></script>
+<!--script language="javascript" src="/html/nds/js/artdialog/artDialog.js"></script-->
 <!--link type="text/css" rel="stylesheet" href="/html/nds/js/artdialog/skin/chrome.css" /-->
 <!--link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/jquery-ui-1.7.3.custom.css" /-->
 <!--link type="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css"-->
@@ -95,8 +97,8 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <link type="text/css" rel="stylesheet" href="/html/nds/js/artdialog/skin/chrome.css" />
 <link type="text/css" rel="StyleSheet" href="/html/nds/js/jdate/My97DatePicker/skin/WdatePicker.css"/>
 <%}%>
-<script type="text/javascript" src="/flash/FABridge.js"></script>
-<script type="text/javascript" src="/flash/playErrorSound.js"></script>
+<!--script type="text/javascript" src="/flash/FABridge.js"></script>
+<script type="text/javascript" src="/flash/playErrorSound.js"></script-->
 
 <title><%=table==null?"Object":table.getCategory().getName()+ " - "+ table.getDescription(locale)%> - Agile NEA</title>
 <%
