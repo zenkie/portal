@@ -885,7 +885,9 @@ GridControl.prototype = {
 				}
 			}
 		}else if( event.keyCode==27){//escape
-			Alerts.killAlert($("itemdetail_div"));
+			//Alerts.killAlert($("itemdetail_div"));
+			//art.dialogÌæ»»Alerts
+				art.dialog.get("art_itemdetail_div").close();
 			var chkProductAttribute=$("check_product_attribute");
 			if(chkProductAttribute!=null && $("eo_"+chkProductAttribute.value)!=null){
 				dwr.util.selectRange($("eo_"+chkProductAttribute.value),0,this.MAX_INPUT_LENGTH);
@@ -994,7 +996,9 @@ GridControl.prototype = {
 			}
 		}
 		//if(a.length==0) a="";
-		Alerts.killAlert($("itemdetail_div"));
+		//Alerts.killAlert($("itemdetail_div"));
+		//art.dialogÌæ»»Alerts
+		art.dialog.get("art_itemdetail_div").close();
 		var chkResult = this._tmpData;
 		if(chkResult==null) chkResult={};
 		chkResult.asi_objs=a;
@@ -1246,12 +1250,14 @@ GridControl.prototype = {
 		var chkResult=e.getUserData().data; // data
 		var chkProductAttribute=$("check_product_attribute");
 		var pdt=$("eo_"+chkProductAttribute.value);
+		//alert(1212312);
 		if(chkResult.code!=0){
 			alertScan(chkResult.message);
 			pdt.focus();
 			dwr.util.selectRange(pdt, 0, this.MAX_INPUT_LENGTH);			
 		}else{
 			if(chkResult.showDialog){
+				/*
 				var ele = Alerts.fireMessageBox(
 				{
 					width: 800,
@@ -1259,8 +1265,13 @@ GridControl.prototype = {
 					modal: true,
 					title: gMessageHolder.SET_PRODUCT_ATTRIBUTE
 				});
+				//ART4.6 ÄÜ×Ô¶¯
 				ele.innerHTML=chkResult.pagecontent;
 				executeLoadedScript(ele);
+				*/
+				var options=$H({id:"art_itemdetail_div",width:800,height:360,title:gMessageHolder.SET_PRODUCT_ATTRIBUTE,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome',close:function(){gc.refreshGrid();}});
+				options.content=chkResult.pagecontent;
+				art.dialog(options);
 				if(this._currentRow!=-1){
 					var jo= this._data[this._currentRow][3]; // array, each elements is array of eleId and value
 					var i;
@@ -1859,6 +1870,8 @@ function msgbox(msg, title, boxType ) {
 	alert(msg);
 }
 function playAlert(){
+	/*
+	·Ï³ýflash SOUND
 		if($("sound")){
         	if(!app1){
             	var app1=FABridge.b_playErrorSound.root();
@@ -1866,6 +1879,8 @@ function playAlert(){
 			}
             app1.getErrorSound().play();
         }
+   */
+   null;
 }
 function alertScan(msg){
 	 var _isIE7=(navigator.userAgent.indexOf('MSIE 7')>0);
