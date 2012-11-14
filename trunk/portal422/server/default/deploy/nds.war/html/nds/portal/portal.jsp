@@ -79,8 +79,8 @@ return;}
 <!--meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"-->
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"/>
 <!--script language = javascript>max.Click();</script-->
-<script type="text/javascript" src="/flash/FABridge.js"></script>
-<script type="text/javascript" src="/flash/playErrorSound.js"></script>
+<!--script type="text/javascript" src="/flash/FABridge.js"></script>
+<script type="text/javascript" src="/flash/playErrorSound.js"></script-->
 <%@ include file="top_meta.jsp" %>
 <script>
 <%
@@ -134,16 +134,17 @@ onSelect: onAutocompleteSelect,//选中之后的回调函数
 deferRequestBy: 0, //单位微秒
 params: {country: 'Yes' },//参数
 noCache: false //是否启用缓存 默认是开启缓存的
+//minChars:2
 };
 a1 = jQuery("#pojam").autocomplete(options);
-a1.enable();
+//a1.enable();
 });
 
 </script>	
 </head>
 <body>
 <%@ include file="body_meta.jsp"%>
-<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+<!--object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
         id="playErrorSoundTest" width="1" height="1"
         codebase="file://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab" style="float:right">
     <param name="movie" value="/flash/playErrorSound.swf"/>
@@ -162,7 +163,7 @@ a1.enable();
            flashvars="bridgeName=b_playErrorSound">
     </embed>
 </object>
-<input type="hidden" id="sound" value="/flash/sound/news.flv"/>
+<input type="hidden" id="sound" value="/flash/sound/news.flv"/-->
 <div id="portal-top">
 	<div id="page-top-banner">
 		<%@ include file="top.jsp" %>
