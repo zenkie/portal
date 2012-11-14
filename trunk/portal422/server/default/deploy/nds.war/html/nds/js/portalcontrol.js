@@ -23,7 +23,8 @@ PortalControl.prototype = {
 		};
 		try{
 		var tabs=new CategoryTabs(gMenuObjects);
-		$("page-nav-container").innerHTML=tabs.toString()+"<li id=\"search_bar\"><form><input id=\"pojam\" type=\"text\"></form></li>";
+		//查询功能按钮
+		$("page-nav-container").innerHTML=tabs.toString()+"<li id=\"search_bar\"><form><input id=\"pojam\" type=\"text\" autocomplete=\"off\"></form></li>";
 		//menu acction
 		jQuery('#page-nav-container a')
 		.css( {backgroundPosition: "-20px 35px"} )
@@ -984,7 +985,7 @@ PortalControl.prototype = {
 	},
 	switchConfig:function(){
 		var tb_id=this._tableObj.id;
-		showObject('/html/nds/query/qlc.jsp?table='+this._tableObj.id,null,null,{maxButton:false,closeButton:false,closeFn:function(){pc.navigate(tb_id.toString());}})
+		showObject('/html/nds/query/qlc.jsp?table='+this._tableObj.id,null,null,{maxButton:false,closeButton:false,close:function(){pc.navigate(tb_id.toString());}})
 	},
 	_executeQuery : function (queryObj) {
 		this._lastAccessTime= (new Date()).getTime();
@@ -2107,7 +2108,7 @@ function showObject2(url,option, theWidth, theHeight){
     //使用art.diaglo替换
     //alert(gMessageHolder.IFRAME_TITLE);
 	//var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:true,drag:true,lock:true,esc:true,skin:'aero'});
-	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,ifrid:'popup-iframe-0',drag:false,lock:true,esc:true,skin:'chrome',ispop:true,effect:false,closeFn:function(){pc.refreshGrid();}});
+	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,ifrid:'popup-iframe-0',resize:true,drag:true,lock:true,esc:true,skin:'chrome',ispop:true,effect:false,close:function(){pc.refreshGrid();}});
 	if(options!=undefined) options.merge(option);
 	if(options.iswindow==true){
 		popup_window(url,options.target, options.width,options.height);
@@ -2123,7 +2124,7 @@ function showObject(url, theWidth, theHeight,option){
 	if( theWidth==undefined || theWidth==null) theWidth=956;
     if( theHeight==undefined|| theHeight==null) theHeight=570;
 	//var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:true};
-   var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,skin:'aero',ifrid:'popup-iframe-0',drag:false,lock:true,esc:true,skin:'chrome',ispop:true});
+   var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,skin:'aero',ifrid:'popup-iframe-0',drag:true,resize:true,lock:true,esc:true,skin:'chrome',ispop:true});
 
     if(option!=undefined) 
   
