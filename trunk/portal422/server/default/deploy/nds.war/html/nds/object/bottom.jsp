@@ -3,10 +3,10 @@
 	Nothing currently
  */
 %><iframe id="print_iframe" name="print_iframe" width="1" height="1" src="<%= contextPath %>/html/common/null.html"></iframe>
-<%
+<!--%
 String sound=userWeb.getUserOption("ALERT_SOUND","");
-if(!sound.equals("") && !sound.equals("0")){%>
-<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+if(!sound.equals("") && !sound.equals("0")){%-->
+<!--object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
         id="playErrorSoundTest" width="1" height="1"
         codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab" style="float:right">
     <param name="movie" value="/flash/playErrorSound.swf"/>
@@ -24,6 +24,7 @@ if(!sound.equals("") && !sound.equals("0")){%>
            pluginspage="http://www.adobe.com/go/getflashplayer"
            flashvars="bridgeName=b_playErrorSound">
     </embed>
-</object>
-<input type="hidden" id="sound" value="<%=sound%>"/>
-<%}%>
+</object-->
+<!--input type="hidden" id="sound" value="<!--%=sound%-->
+<!--"/-->
+<!--%}%-->
