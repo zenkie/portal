@@ -1,5 +1,9 @@
 <div id="page-company-logo">
 	<%=userWeb.getClientDomainName()%>
+	<a href="http://devgrow.com/">
+      <div class="moniker"></div>
+      <h1 class="logo">DevGrow - Design, Develop, Grow.</h1>
+  </a>
 </div>
 <div id="page-niche-menu">
 	<span style="font-weight: bold"><%= user.getGreeting() %>. </span>
