@@ -1,6 +1,6 @@
 <script>
 try{
-	jQuery('#maintab ul').tabs();
+	jQuery('#tabs').tabs();
 }catch(ex){
 }
 </script>
