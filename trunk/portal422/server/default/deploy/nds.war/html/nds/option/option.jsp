@@ -1,6 +1,5 @@
 <%@ include file="/html/nds/common/init.jsp" %>
 
-
 <%
 /**
   @param 
@@ -76,15 +75,15 @@ function optionsave(){
 	
 }
 </script>
-<script language="JavaScript" src="/html/nds/js/formkey.js"></script>
+<!--script language="JavaScript" src="/html/nds/js/formkey.js"></script-->
 <!--script language="javascript" src="<%=NDS_PATH%>/js/calendar.js"></script-->
 <script language="JavaScript" src="/html/nds/js/option.js"></script>
-<script type='text/javascript' src='/html/nds/js/util.js'></script> 
+<!--script type='text/javascript' src='/html/nds/js/util.js'></script> 
 <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
 <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
 <script language="javascript" src="/html/nds/js/application.js"></script>
-<script language="javascript" src="/html/nds/js/alerts.js"></script>
+<script language="javascript" src="/html/nds/js/alerts.js"></script-->
 <script language="javascript" src="/html/nds/js/init_optioncontrol_<%=locale.toString()%>.js"></script>
 <%if(optionOnly){%>
 <div style="padding:20px 20px 10px 15px;">
@@ -92,7 +91,7 @@ function optionsave(){
 </div>	
 <%}%>
 <form name="form1" id="form1" method="post">
-<div id="maintab">
+<div id="tabs">
 	<% if(params.size()==0){%>
 	<ul>
 		<li><a href='#tab1'><span><%= PortletUtils.getMessage(pageContext, "color_option",null) %></span></a></li>

@@ -61,7 +61,7 @@
 	     FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(true,column.getTable(),column_acc_Id,column,null);
 	     fkQueryModel.setQueryindex(-1);
 	    %>
-	     <input type='text' class="<%=classx %>" MAXLENGTH="<%=valuelength%>" id='column_<%=column.getId()%>' name='<%=name%>' value='<%=valuedefault%>' onkeydown="<%=fkQueryModel.getKeyEventScript()%>" ><%=type%>
+	     <input type='text' class="<%=classx %>" MAXLENGTH="<%=valuelength%>" id='column_<%=column.getId()%>' name='<%=name%>' value='<%=valuedefault%>'><%=type%>
          <span id="cbt_<%=column.getId()%>"  onaction="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' alt='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
          <script>createButton(document.getElementById("cbt_<%=column.getId()%>"));</script>
     	<%}else{%>
