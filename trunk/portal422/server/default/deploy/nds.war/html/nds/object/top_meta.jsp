@@ -94,7 +94,7 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <!--link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/ui.tabs.css"-->
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/aple_menu.css">
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/object.css">
-<link type="text/css" rel="stylesheet" href="/html/nds/js/artdialog/skin/chrome.css" />
+<!--link type="text/css" rel="stylesheet" href="/html/nds/js/artdialog4/skins/chrome.css" /-->
 <link type="text/css" rel="StyleSheet" href="/html/nds/js/jdate/My97DatePicker/skin/WdatePicker.css"/>
 <%}%>
 <!--script type="text/javascript" src="/flash/FABridge.js"></script>
