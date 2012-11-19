@@ -70,11 +70,12 @@ OptionControl.prototype = {
     	if (w ){
 			var iframe=w.document.getElementById("popup-iframe-0");
 			if(iframe){
-	    		w.setTimeout("Alerts.killAlert(document.getElementById('popup-iframe-0'))",1);
+	    		//w.setTimeout("Alerts.killAlert(document.getElementById('popup-iframe-0'))",1);
 				//reload window
 				if(bReload)w.location.reload();
 	    		isclosed=true;
     		}
+    			art.dialog.close();
     	}
     	if(!isclosed && msg!=null){
 				alert(msg);
