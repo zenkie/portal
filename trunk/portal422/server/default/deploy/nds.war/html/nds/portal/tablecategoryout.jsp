@@ -105,7 +105,7 @@ for(int e=0;e<tab.size();e++){
 //System.out.println(Inable);
 
 if(tab.size()>=12&&Inable!=null){
-	tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div style=\"height:300px;max-height:269px\">"+Inable+"</div></div>";
+	tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div style=\"height:300px;max-height:320px\">"+Inable+"</div></div>";
 	}else if(Inable != null && Inable.length() != 0){
   tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div>"+Inable+"</div></div>";
 	}else{
