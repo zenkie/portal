@@ -53,7 +53,7 @@
 	int rowcount = result.getRowCount();
   	int totalCount = result.getTotalRowCount();
   	int start = qRequest.getStartRowIndex()+1;// 0 is the begin
-  int divHeight=(rowcount== 0 ?40:(rowcount>15?320:rowcount*23+20));
+  int divHeight=(rowcount== 0 ?40:(rowcount>15?320:rowcount*24+25));
 	//int divHeight=(rowcount== 0 ?40:rowcount*20+61);
 %>
 
