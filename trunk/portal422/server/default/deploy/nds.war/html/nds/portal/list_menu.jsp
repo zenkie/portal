@@ -34,15 +34,36 @@ if("N".equalsIgnoreCase(istree)){
 </td></tr>
 <tr>
 <td>
-	<div id="dotred-ul">
-<liferay-ui:tabs names="mynotice">
+	<div id="bottom_tab">
+		 <ul>
+        <li><a href="#tabs-1">我的状态</a></li>
+        <li><a href="#tabs-2">通知</a></li>
+    </ul>
+   <div id="tabs-1">
+   	<div class="content">
+                    <div class="profilePic"><img src="http://devgrow.com/wp-content/themes/cleanscreen/img/profile_pic.png"></div>
+                    <p><strong>JACK DEV</strong>亲爱的管理员欢迎光临JACK DEV系统 
+                    	<a href="" target="_blank">Jack dev</a>.</p>
+                      <ul class="socialConnect">
+                        <li><a href="/c/portal/logout" class="zy" target="_blank">注销</a></li>
+                        <li><a href="javascript:showObject('/html/nds/option/option.jsp',null,null,{ispop:false,closeButton:false})" class="sj" target="_blank">设置</a></li>
+                        <li><a href="/html/nds/portal/portal.jsp" class="cd" target="_blank">菜单</a></li>
+                    </ul>
+   </div>
+   	</div>
+	 <div id="tabs-2">
+<!--liferay-ui:tabs names="mynotice"-->
 	<%
 	request.setAttribute("nds.portal.listconfig", "mynotice");
 	%>
 	<jsp:include page="/html/nds/portal/portletlist/view.jsp" flush="true"/>
 
-</liferay-ui:tabs>	
+<!--/liferay-ui:tabs-->	
 </div>
+</div>
+<script>
+	jQuery( "#bottom_tab" ).tabs();
+</script>
 </td>
 </tr>
 </table>
