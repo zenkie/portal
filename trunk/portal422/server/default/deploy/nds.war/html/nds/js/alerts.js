@@ -93,7 +93,7 @@ var Alerts = {
 		
 		if (title) {
 			cell0.innerHTML = title;
-			alert(title);
+			//alert(title);
 		}
 		
 		var closeButton= options.closeButton;
@@ -221,7 +221,7 @@ var Alerts = {
 		}else{
 			message.align = "left";
 		}
-		alert(title);
+		//alert(title);
 		var wrapper = Alerts.createWrapper(message, title,options);
 		wrapper.style.position = "absolute";
 		wrapper.style.top = 0;
