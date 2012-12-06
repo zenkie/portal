@@ -29,7 +29,7 @@ if(tableId==-1){
 PairTable fixedColumns=new PairTable();
 /**------check permission---**/
 int perm= WebUtils.getDirectoryPermission(table.getSecurityDirectory(), request);
-
+String search_show=userWeb.getUserOption("SEARCH_SHOW","N");
 boolean isWriteEnabled= ( ((perm & 3 )==3));
 boolean isSubmitEnabled= ( ((perm & 5 )==5));
 boolean canVoid= table.isActionEnabled(Table.VOID) && isWriteEnabled ;
@@ -90,7 +90,26 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 <div id="page-table-query" style="width:99%;">
 	<div id="page-table-query-tab" style="width:100%;overflow: hidden;">
 		<ul id="navBar"><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "query-setting",null)%>&nbsp;-&nbsp;<%=table.getDescription(locale)%></span></a></li></ul>
+		<%
+		if(search_show.equals("Y")){%>
+		<script type="text/javascript">
+		jQuery("#navBar").toggle(function(){
+     jQuery("#tab1").show('blind','',500,'');
+            },function(){ 
+     jQuery("#tab1").hide('blind','',500,'');
+    });
+    </script>
+		<div id="tab1"  class="ui-tabs-panel" style="display:none;">
+		<%}else{%>
+		<script type="text/javascript">
+		jQuery("#navBar").toggle(function(){
+     jQuery("#tab1").hide('blind','',500,'');
+            },function(){ 
+     jQuery("#tab1").show('blind','',500,'');
+    });
+    </script>
 		<div id="tab1"  class="ui-tabs-panel">
+		<%}%>
 			<div id="query-content">
 			<%@ include file="table_query.jsp" %>
 			</div>
@@ -139,16 +158,9 @@ var new_high=document.documentElement.clientWidth;
 jQuery("#embed-lines").css("width",new_high-209);
 jQuery("#embed-lines").css("height","100%");
 var param_count=jQuery("#list_query_form :input[name=param_count]").val();
-if(param_count>0){
-jQuery("#navBar").toggle(function(){   
-     //jQuery("#tab1").hide("slow"); 
-     jQuery("#tab1").hide('blind','',500,'');
-            },function(){ 
-     //jQuery("#tab1").show("slow");
-     jQuery("#tab1").show('blind','',500,'');
-    });}else{
+if(param_count==0){
     	jQuery("#tab1").hide();
-    	}
+   }
 <%
 // these are list menuitems of webaction
 StringBuffer waListMenuItemStr=new StringBuffer();
