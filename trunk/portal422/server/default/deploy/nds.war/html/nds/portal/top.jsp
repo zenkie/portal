@@ -1,5 +1,5 @@
 <div id="page-company-logo">
-	<%=userWeb.getClientDomainName()%>
+	<!--%=userWeb.getClientDomainName()%-->
 	<a href="http://devgrow.com/">
       <div class="moniker"></div>
       <h1 class="logo">DevGrow - Design, Develop, Grow.</h1>
