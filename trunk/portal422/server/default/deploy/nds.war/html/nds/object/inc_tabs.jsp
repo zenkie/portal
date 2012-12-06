@@ -26,6 +26,7 @@ if(totalTabs>1){ // skip table itself, as in first tab
 */
 %>
 <script>
+	
 	jQuery('#tabs').tabs({cache:false,collapsible:true})
 	//tabsselect
 	//.bind('select.ui-tabs', function(e, ui) {
@@ -46,6 +47,7 @@ if(totalTabs>1){ // skip table itself, as in first tab
     .bind('tabsload', function(e, ui) {
     	//alert(333);
         if(gc!=null)gc.destroy();
+        
 		if( $("embed-items")!=null){
 			//alert(123);
 			GridControl.main();
