@@ -1,4 +1,4 @@
-<table align="center" border="0" cellpadding="1" cellspacing="1">
+<table align="center" border="0" cellpadding="1" cellspacing="1" style="width:100%">
 <%
 	for(int i=0;i< qColumns.size();i++){
       Column column=(Column)qColumns.get(i);
