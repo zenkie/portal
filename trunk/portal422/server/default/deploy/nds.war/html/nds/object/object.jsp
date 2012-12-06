@@ -292,11 +292,7 @@ if(isVoid){
 <table><tr><td>
 	  <script>
 	  	 	jQuery(document).ready(function(){try{dcq.createdynlist(<%=dcqjsonarraylist%>);}catch(ex){};oc.initColumns();});
-	  	  	var ti=setInterval("try{dcq.dynquery();}catch(ex){}",500);
-//	  	  	jQuery(document).ready(
-//	  	  	function(){try{
-//	  	  	jQuery("#artDialog1").remove();
-//	  	  art.dialog.get("artDialog1").close();}catch(ex){};});
+	    	var ti=setInterval("try{dcq.dynquery();}catch(ex){}",500);
 	  </script>
 </td></tr></table>
 </body>
