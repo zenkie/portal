@@ -62,10 +62,13 @@ GridControl.prototype = {
 		application.addEventListener( "ShowProductAttribute", this._showProductAttribute, this);
 		application.addEventListener( "TurboScan", this._onTurboScan, this);
 		// call _initGrid when recieved data
+		 
 		var q=Object.clone(this._gridQuery);
 		q.callbackEvent="RefreshGrid";
 		this._executeQuery(q);
+		 
 		this.newLine(false);
+		
 		if(this._inlineMode=="Y"){
 			this._toggleEditableFields(true);
 		}
@@ -886,8 +889,7 @@ GridControl.prototype = {
 			}
 		}else if( event.keyCode==27){//escape
 			//Alerts.killAlert($("itemdetail_div"));
-			//art.dialog替换Alerts
-				art.dialog.get("art_itemdetail_div").close();
+			art.dialog.get("art_itemdetail_div").close();
 			var chkProductAttribute=$("check_product_attribute");
 			if(chkProductAttribute!=null && $("eo_"+chkProductAttribute.value)!=null){
 				dwr.util.selectRange($("eo_"+chkProductAttribute.value),0,this.MAX_INPUT_LENGTH);
@@ -997,7 +999,6 @@ GridControl.prototype = {
 		}
 		//if(a.length==0) a="";
 		//Alerts.killAlert($("itemdetail_div"));
-		//art.dialog替换Alerts
 		art.dialog.get("art_itemdetail_div").close();
 		var chkResult = this._tmpData;
 		if(chkResult==null) chkResult={};
@@ -1250,7 +1251,6 @@ GridControl.prototype = {
 		var chkResult=e.getUserData().data; // data
 		var chkProductAttribute=$("check_product_attribute");
 		var pdt=$("eo_"+chkProductAttribute.value);
-		//alert(1212312);
 		if(chkResult.code!=0){
 			alertScan(chkResult.message);
 			pdt.focus();
@@ -1265,11 +1265,10 @@ GridControl.prototype = {
 					modal: true,
 					title: gMessageHolder.SET_PRODUCT_ATTRIBUTE
 				});
-				//ART4.6 能自动
 				ele.innerHTML=chkResult.pagecontent;
 				executeLoadedScript(ele);
 				*/
-				var options=$H({id:"art_itemdetail_div",width:800,height:360,title:gMessageHolder.SET_PRODUCT_ATTRIBUTE,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome',close:function(){gc.refreshGrid();}});
+				var options=$H({id:"art_itemdetail_div",width:"auto",height:"auto",title:gMessageHolder.SET_PRODUCT_ATTRIBUTE,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome'});
 				options.content=chkResult.pagecontent;
 				art.dialog(options);
 				if(this._currentRow!=-1){
@@ -1306,6 +1305,8 @@ GridControl.prototype = {
 			if(chkResult.showDialog){
 				var row= chkResult.tag;// @see showJsonObj
 				this.editLine(row);
+				/*
+				界面错误showerro
 				var ele = Alerts.fireMessageBox(
 				{
 					width: 800,
@@ -1315,6 +1316,10 @@ GridControl.prototype = {
 				});
 				ele.innerHTML=chkResult.pagecontent;
 				executeLoadedScript(ele);
+				*/
+				var options=$H({id:"art_itemdetail_div",width:"auto",height:"auto",title:gMessageHolder.SET_PRODUCT_ATTRIBUTE,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome'});
+				options.content=chkResult.pagecontent;
+				art.dialog(options);
 				this._tmpData=chkResult;
 				var jo= this._data[row][3]; // array, each elements is array of eleId and value
 				var i;
@@ -1652,7 +1657,6 @@ GridControl.prototype = {
 				var pdt=$("eo_"+chkProductAttribute.value);
 				if(pdt!=null)pdt.focus();
 			}
-			
 		}catch(ex){}		
 		//try{$("itemdetail_form").focusFirstElement();}catch(e){}
 	},
@@ -1666,21 +1670,11 @@ GridControl.prototype = {
 	 * Init modify table, support mouse selection
 	 */
 	_initTable: function(){
-	/*
+		 /*
 		this._gridTable= new SelectableTableRows($("modify_table"), false);
 		this._gridTable.ondoubleclick = function (trRow) {
 			gc.editRow(trRow.sectionRowIndex);
-			cyl 10 16
-			更新SelectableTableRows to  selectable
-		};	
-			*/
-		var tb=jQuery('#modify_table').selectable({filter:'tr',tolerance:"fit",cancel:":input,a,.ui-selected"});
-		 tb.dblclick(function(trElement){
-		 	    //alert(trElement);
-		 	    var selc_index=trElement.target.parentElement.parentElement.sectionRowIndex;
-		 			gc.editRow(selc_index);
-		 			
-		});
+		}; */	 
 		/*this._gridTable.onchange = function () {
 			var i,s,v;
 			var curSelected=  gc._gridTable.getSelectedIndexes();
@@ -1690,9 +1684,22 @@ GridControl.prototype = {
 				s=dwr.util.getValue(gc._data[i][0]+"_chk");
 				if(v!=s) dwr.util.setValue(gc._data[i][0]+"_chk", !s);
 			}
-			dwr.util.setValue("chk_select_all", false);
-		};	*/ 
-		
+			dwr.util.setValue("chk_select_all", false); 
+			cyl 10 16
+			更新SelectableTableRows to  selectable
+		};	
+		*/
+		var tb=jQuery('#modify_table').selectable({filter:'tr',tolerance:"fit",cancel:":input,a,.ui-selected"});
+		 tb.dblclick(function(trElement){
+		 	    //alert(trElement);
+		 	    var selc_index=trElement.target.parentElement.sectionRowIndex;
+		 	    if(selc_index==undefined){
+		 	    var selc_index=trElement.target.parentElement.parentElement.sectionRowIndex;
+		 	    	}
+		 			gc.editRow(selc_index);
+		 			
+		});
+			
 	},
 	
 	/**
@@ -1870,8 +1877,6 @@ function msgbox(msg, title, boxType ) {
 	alert(msg);
 }
 function playAlert(){
-	/*
-	废除flash SOUND
 		if($("sound")){
         	if(!app1){
             	var app1=FABridge.b_playErrorSound.root();
@@ -1879,8 +1884,6 @@ function playAlert(){
 			}
             app1.getErrorSound().play();
         }
-   */
-   null;
 }
 function alertScan(msg){
 	 var _isIE7=(navigator.userAgent.indexOf('MSIE 7')>0);
