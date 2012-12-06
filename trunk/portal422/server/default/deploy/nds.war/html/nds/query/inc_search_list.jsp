@@ -2,10 +2,10 @@
 <form id="q_fm_list_<%=queryindex%>">
 <table width="100%" cellspacing="0" cellpadding="0"  align="center">
     <tr >
-    <td align="right">
+    <td align="left">
 <div id="q_line"></div>
 <div id="q_embed_lines_<%=queryindex%>" class="q_embed_lines"> 
-<table id="q_inc_table" width="100%" style="float:left" cellpadding="0" cellspacing="0" border="1" class="modify_table">
+<table id="q_inc_table" style="float:left;width:100%" cellpadding="0" cellspacing="0" border="1" class="modify_table">
 	<thead><tr>
   	<td nowrap align='center' width="40"><%=PortletUtils.getMessage(pageContext, "rowindex",null)%></td>
 <%
