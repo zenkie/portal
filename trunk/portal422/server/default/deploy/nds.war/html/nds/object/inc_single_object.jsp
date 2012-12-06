@@ -276,7 +276,16 @@
                 String attributeText2= (column.getJSONProps()!=null?column.getJSONProps().optString("input_attr",""):"");
                 System.out.println(column.getName()+"~~~"+attributeText2+"!!!!!!!!!!!!!!!!!");
 	            %>
-	            <input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributeText2+" "+attributesText+fixedColumnMark)%>"/><%= type%>
+	     <%
+	      if(column.getJSONProps()!=null){
+				JSONObject jor=column.getJSONProps();
+				if(jor.has("ispassword")){ %>
+				<input:password name="<%=inputName%>" attributes="<%= h %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributeText2+" "+attributesText+fixedColumnMark)%>"/><%= type%>
+			<%}else{%>
+				<input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributeText2+" "+attributesText+fixedColumnMark)%>"/><%= type%>
+			<%}}else{%>
+	      <input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributeText2+" "+attributesText+fixedColumnMark)%>"/><%= type%>
+				<%}%>
 				<%if(fkQueryModel!=null){%>
 				<input type="hidden" id="fk_<%=column_acc_Id%>" name="<%=column.getName()%>" value="<%=(coid==-1?"":String.valueOf(coid))%>">
 				<%}
