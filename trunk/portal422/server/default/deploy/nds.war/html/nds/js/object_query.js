@@ -481,12 +481,16 @@ ObjectQuery.prototype = {
 	},
 	_toggleButtons:function(disable){
 		if(disable){
+			try{
 			$("btn-search").disable();
+			}catch (e) {}
 			if($("btn-value")!=null)$("btn-value").disable();
 			if($("btn-search")!=null)$("btn-search").disable();
 			if($("btn-sql")!=null)$("btn-sql").disable();
 		}else{
+			try{
 			$("btn-search").enable();
+		  }catch (e) {}
 			if($("btn-value")!=null)$("btn-value").enable();
 			if($("btn-search")!=null)$("btn-search").enable();
 			if($("btn-sql")!=null)$("btn-sql").enable();
@@ -1058,14 +1062,14 @@ DropdownQuery.prototype = {
 		//alert(jQuery(window).height()-offset.top);
 		
 		//如果高度小于DROPlist高度下拉上翻
-		dorphight=jQuery("#div_"+accepter_id).height();
+		//dorphight=jQuery("#div_"+accepter_id).height();
 		
 		//alert(dorphight);
-		if(((jQuery(window).height()-offset.top))>dorphight){
-		jQuery("#div_"+accepter_id).position({of:jQuery("#"+accepter_id),my:"left bottom",at:"left top",collision:"flip flipfit"});
-		}else{
+		//if(((jQuery(window).height()-offset.top))>dorphight){
+		//jQuery("#div_"+accepter_id).position({of:jQuery("#"+accepter_id),my:"left bottom",at:"left top",collision:"flip flipfit"});
+		//}else{
 		jQuery("#div_"+accepter_id).position({of:jQuery("#"+accepter_id),my:"left top",at:"left bottom",collision:"flip flipfit"});	
-			}
+			//}
 		//jQuery("#div_"+accepter_id).focusout(function(){jQuery("#div_"+accepter_id).remove();});
 	},
 	_resize : function (accepter_id) {
