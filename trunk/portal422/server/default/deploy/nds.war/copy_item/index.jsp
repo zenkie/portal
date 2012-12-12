@@ -7,8 +7,6 @@
 <%@ page import="nds.control.util.*" %>
 <%@ page import="nds.web.config.*" %>
 <%@ page import="nds.schema.*" %>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
-<%@ taglib uri="http://java.fckeditor.net" prefix="FCK" %>
 <%
     response.setHeader("Pragma", "No-cache");
     response.setHeader("Cache-Control", "no-cache");
@@ -39,6 +37,7 @@
     ArrayList<Column> cols=tb.getAllColumns();
     String[] distes=new String[2];
     String[] colnames=new String[2];
+    String[] queryStoreSql=new String[2];
     int[] refTableId=new int[2];
     int[] colId=new int[2];
     for(int i=0;i<cols.size();i++){
@@ -58,8 +57,10 @@
                 }
                 if(colnames[0]==null||colnames[0].equals("")){
                     colnames[0]=colName;
+                    queryStoreSql[0]="select a."+colName+",b.name from "+realTbName+" a,c_store b where b.id=a."+colName+" and a.id="+orderId;
                 }else{
                     colnames[1]=colName;
+                    queryStoreSql[1]="select a."+colName+",b.name from "+realTbName+" a,c_store b where b.id=a."+colName+" and a.id="+orderId;
                 }
             }
         }
@@ -77,25 +78,29 @@
     <script language="javascript" src="/html/nds/js/common.js"></script>
     <script language="javascript" src="/html/nds/js/print.js"></script>
     <script language="javascript" src="/html/nds/js/prototype.js"></script>
-    <script language="javascript" src="/html/nds/js/jquery1.2.3/jquery.js"></script>
-    <script language="javascript" src="/html/nds/js/jquery1.2.3/hover_intent.js"></script>
-    <script language="javascript" src="/html/nds/js/jquery1.2.3/ui.tabs.js"></script>
-    <script>
-        jQuery.noConflict();
-    </script>
+	<!--script language="javascript" src="/html/nds/js/jquery1.2.3/jquery.js"></script-->
+	<!--script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.min.js"></script-->
+	<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
+	<!--script language="javascript" src="/html/nds/js/jquery1.2.3/hover_intent.js"></script>
+	<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.ui.tabs.js"></script-->
+	<script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
+	<!--script language="javascript" src="/html/nds/js/jquery1.2.3/ui.tabs.js"></script-->
+<script>
+	jQuery.noConflict();
+</script>		
     <script language="javascript" src="/html/js/sniffer.js"></script>
     <script language="javascript" src="/html/js/ajax.js"></script>
     <script language="javascript" src="/html/js/util.js"></script>
     <script language="javascript" src="/html/js/portal.js"></script>
     <script language="javascript" src="/html/nds/js/formkey.js"></script>
-    <script type="text/javascript" src="/html/nds/js/selectableelements.js"></script>
-    <script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script>
+    <!--script type="text/javascript" src="/html/nds/js/selectableelements.js"></script>
+    <script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script-->
     <script language="javascript" src="/html/nds/js/calendar.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
     <script language="javascript" src="/html/nds/js/application.js"></script>
-    <script language="javascript" src="/html/nds/js/alerts.js"></script>
+    <!--script language="javascript" src="/html/nds/js/alerts.js"></script-->
     <script language="javascript" src="/html/nds/js/dw_scroller.js"></script>
     <script type="text/javascript" src="/html/nds/js/init_object_query_zh_CN.js"></script>
     <script language="javascript" src="/html/nds/js/init_objcontrol_zh_CN.js"></script>
@@ -103,6 +108,9 @@
     <script language="javascript" src="/html/nds/js/gridcontrol.js"></script>
     <script type="text/javascript" src="/html/nds/js/object_query.js"></script>
     <script language="javascript" src="/copy_item/copy_item.js"></script>
+    <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-ui-1.8.21.custom.min.js"></script>
+    <script language="javascript" src="/html/nds/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
+		<script language="javascript" src="/html/nds/js/artDialog4/plugins/iframeTools.js"></script>
     <link href="cc.css" rel="stylesheet" type="text/css" />
     <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/objdropmenu.css">
     <link type="text/css" rel="StyleSheet" href="/html/nds/css/cb2.css">
@@ -178,15 +186,19 @@
             <div class="cc-txt">
                 <table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
                     <tr>
-                        <%if(distes[0]!=null&&!distes[0].equals("")){%>
+                        <%if(distes[0]!=null&&!distes[0].equals("")){
+                        		List ls=QueryEngine.getInstance().doQueryList(queryStoreSql[0]);
+                        		String storeId0=(((List)ls.get(0)).get(0)).toString();
+                        		String storeName0=(String)((List)ls.get(0)).get(1);
+                        %>
                         <td width="85" style="text-align:right;">
                             <input type="hidden" id="distes0" value="<%=distes[0]%>"/><!--发货店仓--><%=distes[0]%>：
                         </td>
                         <td width="160">
                             <div class="cc-right-txt">
                                 <input type="hidden" id="colid0" value="<%=colId[0]%>"/>
-                                <input name="Input" type="text" class="ipt-110" id="column_<%=colId[0]%>" readonly="true"/>
-                                <input type="hidden" id="fk_column_<%=colId[0]%>" name="C_ORIG_ID" value="">
+                                <input name="Input" type="text" class="ipt-110" id="column_<%=colId[0]%>" readonly="true" value="<%=storeName0%>"/>
+                                <input type="hidden" id="fk_column_<%=colId[0]%>" name="C_ORIG_ID" value="<%=storeId0%>">
                                 <input id="c_store_name" type="hidden" value="<%=colnames[0]%>"/>
                                 <span  class="coolButton" id="cbt_<%=colId[0]%>" onaction="oq.toggle('/html/nds/query/search.jsp?table=<%=refTableId[0]%>&return_type=s&column=<%=colId[0]%>&accepter_id=column_<%=colId[0]%>&qdata='+encodeURIComponent(document.getElementById('column_<%=colId[0]%>').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_<%=colId[0]%>')">
                                     <img width="16" height="16" border="0" align="absmiddle" title="Find" src="images/find.gif"/>
@@ -195,7 +207,11 @@
                             </div>
                         </td>
                         <%}%>
-                        <%if(distes[1]!=null&&!distes[1].equals("")){%>
+                        <%if(distes[1]!=null&&!distes[1].equals("")){
+                        		List ls=QueryEngine.getInstance().doQueryList(queryStoreSql[1]);
+                        		String storeId1=(((List)ls.get(0)).get(0)).toString();
+                        		String storeName1=(String)((List)ls.get(0)).get(1);
+                        %>
                         <td width="85" class="cc-left-txt" style="text-align:right;" align="right">
                             <!--收货店仓--><%=distes[1]%>：
                             <input type="hidden" id="distes1" value="<%=distes[1]%>"/>
@@ -204,8 +220,8 @@
                             <div class="cc-right-txt">
                             <input type="hidden" id="colid1" value="<%=colId[1]%>"/>
                             <input id="c_dest_name" type="hidden" value="<%=colnames[1]%>"/>
-                            <input name="Input" type="text" class="ipt-110" id="column_<%=colId[1]%>" readonly="true"/>
-                            <input type='hidden' id="fk_column_<%=colId[1]%>" name="C_ORIG_ID" value=''>
+                            <input name="Input" type="text" class="ipt-110" id="column_<%=colId[1]%>" readonly="true" value="<%=storeName1%>"/>
+                            <input type='hidden' id="fk_column_<%=colId[1]%>" name="C_ORIG_ID" value='<%=storeId1%>'>
                             <span  class="coolButton" id="cbt_<%=colId[1]%>" onaction="oq.toggle('/html/nds/query/search.jsp?table=<%=refTableId[1]%>&return_type=s&column=<%=colId[1]%>&accepter_id=column_<%=colId[1]%>&qdata='+encodeURIComponent(document.getElementById('column_<%=colId[1]%>').value)+'&queryindex='+encodeURIComponent(document.getElementById('queryindex_-1').value),'column_<%=colId[1]%>')">
                                 <img width="16" height="16" border="0" align="absmiddle" title="Find" src="images/find.gif"/>
                             </span>
