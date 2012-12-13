@@ -258,7 +258,8 @@ MatrixDef.prototype = {
 		if (w ){
 			var iframe=w.document.getElementById("popup-iframe-0");
 			if(iframe){
-	    		w.setTimeout("Alerts.killAlert(document.getElementById('popup-iframe-0'));",1);
+	    		//w.setTimeout("Alerts.killAlert(document.getElementById('popup-iframe-0'));",1);
+	    		art.dialog.close();
 	    		return true;
 			}
 		}
