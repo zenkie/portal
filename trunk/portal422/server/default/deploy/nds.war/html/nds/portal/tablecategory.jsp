@@ -40,7 +40,9 @@ if((userWeb.getPermission("M_PRODUCT_ALIAS_LIST")& nds.security.Directory.READ )
      //jQuery("#rpt-list-content").css("overflow-y","hidden");
      //jQuery("#gamma-tab").remove();
      var act=1;
-     if($("mu_favorite").childElementCount>0){var act=0;}
+     var fa_show=jQuery("#fav_show").val();
+     //alert(fa_show);
+     if($("mu_favorite").childElementCount>0&&fa_show!='1'){var act=0;}
      jQuery("#tab_accordion").accordion({ header: "h3",autoHeight:false,navigation:true,active:act});
 //			.sortable({
 //				axis: "y",

@@ -103,9 +103,9 @@ for(int e=0;e<tab.size();e++){
 //自适应调整OUTLOOK 菜单高度
 
 //System.out.println(Inable);
-
+//height:300px;
 if(tab.size()>=12&&Inable!=null){
-	tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div style=\"height:300px;max-height:320px\">"+Inable+"</div></div>";
+	tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div style=\"max-height:320px\">"+Inable+"</div></div>";
 	}else if(Inable != null && Inable.length() != 0){
   tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div>"+Inable+"</div></div>";
 	}else{

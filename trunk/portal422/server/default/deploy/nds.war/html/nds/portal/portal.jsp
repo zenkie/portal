@@ -72,10 +72,14 @@ if(ssId==-1 && nds.util.Validator.isNull(directTb) && ssviewFirst){
 }else if(ssId==-1 && nds.util.Validator.isNull(directTb) && hainanFirst){
 	request.getRequestDispatcher("/hainan_view/index.jsp").forward(request, response);
 return;}
+
+boolean fav_show=Tools.getYesNo(userWeb.getUserOption("FAV_SHOW",defaultSsviewFirst?"Y":"N"),true);
+System.out.print(fav_show);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<title>JACK DEV</title>
 <!--meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"-->
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"/>
 <!--script language = javascript>max.Click();</script-->
@@ -119,11 +123,11 @@ jQuery(document).ready(function(){
   });
   jQuery('#roll_top').click(function(){jQuery("#portal-content").animate({scrollTop: '0px'}, 500);});
   jQuery('#roll_bottom').click(function(){jQuery("#portal-content").animate({scrollTop:jQuery('#list-legend').offset().top}, 500);});
+  //jQuery('#flyout-ribbon').FlyoutRibbon();
 });
 
 jQuery(function(){
 var onAutocompleteSelect =function(value, data){
-//alert('select');
 pc.navigate(data);
 }; 
 var options = {
@@ -137,7 +141,7 @@ noCache: false //是否启用缓存 默认是开启缓存的
 //minChars:2
 };
 a1 = jQuery("#pojam").autocomplete(options);
-//a1.enable();
+a1.enable();
 });
 
 </script>	
@@ -206,5 +210,14 @@ a1 = jQuery("#pojam").autocomplete(options);
 </div>
 <div id="roll" style="display:none; "><div title="" id="roll_top"></div><div title="" id="roll_bottom"></div></div>
 </body>
+
+<!--div id="flyout-ribbon" class="ribbon">
+<%@ include file="flyoutitem.jsp" %>
+</div-->
+<%
+ if(!fav_show){
+%>
+ <input id="fav_show" value=1 type="hidden"/>
+<%}%>
 </html>
 
