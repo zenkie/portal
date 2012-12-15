@@ -46,7 +46,7 @@ if("N".equalsIgnoreCase(istree)){
                     	<a href="" target="_blank">Jack dev</a>.</p>
                       <ul class="socialConnect">
                         <li><a href="/c/portal/logout" class="zy" target="_blank">注销</a></li>
-                        <li><a href="javascript:showObject('/html/nds/option/option.jsp',null,null,{ispop:false,closeButton:false})" class="sj" target="_blank">设置</a></li>
+                        <li><a onclick="javascript:showObject('/html/nds/option/option.jsp',null,null,{ispop:false,closeButton:false});" class="sj" target="_blank">设置</a></li>
                         <li><a href="/html/nds/portal/portal.jsp" class="cd" target="_blank">菜单</a></li>
                     </ul>
    </div>
