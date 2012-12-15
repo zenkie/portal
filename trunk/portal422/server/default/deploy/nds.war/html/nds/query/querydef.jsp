@@ -40,6 +40,8 @@ document.bgColor="<%=colorScheme.getPortletBg()%>";
 <script type="text/javascript" src="<%=NDS_PATH+"/js/xloadtree111/xtree.js"%>"></script>
 <script type="text/javascript" src="<%=NDS_PATH+"/js/xloadtree111/xmlextras.js"%>"></script>
 <script type="text/javascript" src="<%=NDS_PATH+"/js/xloadtree111/xloadtree.js"%>"></script>
+<script language="javascript" src="/html/nds/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
+<script language="javascript" src="/html/nds/js/artDialog4/plugins/iframeTools.js"></script>
 <link type="text/css" rel="stylesheet" href="<%=NDS_PATH+"/js/xloadtree111/xtree.css"%>" />
 <script language="JavaScript" src="/html/nds/js/formkey.js"></script>
 <script type='text/javascript' src='/html/nds/js/util.js'></script> 
@@ -168,7 +170,7 @@ document.write(tree);
 		</tr><tr>	
 			<td colspan="2">
 				<input class="command2_button" type='button' id="TMPLbtn_save_dim" size="20" value='<%=PortletUtils.getMessage(pageContext, "command.ok",null)%>' onclick="javascript:qd.saveColumn();" > &nbsp;&nbsp;
-				<input class="command2_button" type='button' id="TMPLbtn_cancel_dim" size="20" value='<%=PortletUtils.getMessage(pageContext, "command.cancel",null)%>' onclick="Alerts.killAlert(this)" > 
+				<input class="command2_button" type='button' id="TMPLbtn_cancel_dim" size="20" value='<%=PortletUtils.getMessage(pageContext, "command.cancel",null)%>' onclick="javascript:qd.art_close('art_dlg_clink_content');" > 
 				<input type="hidden"  id="TMPLlisttag" value=""/>
 				<br><br>
 			</td>
@@ -183,7 +185,7 @@ document.write(tree);
 	<input type="text"  id="TMPLtemplatename" value="" size="60" maxlength="255" onkeydown="javascript:qd.onNameReturn(event);" />
 	<br><br>
 	<input class="command2_button" type='button' id="TMPLbtn_save_name" size="20" value='<%=PortletUtils.getMessage(pageContext, "command.ok",null)%>' onclick="javascript:qd.saveNew();" > &nbsp;&nbsp;
-	<input class="command2_button" type='button' id="TMPLbtn_cancel_name" size="20" value='<%=PortletUtils.getMessage(pageContext, "command.cancel",null)%>' onclick="Alerts.killAlert(this)">
+	<input class="command2_button" type='button' id="TMPLbtn_cancel_name" size="20" value='<%=PortletUtils.getMessage(pageContext, "command.cancel",null)%>' onclick="javascript:qd.art_close('art_dlg_save_content');">
 	<br>
 </div>
 </div>
