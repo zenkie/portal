@@ -116,7 +116,7 @@ function showObject(url, theWidth, theHeight,option){
 	if( theWidth==undefined || theWidth==null) theWidth=956;
     if( theHeight==undefined|| theHeight==null) theHeight=570;
 	//var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:true};
-    var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,skin:'aero',ifrid:'popup-iframe-1',drag:true,lock:true,esc:true,skin:'chrome',ispop:false,closeFn:null});
+    var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,skin:'aero',ifrid:'popup-iframe-1',drag:true,lock:true,esc:true,skin:'chrome',ispop:false,close:null});
     if(option!=undefined) {
       Object.extend(options, option);
     	art.dialog.open(url,options);
