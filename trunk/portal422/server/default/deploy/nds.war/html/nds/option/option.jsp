@@ -102,18 +102,22 @@ function optionsave(){
   	<%} else{%>
 	<ul>
 		<li><a href='#tab1'><span><%= PortletUtils.getMessage(pageContext, "user_option",null) %></span></a></li>
-	<%if(!optionOnly){%>
-		<li><a href='#tab2'><span><%= PortletUtils.getMessage(pageContext, "color_option",null) %></span></a></li>
+	<%if(!optionOnly)
+		//取消界面配色模块
+	{%>
+		<!--li><a href='#tab2'><span><%= PortletUtils.getMessage(pageContext, "color_option",null) %></span></a></li-->
 	<%}%>
     </ul>		
 	<div id='tab1'><br>
 	  <%@ include file="/html/nds/option/inc_ad_option.jsp" %>
 	  <br>
 	</div>
-	<%if(!optionOnly){%>
-	<div id='tab2'>
+	<%if(!optionOnly)
+	//取消界面配色模块
+	{%>
+	<!--div id='tab2'>
 		 <%@ include file="/html/nds/option/inc_color_list.jsp" %>
-	</div>
+	</div-->
 	<%}
 	}%>
 </div>	
