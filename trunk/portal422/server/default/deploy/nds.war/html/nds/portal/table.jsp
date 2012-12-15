@@ -118,7 +118,7 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 </div>  
 <div id="page-nav-commands">
 </div>
- <div class="table-buttons2" style="width:100%;">       	        	
+ <div class="table-buttons2">       	        	
 	 &nbsp; <input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "object.search",null)%>" onclick="javascript:pc.queryList()"/>
 <%
 // these are list buttons of webaction
@@ -146,7 +146,7 @@ int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getD
  <%@ include file="/html/nds/portal/inc_result_scroll.jsp" %>
 </div>
 	
-	<div id="page-table-content" style="width:100%;">
+	<div id="page-table-content">
 	<%@ include file="table_list.js.jsp" %>
 	<%@ include file="table_list.jsp" %>
   </div>
@@ -155,7 +155,8 @@ int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getD
 //jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
 //jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
 var new_high=document.documentElement.clientWidth;
-jQuery("#embed-lines").css("width",new_high-209);
+//jQuery("#embed-lines").css("width",new_high-209);
+//alert(new_high);
 jQuery("#embed-lines").css("height","100%");
 var param_count=jQuery("#list_query_form :input[name=param_count]").val();
 if(param_count==0){
