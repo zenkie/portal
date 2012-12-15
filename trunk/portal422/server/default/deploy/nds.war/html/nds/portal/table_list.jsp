@@ -2,7 +2,8 @@
 .dTable{height:500px;overflow:auto;}
 </style>
 <form id="fm_list">
-<div id="embed-lines" style="width:1106px;"> 
+<!--div id="embed-lines" style="width:1106px;"--> 
+<div id="embed-lines"> 
 <!--div style=" height: 100px; overflow:scroll;" id="div1"-->
 <table id="inc_table" class="sort-table" style="width:100%">
 	<thead><tr id="titletr">
