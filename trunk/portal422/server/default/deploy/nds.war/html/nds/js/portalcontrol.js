@@ -82,7 +82,7 @@ PortalControl.prototype = {
 		webFXTreeConfig.blankIcon		= "/html/nds/js/xloadtree111/images/xp/blank.png";
 		webFXTreeConfig.usePersistence  = false;
 		
-		if(document.getElementById("objdropbtn")!=null)ObjDropMenu.init(true);//hover
+		//if(document.getElementById("objdropbtn")!=null)ObjDropMenu.init(true);//hover 下拉列表菜单
 
 	},
 	ssv:function(sid){
@@ -133,16 +133,22 @@ PortalControl.prototype = {
 		//else limitWidth=245+15;//15 is added to reflect the addtion a toggle bar div between menu and table
 		//following modified by ken to estimated the client area after hiding of main navigation menu.	
 		limitWidth=(jQuery("#portal-menu").css("display")=="block")?jQuery("#portal-menu").width()+jQuery("#portal-separator").width():jQuery("#portal-separator").width();		
-		limitWidth=limitWidth+40;
+		//limitWidth=limitWidth+40;
 		
-		var e=$("embed-lines");
+		//var e=$("embed-lines");
+		var e=$("portal-content");
 		if(e==null)return;
 		if (!is_safari) {
 			e.style.width= (document.body.clientWidth - limitWidth)+"px";
 	    }else {
 	        e.style.width= (document.body.offsetWidth - limitWidth)+"px";
 	    }
-	    
+	   /*
+	  var ptc_width=jQuery("#grid_table").width();
+	  alert(ptc_width);
+	  var e=$("page-table-content");
+	  e.style.width=ptc_width+"px";
+	    */
 	},
 	/**
 	 * Create query input form for selected cxtab obj
@@ -491,12 +497,35 @@ PortalControl.prototype = {
 					var newDiv=pstr.concat("<tbody id='grid_table'>",qr.pagecontent,"</tbody>",pestr);
 					div.innerHTML=newDiv;
 					executeLoadedScript(div);
+					//横动条宽度跟随表内容
+					var e=$("page-table-content");
+				  var ptc_width=jQuery("#grid_table").width();
+				  if(ptc_width>1169){
+				  ptc_width=ptc_width+30;
+				  e.style.width=ptc_width+"px";
+				  }else{
+				  //小于最佳宽度自适应
+				  e.style.width="100%";
+				  }
 					this._initGridSelectionControl();
 				}else{
 					var gridTableBody=$("grid_table");
 					dwr.util.removeAllRows(gridTableBody);
 					gridTableBody.innerHTML=qr.pagecontent;
 					executeLoadedScript(gridTableBody);
+					//横动条宽度跟随表内容
+					var e=$("page-table-content");
+				  var ptc_width=jQuery("#grid_table").width();
+				  if(ptc_width>1169){
+				  ptc_width=ptc_width+30;
+				  e.style.width=ptc_width+"px";
+				  }else{
+				  //小于最佳宽度自适应
+				  e.style.width="100%";
+				  }
+	        //alert(ptc_width);
+	        
+	  			
 				}
 			}
 		}else{
@@ -989,7 +1018,9 @@ PortalControl.prototype = {
 	},
 	_executeQuery : function (queryObj) {
 		this._lastAccessTime= (new Date()).getTime();
-		if(queryObj.dir_perm==1){
+		if (typeof queryObj == 'undefined'){
+			return;
+		}else if(queryObj.dir_perm==1){
 			queryObj.resulthandler="/html/nds/portal/table_result.jsp";
 		}else{
 			queryObj.resulthandler=null;	
@@ -2028,12 +2059,12 @@ PortalControl.prototype = {
 		//jQuery("#page-table-query").css("width","1151px"); 
 		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-left.gif");
 		jQuery("#leftToggler").attr("class","leftToggler");
-		var e=$("embed-lines");
-		var new_high=document.documentElement.clientWidth-209;
-		jQuery("#embed-lines").css("width",new_high);
+		//var e=$("embed-lines");
+		//var new_high=document.documentElement.clientWidth-209;
+		//jQuery("#embed-lines").css("width",new_high);
 		//alert(new_high)
 		//e.style.width=new_high;
-		//pc.resize();
+		pc.resize();
 	}
    	$('portal-bottom').focus();
  }
@@ -2108,7 +2139,7 @@ function showObject2(url,option, theWidth, theHeight){
     //使用art.diaglo替换
     //alert(gMessageHolder.IFRAME_TITLE);
 	//var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:true,drag:true,lock:true,esc:true,skin:'aero'});
-	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,ifrid:'popup-iframe-0',resize:true,drag:true,lock:true,esc:true,skin:'chrome',ispop:true,effect:false,close:function(){pc.refreshGrid();}});
+	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,ifrid:'popup-iframe-0',resize:true,drag:true,lock:true,esc:true,skin:'chrome',ispop:true,close:function(){pc.refreshGrid();}});
 	if(options!=undefined) options.merge(option);
 	if(options.iswindow==true){
 		popup_window(url,options.target, options.width,options.height);
@@ -2203,10 +2234,29 @@ mufavorite.prototype = {
 	//alert(tb_name);
 	//alert(tb_name+" is     "+tb_id);
 	//alert();
-	var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tb_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
+		var expr={column:"ad_table_id",condition:"="+tb_id};
+	  var params={table:"MU_FAVORITE", columns:["id"],params:expr, range:1};
+		var trans={id:1, command:"Query",params:params};
+		var a=new Array(1);
+		a[0]=trans;
+	 var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tb_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
 	//alert(fa_line);
 	art.dialog.confirm('是否添加到我的收藏夹？', function(topWin){
     // data 代表输入数据;
+	portalClient.sendRequest(a, function(response){
+			if(!mu.checkResponse(response,0))return;
+			var rows=response.data[0].rows;
+			try{
+			   var p_id= rows[0][0];
+		  }catch(e){var p_id=-1}
+	if(p_id>0){
+		art.dialog({
+    background: '#600', // 背景色
+    opacity: 0.87,	// 透明度
+    content: '['+tb_name+']收藏夹中已存在,无需添加!',
+    icon: 'error',
+    cancel: true});
+		return;}					
   jQuery("#mu_favorite").append(fa_line);
 	jQuery("#tab_accordion" ).accordion({active:0});
 	/*insert into mu_favorite*/
@@ -2215,9 +2265,10 @@ mufavorite.prototype = {
 			//alert("±£´洉¹¦");
 			//mx.cancel();
 		});
+	});
     
   }, function(){
-    alert('你取消了操作');
+    art.dialog.tips('你取消了操作');
   });
 	},
 	
@@ -2227,6 +2278,7 @@ mufavorite.prototype = {
 		var trans={id:1, command:"Query",params:params};
 		var a=new Array(1);
 		a[0]=trans;
+		art.dialog.confirm('是从收藏夹中删除？', function(){
 		portalClient.sendRequest(a, function(response){
 			if(!mu.checkResponse(response,0))return;
 			var rows=response.data[0].rows;
@@ -2239,7 +2291,9 @@ mufavorite.prototype = {
 			mu.flash_mufavorite(tb_id);		
 		   });
 		});
-		
+		}, function(){
+    art.dialog.tips('你取消了操作');
+  });
 		},
 	flash_mufavorite:function(tb_id){
 		jQuery("#mu_favorite > div:contains("+tb_id+")").hide('drop');
