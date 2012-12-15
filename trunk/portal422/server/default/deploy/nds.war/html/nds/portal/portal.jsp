@@ -109,9 +109,12 @@ jQuery(document).ready(loadWelcomePage);
 	}
 %>
 jQuery(document).ready(function(){
+/*
+横动调跟随变化标题坐标
+*/
 	jQuery('#roll').hide();
 	jQuery("#portal-content").scroll(function() {
-		if(jQuery("#portal-content").scrollTop() >= 100){
+		if(jQuery("#portal-content").scrollTop() >= 200){
 			jQuery('#roll').fadeIn(400);
 			jQuery('#page-nav-commands').css("position","absolute");
     }
@@ -120,7 +123,19 @@ jQuery(document).ready(function(){
     jQuery('#roll').fadeOut(200);
     jQuery('#page-nav-commands').css("position","relative");
     }
+    if(jQuery("#portal-content").scrollLeft()>=1 && jQuery("#portal-content").scrollTop()==0){
+    var left_scr=jQuery("#portal-content").scrollLeft();
+    jQuery('#page-table-query').css("margin-left",8+left_scr);
+    //jQuery('.table-buttons2').css("padding-left",2+left_scr);
+    jQuery('#page-nav-commands').css("right",4-left_scr);
+    
+    }else{
+    jQuery('#page-table-query').css("margin-left",8);
+    //jQuery('.table-buttons2').css("padding-left",2);
+    jQuery('#page-nav-commands').css("right",4);
+    }
   });
+
   jQuery('#roll_top').click(function(){jQuery("#portal-content").animate({scrollTop: '0px'}, 500);});
   jQuery('#roll_bottom').click(function(){jQuery("#portal-content").animate({scrollTop:jQuery('#list-legend').offset().top}, 500);});
   //jQuery('#flyout-ribbon').FlyoutRibbon();
