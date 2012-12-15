@@ -124,19 +124,24 @@ width:80px;
 #query-search-content {
 padding:5px 0px 0px 5px;
 overflow:visible;
-width:600px;
+min-width:600px;
+max-width:668px;
+/*width:600px;*/
 }
 #q_search_condition{
 /*
  width:590px;
+ width:566px;
  */
  margin: 5px;
- width:566px;
+ width:100%;
  line-height: 19px;
 }
 #q_result-scroll{
  margin:0px 5px 0px 0px;
- width:600px;
+ /*width:600px;*/
+ min-width:600px;
+ max-width:668px;
 }
 #qbtns{
 margin:5px 10px 10px 5px;
@@ -159,9 +164,15 @@ height: expression( this.scrollHeight > 268 ? "268px": (this.scrollHeight < 100 
 max-height:268px;
 min-height:100px;
 width:600px;
-overflow:auto;
+/*min-width:600px;*/
+/*max-width:680px;*/
+/*overflow:auto;*/
 /*margin:5px 0px 0px 5px;*/
 margin:1px 0px 0px 1px;
+}
+#query-result{
+overflow:auto;
+max-height: 266px;
 }
 #q_result-filter-desc{
 margin:0px 0px 10px 5px;
@@ -201,7 +212,7 @@ height:20px;
  width:120px;
 }
 #embed-lines{
- overflow-x:auto;
+ overflow-x:hidden;
  overflow-y:hidden;
  _padding-bottom:18px;/*for scrollbar*/
  margin-left:5px;
