@@ -123,6 +123,7 @@ QueryDefControl.prototype = {
 			msgbox(gMessageHolder.REQUIRE_AT_LEAST_ONE_CONDITION);
 			return false;
 		}
+		/*
 		var ele = Alerts.fireMessageBox(
 				{
 					width: 550,
@@ -131,6 +132,12 @@ QueryDefControl.prototype = {
 				});
 		ele.innerHTML= $("dlg_save").innerHTML.replace(/TMPL/g,"");
 		executeLoadedScript(ele);
+		*/
+		options={id:"art_dlg_save_content",lock:true,skin:'chrome',drag:true,esc:true,width: 550,height:'auto',title: gMessageHolder.SAVE_NEW};
+		options.content=$("dlg_save").innerHTML.replace(/TMPL/g,"");
+		art.dialog(options);
+		var ele=$("art_dlg_save_content");
+		//executeLoadedScript(ele);
 		$("templatename").value=this._qdf.name+"#2";
 		$("templatename").focus();
 		dwr.util.selectRange($("templatename"), 0,255);
@@ -138,7 +145,7 @@ QueryDefControl.prototype = {
 	onNameReturn:function(event){
 		if (!event) event = window.event;
   		if (event && event.keyCode && event.keyCode == 13) this.saveNew();
-  		else if (event && event.keyCode && event.keyCode == 27) Alerts.killAlert($("dlg_save_content"));
+  		else if (event && event.keyCode && event.keyCode == 27) art.dialog.get("art_dlg_save_content").close();//Alerts.killAlert($("art_dlg_save_content"));
 	},
 	/**
 	Save with new name
@@ -149,7 +156,9 @@ QueryDefControl.prototype = {
 			alert(gMessageHolder.NAME_MAY_NOT_EMPTY);	
 			return;
 		}
-		Alerts.killAlert($("dlg_save_content"));		
+		//Alerts.killAlert($("dlg_save_content"));		
+		art.dialog.get("art_dlg_save_content").close();
+		//art.dialog.close();
 		var evt={};
 		evt.command="QueryListConfig_Save";
 		evt.callbackEvent="QueryListConfig_Save";
@@ -308,6 +317,7 @@ QueryDefControl.prototype = {
 	editColumn:function(listTag){
 		var d= this._getSelectedColumn(listTag);
 		if(d==null) return;
+		/*
 		var ele = Alerts.fireMessageBox(
 				{
 					width: 550,
@@ -316,6 +326,10 @@ QueryDefControl.prototype = {
 				});
 		ele.innerHTML= $("dlg_clink").innerHTML.replace(/TMPL/g,"");
 		executeLoadedScript(ele);
+		*/
+		options={id:"art_dlg_clink_content",width: 550,height:'auto',lock:true,skin:'chrome',drag:true,esc:true,title: gMessageHolder.EDIT_COLUMN};
+		options.content=$("dlg_clink").innerHTML.replace(/TMPL/g,"");
+		art.dialog(options);
 		$("columnlink").value=d.c;
 		$("description").value=d.d;
 		$("listtag").value=listTag;
@@ -343,7 +357,9 @@ QueryDefControl.prototype = {
 			
 		$("col_"+listTag).options[this._selectedListIdx]=s
 					
-		Alerts.killAlert($("dlg_clink_content"));
+		//Alerts.killAlert($("dlg_clink_content"));
+		art.dialog.get("art_dlg_clink_content").close();
+		
 	},
 	 /**
 	  * @param element the select element, 
@@ -424,6 +440,9 @@ QueryDefControl.prototype = {
 	tryClose:function(){
 		this._closeWindowOrShowMessage(null,false);
 	},
+	art_close:function(p_id){
+	art.dialog.get(p_id).close();
+	},
 	 _closeWindowOrShowMessage:function(msg, bReload){
 		var isclosed=false;
     	var w = window.opener;
@@ -433,9 +452,12 @@ QueryDefControl.prototype = {
 			if(iframe){
 	    		//w.setTimeout("Alerts.killAlert(document.getElementById('popup-iframe-0'))",1);
 				//reload window
-				var pid=jQuery("#popup-iframe-1",parent.document.body).parents(".aui_chrome").attr("id");
-				window.setTimeout("parent.art.dialog.get('"+pid+"').close()",1);
-				if(bReload)w.location.reload();
+				//var pid=jQuery("#popup-iframe-1",parent.document.body).parents(".aui_chrome").attr("id");
+				//window.setTimeout("parent.art.dialog.get('"+pid+"').close()",1);
+				w.document.getElementById("popup-iframe-0").contentDocument.location.reload(true);
+				art.dialog.close();
+				if(bReload)
+				  //w.location.reload();
 	    		isclosed=true;
     		}
     	}
@@ -551,3 +573,4 @@ function checkIsNumber(control,desc){
     }
     return true;
 }
+
