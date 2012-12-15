@@ -221,7 +221,7 @@ ObjectControl.prototype = {
 			case 2://refresh page
 				b=true;
 				try{
-					this.closeDialog();	
+					this.closeDialog("popup-iframe-0");	
 					return true;
 				}catch(e){}
 				window.close();	
