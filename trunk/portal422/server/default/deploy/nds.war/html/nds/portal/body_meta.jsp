@@ -12,5 +12,7 @@
 <input class="cbutton"  type="button" value="<%=PortletUtils.getMessage(pageContext, "time-out-wait",null)%>" onclick="pc.timeoutWait()"></div>
 </div>
 <%if(ssId!=-1){%>
-<div id="objmenu" class="obj-dock interactive-mode"><%@ include file="inc_ssmenu.jsp" %></div>
+<div id="objmenu" class="obj-dock interactive-mode">
+	<%@ include file="inc_ssmenu.jsp" %>
+	</div>
 <%}%>
