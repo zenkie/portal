@@ -25,7 +25,7 @@ function showDialog(url, theWidth, theHeight,refreshWindowWhenClose){
 	//var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:false};
 	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,ifrid:'popup-iframe-0',drag:true,lock:true,esc:true,skin:'chrome'});
 	if(refreshWindowWhenClose){
-		options.closeFn=refreshWindow;
+		options.close=refreshWindow;
 	}
 	//alert(url);
 	art.dialog.open(url,options);
@@ -73,7 +73,9 @@ function btn_dialog_large(url,warning){
 function btn_dialog_window(url,warning){
 	if(warning!=undefined){
 		//if(!confirm(warning))return;
-	art.dialog.confirm(warning,function(){showDialog(url);},
+	art.dialog.confirm(warning,function(){
+		showDialog(url,620,480,true);
+	},
 	function(){
     alert('你取消了操作!');
     });		
