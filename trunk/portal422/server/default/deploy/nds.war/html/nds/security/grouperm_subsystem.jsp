@@ -110,7 +110,7 @@ ResultSet rs= QueryEngine.getInstance().doQuery("select name,id from ad_subsyste
               <div align="center"><%= PortletUtils.getMessage(pageContext, "current-group",null)%>: <%= groupName%> &nbsp;&nbsp;<%= PortletUtils.getMessage(pageContext, "description",null)%>: <%= groupDesc%></div>
             </td>
             <td nowrap valign="bottom">
-              <div align="right"><a href="<%=NDS_PATH+"/security/groupperms.jsp"%>"><%=PortletUtils.getMessage(pageContext, "backward",null)%></a></div>
+              <div align="right"><a href="<%=NDS_PATH+"/object/object.jsp?table="+tableId+"&&fixedcolumns=&id="+groupId%>"><%=PortletUtils.getMessage(pageContext, "backward",null)%></a></div>
             </td>
           </tr>
         </table>
