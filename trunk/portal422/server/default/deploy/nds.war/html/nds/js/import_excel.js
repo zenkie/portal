@@ -26,7 +26,7 @@ ImportXLS.prototype = {
 				'sizeLimit'     : this._upinit.sizeLimit,
 				'buttonText'	: this._upinit.buttonText,
 				'fileDesc'      : this._upinit.fileDesc,
-				'fileExt'       : '*.xls;*.csv;*.txt',
+				'fileExt'       : '*.xlsx;*.xls;*.csv;*.txt',
 				onError: function (evt, b, c, errorObj) {
 		         if (errorObj.info == 404)
 		            alert('Could not find upload script.');
