@@ -40,14 +40,25 @@ query=QueryEngine.getInstance().createRequest(userWeb.getSession());
 query.setMainTable(table.getId());
 query.addSelection(table.getColumn("description").getId());
 query.addSelection(table.getColumn("name").getId());
+
 if(rg.vd(queryexp)){
 query.addParam(table.getColumn("description").getId(), queryexp);
+query.addParam(table.getColumn("isactive").getId(),"=Y");
 }else{
 query.addParam(table.getColumn("name").getId(), queryexp);
+query.addParam(table.getColumn("isactive").getId(),"=Y");
 }
 
 query.setRange(0, Integer.MAX_VALUE  );
+
 Expression sexpr= userWeb.getSecurityFilter(table.getName(), 1);// read permission
+
+//Expression expr=new Expression(new ColumnLink("ad_table.ISACTIVE"),"=Y",null);
+Expression expr=new Expression(null, "exists (select 1 from AD_TABLECATEGORY t,ad_subsystem g where t.isactive='Y' and g.isactive='Y' and t.ad_subsystem_id=g.id and t.id=ad_table.ad_tablecategory_id)", null );
+if(expr!=null){
+System.out.println("adfasdfasdf"); 
+sexpr=expr.combine(sexpr,SQLCombination.SQL_AND,null);
+};
 query.addParam(sexpr);
 String sql= query.toSQL();
 System.out.println(sql);
