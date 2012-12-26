@@ -24,7 +24,7 @@ PortalControl.prototype = {
 		try{
 		var tabs=new CategoryTabs(gMenuObjects);
 		//查询功能按钮
-		$("page-nav-container").innerHTML=tabs.toString()+"<li id=\"search_bar\"><form name=\"lab\" method=\"post\" onsubmit=\"pc.navigate(\"ad_table\")\"><input id=\"pojam\" type=\"text\" autocomplete=\"off\"></form></li>";
+		$("page-nav-container").innerHTML="<li><a><img src=\"/html/nds/themes/classic/01/images/bos-logo.png\" alt=\"BOS Logo\"></a></li>"+tabs.toString()+"<li id=\"search_bar\"><form name=\"lab\" method=\"post\" onsubmit=\"pc.navigate(\"ad_table\")\"><input id=\"pojam\" type=\"text\" autocomplete=\"off\"></form></li>";
 		//menu acction
 		jQuery('#page-nav-container a')
 		.css( {backgroundPosition: "-20px 35px"} )
@@ -2234,7 +2234,7 @@ mufavorite.prototype = {
 	//alert(tb_name);
 	//alert(tb_name+" is     "+tb_id);
 	//alert();
-		var expr={column:"ad_table_id",condition:"="+tb_id};
+		var expr={column:"",condition:"exists(select 1 from dual where MU_FAVORITE.ownerid=$USER_ID$ and MU_FAVORITE.ad_table_id="+tb_id+")"};
 	  var params={table:"MU_FAVORITE", columns:["id"],params:expr, range:1};
 		var trans={id:1, command:"Query",params:params};
 		var a=new Array(1);
@@ -2273,12 +2273,12 @@ mufavorite.prototype = {
 	},
 	
 	del_mufavorite:function(tb_id){
-		var expr={column:"ad_table_id",condition:"="+tb_id};
+		var expr={column:"",condition:"exists(select 1 from dual where MU_FAVORITE.ownerid=$USER_ID$ and MU_FAVORITE.ad_table_id="+tb_id+")"};
 	  var params={table:"MU_FAVORITE", columns:["id"],params:expr, range:1};
 		var trans={id:1, command:"Query",params:params};
 		var a=new Array(1);
 		a[0]=trans;
-		art.dialog.confirm('是从收藏夹中删除？', function(){
+		art.dialog.confirm('是否从收藏夹中删除？', function(){
 		portalClient.sendRequest(a, function(response){
 			if(!mu.checkResponse(response,0))return;
 			var rows=response.data[0].rows;
