@@ -334,6 +334,7 @@ delete-all-versions=删除所有历史版本或链接信息
 not-avalible=【无】
 key-columns=关键字段
 help=帮助
+mufavorite=我的收藏夹
 help-toc=目录和索引
 help-current-table=当前对象
 dot-mark=●
@@ -812,7 +813,8 @@ multi-result=多选结果
 add-choosed-rows=添加选中行
 add-all=添加全部
 reverse=排除
-return-multi-result=返回多选结果
+#return-multi-result=返回多选结果
+return-multi-result=确定
 chatback=
 #chatback=<IFRAME src="http://www.google.com/talk/service/badge/Show?tk=z01q6amlq82rgo8hcjrv6437qkteafesag5e9fvs2su9591mtsm9jvhktrlla4kg9ro1i47nn1tph8n59cus7qhpdpg2g1rcrgauqdrisd42s41g8l558nj4g5mo3meqn2pbrjksjln994jp0mo4fo7rgjmdhcqrk8omfo9d8qirno2mk63e406v1vsrokktjs4&amp;w=300&amp;h=18" frameBorder=0 width=300 height=18 allowTransparency></IFRAME>
 mulit-info=<p align='center'style='font-size:20px'>操作说明</p><p style='margin-left:10px'> 1.填上查找条件，也可以不填，点击[查询]按钮。<br />2.在查找结果中选中相应行,这样所选的行就动态地被添加到多选结果栏中;当去除选中行时,这条记录也会从多选栏目去除。<br />3.也可以点击[增加全部]按钮，即将符合查询条件的所有行作为一个集合添加到多选结果栏中，可以添加多个结果集合。<br />4.当排除选项被选中时,添加全部被改为排除全部。<br />5.当排除选项被选中时，在查询结果中将选中的行排除在外。<br />6.排除全部：将整个查询的结果排除在外。<br />7.移除选中行：在多选结果栏将要移除的结果选中，点击[移除选中行]按钮，要移除的结果就从多选栏中移除。<br />8.移除全部：将多选结果栏中的结果清空。 </p>
