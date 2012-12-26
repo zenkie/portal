@@ -481,7 +481,20 @@
      <param-name>debug</param-name>
      <param-value>true</param-value>
   </init-param>
-</servlet>  
+</servlet>
+<servlet>
+	<servlet-name>ConnectorServlet</servlet-name>
+	<servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
+	<init-param>
+		<param-name>XMLConfig</param-name>
+		<param-value>/WEB-INF/config-ck.xml</param-value>
+	</init-param>
+	<init-param>
+		<param-name>debug</param-name>
+		<param-value>false</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+</servlet>
 
 <!--################################################-->
 <!--
@@ -496,6 +509,12 @@ env-entry, and ejb-ref elements should follow this fragment.
 -->
 <!--##############################################-->
 @webinc@
+<servlet-mapping>
+	<servlet-name>ConnectorServlet</servlet-name>
+	<url-pattern>
+		/html/nds/js/ckedit/ckfinder/core/connector/java/connector.java
+	</url-pattern>
+</servlet-mapping>
 
 <servlet-mapping>
   <servlet-name>ValidateMServlet</servlet-name>
