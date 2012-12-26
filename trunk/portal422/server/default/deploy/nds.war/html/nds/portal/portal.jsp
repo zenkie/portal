@@ -225,10 +225,6 @@ a1.enable();
 </div>
 <div id="roll" style="display:none; "><div title="" id="roll_top"></div><div title="" id="roll_bottom"></div></div>
 </body>
-
-<!--div id="flyout-ribbon" class="ribbon">
-<%@ include file="flyoutitem.jsp" %>
-</div-->
 <%
  if(!fav_show){
 %>
