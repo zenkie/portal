@@ -461,7 +461,7 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 </td></tr>
 <tr><td>
 <input class="command2_button" type="button" name="createinstances" value="<%=PortletUtils.getMessage(pageContext, "object.save",null)%>(J)" onclick="gc.saveItemDetail()" accessKey="J" >
-<input class="command2_button" type="button" name="cancel" value="<%=PortletUtils.getMessage(pageContext, "cancel",null)%>(Q)" onclick="Alerts.killAlert(this)" accessKey="Q" >
+<input class="command2_button" type="button" name="cancel" value="<%=PortletUtils.getMessage(pageContext, "cancel",null)%>(Q)" onclick='art.dialog.get("art_itemdetail_div").close();' accessKey="Q" >
 </td></tr>
 </table>
 </div>
