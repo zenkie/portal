@@ -144,7 +144,23 @@
     %>
     <div id="tdc_<%=lable_id%>" onclick="oc.lable_change(<%=lable_id%>);" class="desc-txt<%=column.isNullable()?"":" nn"%>"><FONT face='»ªÎÄÐÐ¿¬' color='blue' size=5><%=lable_des%>:</FONT></div>
     <input style="display:none;width:83px;" name="<%=lable_name%>" id="column_<%=lable_id%>" type="text" maxLength="16" value="<%=lable_des%>"/>
-   <%} else {%>
+   <%}else if(jor.has("reflable")){
+   	 JSONObject jo=column.getJSONProps().getJSONObject("reflable");
+   	 int lable_id=jo.optInt("ref_id",0);
+		 int lable_tabid=jo.optInt("tabid",0);
+		 Table reftable= manager.getTable(lable_tabid);
+		 query=QueryEngine.getInstance().createRequest(userWeb.getSession());
+		 query.setMainTable(lable_tabid);
+		 query.addSelection(reftable.getAlternateKey().getId());
+		 query.addParam( reftable.getPrimaryKey().getId(), ""+ lable_id);
+	   QueryResult rs=QueryEngine.getInstance().doQuery(query); 
+	   if(lable_id !=0 || (rs!=null && rs.getTotalRowCount()>0)){
+	    while(rs.next()) {
+	       desc=rs.getObject(1).toString(); 
+	    }
+	  }%>
+	  <div class="desc-txt<%=column.isNullable()?"":" nn"%>"><%=desc%>:</div>
+    <%}else {%>
    	<div class="desc-txt<%=column.isNullable()?"":" nn"%>"><%=desc%>:</div>
 	 <%}%>
    <%}else{ %>
