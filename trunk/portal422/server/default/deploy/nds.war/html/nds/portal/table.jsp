@@ -121,10 +121,6 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
  <div class="table-buttons2">       	        	
 	 &nbsp; <input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "object.search",null)%>" onclick="javascript:pc.queryList()"/>
 <%
-// these are list buttons of webaction
-for(int wasi=0;wasi<waListButtons.size();wasi++){
-	out.println(waListButtons.get(wasi).toHTML(locale,null));
-}
 if(userWeb.isAdmin()){
 %>
 <input type="button" class="cbutton"  title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "query-list-config",null)%>" onclick="javascript:pc.switchConfig()"/>
@@ -141,6 +137,12 @@ int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getD
 		
 	<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "help",null)%>" onclick="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"/>
 	<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "mufavorite",null)%>" onclick="javascript:mu.add_mufavorite('<%=table.getDescription(locale)%>','<%=tableId%>')"/>
+<%
+// these are list buttons of webaction
+for(int wasi=0;wasi<waListButtons.size();wasi++){
+	out.println(waListButtons.get(wasi).toHTML(locale,null));
+}
+%>	
 	</div>
 <div id="result-scroll" >
  <%@ include file="/html/nds/portal/inc_result_scroll.jsp" %>
