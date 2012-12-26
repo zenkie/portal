@@ -14,6 +14,7 @@ int colWidth=15,maxLength=10;
 String cid;
 PairTable values;
 String colName,cId,cIdInput;
+String pdesc=new String();
 boolean isModifiable;
 Column col,col2;
 int type;
@@ -47,10 +48,31 @@ for(int i=0;i< columns.size();i++){
 		colWidth=maxLength;
 		if(colWidth>30) colWidth=30;
 	}
+	pdesc=clink.getDescription(locale);
+	if(col.getJSONProps()!=null){
+	JSONObject jor=col.getJSONProps();
+	if(jor.has("reflable")){
+   	 JSONObject jo=col.getJSONProps().getJSONObject("reflable");
+   	 int lable_id=jo.optInt("ref_id",0);
+		 int lable_tabid=jo.optInt("tabid",0);
+		 Table reftable= TableManager.getInstance().getTable(lable_tabid);
+		 QueryRequestImpl query=QueryEngine.getInstance().createRequest(userWeb.getSession());
+		 query.setMainTable(lable_tabid);
+		 query.addSelection(reftable.getAlternateKey().getId());
+		 query.addParam( reftable.getPrimaryKey().getId(), ""+ lable_id);
+	   QueryResult rs=QueryEngine.getInstance().doQuery(query); 
+	   if(lable_id !=0 || (rs!=null && rs.getTotalRowCount()>0)){
+	    while(rs.next()) {
+	       pdesc=rs.getObject(1).toString(); 
+	       //System.out.print(pdesc);
+	      }
+	    }
+		}
+	}
  %>
   <td nowrap align='center' onClick="javascript:pc.orderGrid2('<%=ordName%>',event)">
     <span><span id="title_<%=ordName%>" class="odr"></span>
-    	<%=clink.getDescription(locale)%>
+    	<%=pdesc%>
     </span>
   </td>
 <%
