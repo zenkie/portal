@@ -91,7 +91,7 @@ ObjectQuery.prototype = {
 					onClose: function() {oq.close_query();}
 				});
 			 */
-			var options=$H({queryindex:this._queryindex,padding: 0,width:'auto',height:'auto',left: 100,top:'top',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,close:function(){oq.close_query();}});
+			var options=$H({queryindex:this._queryindex,padding: 0,width:'auto',height:'auto',left: '25%',top:'top',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,close:function(){oq.close_query();}});
 	    //
 			//AjaxUtil.update(url, popup, null);
 						
@@ -179,7 +179,7 @@ ObjectQuery.prototype = {
 					}); 
 					*/
 				//AjaxUtil.update(url, popup, null);
-				var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:'auto',left: 100,top:'top',border: true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,close:function(){oq.close_query();}});
+				var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:'auto',left:'20%',top:'top',border: true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,close:function(){oq.close_query();}});
 
 				new Ajax.Request(url, {
 				  method: 'get',
@@ -1414,6 +1414,7 @@ DynamicQuery.prototype = {
 	setdynamicdata:function(){
 		$(this._accepter_id).onkeydown=this.keyboard;
 		var isClkSug=false;
+		/*
 		$(this._accepter_id).onblur=function(e){
 		if(!isClkSug){
 			dcq.closediv();  
@@ -1421,6 +1422,7 @@ DynamicQuery.prototype = {
 		isClkSug=false;
 		time=0;
 		}
+		*/
 	 	if(typeof (this._dynshow_json.dynshowjson)!="object"||typeof (this._dynshow_json.qdata)=="undefined"||this._dynshow_json.qdata==""){
 			return ;
 	 	} 
