@@ -62,7 +62,7 @@ org/apache/jspc/html/nds/portal/table_005fresult_jsp.java
 org/apache/jspc/html/nds/portal/table_jsp.java
 org/apache/jspc/html/nds/portal/QueryServices_jsp.java
 org/apache/jspc/html/nds/portal/tablecategory_jsp.java
-org/apache/jspc/html/nds/portal/tablecategoryout_jsp
+org/apache/jspc/html/nds/portal/tablecategoryout_jsp.java
 org/apache/jspc/html/nds/portal/tablecategory_xml_jsp.java
 org/apache/jspc/html/nds/portal/webactionxml_jsp.java
 org/apache/jspc/html/nds/portal/webaction_jsp.java
