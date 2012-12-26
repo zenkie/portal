@@ -46,10 +46,11 @@
 }
 
 .even-row {
-/*
+ 
 	background:	#fff; 
-*/
-    background-color: #F1F5FA;
+ 
+/*
+    background-color: #CBE8FF;
 	/*
     border-bottom: 1px solid #fff;
     */
@@ -61,7 +62,7 @@
 /*
 	background:	#fff; 
 */
-background-color: #F1F5FA;
+background-color: #EEEFF0;
 
 }
 .row-M {
@@ -285,7 +286,8 @@ TR.odd { background-color: #EEEEEE; color: #000000; font-family: Tahoma, Arial; 
 .portlet-form-field { color: #000000; font-family: Tahoma, Arial; font-size: medium; }
 
 #navBar {
-    background: url("/html/nds/themes/classic/01/images/hmenuarrowhover.gif") no-repeat scroll right center #43779F;
+    /*background: url("/html/nds/themes/classic/01/images/hmenuarrowhover.gif") no-repeat scroll right center #43779F;*/
+	background:url("/html/nds/themes/classic/01/images/bos-banr.gif") repeat-x scroll 0 0 transparent;
     clear: both;
     color: #FFFFFF;
     display: block;
@@ -313,9 +315,15 @@ color:#FFFFFF;
 #breadcrumb a{
     color: #FFFFFF;
 }
-.ui-selecting { background: #FECA40; }	
+.ui-selecting { 
+background: #BBF; 
+background-color: #BBF !important;
+}	
 
-.ui-selected { background: #F39814; color: white; }
+.ui-selected { 
+background: #BBF !important;
+background-color: #BBF !important;
+color: white; }
 
 .fa_mu {
 background-image: url(/html/nds/themes/classic/01/images/ui-icons_2e83ff_256x240.png);
@@ -327,7 +335,7 @@ cursor: pointer;
 _line-height: 17px;
 position: absolute;
 outline: none;
-right: 142px;
+right: 4px;
 width: 13px;
 	}
 	

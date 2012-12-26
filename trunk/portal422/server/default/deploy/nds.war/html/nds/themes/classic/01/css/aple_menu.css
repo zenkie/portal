@@ -37,7 +37,7 @@ border-left: none;
     box-shadow: 0 3px 4px #8b8b8b;
 }
 
-#page-nav-container li { display:block; float:left; border-right:1px solid #5d5d5d; border-left:1px solid #929292; width:105px; height:32px; border-bottom:1px solid #575757; border-top:1px solid #797979;
+#page-nav-container li { display:block; float:left; border-right:1px solid #5d5d5d; border-left:1px solid #929292; width:95px; height:33px; border-bottom:1px solid #575757; border-top:1px solid #797979;
 
     /* Gradient backgrounds for the buttons. Generated using http://gradients.glrzad.com/ */
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #787878), color-stop(0.5, #5E5E5E), color-stop(0.51, #707070), color-stop(1, #838383));
@@ -101,7 +101,7 @@ We also remove the borders, since they don't need them. */
 
 /* The first child image - the logo - has to be centered. Because of the image dimensions, we manually need to shift it a bit. */
 #page-nav-container li:first-child a img {
-   vertical-align:middle; margin-top:-2px;
+   vertical-align:middle; margin-top:8px;
 }
 
 #page-nav-container li:last-child {
@@ -123,7 +123,7 @@ We also remove the borders, since they don't need them. */
 
 #page-nav-container {
      -webkit-animation: showMenu 1s; position:absolute;
-     top: 21px;
+     top: 12px;
 left: 213px;
 }
 /* ±êÇ©Ò³ÑùÊ½   */
@@ -188,7 +188,8 @@ left: 213px;
     clear: left;
     position: relative;
     z-index: 2;
-    padding: 2em 1em;
+/*     padding: 2em 1em; */
+	padding: 0.8em 1em;
     border: 1px solid #CCC;
     background: #FFF;
     -webkit-border-radius: 3px;

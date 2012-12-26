@@ -61,7 +61,7 @@ overflow:auto;
  padding:3px 10px 0px 0px;
 }
 #tabs{
- padding:8px 0px;
+ padding:0px 0px 7px 0px;
  width:902px;
 }
 .embed-items-short{height: expression( this.scrollHeight > 278 ? "278px": (this.scrollHeight < 100 ?"100px": "auto") );max-height:278px;min-height:100px;width:100%;overflow:auto;padding:0px;}
@@ -70,7 +70,8 @@ overflow:auto;
 max-height:260px;
 min-height:100px;
 */
-height:260px;
+max-height:260px;
+min-height:100px;
 width:100%;
 overflow:auto;
 padding:0px;
@@ -171,11 +172,11 @@ div.objtb div.obj{
     padding: 1em 1em;
     position: relative;
     z-index: 2;
-     margin: 0 0 11px;
+     margin: 0 0 4px;
 }
 div.objtb div.obj table.objtb{
-   /* width:100%;*/
-	width:902px;
+    width:100%;
+	/*width:902px;*/
     clear:both;
 }
 div.objtb div.comments span.linknote{
@@ -382,11 +383,13 @@ padding:0pt 15px 1px;
 div.obj div.desc-txt{
 margin:5px 0px 4px 5px;
 text-align:left;
+white-space: nowrap;
 }
 div#inline-obj-inputs div.desc-txt{
 border-bottom:1px solid #7E92B1;
 border-style:none none solid;
-margin:0px 0px 0px 5px;
+/* margin:0px 0px 0px 5px; */
+margin: 8px 0px 0px 2px;
 text-align:left;
 }
 #inc-edit-line{
@@ -394,8 +397,8 @@ background-color:#fff;
 border:1px solid #74A2DE;
 /*margin:2px 2px;*/
 width:100%;
-margin: 2px 0px -19px 0px;
-padding: 14px 0px 0 0px;
+margin: 4px 0px -7px 0px;
+padding: 0px 0px 0px 0px;
 }
 #statusimg{
 height:60px;
