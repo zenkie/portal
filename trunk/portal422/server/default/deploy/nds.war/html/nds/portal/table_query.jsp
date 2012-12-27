@@ -7,7 +7,7 @@
     String accepter_id= null;
     int tab_count= 1;     
 List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
-System.out.println(qColumns.size());
+//System.out.println(qColumns.size());
 %>
 <form id="list_query_form" name="list_query_form" method="post" action="/servlets/QueryInputHandler" onSubmit="pc.queryList();return false;" >
 <input type='hidden' name='table' value='<%=tableId %>'>

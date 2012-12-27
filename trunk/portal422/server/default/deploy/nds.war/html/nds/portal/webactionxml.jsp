@@ -10,7 +10,7 @@
      */
      
 int actionId=  ParamUtils.getIntAttributeOrParameter(request, "id", -1);
-System.out.println("sdfasdfasdfasdfasdf"+actionId);
+//System.out.println("sdfasdfasdfasdfasdf"+actionId);
 TableManager manager=TableManager.getInstance();
 WebAction action=manager.getWebAction(actionId);
 UserWebImpl userWeb =null;

@@ -18,7 +18,7 @@ String NDS_PATH=nds.util.WebKeys.NDS_URI;
 
 Locale locale =userWeb.getLocale();
 int userId=userWeb.getUserId();
-System.out.println(queryexp);
+//System.out.println(queryexp);
 /*
 Table table;
 QueryEngine engine=QueryEngine.getInstance();
@@ -56,15 +56,15 @@ Expression sexpr= userWeb.getSecurityFilter(table.getName(), 1);// read permissi
 //Expression expr=new Expression(new ColumnLink("ad_table.ISACTIVE"),"=Y",null);
 Expression expr=new Expression(null, "exists (select 1 from AD_TABLECATEGORY t,ad_subsystem g where t.isactive='Y' and g.isactive='Y' and t.ad_subsystem_id=g.id and t.id=ad_table.ad_tablecategory_id)", null );
 if(expr!=null){
-System.out.println("adfasdfasdf"); 
+//System.out.println("adfasdfasdf"); 
 sexpr=expr.combine(sexpr,SQLCombination.SQL_AND,null);
 };
 query.addParam(sexpr);
 String sql= query.toSQL();
-System.out.println(sql);
+//System.out.println(sql);
 result= QueryEngine.getInstance().doQuery(query);
 QueryResultMetaData meta=result.getMetaData();
-System.out.println(result.getRowCount());
+//System.out.println(result.getRowCount());
 List b = new ArrayList(); 
 List c = new ArrayList();
 for(int j=0;j<result.getRowCount();j++){

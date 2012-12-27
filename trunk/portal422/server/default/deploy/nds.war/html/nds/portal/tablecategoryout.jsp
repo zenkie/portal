@@ -34,7 +34,7 @@ String url,cdesc,tdesc,tabout,fa_tdesc;
 String famus = new String();
 
 if(mu_favorites.size()>0){
-System.out.println("mu_favorites     "+mu_favorites.size());
+//System.out.println("mu_favorites     "+mu_favorites.size());
 for(int j=0;j<mu_favorites.size();j++){
 List favs=(List)mu_favorites.get(j);
 String	fa_menu=(String)favs.get(0);
