@@ -138,7 +138,7 @@
 				}
 		  //System.out.println(lable_col.getDefaultValue(bReplaceVariable));
 		  //System.out.println(dataWithoutNBSP1);
-		  System.out.println(desc);
+//		  System.out.println(desc);
 		  //System.out.println(tableId);
 		  //Ö§³Ölable_id change write
     %>
