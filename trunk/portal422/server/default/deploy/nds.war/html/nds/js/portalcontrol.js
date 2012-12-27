@@ -2044,6 +2044,15 @@ PortalControl.prototype = {
 	   	jQuery("#leftToggler").attr("class",(jQuery("#portal-menu").css("display")=="block" )?"leftToggler":"leftToggler2");
 	}
 	},
+	msgrefrsh:function(){
+				art.dialog.notice({
+			    title: '系统消息',
+			    width: 220,
+			    content: jQuery("#tabs-2").html(),
+			    icon: 'face-smile',
+			    time: 5
+			});
+	},
 	menu_toggle:function(e){
    e.blur();
    if(jQuery("#portal-menu").css("display")=="block" ){
