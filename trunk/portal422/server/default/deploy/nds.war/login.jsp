@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
 <%@ include file="/html/portal/init.jsp" %>
 <%
 com.liferay.portal.util.CookieKeys.addSupportCookie(response);
@@ -7,7 +7,7 @@ com.liferay.portal.util.CookieKeys.addSupportCookie(response);
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>burgeon portal--ä¼¯ä¿Šè½¯ä»¶</title>
+<title>burgeon bos--²®¿¡Èí¼ş</title>
 <link href="/style-portal.css" rel="stylesheet" type="text/css" />
 <SCRIPT type=text/javascript>
 	function selectTag(showContent,selfObj){
@@ -35,18 +35,18 @@ function onReturn(event){
 }
 function submitForm(){
 	if(document.getElementById("login").value==""){ 
-		alert("è¯·è¾“å…¥ä¼šå‘˜ç”¨æˆ·å");
+		alert("ÇëÊäÈë»áÔ±ÓÃ»§Ãû");
 		return;
 	}
 	else if(document.getElementById("password1").value==""){
-		alert("è¯·è¾“å…¥å¯†ç ");
+		alert("ÇëÊäÈëÃÜÂë");
 		return;
 	}
 	else if(document.getElementById("verifyCode").value==""){
-		alert("è¯·è¾“å…¥éªŒè¯ç ");
+		alert("ÇëÊäÈëÑéÖ¤Âë");
 		return;
 	}else if(document.getElementById("verifyCode").value.length!=4){
-		alert("æ‚¨çš„è¾“å…¥éªŒè¯ç çš„é•¿åº¦ä¸å¯¹!");
+		alert("ÄúµÄÊäÈëÑéÖ¤ÂëµÄ³¤¶È²»¶Ô!");
 		return;
 	}
 	document.fm1.submit();
@@ -56,13 +56,8 @@ function submitForm(){
 </head>
 
 <body>
-<div id="head-login">
-<div id="logo-01">
-<div class="logo-right"></div>
-<div class="logo-left"><a href="/index.jsp"><img src="/images/left-logo.png" width="136" height="150" border="0" /></a></div>
-  </div> 
-</div>
 <div id="login-main">
+
 <div id="login-user">
      <c:if test="<%=true %>">
                 <c:if test='<%= SessionMessages.contains(request, "user_added") %>'>
@@ -117,6 +112,8 @@ function submitForm(){
                   <br />
                 </c:if>                
               </c:if>
+
+<div id="Layer2" >
 <form action="/c/portal/login" method="post" name="fm1" id="fm1">
       <input type="hidden" value="already-registered" name="cmd"/>
        <input type="hidden" value="already-registered" name="tabs1"/>
@@ -128,45 +125,54 @@ function submitForm(){
 		    }
 		 login =LoginAction.getLogin(request, "login", company);
 		%>
-<div id="login-U">
-<ul>
-<li>
-<div class="left_text">ç”¨æˆ·åï¼š</div>
-<div class="right_text"><input id="login" name="login" type="text" class="Warning-130" size="23" value="<%=login %>" /></div>
-</li>
-<div class="clear"></div>
-<li>
-<div class="left_text">å¯†&nbsp;&nbsp;&nbsp;&nbsp;ç ï¼š</div>
-<div class="right_text"><input id="password1" name="<%= SessionParameters.get(request, "password")%>" type="password" value=""  size="10" class="Warning-130"/></div>
-</li>
-<div class="clear"></div>
-<li>
-<div class="left_text">éªŒè¯ç ï¼š</div>
-<div class="right_text"><input id="verifyCode" name="verifyCode" type="text" onKeyPress="onReturn(event)" class="Warning-70"  size="10" />
-<img src="/servlets/vms" width="64" height="16" align="absmiddle" id="chkimg" onclick="javascript:document.getElementById('chkimg').src='/servlets/vms?'+Math.random()" />
-</div>
-</li>
-<div class="clear"></div>
-<li>
-<div class="right_text"><a href="#" onclick="javascript:submitForm()"><input type="image" src="/images/user-btn.gif" width="81" height="25" /></a>
-</div>
-</li>
-</ul>
+
+<div id="Layer_2">
+  <table width="250" cellspacing="0" height="80" border="0" style="margin-top:150px;">
+<tr>
+	 <td width="53" height="20"><span class="STYLE29">ÓÃ»§Ãû:</span></td>
+      <td width="175">
+        <label>
+          <input id="login" name="login" type="text" class="Warning-130" size="19" value="<%=login %>" />
+        </label>
+     </td>
+    </tr>
+<tr>
+      <td height="30"><span class="STYLE29">ÃÜ&nbsp;&nbsp;&nbsp;Âë:</span></td>
+      <td >
+        <label>
+        	<input id="password1" name="<%= SessionParameters.get(request, "password")%>" type="password" value=""  size="19" class="Warning-130"/>
+  
+        </label>
+    </td>
+    </tr>
+<tr>
+      <td height="20"><span class="STYLE29">ÑéÖ¤Âë:</span></td>
+      <td>
+        <label>
+        	<input id="verifyCode" name="verifyCode" type="text" onKeyPress="onReturn(event)" class="Warning-60"  size="7" />
+					<img src="/servlets/vms" width="64" height="16" align="absmiddle" id="chkimg" onclick="javascript:document.getElementById('chkimg').src='/servlets/vms?'+Math.random()" />       
+        </label>
+     </td>
+	 </tr>
+<tr>
+	 <td  height="22">
+	 <div id="Layer_3"><a href="#" onclick="javascript:submitForm()"><img src="/images/user-btn.gif" width="65" height="22" border="0" /></a></div>
+	 </td>
+	 </tr>
+</form>
+</table>
 </div>
 </form>
 </div>
+
 </div>
 <div id="bottom">
-<div id="bottom-bg">
-<div id="bottom-left">
-äº†è§£æ›´å¤šäº§å“è¯·ç‚¹å‡»ï¼š<br />
-<a href="http://www.burgeon.com.cn" target="_parent" class="bottom-text">www.burgeon.com.cn</a></div>
-<div id="bottom-right">
-å…¬å¸ç®€ä»‹ | è”ç³»æˆ‘ä»¬ | æ³•å¾‹å£°æ˜ | æœåŠ¡ä½“ç³» | ä¼¯ä¿Šè®ºå›<br />
-&copy;2008 ä¸Šæµ·ä¼¯ä¿Šè½¯ä»¶ç§‘æŠ€æœ‰é™å…¬å¸ ç‰ˆæƒæ‰€æœ‰ ä¿ç•™æ‰€æœ‰æƒ
+<div id="bottom-right">&copy;2011-2012ÉÏº£²®¿¡Èí¼ş¿Æ¼¼ÓĞÏŞ¹«Ë¾ °æÈ¨ËùÓĞ</div>
+<div id="bottom-left">ÁË½â¸ü¶à²úÆ·Çëµã»÷:<br><a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></br>
 </div>
 </div>
 </div>
+
 <%@ include file="/inc_progress.jsp" %>
 </body>
 </html>
