@@ -74,7 +74,7 @@ if(ssId==-1 && nds.util.Validator.isNull(directTb) && ssviewFirst){
 return;}
 
 boolean fav_show=Tools.getYesNo(userWeb.getUserOption("FAV_SHOW",defaultSsviewFirst?"Y":"N"),true);
-System.out.print(fav_show);
+//System.out.print(fav_show);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
