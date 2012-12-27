@@ -57,6 +57,7 @@ nds.query.web.SubSystemView ssv=new nds.query.web.SubSystemView();
 
 boolean ssviewFirst=Tools.getYesNo(userWeb.getUserOption("SSVIEW",defaultSsviewFirst?"Y":"N"),false);
 String inhainan=userWeb.getUserOption("INHAINAN",defaulthainanFirst?"Y":"N");
+int  msgref_time=Integer.parseInt(userWeb.getUserOption("REFTIME","300"));
 //System.out.print(inhainan);
 //System.out.print(defaulthainanFirst?"Y":"N");
 boolean hainanFirst=Tools.getYesNo(inhainan,false);
@@ -159,6 +160,11 @@ a1 = jQuery("#pojam").autocomplete(options);
 a1.enable();
 });
 
+
+jQuery(document).ready(function(){
+
+setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);			
+});		
 </script>	
 </head>
 <body>
