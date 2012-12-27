@@ -15,6 +15,7 @@ $skinList:[
 $wdate:true,
 $crossFrame:true,
 $preLoad:false,
+$dpPath:"html/nds/js/jdate/My97DatePicker/",
 doubleCalendar:false,
 enableKeyboard:true,
 enableInputMask:true,
