@@ -296,12 +296,13 @@ input[type="button"]{
 /* background:transparent url(/html/nds/themes/classic/01/images/button_bg.gif) repeat scroll 0%; */
 background:transparent url(/html/nds/themes/classic/01/images/bos-bt.png) repeat scroll 0%;
 border:1px solid #a7a7a7;
-padding:0 4px;
+padding: 4px 4px;
 +padding:0px;/*IE*/
 }
 .cbutton{height:22px;
 background:transparent url(/html/nds/themes/classic/01/images/bos-bt.png) repeat scroll 0%;
 border:1px solid #BFA277;
+/* width:69px; */
 }
 
 .smalltab{
