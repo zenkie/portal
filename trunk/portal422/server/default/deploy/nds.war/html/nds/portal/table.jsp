@@ -118,24 +118,27 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 </div>  
 <div id="page-nav-commands">
 </div>
- <div class="table-buttons2">       	        	
-	 &nbsp; <input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "object.search",null)%>" onclick="javascript:pc.queryList()"/>
+ <div class="table-buttons2">
+ 		        	
+	 &nbsp;<a href="javascript:pc.queryList()"><img src="/html/nds/images/findpage.png"/><%=PortletUtils.getMessage(pageContext, "object.search",null)%></a> 	 
 <%
 if(userWeb.isAdmin()){
 %>
-<input type="button" class="cbutton"  title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "query-list-config",null)%>" onclick="javascript:pc.switchConfig()"/>
+<!--input type="button" class="cbutton"  title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "query-list-config",null)%>" onclick="javascript:pc.switchConfig()"/-->
+<a href="javascript:pc.switchConfig()"><img src="/html/nds/images/cog.png"/><%=PortletUtils.getMessage(pageContext, "query-list-config",null)%></a>
 <%
 }else{
 	if(nds.web.config.QueryListConfigManager.getInstance().getQueryListConfigs(tableId,false).size()>0){
 %>
-<input type="button" class="cbutton" title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "switch-config",null)%>" onclick="javascript:pc.switchConfig()"/>
+<!--input type="button" class="cbutton" title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "switch-config",null)%>" onclick="javascript:pc.switchConfig()"/-->
+<a href="javascript:pc.switchConfig()"><img src="/html/nds/images/cog.png"/><%=PortletUtils.getMessage(pageContext, "switch-config",null)%></a>
 <%		
 	}
 }
 int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getDefaultAction()==nds.web.config.ObjectUIConfig.ACTION_EDIT)?3:1);
 %>
-		
-	<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "help",null)%>" onclick="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"/>
+	<!--input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "help",null)%>" onclick="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"/-->
+	<a href="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"><img src="/html/nds/images/help.png"/><%=PortletUtils.getMessage(pageContext, "help",null)%></a>
 	<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "mufavorite",null)%>" onclick="javascript:mu.add_mufavorite('<%=table.getDescription(locale)%>','<%=tableId%>')"/>
 <%
 // these are list buttons of webaction
