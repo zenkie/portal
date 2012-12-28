@@ -108,7 +108,8 @@ fkQueryModel.setQueryindex(-1);
 			      //alert(data);
 			     jQuery("#fa_mu").html(result.xml);
 			     jQuery("#fa_mu").css("padding","0");
-			    jQuery("#tab_accordion").accordion({ header: "h3",autoHeight:false,navigation:true,active:1})
+			     jQuery("#fa_mu").css("height","300");
+			    jQuery("#tab_accordion").accordion({ header: "h3",autoHeight:false,navigation:false,active:0})
 			    });	
 		
     }); 
@@ -117,7 +118,7 @@ fkQueryModel.setQueryindex(-1);
 		  
 </head>
 <body>
-		
+<div id="portal-content" style="display:none;"></div>	
 <div class="header"></div><!--end header-->
 <div class="head">
 	<div id="head_logo"></div>
@@ -147,10 +148,26 @@ SubSystem ss;
 <div class="main"> 
 	<div class="main_add">
     	<div id="fa_mu" class="main_box">
-    	<script type="text/javascript">
-
-    		</script>
         </div><!--end main_box-->
+  
+  
+  <div id="bottom_tab">
+		 <ul>
+        <li><a href="#tabs-1">我的状态</a></li>
+    </ul>
+   <div id="tabs-1">
+   	<div class="content">
+                    <div class="profilePic"><img src="http://devgrow.com/wp-content/themes/cleanscreen/img/profile_pic.png"></div>
+                    <p><strong>JACK DEV</strong>亲爱的管理员欢迎光临JACK DEV系统 
+                    	<a href="" target="_blank">Jack dev</a>.</p>
+                      <ul class="socialConnect">
+                        <li><a href="/c/portal/logout" class="zy" target="_blank">注销</a></li>
+                        <li><a onclick="javascript:showObject('/html/nds/option/option.jsp',null,null,{ispop:false,closeButton:false});" class="sj" target="_blank">设置</a></li>
+                        <li><a href="/html/nds/portal/portal.jsp" class="cd" target="_blank">菜单</a></li>
+                    </ul>
+   </div>
+   </div>
+</div>
     </div><!--end main_add-->
     
     
@@ -176,9 +193,80 @@ SubSystem ss;
             	
             </ul><!--end ico-->
         </div><!--end main_box-->
+           <div class="main_box">
+       	  <div class="title">
+   	      <div class="title_left">&nbsp;</div>
+                <h1>新闻公告</h1>
+                <div class="title_right">&nbsp;</div>
+            </div><!--end title-->
+            <ul class="news">
+            	<li><a href="#">上善若水。</a></li>
+                <li><a href="#">水善利万物而不争，处众人之所恶，故几于道。</a></li>
+                <li><a href="#">居善地，心善渊，与善仁，言善信，政善治，事善能，动善时。</a></li>
+                <li><a href="#">夫唯不争，故无尤。</a></li>
+            </ul><!--end audit-->
+            <ul class="news">
+            	<li><a href="#">上善若水。</a></li>
+                <li><a href="#">水善利万物而不争，处众人之所恶，故几于道。</a></li>
+                <li><a href="#">居善地，心善渊，与善仁，言善信，政善治，事善能，动善时。</a></li>
+                <li><a href="#">夫唯不争，故无尤。</a></li>
+            </ul><!--end audit-->
+            <div class="clear"></div>
+        </div><!--end main_box-->
+        
+        
+        
     <div id="cmdmsg" style="display:none;" ondblclick="$('cmdmsg').hide()"></div>
     
 </div>
+
+    <div class="main_right">
+    	<div class="main_box">
+        	<div class="title">
+            	<div class="title_left">&nbsp;</div>
+                <h1>新闻动态</h1>
+                <div class="title_right">&nbsp;</div>
+            </div><!--end title-->
+            <div class="all_news">
+                <div class="title2"><h2 class="add minus">最新动态：</h2></div>
+				<ul class="news">
+                    <li><a href="#">鞋服业终端信息化成为最后的营销法宝</a></li>
+                    <li><a href="#">分公司日益扩张伯俊市场足迹深化</a></li>
+                    <li><a href="#">服装业趋势走向分析</a></li>
+                    <li><a href="#">国有某大型服装企业注资</a></li>
+                    <li><a href="#">用心发现解决问题</a></li>
+					<li class="more"><a href="#">>> 更多</a></li>
+                </ul><!--end news-->
+                <div class="title2"><h2 class="add">行业新闻：</h2></div>
+                <ul class="news">
+                    <li><a href="#">鞋服业终端信息化成为最后的营销法宝</a></li>
+                    <li><a href="#">分公司日益扩张伯俊市场足迹深化</a></li>
+                    <li><a href="#">服装业趋势走向分析</a></li>
+                    <li><a href="#">国有某大型服装企业注资</a></li>
+                    <li><a href="#">用心发现解决问题</a></li>
+					<li class="more"><a href="#">>> 更多</a></li>
+                </ul><!--end news-->
+                <div class="title2"><h2 class="add">公司新闻：</h2></div>
+                <ul class="news">
+                    <li><a href="#">鞋服业终端信息化成为最后的营销法宝</a></li>
+                    <li><a href="#">分公司日益扩张伯俊市场足迹深化</a></li>
+                    <li><a href="#">服装业趋势走向分析</a></li>
+                    <li><a href="#">国有某大型服装企业注资</a></li>
+                    <li><a href="#">用心发现解决问题</a></li>
+					<li class="more"><a href="#">>> 更多</a></li>
+                </ul><!--end news-->
+                <div class="title2"><h2 class="add">其它：</h2></div>
+                <ul class="news">
+                    <li><a href="#">鞋服业终端信息化成为最后的营销法宝</a></li>
+                    <li><a href="#">分公司日益扩张伯俊市场足迹深化</a></li>
+                    <li><a href="#">服装业趋势走向分析</a></li>
+                    <li><a href="#">国有某大型服装企业注资</a></li>
+                    <li><a href="#">用心发现解决问题</a></li>
+					<li class="more"><a href="#">>> 更多</a></li>
+                </ul><!--end news-->
+            </div><!--end all_news-->
+        </div><!--end main_box-->
+    </div><!--end main_right-->
 <div class="copyright">
  <div class="copy_text">(C) 2008-2009   上海伯俊软件科技有限公司   版权所有</div>  </div>
 <!--end copyright-->

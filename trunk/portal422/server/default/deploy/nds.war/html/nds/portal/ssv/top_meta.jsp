@@ -5,7 +5,7 @@
 
 <script language="Javascript" src="/html/nds/portal/ssv/js/portal_aio_zh_CN.js"></script>
 
-<script language="JavaScript" src="/html/nds/portal/ssv/js/oacontrol.js"></script>
+<!--script language="JavaScript" src="/html/nds/portal/ssv/js/oacontrol.js"></script-->
 <script language="JavaScript" src="/html/nds/portal/ssv/js/ssv.js"></script>
 <link type="text/css" rel="stylesheet" href="/html/nds/portal/ssv/css/portal_aio.css">
 <link rel="stylesheet" type="text/css" href="/html/nds/portal/ssv/css/home.css" />
