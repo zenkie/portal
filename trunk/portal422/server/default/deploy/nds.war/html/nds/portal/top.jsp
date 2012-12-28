@@ -1,8 +1,8 @@
 <div id="page-company-logo">
 	<!--%=userWeb.getClientDomainName()%-->
-	<a href="http://devgrow.com/">
+	<a href="http://www.burgeon.com.cn/">
       <!--div class="moniker"></div-->
-      <h1 class="logo">DevGrow - Design, Develop, Grow.</h1>
+      <h1 class="logo">dev by burgeon</h1>
   </a>
 </div>
 <div id="page-niche-menu">
