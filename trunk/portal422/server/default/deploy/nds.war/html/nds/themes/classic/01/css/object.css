@@ -304,6 +304,9 @@ height:20px;
 .modify_table td,
 #modify_table td {
 white-space: nowrap;
+border-bottom: 1px solid #DBE2E7;
+border-left: 1px solid #DBE2E7;
+border-right: 1px solid #DBE2E7;
 }
 #quick_search_data{
  line-height:normal;
