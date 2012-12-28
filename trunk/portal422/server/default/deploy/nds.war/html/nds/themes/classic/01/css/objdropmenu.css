@@ -1,10 +1,11 @@
 #objdropmenu{
-display:none;
+display:block;
 }
 .obj-dock.interactive-mode {
-	width:165px;
-	min-width:165px;
-	margin-right:1.3em;
+	width:151px;
+	/*min-width:165px;
+	margin-right:1.3em;*/
+	float: right;
 }
 
 .obj-dock-list-container {
@@ -21,11 +22,12 @@ display:none;
 }
 
  .obj-dock.interactive-mode ul {
+ 	/*
 	background: url(/html/nds/images/dock/menu_bg.png) no-repeat 0 0;
 	border-left: 20px solid #DDEAFB;
 	float: none;
 	display: block;
-	margin:1px 0pt 1px 1px;
+	margin:1px 0pt 1px 1px;*/
 }
 
  .obj-dock.interactive-mode li {
