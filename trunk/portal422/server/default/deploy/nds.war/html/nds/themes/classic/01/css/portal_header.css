@@ -326,6 +326,18 @@ padding:2px 5px 0pt;
 .page-submenuitem-text * {
 white-space:nowrap;
 }
+/*ff hack */
+@-moz-document url-prefix(){ 
+#portal-content{ 
+padding:0px;
+margin:0px 0px;
+overflow-x: auto;
+overflow-y: auto;
+/*height:600px;*/
+height: 543px !important;/*支持FF 高度*/
+height:550px \9;/*支持IE 高度*/
+} 
+}
 #portal-content{
 padding:0px;
 margin:0px 0px;
