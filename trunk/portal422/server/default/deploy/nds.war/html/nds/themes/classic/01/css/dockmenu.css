@@ -105,6 +105,10 @@
 .portal-dock li.PrintList a {
 	background-image: url(/html/nds/images/tb_print.gif);
 }
+
+.portal-dock li.PrintSelect a {
+	background-image: url(/html/nds/images/tb_printselet.gif);
+}
 .portal-dock li.ListCopyTo a {
 	background-image: url(/html/nds/images/tb_listcopy.gif);
 }
