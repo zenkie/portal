@@ -287,7 +287,7 @@ TR.odd { background-color: #EEEEEE; color: #000000; font-family: Tahoma, Arial; 
 
 #navBar {
     /*background: url("/html/nds/themes/classic/01/images/hmenuarrowhover.gif") no-repeat scroll right center #43779F;*/
-	background:url("/html/nds/themes/classic/01/images/bos-banr.gif") repeat-x scroll 0 0 transparent;
+	background:url("/html/nds/themes/classic/01/images/leftmenutitle.png") repeat-x scroll 0 0 transparent;
     clear: both;
     color: #FFFFFF;
     display: block;
@@ -316,14 +316,14 @@ color:black;
     color: #FFFFFF;
 }
 .ui-selecting { 
-background: #BBF; 
-background-color: #BBF !important;
+background: #C4E1FF; 
+background-color: #C4E1FF !important;
 }	
 
 .ui-selected { 
-background: #BBF !important;
-background-color: #BBF !important;
-color: white; }
+background: #C4E1FF !important;
+background-color: #C4E1FF !important;
+color: black; }
 
 .fa_mu {
 background-image: url(/html/nds/themes/classic/01/images/ui-icons_2e83ff_256x240.png);
@@ -354,4 +354,28 @@ font-size:11px;
 line-height:18px;
 text-shadow:1px 0px 1px #999999;
 display:none;
+}
+
+
+.hide_bar{
+	background:url("/html/nds/themes/classic/01/images/hide_bar.png") no-repeat;
+    clear: both;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    margin: 0px 0 0;
+    padding:  0px 7px 0px 13px;
+	cursor: pointer;
+}
+
+
+.show_bar{
+	background:url("/html/nds/themes/classic/01/images/show_bar.png") no-repeat;
+    clear: both;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    margin: 0px 0 0;
+    padding:  0px 7px 0px 13px;
+	cursor: pointer;
 }

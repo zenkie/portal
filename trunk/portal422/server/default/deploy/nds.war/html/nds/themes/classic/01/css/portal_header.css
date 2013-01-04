@@ -202,13 +202,52 @@ background:url("/html/nds/themes/classic/01/images/banner-bg.gif")
 white-space:nowrap;
 }
 
+.ph_option{
+background:url("/html/nds/themes/classic/01/images/sz.png") no-repeat center top;
+color: black;
+width: 100%;
+min-width: 45px;
+_width: 45px;
+height: 17px;
+text-align: center;
+display: block;
+padding-top: 72px;
+margin: 11px;
+}
+#page-niche-menu a.ph_option:hover {
+background:url("/html/nds/themes/classic/01/images/sz1.png") no-repeat center top;
+}
+
+#page-niche-menu a.ph_quit:hover {
+background:url("/html/nds/themes/classic/01/images/dc1.png") no-repeat center top;
+}
+.ph_quit{
+background:url("/html/nds/themes/classic/01/images/dc.png") no-repeat center top;
+color: black;
+height: 17px;
+text-align: center;
+display: block;
+padding-top: 72px;
+margin: 11px;
+}
+
+#page-niche-menu li {
+float: left;
+width: 10.7%;
+min-width: 62px;
+height: 90px;
+margin: 0 0 8px 2px;
+display: inline;
+text-align: center;
+}
+
 #page-niche-menu{
 padding:5px 30px 0px 0px;
 color:#2828FF;
 position:absolute;
 text-align:right;
 right:0px;
-display:none;
+display:block;
 }
 
 img, #page-niche-menu { /*behavior: url(/html/nds/css/iepngfix/iepngfix.htc);*/ }
@@ -355,6 +394,8 @@ padding:0px;
 .topleft{
 vertical-align: top;
 text-align: left;
+border: 1px solid #CCC;
+border-top: 0px solid;
 }
 #page-table-content{
     overflow-y: hidden;
@@ -573,7 +614,7 @@ position: absolute;
 right: 2px;
 }
 .btn-more a{
-background:url(/html/nds/themes/classic/01/images/button_more_on.gif) no-repeat left center;
+/*background:url(/html/nds/themes/classic/01/images/button_more_on.gif) no-repeat left center;*/
 /*background:url(/html/nds/themes/classic/01/images/button_more_on.gif) no-repeat left center;*/
 }
 .btn-more a:hover{
@@ -602,7 +643,8 @@ cursor: pointer;
 _cursor:hand;
 }*/
 #inc-table thead td, .sort-table thead td {
-    background: url("/html/nds/themes/classic/01/images/tablethbg.gif") repeat-x scroll 0 0 transparent;
+   /*  background: url("/html/nds/themes/classic/01/images/tablethbg.gif") repeat-x scroll 0 0 transparent; */
+	background:#ACC7DD;
     border-bottom: 1px solid #CCCCCC;
     border-top: 1px solid #FFFFFF;
     font-size: 12px;
@@ -611,7 +653,7 @@ _cursor:hand;
     line-height: 22px;
     text-align: center;
     white-space: nowrap;
-	color:white;
+	color:black;
 }
 /*
 #inc-table td,
@@ -792,7 +834,7 @@ width:210px;
 #rpt-list-outlook {
 clear:both;
 /*height:350px;*/
-height:374px;
+height:566px;
 overflow-x:hidden;
 overflow-y:auto;
 padding:0px;
@@ -881,7 +923,7 @@ left:0;
 #cmdline {
 background: transparent;
 border:0 none;
-color:#FFFFFF;
+color:black;
 height:18px;
 position:absolute;
 top:2px;
@@ -891,6 +933,7 @@ left:28px;
 height:18px;
 width:18px;
 background:transparent url(/html/nds/images/loading.gif) no-repeat scroll 2px 50%;	
+margin: -13px 0px 0 6px;
 }
 #cmdmsg { 
 position: absolute; 
@@ -947,9 +990,9 @@ width:40px;
     cursor: pointer;
     font-weight: bold;
     padding: 5px;
-	*/
+	
 	    background: none repeat scroll 0 0 #E8EFF1;
-    border-bottom: 1px solid #DAE1E3;
+    border-bottom: 1px solid #DAE1E3;*/
     color: #000000;
     display: block;
     height: 20px;
