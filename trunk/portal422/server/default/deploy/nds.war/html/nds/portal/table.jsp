@@ -88,11 +88,17 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 &nbsp;&nbsp;<%=PortletUtils.getMessage(pageContext, "my-recent-visit",null)%>:&nbsp;<%=sb.toString()%>
 </div-->
 <div id="page-table-query" style="width:99%;">
-	<div id="page-table-query-tab" style="width:100%;overflow: hidden;">
-		<ul id="navBar"><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "query-setting",null)%>&nbsp;-&nbsp;<%=table.getDescription(locale)%></span></a></li></ul>
+	<div id="page-table-query-tab" style="border: 1px solid #CCC;width:99%;overflow: hidden;">
+		<ul id="navBar"><li><a id="hide_bar" class="hide_bar"></a><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "query-setting",null)%>&nbsp;-&nbsp;<%=table.getDescription(locale)%></span></a></li></ul>
 		<%
 		if(search_show.equals("Y")){%>
 		<script type="text/javascript">
+		 jQuery("#hide_bar").mousedown(function(event){
+		 	      pc.menu_toggle(this);
+            event.stopPropagation();
+            //return false;
+            //pop button
+        });
 		jQuery("#navBar").toggle(function(){
      jQuery("#tab1").show('blind','',500,'');
             },function(){ 
