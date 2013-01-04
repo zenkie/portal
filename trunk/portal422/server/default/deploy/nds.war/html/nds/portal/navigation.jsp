@@ -50,6 +50,16 @@ if(ssId==-1){
 	hasOnlyActions=false;
 }else{
 	// list table categories as menu
+	// list all subsystems, for boshome backward compatibility 
+	String bos_homeByJSP=conf.getProperty("boshome","true");
+	
+	if("true".equalsIgnoreCase(bos_homeByJSP)){
+		jc=new org.json.JSONObject();
+		jc.put("id", 0);
+		jc.put("desc",PortletUtils.getMessage(pageContext, "navitab",null));
+		jc.put("url", "/html/nds/portal/ssv/home.jsp");
+		menuObjs.put(jc);
+	}
 	
 	List cats =ssv.getTableCategories(request,ssId);
 	for (int i=0; i< cats.size(); i++){   
