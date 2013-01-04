@@ -118,7 +118,7 @@ TableCommands.prototype.toString= function() {
 	str+="</div>";
 	if(this._menuItems.length>1){
 			
-		str+="<div class='portal-dock interactive-mode'><div class='table-buttons btn-more'><a href='#'>"+
+		str+="<div class='portal-dock interactive-mode'><div class='table-buttons btn-more'><a href='#'><img src='/html/nds/images/button_more.png'>"+
 			gMessageHolder.MORE_COMMANDS+"</a></div>"+
 			"<ul class='portal-dock-list' id='portal-dock-list-"+ this.id +"'>";
 		sb = [];
@@ -191,8 +191,13 @@ CategoryTabItem.prototype.deSelect = function() {
 CategoryTabItem.prototype.toString= function() {
 	//var str = "<div id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\"><div class=\"page-tab-text\">" +
 		//			this.oTableCategory.desc+"</div></div>";
+	if(this.id==0){
+		var str = "<li id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\"><a class=\"page-tab-text\">" +
+	"<img src=\"/html/nds/themes/classic/01/images/bos-logo.png\" alt=\"BOS Logo\"></a></li>";
+	}else{
 	var str = "<li id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\"><a class=\"page-tab-text\">" +
 	this.oTableCategory.desc+"</a></li>";
+  }
 	return str;			
 		
 };
