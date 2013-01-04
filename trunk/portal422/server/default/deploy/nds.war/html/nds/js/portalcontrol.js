@@ -24,7 +24,7 @@ PortalControl.prototype = {
 		try{
 		var tabs=new CategoryTabs(gMenuObjects);
 		//查询功能按钮
-		$("page-nav-container").innerHTML="<li><a><img src=\"/html/nds/themes/classic/01/images/bos-logo.png\" alt=\"BOS Logo\"></a></li>"+tabs.toString()+"<li id=\"search_bar\"><form name=\"lab\" method=\"post\" onsubmit=\"pc.navigate(\"ad_table\")\"><input id=\"pojam\" type=\"text\" autocomplete=\"off\"></form></li>";
+		$("page-nav-container").innerHTML=tabs.toString()+"<li id=\"search_bar\"><form name=\"lab\" method=\"post\" onsubmit=\"pc.navigate(\"ad_table\")\"><input id=\"pojam\" type=\"text\" autocomplete=\"off\"></form></li>";
 		//menu acction
 		jQuery('#page-nav-container a')
 		.css( {backgroundPosition: "-20px 35px"} )
@@ -510,6 +510,7 @@ PortalControl.prototype = {
 					this._initGridSelectionControl();
 				}else{
 					var gridTableBody=$("grid_table");
+					if(gridTableBody==null){return;}
 					dwr.util.removeAllRows(gridTableBody);
 					gridTableBody.innerHTML=qr.pagecontent;
 					executeLoadedScript(gridTableBody);
@@ -2061,6 +2062,7 @@ PortalControl.prototype = {
 		//jQuery("#page-table-query").css("width","99%"); 
 		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-right.gif");
 		jQuery("#leftToggler").attr("class","leftToggler2");
+		jQuery("#hide_bar").attr("class","show_bar");
 		pc.resize();
 	}else{
 		jQuery("#portal-menu").css("display","block");
@@ -2068,6 +2070,7 @@ PortalControl.prototype = {
 		//jQuery("#page-table-query").css("width","1151px"); 
 		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-left.gif");
 		jQuery("#leftToggler").attr("class","leftToggler");
+		jQuery("#hide_bar").attr("class","hide_bar");
 		//var e=$("embed-lines");
 		//var new_high=document.documentElement.clientWidth-209;
 		//jQuery("#embed-lines").css("width",new_high);
