@@ -11,8 +11,7 @@
  */ 
  private static int intervalForCheckTimeout=Tools.getInt(((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("portal.session.checkinterval","0"),0);
  private static boolean defaultSsviewFirst="true".equals( ((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("portal.ssview","false"));
- private static boolean defaulthainanFirst="true".equals( ((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("portal.hainan","false"));
-
+ private static boolean defaultboshome="true".equals( ((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("boshome","false"));
 %>
 
 <%
@@ -56,31 +55,30 @@ Configurations conf= (Configurations)WebUtils.getServletContextManager().getActo
 nds.query.web.SubSystemView ssv=new nds.query.web.SubSystemView();
 
 boolean ssviewFirst=Tools.getYesNo(userWeb.getUserOption("SSVIEW",defaultSsviewFirst?"Y":"N"),false);
-String inhainan=userWeb.getUserOption("INHAINAN",defaulthainanFirst?"Y":"N");
-int  msgref_time=Integer.parseInt(userWeb.getUserOption("REFTIME","300"));
-//System.out.print(inhainan);
-//System.out.print(defaulthainanFirst?"Y":"N");
-boolean hainanFirst=Tools.getYesNo(inhainan,false);
 
-//System.out.print(hainanFirst);
+int  msgref_time=Integer.parseInt(userWeb.getUserOption("REFTIME","300"));
+
+
+
 int ssId=Tools.getInt(request.getParameter("ss"),-1);
-//out.print(ssId);
-//System.out.print(ssId);
-//System.out.print(directTb);
-if(ssId==-1 && nds.util.Validator.isNull(directTb) && ssviewFirst){
+
+if(ssId==-1 && nds.util.Validator.isNull(directTb)&&defaultboshome){
+	List<SubSystem> sss =ssv.getSubSystems(request, nds.query.web.SubSystemView.PERMISSION_VIEWABLE);
+	SubSystem ss=sss.get(0);
+	ssId=ss.getId();
+}
+if(ssId==-1 && nds.util.Validator.isNull(directTb) && ssviewFirst && !defaultboshome){
 	request.getRequestDispatcher("/html/nds/portal/ssv/index.jsp").forward(request, response);
 	return;
-}else if(ssId==-1 && nds.util.Validator.isNull(directTb) && hainanFirst){
-	request.getRequestDispatcher("/hainan_view/index.jsp").forward(request, response);
-return;}
+}
 
 boolean fav_show=Tools.getYesNo(userWeb.getUserOption("FAV_SHOW",defaultSsviewFirst?"Y":"N"),true);
-//System.out.print(fav_show);
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>JACK DEV</title>
+<title>BOS</title>
 <!--meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"-->
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"/>
 <!--script language = javascript>max.Click();</script-->
@@ -111,7 +109,7 @@ jQuery(document).ready(loadWelcomePage);
 %>
 jQuery(document).ready(function(){
 /*
-ºá¶¯µ÷¸úËæ±ä»¯±êÌâ×ø±ê
+æ¨ªåŠ¨è°ƒè·Ÿéšå˜åŒ–æ ‡é¢˜åæ ‡
 */
 	jQuery('#roll').hide();
 	jQuery("#portal-content").scroll(function() {
@@ -147,13 +145,13 @@ var onAutocompleteSelect =function(value, data){
 pc.navigate(data);
 }; 
 var options = {
-serviceUrl: 'QueryServices.jsp',//»ñÈ¡Êı¾İµÄºóÌ¨Ò³Ãæ
-width: 150,//ÌáÊ¾¿òµÄ¿í¶È
-delimiter: /(,|;)\s*/,//·Ö¸ô·û
-onSelect: onAutocompleteSelect,//Ñ¡ÖĞÖ®ºóµÄ»Øµ÷º¯Êı
-deferRequestBy: 0, //µ¥Î»Î¢Ãë
-params: {country: 'Yes' },//²ÎÊı
-noCache: false //ÊÇ·ñÆôÓÃ»º´æ Ä¬ÈÏÊÇ¿ªÆô»º´æµÄ
+serviceUrl: 'QueryServices.jsp',//è·å–æ•°æ®çš„åå°é¡µé¢
+width: 150,//æç¤ºæ¡†çš„å®½åº¦
+delimiter: /(,|;)\s*/,//åˆ†éš”ç¬¦
+onSelect: onAutocompleteSelect,//é€‰ä¸­ä¹‹åçš„å›è°ƒå‡½æ•°
+deferRequestBy: 0, //å•ä½å¾®ç§’
+params: {country: 'Yes' },//å‚æ•°
+noCache: false //æ˜¯å¦å¯ç”¨ç¼“å­˜ é»˜è®¤æ˜¯å¼€å¯ç¼“å­˜çš„
 //minChars:2
 };
 a1 = jQuery("#pojam").autocomplete(options);
@@ -164,6 +162,16 @@ a1.enable();
 jQuery(document).ready(function(){
 
 setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);			
+
+jQuery("#jpId").jPlayer( {
+	ready: function () {
+			jQuery(this).jPlayer("setMedia", {
+				flv:"/flash/sound/ringin.flv"
+			});
+		},
+		swfPath: "/html/nds/js/jplay",
+		supplied: "mp3,mp4,flv,ogg,wav"
+  });
 });		
 </script>	
 </head>
@@ -214,7 +222,7 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 			<div style="margin:0;overflow:hidden;" >
 			<%@ include file="list_menu.jsp" %>
 			</div>
-		   	</td><td id="portal-separator" style="vertical-align:top;width:7px;height:100%;" >
+		   	</td><td id="portal-separator" style="vertical-align:top;width:7px;height:100%;display:none;" >
 			<div id="leftToggler" style="vertical-align:middle;" class="leftToggler" onclick="pc.menu_toggle(this);" onmouseover="pc.menu_hl(1);" onmouseout="pc.menu_hl(0);"  >
 
 				</div></td>
@@ -225,6 +233,8 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 	</table>
 </div>
 <div id="cmdmsg" style="display:none;" ondblclick="$('cmdmsg').hide()"></div>
+<div id="jpId"></div>
+<div id="jp_container" class="jp-audio"></div>
 <div id="portal-bottom">
 	<iframe id="print_iframe" name="print_iframe" width="1" height="1" src="<%= contextPath %>/html/common/null.html"></iframe>
 	<%@ include file="bottom.jsp" %>
