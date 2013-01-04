@@ -32,7 +32,7 @@ if("N".equalsIgnoreCase(istree)){
 		</div>
 	</div>
 </td></tr>
-<tr>
+<tr style="display:none;">
 <td>
 	<div id="bottom_tab">
 		 <ul>
