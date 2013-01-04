@@ -62,7 +62,7 @@
 <script language="javascript" src="/html/nds/js/jquery1.3.2/ui.resizable.js"></script>
 
 <script language="javascript" src="/html/nds/js/jquery1.3.2/ui.tabs.js"></script>
-<script language="javascript" src="/html/nds/js/messagescontrol.js"--></script>
+<script language="javascript" src="/html/nds/js/messagescontrol.js"></script-->
 <!--script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.bgiframe.js"></script-->
 <!--script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-ui-1.7.3.custom.min.js"></script-->
 <script language="javascript" src="/html/nds/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
@@ -70,7 +70,7 @@
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-ui-1.8.21.custom.min.js"></script>
 <!--script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.bgpos.js"></script-->
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.autocomplete-min.js"></script>
-
+<script type="text/javascript" src="/html/nds/js/jplay/jquery.jplayer.min.js"></script>
 <!--link type="text/css" rel="stylesheet" href="/html/nds/js/artdialog4/skin/chrome.css" /-->
 <link type="text/css" rel="stylesheet" href="/html/nds/js/xloadtree111/xtree.css" />
 <link type="text/css" rel="StyleSheet" href="/html/nds/css/portlet.css">
