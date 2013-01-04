@@ -13,6 +13,6 @@
 </div>
 <%if(ssId!=-1){%>
 <div id="objmenu" class="obj-dock interactive-mode">
-	<%@ include file="inc_ssmenu.jsp" %>
+	<!--%@ include file="inc_ssmenu.jsp" %-->
 	</div>
 <%}%>
