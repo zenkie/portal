@@ -1,31 +1,7 @@
-*{margin:0; padding:0;}
-html{overflow:hidden;}
-body{font:lighter 12px/18px Arial, Helvetica, sans-serif; color:#333; margin:0; padding:0; background:#fff; overflow:hidden;}
-*html body,*+html body{font:lighter 12px/18px Arial, Helvetica, sans-serif; color:#333; margin-left:30px; padding:0; background:#fff; overflow:hidden;}
-form,p,h1,h2,h3,h4,h5,h6,ul,li,a,input,map{margin:0; padding:0; list-style:none; outline:none;}
-img{border:none; margin:0; padding:0;}
-a{color:#333; text-decoration:none; outline:none;}
-a:hover{color:#e60012;}
-/*header*/
-.header{width:100%; background:url("/html/nds/themes/classic/01/images/banner-bg.gif"); right:0; top:8; height:55px; position:absolute; z-index:-1;}
-.head{min-width:1000px; width:93%; margin:0 auto; height:69px; background:url("/html/nds/themes/classic/01/images/burgeon_logo.png") no-repeat left; overflow:hidden;}
-#head_logo{
-width: 100%;
-height: 56px;
-position: absolute;
-background: url("/html/nds/portal/ssv/images/bos.png") no-repeat left;
-left: 271px;
-top: 8;
-}
-.logo{float:left; padding-left:15px;}
-.welcom{float:right; text-align:right; padding:25px 10px 0 0; width:400px; color:black;}
-.welcom a{colorblack;}
-.welcom a:hover{color:#fff;}
-.welcom .lines{padding:0 10px; color:black;}
 
 /**main*/
-.main{min-width:1000px; width:96%; margin:5px auto; clear:both;}
-.main_left{min-width:590px; width:64%; float:left;}
+.main{min-width:1000px; width:99%; margin:2px auto; clear:both;}
+.main_left{min-width:590px; width:79%; float:left;}
 .main_left ul.ico{width:99.6%; margin:15px auto; overflow:hidden; clear:both; padding-left:2.4%;}
 *html .main_left ul.ico,*+html .main_left ul.ico{width:99.6%; margin:5px auto; overflow:hidden; clear:both; padding-left:0.0%;}
 .main_left ul.ico li{float:left;  width:10.7%; min-width:62px; height:90px;  margin:0 0 8px 2px; display:inline; text-align:center;}
@@ -101,7 +77,7 @@ top: 8;
 .main_left ul.news{width:49.6%;  float:left; margin-left:2px;}
 .main_left ul.news li{border:1px solid #ccc; padding:3px 6px 3px 15px; white-space:nowrap; overflow:hidden; background:#eeeeee url(../images/icon.gif) no-repeat 5px center; clear: both; margin-top:1px;}
 .main_right{min-width:200px; width:20%; float:right; height:513px; height:504px\9; background:#f6f4f4;}
-.main_right h2{padding:3px 10px; font-size:12px; font-weight:bold; cursor:pointer;}
+.main_right h2{margin: 0;padding:3px 10px; font-size:12px; font-weight:bold; cursor:pointer;}
 .main_right h2.add{ background:url(../images/login_63.gif) no-repeat 98% center;}
 .main_right h2.minus{ background:url(../images/login_12.gif) no-repeat 98% center;}
 .main_right .all_news{width:100%; clear:both;}
@@ -114,10 +90,9 @@ top: 8;
 .main_add a:hover{color:#fff; background:#3f3a39;}
 .main_add a.visited{color:#fff; background:#3f3a39 url(../images/home_11.gif) no-repeat right center;}
 .main_gap{width:0.5%; min-width:3px; float:left;}
-/*copyright*/
-.copyright{min-width:1000px; width:96%; text-align:right; overflow:hidden; background:#d9d9d9; margin:5px auto 0 auto; clear:both; color:#777; padding:4px 0;}
 
-*html .copyright,*+html .copyright{ margin-top:-35px;}
+}
+
 
 .copy_text{margin-right:20px;}
 /*common*/
@@ -136,7 +111,7 @@ zoom: 1;
 }
 .main_box2{background:#fff;}
 .main_box3{background:#eee; margin-bottom:5px;}
-.title{width:100%; clear:both; height:25px; border-top:1px solid #ccc; border-bottom:1px solid #ccc; background:url(../images/title_bg.gif) repeat-x left top;}
+.title{width:100%; clear:both; height:25px; border:1px solid #ccc; background:url(../images/title_bg.gif) repeat-x left top;}
 .fa_title{width:100%; clear:both; height:28px; border-top:1px solid #ccc; border-bottom:1px solid #ccc; background:url("/html/nds/themes/classic/01/images/left-top.png") repeat-x scroll right 0 transparent;}
 .fa_title_sp{
 position: absolute;
@@ -147,6 +122,6 @@ background-image: url(images/ui-icons_454545_256x240.png);
 background-position: -64px -16px;
 }
 .title2{width:100%; clear:both; height:25px; border-top:1px solid #ccc; border-bottom:1px solid #ccc;  background:url(../images/title_bg.gif) repeat-x left top; cursor:pointer; margin-top:1px;}
-.title_left{width:3px; height:26px; float:left; background:url(../images/title_left.gif) no-repeat left top;}
-.title_right{width:3px; height:26px; float:right; background:url(../images/title_right.gif) no-repeat left top;}
-.title h1{font-weight:bold; color:white; height:26px; line-height:25px; font-size:12px; float:left; padding-left:10px;}
+.title_left{width:3px; height:26px; float:left;}
+.title_right{width:3px; height:26px; float:right;}
+.title h1{margin: 0;font-weight:bold; color:white; height:26px; line-height:25px; font-size:12px; float:left; padding-left:10px;}

@@ -89,27 +89,13 @@ fkQueryModel.setQueryindex(-1);
 		
 		  //nav
    jQuery(function(){
-   jQuery(".all_news .news").css('opacity','0.1');
-    jQuery(".all_news .news").hide(100).animate({opacity: '0.1'}, '50');
-	jQuery(".all_news .news:first").show(100).animate({opacity: '1'}, '50');
-    jQuery(".title2").click(function(){
-	if(jQuery(this).next().css('opacity','0.1')){
-		jQuery(".all_news .news").not(jQuery(this).next()).hide(100).animate({opacity: '1'}, '50');
-  	    jQuery(this).next().slideDown(100).animate({opacity: '1'}, '50');
-    }
-     });
-	jQuery(".title2 h2").click(function(){
-			jQuery(".title2  h2").not(jQuery(this).next()).removeClass("minus");
-			jQuery(this).toggleClass("minus","switch");
-		});
 	    jQuery.post("/html/nds/portal/tablecategoryout.jsp?id=4667&&onlyfa='Y'",
 			   function(data){
 			     var result=data;
 			      //alert(data);
-			     jQuery("#fa_mu").html(result.xml);
-			     jQuery("#fa_mu").css("padding","0");
-			     jQuery("#fa_mu").css("height","300");
-			    jQuery("#tab_accordion").accordion({ header: "h3",autoHeight:false,navigation:false,active:0})
+     				jQuery("#tree-list").html(result.xml);
+     				jQuery("#tree-list").css("padding","0");
+			    jQuery("#tab_accordion").accordion({ header: "h3",autoHeight:true,navigation:false,active:0})
 			    });	
 		
     }); 
@@ -142,7 +128,7 @@ SubSystem ss;
 								for(int ii=0;ii< sss.size();ii++){
 									ss=sss.get(ii);
 								%>								
-								<li><a href="javascript:ssv.view(<%=ss.getId()%>)" class="classId_<%=ss.getId()%>"><%=ss.getName()%></a></li>
+								<li><a href="javascript:pc.ssv(<%=ss.getId()%>)" class="classId_<%=ss.getId()%>"><%=ss.getName()%></a></li>
 								<%	
 								}
 								%>
@@ -181,47 +167,9 @@ SubSystem ss;
     	<div class="main_box">
         	<div class="title">
             	<div class="title_left">&nbsp;</div>
-                <h1>新闻动态</h1>
+                <h1>常用下载</h1>
                 <div class="title_right">&nbsp;</div>
             </div><!--end title-->
-            <div class="all_news">
-                <div class="title2"><h2 class="add minus">最新动态：</h2></div>
-				<ul class="news">
-                    <li><a href="#">鞋服业终端信息化成为最后的营销法宝</a></li>
-                    <li><a href="#">分公司日益扩张伯俊市场足迹深化</a></li>
-                    <li><a href="#">服装业趋势走向分析</a></li>
-                    <li><a href="#">国有某大型服装企业注资</a></li>
-                    <li><a href="#">用心发现解决问题</a></li>
-					<li class="more"><a href="#">>> 更多</a></li>
-                </ul><!--end news-->
-                <div class="title2"><h2 class="add">行业新闻：</h2></div>
-                <ul class="news">
-                    <li><a href="#">鞋服业终端信息化成为最后的营销法宝</a></li>
-                    <li><a href="#">分公司日益扩张伯俊市场足迹深化</a></li>
-                    <li><a href="#">服装业趋势走向分析</a></li>
-                    <li><a href="#">国有某大型服装企业注资</a></li>
-                    <li><a href="#">用心发现解决问题</a></li>
-					<li class="more"><a href="#">>> 更多</a></li>
-                </ul><!--end news-->
-                <div class="title2"><h2 class="add">公司新闻：</h2></div>
-                <ul class="news">
-                    <li><a href="#">鞋服业终端信息化成为最后的营销法宝</a></li>
-                    <li><a href="#">分公司日益扩张伯俊市场足迹深化</a></li>
-                    <li><a href="#">服装业趋势走向分析</a></li>
-                    <li><a href="#">国有某大型服装企业注资</a></li>
-                    <li><a href="#">用心发现解决问题</a></li>
-					<li class="more"><a href="#">>> 更多</a></li>
-                </ul><!--end news-->
-                <div class="title2"><h2 class="add">其它：</h2></div>
-                <ul class="news">
-                    <li><a href="#">鞋服业终端信息化成为最后的营销法宝</a></li>
-                    <li><a href="#">分公司日益扩张伯俊市场足迹深化</a></li>
-                    <li><a href="#">服装业趋势走向分析</a></li>
-                    <li><a href="#">国有某大型服装企业注资</a></li>
-                    <li><a href="#">用心发现解决问题</a></li>
-					<li class="more"><a href="#">>> 更多</a></li>
-                </ul><!--end news-->
-            </div><!--end all_news-->
         </div><!--end main_box-->
     </div><!--end main_right-->
 </body>
