@@ -145,7 +145,7 @@ int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getD
 %>
 	<!--input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "help",null)%>" onclick="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"/-->
 	<a href="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"><img src="/html/nds/images/help.png"/><%=PortletUtils.getMessage(pageContext, "help",null)%></a>
-	<input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "mufavorite",null)%>" onclick="javascript:mu.add_mufavorite('<%=table.getDescription(locale)%>','<%=tableId%>')"/>
+	<a href="javascript:mu.add_mufavorite('<%=table.getDescription(locale)%>','<%=tableId%>')"><img src="/html/nds/images/mufa.png"/><%=PortletUtils.getMessage(pageContext, "mufavorite",null)%></a>
 <%
 // these are list buttons of webaction
 for(int wasi=0;wasi<waListButtons.size();wasi++){
