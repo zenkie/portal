@@ -4,26 +4,26 @@ if( objectId == -1){
     if(canAdd){
  		validCommands.add( commandFactory.newButtonInstance("Create", 
 			PortletUtils.getMessage(pageContext, "object.create",null),
-			"oc.doCreate()", "S"
+			"oc.doCreate()",null,"/html/nds/images/tb_new.gif"
 		));
     }
 }else{
 	if(canModify){
 		validCommands.add( commandFactory.newButtonInstance("Modify", 
 			PortletUtils.getMessage(pageContext, "object.modify",null),
-			"oc.doModify()", "S"
+			"oc.doModify()",null,"/html/nds/images/tb_new.gif"
 		));
 	}
 	if(canDelete){
 		validCommands.add( commandFactory.newButtonInstance("Delete", 
 			PortletUtils.getMessage(pageContext, "object.delete",null),
-			"oc.doDelete()","X"
+			"oc.doDelete()",null,"/html/nds/images/tb_delete.gif"
 		));
 	}
 	if(canVoid){
 		validCommands.add( commandFactory.newButtonInstance("Void", 
 			PortletUtils.getMessage(pageContext, "object.void",null),
-			"oc.doVoid()","V"
+			"oc.doVoid()",null,null
 		));
 	}
 	if(canSubmit){
@@ -41,11 +41,11 @@ if( objectId == -1){
 	
 	validCommands.add( commandFactory.newButtonInstance("Print", 
 			PortletUtils.getMessage(pageContext, "object.print",null),
-			"oc.doPrint()","P"
+			"oc.doPrint()",null,"/html/nds/images/tb_print.gif"
 			));	
 	validCommands.add( commandFactory.newButtonInstance("Refresh", 
 			PortletUtils.getMessage(pageContext, "object.refresh",null),
-			"oc.doRefresh()","J"
+			"oc.doRefresh()",null,"/html/nds/images/tb_refresh.gif"
 			));	
 }
 %>

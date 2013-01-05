@@ -14,7 +14,9 @@ if(objectId == -1 || (result!=null && result.getTotalRowCount()>0)){
 %>
 <div id="obj-top">
 <div class="buttons"><span id="buttons"><!--BUTTONS_BEGIN-->
-<%@ include file="inc_single_object_modify_buttons.jsp" %><input id="objdropbtn" type="button"  class='cbutton' value="<%=PortletUtils.getMessage(pageContext, "more",null)%>">
+<%@ include file="inc_single_object_modify_buttons.jsp" %>
+<!--input id="objdropbtn" type="button"  class='cbutton' value="<%=PortletUtils.getMessage(pageContext, "more",null)%>"-->
+<a id="objdropbtn"><img src="/html/nds/images/button_more.png"/><%=PortletUtils.getMessage(pageContext, "more",null)%></a>
 <!--BUTTONS_END-->
 </span>
 <%@ include file="/html/nds/common/helpbtn.jsp"%><span id="closebtn"></span>
