@@ -955,21 +955,33 @@ ObjectControl.prototype = {
 			//alert(iframe0);
 			if(iframe0){
 				//alert(123);
+				$("closebtn").innerHTML="<a id='btn_help' name='Close' href='javascript:oc.closeDialog(\"popup-iframe-0\")'>"+
+				"<img src=\"/html/nds/images/close.png\"/>"+gMessageHolder.CLOSE_DIALOG+"</a>";
+				/*
 				$("closebtn").innerHTML="<input class='cbutton' type='button' value='"+ gMessageHolder.CLOSE_DIALOG+
 					"(C)' accessKey='C' onclick='oc.closeDialog(\"popup-iframe-0\")' name='Close'>";
+					*/
 				bCloseBtn=true;	
 			}
 			var iframe1=w.document.getElementById("popup-iframe-1");
 			if(iframe1){
+				$("closebtn").innerHTML="<a id='btn_help' name='Close' href='javascript:oc.closeDialog(\"popup-iframe-1\")'>"+
+				"<img src=\"/html/nds/images/close.png\"/>"+gMessageHolder.CLOSE_DIALOG+"</a>";
+				/*
 				$("closebtn").innerHTML="<input class='cbutton' type='button' value='"+ gMessageHolder.CLOSE_DIALOG+
 					"(C)' accessKey='C' onclick='oc.closeDialog(\"popup-iframe-1\")' name='Close'>";
+					*/
 				bCloseBtn=true;	
 			}
 		}
 		if(!bCloseBtn){
 			if(self==top){
+				$("closebtn").innerHTML="<a id='btn_help' name='Close' href='javascript:window.close()'>"+
+				"<img src=\"/html/nds/images/close.png\"/>"+gMessageHolder.CLOSE_DIALOG+"</a>";
+				/*
 				$("closebtn").innerHTML="<input type='button' class='cbutton' value='"+ gMessageHolder.CLOSE_DIALOG+
 					"(C)' accessKey='C' onclick='window.close()' name='Close'>";
+					*/
 			}
 		}
 	},
