@@ -36,15 +36,15 @@
 .main_left ul.ico a.classId_65:hover{background:url(../images/005.png) no-repeat center top;}
 
 
-.main_left ul.ico a.classId_14{background:url(../images/home_43.gif) no-repeat center top;}
-.main_left ul.ico a.classId_14:hover{background:url(../images/hover_43.gif) no-repeat center top;}
+.main_left ul.ico a.classId_46{background:url(../images/03.png) no-repeat center top;}
+.main_left ul.ico a.classId_46:hover{background:url(../images/003.png) no-repeat center top;}
 
 
 .main_left ul.ico a.classId_16{background:url(../images/home_45.gif) no-repeat center top;}
 .main_left ul.ico a.classId_16:hover{background:url(../images/hover_45.gif) no-repeat center top;}
 
-.main_left ul.ico a.classId_82{background:url(../images/home_46.gif) no-repeat center top;}
-.main_left ul.ico a.classId_82:hover{background:url(../images/hover_46.gif) no-repeat center top;}
+.main_left ul.ico a.classId_85{background:url(../images/07.png) no-repeat center top;}
+.main_left ul.ico a.classId_85:hover{background:url(../images/007.png) no-repeat center top;}
 
 .main_left ul.ico a.classId_49{background:url(../images/home_47.gif) no-repeat center top;}
 .main_left ul.ico a.classId_49:hover{background:url(../images/hover_47.gif) no-repeat center top;}
@@ -76,7 +76,7 @@
 .more{float:right; padding:7px 5px 0 0;}
 .main_left ul.news{width:49.6%;  float:left; margin-left:2px;}
 .main_left ul.news li{border:1px solid #ccc; padding:3px 6px 3px 15px; white-space:nowrap; overflow:hidden; background:#eeeeee url(../images/icon.gif) no-repeat 5px center; clear: both; margin-top:1px;}
-.main_right{min-width:200px; width:20%; float:right; height:513px; height:504px\9; background:#f6f4f4;}
+.main_right{min-width:200px; width:20%; float:right; height:513px; height:504px\9;}
 .main_right h2{margin: 0;padding:3px 10px; font-size:12px; font-weight:bold; cursor:pointer;}
 .main_right h2.add{ background:url(../images/login_63.gif) no-repeat 98% center;}
 .main_right h2.minus{ background:url(../images/login_12.gif) no-repeat 98% center;}
@@ -124,4 +124,4 @@ background-position: -64px -16px;
 .title2{width:100%; clear:both; height:25px; border-top:1px solid #ccc; border-bottom:1px solid #ccc;  background:url(../images/title_bg.gif) repeat-x left top; cursor:pointer; margin-top:1px;}
 .title_left{width:3px; height:26px; float:left;}
 .title_right{width:3px; height:26px; float:right;}
-.title h1{margin: 0;font-weight:bold; color:white; height:26px; line-height:25px; font-size:12px; float:left; padding-left:10px;}
+.title h1{margin: 0;font-weight:bold; color:black; height:26px; line-height:25px; font-size:12px; float:left; padding-left:10px;}
