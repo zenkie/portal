@@ -70,6 +70,7 @@ org/apache/jspc/html/nds/portal/catrpt_xml_jsp.java
 org/apache/jspc/html/nds/portal/portletlist/view_jsp.java
 org/apache/jspc/html/nds/portal/ssv/index_jsp.java
 org/apache/jspc/html/nds/portal/ssv/help_jsp.java
+org/apache/jspc/html/nds/portal/ssv/home_jsp.java
 org/apache/jspc/html/nds/print/check_005ftemplate_jsp.java
 org/apache/jspc/html/nds/print/options_jsp.java
 org/apache/jspc/html/nds/print/save_005fexcel_jsp.java
