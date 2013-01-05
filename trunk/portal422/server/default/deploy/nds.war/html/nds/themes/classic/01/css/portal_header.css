@@ -203,46 +203,45 @@ white-space:nowrap;
 }
 
 .ph_option{
-background:url("/html/nds/themes/classic/01/images/sz.png") no-repeat center top;
+background:url("/html/nds/themes/classic/01/images/sz.png") no-repeat;
 color: black;
-width: 100%;
-min-width: 45px;
-_width: 45px;
-height: 17px;
+height: 20px;
 text-align: center;
 display: block;
-padding-top: 72px;
-margin: 11px;
+margin: 0px;
 }
 #page-niche-menu a.ph_option:hover {
-background:url("/html/nds/themes/classic/01/images/sz1.png") no-repeat center top;
+background:url("/html/nds/themes/classic/01/images/sz1.png") no-repeat;
 }
 
 #page-niche-menu a.ph_quit:hover {
-background:url("/html/nds/themes/classic/01/images/dc1.png") no-repeat center top;
+background:url("/html/nds/themes/classic/01/images/dc1.png") no-repeat;
 }
 .ph_quit{
-background:url("/html/nds/themes/classic/01/images/dc.png") no-repeat center top;
+background:url("/html/nds/themes/classic/01/images/dc.png") no-repeat;
 color: black;
-height: 17px;
+height: 20px;
 text-align: center;
 display: block;
-padding-top: 72px;
-margin: 11px;
+margin: 0px;
 }
 
-#page-niche-menu li {
+#page-niche-menu ul {
+width: 29.6%;
 float: left;
-width: 10.7%;
-min-width: 62px;
-height: 90px;
-margin: 0 0 8px 2px;
-display: inline;
-text-align: center;
+margin-left: 2px;
+}
+#page-niche-menu li {
+
+padding: 0px 5px 3px 15px;
+white-space: nowrap;
+overflow: hidden;
+clear: both;
+margin-top: -2px;
 }
 
 #page-niche-menu{
-padding:5px 30px 0px 0px;
+padding:5px 0px 0px 0px;
 color:#2828FF;
 position:absolute;
 text-align:right;
