@@ -22,7 +22,8 @@ columns=table.getShowableColumns(actionType);
 <div class="buttons">
 	<%if(!userWeb.isGuest()){%>
 		<span id="buttons"><!--BUTTONS_BEGIN--><%@ include file="inc_single_object_view_buttons.jsp" %>
-		<input id="objdropbtn" type="button"  class='cbutton' value="<%=PortletUtils.getMessage(pageContext, "more",null)%>">
+		<!--input id="objdropbtn" type="button"  class='cbutton' value="<%=PortletUtils.getMessage(pageContext, "more",null)%>"-->
+		<a id="objdropbtn"><img src="/html/nds/images/button_more.png"/><%=PortletUtils.getMessage(pageContext, "more",null)%></a>
 		<!--BUTTONS_END--></span>
 	<%}%>
 	
