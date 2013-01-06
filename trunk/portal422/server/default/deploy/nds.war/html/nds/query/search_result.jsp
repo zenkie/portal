@@ -143,7 +143,7 @@ for(int i=0;i< meta.getColumnCount();i++){
             tdAttributes="";
            	switch(returnType){
            		case SELECT_MULTIPLE:
-           			columnData ="<input class='cbx' id='"+akData+"' type='checkbox' name='itemid' value='" + (itemId)+"' onclick='oq.unselectall();oq.dynamic_add(\""+akData+"\");'>";
+           			columnData ="<input class='cbx' id='"+akData+"' type='checkbox' name='itemid' value='" + (itemId)+"' onclick='oq.unselectall(this);oq.dynamic_add(\""+akData+"\");'>";
            			break;
            		case SELECT_SINGLE:
            			columnData ="<input class='cbx' id='chk_obj_"+  itemId +"'  title='"+rowIdx+"' alt='"+akData+"' type='radio' name='itemid' value='" + (itemId)+"' onclick='oq.returnRow(this)'>";
