@@ -109,7 +109,7 @@ TableQueryModel model= new TableQueryModel(tableId,qColumns,false,false,locale);
 int tabIdx=0;
 int columnsPerRow=3;// 2 field per row
 int widthPerColumn= (int)(100/(columnsPerRow*2));
-boolean allowMultipleSelection= (!table.isDropdown()&&!returnType.equals("s")&&!returnType.equals("n")&&security==null);
+boolean allowMultipleSelection= (!returnType.equals("s")&&!returnType.equals("n")&&security==null);
 %>
 <%
 if(allowMultipleSelection){
@@ -141,7 +141,7 @@ if(allowMultipleSelection){
 		<td width="99%" valign="top">
 <%}
 %>		
-<div id="query_content" align="right" <%=table.isDropdown()?"style='display:none'":""%>>
+<div id="query_content" align="right">
 <%
 	if(searchOnColumn!=null && searchOnColumn.isFilteredByWildcard() 
 		 && !allowMultipleSelection 
@@ -209,7 +209,7 @@ if(allowMultipleSelection){
 		 		<%@ include file="/html/nds/query/inc_search_scroll.jsp" %>
 			</td><td>
 				<%
-					if(!table.isDropdown()&&!returnType.equals("s")&&security==null){
+					if(!returnType.equals("s")&&security==null){
 				%>
 			<div id="qbtns2" style="display:none;">
 				<%
