@@ -209,6 +209,7 @@ height: 20px;
 text-align: center;
 display: block;
 margin: 0px;
+width: 20px;
 }
 #page-niche-menu a.ph_option:hover {
 background:url("/html/nds/themes/classic/01/images/sz1.png") no-repeat;
@@ -227,17 +228,27 @@ margin: 0px;
 }
 
 #page-niche-menu ul {
-width: 29.6%;
+/* width: 29.6%;
 float: left;
-margin-left: 2px;
+margin-left: 2px; */
+
+ float: left;
+    margin-left: 11px;
+    width: 20px;
 }
 #page-niche-menu li {
 
-padding: 0px 5px 3px 15px;
+/* padding: 0px 5px 3px 15px;
 white-space: nowrap;
 overflow: hidden;
 clear: both;
-margin-top: -2px;
+margin-top: -2px; */
+
+  clear: both;
+    margin-left: -78px;
+    margin-top: 11px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 #page-niche-menu{
