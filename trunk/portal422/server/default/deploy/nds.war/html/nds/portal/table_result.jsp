@@ -134,7 +134,7 @@ for(int i=0;i< meta.getColumnCount();i++){
             itemId = columnData;
             resPkId = columnData;
             tdAttributes="";
-           	columnData ="<input class='cbx' type='checkbox' name='itemid' value='" + (itemId)+"' onclick=pc.unselectall()>";
+           	columnData ="<input class='cbx' type='checkbox' name='itemid' value='" + (itemId)+"' onclick=pc.unselectall(this)>";
            	columnData +="<a href='javascript:pc.mo(\""+itemId+"\")' >"+ serialno+"</a>";
         }else{
 			if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_BUTTON){
