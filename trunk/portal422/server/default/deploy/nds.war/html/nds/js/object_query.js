@@ -91,7 +91,7 @@ ObjectQuery.prototype = {
 					onClose: function() {oq.close_query();}
 				});
 			 */
-			var options=$H({queryindex:this._queryindex,padding: 0,width:'auto',height:'auto',left: '25%',top:'top',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,close:function(){oq.close_query();}});
+			var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:427,top:'top',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,close:function(){oq.close_query();}});
 	    //
 			//AjaxUtil.update(url, popup, null);
 						
@@ -179,7 +179,7 @@ ObjectQuery.prototype = {
 					}); 
 					*/
 				//AjaxUtil.update(url, popup, null);
-				var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:'auto',left:'20%',top:'top',border: true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,close:function(){oq.close_query();}});
+				var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:427,top:'top',border: true,resize:true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,close:function(){oq.close_query();}});
 
 				new Ajax.Request(url, {
 				  method: 'get',
@@ -590,7 +590,7 @@ ObjectQuery.prototype = {
      */
     _initGridSelectionControl:function(){
 		//var tb= new SelectableTableRows(document.getElementById("q_inc_table"), false);// set as global object
-		    var tb=jQuery('#q_grid_table_'+this._queryindex).selectable({filter:'tr',tolerance:"touch",cancel:":input,a,.ui-selected",
+		    var tb=jQuery('#q_grid_table_'+this._queryindex).selectable({filter:'tr',tolerance:"touch",cancel:"input,:input,a,.ui-selected",
         stop: function(event, ui) {
         	
         	if(jQuery(".ui-selected").length>1){
@@ -600,6 +600,7 @@ ObjectQuery.prototype = {
 					      //var index = jQuery( "#grid_table tr" ).index( this ); 
 					      this.children[0].children[0].checked=true;
 					      this.children[0].children[0].focus=true;
+					      oq.dynamic_add(this.children[0].children[0].id);
 					      //alert(index);
 					     //result.append( " #" + ( index + 1 ) );
 					     
@@ -623,6 +624,9 @@ ObjectQuery.prototype = {
 			*/
 			tb.dblclick(
  		   function(trElement){
+		   if(trElement.srcElement.type=="checkbox"){
+		   	return;
+		   	}
 		   if(trElement.target.nodeName=="SPAN"){
 		   		var pid=trElement.target.parentElement.parentElement.id.replace(/_qtemplaterow/i, "");
 		   	}else{
@@ -921,7 +925,13 @@ ObjectQuery.prototype = {
 	  }	
 	},
 	
-	unselectall:function(){
+	unselectall:function(ck){
+		var tr_id=ck.value+"_qtemplaterow";
+		if(ck.checked==true){
+			jQuery("#"+tr_id).addClass("ui-selected");
+			}else{
+			jQuery("#"+tr_id).removeClass("ui-selected");	
+				}
 	 	dwr.util.setValue($("q_chk_select_all_"+this._queryindex), false);
 	}
 }
@@ -1201,6 +1211,9 @@ scrollPage: function (t,accepterId) {
 	var tb=jQuery('#'+tableId).selectable({filter:'tr',tolerance:"fit",cancel:":input,a,.ui-selected"});
 		
 		tb.dblclick(function(trElement){
+		   if(trElement.srcElement.type=="checkbox"){
+		   	return;
+		   	}
 			//alert(trElement);
 		//alert("123")
 		var ele=$("chk_obj_"+trElement.target.parentElement.title);
