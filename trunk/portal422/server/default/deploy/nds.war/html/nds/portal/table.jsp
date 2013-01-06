@@ -143,7 +143,7 @@ int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getD
 <%
 // these are list buttons of webaction
 for(int wasi=0;wasi<waListButtons.size();wasi++){
-	out.println(waListButtons.get(wasi).toHTML(locale,null));
+	out.println(waListButtons.get(wasi).toHREF(locale,null));
 }
 %>	
 	</div>
