@@ -82,6 +82,7 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-ui-1.8.21.custom.min.js"></script>
 <script language="javascript" src="/html/nds/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
 <script language="javascript" src="/html/nds/js/artDialog4/plugins/iframeTools.js"></script>
+<script type="text/javascript" src="/html/nds/js/jplay/jquery.jplayer.min.js"></script>
 <!--script language="javascript" src="/html/nds/js/artdialog/artDialog.js"></script-->
 <!--link type="text/css" rel="stylesheet" href="/html/nds/js/artdialog/skin/chrome.css" /-->
 <!--link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/jquery-ui-1.7.3.custom.css" /-->
