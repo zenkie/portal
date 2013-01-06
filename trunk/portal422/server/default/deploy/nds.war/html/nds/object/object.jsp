@@ -54,7 +54,9 @@ ObjectUIConfig uiConfig=WebUtils.getTableUIConfig(table);
 request.setAttribute("table_help", new Integer(tableId));
 
 int selectedTabId=-1;
-
+String sound=userWeb.getUserOption("ALERT_SOUND","");
+String soundfile="{"+sound.substring(sound.indexOf(".")+1)+":\""+sound+"\"}";
+//soundfile create
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -293,7 +295,17 @@ if(isVoid){
 	  <script>
 	  	 	jQuery(document).ready(function(){try{dcq.createdynlist(<%=dcqjsonarraylist%>);}catch(ex){};oc.initColumns();});
 	    	var ti=setInterval("try{dcq.dynquery();}catch(ex){}",500);
+				jQuery(document).ready(function(){
+					jQuery("#jpId").jPlayer( {
+						ready: function () {
+								jQuery(this).jPlayer("setMedia",<%=soundfile%>);
+							},
+							swfPath: "/html/nds/js/jplay",
+							supplied: "mp3,mp4,flv,oga,wav"
+				   });
+				});
 	  </script>
 </td></tr></table>
+<div id="jpId"></div>
 </body>
 </html>
