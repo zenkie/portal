@@ -30,11 +30,11 @@ if( objectId == -1){
 		boolean shouldWarn=Tools.getYesNo(userWeb.getUserOption("WARN_ON_SUBMIT","Y"),true);
 		validCommands.add( commandFactory.newButtonInstance("Submit", 
 			PortletUtils.getMessage(pageContext, "object.submit",null),
-			"oc.doSubmit("+ canModify +","+shouldWarn+")","G"
+			"oc.doSubmit("+ canModify +","+shouldWarn+")",null
 		));
 		validCommands.add( commandFactory.newButtonInstance("SubmitPrint", 
 			PortletUtils.getMessage(pageContext, "object.submitprint",null),
-			"oc.doSubmitPrint("+ canModify +","+shouldWarn+")","H"
+			"oc.doSubmitPrint("+ canModify +","+shouldWarn+")",null
 		));
 	}
 	validCommands.addAll(table.getExtendButtons(objectId, userWeb));
@@ -53,7 +53,7 @@ if( objectId == -1){
 <%
 // these are list buttons of webaction
 for(int wasi=0;wasi<waObjButtons.size();wasi++){
-	out.print(waObjButtons.get(wasi).toHTML(locale,actionEnv)); 
+	out.print(waObjButtons.get(wasi).toHREF(locale,actionEnv)); 
 }
 %>
 
