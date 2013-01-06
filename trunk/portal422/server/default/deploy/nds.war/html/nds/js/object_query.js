@@ -91,7 +91,7 @@ ObjectQuery.prototype = {
 					onClose: function() {oq.close_query();}
 				});
 			 */
-			var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:427,top:'top',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,close:function(){oq.close_query();}});
+			var options=$H({queryindex:this._queryindex,padding: 0,width:'auto',height:'auto',top:'top',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,close:function(){oq.close_query();}});
 	    //
 			//AjaxUtil.update(url, popup, null);
 						
