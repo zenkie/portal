@@ -15,11 +15,11 @@ if(canSubmit){
 	boolean shouldWarn=Tools.getYesNo(userWeb.getUserOption("WARN_ON_SUBMIT","Y"),true);
 	validCommands.add( commandFactory.newButtonInstance("Submit", 
 		PortletUtils.getMessage(pageContext, "object.submit",null),
-		"oc.doSubmit("+ canModify +","+shouldWarn+")","G"
+		"oc.doSubmit("+ canModify +","+shouldWarn+")",null
 	));
 	validCommands.add( commandFactory.newButtonInstance("SubmitPrint", 
 		PortletUtils.getMessage(pageContext, "object.submitprint",null),
-		"oc.doSubmitPrint("+ canModify +","+shouldWarn+")","H"
+		"oc.doSubmitPrint("+ canModify +","+shouldWarn+")",null
 	));
 	
 }
@@ -49,7 +49,7 @@ if(canUnvoid){
 		if(canDelete){
 			validCommands.add( commandFactory.newButtonInstance("Delete", 
 			PortletUtils.getMessage(pageContext, "object.delete",null),
-			"oc.doDelete()","X"
+			"oc.doDelete()",null,"/html/nds/images/tb_delete.gif"
 			));
 		}
 }
@@ -59,11 +59,11 @@ if(objectId!=-1){
 }
 validCommands.add( commandFactory.newButtonInstance("Print", 
 		PortletUtils.getMessage(pageContext, "object.print",null),
-		"oc.doPrint("+ tableId+","+ objectId+")"
+		"oc.doPrint("+ tableId+","+ objectId+")",null,"/html/nds/images/tb_print.gif"
 		));		
 validCommands.add( commandFactory.newButtonInstance("Refresh", 
 			PortletUtils.getMessage(pageContext, "object.refresh",null),
-			"oc.doRefresh()","J"
+			"oc.doRefresh()",null,"/html/nds/images/tb_refresh.gif"
 			));	
 
 %>
@@ -71,6 +71,6 @@ validCommands.add( commandFactory.newButtonInstance("Refresh",
 <%
 // these are list buttons of webaction
 for(int wasi=0;wasi<waObjButtons.size();wasi++){
-	out.print(waObjButtons.get(wasi).toHTML(locale,actionEnv)); 
+	out.print(waObjButtons.get(wasi).toHREF(locale,actionEnv)); 
 }
 %>
