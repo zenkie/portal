@@ -1211,7 +1211,13 @@ PortalControl.prototype = {
 			cks[i].checked= ck;
 		}
 	},
-	unselectall:function(){
+	unselectall:function(ck){
+		var tr_id=ck.value+"_templaterow";
+		if(ck.checked==true){
+			jQuery("#"+tr_id).addClass("ui-selected");
+			}else{
+			jQuery("#"+tr_id).removeClass("ui-selected");	
+				}
 	 	dwr.util.setValue($("chk_select_all"), false);
 	},
 	/**
@@ -1959,7 +1965,7 @@ PortalControl.prototype = {
 	 //};
 
     jQuery('#grid_table').selectable({
-        filter:'tr',tolerance:"touch",cancel: "input,a,.ui-selected,span",
+        filter:'tr',tolerance:"touch",cancel: "input,:input,a,.ui-selected,span",
         stop: function(event, ui) {
         	
         	if(jQuery(".ui-selected").length>1){
@@ -1973,7 +1979,7 @@ PortalControl.prototype = {
 					     //result.append( " #" + ( index + 1 ) );
 					     
 				   });
-				   
+				   event.stopPropagation(); 
 				  // jQuery("input:checkbox").attr("checked",true);
 				  }
         },
@@ -1981,6 +1987,7 @@ PortalControl.prototype = {
         	//alert(jQuery(".ui-selected").length);
           //alert(ui);
           ui.unselected.children[0].children[0].checked=false;
+          event.stopPropagation(); 
         	} 
         //selected: function(event, ui) {}
     
@@ -1988,6 +1995,9 @@ PortalControl.prototype = {
  		function(trElement){
  			//alert(trElement);
 		   //pc.editLine(trElement.toElement.parentElement.id.replace(/_templaterow/i, ""));
+		   if(trElement.srcElement.type=="checkbox"){
+		   	return;
+		   	}
 		   if(trElement.target.nodeName=="SPAN"){
 		   		var pid=trElement.target.parentElement.parentElement.id.replace(/_templaterow/i, "");
 		   	}else{
