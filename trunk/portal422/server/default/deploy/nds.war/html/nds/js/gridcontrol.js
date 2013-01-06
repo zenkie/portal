@@ -1689,8 +1689,11 @@ GridControl.prototype = {
 			¸üÐÂSelectableTableRows to  selectable
 		};	
 		*/
-		var tb=jQuery('#modify_table').selectable({filter:'tr',tolerance:"fit",cancel:":input,a,.ui-selected"});
+		var tb=jQuery('#modify_table').selectable({filter:'tr',tolerance:"fit",cancel:"input,:input,a,.ui-selected"});
 		 tb.dblclick(function(trElement){
+		   if(trElement.srcElement.type=="checkbox"){
+		   	return;
+		   	}
 		 	    //alert(trElement);
 		 	    var selc_index=trElement.target.parentElement.sectionRowIndex;
 		 	    if(selc_index==undefined){
@@ -1877,12 +1880,15 @@ function msgbox(msg, title, boxType ) {
 	alert(msg);
 }
 function playAlert(){
-		if($("sound")){
+		if($("jpId")){
+			/*
         	if(!app1){
             	var app1=FABridge.b_playErrorSound.root();
                 app1.setStr($("sound").value.strip());
-			}
-            app1.getErrorSound().play();
+			}*/
+						jQuery("#jpId").jPlayer("stop");
+            jQuery("#jpId").jPlayer("play");
+            return;
         }
 }
 function alertScan(msg){
