@@ -93,12 +93,6 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 		<%
 		if(search_show.equals("Y")){%>
 		<script type="text/javascript">
-		 jQuery("#hide_bar").mousedown(function(event){
-		 	      pc.menu_toggle(this);
-            event.stopPropagation();
-            //return false;
-            //pop button
-        });
 		jQuery("#navBar").toggle(function(){
      jQuery("#tab1").show('blind','',500,'');
             },function(){ 
@@ -162,6 +156,12 @@ for(int wasi=0;wasi<waListButtons.size();wasi++){
 	<%@ include file="table_list.jsp" %>
   </div>
 <script type="text/javascript">
+jQuery("#hide_bar").mousedown(function(event){
+      pc.menu_toggle(this);
+      event.stopPropagation();
+      //return false;
+      //pop button
+  });
 //jQuery('#page-table-query-tab ul').tabs();
 //jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
 //jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
