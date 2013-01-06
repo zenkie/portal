@@ -156,11 +156,10 @@ for(int wasi=0;wasi<waListButtons.size();wasi++){
 	<%@ include file="table_list.jsp" %>
   </div>
 <script type="text/javascript">
+//test123
 jQuery("#hide_bar").mousedown(function(event){
       pc.menu_toggle(this);
       event.stopPropagation();
-      //return false;
-      //pop button
   });
 //jQuery('#page-table-query-tab ul').tabs();
 //jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
