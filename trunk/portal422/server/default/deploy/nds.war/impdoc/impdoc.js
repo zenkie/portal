@@ -30,9 +30,11 @@ CostControl.prototype = {
                 //var tableid=$("table_id").value;
 		if (doctype == "1" || qtytype == "1") {
 		        alert("请选择导入条件!");
+		        return;
 			}
 		if(!docno){
 			alert("订单编号不能为空!");	
+			return;
 		}else{
 			//var param={"tableid":tableid,"objectid",objectid,"doctype":doctype,"docno":docno};
 			var param={"doctype":doctype,"docno":docno,"tableid":tableid,"orderid":orderid,"qtytype":qtytype};
