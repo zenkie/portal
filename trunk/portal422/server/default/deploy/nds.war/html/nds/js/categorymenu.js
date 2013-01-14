@@ -39,7 +39,10 @@ TableCommand.prototype.makeTemplate=function(){
 (new TableCommand("ListCopyTo", gMessageHolder.CMD_LISTCOPYTO,"tb_listcopy.gif",null)).makeTemplate();
 (new TableCommand("UpdateSelection", gMessageHolder.CMD_UPDATE_SELECTION,"tb_update_selection.gif",null)).makeTemplate();
 (new TableCommand("UpdateResultSet", gMessageHolder.CMD_UPDATE_RESULTSET,"tb_update_resultset",null)).makeTemplate();
+/*
+废弃列表打印按钮
 (new TableCommand("PrintList", gMessageHolder.CMD_PRINT_LIST,"tb_print.gif",null)).makeTemplate();
+*/
 (new TableCommand("ExportList", gMessageHolder.CMD_EXPORT_LIST,"tb_export.gif",null)).makeTemplate();
 (new TableCommand("SmsList", gMessageHolder.CMD_SMS_LIST,"tb_sms.gif",null)).makeTemplate();
 (new TableCommand("Refresh", gMessageHolder.CMD_REFRESH,"tb_refresh.gif","J")).makeTemplate();
@@ -145,6 +148,8 @@ var categoryTabHandler = {
 };
 function CategoryTabItem(oTableCategory) {
 	this.id=oTableCategory.id;
+	//增加当前是否存在子系统ID
+	this.ssid=oTableCategory.ssid;
 	this.oTableCategory=oTableCategory;
 	categoryTabHandler.all["C"+this.id] = this;
 }
@@ -191,6 +196,7 @@ CategoryTabItem.prototype.deSelect = function() {
 CategoryTabItem.prototype.toString= function() {
 	//var str = "<div id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\"><div class=\"page-tab-text\">" +
 		//			this.oTableCategory.desc+"</div></div>";
+	//alert(this.id);
 	if(this.id==0){
 		var str = "<li id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\"><a class=\"page-tab-text\">" +
 	"<img src=\"/html/nds/themes/classic/01/images/bos-logo.png\" alt=\"BOS Logo\"></a></li>";
