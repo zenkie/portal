@@ -94,7 +94,7 @@ QueryListConfig.prototype = {
 		var w = window.opener;
 		if(w==undefined)w= window.parent;
 		if (w ){
-			var iframe=w.document.getElementById(ifr);
+			var iframe=w.document.getElementById("popup-iframe-0");
 			if(iframe){
 	    		//w.setTimeout("Alerts.killAlert(document.getElementById('"+ifr+"'));",1);
 	    		//var pid=iframe.parentNode.id.toString;
