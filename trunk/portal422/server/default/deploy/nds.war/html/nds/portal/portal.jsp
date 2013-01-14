@@ -61,12 +61,13 @@ int  msgref_time=Integer.parseInt(userWeb.getUserOption("REFTIME","300"));
 
 
 int ssId=Tools.getInt(request.getParameter("ss"),-1);
-
+/*
 if(ssId==-1 && nds.util.Validator.isNull(directTb)&&defaultboshome){
 	List<SubSystem> sss =ssv.getSubSystems(request, nds.query.web.SubSystemView.PERMISSION_VIEWABLE);
 	SubSystem ss=sss.get(0);
 	ssId=ss.getId();
 }
+*/
 if(ssId==-1 && nds.util.Validator.isNull(directTb) && ssviewFirst && !defaultboshome){
 	request.getRequestDispatcher("/html/nds/portal/ssv/index.jsp").forward(request, response);
 	return;
@@ -166,11 +167,11 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 jQuery("#jpId").jPlayer( {
 	ready: function () {
 			jQuery(this).jPlayer("setMedia", {
-				flv:"/flash/sound/ringin.flv"
+				mp3:"/mp3/style.mp3"
 			});
 		},
 		swfPath: "/html/nds/js/jplay",
-		supplied: "mp3,mp4,flv,ogg,wav"
+		supplied: "mp3,mp4,flv,oga,wav"
   });
 });		
 </script>	
