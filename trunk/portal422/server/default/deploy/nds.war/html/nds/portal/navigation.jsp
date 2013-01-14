@@ -20,10 +20,11 @@ org.json.JSONObject jc;
 
 int tabId= Integer.MAX_VALUE-1;
 boolean hasOnlyActions=true;//not show reports if has only actions in subsystem
-if(ssId==-1){
+if(ssId==-1&&!defaultboshome){
 	List subsystems =ssv.getSubSystems(request);
 	// list all subsystems, for backward compatibility
 	String homeByJSP=conf.getProperty("home.jsp","true");
+	
 	
 	if("true".equalsIgnoreCase(homeByJSP)){
 		jc=new org.json.JSONObject();
@@ -32,6 +33,7 @@ if(ssId==-1){
 		jc.put("url", "home.jsp");
 		menuObjs.put(jc);
 	}
+	
 	for (int i=0; i< subsystems.size(); i++){   
 	     subSystem=(SubSystem)subsystems.get(i);        
 	     subSystemId=subSystem.getId();
@@ -51,8 +53,8 @@ if(ssId==-1){
 }else{
 	// list table categories as menu
 	// list all subsystems, for boshome backward compatibility 
-	String bos_homeByJSP=conf.getProperty("boshome","true");
-	
+	//String bos_homeByJSP=conf.getProperty("boshome","true");
+	/*
 	if("true".equalsIgnoreCase(bos_homeByJSP)){
 		jc=new org.json.JSONObject();
 		jc.put("id", 0);
@@ -60,7 +62,15 @@ if(ssId==-1){
 		jc.put("url", "/html/nds/portal/ssv/home.jsp");
 		menuObjs.put(jc);
 	}
-	
+	*/
+	if(defaultboshome){
+		jc=new org.json.JSONObject();
+		jc.put("id", 0);
+		jc.put("desc",PortletUtils.getMessage(pageContext, "navitab",null));
+		jc.put("url", "/html/nds/portal/ssv/home.jsp?ss=-1");
+		jc.put("ssid",ssId);
+		menuObjs.put(jc);
+	}
 	List cats =ssv.getTableCategories(request,ssId);
 	for (int i=0; i< cats.size(); i++){   
 	     List child=(List)cats.get(i);
