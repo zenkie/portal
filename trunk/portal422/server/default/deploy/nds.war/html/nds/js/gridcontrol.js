@@ -270,9 +270,11 @@ GridControl.prototype = {
 	*/
 	turboScan:function(){
 		var url = '/html/nds/object/turboscan.jsp?table='+gc._gridMetadata.tableId;
+		/*
 		new Ajax.Request(url, {
 		  method: 'get',
 		  onSuccess: function(transport) {
+		  	/*
 		  	var ele = Alerts.fireMessageBox(
 			{
 				width: 800,
@@ -280,10 +282,44 @@ GridControl.prototype = {
 				modal: true,
 				closeButton:false,
 				title: gMessageHolder.TURBO_SCAN
-			});
-			ele.innerHTML=transport.responseText;
-			executeLoadedScript(ele);
+			});*/
+			//ele.innerHTML=transport.responseText;
+			//executeLoadedScript(ele);
+			/*
+			var options=$H({id:"turboscan_div",width:"auto",height:"auto",title:gMessageHolder.gMessageHolder.TURBO_SCAN,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome'});
+			//options.content=chkResult.pagecontent;
+			art.dialog(options);
 			$("so_M_PRODUCT_ID__NAME").focus();
+		  }
+		});
+		*/
+		new Ajax.Request(url, {
+		  method: 'get',
+		  onSuccess: function(transport) {
+		  	//var pt=$(tgt);
+		    //pt.innerHTML=transport.responseText;
+		    //executeLoadedScript(pt);
+		    //alert(123);
+		    var options=$H({id:"turboscan_div",width:800,height:"auto",title:gMessageHolder.TURBO_SCAN,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome',close:function(){gc.refreshGrid(true);}});
+		    options.content=transport.responseText;
+		    art.dialog(options);
+
+		  },
+		  onFailure:function(transport){
+		  	//try{
+		  	  	if(transport.getResponseHeader("nds.code")=="1"){
+		  	  		window.location="/c/portal/login";
+		  	  		return;
+		  	  	}
+		  	  	var exc=transport.getResponseHeader("nds.exception");
+		  	  	if(exc!=null && exc.length>0){
+		  	  		alert(decodeURIComponent(exc));	
+		  	  	}else{
+		  	  		var pt=$(tgt);
+		    		pt.innerHTML=transport.responseText;
+		    		executeLoadedScript(pt);
+		  	  	}
+		  	//}catch(e){}
 		  }
 		});
 		this._scanCount=0;
@@ -385,7 +421,8 @@ GridControl.prototype = {
 	Update main table AM
 	*/
 	closeTurboScan:function(){
-		Alerts.killAlert($("turboscan_div"));
+		art.dialog.get("turboscan_div").close();
+		//Alerts.killAlert($("turboscan_div"));
 		if(this._okCount>0)oc.saveAll();
 	},
 	/**
