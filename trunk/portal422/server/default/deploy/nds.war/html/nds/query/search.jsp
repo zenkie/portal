@@ -143,9 +143,12 @@ if(allowMultipleSelection){
 %>		
 <div id="query_content" align="right">
 <%
+ if ((searchOnColumn != null) && (searchOnColumn.isFilteredByWildcard()) && ((!allowMultipleSelection) || (searchOnColumn.getDisplaySetting().getObjectType() == 12))){
+ /*
 	if(searchOnColumn!=null && searchOnColumn.isFilteredByWildcard() 
 		 && !allowMultipleSelection 
 		){
+		*/
 		Expression expr= WebUtils.parseWildcardFilter(searchOnColumn,request,userWeb);
 %>
 <input type='hidden' id="q_form_param_expr_<%=queryindex%>" name='param_expr' value='<%=expr.toHTMLInputElement()%>'>	
