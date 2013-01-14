@@ -257,9 +257,12 @@
 	            	if(column.isFilteredByWildcard() && Validator.isNotNull(column.getRegExpression())){
 	            		h.put("readonly","readonly");
 	            	}
-	            	h.put("onkeypress","oc.onKeyPress(event)");
-	            	h.put("onblur", "oc.isempty("+column_acc_Id+","+"fk_"+column_acc_Id+")");
-	            	
+	  						if(WebUtils.getBrowserType(request)==0){
+	            	h.put("onpropertychange","oc.onKeyPress(event)");
+		            }else{
+		            h.put("oninput","oc.onKeyPress(event)");	
+		            	//h.put("onblur", "oc.isempty("+column_acc_Id+","+"fk_"+column_acc_Id+")");
+		            }
 	            }//end if(fkQueryModel!=null)
 	            if(column.isAutoComplete()){
 	             	boolean flag=true;
