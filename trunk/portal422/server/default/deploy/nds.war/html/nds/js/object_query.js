@@ -269,6 +269,9 @@ ObjectQuery.prototype = {
 			if(e)e.hide();
 			e=$("btn-sql");
 			if(e)e.hide();
+			//single 单选模式隐藏确定
+			e=$("btn-value");
+			if(e)e.hide();
 			e=$("qcsa");
 			if(e)e.hide();
 		}
@@ -892,7 +895,8 @@ ObjectQuery.prototype = {
 	_onReturnSET:function(e){
 		var qr=e.getUserData().data; 
 		if(qr.pagecontent!=null){
-			eval(qr.pagecontent);
+			var pagecontent=qr.pagecontent.replace(/[\u0000-\u001f\u007f\u0080-\u009f]/,''); 
+			eval(pagecontent);
 		}
 	},
 	dynamic_add:function(akData){
@@ -1426,16 +1430,17 @@ DynamicQuery.prototype = {
 	   */
 	setdynamicdata:function(){
 		$(this._accepter_id).onkeydown=this.keyboard;
-		var isClkSug=false;
-		/*
+			var isClkSug=false;
+		
 		$(this._accepter_id).onblur=function(e){
+		//var val=$(this._accepter_id).value;
 		if(!isClkSug){
 			dcq.closediv();  
 		}
 		isClkSug=false;
 		time=0;
 		}
-		*/
+		
 	 	if(typeof (this._dynshow_json.dynshowjson)!="object"||typeof (this._dynshow_json.qdata)=="undefined"||this._dynshow_json.qdata==""){
 			return ;
 	 	} 
