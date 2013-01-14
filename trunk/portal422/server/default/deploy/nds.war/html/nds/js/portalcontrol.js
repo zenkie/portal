@@ -23,6 +23,7 @@ PortalControl.prototype = {
 		};
 		try{
 		var tabs=new CategoryTabs(gMenuObjects);
+		//alert(tabs);
 		//查询功能按钮
 		$("page-nav-container").innerHTML=tabs.toString()+"<li id=\"search_bar\"><form name=\"lab\" method=\"post\" onsubmit=\"pc.navigate(\"ad_table\")\"><input id=\"pojam\" type=\"text\" autocomplete=\"off\"></form></li>";
 		//menu acction
@@ -36,7 +37,11 @@ PortalControl.prototype = {
 				jQuery(this).css({backgroundPosition: "-20px 35px"})
 			}})
 		});
-		if(tabs.childNodes.length>0)tabs.childNodes[0].select();
+		if(tabs.childNodes.length>0&&tabs.childNodes[0].ssid!=-1){
+			tabs.childNodes[1].select();
+			}else{
+			tabs.childNodes[0].select();
+			}
 		gMenuObjects=null;
 		}catch(ex){}
 		this._isListPageLoaded=false;
@@ -501,7 +506,7 @@ PortalControl.prototype = {
 					var e=$("page-table-content");
 				  var ptc_width=jQuery("#grid_table").width();
 				  if(ptc_width>1169){
-				  ptc_width=ptc_width+30;
+				  //ptc_width=ptc_width+30;
 				  e.style.width=ptc_width+"px";
 				  }else{
 				  //小于最佳宽度自适应
@@ -518,7 +523,7 @@ PortalControl.prototype = {
 					var e=$("page-table-content");
 				  var ptc_width=jQuery("#grid_table").width();
 				  if(ptc_width>1169){
-				  ptc_width=ptc_width+30;
+				  //ptc_width=ptc_width+30;
 				  e.style.width=ptc_width+"px";
 				  }else{
 				  //小于最佳宽度自适应
@@ -1726,6 +1731,43 @@ PortalControl.prototype = {
     /**
      * @param filetype html (default) or xls
      */
+    doReportOnSelection:function(bIsOnSelection,tableId, filetype, isUserDimsSet){
+    	if(filetype=="cub" && ( isUserDimsSet==undefined || isUserDimsSet!=true )){
+    		if(this._cxtabUserDims >0){
+    			var	cxtabId=$("rep_templet").value;
+    			this._doReportNow=false;
+    			showObject2("/html/nds/cxtab/userdims.jsp?id="+cxtabId,
+    				{onClose:function(){if(pc.doReportNow())pc.doReportOnSelection(bIsOnSelection,tableId,filetype,true );},
+    					maxButton:false,closeButton:true},700,480);
+    			return;	
+    		}
+    	}
+    	var	cxtabValue=$("rep_templet").value;
+    	var tableValue =null;
+    	if(tableId==undefined || tableId ==null || isNaN(tableId)){
+    		tableValue=this._tableObj.id;
+    	}else{
+    		tableValue=tableId;
+    	}
+		//do query according to search form
+		var fm=$("list_query_form");
+	    toggleButtons($("list_query_form"),true);
+	    if(bIsOnSelection)
+		    this._gridQuery.param_str= fm.serialize();
+
+		var evt={};
+		evt.command="ExecuteCxtab";
+		evt.callbackEvent="ExecuteCxtab";
+		evt.table=tableValue;
+		evt.query=Object.toJSON(this._gridQuery);
+		evt.cxtab= cxtabValue;
+		//if(filetype!="xls") filetype="htm";
+		evt.filetype= filetype;
+		evt["nds.control.ejb.UserTransaction"]="N";
+		this.executeCommandEvent(evt);
+    	
+    },
+    /*
     doReportOnSelection:function(bIsOnSelection,tableId, filetype){
     	var	cxtabValue=$("rep_templet").value;
     	var tableValue =null;
@@ -1751,6 +1793,7 @@ PortalControl.prototype = {
 		this.executeCommandEvent(evt);
     	
     },
+    */
 	queryList:function(){
 		
 		var fm=$("list_query_form");
