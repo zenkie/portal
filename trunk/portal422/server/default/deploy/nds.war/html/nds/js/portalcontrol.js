@@ -236,7 +236,7 @@ PortalControl.prototype = {
 			msgbox(r.message.replace(/<br>/g,"\n"));
 		}
 		if(r.url){
-			var option={onClose:function(){pc.refreshCxtabHistoryFiles(null);}};			
+			var option={close:function(){pc.refreshCxtabHistoryFiles(null);}};			
 			if(!r.url.endsWith(".htm")){
 				//download only, not shown
 				showObject( r.url, 400, 200,option);
