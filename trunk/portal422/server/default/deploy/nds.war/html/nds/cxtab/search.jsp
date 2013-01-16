@@ -1,5 +1,9 @@
 <%@page errorPage="/html/nds/error.jsp"%>
-<%@ include file="/html/nds/common/init.jsp" %><%@ page import="org.json.*"%>
+<%@ include file="/html/nds/common/init.jsp" %>
+<%@ page import="org.json.*"%>
+<%@ page import="nds.control.web.ConfigValues"%>
+<%@ page import="nds.web.config.*" %>
+
 <%
 /**
    params:
@@ -258,7 +262,11 @@ if("true".equals( ((Configurations)WebUtils.getServletContextManager().getActor(
 <%if(Validator.isNotNull(jReportPath)){
 	if(jReportPath.endsWith(".jrxml")){%>
 	  <%if(dimensionCnt>0){%>
+	  <%if (ConfigValues.get("cxtab.allow.cub", true)){%>  
 	  	<input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;
+	  <%}else if (ConfigValues.get("cxtab.allow.cus", false)) {%>
+	 	  	<input id="btn_run_cus" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cus')" value="<%=PortletUtils.getMessage(pageContext, "execute-cus",null)%>">&nbsp;&nbsp;
+	  <%}%>
 	  	<input id="btn_run_csv" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'csv')" value="<%=PortletUtils.getMessage(pageContext, "fast-export",null)%>">&nbsp;&nbsp;
 	  <%}%>
       <input id="btn_run_jxls" type="button" class="cbutton" onclick="javascript:pc.doJReportOnSelection(<%=tableId%>,'xls')" value="<%=PortletUtils.getMessage(pageContext, "execute-jxls",null)%>">&nbsp;&nbsp;
@@ -270,7 +278,11 @@ if("true".equals( ((Configurations)WebUtils.getServletContextManager().getActor(
 <%	
 }else{%>
 	<%if(dimensionCnt>0){%>
-	<input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;
+	  <%if (ConfigValues.get("cxtab.allow.cub", true)) {%>  
+	  	<input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;
+	  <%}else if(ConfigValues.get("cxtab.allow.cus", false)){%>
+	 	  	<input id="btn_run_cus" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cus')" value="<%=PortletUtils.getMessage(pageContext, "execute-cus",null)%>">&nbsp;&nbsp;
+	  <%}%>
 	<input id="btn_run_csv" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'csv')" value="<%=PortletUtils.getMessage(pageContext, "fast-export",null)%>">&nbsp;&nbsp;
 	<%}%>
 <%}

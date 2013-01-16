@@ -1,5 +1,7 @@
 <%@page errorPage="/html/nds/error.jsp"%>
-<%@ include file="/html/nds/common/init.jsp" %><%@ page import="org.json.*"%>
+<%@ include file="/html/nds/common/init.jsp" %>
+<%@ page import="org.json.*"%>
+<%@ page import="nds.web.config.*" %>
 <%
 /**
    Only for report that not set ad_table, that means, whole parameters are read from ad_cxtab_jpara table
@@ -201,7 +203,11 @@ if(Validator.isNotNull(excelPath)){%>
       &nbsp;&nbsp;
 <%}%>
       <!--<input id="btn_run_rpt" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'htm')" value="<%=PortletUtils.getMessage(pageContext, "execute-htm",null)%>">&nbsp;&nbsp;-->
+<%if (ConfigValues.get("cxtab.allow.cub", true)) { %>
       <input id="btn_run_cube" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cub')" value="<%=PortletUtils.getMessage(pageContext, "execute-cube",null)%>">&nbsp;&nbsp;
+<%}else  if (ConfigValues.get("cxtab.allow.cus", false)) {%>
+      <input id="btn_run_cus" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'cus')" value="<%=PortletUtils.getMessage(pageContext, "execute-cus",null)%>">&nbsp;&nbsp;
+<%}%>
       <input id="btn_run_csv" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'csv')" value="<%=PortletUtils.getMessage(pageContext, "fast-export",null)%>">&nbsp;&nbsp;
 <%if(Validator.isNotNull(jReportPath)){
 	if(jReportPath.endsWith(".jrxml")){%>
