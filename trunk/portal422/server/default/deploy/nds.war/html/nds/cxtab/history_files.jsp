@@ -27,7 +27,7 @@
     	if(seconds>60) return (int)(seconds/60)+"m" + (seconds%60)+"s";
     	return seconds+"s";
     }
-    private final static String[] extTypes=new String[]{"pdf","xls","csv","taxifc","txt","log","html","htm","cub"};
+    private final static String[] extTypes=new String[]{"pdf","xls","csv","taxifc","txt","log","html","htm","cub","cuz", "cus"};
     /**
     * get file type image according to file extension
     */
