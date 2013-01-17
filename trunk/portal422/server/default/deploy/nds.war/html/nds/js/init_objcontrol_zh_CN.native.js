@@ -58,6 +58,7 @@ var gMessageHolder={
 	NO_DATA:"没有数据",
 	INPUT_FIELD:"请首先输入0信息",
 	CONTAINS:"包含",
+		NOTCONTAINS:"不包含",
 	NOT_ALLOW_TO_POPUP_AS_NOT_MENUOBJ:"当前明细行禁止弹出窗口显示",
 	CLOSE_DIALOG:"关闭",
 	EXCLUDE_CHOOSED_ROWS:"排除选中行",
