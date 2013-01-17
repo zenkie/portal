@@ -112,6 +112,11 @@ QueryEngine engine=QueryEngine.getInstance();
 TableManager manager=TableManager.getInstance();
 int pdtId=Tools.getInt(request.getParameter("pdtid"),-1);
 String pdtName= (String) engine.doQueryOne("select name from m_product where id="+ pdtId);
+int brandid=Tools.getInt(engine.doQueryOne("select m_dim1_id from m_product where id="+ pdtId),-1);
+String brandsql="";
+if(brandid!=-1){
+brandsql="v.m_dim1_id="+String.valueOf(brandid)+" and";
+}
 int setId=nds.util.Tools.getInt(engine.doQueryOne("select M_ATTRIBUTESET_ID from m_product where id="+pdtId),-1);
 String attribueSetName=(String) engine.doQueryOne("select name from m_attributeset where id="+ setId);
 List attributes=engine.doQueryList("select a.id, a.name, a.clrsize from m_attribute a, m_attributeuse u where a.isactive='Y' and a.ATTRIBUTEVALUETYPE='L' and a.id=u.m_attribute_id and u.m_attributeset_id="+setId+" order by u.orderno asc");
@@ -122,7 +127,7 @@ for(int i=0;i< attributes.size();i++){
 		//cloth size, not color, should display only value without name
 		attributeValues.add( engine.doQueryList("select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+((List)attributes.get(i)).get(0) + " order by to_number(martixcol),value"));
 	}else{
-		attributeValues.add( engine.doQueryList("select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+((List)attributes.get(i)).get(0) + " order by to_number(martixcol),value"));
+		attributeValues.add( engine.doQueryList("select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end from m_attributevalue v where v.isactive='Y' and "+brandsql+" v.m_attribute_id="+((List)attributes.get(i)).get(0) + " order by to_number(martixcol),value"));
 	}
 }
 List attributeInstances=engine.doQueryList(
