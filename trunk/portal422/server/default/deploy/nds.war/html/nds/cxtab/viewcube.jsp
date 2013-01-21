@@ -56,9 +56,12 @@ function popup_window(url,tgt,theWidth,theHeight){
 <table width="90%" height="100%" border="0"><tr><td align="right"><div class="f">
 	<%=PortletUtils.getMessage(pageContext, "rtp-generated",null)%></div></td><td align="left"><div class="table-buttons">
 <a href="<%=downloadURL%>"><%=PortletUtils.getMessage(pageContext, "download",null)%></a>
-</td></tr><tr valign="top"><td align="center" colspan="2"><div style="text-align:center;width:100px;">
+</td></tr>
+<%if(WebUtils.getBrowserType(request)==0){%>
+<tr valign="top"><td align="center" colspan="2"><div style="text-align:center;width:100px;">
 <div class="table-buttons"><a href="javascript:openCube()"><%=PortletUtils.getMessage(pageContext, "open-cube-directly",null)%></a></div>
 </div></td></tr>
+<%}%>
 <tr valign="top"><td align="center" colspan="2">
 	<div class="f"><%=PortletUtils.getMessage(pageContext, "install-cube-exe",null)%>: <a href="/html/nds/cxtab/cubsetup.exe"><img src="/html/nds/images/down.gif" border="0"><%=PortletUtils.getMessage(pageContext, "download",null)%></a></div></td></tr>
 </table>
