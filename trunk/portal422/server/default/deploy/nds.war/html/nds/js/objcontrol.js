@@ -260,6 +260,10 @@ ObjectControl.prototype = {
 				window.close();
 				b=true;
 				break;
+			case 101://submit dont close
+					this.doRefresh();
+					b=true;
+					break;		
 		}
 		return b;
 	},
@@ -551,8 +555,13 @@ ObjectControl.prototype = {
 				msgbox(r.message);
 				this._closeWindow=true;
 				this._onPrintJasper(r.data.printfile);
-			}else
-				this._closeWindowOrShowMessage(r.message);
+			}else{
+				if(r.data!=null && r.data.sbresult!=null){
+				this._handleSPResult(r.data.sbresult);
+				}else{
+				 this._closeWindowOrShowMessage(r.message);
+				}
+			}
 		}
     },
     _onDeleteObject:function(e){
