@@ -115,7 +115,7 @@ artDialog.fn = artDialog.prototype = {
 		? that.follow(config.follow)
 		: that.position(config.left, config.top);
 		
-		that.zIndex().focus();
+		that.zIndex().focus(); //取消弹出框初始化焦点冲突问题
 		config.lock && that.lock();
 		
 		that._addEvent();
@@ -554,8 +554,13 @@ artDialog.fn = artDialog.prototype = {
 	/** 设置焦点 */
 	focus: function () {
 		try {
+			//强制修复弹出框款号焦点冲突问题
+			var p=jQuery("#popup-iframe-0").contents().find("#eo_M_PRODUCT_ID__NAME");
+			if(p!=null){
+				p.focus();
+			}else{
 			var elem = this._focus && this._focus[0] || this.DOM.close[0];
-			elem && elem.focus();
+		elem && elem.focus();}
 		} catch (e) {}; // IE对不可见元素设置焦点会报错
 		return this;
 	},
