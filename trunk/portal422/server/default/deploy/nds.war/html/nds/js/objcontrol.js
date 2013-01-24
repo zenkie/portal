@@ -165,7 +165,7 @@ ObjectControl.prototype = {
 	bswebaction:function(actionId,bShouldWarn){
     	if(bShouldWarn){
     		if (!confirm(gMessageHolder.DO_YOU_CONFIRM_SUBMIT)) {
-            	return false;
+            	return;
         	}
     	}
     	var evt=$H();
@@ -420,7 +420,7 @@ ObjectControl.prototype = {
     doUnsubmit:function(bShouldWarn){
     	if(bShouldWarn){
     		if (!confirm(gMessageHolder.DO_YOU_CONFIRM_UNSUBMIT)) {
-            	return false;
+            	return;
         	}
     	}
     	var evt=$H();
@@ -434,7 +434,7 @@ ObjectControl.prototype = {
     doSubmitPrint:function(bSaveFirst,bShouldWarn){
     	if(bShouldWarn){
     		if (!confirm(gMessageHolder.DO_YOU_CONFIRM_SUBMIT)) {
-            	return false;
+            	return;
         	}
     	}
     	var evt=$H();
@@ -473,7 +473,7 @@ ObjectControl.prototype = {
     doSubmit:function(bSaveFirst,bShouldWarn){
     	if(bShouldWarn){
     		if (!confirm(gMessageHolder.DO_YOU_CONFIRM_SUBMIT)) {
-            	return false;
+            	return;
         	}
     	}
     	var evt=$H();
@@ -511,7 +511,7 @@ ObjectControl.prototype = {
 	
 	doDelete:function(){
     	if (!confirm(gMessageHolder.DO_YOU_CONFIRM_DELETE.replace("0","["+ this._masterObj.table.description+"]" ))) {
-            return false;
+            return;
         }
 		var evt=$H();
 		evt.command=this._masterObj.table.name+"Delete";
@@ -523,7 +523,7 @@ ObjectControl.prototype = {
     },
     doVoid:function(){
     	if (!confirm(gMessageHolder.DO_YOU_CONFIRM_VOID )) {
-            return false;
+            return;
         }
 		var evt=$H();
 		evt.command=this._masterObj.table.name+"Void";
@@ -535,7 +535,7 @@ ObjectControl.prototype = {
     },
     doUnvoid:function(){
     	if (!confirm(gMessageHolder.DO_YOU_CONFIRM_UNVOID )) {
-            return false;
+            return;
         }
 		var evt=$H();
 		evt.command=this._masterObj.table.name+"Unvoid";
