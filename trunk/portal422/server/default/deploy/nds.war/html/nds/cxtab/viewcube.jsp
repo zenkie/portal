@@ -57,7 +57,7 @@ function popup_window(url,tgt,theWidth,theHeight){
 	<%=PortletUtils.getMessage(pageContext, "rtp-generated",null)%></div></td><td align="left"><div class="table-buttons">
 <a href="<%=downloadURL%>"><%=PortletUtils.getMessage(pageContext, "download",null)%></a>
 </td></tr>
-<%if(WebUtils.getBrowserType(request)==0){%>
+<%if(WebUtils.getBrowserType(request)==100){%>
 <tr valign="top"><td align="center" colspan="2"><div style="text-align:center;width:100px;">
 <div class="table-buttons"><a href="javascript:openCube()"><%=PortletUtils.getMessage(pageContext, "open-cube-directly",null)%></a></div>
 </div></td></tr>
