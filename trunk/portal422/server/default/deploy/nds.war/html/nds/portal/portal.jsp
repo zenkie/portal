@@ -123,7 +123,7 @@ jQuery(document).ready(function(){
     jQuery('#roll').fadeOut(200);
     jQuery('#page-nav-commands').css("position","relative");
     }
-    if(jQuery("#portal-content").scrollLeft()>=1 && jQuery("#portal-content").scrollTop()==0){
+    if(jQuery("#portal-content").scrollLeft()>=1){
     var left_scr=jQuery("#portal-content").scrollLeft();
     jQuery('#page-table-query').css("margin-left",8+left_scr);
     //jQuery('.table-buttons2').css("padding-left",2+left_scr);
