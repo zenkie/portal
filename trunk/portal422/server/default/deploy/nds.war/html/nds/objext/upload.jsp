@@ -11,7 +11,7 @@
 <script>
 	document.title="<%=tabName%>";
 </script>
-<div id="maintab">
+<div id="tabs">
 	<ul><li><a href="#tab1"><span><%=tabName%></span></a></li></ul>
 	<div id="tab1">
 <%
@@ -157,15 +157,23 @@ action="<%=request.getContextPath() %>/control/upload">
 <input type="radio" id="upload2" name="upload" value="false" onclick="javascript:checkUpload(sheet_upload_form)">
 <%=PortletUtils.getMessage(pageContext, "fileurl",null)%>:&nbsp;&nbsp;
 <input type="text" name="fileurl" maxlength="300" size="50" >
-<p>      
-<input type='button' name='UploadFile' value='<%=PortletUtils.getMessage(pageContext, "upload-update",null)%>' onclick='javascript:uploadform(sheet_upload_form)'>
-<input type='reset' name='resetbt'>
+<p>
+	<div class="buttons">  
+<!--input type='button' name='UploadFile' value='<%=PortletUtils.getMessage(pageContext, "upload-update",null)%>' onclick='javascript:uploadform(sheet_upload_form)'-->
+<a id='UploadFile' name='UploadFile' href='javascript:uploadform(sheet_upload_form);'>
+<img src="/html/nds/images/tb_import.gif"/><%=PortletUtils.getMessage(pageContext, "upload-update",null)%></a>
+<!--input type='reset' name='resetbt'-->
 <%@ include file="/html/nds/common/helpbtn.jsp"%>
 <span id="closebtn"></span>
+</div>
 <Script language="javascript">
 if( window.self==window.top){
-	$("closebtn").innerHTML="<input class='command_button' type='button' value='<%= PortletUtils.getMessage(pageContext, "close-window" ,null)%>(C)' accessKey='C' onclick='window.close();' name='Close'>";
-}
+	$("closebtn").innerHTML="<a id='btn_help' name='Close' href='javascript:window.close();'>"+
+				"<img src=\"/html/nds/images/close.png\"/>"+gMessageHolder.CLOSE_DIALOG+"</a>";
+}else{
+		$("closebtn").innerHTML="<a id='btn_help' name='Close' href='javascript:art.dialog.close();'>"+
+				"<img src=\"/html/nds/images/close.png\"/>"+gMessageHolder.CLOSE_DIALOG+"</a>";
+	}
 </script>
 
 </form>

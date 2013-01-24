@@ -10,6 +10,7 @@
 <table width="98%" border="0" cellspacing="6" cellpadding="0" align="center" >
  <tr><td width="100%" align="left" >
 <input type='hidden' name="command" value='null'>
+<div class="buttons">
 <%
 ButtonFactory commandFactory= ButtonFactory.getInstance(pageContext,locale);
 Button btn;
@@ -23,16 +24,22 @@ for(int i=0;i< validCommands.size();i++){
 	}
 	if(btn==null) throw new Error("Internal error: command not found:"+ cmd);
 %>
-	<%=btn.toHTML()%>
+	<%=btn.toHREFbyimg("table-buttons2")%>
 <%	
 }
 %>
 <%@ include file="/html/nds/common/helpbtn.jsp"%>
 <span id="closebtn"></span>
+</div>
 <Script language="javascript">
 if( window.self==window.top){
-	$("closebtn").innerHTML="<input class='command_button' type='button' value='<%= PortletUtils.getMessage(pageContext, "close-window" ,null)%>(C)' accessKey='C' onclick='window.close();' name='Close'>";
-}
+	/*$("closebtn").innerHTML="<input class='command_button' type='button' value='<%= PortletUtils.getMessage(pageContext, "close-window" ,null)%>(C)' accessKey='C' onclick='window.close();' name='Close'>";*/
+					$("closebtn").innerHTML="<a id='btn_help' name='Close' href='javascript:window.close();'>"+
+				"<img src=\"/html/nds/images/close.png\"/>"+gMessageHolder.CLOSE_DIALOG+"</a>";
+}else{
+			$("closebtn").innerHTML="<a id='btn_help' name='Close' href='javascript:art.dialog.close();'>"+
+				"<img src=\"/html/nds/images/close.png\"/>"+gMessageHolder.CLOSE_DIALOG+"</a>";
+	}
 </script>
 </td></tr>
 </table>

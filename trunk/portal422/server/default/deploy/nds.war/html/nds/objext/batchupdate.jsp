@@ -14,7 +14,7 @@
 	<liferay-util:param name="table_width" value="<%=String.valueOf(navTabTotalWidth)%>" />
 </liferay-util:include>
 
-<div id="maintab">
+<div id="tabs">
 	<ul><li><a href="#tab1"><span><%=tabName%></span></a></li></ul>
 	<div id="tab1">
 <%
@@ -70,6 +70,7 @@ if(expr==null){
 }
 %>
 <input type='hidden' name='param_expr' value='<%=(expr==null?"":expr.toHTMLInputElement())%>'>
+<input type="hidden" name="queryindex_-1" id="queryindex_-1" value="-1">
 <%
 String uri = request.getRequestURI();
 String queryString = request.getQueryString();
