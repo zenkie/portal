@@ -59,7 +59,7 @@ document.bgColor="<%=colorScheme.getPortletBg()%>";
 <style>
 .selectbox{width: 190px;}
 </style>
-<div id="maintab">
+<div id="tabs">
 	<ul><li><a href="#tab1"><span><%=tabName%></span></a></li></ul>
 	<div id="tab1">
 <table width="98%" cellspacing="0" cellpadding="0" border="0" align="center" bordercolorlight="#999999" bordercolordark="#FFFFFF">
@@ -112,7 +112,7 @@ if(parentId!=-1){
 <%}//end if parentId!=-1
 %>
 <div id="tab_fact_columns">
-<div style="/*border-width:1;border-style:inset;padding:0px;border-color:#cccccc;*/padding-left:15px;width:230px; height:400px;overflow-y: auto; overflow-x: auto;"> 	
+<div style="border:1px solid #CCC;padding-left:15px;width:230px; height:400px;overflow-y: auto; overflow-x: auto;"> 	
 <script type="text/javascript">
 /// XP Look
 webFXTreeConfig.rootIcon		= "<%=NDS_PATH%>/images/table.gif";
