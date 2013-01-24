@@ -67,8 +67,13 @@ MatrixDef.prototype = {
 		if (!event) event = window.event;
 	  	if (event && event.keyCode && event.keyCode == 13) {
 		  	var v=$("inscolor").value;
+		  	//alert(brandid);
+		  	if(brandid!=null){
 		  	var expr={combine:"or",expr1:{column:"",condition:"exists(select 1 from dual WHERE M_COLOR.NAME='"+v+"' and M_COLOR.M_DIM1_ID="+brandid+")"},
-		  		expr2:{column:"",condition:"exists(select 1 from dual WHERE M_COLOR.VALUE='"+v+"' and M_COLOR.M_DIM1_ID="+brandid+")"}};
+		  	expr2:{column:"",condition:"exists(select 1 from dual WHERE M_COLOR.VALUE='"+v+"' and M_COLOR.M_DIM1_ID="+brandid+")"}};
+		  	}else{
+		  	var expr={combine:"or",expr1:{column:"name",condition:"="+v},expr2:{column:"value",condition:"="+v}};
+		  	}
 		  	var params={table:"m_color", columns:["id","value","name"],params:expr, range:5000};
 			var trans={id:1, command:"Query",params:params};
 			var a=new Array(1);
