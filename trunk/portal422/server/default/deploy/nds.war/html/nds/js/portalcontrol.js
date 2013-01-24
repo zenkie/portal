@@ -44,6 +44,7 @@ PortalControl.prototype = {
 			}
 		gMenuObjects=null;
 		}catch(ex){}
+		this._isButtonDisabled=false;
 		this._isListPageLoaded=false;
 		this._listPageLoadTime=0; 
 		this._defaultListMode=1;// default to read
@@ -230,7 +231,7 @@ PortalControl.prototype = {
      * @param e e.getUserData().data contains url where export file exists
      */
     _onExecuteCxtab:function(e){
-    	
+    	this._toggleButtons(false);
 	    var r=e.getUserData().data;
 		if(r.message){
 			msgbox(r.message.replace(/<br>/g,"\n"));
@@ -503,15 +504,15 @@ PortalControl.prototype = {
 					div.innerHTML=newDiv;
 					executeLoadedScript(div);
 					//横动条宽度跟随表内容
-					var e=$("page-table-content");
-				  var ptc_width=jQuery("#grid_table").width();
-				  if(ptc_width>1169){
+					//var e=$("page-table-content");
+				  //var ptc_width=jQuery("#inc_table").width();
+				  //if(ptc_width>1169){
 				  //ptc_width=ptc_width+30;
-				  e.style.width=ptc_width+"px";
-				  }else{
+				  //e.style.width=ptc_width+"px";
+				  //}else{
 				  //小于最佳宽度自适应
-				  e.style.width="100%";
-				  }
+				  //e.style.width="100%";
+				  //}
 					this._initGridSelectionControl();
 				}else{
 					var gridTableBody=$("grid_table");
@@ -520,15 +521,15 @@ PortalControl.prototype = {
 					gridTableBody.innerHTML=qr.pagecontent;
 					executeLoadedScript(gridTableBody);
 					//横动条宽度跟随表内容
-					var e=$("page-table-content");
-				  var ptc_width=jQuery("#grid_table").width();
-				  if(ptc_width>1169){
+					//var e=$("page-table-content");
+				  //var ptc_width=jQuery("#inc_table").width();
+				  //if(ptc_width>1169){
 				  //ptc_width=ptc_width+30;
-				  e.style.width=ptc_width+"px";
-				  }else{
+				 // e.style.width=ptc_width+"px";
+				  //}else{
 				  //小于最佳宽度自适应
-				  e.style.width="100%";
-				  }
+				  //e.style.width="100%";
+				  //}
 	        //alert(ptc_width);
 	        
 	  			
@@ -1728,10 +1729,31 @@ PortalControl.prototype = {
     	showObject2("/html/nds/cxtab/cxtabdef.jsp?id="+cxtabId+"&parentid="+parentId,
     		{onClose:function(){pc.qrpt(cxtabId==-1?parentId:cxtabId);}});
     },
+    	/**
+	@return false if has already toggled to false
+	*/
+	_toggleButtons:function(disable){
+		if(disable && this._isButtonDisabled){
+			alert(gMessageHolder.DO_NOT_PRESS_TWICE);
+			return false;	
+		}
+		this._isButtonDisabled=disable;
+		var es=$("rpt-sbtns").getElementsBySelector("input[type='button']");
+		if(disable){
+			for(var i=0;i< es.length;i++){
+				es[i].disable();
+			}
+		}else{
+			for(var i=0;i< es.length;i++){
+				es[i].enable();
+			}
+		}
+	},	
     /**
      * @param filetype html (default) or xls
      */
     doReportOnSelection:function(bIsOnSelection,tableId, filetype, isUserDimsSet){
+    	this._toggleButtons(true);		
     	if(filetype=="cub" && ( isUserDimsSet==undefined || isUserDimsSet!=true )){
     		if(this._cxtabUserDims >0){
     			var	cxtabId=$("rep_templet").value;
@@ -2204,7 +2226,7 @@ function showObject2(url,option, theWidth, theHeight){
     //使用art.diaglo替换
     //alert(gMessageHolder.IFRAME_TITLE);
 	//var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:true,drag:true,lock:true,esc:true,skin:'aero'});
-	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,ifrid:'popup-iframe-0',resize:true,drag:true,lock:true,esc:true,skin:'chrome',ispop:true,close:function(){pc.refreshGrid();}});
+	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,ifrid:'popup-iframe-0',resize:true,drag:true,lock:true,skin:'chrome',ispop:true,close:function(){pc.refreshGrid();}});
 	if(options!=undefined) options.merge(option);
 	if(options.iswindow==true){
 		popup_window(url,options.target, options.width,options.height);
