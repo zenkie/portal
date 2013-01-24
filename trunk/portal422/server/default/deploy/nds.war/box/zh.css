@@ -306,10 +306,16 @@ vertical-align:top;
 text-align:center;
 padding-top:5px;}
 
-.cbutton{
+.cbutton-a{
 border:#bfa277 1px solid;
 background-color:#ffdd91;
-width:36px;
+width:30px;
+height:20px;
+font-size:12px;}
+.cbutton-d{
+border:#bfa277 1px solid;
+background-color:#ffdd91;
+width:66px;
 height:20px;
 font-size:12px;}
 

@@ -8,12 +8,13 @@
 <%@ page import="java.util.List" %>
 <%
     UserWebImpl userWeb =null;
-    try{
+  try{
 		userWeb= ((UserWebImpl)WebUtils.getSessionContextManager(session).getActor(nds.util.WebKeys.USER));
 	}catch(Throwable userWebException){
 		System.out.println("########## found userWeb=null##########"+userWebException);
 	}
     int m_box_id=Integer.parseInt(request.getParameter("id"));
+
     if(userWeb==null || userWeb.getUserId()==userWeb.GUEST_ID){
         response.sendRedirect("/c/portal/login");
         return;
@@ -24,41 +25,68 @@
         response.sendRedirect("/login.jsp");
         return;
     }
-    Table t=TableManager.getInstance().getTable("m_box");
-    Table t2=TableManager.getInstance().getTable("m_boxitem");
+    
+    String b_box="M_BOX";
+    String tname=request.getParameter("tableid");
+    if("lessbox?".equals(tname)){
+      b_box="M_V_LESSBOX";
+    }
+    if("inbox?".equals(tname)){
+      b_box="M_V_INBOX";
+    }
+    Table t=TableManager.getInstance().getTable(b_box);
+    //Table t=TableManager.getInstance().getTable("M_BOX");
+    
+    
     String tableName=t.getName();
     int tableId=t.getId();
-    int tableId2=0;
-    try{
-    	tableId2=t2.getId();
-    }catch(Exception e){}
+    String tableId2=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from AD_TABLE where NAME='M_BOXITEM'"));
+    
+    String skuCanBgOrderQty=String.valueOf(QueryEngine.getInstance().doQueryOne("select value from ad_param where name='box.in.skuCanBgOrderQty'"));
+    
+    //Add by gxy20111108 参数box.jz 选箱装箱
+    String bjz=String.valueOf(QueryEngine.getInstance().doQueryOne("select value from ad_param where name='box.jz'"));
+    
+    String skuAddRange="0";
+    if("true".equals(skuCanBgOrderQty)){
+    	skuAddRange=String.valueOf(QueryEngine.getInstance().doQueryOne("select value from ad_param where name='box.in.skuAddRange'"));
+    }
+    
     boolean  hasWritePermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.WRITE);
     boolean hasReadPermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.READ);
     boolean hasSubmitPermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.SUBMIT);
     String sound=userWeb.getUserOption("ALERT_SOUND","");
     String comp=String.valueOf(QueryEngine.getInstance().doQueryOne("select VALUE from AD_PARAM where NAME='portal.company'"));
-    java.util.List newOldBar=QueryEngine.getInstance().doQueryList("select distinct o.no,n.no from M_BOX_PICKUP i, M_PDT_ALIAS_CON c, M_PRODUCT_ALIAS n, M_PRODUCT_ALIAS o where n.ID=c.M_PDA_NEW_ID AND o.ID=c.M_PDA_OLD_ID and i.m_product_id=n.m_product_id and i.m_attributesetinstance_id=n.m_attributesetinstance_id and i.m_box_id="+m_box_id );
+    int barcodeCutLength=nds.util.Tools.getInt(QueryEngine.getInstance().doQueryOne("select VALUE from AD_PARAM where NAME='portal.6001'"),0);
+    java.util.List newOldBar=QueryEngine.getInstance().doQueryList("select distinct o.no,n.no from "+b_box+"_PICKUP i, M_PDT_ALIAS_CON c, M_PRODUCT_ALIAS n, M_PRODUCT_ALIAS o where n.ID=c.M_PDA_NEW_ID AND o.ID=c.M_PDA_OLD_ID and i.m_product_id=n.m_product_id and i.m_attributesetinstance_id=n.m_attributesetinstance_id and i."+b_box+"_id="+m_box_id );
     org.json.JSONObject jo=new org.json.JSONObject();
     for(int joi=0;joi<newOldBar.size();joi++){
      	jo.put( (String)((List)newOldBar.get(joi)).get(0),(String)((List)newOldBar.get(joi)).get(1) );
     } 
+    java.util.List intsCode=QueryEngine.getInstance().doQueryList("select distinct o.intscode,o.no  from "+b_box+"_PICKUP i, M_PRODUCT_ALIAS o WHERE  o.ID=i.m_productalias_id  and i."+b_box+"_id="+m_box_id );
+    org.json.JSONObject jo2=new org.json.JSONObject();
+    for(int jo2i=0;jo2i<intsCode.size();jo2i++){
+    	if(null!=((List)intsCode.get(jo2i)).get(0)&&!"".equals((String)((List)intsCode.get(jo2i)).get(0)))
+     	jo2.put( (String)((List)intsCode.get(jo2i)).get(0),(String)((List)intsCode.get(jo2i)).get(1) );
+    }
+		String soundfile="{"+sound.substring(sound.indexOf(".")+1)+":\""+sound+"\"}"; 
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <% if(!hasReadPermission){ %>
-    <script type="text/javascript">alert("您没有查看装箱单的权限！")</script>     
+    <script type="text/javascript">alert("您没有查看按区域检货单的权限！")</script>     
     <% return;}%>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
     <link href="zh.css" rel="stylesheet" type="text/css" />
     <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/object_aio_min.css">
-    <script language="javascript" language="javascript1.5" src="/html/nds/js/ieemu.js"></script>
+    <script language="javascript" language="javascript1.5" src="/jstools/ieemu.js"></script>
     <script language="javascript" src="/html/nds/js/prototype.js"></script>
     <script language="javascript" src="/html/nds/js/objdropmenu.js"></script>
     <script language="javascript" src="/html/nds/js/print.js"></script>
-    <script language="javascript" src="/html/nds/js/cb2.js"></script>
-    <script language="javascript" src="/html/nds/js/jquery1.2.3/jquery.js"></script>
-    <script language="javascript" src="/html/nds/js/jquery1.2.3/hover_intent.js"></script>
+    <script language="javascript" src="/jstools/cb2.js"></script>
+    	<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
+    <script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
     <script>
         jQuery.noConflict();
     </script>
@@ -66,63 +94,78 @@
     <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
     <script language="javascript" src="/html/nds/js/application.js"></script>
-    <script language="javascript" src="/html/nds/js/alerts.js"></script>
+    <script language="javascript" src="/jstools/alerts.js"></script>
     <script language="javascript" src="/box/oc.js"></script>
-    <script type="text/javascript" src="/flash/FABridge.js"></script>
-    <script type="text/javascript" src="/flash/playErrorSound.js"></script>
+    <script language="javascript" src="/html/nds/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
+<script language="javascript" src="/html/nds/js/artDialog4/plugins/iframeTools.js"></script>
+<script type="text/javascript" src="/html/nds/js/jplay/jquery.jplayer.min.js"></script>
+    <!--script type="text/javascript" src="/flash/FABridge.js"></script>
+    <script type="text/javascript" src="/flash/playErrorSound.js"></script-->
     <script type="text/javascript" src="/box/ztools.js"></script>
     <script type="text/javascript" src="/box/box.js"></script>
-    <title>检货装箱单</title>
+    <title>按区域检货单</title>
 </head>
 <body class="body-bg">
 <script language="javascript">
     jQuery(document).ready(function(){box.load()});
-    jQuery(document).ready(function(){box.loadBox(<%=jo%>);});
+    jQuery(document).ready(function(){box.loadBox(<%=jo%>,<%=jo2%>);});
+				jQuery(document).ready(function(){
+					jQuery("#jpId").jPlayer( {
+						ready: function () {
+								jQuery(this).jPlayer("setMedia",<%=soundfile%>);
+							},
+							swfPath: "/html/nds/js/jplay",
+							supplied: "mp3,mp4,flv,oga,wav"
+				   });
+				});
 </script>
-<%if(!sound.equals("0")){%>
-<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-        id="playErrorSoundTest" width="1" height="1"
-        codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab" style="float:right">
-    <param name="movie" value="/flash/playErrorSound.swf"/>
-    <param name="flashvars" value="bridgeName=b_playErrorSound"/>
-    <param name="quality" value="high" />
-    <param name="allowScriptAccess" value="sameDomain"/>
-    <embed src="/flash/playErrorSound.swf" quality="high"
-           width="1" height="1" name="playErrorSoundTest"
-           align="middle"
-           play="true"
-           loop="false"
-           quality="high"
-           allowScriptAccess="sameDomain"
-           type="application/x-shockwave-flash"
-           pluginspage="http://www.adobe.com/go/getflashplayer"
-           flashvars="bridgeName=b_playErrorSound">
-    </embed>
-</object>
-<input type="hidden" id="sound" value="<%=sound%>"/>
-<%}%>
+
+<input id="skuAddRange" type="hidden" value="<%=skuAddRange%>"/>
+<input id="bjz" type="hidden" value="<%=bjz%>"/>
 <input id="m_box_id" type="hidden" value="<%=m_box_id%>"/>
+<input id="m_box_table_id" type="hidden" value="<%=tableId%>"/>
+<input id="m_boxitem_table_id" type="hidden" value="<%=tableId2%>"/>
+<input id="b_box" type="hidden" value="<%=b_box%>"/>
+<input id="tname" type="hidden" value="<%=tname%>"/>
+<input id="barcode_cut_len" type="hidden" value="<%=barcodeCutLength%>"/>
 <div id="zh-container">
     <div id="zh-btn">
         <% if(hasWritePermission){%>
         <input name="" type="image" src="images/btn-bc.gif" width="58" height="20"  onclick="box.toSave();"/>
         <input name="" type="image" src="images/btn-sc.gif" width="78" height="20" onclick="box.del();"/>
         <% }%>
-        <%if(!comp.equals("玖姿")){%>
+        <%if(!comp.equals("玖姿")){
+        	String lilyallprint="";
+       		if(comp.equals("tommy")){%>
+       		<%
+       			lilyallprint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='装箱信息'"));
+       		%>
+       		<%}else{%>
+       		<%
+       			lilyallprint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='装箱单（lily）'"));
+       		%>
+       		<%}%>
         <%
-        	String lilyallprint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='装箱单（lily）'"));
+        	//String lilyallprint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='装箱单（lily）'"));
         	String singleBoxPrint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='按箱打印'"));
         	String allBoxPrint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='按单套打'"));
         %>
-        <input type="button" value="打印含汇总箱单" width="91" id="box-button" onclick="box.doSaveSettings('cx<%=lilyallprint%>',<%=tableId%>);"/>
+        <%if(comp.equals("tommy")){
+        %>
+        	<input type="button" value="打印贴纸" width="91" id="box-button" onclick="box.doSaveSettings('cx<%=lilyallprint%>',<%=tableId%>);"/>
+        <%}else{
+        %>
+        	<input type="button" value="打印含汇总箱单" width="91" id="box-button" onclick="box.doSaveSettings('cx<%=lilyallprint%>',<%=tableId%>);"/>
+        <%}
+        %>
         <input type="button" value="单箱打印" id="box-button1" width="78" height="20" onclick="box.savePrintSettingForSingleBox('cx<%=singleBoxPrint%>',<%=tableId2%>);"/>
         <input name="" type="image" src="images/btn-td.gif" width="78" height="20" onclick="box.doSaveSettings('cx<%=allBoxPrint%>',<%=tableId%>);"/>
         <%}else{%>
         <%
-        	String singleBoxPrint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='按箱打印'"));
-        	String orderPrint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='按单打印'"));
+        	String singleBoxPrint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='按箱打印(单箱打印)-款号模式'"));
+        	String orderPrint=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where name='按单打印-款号模式'"));
         %>        	
-        <input name="" type="image" src="images/btn-dy.gif" width="78" height="20" onclick="box.doSaveSettings('cx<%=singleBoxPrint%>',<%=tableId%>);"/>
+        <input name="" type="image" src="images/btn-dy.gif" width="78" height="20" onclick="box.savePrintSettingForSingleBox('cx<%=singleBoxPrint%>',<%=tableId2%>);"/>
         <input type="button" value="按单打印" width="60" id="box-button1" onclick="box.doSaveSettings('cx<%=orderPrint%>',<%=tableId%>);"/>
         <%}%>
         <% if(hasSubmitPermission){%>
@@ -189,7 +232,7 @@
                             <div  class="zh-left-lb-title">箱号</div>
                             <div id="zh-xh" style="overflow-y:auto;overflow-x:hidden;">
                             </div>
-                            <div class="zh-xh-height"><input type="button" value="增加" onclick="box.addBox($('selCategory').value);"  class="cbutton"/><input type ="button" value="删除" onclick="box.delBox($('selCategory').value)"  class="cbutton"/></div>
+                            <div class="zh-xh-height"><input id="boxadd" type="button" value="增加" onclick="box.addBox($('selCategory').value);"  class="cbutton-a"/><input  id="boxdel" type ="button" value="删除单箱" onclick="box.delBox($('selCategory').value)"  class="cbutton-d"/></div>
                         </div>
                         <div class="zh-from-left02">
                             <table width="99%"  border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#8db6d9" bordercolorlight="#FFFFFF" bordercolordark="#FFFFFF" bgcolor="#8db6d9" class="modify_table" style="table-layout:fixed;">
@@ -239,6 +282,10 @@
                 <td class="zh-desc" width="40" valign="top" nowrap="" align="left"><div class="desc-txt" style="text-align:left;font-size:16px;font-weight:bold;" id="currentBox"></div>
                 <td class="zh-desc" width="90" valign="top" nowrap="" align="right"><div class="desc-txt" style="color:red;font-size:16px;font-weight:bold;" >总合计：</div></td>
                 <td class="zh-desc" width="40" valign="top" nowrap="" align="left"><div class="desc-txt" style="text-align:left;font-size:16px;font-weight:bold;" id="totBox"></div></td>
+                <%if("true".equals(skuCanBgOrderQty)){%>
+                <td class="zh-desc" width="90" valign="top" nowrap="" align="right"><div class="desc-txt" style="color:yellow;font-size:16px;font-weight:bold;" >总超量：</div></td>
+                <td class="zh-desc" width="40" valign="top" nowrap="" align="left"><div class="desc-txt" style="color:red;text-align:left;font-size:16px;font-weight:bold;" id="totAdditional"></div></td>
+                <%}%>
                 <td><input type="button" class="command2_button" value="查看最近已扫条码" onclick="box.showCurrentBarcode()"></td>
             </tr>
         </table></div>
@@ -260,6 +307,39 @@
         <input id="but_J" class="command2_button" type="button" accesskey="J" value="保存(J)" name="createinstances" onclick="cstable.saveData();"/>
         <input id="but_Q" class="command2_button" type="button" accesskey="Q" value="取消(Q)" name="cancel" onclick="cstable.removeMask();"/>
     </div>
+</div>
+<div id="boxjz" class="pop-up-outer" align="center" style="position:absolute;top:18%;left:18%;z-index:101;background-color:#FFFFFF;display:none;opacity:1;WIDTH:650px;;height:auto;">
+    <table class="pop-up-header" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            <td class="pop-up-close" width="1%">
+                请选择操作箱：
+            </td>
+        </tr>
+    </table>
+    <div id="stable" style="OVERFLOW: auto;width:100%;width:auto; max-height:300px;text-align:left;">
+    </div>
+    <div style="float:left;margin-left:8px;margin-top:5px;margin-bottom:5px;">
+        <input id="but_T" class="command2_button" type="button" accesskey="T" value="确定(T)" name="choose" onclick="box.choosebox();"/>
+        <input id="but_Y" class="command2_button" type="button" accesskey="Y" value="默认箱(Y)" name="def" onclick="box.removeM();"/>
+    </div>
+</div>
+<div id="boxselect" align="center" style="position:absolute;top:25%;left:25%;z-index:101;background-color:#EEEEFF;WIDTH:400px;display:none;opacity:1;height:auto;" >
+    <table cellspacing="0" cellpadding="0" border="0" >
+        <tr>
+            <td><div id="input_box"></div></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" id="box_add"/>
+            </td>
+            <td>
+						    <div>
+						        <input id="bselect_T" type="button" value="确定" name="choose" onclick="box.operatebox();"/>
+						        <input id="bselect_Y" type="button" value="使用默认(下一箱)" name="def" onclick="box.defaultbox();"/>
+						    </div>
+            </td>        	
+        </tr>
+    </table>
 </div>
 <div id="showBarcode" class="pop-up-outer" align="center" style="position:absolute;top:18%;left:35%;z-index:101;background-color:#FFFFFF;display:none;opacity:1;WIDTH:203px;;height:auto;">
     <table class="pop-up-header" cellspacing="0" cellpadding="0" border="0">
@@ -283,7 +363,7 @@
  <div width="100%" style="margin-top:20px;"> 
 	<table width="100%">
 	<tr>
-		<td width="50%" style="color:#FF0000;font-size:14pt" align="right">
+		<td id="pdwarn" width="50%" style="color:#FF0000;font-size:14pt" align="right">
 			请输入确认码(默认为0)：
 		</td>
 		<td nowrap="" width="50%" valign="top" align="left" class="zh-value"><input type="text" style="border:1px solid #7F9DB9;color:#333333;padding-top:2px;vertical-align:bottom;width:170px;" id="correctErrorCode"></td>
@@ -291,6 +371,6 @@
 	</table>
  </div>
 </div>
-
+<div id="jpId"></div>
 </body>
 </html>
