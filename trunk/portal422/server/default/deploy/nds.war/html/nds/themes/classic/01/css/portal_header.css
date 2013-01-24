@@ -385,6 +385,7 @@ overflow-y: auto;
 /*height:600px;*/
 height: 543px !important;/*支持FF 高度*/
 height:550px \9;/*支持IE 高度*/
+position: absolute;
 } 
 }
 #portal-content{
@@ -395,6 +396,7 @@ overflow-y: auto;
 /*height:600px;*/
 height: 566px;
 height:550px \9;/*支持IE 高度*/
+position: absolute;
 }
 #page-table{
 width:100%;
@@ -417,13 +419,15 @@ border-top: 0px solid;
     margin:5px 0px 0px 0px;
 	*/
 	margin:0px 0px 0px 0px;
+	position: absolute;
+	min-width: 1163px;
 }
 #query-content{
    padding: 10px 0px;
 }
 #page-table-query{
-    overflow-y: visible;
-    overflow-x: auto;
+   /* overflow-y: visible;*/
+    /* overflow-x: auto; */
    /* height: 100%;*/
     _width: expression((document.body.offsetWidth-240)+"px");
     background-color:#FFF;
