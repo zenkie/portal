@@ -937,6 +937,8 @@ ObjectControl.prototype = {
 			if(ele!=null)
 				dwr.util.selectRange(ele,0,this.MAX_INPUT_LENGTH);
 		}
+				//support hidden/fixed columns
+		oc.initColumns();
 	},
 	/**
 	 * On key press on FK column, will remove hidden input "fk_"+inputId
