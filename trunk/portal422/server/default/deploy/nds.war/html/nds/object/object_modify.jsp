@@ -52,9 +52,9 @@ if(objectId == -1 || (result!=null && result.getTotalRowCount()>0)){
 	<% if( !Boolean.FALSE.equals(request.getAttribute("showtabs"))){%>
 		<%@ include file="inc_tabs.jsp" %>
 	<%}%>
-	
+		<div class="obj" id="obj_inputs_2"><!--OBJ_INPUTS2_BEGIN-->
 	<%if(columnIndex!=columns.size()){%>
-	<div class="obj" id="obj_inputs_2"><!--OBJ_INPUTS2_BEGIN-->
+
 		<%@ include file="inc_single_object.jsp" %>
 	<%}// end if(columnIndex!=columns.size())
 	%>
