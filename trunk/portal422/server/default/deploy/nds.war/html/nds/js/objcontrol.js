@@ -447,7 +447,14 @@ ObjectControl.prototype = {
 			evt["nds.control.ejb.UserTransaction"]="N";//each line will have a seperate transaction
 			evt.submitAfterSave="Y"; // then submit
 			//evt.actionAfterSave="38"; // then act
-			if(gc!=undefined)gc.fillProcessEvent(evt); // grid control
+			if(gc!=undefined){
+			if(gc.checkInputs()==false){
+				this._toggleButtons(false);		
+	       		return;
+			}
+			   gc.fillProcessEvent(evt); // grid control
+			}
+			//if(gc!=undefined)gc.fillProcessEvent(evt); // grid control
 			// hash type
 			evt.masterobj=$H(Form.serializeElements( this._getInputs("obj_inputs_1"),true));
 			// special treatment on clob type column
@@ -477,6 +484,7 @@ ObjectControl.prototype = {
         	}
     	}
     	var evt=$H();
+    	
 		if(bSaveFirst){
 			if(this._checkObjectInputs()==false){
 		       	return;
@@ -485,7 +493,14 @@ ObjectControl.prototype = {
 			evt["nds.control.ejb.UserTransaction"]="N";//each line will have a seperate transaction
 			evt.submitAfterSave="Y"; // then submit
 			//evt.actionAfterSave="38"; // then act
-			if(gc!=undefined)gc.fillProcessEvent(evt); // grid control
+			if(gc!=undefined){
+			if(gc.checkInputs()==false){
+				this._toggleButtons(false);		
+	       		return;
+			}
+			   gc.fillProcessEvent(evt); // grid control
+			}
+			//if(gc!=undefined)gc.fillProcessEvent(evt); // grid control
 			// hash type
 			evt.masterobj=$H(Form.serializeElements( this._getInputs("obj_inputs_1"),true));
 			// special treatment on clob type column
