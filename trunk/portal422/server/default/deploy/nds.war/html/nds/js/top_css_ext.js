@@ -35,6 +35,23 @@ function showDialog(url, theWidth, theHeight,refreshWindowWhenClose){
 	Alerts.center();
    */
 }
+
+function shoWarn(url, theWidth, theHeight,refreshWindowWhenClose){
+	if( theWidth==undefined) theWidth=956;
+    if( theHeight==undefined) theHeight=570;
+	//var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:false};
+	var options=$H({icon:'warning',width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,ifrid:'popup-iframe-0',drag:true,lock:true,esc:true,skin:'chrome'});
+	if(refreshWindowWhenClose){
+		options.close=refreshWindow;
+	}
+	//alert(url);
+	art.dialog.open(url,options);
+	/*
+	Alerts.popupIframe(url,options);
+	Alerts.resizeIframe(options);
+	Alerts.center();
+   */
+}
 function btn_dialog_small(url,warning){
 	if(warning!=undefined){
 	
@@ -74,7 +91,7 @@ function btn_dialog_window(url,warning){
 	if(warning!=undefined){
 		//if(!confirm(warning))return;
 	art.dialog.confirm(warning,function(){
-		showDialog(url,620,480,true);
+		shoWarn(url,'auto','auto',true);
 	},
 	function(){
     alert('你取消了操作!');
