@@ -309,6 +309,17 @@ left: 213px;
     z-index: 3;
 }
 
+#query-search-content .ui-tabs-nav li.ui-tabs-selected {
+z-index: 3;
+}
+
+#query-search-content  .ui-tabs-nav .ui-tabs-selected a {
+background: white;
+-webkit-box-shadow: #CCC 0 0 .25em;
+-moz-box-shadow: #CCC 0 0 .25em;
+box-shadow: #CCC 0 0 .25em;
+}
+
 #query-search-content .ui-tabs-nav a {
     float: left;
     height: 2em;
