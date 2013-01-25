@@ -376,26 +376,26 @@ padding:2px 5px 0pt;
 white-space:nowrap;
 }
 /*ff hack */
-@-moz-document url-prefix(){ 
+/* @-moz-document url-prefix(){ 
 #portal-content{ 
 padding:0px;
 margin:0px 0px;
 overflow-x: auto;
 overflow-y: auto;
 /*height:600px;*/
-height: 543px !important;/*支持FF 高度*/
-height:550px \9;/*支持IE 高度*/
-position: absolute;
+/* height: 543px !important; *//*支持FF 高度*/
+/* height:550px \9; *//*支持IE 高度*/
+/* position: absolute; 
 } 
-}
+} */
 #portal-content{
 padding:0px;
 margin:0px 0px;
 overflow-x: auto;
 overflow-y: auto;
-/*height:600px;*/
-height: 566px;
-height:550px \9;/*支持IE 高度*/
+height:100%;
+/* height: 566px; */
+/* height:550px \9; *//*支持IE 高度*/
 position: absolute;
 }
 #page-table{
