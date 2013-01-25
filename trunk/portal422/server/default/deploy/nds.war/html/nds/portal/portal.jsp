@@ -139,6 +139,7 @@ jQuery(document).ready(function(){
   jQuery('#roll_top').click(function(){jQuery("#portal-content").animate({scrollTop: '0px'}, 500);});
   jQuery('#roll_bottom').click(function(){jQuery("#portal-content").animate({scrollTop:jQuery('#list-legend').offset().top}, 500);});
   //jQuery('#flyout-ribbon').FlyoutRibbon();
+  pc.resize();
 });
 
 jQuery(function(){
@@ -229,7 +230,7 @@ jQuery("#jpId").jPlayer( {
 				</div></td>
 			</tr></table></td>
 		<td style="vertical-align:top;width:100%;align:left;">
-	<div id="portal-content" style="width:100%"></div>	
+	<div id="portal-content" style=""></div>	
 	</td></tr>
 	</table>
 </div>
