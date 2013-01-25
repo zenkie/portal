@@ -245,9 +245,9 @@ if(allowMultipleSelection){
 <%}%>
 <input type='hidden' name='queryindex_<%=queryindex%>' id='queryindex_<%=queryindex%>' value="<%=queryindex%>" />
 <script>
-	jQuery('#query-search-tab_<%=queryindex%> ul').tabs();
-	jQuery('#query-search-tab_<%=queryindex%> ul').attr('class','ui-tabs-nav');
-	jQuery('#query-search-tab_<%=queryindex%> li').attr('class','ui-tabs-selected');
+	jQuery('#query-search-tab_<%=queryindex%>').tabs({cache:false,collapsible:true});
+	//jQuery('#query-search-tab_<%=queryindex%> ul').attr('class','ui-tabs-nav');
+	//jQuery('#query-search-tab_<%=queryindex%> li').attr('class','ui-tabs-selected');
 	oq.setQueryObject(<%=queryObj.toString()%>, "<%=singleObjectPageURL%>", "<%=returnType%>");
 	<%
 		if(allowMultipleSelection){
