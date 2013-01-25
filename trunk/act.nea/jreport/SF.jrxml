@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SF"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="612"
+		 pageHeight="399"
+		 columnWidth="612"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="name"
+		isDefault="false"
+		fontName="宋体"
+		fontSize="9"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+	>
+	</style>
+
+	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid]]></parameterDescription>
+	</parameter>
+	<queryString><![CDATA[select a.docno,a.consignee,a.phone1,a.phone2,a.address,nvl(a.order_amount,0) order_amount,aa.name district,b.name city,c.name region,d.name country,u.truename username
+from e_retail a,c_district aa,c_city b,c_province c,c_country d,users u
+where a.c_district_id=aa.id(+) and aa.c_city_id=b.id(+) and b.c_province_id=c.id(+) and c.c_country_id=d.id(+)
+      and a.ownerid=u.id(+) and 
+      a.id=$P{objectid}
+]]></queryString>
+
+	<field name="DOCNO" class="java.lang.String"/>
+	<field name="CONSIGNEE" class="java.lang.String"/>
+	<field name="PHONE1" class="java.lang.String"/>
+	<field name="PHONE2" class="java.lang.String"/>
+	<field name="ADDRESS" class="java.lang.String"/>
+	<field name="ORDER_AMOUNT" class="java.math.BigDecimal"/>
+	<field name="DISTRICT" class="java.lang.String"/>
+	<field name="CITY" class="java.lang.String"/>
+	<field name="REGION" class="java.lang.String"/>
+	<field name="COUNTRY" class="java.lang.String"/>
+	<field name="USERNAME" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="396"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						style="name"
+						x="94"
+						y="116"
+						width="78"
+						height="17"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[优秀时尚购物网]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="71"
+						y="139"
+						width="100"
+						height="15"
+						key="staticText-11"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[上海邮政信箱63-007]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="128"
+						y="177"
+						width="86"
+						height="17"
+						key="staticText-12"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[4006-700-8888]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="456"
+						y="351"
+						width="83"
+						height="37"
+						key="staticText-20"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[请先付款再开箱
+如有问题直接联系
+4006-700-888]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="84"
+						y="249"
+						width="112"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ADDRESS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="143"
+						y="289"
+						width="59"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PHONE1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="142"
+						y="299"
+						width="59"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PHONE2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="112"
+						y="336"
+						width="66"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCNO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="84"
+						y="236"
+						width="36"
+						height="12"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{COUNTRY}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="107"
+						y="236"
+						width="36"
+						height="12"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{REGION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="132"
+						y="236"
+						width="44"
+						height="12"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CITY}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="94"
+						y="92"
+						width="56"
+						height="13"
+						key="staticText-21"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[0213289292]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="230"
+						y="116"
+						width="41"
+						height="12"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{USERNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="230"
+						y="204"
+						width="47"
+						height="15"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CONSIGNEE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="324"
+						y="142"
+						width="60"
+						height="15"
+						key="staticText-22"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[0213289292]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="364"
+						y="164"
+						width="54"
+						height="14"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ORDER_AMOUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="434"
+						y="120"
+						width="105"
+						height="16"
+						key="staticText-23"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[0 2 1 3 2 8 9 2 9 2]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="434"
+						y="34"
+						width="40"
+						height="16"
+						key="staticText-24"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[021PA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="428"
+						y="196"
+						width="45"
+						height="18"
+						key="staticText-25"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[045584]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="510"
+						y="236"
+						width="41"
+						height="22"
+						key="staticText-26"/>
+					<box></box>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+				<text><![CDATA[朱]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="yyyy   MM  dd" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="457"
+						y="333"
+						width="87"
+						height="15"
+						key="textField-8"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="172"
+						y="236"
+						width="58"
+						height="13"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DISTRICT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

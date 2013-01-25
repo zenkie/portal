@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="contract_item"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="830"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<subDataset name="SubDataset1" >
+
+
+	</subDataset>
+
+	<parameter name="objectid1" isForPrompting="false" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid1]]></parameterDescription>
+	</parameter>
+	<queryString><![CDATA[select rownum,n.productname,n.productvalue,n.value1,n.qty,n.fabelement,n.priceactual,n.tot_qty,n.DOCUMENTNOTE,n.predatein,n.TOT_AMT_ACTUAL,n.TOT_AMT_ACTUAL1,
+(select GET_MONEY_RMB (n.TOT_AMT_ACTUAL) from dual) as ab,n.ATTRIBNAME
+from
+ (select distinct c.name as productname,max(c.value) as productvalue,d.value1,sum(b.QTY) as qty,max(c.FABELEMENT) as FABELEMENT,
+max(to_char(b.PRICEACTUAL,'999999.99') ) as PRICEACTUAL ,max(e.tot_qty)  as tot_qty , max(i.ATTRIBNAME) as ATTRIBNAME,
+max(c.DOCUMENTNOTE) as DOCUMENTNOTE,max(b.PREDATEIN) as PREDATEIN,max(e.TOT_AMT_ACTUAL) as TOT_AMT_ACTUAL,sum(b.TOT_AMT_ACTUAL) as TOT_AMT_ACTUAL1
+from B_POitem b,m_product c,m_attributesetinstance d,M_ATTRIBUTEVALUE x,B_PO e,M_DIM i
+where
+b.b_po_id=e.id
+and b.m_product_id=c.id(+)
+and b.m_attributesetinstance_id=d.id(+) 
+and c.m_dim9_id=i.id(+)
+and x.id=d.value2_id 
+and b.B_PO_id=$P{objectid1}
+group by c.name,d.value1
+order by productname
+) n
+order by productname]]></queryString>
+
+	<field name="ROWNUM" class="java.math.BigDecimal"/>
+	<field name="PRODUCTNAME" class="java.lang.String"/>
+	<field name="PRODUCTVALUE" class="java.lang.String"/>
+	<field name="VALUE1" class="java.lang.String"/>
+	<field name="QTY" class="java.math.BigDecimal"/>
+	<field name="FABELEMENT" class="java.lang.String"/>
+	<field name="PRICEACTUAL" class="java.lang.String"/>
+	<field name="TOT_QTY" class="java.math.BigDecimal"/>
+	<field name="DOCUMENTNOTE" class="java.lang.String"/>
+	<field name="PREDATEIN" class="java.math.BigDecimal"/>
+	<field name="TOT_AMT_ACTUAL" class="java.math.BigDecimal"/>
+	<field name="TOT_AMT_ACTUAL1" class="java.math.BigDecimal"/>
+	<field name="AB" class="java.lang.String"/>
+	<field name="ATTRIBNAME" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="25"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="4"
+						width="575"
+						height="0"
+						key="line-42"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="0"
+						y="4"
+						width="20"
+						height="20"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[序号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="20"
+						y="4"
+						width="70"
+						height="20"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[产品货号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="90"
+						y="4"
+						width="70"
+						height="20"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[品名]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="160"
+						y="4"
+						width="84"
+						height="20"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[面、里料成份]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="244"
+						y="4"
+						width="40"
+						height="20"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[单位]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="284"
+						y="4"
+						width="40"
+						height="20"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[颜色]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="324"
+						y="4"
+						width="36"
+						height="20"
+						key="staticText-7"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[数量]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="360"
+						y="4"
+						width="46"
+						height="20"
+						key="staticText-8"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[含税单价]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="406"
+						y="4"
+						width="54"
+						height="20"
+						key="staticText-9"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[含税总价]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="461"
+						y="4"
+						width="59"
+						height="20"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[下单日期]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="520"
+						y="4"
+						width="56"
+						height="20"
+						key="staticText-11"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[大货交期]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="90"
+						y="5"
+						width="0"
+						height="20"
+						key="line-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="20"
+						y="5"
+						width="0"
+						height="20"
+						key="line-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="4"
+						width="0"
+						height="20"
+						key="line-9"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="160"
+						y="5"
+						width="0"
+						height="20"
+						key="line-11"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="244"
+						y="4"
+						width="0"
+						height="21"
+						key="line-13"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="284"
+						y="5"
+						width="0"
+						height="20"
+						key="line-15"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="324"
+						y="5"
+						width="0"
+						height="20"
+						key="line-17"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="360"
+						y="5"
+						width="0"
+						height="20"
+						key="line-19"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="405"
+						y="5"
+						width="0"
+						height="20"
+						key="line-21"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="460"
+						y="5"
+						width="0"
+						height="20"
+						key="line-23"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="519"
+						y="5"
+						width="0"
+						height="20"
+						key="line-25"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="575"
+						y="4"
+						width="0"
+						height="21"
+						key="line-27"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="24"
+						width="575"
+						height="0"
+						key="line-41"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="23"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="20"
+						height="21"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ROWNUM}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="0"
+						width="70"
+						height="22"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PRODUCTNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="90"
+						y="0"
+						width="70"
+						height="21"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PRODUCTVALUE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="284"
+						y="0"
+						width="40"
+						height="21"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{VALUE1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="244"
+						y="0"
+						width="40"
+						height="21"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ATTRIBNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="160"
+						y="0"
+						width="84"
+						height="21"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FABELEMENT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="324"
+						y="0"
+						width="36"
+						height="21"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{QTY}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="461"
+						y="0"
+						width="59"
+						height="21"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCUMENTNOTE}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="90"
+						y="-2"
+						width="0"
+						height="24"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="20"
+						y="-2"
+						width="0"
+						height="24"
+						key="line-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="-2"
+						width="0"
+						height="24"
+						key="line-10"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="160"
+						y="-2"
+						width="0"
+						height="24"
+						key="line-12"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="244"
+						y="-2"
+						width="0"
+						height="24"
+						key="line-14"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="284"
+						y="-2"
+						width="0"
+						height="24"
+						key="line-16"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="324"
+						y="-2"
+						width="0"
+						height="24"
+						key="line-18"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="360"
+						y="-2"
+						width="0"
+						height="24"
+						key="line-20"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="405"
+						y="-2"
+						width="0"
+						height="24"
+						key="line-22"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="460"
+						y="-2"
+						width="0"
+						height="24"
+						key="line-24"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="519"
+						y="-2"
+						width="0"
+						height="24"
+						key="line-26"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="575"
+						y="-3"
+						width="0"
+						height="25"
+						key="line-28"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="22"
+						width="575"
+						height="0"
+						key="line-40"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="520"
+						y="0"
+						width="54"
+						height="21"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{PREDATEIN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="406"
+						y="0"
+						width="54"
+						height="21"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_AMT_ACTUAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="360"
+						y="-1"
+						width="46"
+						height="22"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PRICEACTUAL}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="44"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="1"
+						width="160"
+						height="20"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[合同总数：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="170"
+						y="1"
+						width="114"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_QTY}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="284"
+						y="1"
+						width="120"
+						height="20"
+						key="staticText-13"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[合计人民币金额：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="410"
+						y="1"
+						width="158"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_AMT_ACTUAL}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="160"
+						y="-1"
+						width="0"
+						height="23"
+						key="line-29"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="575"
+						y="-1"
+						width="0"
+						height="22"
+						key="line-31"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="405"
+						y="-1"
+						width="0"
+						height="23"
+						key="line-32"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="284"
+						y="-1"
+						width="0"
+						height="23"
+						key="line-33"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="-1"
+						width="0"
+						height="23"
+						key="line-34"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="0"
+						y="22"
+						width="160"
+						height="20"
+						key="staticText-14"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[合计人民币金额(大写):]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="42"
+						width="575"
+						height="0"
+						key="line-35"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="21"
+						width="0"
+						height="21"
+						key="line-36"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="160"
+						y="21"
+						width="0"
+						height="21"
+						key="line-37"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="575"
+						y="21"
+						width="0"
+						height="22"
+						key="line-38"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="21"
+						width="575"
+						height="0"
+						key="line-39"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="160"
+						y="21"
+						width="334"
+						height="21"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{AB}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

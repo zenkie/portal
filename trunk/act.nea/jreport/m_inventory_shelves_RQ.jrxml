@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="m_inventory_shelves_RQ"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="565"
+		 columnSpacing="0"
+		 leftMargin="15"
+		 rightMargin="15"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+	<reportFont name="song10" isDefault="false" fontName="宋体" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+
+	<style 
+		name="name"
+		isDefault="false"
+		hAlign="Right"
+		vAlign="Middle"
+		fontName="宋体"
+		fontSize="9"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+	>
+	</style>
+
+	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid]]></parameterDescription>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["file:///e:/act.nea/jreport/"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select max(b.name) name1,max(a.DOCNO) docno,max(a.billdate) billdate,max(a.description) description,
+max(c.SHELFNO) shelfno,sum(c.qty) sumqty,
+decode (max(
+       doctype),
+       'INF','全盘',
+       'INR','随机盘点',
+       'INH','历史盘点'      
+) as doctype 
+ from
+ M_INVENTORY a,C_STORE b,M_INVENTORY_SHELFITEM c
+ where 
+ c.m_inventory_id=a.id
+ and a.id =$P{objectid}
+ and a.C_STORE_ID = b.id
+ group by c.shelfno
+ order by c.shelfno]]></queryString>
+
+	<field name="NAME1" class="java.lang.String"/>
+	<field name="DOCNO" class="java.lang.String"/>
+	<field name="BILLDATE" class="java.math.BigDecimal"/>
+	<field name="DESCRIPTION" class="java.lang.String"/>
+	<field name="SHELFNO" class="java.lang.String"/>
+	<field name="SUMQTY" class="java.math.BigDecimal"/>
+	<field name="DOCTYPE" class="java.lang.String"/>
+
+	<variable name="sumqty" class="java.math.BigDecimal" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUMQTY}]]></variableExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="114"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="10"
+						width="565"
+						height="24"
+						key="staticText-29"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song10" size="12"/>
+					</textElement>
+				<text><![CDATA[盘点货架明细]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="33"
+						y="37"
+						width="64"
+						height="19"
+						key="staticText-30"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[店仓名称：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="33"
+						y="57"
+						width="64"
+						height="19"
+						key="staticText-31"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[单据编号：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="373"
+						y="37"
+						width="64"
+						height="19"
+						key="staticText-32"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[单据日期：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="373"
+						y="57"
+						width="64"
+						height="19"
+						key="staticText-33"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[单据类型：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="33"
+						y="77"
+						width="64"
+						height="19"
+						key="staticText-34"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[备   注：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="97"
+						y="37"
+						width="156"
+						height="19"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="97"
+						y="57"
+						width="156"
+						height="19"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCNO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="37"
+						width="113"
+						height="19"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{BILLDATE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="57"
+						width="113"
+						height="19"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCTYPE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="97"
+						y="77"
+						width="468"
+						height="19"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRIPTION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="461"
+						y="96"
+						width="104"
+						height="16"
+						key="textField-7"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["共"+$V{PAGE_NUMBER}+"页"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="398"
+						y="96"
+						width="63"
+						height="16"
+						key="textField-8"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["第" + $V{PAGE_NUMBER} + "页/"]]></textFieldExpression>
+				</textField>
+				<break>
+					<reportElement
+						x="5"
+						y="2"
+						width="565"
+						height="0"
+						key="element-1"/>
+				</break>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="48"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="65"
+						y="22"
+						width="500"
+						height="26"
+						key="subreport-1"/>
+					<subreportParameter  name="objectid1">
+						<subreportParameterExpression><![CDATA[$P{objectid}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="shelfno">
+						<subreportParameterExpression><![CDATA[$F{SHELFNO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "m_inventory_shelvesitem_RQ_subreport0.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="5"
+						y="3"
+						width="567"
+						height="0"
+						key="element-2"/>
+				</break>
+				<staticText>
+					<reportElement
+						x="0"
+						y="5"
+						width="64"
+						height="17"
+						key="staticText-35"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[货架号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="80"
+						y="5"
+						width="104"
+						height="17"
+						key="staticText-36"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[商品]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="184"
+						y="4"
+						width="115"
+						height="17"
+						key="staticText-37"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[条码]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="299"
+						y="4"
+						width="76"
+						height="17"
+						key="staticText-38"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[颜色]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="375"
+						y="4"
+						width="75"
+						height="17"
+						key="staticText-39"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[尺寸]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="450"
+						y="4"
+						width="100"
+						height="17"
+						key="staticText-40"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[扫描数量]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="4"
+						y="21"
+						width="555"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="22"
+						width="64"
+						height="26"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{SHELFNO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="26"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="373"
+						y="4"
+						width="60"
+						height="20"
+						forecolor="#FF0000"
+						key="staticText-43"/>
+					<box>					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font reportFont="song10" size="14"/>
+					</textElement>
+				<text><![CDATA[总合计:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="433"
+						y="4"
+						width="132"
+						height="20"
+						forecolor="#FF0000"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song10" size="14"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{sumqty}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="80"
+						y="2"
+						width="470"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</summary>
+</jasperReport>

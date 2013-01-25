@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="y_material3__subreport0"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="535"
+		 pageHeight="802"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="song"
+		isDefault="true"
+		fontName="宋体"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+	>
+	</style>
+
+	<parameter name="objectid1" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid1]]></parameterDescription>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["file:///e:/portal/act.nea/jreport/"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select pid,pro,name,pdt_id,code,key_word,name10
+from (
+select pid,rownum rn,pro,name,pdt_id,code,key_word,name10
+from (
+select a.id as pid,
+       rownum,
+       (case a.provider
+       when '1' then '公司'
+       when '2' then '生产商'
+       end) as pro, b.name,b.key_word,b.id as pdt_id,b.code,
+       (case b.material_type 
+        when 'ACC' then        
+          case a.is_size
+            when 'Y' then 
+                  (select name from y_spec where id=b.y_spec_id)
+            when 'N' then 
+                  (select name from y_spec where id=a.y_spec_id)
+          end          
+        when 'FAB' then  to_char(a.fabric_width)
+      end) as name10 
+from   y_product_bom_prepare a, y_material b , m_product c
+where  a.STYLE_ID = c.id 
+and    a.material_id=b.id
+and a.isprint='Y'
+and    c.id = $P{objectid1}
+group by  (case a.provider when '1' then '公司' when '2' then '生产商' end),a.id,rownum,b.material_type,a.is_size,b.y_spec_id,a.y_spec_id,a.fabric_width, b.name,b.key_word,c.id,b.id,b.code,a.provider
+order by pro,b.code,pdt_id,name
+))
+group by pid,pro,name,pdt_id,code,key_word,name10
+order by pro,code]]></queryString>
+
+	<field name="PID" class="java.lang.Integer"/>
+	<field name="PRO" class="java.lang.String"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="PDT_ID" class="java.math.BigDecimal"/>
+	<field name="CODE" class="java.lang.String"/>
+	<field name="KEY_WORD" class="java.lang.String"/>
+	<field name="NAME10" class="java.lang.String"/>
+
+
+		<group  name="material" >
+			<groupExpression><![CDATA[$F{PDT_ID}]]></groupExpression>
+			<groupHeader>
+			<band height="45"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						style="song"
+						x="0"
+						y="18"
+						width="419"
+						height="25"
+						key="subreport-1"
+						stretchType="RelativeToBandHeight"/>
+					<subreportParameter  name="objectid2">
+						<subreportParameterExpression><![CDATA[$P{objectid1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="pdtid">
+						<subreportParameterExpression><![CDATA[$F{PDT_ID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="pid">
+						<subreportParameterExpression><![CDATA[$F{PID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"y_material3_subreport0_subreport0.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="song"
+						x="172"
+						y="0"
+						width="36"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="宋体" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PRO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="142"
+						y="0"
+						width="30"
+						height="18"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[供方：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="song"
+						x="1"
+						y="0"
+						width="78"
+						height="18"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="宋体"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="79"
+						y="0"
+						width="63"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{KEY_WORD}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

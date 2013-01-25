@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="m_retail_item_posprint_ak"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="609"
+		 pageHeight="395"
+		 columnWidth="609"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+	<reportFont name="new" isDefault="false" fontName="宋体" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
+
+	<parameter name="objectid1" isForPrompting="false" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid2]]></parameterDescription>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[$P{SUBREPORT_DIR}]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select c.no,b.qty, b.pricelist, b.discount, b.TOT_AMT_ACTUAL  as amt_list, a.tot_qty,
+           a.TOT_AMT_ACTUAL ,(select d.CARDNO from c_vip d where d.id=a.c_vip_id) as CARDNO
+         from m_retail a, m_retailitem b, M_PRODUCT_ALIAS c
+         where a.id = $P{objectid1} and a.id = b.m_retail_id and
+               b.m_product_id = c.m_product_id and
+               b.m_attributesetinstance_id = c.m_attributesetinstance_id]]></queryString>
+
+	<field name="NO" class="java.lang.String"/>
+	<field name="QTY" class="java.math.BigDecimal"/>
+	<field name="PRICELIST" class="java.math.BigDecimal"/>
+	<field name="DISCOUNT" class="java.math.BigDecimal"/>
+	<field name="AMT_LIST" class="java.math.BigDecimal"/>
+	<field name="TOT_QTY" class="java.math.BigDecimal"/>
+	<field name="TOT_AMT_ACTUAL" class="java.math.BigDecimal"/>
+	<field name="CARDNO" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="17"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="4"
+						y="2"
+						width="27"
+						height="15"
+						key="staticText-11"/>
+					<box></box>
+					<textElement>
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[条码]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="113"
+						y="2"
+						width="40"
+						height="15"
+						key="staticText-14"/>
+					<box></box>
+					<textElement>
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[原价]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="153"
+						y="2"
+						width="41"
+						height="15"
+						key="staticText-15"/>
+					<box></box>
+					<textElement>
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[折扣]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="82"
+						y="2"
+						width="27"
+						height="15"
+						key="staticText-16"/>
+					<box></box>
+					<textElement>
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[数量]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="198"
+						y="2"
+						width="27"
+						height="15"
+						key="staticText-17"/>
+					<box></box>
+					<textElement>
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[金额]]></text>
+				</staticText>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="21"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="153"
+						y="2"
+						width="45"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{DISCOUNT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="4"
+						y="2"
+						width="78"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="113"
+						y="2"
+						width="32"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{PRICELIST}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="82"
+						y="2"
+						width="31"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{QTY}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="198"
+						y="2"
+						width="51"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{AMT_LIST}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="4"
+						y="2"
+						width="245"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="82"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="113"
+						y="6"
+						width="65"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
+					</textElement>
+				<text><![CDATA[总金额：￥]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="2"
+						y="37"
+						width="403"
+						height="32"
+						key="subreport-1"/>
+					<subreportParameter  name="objectid2">
+						<subreportParameterExpression><![CDATA[$P{objectid1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"m_retail_payway_posprint_ak.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="178"
+						y="6"
+						width="65"
+						height="15"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_AMT_ACTUAL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="2"
+						y="6"
+						width="65"
+						height="15"
+						key="staticText-18"/>
+					<box></box>
+					<textElement>
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[总数量：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="43"
+						y="6"
+						width="65"
+						height="15"
+						key="textField-10"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_QTY}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="2"
+						y="22"
+						width="40"
+						height="15"
+						key="staticText-19"/>
+					<box></box>
+					<textElement>
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[VIP：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="42"
+						y="22"
+						width="62"
+						height="16"
+						key="textField-11"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CARDNO}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="2"
+						y="5"
+						width="245"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="454"
+						y="23"
+						width="46"
+						height="20"
+						key="staticText-20"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Static Text]]></text>
+				</staticText>
+			</band>
+		</summary>
+</jasperReport>

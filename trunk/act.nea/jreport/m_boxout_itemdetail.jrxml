@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="m_boxout_itemdetail"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="648"
+		 pageHeight="802"
+		 columnWidth="648"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="header"
+		isDefault="false"
+		hAlign="Center"
+		vAlign="Middle"
+		lineSpacing="Single"
+		fontName="宋体"
+		isBold="false"
+		isUnderline="false"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+		isBlankWhenNull="true"
+	>
+	</style>
+
+	<parameter name="where1" isForPrompting="true" class="java.lang.String">
+		<parameterDescription><![CDATA[objectid1]]></parameterDescription>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["file:///e:/act.nea/jreport/"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select   c.name,b.value1,c.addsdesc,b.value2,a.qty as qty1,e.qty as qty2,f.attribname,a.m_product_id as pdtid,to_char(g.martixcol,'000') as martixcol
+from     m_outitem a,m_attributesetinstance b, m_product c,m_out d,V_FA_STORAGE e,m_dim f,M_ATTRIBUTEVALUE g
+where    a.m_attributesetinstance_id = b.id
+and      a.m_product_id = c.id
+and      a.m_out_id = d.id
+and      e.m_product_id = a.m_product_id
+and      e.m_attributesetinstance_id = a.m_attributesetinstance_id
+and      f.id = c.m_dim5_id
+and      d.c_orig_id = e.c_store_id
+and      b.value2_id = g.id
+and      d.id in ($P!{where1})
+group by c.name,b.value1,c.addsdesc,b.value2,a.qty,e.qty,f.attribname,a.m_product_id,g.martixcol
+order by to_char(g.martixcol,'000')]]></queryString>
+
+	<field name="NAME" class="java.lang.String"/>
+	<field name="VALUE1" class="java.lang.String"/>
+	<field name="ADDSDESC" class="java.lang.String"/>
+	<field name="VALUE2" class="java.lang.String"/>
+	<field name="QTY1" class="java.math.BigDecimal"/>
+	<field name="QTY2" class="java.math.BigDecimal"/>
+	<field name="ATTRIBNAME" class="java.lang.String"/>
+	<field name="PDTID" class="java.lang.Integer"/>
+	<field name="MARTIXCOL" class="java.lang.String"/>
+
+	<variable name="sum1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{QTY1}]]></variableExpression>
+	</variable>
+	<variable name="sum2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{QTY2}]]></variableExpression>
+	</variable>
+	<variable name="tot_sum" class="java.math.BigDecimal" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$V{sum1}]]></variableExpression>
+	</variable>
+
+		<group  name="style" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="15"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						style="header"
+						x="1"
+						y="0"
+						width="69"
+						height="15"
+						key="staticText-3"/>
+					<box>					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[款号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="header"
+						x="305"
+						y="0"
+						width="28"
+						height="15"
+						key="staticText-5"/>
+					<box>					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[小计]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="header"
+						x="333"
+						y="0"
+						width="25"
+						height="15"
+						key="staticText-6"/>
+					<box>					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[库位]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="header"
+						x="457"
+						y="0"
+						width="66"
+						height="15"
+						key="staticText-7"/>
+					<box>					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="header"
+						x="70"
+						y="0"
+						width="30"
+						height="15"
+						key="staticText-8"/>
+					<box>					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[颜色]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="header"
+						x="100"
+						y="0"
+						width="45"
+						height="15"
+						key="staticText-9"/>
+					<box>					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[配饰信息]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="358"
+						y="0"
+						width="99"
+						height="15"
+						key="staticText-10"/>
+					<box>					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[库存量]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="145"
+						y="0"
+						width="160"
+						height="15"
+						key="staticText-11"/>
+					<box>					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[数量]]></text>
+				</staticText>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="206"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						style="header"
+						x="1"
+						y="0"
+						width="590"
+						height="144"
+						key="subreport-1"/>
+					<subreportParameter  name="where2">
+						<subreportParameterExpression><![CDATA[$P{where1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="pdtid">
+						<subreportParameterExpression><![CDATA[$F{PDTID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR1">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:///e:/act.nea/jreport/m_boxout_itemdetail2.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</summary>
+</jasperReport>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="EB_ORDERSO_print(sf)"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="609"
+		 pageHeight="394"
+		 columnWidth="609"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid]]></parameterDescription>
+	</parameter>
+	<queryString><![CDATA[SELECT T.RECEIVER_NAME,
+       T.RECEIVER_STATE || T.RECEIVER_CITY || T.RECEIVER_DISTRICT ||
+       T.RECEIVER_ADDRESS AS ADDRESS,
+       CASE WHEN T.RECEIVER_PHONE IS NULL THEN T.RECEIVER_MOBILE ELSE T.RECEIVER_PHONE END tel,
+       CASE
+         WHEN T.CTYPE = 4 THEN
+          '√'
+         ELSE
+          ''
+       END AS CTYPE1,
+       CASE
+         WHEN T.CTYPE <> 4 THEN
+          '√'
+         ELSE
+          ''
+       END AS CTYPE2,
+       CASE
+         WHEN T.CTYPE = 4 THEN
+          T.SUBS_FEE
+       END AS PAYMENT
+  FROM EB_ORDERSO T
+where t.id=$P{objectid}]]></queryString>
+
+	<field name="RECEIVER_NAME" class="java.lang.String"/>
+	<field name="ADDRESS" class="java.lang.String"/>
+	<field name="TEL" class="java.lang.String"/>
+	<field name="CTYPE1" class="java.lang.String"/>
+	<field name="CTYPE2" class="java.lang.String"/>
+	<field name="PAYMENT" class="java.math.BigDecimal"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="269"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="216"
+						y="178"
+						width="67"
+						height="18"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{RECEIVER_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="70"
+						y="203"
+						width="218"
+						height="36"
+						key="textField-2"
+						isPrintWhenDetailOverflows="true"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ADDRESS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="133"
+						y="239"
+						width="138"
+						height="27"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{TEL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="487"
+						y="38"
+						width="21"
+						height="17"
+						key="textField-4"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CTYPE1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="442"
+						y="38"
+						width="18"
+						height="18"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CTYPE2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="368"
+						y="109"
+						width="85"
+						height="14"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{PAYMENT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

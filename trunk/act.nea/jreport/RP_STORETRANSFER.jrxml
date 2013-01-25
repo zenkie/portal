@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="RP_STORETRANSFER"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+	<reportFont name="tital" isDefault="false" fontName="宋体" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+	<reportFont name="son" isDefault="false" fontName="宋体" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+
+	<parameter name="where" isForPrompting="true" class="java.lang.String">
+		<parameterDescription><![CDATA[where]]></parameterDescription>
+	</parameter>
+	<queryString><![CDATA[select rp_purchase004.C_STORE_ID, e.name, b.no,
+      nvl( sum(rp_purchase004.QTYPUR) ,0)qty_purchase,  nvl( c.QTY_transfer,0)  QTY_transfer ,
+       NVL( t.qty_storage,0)  qty_storage
+from rp_purchase004 , M_PRODUCT_ALIAS b, c_store e,
+     (select C_STORE_ID, BILLDATE, m_product_id, m_attributesetinstance_id,
+              sum(QTY_transfer) QTY_transfer
+       from (select a.C_ORIG_ID as C_STORE_ID, a.DATEOUT BILLDATE, b.m_product_id,
+                     b.m_attributesetinstance_id, - (b.QTYOUT) QTY_transfer
+              from M_TRANSFER a, M_TRANSFERINITEM b, rp_purchase004 d
+              where a.id = b.M_TRANSFER_id(+) and a.STATUS = 2 and a.OUT_STATUS = 2 and
+                    d.C_STORE_ID = a.C_ORIG_ID(+)
+              GROUP BY a.C_ORIG_ID, a.DATEOUT, b.m_product_id,
+                       b.m_attributesetinstance_id, b.QTYOUT
+              union
+              select a.C_DEST_ID as C_STORE_ID, a.DATEIN BILLDATE, b.m_product_id,
+                     b.m_attributesetinstance_id,  (b.QTYIN) QTY_transfer
+              from M_TRANSFER a, M_TRANSFERINITEM b, rp_purchase004 d
+              where a.id = b.M_TRANSFER_id(+) and a.STATUS = 2 and a.IN_STATUS = 2 and
+                    d.C_STORE_ID = a.C_DEST_ID(+)
+              GROUP BY a.C_DEST_ID, a.DATEIN, b.m_product_id,
+                       b.m_attributesetinstance_id,b.QTYIN) rp_purchase004
+      where  $P!{where}
+       group by C_STORE_ID, BILLDATE, m_product_id, m_attributesetinstance_id) c,
+     (select a.c_store_id, a.m_product_id, m_attributesetinstance_id,
+              sum(qty) qty_storage
+       from FA_STORAGE a
+       group by a.c_store_id, a.m_product_id, a.m_attributesetinstance_id) t
+where rp_purchase004.m_product_id = b.m_product_id and
+      rp_purchase004.m_attributesetinstance_id = b.m_attributesetinstance_id and
+      rp_purchase004.m_product_id = c.m_product_id(+) and
+      rp_purchase004.m_attributesetinstance_id = c.m_attributesetinstance_id(+) and
+      rp_purchase004.c_store_id = c.c_store_id(+) and
+      rp_purchase004.C_STORE_ID = e.id(+) and
+      rp_purchase004.C_STORE_ID = t.c_store_id(+) and
+      rp_purchase004.M_PRODUCT_ID = t.m_product_id(+) and
+      rp_purchase004.m_attributesetinstance_id = t.m_attributesetinstance_id(+)  and  $P!{where}
+group by  rp_purchase004.C_STORE_ID,e.name, b.no, t.qty_storage, c.QTY_transfer
+ORDER BY  rp_purchase004.C_STORE_ID,e.name, b.no, t.qty_storage, c.QTY_transfer]]></queryString>
+
+	<field name="C_STORE_ID" class="java.math.BigDecimal"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="NO" class="java.lang.String"/>
+	<field name="QTY_PURCHASE" class="java.math.BigDecimal"/>
+	<field name="QTY_TRANSFER" class="java.math.BigDecimal"/>
+	<field name="QTY_STORAGE" class="java.math.BigDecimal"/>
+
+	<variable name="SUM_QTY_PURCHASE_1" class="java.math.BigDecimal" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{QTY_PURCHASE}]]></variableExpression>
+	</variable>
+	<variable name="SUM_QTY_STORAGE_1" class="java.math.BigDecimal" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{QTY_STORAGE}]]></variableExpression>
+	</variable>
+	<variable name="SUM_QTY_TRANSFER_1" class="java.math.BigDecimal" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{QTY_TRANSFER}]]></variableExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="2"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="25"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="185"
+						y="0"
+						width="164"
+						height="23"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="tital"/>
+					</textElement>
+				<text><![CDATA[仓库移仓单查询]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="26"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="16"
+						y="8"
+						width="144"
+						height="16"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<text><![CDATA[店仓]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="160"
+						y="8"
+						width="129"
+						height="16"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<text><![CDATA[条码]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="289"
+						y="8"
+						width="68"
+						height="16"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<text><![CDATA[采购入库量]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="357"
+						y="8"
+						width="68"
+						height="16"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<text><![CDATA[移仓数量]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="425"
+						y="8"
+						width="68"
+						height="16"
+						key="staticText-7"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<text><![CDATA[当前库存]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="35"
+						y="24"
+						width="443"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="21"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="16"
+						y="1"
+						width="144"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="160"
+						y="1"
+						width="129"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="289"
+						y="0"
+						width="68"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{QTY_PURCHASE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="357"
+						y="0"
+						width="68"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{QTY_TRANSFER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="425"
+						y="0"
+						width="68"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{QTY_STORAGE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="23"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="162"
+						y="3"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="262"
+						y="3"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="38"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="201"
+						y="2"
+						width="53"
+						height="16"
+						forecolor="#CC0000"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[合计：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="291"
+						y="0"
+						width="68"
+						height="18"
+						forecolor="#CC0000"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SUM_QTY_PURCHASE_1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="427"
+						y="0"
+						width="68"
+						height="18"
+						forecolor="#CC0000"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SUM_QTY_STORAGE_1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="359"
+						y="0"
+						width="68"
+						height="18"
+						forecolor="#CC0000"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="son"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SUM_QTY_TRANSFER_1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="162"
+						y="20"
+						width="100"
+						height="18"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="262"
+						y="20"
+						width="100"
+						height="18"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				</textField>
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="21"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

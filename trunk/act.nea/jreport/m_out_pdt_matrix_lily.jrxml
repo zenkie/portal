@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="m_out_pdt_matrix_lily"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="620"
+		 pageHeight="842"
+		 columnWidth="560"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="表头"
+		isDefault="false"
+		hAlign="Center"
+		vAlign="Middle"
+		lineSpacing="Single"
+		fontName="宋体"
+		fontSize="10"
+		isBold="false"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+		isBlankWhenNull="true"
+	>
+	</style>
+	<style 
+		name="name"
+		isDefault="false"
+		hAlign="Right"
+		vAlign="Middle"
+		fontName="宋体"
+		fontSize="9"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+	>
+	</style>
+	<style 
+		name="value"
+		isDefault="false"
+		hAlign="Left"
+		vAlign="Middle"
+		fontName="宋体"
+		fontSize="9"
+		isBold="false"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+		pattern="yyyy/MM/dd"
+		isBlankWhenNull="true"
+	>
+	</style>
+
+	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid]]></parameterDescription>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["file:///e:/act.nea/jreport/"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select case a.AU_STATE when 'A' then '已批准-' when 'R' then '驳回-' else '待批-' end || '出库单(编号:' || a.DOCNO ||')' as BILLNAME,
+a.DESCRIPTION,
+case a.BILLTYPE when 'M_SALEOUT' then '销售出库' when 'M_RET_SALEOUT' then '销售退货出库' when 'M_TRANSFEROUT' then '调拨出库' when 'M_RET_PUROUT' then '采购退货出库' else '经销商采购退货出库' end as BILLTYPE,
+case a.DOCTYPE when 'SUO' then '直接销售' when 'SOO' then '期货订单发货' else '现货订单发货' end as DOCTYPE,
+a.BILLDATE,
+case a.BOX_STATUS when 1 then '未装箱' when 2 then '正在装箱' else '已装箱' end as BOX_STATUS,
+b.name as STOROUT,
+a.DESTNAME as STORIN,
+a.DATEOUT,
+case a.status when 1 then '未提交' when 2 then '提交' else '待批' end as STATUS,
+u1.TRUENAME as CREATERNAME,
+a.CREATIONDATE,
+nvl(u2.TRUENAME,'未修改') as MODIFIERNAME,
+a.MODIFIEDDATE,
+nvl(u3.TRUENAME,'未出库') as OUTERNAME,
+a.OUTTIME,
+nvl(u4.TRUENAME,'未入库') as INERNAME,
+a.INTIME,
+a.TOT_QTY,
+a.TOT_QTYOUT,
+a.TOT_AMT_LIST,
+a.TOT_AMTOUT_LIST
+from m_out a,C_STORE b,USERS u1,USERS u2,USERS u3,USERS u4
+where a.C_ORIG_ID  =b.id
+and a.OWNERID =u1.id(+)
+and a.MODIFIERID =u2.id(+)
+and a.OUTERID =u3.id(+)
+and a.INERID =u4.id(+)
+and a.id=$P{objectid}]]></queryString>
+
+	<field name="BILLNAME" class="java.lang.String"/>
+	<field name="DESCRIPTION" class="java.lang.String"/>
+	<field name="BILLTYPE" class="java.lang.String"/>
+	<field name="DOCTYPE" class="java.lang.String"/>
+	<field name="BILLDATE" class="java.math.BigDecimal"/>
+	<field name="BOX_STATUS" class="java.lang.String"/>
+	<field name="STOROUT" class="java.lang.String"/>
+	<field name="STORIN" class="java.lang.String"/>
+	<field name="DATEOUT" class="java.math.BigDecimal"/>
+	<field name="STATUS" class="java.lang.String"/>
+	<field name="CREATERNAME" class="java.lang.String"/>
+	<field name="CREATIONDATE" class="java.sql.Timestamp"/>
+	<field name="MODIFIERNAME" class="java.lang.String"/>
+	<field name="MODIFIEDDATE" class="java.sql.Timestamp"/>
+	<field name="OUTERNAME" class="java.lang.String"/>
+	<field name="OUTTIME" class="java.sql.Timestamp"/>
+	<field name="INERNAME" class="java.lang.String"/>
+	<field name="INTIME" class="java.sql.Timestamp"/>
+	<field name="TOT_QTY" class="java.math.BigDecimal"/>
+	<field name="TOT_QTYOUT" class="java.math.BigDecimal"/>
+	<field name="TOT_AMT_LIST" class="java.math.BigDecimal"/>
+	<field name="TOT_AMTOUT_LIST" class="java.math.BigDecimal"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="110"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						style="name"
+						x="7"
+						y="30"
+						width="63"
+						height="16"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[单据类型：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="7"
+						y="93"
+						width="63"
+						height="16"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[出库状态：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="72"
+						y="30"
+						width="104"
+						height="16"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{BILLTYPE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="72"
+						y="93"
+						width="104"
+						height="16"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{STATUS}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="381"
+						y="62"
+						width="63"
+						height="16"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[单据日期：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="446"
+						y="62"
+						width="104"
+						height="16"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[new java.sql.Timestamp(Integer.parseInt($F{BILLDATE}.toString().substring(0,4))-1900,Integer.parseInt($F{BILLDATE}.toString().substring(4,6))-1,Integer.parseInt($F{BILLDATE}.toString().substring(6,8)),0,0,0,0)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="381"
+						y="78"
+						width="63"
+						height="16"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[打印日期：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="446"
+						y="78"
+						width="104"
+						height="16"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="表头"
+						x="0"
+						y="0"
+						width="560"
+						height="30"
+						key="textField-21"/>
+					<box></box>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{BILLNAME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="7"
+						y="77"
+						width="63"
+						height="16"
+						key="staticText-25"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[收 货 方：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="72"
+						y="77"
+						width="104"
+						height="16"
+						key="textField-29"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{STORIN}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="381"
+						y="30"
+						width="63"
+						height="16"
+						key="staticText-26"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[装箱状态：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="446"
+						y="30"
+						width="104"
+						height="16"
+						key="textField-30"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{BOX_STATUS}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="7"
+						y="46"
+						width="63"
+						height="16"
+						key="staticText-27"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[发货类型：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="72"
+						y="46"
+						width="104"
+						height="16"
+						key="textField-31"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCTYPE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="7"
+						y="61"
+						width="63"
+						height="16"
+						key="staticText-28"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[发 货 方：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="72"
+						y="61"
+						width="104"
+						height="16"
+						key="textField-32"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{STOROUT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="381"
+						y="46"
+						width="63"
+						height="16"
+						key="staticText-29"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[出库日期：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="446"
+						y="46"
+						width="104"
+						height="16"
+						key="textField-33"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[new java.sql.Timestamp(Integer.parseInt($F{DATEOUT}.toString().substring(0,4))-1900,Integer.parseInt($F{DATEOUT}.toString().substring(4,6))-1,Integer.parseInt($F{DATEOUT}.toString().substring(6,8)),0,0,0,0)]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="35"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="0"
+						width="560"
+						height="35"
+						key="subreport-1"/>
+					<subreportParameter  name="objectid1">
+						<subreportParameterExpression><![CDATA[$P{objectid}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "m_out_pdt_matrix_lily_subreport0.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="87"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="347"
+						y="66"
+						width="104"
+						height="16"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["共"+$V{PAGE_NUMBER}+"页"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="name"
+						x="282"
+						y="66"
+						width="63"
+						height="16"
+						key="textField-8"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["第" + $V{PAGE_NUMBER} + "页/"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="11"
+						y="7"
+						width="45"
+						height="16"
+						key="staticText-6"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[备注：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="11"
+						y="26"
+						width="61"
+						height="16"
+						key="staticText-7"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[制单人:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="11"
+						y="44"
+						width="61"
+						height="16"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[制单时间:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="55"
+						y="7"
+						width="495"
+						height="16"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRIPTION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="72"
+						y="26"
+						width="66"
+						height="16"
+						key="textField-10"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CREATERNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="72"
+						y="44"
+						width="66"
+						height="16"
+						key="textField-11"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{CREATIONDATE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="211"
+						y="26"
+						width="61"
+						height="16"
+						key="staticText-13"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[出 库 人：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="211"
+						y="44"
+						width="61"
+						height="16"
+						key="staticText-14"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[出库时间：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="272"
+						y="26"
+						width="66"
+						height="16"
+						key="textField-16"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{OUTERNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="272"
+						y="44"
+						width="66"
+						height="16"
+						key="textField-17"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{OUTTIME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="418"
+						y="26"
+						width="61"
+						height="16"
+						key="staticText-31"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[入 库 人：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="418"
+						y="44"
+						width="61"
+						height="16"
+						key="staticText-32"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[入库时间：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="479"
+						y="26"
+						width="66"
+						height="16"
+						key="textField-35"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{INERNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="479"
+						y="44"
+						width="66"
+						height="16"
+						key="textField-36"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{INTIME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="24"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						style="name"
+						x="317"
+						y="5"
+						width="52"
+						height="15"
+						key="staticText-16"/>
+					<box></box>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+				<text><![CDATA[标准金额：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="369"
+						y="5"
+						width="56"
+						height="15"
+						key="textField-19"/>
+					<box></box>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_AMT_LIST}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="103"
+						y="5"
+						width="57"
+						height="15"
+						key="staticText-17"/>
+					<box></box>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+				<text><![CDATA[总单据数量：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="160"
+						y="5"
+						width="51"
+						height="15"
+						key="textField-20"/>
+					<box></box>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_QTY}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="0"
+						width="560"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						style="name"
+						x="210"
+						y="5"
+						width="57"
+						height="15"
+						key="staticText-33"/>
+					<box></box>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+				<text><![CDATA[总出库数量：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="267"
+						y="5"
+						width="51"
+						height="15"
+						key="textField-37"/>
+					<box></box>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_QTYOUT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="424"
+						y="5"
+						width="70"
+						height="15"
+						key="staticText-34"/>
+					<box></box>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+				<text><![CDATA[出库标准金额：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="494"
+						y="5"
+						width="61"
+						height="15"
+						key="textField-38"/>
+					<box></box>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_AMTOUT_LIST}]]></textFieldExpression>
+				</textField>
+			</band>
+		</summary>
+</jasperReport>

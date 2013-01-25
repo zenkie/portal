@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="m_boxitem_bsw"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="1133"
+		 pageHeight="359"
+		 columnWidth="1073"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+	<reportFont name="song10" isDefault="false" fontName="宋体" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
+
+	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid]]></parameterDescription>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["file:///d:/act.nea/jreport/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="user" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT substr(MAX(sys_connect_by_path(t1.DOCNO, ',')), 2) DOCNO,
+          t1.destination as destination, 
+           t1.BILLDATE,t1.name,t1.c_store_id,nvl(t1.phone,' '),t1.docno2
+    FROM   (select a.docno as docno2,e.phone,b.destination,a.BILLDATE,b.DOCNO,d.name,b.c_store_id,
+                    DENSE_rank() over(ORDER BY b.DOCNO) rn
+            from   m_box a,m_box_src b,c_store d,c_customer e
+            where  a.id = b.m_box_id and b.c_store_id=d.id  and d.c_customer_id = e.id and a.id=$P{objectid}
+            ) t1
+    START WITH  t1.rn = 1
+    CONNECT BY  t1.rn - 1 = PRIOR t1.rn 
+    GROUP BY   t1.destination, t1.BILLDATE,t1.name,t1.c_store_id,t1.phone,t1.docno2]]></queryString>
+
+	<field name="DOCNO" class="java.lang.String"/>
+	<field name="DESTINATION" class="java.lang.String"/>
+	<field name="BILLDATE" class="java.math.BigDecimal"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="C_STORE_ID" class="java.math.BigDecimal"/>
+	<field name="NVL(T1.PHONE,'')" class="java.lang.String"/>
+	<field name="DOCNO2" class="java.lang.String"/>
+
+		<background>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="143"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="233"
+						y="12"
+						width="224"
+						height="25"
+						key="staticText-8"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font reportFont="song10" size="18" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[装箱单]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="17"
+						y="108"
+						width="50"
+						height="18"
+						key="staticText-2"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[合并箱号：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="467"
+						y="82"
+						width="54"
+						height="17"
+						key="staticText-3"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[单据日期：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="17"
+						y="61"
+						width="50"
+						height="17"
+						key="staticText-5"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[单据编号：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="17"
+						y="78"
+						width="50"
+						height="17"
+						key="staticText-6"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[出库店仓]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="17"
+						y="126"
+						width="50"
+						height="17"
+						key="staticText-7"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[收货店仓：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="67"
+						y="108"
+						width="468"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCNO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="521"
+						y="82"
+						width="75"
+						height="17"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{BILLDATE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="67"
+						y="78"
+						width="165"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="67"
+						y="126"
+						width="468"
+						height="17"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESTINATION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="467"
+						y="67"
+						width="142"
+						height="15"
+						forecolor="#000000"
+						key="textField-1"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="67"
+						y="61"
+						width="165"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCNO2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="50"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="-1"
+						width="782"
+						height="50"
+						key="subreport-1"/>
+					<subreportParameter  name="objectid1">
+						<subreportParameterExpression><![CDATA[$P{objectid}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "m_boxitem_item_bsw.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="e_retail"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="表头"
+		isDefault="false"
+		hAlign="Center"
+		vAlign="Middle"
+		lineSpacing="Single"
+		fontName="宋体"
+		fontSize="10"
+		isBold="false"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+		isBlankWhenNull="true"
+	>
+	</style>
+	<style 
+		name="name"
+		isDefault="false"
+		hAlign="Right"
+		vAlign="Middle"
+		fontName="宋体"
+		fontSize="9"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+	>
+	</style>
+	<style 
+		name="value"
+		isDefault="false"
+		hAlign="Left"
+		vAlign="Middle"
+		fontName="宋体"
+		fontSize="9"
+		isBold="false"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+		pattern="yyyy/MM/dd"
+		isBlankWhenNull="true"
+	>
+	</style>
+
+	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid]]></parameterDescription>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["file:///e:/act.nea/jreport/"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select a.docno,a.consignee,c.name as viptype,a.phone2,a.phone1,a.address,a.postcode,a.add_time,a.pay_time,
+       a.modifieddate,d.name as shippingname,e.name as paywayname,a.to_buyer,u1.truename,a.tot_qty,a.tot_amt_list,
+       a.tot_amt_actual
+from e_retail a,c_vip b,c_viptype c,e_shipping d,c_payway e,users u1
+where a.c_vip_id=b.id and b.c_viptype_id=c.id and a.e_shipping_id=d.id and 
+      a.c_payway_id=e.id and a.ownerid=u1.id(+) and a.id=$P{objectid}]]></queryString>
+
+	<field name="DOCNO" class="java.lang.String"/>
+	<field name="CONSIGNEE" class="java.lang.String"/>
+	<field name="VIPTYPE" class="java.lang.String"/>
+	<field name="PHONE2" class="java.lang.String"/>
+	<field name="PHONE1" class="java.lang.String"/>
+	<field name="ADDRESS" class="java.lang.String"/>
+	<field name="POSTCODE" class="java.lang.String"/>
+	<field name="ADD_TIME" class="java.sql.Timestamp"/>
+	<field name="PAY_TIME" class="java.sql.Timestamp"/>
+	<field name="MODIFIEDDATE" class="java.sql.Timestamp"/>
+	<field name="SHIPPINGNAME" class="java.lang.String"/>
+	<field name="PAYWAYNAME" class="java.lang.String"/>
+	<field name="TO_BUYER" class="java.lang.String"/>
+	<field name="TRUENAME" class="java.lang.String"/>
+	<field name="TOT_QTY" class="java.math.BigDecimal"/>
+	<field name="TOT_AMT_LIST" class="java.math.BigDecimal"/>
+	<field name="TOT_AMT_ACTUAL" class="java.math.BigDecimal"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="57"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="159"
+						y="29"
+						width="123"
+						height="21"
+						key="staticText-33"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[商品发货单]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="-10"
+						y="22"
+						width="128"
+						height="27"
+						key="staticText-34"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[优 秀 时 尚 购 物 网]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="8"
+						y="4"
+						width="124"
+						height="28"
+						key="staticText-35"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="18"/>
+					</textElement>
+				<text><![CDATA[ Y Y O S S O]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="84"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						style="name"
+						x="3"
+						y="47"
+						width="48"
+						height="16"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[下单时间：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="243"
+						y="13"
+						width="47"
+						height="16"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[会员级别：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="53"
+						y="30"
+						width="296"
+						height="16"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ADDRESS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="52"
+						y="48"
+						width="104"
+						height="16"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{ADD_TIME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="290"
+						y="13"
+						width="32"
+						height="16"
+						key="textField-4"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{VIPTYPE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="156"
+						y="13"
+						width="45"
+						height="16"
+						key="staticText-18"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[收货人：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="332"
+						y="13"
+						width="27"
+						height="16"
+						key="staticText-19"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<text><![CDATA[手机：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="360"
+						y="13"
+						width="64"
+						height="16"
+						key="textField-23"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PHONE2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="3"
+						y="13"
+						width="49"
+						height="16"
+						key="staticText-21"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[订单编号：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="202"
+						y="13"
+						width="41"
+						height="16"
+						key="textField-25"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CONSIGNEE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="53"
+						y="13"
+						width="103"
+						height="16"
+						key="textField-26"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCNO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="452"
+						y="13"
+						width="57"
+						height="16"
+						key="textField-27"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PHONE1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="424"
+						y="13"
+						width="27"
+						height="16"
+						key="staticText-24"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<text><![CDATA[电话：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="3"
+						y="30"
+						width="49"
+						height="16"
+						key="staticText-25"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[收货地址：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="452"
+						y="30"
+						width="57"
+						height="16"
+						key="textField-28"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{POSTCODE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="424"
+						y="30"
+						width="27"
+						height="16"
+						key="staticText-26"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<text><![CDATA[邮编：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="name"
+						x="156"
+						y="48"
+						width="48"
+						height="16"
+						key="staticText-27"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[付款时间：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="205"
+						y="48"
+						width="104"
+						height="16"
+						key="textField-29"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{PAY_TIME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="314"
+						y="48"
+						width="48"
+						height="16"
+						key="staticText-28"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[送货时间：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="363"
+						y="48"
+						width="104"
+						height="16"
+						key="textField-30"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{MODIFIEDDATE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="3"
+						y="65"
+						width="48"
+						height="16"
+						key="staticText-29"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[配送方式：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="52"
+						y="66"
+						width="104"
+						height="16"
+						key="textField-31"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{SHIPPINGNAME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="name"
+						x="156"
+						y="65"
+						width="48"
+						height="16"
+						key="staticText-30"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[支付方式：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="value"
+						x="205"
+						y="66"
+						width="104"
+						height="16"
+						key="textField-32"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAYWAYNAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="44"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="535"
+						height="40"
+						key="subreport-1"
+						positionType="Float"
+						isPrintWhenDetailOverflows="true"/>
+					<subreportParameter  name="objectid1">
+						<subreportParameterExpression><![CDATA[$P{objectid}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "e_retail_subreport0.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

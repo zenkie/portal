@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="m_checkoutbox"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="651"
+		 pageHeight="802"
+		 columnWidth="643"
+		 columnSpacing="0"
+		 leftMargin="8"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="common"
+		isDefault="false"
+		fontName="宋体"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+		isBlankWhenNull="true"
+	>
+	</style>
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["file:///e:/act.nea/jreport/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="where1" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[select d.billtype ,b.name as name1,d.DESTNAME,d.billdate,d.DATEOUT,d.DOCNO,DENSE_rank() over(ORDER BY d.DOCNO) rn,
+                   c.name as name2,h.value1_code,c.addsdesc,h.value2,a.qty as qty1,e.qty as qty2,f.attribname,to_char(g.martixcol,'000') as martixcol 
+            from   c_store b,
+                   m_outitem a,
+                   m_attributesetinstance h, 
+                   m_product c,
+                   m_out d,
+                   V_FA_STORAGE e,
+                   m_dim f,
+                   M_ATTRIBUTEVALUE g
+            where  d.C_ORIG_ID = b .id
+            and    a.m_attributesetinstance_id = h.id
+            and    a.m_product_id = c.id
+            and    a.m_out_id = d.id
+            and    e.m_product_id = a.m_product_id
+            and    a.m_attributesetinstance_id= e.m_attributesetinstance_id(+)
+            and    c.m_dim5_id = f.id(+)
+            and    d.c_orig_id = e.c_store_id
+            and    h.value2_id = g.id
+            and    d.id in ($P!{where1})]]></queryString>
+
+	<field name="BILLTYPE" class="java.lang.String"/>
+	<field name="NAME1" class="java.lang.String"/>
+	<field name="DESTNAME" class="java.lang.String"/>
+	<field name="BILLDATE" class="java.math.BigDecimal"/>
+	<field name="DATEOUT" class="java.math.BigDecimal"/>
+	<field name="DOCNO" class="java.lang.String"/>
+	<field name="RN" class="java.math.BigDecimal"/>
+	<field name="NAME2" class="java.lang.String"/>
+	<field name="VALUE1_CODE" class="java.lang.String"/>
+	<field name="ADDSDESC" class="java.lang.String"/>
+	<field name="VALUE2" class="java.lang.String"/>
+	<field name="QTY1" class="java.math.BigDecimal"/>
+	<field name="QTY2" class="java.math.BigDecimal"/>
+	<field name="ATTRIBNAME" class="java.lang.String"/>
+	<field name="MARTIXCOL" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="142"  isSplitAllowed="true" >
+				<crosstab >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="394"
+						height="142"
+						key="crosstab-1"
+						isPrintRepeatedValues="false"/>
+					<crosstabHeaderCell>						<cellContents mode="Transparent">
+					<box>					<bottomPen lineWidth="0.0"/>
+</box>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="69"
+						height="15"
+						key="staticText-1"
+						positionType="FixRelativeToBottom"/>
+					<box>					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="69"
+						y="0"
+						width="37"
+						height="15"
+						key="staticText-1"
+						positionType="FixRelativeToBottom"/>
+					<box>					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="106"
+						y="0"
+						width="56"
+						height="15"
+						key="staticText-1"
+						positionType="FixRelativeToBottom"/>
+					<box>					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+						</cellContents>
+					</crosstabHeaderCell>					<rowGroup name="name2" width="69" totalPosition="End" headerPosition="Stretch">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{NAME2}]]></bucketExpression>
+						</bucket>
+						<crosstabRowHeader>
+						<cellContents mode="Transparent">
+					<box></box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="0"
+						width="69"
+						height="15"
+						key="textField"
+						stretchType="RelativeToTallestObject"
+						isPrintRepeatedValues="false"/>
+					<box leftPadding="2">					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{name2}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabRowHeader>
+						<crosstabTotalRowHeader>
+						<cellContents mode="Transparent">
+					<box></box>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="162"
+						height="15"
+						key="staticText-1"/>
+					<box>					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[合计]]></text>
+				</staticText>
+						</cellContents>
+						</crosstabTotalRowHeader>
+					</rowGroup>
+					<rowGroup name="value1" width="37">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{VALUE1_CODE}]]></bucketExpression>
+						</bucket>
+						<crosstabRowHeader>
+						<cellContents mode="Transparent">
+					<box></box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="37"
+						height="15"
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="2">					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{value1}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabRowHeader>
+					</rowGroup>
+					<rowGroup name="addsdesc" width="56">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{ADDSDESC}]]></bucketExpression>
+						</bucket>
+						<crosstabRowHeader>
+						<cellContents mode="Transparent">
+					<box></box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="56"
+						height="15"
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="2">					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{addsdesc}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabRowHeader>
+					</rowGroup>
+					<columnGroup name="martixcol" height="0" totalPosition="End">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{MARTIXCOL}]]></bucketExpression>
+						</bucket>
+						<crosstabTotalColumnHeader>
+						<cellContents mode="Transparent">
+					<box></box>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="51"
+						height="15"
+						key="staticText-1"/>
+					<box>					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+						</cellContents>
+						</crosstabTotalColumnHeader>
+					</columnGroup>
+					<columnGroup name="value2" height="15">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{VALUE2}]]></bucketExpression>
+						</bucket>
+						<crosstabColumnHeader>
+						<cellContents mode="Transparent">
+					<box></box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="25"
+						height="15"
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
+					<box rightPadding="4">					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{value2}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabColumnHeader>
+					</columnGroup>
+
+					<measure name="qty" class="java.math.BigDecimal">
+						<measureExpression><![CDATA[$F{QTY1}]]></measureExpression>
+					</measure>
+					<measure name="sum" class="java.math.BigDecimal" calculation="Sum">
+						<measureExpression><![CDATA[$F{QTY1}]]></measureExpression>
+					</measure>
+					<measure name="tot_sum" class="java.math.BigDecimal" calculation="Sum">
+						<measureExpression><![CDATA[$F{QTY1}]]></measureExpression>
+					</measure>
+					<measure name="location" class="java.lang.String">
+						<measureExpression><![CDATA[$F{ATTRIBNAME}]]></measureExpression>
+					</measure>
+					<measure name="qty2" class="java.math.BigDecimal">
+						<measureExpression><![CDATA[$F{QTY2}]]></measureExpression>
+					</measure>
+					<measure name="sum2" class="java.math.BigDecimal" calculation="Sum">
+						<measureExpression><![CDATA[$F{QTY2}]]></measureExpression>
+					</measure>
+					<crosstabCell width="25" height="15">
+						<cellContents mode="Transparent">
+					<box>					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+</box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="25"
+						height="15"
+						key="textField"/>
+					<box rightPadding="4">					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{qty}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="25" height="15" rowTotalGroup="name2">
+						<cellContents mode="Transparent">
+					<box></box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="25"
+						height="15"
+						key="textField"/>
+					<box rightPadding="4">					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{tot_sum}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="25" height="0" rowTotalGroup="value1">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="25" height="0" rowTotalGroup="addsdesc">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="15" columnTotalGroup="value2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="addsdesc" columnTotalGroup="value2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="value1" columnTotalGroup="value2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="15" rowTotalGroup="name2" columnTotalGroup="value2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="51" height="15" columnTotalGroup="martixcol">
+						<cellContents mode="Transparent">
+					<box></box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="51"
+						height="15"
+						key="textField"/>
+					<box leftPadding="2">					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{location}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="51" height="0" rowTotalGroup="addsdesc" columnTotalGroup="martixcol">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="51" height="0" rowTotalGroup="value1" columnTotalGroup="martixcol">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="51" height="15" rowTotalGroup="name2" columnTotalGroup="martixcol">
+						<cellContents mode="Transparent">
+					<box></box>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="51"
+						height="15"
+						key="staticText-1"/>
+					<box>					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+						</cellContents>
+					</crosstabCell>
+					<whenNoDataCell>						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</whenNoDataCell>					</crosstab>
+				<crosstab >
+					<reportElement
+						x="338"
+						y="0"
+						width="168"
+						height="142"
+						key="crosstab-2"
+						isPrintRepeatedValues="false"/>
+					<crosstabHeaderCell>						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabHeaderCell>					<rowGroup name="name2" width="0" totalPosition="End">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{NAME2}]]></bucketExpression>
+						</bucket>
+					</rowGroup>
+					<rowGroup name="value1" width="0">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{VALUE1_CODE}]]></bucketExpression>
+						</bucket>
+					</rowGroup>
+					<rowGroup name="att" width="0">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{ADDSDESC}]]></bucketExpression>
+						</bucket>
+					</rowGroup>
+					<columnGroup name="martixcol" height="0">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{MARTIXCOL}]]></bucketExpression>
+						</bucket>
+					</columnGroup>
+					<columnGroup name="value2" height="15">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{VALUE2}]]></bucketExpression>
+						</bucket>
+						<crosstabColumnHeader>
+						<cellContents mode="Transparent">
+					<box></box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="25"
+						height="15"
+						key="textField"/>
+					<box rightPadding="4">					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{value2}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabColumnHeader>
+					</columnGroup>
+
+					<measure name="qty2" class="java.math.BigDecimal">
+						<measureExpression><![CDATA[$F{QTY2}]]></measureExpression>
+					</measure>
+					<measure name="sum" class="java.math.BigDecimal" calculation="Sum">
+						<measureExpression><![CDATA[$F{QTY2}]]></measureExpression>
+					</measure>
+					<crosstabCell width="25" height="15">
+						<cellContents mode="Transparent">
+					<box></box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="25"
+						height="15"
+						key="textField"/>
+					<box rightPadding="4">					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{qty2}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="25" height="15" rowTotalGroup="name2">
+						<cellContents mode="Transparent">
+					<box></box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="25"
+						height="15"
+						key="textField"/>
+					<box rightPadding="4">					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{sum}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="25" height="0" rowTotalGroup="value1">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="25" height="0" rowTotalGroup="att">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="15" columnTotalGroup="value2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="att" columnTotalGroup="value2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="value1" columnTotalGroup="value2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="15" rowTotalGroup="name2" columnTotalGroup="value2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="15" columnTotalGroup="martixcol">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="att" columnTotalGroup="martixcol">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="value1" columnTotalGroup="martixcol">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="15" rowTotalGroup="name2" columnTotalGroup="martixcol">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<whenNoDataCell>						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</whenNoDataCell>					</crosstab>
+			</band>
+		</summary>
+</jasperReport>

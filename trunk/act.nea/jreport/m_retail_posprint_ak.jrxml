@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="m_retail_posprint_ak"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="609"
+		 pageHeight="395"
+		 columnWidth="549"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+	<reportFont name="new" isDefault="false" fontName="宋体" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid]]></parameterDescription>
+	</parameter>
+	<queryString><![CDATA[select b.name, b.address, nvl(b.phone, '') as phone, a.refno,
+       a.billdate,(select -c.payamount from m_retailpayitem c,c_payway d where c.m_retail_id=a.id and c.c_payway_id=d.id and d.name='WEBPOS充值') as payamount,
+      Shop_assistant(a.id) as shoplist
+from m_retail a, c_store b
+where a.c_store_id = b.id  and a.id =$P{objectid}]]></queryString>
+
+	<field name="NAME" class="java.lang.String"/>
+	<field name="ADDRESS" class="java.lang.String"/>
+	<field name="PHONE" class="java.lang.String"/>
+	<field name="REFNO" class="java.lang.String"/>
+	<field name="BILLDATE" class="java.math.BigDecimal"/>
+	<field name="PAYAMOUNT" class="java.math.BigDecimal"/>
+	<field name="SHOPLIST" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="82"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="66"
+						y="1"
+						width="90"
+						height="16"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="new"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="66"
+						y="33"
+						width="90"
+						height="16"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="new"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PHONE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="65"
+						width="66"
+						height="16"
+						key="staticText-21"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[交 易 号：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="33"
+						width="66"
+						height="16"
+						key="staticText-28"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[电    话：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="66"
+						y="65"
+						width="147"
+						height="16"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font reportFont="new"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{REFNO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="1"
+						width="66"
+						height="16"
+						key="staticText-29"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[店    名：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="66"
+						y="17"
+						width="90"
+						height="16"
+						key="textField-10"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="new"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ADDRESS}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="17"
+						width="66"
+						height="16"
+						key="staticText-30"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[地    址：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="49"
+						width="66"
+						height="16"
+						key="staticText-31"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[日    期：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="66"
+						y="49"
+						width="90"
+						height="16"
+						key="textField-11"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="new"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{BILLDATE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="42"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="4"
+						width="535"
+						height="36"
+						key="subreport-2"
+						stretchType="RelativeToBandHeight"/>
+					<subreportParameter  name="objectid1">
+						<subreportParameterExpression><![CDATA[$P{objectid}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"m_retail_item_posprint_ak.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="73"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="18"
+						width="66"
+						height="17"
+						key="staticText-25"/>
+					<box></box>
+					<textElement>
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[营业员：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="66"
+						y="18"
+						width="358"
+						height="16"
+						key="textField-7"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="new"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{SHOPLIST}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="40"
+						width="66"
+						height="17"
+						key="staticText-32"/>
+					<box></box>
+					<textElement>
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[欢迎光临]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="-2"
+						width="66"
+						height="17"
+						key="staticText-33"/>
+					<box></box>
+					<textElement>
+						<font reportFont="new"/>
+					</textElement>
+				<text><![CDATA[充值金额：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="66"
+						y="0"
+						width="62"
+						height="16"
+						key="textField-12"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="new"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{PAYAMOUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="319"
+						y="48"
+						width="54"
+						height="18"
+						key="staticText-34"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Static Text]]></text>
+				</staticText>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

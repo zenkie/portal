@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="b_so2_pdt_second_matrix_subreport0"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="header"
+		isDefault="false"
+		hAlign="Center"
+		vAlign="Middle"
+		lineSpacing="Single"
+		fontName="宋体"
+		isBold="false"
+		isUnderline="false"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+		isBlankWhenNull="true"
+	>
+	</style>
+
+	<parameter name="objectid1" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid1]]></parameterDescription>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["file:///d:/act.nea/jreport/"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select '总计:' as total,a.M_PRODUCT_ID as PDTID,c.name as PDTNAME,c.value as PDTVALUE,
+ad_param_value(max(b.ad_Client_Id), 'product.1010', '')  || replace(c.IMAGEURL,'Attach','Attach2') as IMAGEURL,
+max(a.priceactual) as priceactual,/*to_char(a.priceactual,'999999.99') as priceactual,*/
+sum(a.QTY) as qty,sum(a.TOT_AMT_LIST) as TOT_AMT_LIST,sum(a.TOT_AMT_ACTUAL) as TOT_AMT_ACTUAL,
+avg(a.discount) as discount,f.NAME as value1
+from B_SOITEM a, B_SO b,m_product c,m_attributesetinstance d,M_ATTRIBUTEVALUE e,m_color f
+where a.B_SO_ID =b.id
+and a.m_product_id=c.id
+and a.m_attributesetinstance_id=d.id
+and d.value2_id = e.id
+and c.m_color_id=f.id(+)
+and b.id=$P{objectid1}
+group by a.m_product_id,c.name,c.value,IMAGEURL,f.name/*c.IMAGEURL,b.ad_Client_Id*/
+ORDER BY PDTNAME, PDTVALUE]]></queryString>
+
+	<field name="TOTAL" class="java.lang.String"/>
+	<field name="PDTID" class="java.math.BigDecimal"/>
+	<field name="PDTNAME" class="java.lang.String"/>
+	<field name="PDTVALUE" class="java.lang.String"/>
+	<field name="IMAGEURL" class="java.lang.String"/>
+	<field name="PRICEACTUAL" class="java.math.BigDecimal"/>
+	<field name="QTY" class="java.math.BigDecimal"/>
+	<field name="TOT_AMT_LIST" class="java.math.BigDecimal"/>
+	<field name="TOT_AMT_ACTUAL" class="java.math.BigDecimal"/>
+	<field name="DISCOUNT" class="java.math.BigDecimal"/>
+	<field name="VALUE1" class="java.lang.String"/>
+
+	<variable name="sum_qty" class="java.math.BigDecimal" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{QTY}]]></variableExpression>
+	</variable>
+	<variable name="SUM_ACTUAL" class="java.math.BigDecimal" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOT_AMT_ACTUAL}]]></variableExpression>
+	</variable>
+
+		<group  name="style" >
+			<groupExpression><![CDATA[$F{PDTNAME}]]></groupExpression>
+			<groupHeader>
+			<band height="93"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="header"
+						x="94"
+						y="0"
+						width="49"
+						height="16"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="宋体" size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PDTNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="197"
+						y="0"
+						width="54"
+						height="16"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{PRICEACTUAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="143"
+						y="1"
+						width="54"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PDTVALUE}]]></textFieldExpression>
+				</textField>
+				<image  scaleImage="RetainShape" onErrorType="Blank" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="89"
+						height="91"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$F{IMAGEURL}]]></imageExpression>
+				</image>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="275"
+						y="0"
+						width="237"
+						height="16"
+						key="subreport-3"/>
+					<subreportParameter  name="objectid2">
+						<subreportParameterExpression><![CDATA[$P{objectid1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="pdtid">
+						<subreportParameterExpression><![CDATA[$F{PDTID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "b_so2_pdt_second_matrix_subreport0_subreport0.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="0"
+						width="82"
+						height="16"
+						key="subreport-4"/>
+					<subreportParameter  name="objectid2">
+						<subreportParameterExpression><![CDATA[$P{objectid1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="pdtid">
+						<subreportParameterExpression><![CDATA[$F{PDTID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "b_so2_pdt_second_matrix_subreport0_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="251"
+						y="0"
+						width="24"
+						height="16"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{VALUE1}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="21"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="header"
+						x="510"
+						y="1"
+						width="33"
+						height="16"
+						key="textField-5"
+						isPrintWhenDetailOverflows="true"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{QTY}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="2"
+						width="43"
+						height="16"
+						key="staticText-1"/>
+					<box></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[合计：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="543"
+						y="1"
+						width="51"
+						height="16"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_AMT_ACTUAL}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="17"
+						width="581"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="505"
+						y="1"
+						width="38"
+						height="16"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{sum_qty}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="543"
+						y="1"
+						width="51"
+						height="16"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SUM_ACTUAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="3"
+						width="43"
+						height="16"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{TOTAL}]]></textFieldExpression>
+				</textField>
+			</band>
+		</summary>
+</jasperReport>

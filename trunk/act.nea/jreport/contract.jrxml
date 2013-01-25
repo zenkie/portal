@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="contract"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="565"
+		 columnSpacing="0"
+		 leftMargin="15"
+		 rightMargin="15"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="song10"
+		isDefault="true"
+		fontName="宋体"
+		isBold="false"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+	>
+	</style>
+
+	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid]]></parameterDescription>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["file:///e:/act.nea/jreport/"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select distinct c.DESCRIPTION as SUPPLIERname,c.BANKNAME1,a.CONTRACTNO,a.BILLDATE,f.ATTRIBNAME
+from  B_PO a,c_store b,C_SUPPLIER c,B_POITEM d,M_PRODUCT e,M_DIM f
+where a.c_store_id=b.id
+and a.C_SUPPLIER_ID=c.id
+and a.id=d.b_po_id(+)
+and d.m_product_id=e.id
+and e.m_dim1_id=f.id
+and a.id= $P{objectid}]]></queryString>
+
+	<field name="SUPPLIERNAME" class="java.lang.String"/>
+	<field name="BANKNAME1" class="java.lang.String"/>
+	<field name="CONTRACTNO" class="java.lang.String"/>
+	<field name="BILLDATE" class="java.math.BigDecimal"/>
+	<field name="ATTRIBNAME" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="150"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="20"
+						y="30"
+						width="40"
+						height="20"
+						key="staticText-1"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isItalic="false" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[买方：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="20"
+						y="51"
+						width="40"
+						height="20"
+						key="staticText-2"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isItalic="false" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[卖方：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="330"
+						y="30"
+						width="70"
+						height="20"
+						key="staticText-3"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isItalic="false" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[合同编号：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="330"
+						y="51"
+						width="70"
+						height="20"
+						key="staticText-4"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isItalic="false" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[生产商标：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="330"
+						y="72"
+						width="70"
+						height="20"
+						key="staticText-5"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isItalic="false" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[订单日期：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="20"
+						y="96"
+						width="40"
+						height="20"
+						key="staticText-6"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[在双方于]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="151"
+						y="96"
+						width="370"
+						height="20"
+						key="staticText-7"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[签订的《买卖合同》（下称：主合同）基础上，签订本订单。]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="0"
+						y="1"
+						width="565"
+						height="30"
+						key="staticText-8"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="18" isBold="true" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[订   单]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						mode="Opaque"
+						x="476"
+						y="1"
+						width="89"
+						height="23"
+						forecolor="#000000"
+						backcolor="#999999"
+						key="staticText-9"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[ 成品买卖合同订单]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="20"
+						y="130"
+						width="360"
+						height="20"
+						key="staticText-10"/>
+					<box></box>
+					<textElement>
+						<font size="12" isBold="true" isUnderline="true" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[第一条  产品的品名、规格、数量、金额及供货时间：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="73"
+						y="30"
+						width="197"
+						height="20"
+						key="staticText-25"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[上海瑞雀服饰有限公司]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="song10"
+						x="73"
+						y="51"
+						width="197"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{SUPPLIERNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="song10"
+						x="60"
+						y="96"
+						width="101"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isUnderline="false" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{BANKNAME1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="song10"
+						x="403"
+						y="71"
+						width="117"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{BILLDATE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="song10"
+						x="403"
+						y="50"
+						width="117"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ATTRIBNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="song10"
+						x="403"
+						y="30"
+						width="117"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="true" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CONTRACTNO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="22"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="song10"
+						x="395"
+						y="4"
+						width="93"
+						height="10"
+						forecolor="#000000"
+						key="textField-1"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{PAGE_NUMBER} + " / "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="song10"
+						mode="Transparent"
+						x="488"
+						y="4"
+						width="53"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-2"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<ellipse>
+					<reportElement
+						style="song10"
+						x="258"
+						y="12"
+						width="0"
+						height="0"
+						key="ellipse-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</ellipse>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="40"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						style="song10"
+						x="0"
+						y="0"
+						width="565"
+						height="40"
+						key="subreport-1"/>
+					<subreportParameter  name="objectid1">
+						<subreportParameterExpression><![CDATA[$P{objectid}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "contract_item.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="313"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						style="song10"
+						x="20"
+						y="9"
+						width="500"
+						height="20"
+						key="staticText-11"/>
+					<box></box>
+					<textElement>
+						<font size="12" isBold="true" isUnderline="true" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[第二条  结算方式及期限：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="20"
+						y="35"
+						width="500"
+						height="20"
+						key="staticText-12"/>
+					<box></box>
+					<textElement>
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[付款方式按主合同约定。]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="20"
+						y="65"
+						width="500"
+						height="20"
+						key="staticText-13"/>
+					<box></box>
+					<textElement>
+						<font size="12" isBold="true" isUnderline="true" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[第三条  质量要求：按样品及主合同约定。]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="20"
+						y="95"
+						width="260"
+						height="20"
+						key="staticText-14"/>
+					<box></box>
+					<textElement>
+						<font size="12" isBold="true" isUnderline="true" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[第四条  交货时间和地点：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="20"
+						y="117"
+						width="500"
+						height="20"
+						key="staticText-15"/>
+					<box></box>
+					<textElement>
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[1、按买方要求包装，以运输途中不损坏产品为准，按合同交货日期交货至买方指定仓库。]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="20"
+						y="139"
+						width="500"
+						height="20"
+						key="staticText-16"/>
+					<box></box>
+					<textElement>
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[2、产品入库时必须携带装箱单交买方指定仓库，并且在入库前将装箱单传真或电邮至买方]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="20"
+						y="183"
+						width="510"
+						height="20"
+						key="staticText-17"/>
+					<box></box>
+					<textElement>
+						<font size="12" isBold="true" isUnderline="true" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[第五条  本订单未约定的事项按主合同执行；本订单一式二份，买卖双方各执一份。]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="36"
+						y="159"
+						width="244"
+						height="20"
+						key="staticText-18"/>
+					<box></box>
+					<textElement>
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[上海公司跟单员。]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="6"
+						y="219"
+						width="80"
+						height="20"
+						key="staticText-19"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[卖方]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						style="song10"
+						x="0"
+						y="209"
+						width="565"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						style="song10"
+						x="0"
+						y="309"
+						width="565"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						style="song10"
+						x="0"
+						y="210"
+						width="0"
+						height="99"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="291"
+						y="219"
+						width="80"
+						height="20"
+						key="staticText-20"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[买方]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="6"
+						y="249"
+						width="97"
+						height="20"
+						key="staticText-21"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[单位名称（章）：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="291"
+						y="249"
+						width="97"
+						height="20"
+						key="staticText-22"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[单位名称（章）：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="6"
+						y="279"
+						width="80"
+						height="20"
+						key="staticText-23"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[委托代表人：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="291"
+						y="279"
+						width="80"
+						height="20"
+						key="staticText-24"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[委托代表人：]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						style="song10"
+						x="283"
+						y="210"
+						width="0"
+						height="99"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						style="song10"
+						x="564"
+						y="210"
+						width="0"
+						height="99"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						style="song10"
+						x="375"
+						y="219"
+						width="180"
+						height="20"
+						key="staticText-26"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="false" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[上海瑞雀服饰有限公司]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="song10"
+						x="90"
+						y="219"
+						width="195"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{SUPPLIERNAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</summary>
+</jasperReport>

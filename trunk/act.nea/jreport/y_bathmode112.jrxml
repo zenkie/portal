@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="y_bathmode112"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="595"
+		 columnWidth="814"
+		 columnSpacing="0"
+		 leftMargin="14"
+		 rightMargin="14"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+	<reportFont name="song" isDefault="true" fontName="宋体" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
+
+	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid]]></parameterDescription>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["file:///e:/act.nea/jreport/"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select x.name,x.value,x.standard,x.fabelement,x.sizes,x.colors,x.batharea,x.quality,
+y1.name as y_bathmodeid1,ad_param_value(x.ad_Client_Id, 'product.1010', '')  ||replace(y1.icon,'Attach','Attach2') as icon1,
+y2.name as y_bathmodeid2,ad_param_value(x.ad_Client_Id, 'product.1010', '')  ||replace(y2.icon,'Attach','Attach2') as icon2,
+y3.name as y_bathmodeid3,ad_param_value(x.ad_Client_Id, 'product.1010', '')  ||replace(y3.icon,'Attach','Attach2') as icon3,
+y4.name as y_bathmodeid4,ad_param_value(x.ad_Client_Id, 'product.1010', '')  ||replace(y4.icon,'Attach','Attach2') as icon4,
+y5.name as y_bathmodeid5,ad_param_value(x.ad_Client_Id, 'product.1010', '')  ||replace(y5.icon,'Attach','Attach2') as icon5,
+y6.name as y_bathmodeid6,ad_param_value(x.ad_Client_Id, 'product.1010', '')  ||replace(y6.icon,'Attach','Attach2') as icon6,
+y7.name as y_bathmodeid7,ad_param_value(x.ad_Client_Id, 'product.1010', '')  ||replace(y7.icon,'Attach','Attach2') as icon7
+from m_product x,y_bathmode y1,y_bathmode y2,y_bathmode y3,y_bathmode y4,y_bathmode y5,y_bathmode y6,y_bathmode y7
+where  x.y_bathmode_id1=y1.id(+)
+and x.y_bathmode_id2=y2.id(+)
+and x.y_bathmode_id3=y3.id(+)
+and x.y_bathmode_id4=y4.id(+)
+and x.y_bathmode_id5=y5.id(+)
+and x.y_bathmode_id6=y6.id(+)
+and x.y_bathmode_id7=y7.id(+)
+and  x.id=$P{objectid}]]></queryString>
+
+	<field name="NAME" class="java.lang.String"/>
+	<field name="VALUE" class="java.lang.String"/>
+	<field name="STANDARD" class="java.lang.String"/>
+	<field name="FABELEMENT" class="java.lang.String"/>
+	<field name="SIZES" class="java.lang.String"/>
+	<field name="COLORS" class="java.lang.String"/>
+	<field name="BATHAREA" class="java.lang.String"/>
+	<field name="QUALITY" class="java.lang.String"/>
+	<field name="Y_BATHMODEID1" class="java.lang.String"/>
+	<field name="ICON1" class="java.lang.String"/>
+	<field name="Y_BATHMODEID2" class="java.lang.String"/>
+	<field name="ICON2" class="java.lang.String"/>
+	<field name="Y_BATHMODEID3" class="java.lang.String"/>
+	<field name="ICON3" class="java.lang.String"/>
+	<field name="Y_BATHMODEID4" class="java.lang.String"/>
+	<field name="ICON4" class="java.lang.String"/>
+	<field name="Y_BATHMODEID5" class="java.lang.String"/>
+	<field name="ICON5" class="java.lang.String"/>
+	<field name="Y_BATHMODEID6" class="java.lang.String"/>
+	<field name="ICON6" class="java.lang.String"/>
+	<field name="Y_BATHMODEID7" class="java.lang.String"/>
+	<field name="ICON7" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="35"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="236"
+						y="0"
+						width="270"
+						height="35"
+						key="staticText-23"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song" size="18"/>
+					</textElement>
+				<text><![CDATA[洗涤说明]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="165"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="85"
+						y="48"
+						width="0"
+						height="0"
+						key="subreport-2"/>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="19"
+						y="16"
+						width="65"
+						height="22"
+						key="staticText-17"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<text><![CDATA[款号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="84"
+						y="16"
+						width="65"
+						height="22"
+						key="staticText-18"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<text><![CDATA[品名]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="205"
+						y="16"
+						width="69"
+						height="22"
+						key="staticText-19"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<text><![CDATA[标准]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="274"
+						y="16"
+						width="78"
+						height="22"
+						key="staticText-20"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<text><![CDATA[成分]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="672"
+						y="16"
+						width="70"
+						height="22"
+						key="staticText-21"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<text><![CDATA[产地]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="38"
+						width="65"
+						height="127"
+						key="textField-6"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="84"
+						y="38"
+						width="65"
+						height="127"
+						key="textField-7"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{VALUE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="205"
+						y="38"
+						width="69"
+						height="127"
+						key="textField-8"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{STANDARD}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="672"
+						y="38"
+						width="70"
+						height="127"
+						key="textField-9"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{BATHAREA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="274"
+						y="38"
+						width="78"
+						height="127"
+						key="textField-10"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FABELEMENT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="417"
+						y="16"
+						width="255"
+						height="22"
+						key="staticText-22"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<text><![CDATA[洗涤方式]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="38"
+						width="212"
+						height="18"
+						key="textField"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Y_BATHMODEID1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="56"
+						width="212"
+						height="18"
+						key="textField"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Y_BATHMODEID2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="74"
+						width="212"
+						height="18"
+						key="textField"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Y_BATHMODEID3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="92"
+						width="212"
+						height="18"
+						key="textField"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Y_BATHMODEID4}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="110"
+						width="212"
+						height="18"
+						key="textField"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Y_BATHMODEID5}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="128"
+						width="212"
+						height="18"
+						key="textField"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Y_BATHMODEID6}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="146"
+						width="212"
+						height="19"
+						key="textField"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Y_BATHMODEID7}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="149"
+						y="16"
+						width="56"
+						height="22"
+						key="staticText-24"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<text><![CDATA[检验员]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="352"
+						y="16"
+						width="65"
+						height="22"
+						key="staticText-25"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<text><![CDATA[产品符合]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="149"
+						y="38"
+						width="56"
+						height="127"
+						key="staticText-26"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="352"
+						y="38"
+						width="65"
+						height="108"
+						key="staticText-27"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="352"
+						y="146"
+						width="65"
+						height="19"
+						key="textField"/>
+					<box>					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{QUALITY}]]></textFieldExpression>
+				</textField>
+				<image  scaleImage="RetainShape" onErrorType="Blank" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="38"
+						width="43"
+						height="18"
+						key="image-1"/>
+					<box>					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+</box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$F{ICON1}]]></imageExpression>
+				</image>
+				<image  scaleImage="RetainShape" onErrorType="Blank" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="56"
+						width="43"
+						height="18"
+						key="image-2"/>
+					<box>					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+</box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$F{ICON2}]]></imageExpression>
+				</image>
+				<image  scaleImage="RetainShape" onErrorType="Blank" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="74"
+						width="43"
+						height="18"
+						key="image-3"/>
+					<box>					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+</box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$F{ICON3}]]></imageExpression>
+				</image>
+				<image  scaleImage="RetainShape" onErrorType="Blank" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="92"
+						width="43"
+						height="18"
+						key="image-4"/>
+					<box>					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+</box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$F{ICON4}]]></imageExpression>
+				</image>
+				<image  scaleImage="RetainShape" onErrorType="Blank" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="110"
+						width="43"
+						height="18"
+						key="image-5"/>
+					<box>					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+</box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$F{ICON5}]]></imageExpression>
+				</image>
+				<image  scaleImage="RetainShape" onErrorType="Blank" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="128"
+						width="43"
+						height="18"
+						key="image-6"/>
+					<box>					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+</box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$F{ICON6}]]></imageExpression>
+				</image>
+				<image  scaleImage="RetainShape" onErrorType="Blank" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="147"
+						width="43"
+						height="18"
+						key="image-7"/>
+					<box>					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+</box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$F{ICON7}]]></imageExpression>
+				</image>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="75"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="19"
+						y="0"
+						width="723"
+						height="34"
+						key="subreport-3"/>
+					<subreportParameter  name="objectid1">
+						<subreportParameterExpression><![CDATA[$P{objectid}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "y_bathmode112_item_cxtab.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="53"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

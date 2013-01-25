@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="b_so2_pdt_second_matrix_subreport0_subreport0"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="common"
+		isDefault="true"
+		fontName="宋体"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+		isBlankWhenNull="true"
+	>
+	</style>
+	<style 
+		name="litter"
+		isDefault="false"
+		hAlign="Left"
+		vAlign="Middle"
+		fontName="宋体"
+		fontSize="8"
+		pdfFontName="STSong-Light"
+		pdfEncoding="UniGB-UCS2-H"
+		isPdfEmbedded="true"
+	>
+	</style>
+	<style 
+		name="all"
+		isDefault="false"
+		fill="Solid"
+		hAlign="Left"
+		vAlign="Middle"
+	>
+	</style>
+
+	<parameter name="objectid2" isForPrompting="false" class="java.lang.Integer"/>
+	<parameter name="pdtid" isForPrompting="false" class="java.math.BigDecimal"/>
+	<queryString><![CDATA[select a.QTY,a.M_PRODUCT_ID as PDTID,
+c.name as PDTNAME,c.value as PDTVALUE,
+a.QTYOCCU,
+a.QTYCONSIGN,
+a.QTYREM,
+f.name as value1,/*d.value1,*/d.value2,d.value1_CODE,d.value2_CODE,
+a.pricelist,
+a.tot_amt_list as AMT,
+to_char(e.martixcol,'000') as martixcol
+from b_soitem a, b_so b,m_product c,m_attributesetinstance d,M_ATTRIBUTEVALUE e,m_color f
+where a.B_SO_ID =b.id
+and a.m_product_id=c.id
+and a.m_attributesetinstance_id=d.id
+and d.value2_id = e.id
+and c.m_color_id=f.id(+)
+and b.id=$P{objectid2}
+and a.m_product_id=$P{pdtid}
+ORDER BY to_char(e.martixcol,'000')]]></queryString>
+
+	<field name="QTY" class="java.math.BigDecimal"/>
+	<field name="PDTID" class="java.math.BigDecimal"/>
+	<field name="PDTNAME" class="java.lang.String"/>
+	<field name="PDTVALUE" class="java.lang.String"/>
+	<field name="QTYOCCU" class="java.math.BigDecimal"/>
+	<field name="QTYCONSIGN" class="java.math.BigDecimal"/>
+	<field name="QTYREM" class="java.math.BigDecimal"/>
+	<field name="VALUE1" class="java.lang.String"/>
+	<field name="VALUE2" class="java.lang.String"/>
+	<field name="VALUE1_CODE" class="java.lang.String"/>
+	<field name="VALUE2_CODE" class="java.lang.String"/>
+	<field name="PRICELIST" class="java.math.BigDecimal"/>
+	<field name="AMT" class="java.math.BigDecimal"/>
+	<field name="MARTIXCOL" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="14"  isSplitAllowed="true" >
+				<crosstab >
+					<reportElement
+						style="common"
+						x="0"
+						y="0"
+						width="595"
+						height="14"
+						key="crosstab-1"/>
+					<crosstabHeaderCell>						<cellContents mode="Transparent">
+					<box>					<bottomPen lineWidth="0.0"/>
+</box>
+						</cellContents>
+					</crosstabHeaderCell>					<rowGroup name="VALUE1" width="27" totalPosition="End">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{VALUE1}]]></bucketExpression>
+						</bucket>
+						<crosstabRowHeader>
+						<cellContents mode="Transparent">
+					<box>					<bottomPen lineWidth="0.0"/>
+</box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="common"
+						x="3"
+						y="0"
+						width="24"
+						height="14"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["数量:"+$V{QTY_Sum}.toString()]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabRowHeader>
+					</rowGroup>
+					<rowGroup name="PRICELIST" width="0">
+						<bucket>
+							<bucketExpression class="java.math.BigDecimal"><![CDATA[$F{PRICELIST}]]></bucketExpression>
+						</bucket>
+					</rowGroup>
+					<columnGroup name="martixcol" height="0" totalPosition="End">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{MARTIXCOL}]]></bucketExpression>
+						</bucket>
+					</columnGroup>
+					<columnGroup name="VALUE2" height="14">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{VALUE2_CODE}]]></bucketExpression>
+						</bucket>
+						<crosstabColumnHeader>
+						<cellContents mode="Transparent">
+					<box></box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="common"
+						x="0"
+						y="0"
+						width="21"
+						height="14"
+						key="textField"/>
+					<box>					<bottomPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{VALUE2}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabColumnHeader>
+					</columnGroup>
+
+					<measure name="QTY_Sum" class="java.math.BigDecimal" calculation="Sum">
+						<measureExpression><![CDATA[$F{QTY}]]></measureExpression>
+					</measure>
+					<measure name="amt_sum" class="java.math.BigDecimal" calculation="Sum">
+						<measureExpression><![CDATA[$F{AMT}]]></measureExpression>
+					</measure>
+					<measure name="QTYOCCU_Sum" class="java.math.BigDecimal" calculation="Sum">
+						<measureExpression><![CDATA[$F{QTYOCCU}]]></measureExpression>
+					</measure>
+					<measure name="QTYCONSIGN_Sum" class="java.math.BigDecimal" calculation="Sum">
+						<measureExpression><![CDATA[$F{QTYCONSIGN}]]></measureExpression>
+					</measure>
+					<measure name="QTYREM_Sum" class="java.math.BigDecimal" calculation="Sum">
+						<measureExpression><![CDATA[$F{QTYREM}]]></measureExpression>
+					</measure>
+					<crosstabCell width="21" height="14">
+						<cellContents mode="Transparent">
+					<box>					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+</box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="common"
+						x="0"
+						y="0"
+						width="21"
+						height="14"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="9" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{QTY_Sum}.toString()]]></textFieldExpression>
+				</textField>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="14" columnTotalGroup="VALUE2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="21" height="0" rowTotalGroup="VALUE1">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="VALUE1" columnTotalGroup="VALUE2">
+						<cellContents mode="Transparent" style="all">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="21" height="0" rowTotalGroup="PRICELIST">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="PRICELIST" columnTotalGroup="VALUE2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="14" columnTotalGroup="martixcol">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="PRICELIST" columnTotalGroup="martixcol">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="VALUE1" columnTotalGroup="martixcol">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<whenNoDataCell>						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</whenNoDataCell>					</crosstab>
+			</band>
+		</summary>
+</jasperReport>

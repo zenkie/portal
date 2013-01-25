@@ -104,15 +104,15 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="99"
-						y="1"
+						x="97"
+						y="0"
 						width="32"
-						height="22"
+						height="29"
 						key="textField-1"
 						stretchType="RelativeToTallestObject"
 						positionType="FixRelativeToBottom"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["颜色"]]></textFieldExpression>
@@ -123,12 +123,12 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						x="1"
 						y="1"
 						width="52"
-						height="22"
+						height="29"
 						key="textField-1"
 						stretchType="RelativeToTallestObject"
 						positionType="FixRelativeToBottom"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["款号"]]></textFieldExpression>
@@ -136,15 +136,15 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="56"
-						y="1"
+						x="54"
+						y="0"
 						width="41"
-						height="22"
+						height="29"
 						key="textField-1"
 						stretchType="RelativeToTallestObject"
 						positionType="FixRelativeToBottom"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["品名"]]></textFieldExpression>
@@ -171,7 +171,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						height="21"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{PRODUCTNAME}]]></textFieldExpression>
@@ -223,7 +223,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						height="21"
 						key="textField"/>
 					<box></box>
-					<textElement verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{pdtvalue}]]></textFieldExpression>
@@ -252,7 +252,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						height="21"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{VALUE1}]]></textFieldExpression>
@@ -270,35 +270,10 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 							<bucketExpression class="java.lang.String"><![CDATA[$F{PRICELIST}]]></bucketExpression>
 						</bucket>
 					</rowGroup>
-					<columnGroup name="MARTIXCRON" height="25" totalPosition="End" headerPosition="Center">
+					<columnGroup name="MARTIXCRON" height="0" totalPosition="End" headerPosition="Center">
 						<bucket>
 							<bucketExpression class="java.lang.String"><![CDATA[$F{MARTIXCRON}]]></bucketExpression>
 						</bucket>
-						<crosstabColumnHeader>
-						<cellContents mode="Transparent">
-					<box>					<pen lineWidth="1.0" lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
-</box>
-				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						style=" song"
-						x="0"
-						y="1"
-						width="28"
-						height="22"
-						key="textField"
-						stretchType="RelativeToTallestObject"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$V{MARTIXCRON}.substring( 3 )]]></textFieldExpression>
-				</textField>
-						</cellContents>
-						</crosstabColumnHeader>
 						<crosstabTotalColumnHeader>
 						<cellContents mode="Transparent">
 					<box>					<pen lineWidth="1.0" lineStyle="Solid"/>
@@ -310,15 +285,15 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="1"
-						y="1"
-						width="22"
+						x="2"
+						y="6"
+						width="24"
 						height="22"
 						key="textField"
 						stretchType="RelativeToTallestObject"
 						positionType="FixRelativeToBottom"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["数量"]]></textFieldExpression>
@@ -327,7 +302,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 					<reportElement
 						style=" song"
 						x="188"
-						y="1"
+						y="6"
 						width="57"
 						height="22"
 						key="textField-1"
@@ -336,7 +311,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 					<box>					<leftPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid"/>
 </box>
-					<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["退货金额"]]></textFieldExpression>
@@ -344,15 +319,15 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="25"
-						y="1"
-						width="50"
+						x="26"
+						y="6"
+						width="51"
 						height="22"
 						key="textField-1"
 						stretchType="RelativeToTallestObject"
 						positionType="FixRelativeToBottom"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["标准价"]]></textFieldExpression>
@@ -360,15 +335,15 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="77"
-						y="1"
+						x="79"
+						y="6"
 						width="50"
 						height="22"
 						key="textField-1"
 						stretchType="RelativeToTallestObject"
 						positionType="FixRelativeToBottom"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["退货价"]]></textFieldExpression>
@@ -376,8 +351,8 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="129"
-						y="1"
+						x="130"
+						y="6"
 						width="57"
 						height="22"
 						key="textField-1"
@@ -386,13 +361,38 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 					<box>					<leftPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid"/>
 </box>
-					<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["标准金额"]]></textFieldExpression>
 				</textField>
 						</cellContents>
 						</crosstabTotalColumnHeader>
+					</columnGroup>
+					<columnGroup name="VALUE2" height="30">
+						<bucket>
+							<bucketExpression class="java.lang.String"><![CDATA[$F{VALUE2}]]></bucketExpression>
+						</bucket>
+						<crosstabColumnHeader>
+						<cellContents mode="Transparent">
+					<box></box>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="31"
+						height="29"
+						key="textField"/>
+					<box>					<topPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{VALUE2}]]></textFieldExpression>
+				</textField>
+						</cellContents>
+						</crosstabColumnHeader>
 					</columnGroup>
 
 					<measure name="QTY_Sum" class="java.math.BigDecimal" calculation="Sum">
@@ -417,7 +417,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						style=" song"
 						x="0"
 						y="1"
-						width="28"
+						width="30"
 						height="21"
 						key="textField"/>
 					<box></box>
@@ -439,13 +439,13 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="1"
+						x="2"
 						y="1"
 						width="22"
 						height="21"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{QTY_Sum}]]></textFieldExpression>
@@ -460,7 +460,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						key="textField"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
 </box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{amtactual_sum}]]></textFieldExpression>
@@ -468,13 +468,13 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="25"
-						y="0"
+						y="2"
 						width="50"
-						height="22"
+						height="20"
 						key="textField"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
 </box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{PRICELIST}]]></textFieldExpression>
@@ -488,7 +488,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						key="textField-1"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
 </box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{PRICEACTUAL}]]></textFieldExpression>
@@ -533,7 +533,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						style=" song"
 						x="0"
 						y="1"
-						width="28"
+						width="30"
 						height="19"
 						backcolor="#ECE6E6"
 						key="textField"/>
@@ -556,14 +556,14 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="1"
+						x="0"
 						y="1"
-						width="22"
+						width="25"
 						height="19"
 						backcolor="#ECE6E6"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{QTY_Sum}]]></textFieldExpression>
@@ -578,7 +578,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						key="textField"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
 </box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{amtactual_sum}]]></textFieldExpression>
@@ -588,7 +588,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						style=" song"
 						x="25"
 						y="0"
-						width="50"
+						width="51"
 						height="20"
 						key="textField-1"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -656,6 +656,36 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						</cellContents>
 					</crosstabCell>
 					<crosstabCell width="247" height="0" rowTotalGroup="PRICELIST" columnTotalGroup="MARTIXCRON">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="23" columnTotalGroup="VALUE2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="PRICELIST" columnTotalGroup="VALUE2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="PRICEACTUAL" columnTotalGroup="VALUE2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="VALUE1" columnTotalGroup="VALUE2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="0" rowTotalGroup="pdtvalue" columnTotalGroup="VALUE2">
+						<cellContents mode="Transparent">
+					<box></box>
+						</cellContents>
+					</crosstabCell>
+					<crosstabCell width="0" height="21" rowTotalGroup="PRODUCTNAME" columnTotalGroup="VALUE2">
 						<cellContents mode="Transparent">
 					<box></box>
 						</cellContents>

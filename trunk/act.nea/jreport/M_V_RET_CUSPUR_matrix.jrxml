@@ -66,7 +66,7 @@ and a.id= $P{objectid}]]></queryString>
 			</band>
 		</title>
 		<pageHeader>
-			<band height="72"  isSplitAllowed="true" >
+			<band height="79"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="5"
@@ -261,12 +261,12 @@ and a.id= $P{objectid}]]></queryString>
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="35"  isSplitAllowed="true" >
+			<band height="39"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="0"
+						x="11"
 						y="0"
-						width="567"
+						width="556"
 						height="34"
 						key="subreport-1"/>
 					<subreportParameter  name="objectid1">

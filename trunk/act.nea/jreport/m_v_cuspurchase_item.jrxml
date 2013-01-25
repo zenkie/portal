@@ -666,15 +666,6 @@ and b.m_sale_id=$P{objectid1}]]></queryString>
 					</textElement>
 				<text><![CDATA[总合计:]]></text>
 				</staticText>
-				<rectangle>
-					<reportElement
-						x="41"
-						y="12"
-						width="49"
-						height="0"
-						key="rectangle-1"/>
-					<graphicElement stretchType="NoStretch"/>
-				</rectangle>
 				<line direction="TopDown">
 					<reportElement
 						x="3"
