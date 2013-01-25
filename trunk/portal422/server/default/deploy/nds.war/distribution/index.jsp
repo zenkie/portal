@@ -73,8 +73,8 @@
     <script language="javascript" src="/html/nds/js/common.js"></script>
     <script language="javascript" src="/html/nds/js/print.js"></script>
     <script language="javascript" src="/html/nds/js/prototype.js"></script>
-    <script language="javascript" src="/html/nds/js/jquery1.2.3/jquery.js"></script>
-    <script language="javascript" src="/html/nds/js/jquery1.2.3/hover_intent.js"></script>
+    	<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
+   <script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
     <script language="javascript" src="/html/nds/js/jquery1.2.3/ui.tabs.js"></script>
     <script>
         jQuery.noConflict();
@@ -92,6 +92,9 @@
     <script language="javascript" src="/html/nds/js/alerts.js"></script>
     <script language="javascript" src="/html/nds/js/init_objcontrol_zh_CN.js"></script>
     <script type="text/javascript" src="/html/nds/js/object_query.js"></script>
+    <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-ui-1.8.21.custom.min.js"></script>
+		<script language="javascript" src="/html/nds/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
+		<script language="javascript" src="/html/nds/js/artDialog4/plugins/iframeTools.js"></script>
     <script language="javascript" src="/distribution/distribution.js"></script>
     <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/header_aio_min.css"/>
     <link typ e="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css"/>
