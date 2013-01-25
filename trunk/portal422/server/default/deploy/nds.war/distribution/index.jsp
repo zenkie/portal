@@ -1,5 +1,5 @@
 ﻿<%@ page language="java"  pageEncoding="utf-8"%>
-<%@ page import="java.util.Date,java.util.regex.Pattern,java.util.regex.Matcher" %>
+<%@ page import="java.util.Date,java.util.regex.Pattern,java.util.regex.Matcher,java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="nds.control.web.UserWebImpl" %>
 <%@ page import="nds.query.QueryEngine" %>
@@ -33,7 +33,7 @@
         return;
     }
     Table t=TableManager.getInstance().getTable("M_ALLOT");
-     String directory=t.getSecurityDirectory();
+    String directory=t.getSecurityDirectory();
     int permission=userWeb.getPermission(directory);
      if((permission&nds.security.Directory.READ)==0){
 %>
@@ -49,11 +49,19 @@
     String orgStore=String.valueOf(QueryEngine.getInstance().doQueryOne("SELECT b.ad_table_id from ad_column a,ad_column b where a.name= 'M_ALLOT.C_ORIG_ID' and a.ref_column_id=b.id"));
     String destStore=String.valueOf(QueryEngine.getInstance().doQueryOne("select a.REGEXPRESSION from ad_column a where a.name= 'M_ALLOT.DEST_FILTER'"));
     String column=String.valueOf(QueryEngine.getInstance().doQueryOne("select id from ad_column where name='M_ALLOT.B_SO_FILTER'"));
+    
    	Pattern p=Pattern.compile("\"table\":\"(\\w+)\"");
     Matcher m=p.matcher(destStore);
     if(m.find()){
         destStore=m.group(1);
      }
+     //20100816新增销售性质，玖姿定制
+    List al=null;
+    if(comp.equals("玖姿")){
+    	try{
+    		al=QueryEngine.getInstance().doQueryList("select id,name,description from c_saletype");
+    	}catch(Exception e){}
+    } 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -128,7 +136,7 @@
         <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.autoDist();" />
         <%if(!comp.equals("玖姿")){%>
         <input type="button" id="box-button1" value="定配分析" class="command2_button" width="78" height="20" onclick="dist.analysis();"/>
-        <%}%>
+      	<%}%>
 	      <input type="image" name="imageField6" src="images/btn-ck.gif" onclick="dist.showObject('mingxi.jsp?m_allot_id='+jQuery('#fund_balance').val(),930,400)"/>
          <input type="button" id="button2" value="刷新" onclick="window.location.reload();"/>
         <input type="image" name="imageField4" src="images/ph-btn-gb.gif" onclick="window.close();"/>
@@ -179,7 +187,16 @@
                             <!--
                             <td class="ph-value" width="80" valign="top" nowrap="" align="left"><input id="switchModel" type="button" value="切换为矩阵模式" style="font-size:14px;" onclick="dist.switchModel();"></td>
                             -->
-                            <td></td>
+                            <td width="200"><%if(comp.equals("玖姿")&&null!=al){%>
+                            	销售性质：<select id="saletype" class="objsl">
+                            		<% for(int j=0;j<al.size();j++){
+                            					List tp=(List)al.get(j);
+                            			%>
+                            			 		<option value="<%=tp.get(0)%>" ><%=tp.get(2)%></option>
+                            			<%}%>
+                            		</select>
+                            		<%}%>
+                            </td>
                         </tr>
                         <tr>
                             <!--选择款号-->
@@ -216,8 +233,8 @@
                             <!--查询条件提交按钮-->
                             <td class="ph-value" width="80" valign="top" nowrap="" align="left"><%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject()" /><%}%>
                             </td>
-                            <td></td>
-                            <td></td>
+                            <td colspan="2">
+                            </td>
                         </tr>
                         <tr>
                             <td class="ph-desc"  valign="top" nowrap="nowrap" align="right">
@@ -228,7 +245,7 @@
                             </td>
                             <td class="ph-desc" valign="top" nowrap="" align="right"><div class="desc-txt">配单日期<font color="red">*</font>：</div></td>
                             <td class="ph-value"  valign="top" nowrap="" align="left">
-                                <input type="text" name="canModify" class="ipt-4-2" name="billdatebeg"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="distdate" value="<%=end%>" />
+                                <input type="text" name="canModify" class="ipt-4-2"  tabIndex="5" maxlength="10" size="20" title="8位日期，如20070823" id="distdate" value="<%=end%>" />
                                 <span  class="coolButton" name="canShow">
                                     <a onclick="window.event.cancelBubble=true;" href="javascript:showCalendar('imageCalendar3',false,'distdate',null,null,true);"><img id="imageCalendar3" width="16" height="18" border="0" align="absmiddle" title="Find" src="images/datenum.gif"/></a>
                                 </span>
@@ -257,6 +274,15 @@
                             <td class="ph-value" width="185" valign="top" nowrap="" align="left">
                                 <input type="text" readonly="true" class="notes" id="commonNotes"/>
                             </td>
+                            <td width="200"><%if(comp.equals("玖姿")&&null!=al){%>
+                            	销售性质：<select id="docsaletype" class="objsl">
+                            		<% for(int j=0;j<al.size();j++){
+                            					List tp=(List)al.get(j);
+                            			%>
+                            			 		<option value="<%=tp.get(0)%>"><%=tp.get(2)%></option>
+                            			<%}%></select>
+                            		<%}%>
+                            </td>                          
                             <td class="ph-value" width="150" valign="top" nowrap="nowrap" align="center">
                                 <%if(id==-1){%><input type="image" name="imageField5" src="images/btn-search01.gif" onclick="dist.queryObject('doc')" /><%}%>
                             </td>
@@ -278,7 +304,7 @@
                             <td class="ph-desc" valign="top" width="200">
                                 <span name="canShow" id="docnoType" style="color:red;font-weight:bold;font-size:14px;display:none;">*期货优先</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span name="canShow"  style="color:blue;font-size:15px;font-weight:bold;vertical-align:bottom;" >本单金额：</span><span name="canShow" id="amount" style="color:black;font-size:15px;"></span>
                             </td>
-                          
+														<td></td>                          
                         </tr>
                     </table>
                 </div>
@@ -357,7 +383,7 @@
         <div id="ph-from-left">
             <div id="ph-from-left-bg">
                 <div class="left-search">
-                    <div><input name="textfield" type="text" class="left-search-input" id="pdt-search" onkeyup="dist.pdt_search()" /></div>
+                    <div><input name="textfield" type="text" class="left-search-input" id="pdt-search" /></div>
                 </div>
                 <div id="left-section-height"></div>
                 <div id="left-section">
@@ -508,7 +534,7 @@
 		  }
         function checkType(event){
         	var e=Event.element(event);
-        	jQuery("#specNumber,#fowNotOrderPercent,#fowOrderPercent").attr("disabled","true").val("");
+        	jQuery("#specNumber,#fowNotOrderPercent,#fowOrderPercent").attr("disabled","true");
         	if(e.value=="spec_number"){
         		jQuery("#specNumber").removeAttr("disabled");
         		jQuery("#dist_type").val("specNumber");

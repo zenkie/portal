@@ -170,6 +170,8 @@ DIST.prototype={
         param.m_allot_id=m_allot_id;
         param.notes=$("orderNotes").value.strip()||$("notes").value.strip()||"";
         param.m_item=(m_item.length==0?"null":m_item);
+        param.saletypeid=(jQuery("#Details:visible")[0])?jQuery("#saletype").val():jQuery("#docsaletype").val();
+        
         //Edit by Robin 2010-4-28
         param.distdate=distdate;
         //end
@@ -344,6 +346,10 @@ DIST.prototype={
             return;
         }
          $("isChanged").value='false';
+         if(ret.saletypeid){
+        		jQuery("#saletype option[value='"+ret.saletypeid+"']").attr("selected","true");
+        		jQuery("#docsaletype option[value='"+ret.saletypeid+"']").attr("selected","true");
+       	 	}
         if(ret.searchord){
             $('Details').style.display='none';$('Documents').style.display='';
             $("commonNotes").value=ret.description||"";
@@ -1294,7 +1300,11 @@ DIST.prototype={
                 }
             }
         });
-
+				jQuery("#pdt-search").bind("keyup",function(event){
+					if(event.target==this&&event.which==13){
+						dist.pdt_search();
+					}
+				});
         jQuery("#ph-from-right-table table input").bind("focus",function(event){
         	if(event.target==this){
             var e=Event.element(event)
@@ -1328,13 +1338,17 @@ DIST.prototype={
                  *当输入的是数字的时候响应
                  *动态显示条码当前可配，款号当前已配，总已配
                  */
-                if((event.which>=48&&event.which<=57)||(event.which>=96&&event.which<=105)){
+                if((event.which>=48&&event.which<=57)||(event.which>=96&&event.which<=105)||event.which==8||event.which==46){
                     $("isChanged").value='true';
                     var cellData1={};
 				            cellData1.barCode=jQuery(this).attr("barCode");
 				            cellData1.docNo = jQuery(this).attr("docNo");
 				            cellData1.store=jQuery(this).attr("store");
-				            
+				            if(event.which==8||event.which==46){
+                    	if(this.value==""||this.value.strip()==""){
+                      		this.value=0;
+                    		}
+                		}
 				            var dataCell1=dist.v2m_get_ret(cellData1)[0];
 				            var oldQtyAl=parseInt(dataCell1.qtyAl,10);//未编辑前的单元的已配量
 				            var nowQty=parseInt(jQuery(this).val(),10);//响应事件后的数量
@@ -1404,10 +1418,6 @@ DIST.prototype={
                 		var style=jQuery(this).attr("sty");
                 		var yMax=parseInt(jQuery("#"+style).attr("y-length"),10)-1;                	
                 		dist.get_next_y_cell_down(x,y,style,yMax)
-                }else if(event.which==8||event.which==46){
-                    if(this.value==""||this.value.strip()==""){
-                      this.value=0;
-                    }
                 }
             }
         });
@@ -1476,31 +1486,31 @@ DIST.prototype={
     pdt_search:function(){
         var cdt=$("pdt-search").value;
         if($("showStyle").value=="metrix"){
-            var pdts=new Array();
-            if(!cdt||!cdt.strip()){
-                for(var i=0;i<this.product.length;i++){
-					pdts[i]=this.product[i];
-				}
-				$("category_manu").innerHTML=this.manuStr;
-            }else{
-				cdt=cdt.strip();
-				var manuStr="";
-				var reg= new RegExp(cdt,"i");
-				 for(var i=0;i<this.product.length;i++){
-					if(reg.test(this.product[i].name)){
-						pdts.push(this.product[i]);
+		        var pdts=new Array();
+		        if(!cdt||!cdt.strip()){
+		        	for(var i=0;i<this.product.length;i++){
+								pdts[i]=this.product[i];
+							}
+							$("category_manu").innerHTML=this.manuStr;
+		        }else{
+							cdt=cdt.strip();
+							var manuStr="";
+							var reg= new RegExp(cdt,"i");
+							 for(var i=0;i<this.product.length;i++){
+								if(reg.test(this.product[i].name)){
+									pdts.push(this.product[i]);
+								}
+							}
+							for(var j=0;j<pdts.length;j++){
+								manuStr+="\n<li><div class=\"txt-on\"  onclick='javascript:$(\"pdt-img\").src = \"/pdt/"+pdts[j].M_PRODUCT_LIST+"_1_2.jpg\";" +
+			                              "$(\"ph-pic-img-txt\").innerHTML=\""+pdts[j].name+"<br/>"+pdts[j].value+"\";" +
+			                              "dist.showContent1(\""+pdts[j].name+"\");" +
+			                              "this.style.backgroundColor=\"#8db6d9\"; this.style.color=\"white\";'"+
+			                              (j==0?"  style='background:#8db6d9'":"")+">"+pdts[j].name+"</div></li>\n";
+							}
+							$("category_manu").innerHTML=manuStr;
 					}
-				}
-				for(var j=0;j<pdts.length;j++){
-					manuStr+="\n<li><div class=\"txt-on\"  onclick='javascript:$(\"pdt-img\").src = \"/pdt/"+pdts[j].M_PRODUCT_LIST+"_1_2.jpg\";" +
-                              "$(\"ph-pic-img-txt\").innerHTML=\""+pdts[j].name+"<br/>"+pdts[j].value+"\";" +
-                              "dist.showContent1(\""+pdts[j].name+"\");" +
-                              "this.style.backgroundColor=\"#8db6d9\"; this.style.color=\"white\";'"+
-                              (j==0?"  style='background:#8db6d9'":"")+">"+pdts[j].name+"</div></li>\n";
-				}
-				$("category_manu").innerHTML=manuStr;
-			}
-			this.showContent1(pdts[0].name,"no");
+					if(pdts[0])this.showContent1(pdts[0].name,"no");
         }
     },
     showObject:function(url, theWidth, theHeight,option){
