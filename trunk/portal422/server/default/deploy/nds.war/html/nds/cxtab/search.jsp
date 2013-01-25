@@ -301,3 +301,4 @@ if((objPerm & nds.security.Directory.READ )== nds.security.Directory.READ ){ // 
  </div>
 <div id="history_files"></div>
 <input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
+<input type='hidden' name='queryindex_0' id='queryindex_0' value="-1" />
