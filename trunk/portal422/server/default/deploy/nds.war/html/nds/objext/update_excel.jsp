@@ -31,9 +31,11 @@
 <head>
 <%@ include file="/html/common/themes/top_meta.jsp" %>
 <%@ include file="/html/common/themes/top_meta-ext.jsp" %>
-<link rel="Shortcut Icon" href="/html/nds/images/portal.ico">
-<script language="javascript" src="/html/nds/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/js/jquery-1.3.2.min.js"></script>
+<script>
+   jQuery.noConflict();
+</script>
+<script language="javascript" src="/html/nds/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/js/swfobject.js"></script>
 <script language="javascript" src="/html/nds/js/jquery.uploadify.v2.0.3.min.js"></script>
 <script language="javascript" src="/html/nds/js/import_excel.js"></script>
