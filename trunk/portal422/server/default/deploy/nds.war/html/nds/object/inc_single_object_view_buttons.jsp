@@ -37,14 +37,14 @@ if( table.isActionEnabled(Table.AUDIT) && table.isActionEnabled(Table.SUBMIT) &&
 		boolean shouldWarn=Tools.getYesNo(userWeb.getUserOption("WARN_ON_SUBMIT","Y"),true);
 		validCommands.add( commandFactory.newButtonInstance("Unsubmit", 
 			PortletUtils.getMessage(pageContext, "object.unsubmit",null),
-			"oc.doUnsubmit("+shouldWarn+")","U"
+			"oc.doUnsubmit("+shouldWarn+")",null
 		));
 	}
 }
 if(canUnvoid){
 		validCommands.add( commandFactory.newButtonInstance("Unvoid", 
 			PortletUtils.getMessage(pageContext, "object.unvoid",null),
-			"oc.doUnvoid()","V"
+			"oc.doUnvoid()",null
 		));
 		if(canDelete){
 			validCommands.add( commandFactory.newButtonInstance("Delete", 
