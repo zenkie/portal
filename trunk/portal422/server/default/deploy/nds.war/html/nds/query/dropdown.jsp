@@ -42,22 +42,29 @@ try{
  	// show records directly, with only first 2 showable columns
  	qRequest.addSelection(table.getPrimaryKey().getId());
  	qRequest.addSelection(table.getAlternateKey().getId());
+	
  	ArrayList columns=table.getShowableColumns(Column.QUERY_LIST);
  	int colCount= 0;
+//支持ak2 字段显示 如没有AK2则只显示AK字段 
+	if(table.getAlternateKey2()!=null){
+		//System.out.print(table.getAlternateKey2());
  	for(int i=0;i< columns.size() && colCount<dropColumnCount-1;i++){
  		
 		Column col= (Column) columns.get(i);
 		if(col.isAlternateKey() || col.getName().equals("ID"))continue;
         if(col.getDisplaySetting().isUIController()) continue;
+        if(col!=table.getAlternateKey2()) continue;
         if( col.getReferenceTable() !=null) {
            Column col2=col.getReferenceTable().getAlternateKey();
            qRequest.addSelection(col.getId(),col2.getId(),true);
         } else {
-            qRequest.addSelection(col.getId());
+            qRequest.addSelection(col.getId());  
         }
         colCount++;
         //if(colCount==2) break;
+ 		}
  	}
+
  	qRequest.setResultHandler(NDS_PATH+"/query/dropdown_result.jsp");
  	
  	//filter
