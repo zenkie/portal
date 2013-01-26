@@ -231,7 +231,7 @@ PortalControl.prototype = {
      * @param e e.getUserData().data contains url where export file exists
      */
     _onExecuteCxtab:function(e){
-    	this._toggleButtons(false);
+    	//this._toggleButtons(false);
 	    var r=e.getUserData().data;
 		if(r.message){
 			msgbox(r.message.replace(/<br>/g,"\n"));
@@ -1753,7 +1753,7 @@ PortalControl.prototype = {
      * @param filetype html (default) or xls
      */
     doReportOnSelection:function(bIsOnSelection,tableId, filetype, isUserDimsSet){
-    	this._toggleButtons(true);		
+    	//this._toggleButtons(true);		
     	if(filetype=="cub" && ( isUserDimsSet==undefined || isUserDimsSet!=true )){
     		if(this._cxtabUserDims >0){
     			var	cxtabId=$("rep_templet").value;
