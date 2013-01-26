@@ -1147,6 +1147,7 @@ scrollPage: function (t,accepterId) {
 		else s= qs;	
 		queryObj.start=s;
 		queryObj.range=qrange;
+		queryObj.drop_flash='y';
 		this._executeQuery(queryObj);
 	},
 	  
