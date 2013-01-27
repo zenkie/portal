@@ -165,16 +165,7 @@ jQuery(document).ready(function(){
 
 setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);			
 
-jQuery("#jpId").jPlayer( {
-	ready: function () {
-			jQuery(this).jPlayer("setMedia", {
-				mp3:"/mp3/style.mp3"
-			});
-		},
-		swfPath: "/html/nds/js/jplay",
-		supplied: "mp3,mp4,flv,oga,wav"
-  });
-});		
+});
 </script>	
 </head>
 <body>
