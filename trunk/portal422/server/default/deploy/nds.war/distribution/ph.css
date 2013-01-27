@@ -51,6 +51,7 @@ border:1px solid #A7A7A7;
 cursor:pointer;
 height:20px;
 margin-top:0;
+padding: 0px 4px !important;
 vertical-align:top;
 }
 *html #button2{
