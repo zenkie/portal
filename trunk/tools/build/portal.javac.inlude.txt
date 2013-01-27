@@ -7,6 +7,7 @@ org/apache/jspc/html/nds/audit/view_jsp.java
 org/apache/jspc/html/nds/bpos/index_jsp.java
 org/apache/jspc/html/nds/common/calendar_jsp.java
 org/apache/jspc/html/nds/common/tree2_xml_jsp.java
+org/apache/jspc/html/nds/common/rpt_002daccord_jsp.java
 org/apache/jspc/html/nds/custom/index_jsp.java
 org/apache/jspc/html/nds/cxtab/columns_xml_jsp.java
 org/apache/jspc/html/nds/cxtab/create_005fcxtabrpt_jsp.java
