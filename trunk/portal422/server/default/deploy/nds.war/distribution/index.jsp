@@ -138,7 +138,7 @@
         <!--<input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="var totCan=$('tot-can').innerHTML;dist.showObject('auto_dist.jsp?totcan='+(totCan||0),650,500)" />-->
         <input type="image" name="imageField2" src="images/ph-btn-ph.gif" onclick="dist.autoDist();" />
         <%if(!comp.equals("玖姿")){%>
-        <input type="button" id="box-button1" value="定配分析" class="command2_button" width="78" height="20" onclick="dist.analysis();"/>
+        <!--input type="button" id="box-button1" value="定配分析" class="command2_button" width="78" height="20" onclick="dist.analysis();"/-->
       	<%}%>
 	      <input type="image" name="imageField6" src="images/btn-ck.gif" onclick="dist.showObject('mingxi.jsp?m_allot_id='+jQuery('#fund_balance').val(),930,400)"/>
          <input type="button" id="button2" value="刷新" onclick="window.location.reload();"/>
