@@ -40,7 +40,7 @@ if("N".equalsIgnoreCase(istree)){
         <li><a href="#tabs-2">通知</a></li>
     </ul>
    <div id="tabs-1">
-   	<div class="content">
+   	<!--div class="content">
                     <div class="profilePic"><img src="http://devgrow.com/wp-content/themes/cleanscreen/img/profile_pic.png"></div>
                     <p><strong>JACK DEV</strong>亲爱的管理员欢迎光临JACK DEV系统 
                     	<a href="" target="_blank">Jack dev</a>.</p>
@@ -49,7 +49,7 @@ if("N".equalsIgnoreCase(istree)){
                         <li><a onclick="javascript:showObject('/html/nds/option/option.jsp',null,null,{ispop:false,closeButton:false});" class="sj" target="_blank">设置</a></li>
                         <li><a href="/html/nds/portal/portal.jsp" class="cd" target="_blank">菜单</a></li>
                     </ul>
-   </div>
+   </div-->
    	</div>
 	 <div id="tabs-2">
 <!--liferay-ui:tabs names="mynotice"-->
