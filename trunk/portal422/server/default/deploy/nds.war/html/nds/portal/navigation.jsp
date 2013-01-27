@@ -71,7 +71,10 @@ if(ssId==-1&&!defaultboshome){
 		jc.put("ssid",ssId);
 		menuObjs.put(jc);
 	}
-	List cats =ssv.getTableCategories(request,ssId);
+	List cats;
+  if(ssId!=-1){
+	 cats=ssv.getTableCategories(request,ssId);
+	}else{cats=new ArrayList();}
 	for (int i=0; i< cats.size(); i++){   
 	     List child=(List)cats.get(i);
 	     Object o =child.get(0);
