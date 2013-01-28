@@ -142,18 +142,12 @@ SubSystem ss;
                 <h1>新闻公告</h1>
                 <div class="title_right">&nbsp;</div>
             </div><!--end title-->
-            <ul class="news">
+            <!--ul class="news">
             	<li><a href="#">上善若水。</a></li>
                 <li><a href="#">水善利万物而不争，处众人之所恶，故几于道。</a></li>
                 <li><a href="#">居善地，心善渊，与善仁，言善信，政善治，事善能，动善时。</a></li>
                 <li><a href="#">夫唯不争，故无尤。</a></li>
-            </ul><!--end audit-->
-            <ul class="news">
-            	<li><a href="#">上善若水。</a></li>
-                <li><a href="#">水善利万物而不争，处众人之所恶，故几于道。</a></li>
-                <li><a href="#">居善地，心善渊，与善仁，言善信，政善治，事善能，动善时。</a></li>
-                <li><a href="#">夫唯不争，故无尤。</a></li>
-            </ul><!--end audit-->
+            </ul--><!--end audit-->
             <div class="clear"></div>
         </div><!--end main_box-->
         

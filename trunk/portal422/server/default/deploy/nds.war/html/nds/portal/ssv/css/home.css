@@ -74,7 +74,7 @@
 .main_left ul.docno li.docno_con{width:22%;}
 .data{width:100%; margin:0 auto 2px auto; height:98px; clear:both; overflow-y:scroll; overflow-x:hidden;}
 .more{float:right; padding:7px 5px 0 0;}
-.main_left ul.news{width:49.6%;  float:left; margin-left:2px;}
+.main_left ul.news{width:100%;  float:left; margin-left:2px;}
 .main_left ul.news li{border:1px solid #ccc; padding:3px 6px 3px 15px; white-space:nowrap; overflow:hidden; background:#eeeeee url(../images/icon.gif) no-repeat 5px center; clear: both; margin-top:1px;}
 .main_right{min-width:200px; width:20%; float:right; height:513px; height:504px\9;}
 .main_right h2{margin: 0;padding:3px 10px; font-size:12px; font-weight:bold; cursor:pointer;}
