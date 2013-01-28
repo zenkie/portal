@@ -39,7 +39,7 @@ var istree="<%=istree%>";
 webFXTreeConfig.autoExpandAll=false;
 pc.createTree("<%= PortletUtils.getMessage(pageContext, "report-center",null)%>", "/html/nds/common/tree2.xml.jsp?tbstruct=<%=cxtabCategoryTableId%>&tbdata=<%=cxtabTableId%>&fnc=<%=func%>");
 }else{
-	 jQuery.post("/html/nds/common/rpt-accord.jsp?tbstruct=<%=cxtabCategoryTableId%>&tbdata=<%=cxtabTableId%>&fnc=<%=func%>",
+	 jQuery.post("/html/nds/common/rptaccord.jsp?tbstruct=<%=cxtabCategoryTableId%>&tbdata=<%=cxtabTableId%>&fnc=<%=func%>",
    function(data){
      var result=data;
      jQuery("#tree-list").html(result.xml);
