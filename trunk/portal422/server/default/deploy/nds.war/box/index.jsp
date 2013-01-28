@@ -155,7 +155,7 @@
         	<input type="button" value="打印贴纸" width="91" id="box-button" onclick="box.doSaveSettings('cx<%=lilyallprint%>',<%=tableId%>);"/>
         <%}else{
         %>
-        	<input type="button" value="打印含汇总箱单" width="91" id="box-button" onclick="box.doSaveSettings('cx<%=lilyallprint%>',<%=tableId%>);"/>
+        	<!--input type="button" value="打印含汇总箱单" width="91" id="box-button" onclick="box.doSaveSettings('cx<%=lilyallprint%>',<%=tableId%>);"/-->
         <%}
         %>
         <input type="button" value="单箱打印" id="box-button1" width="78" height="20" onclick="box.savePrintSettingForSingleBox('cx<%=singleBoxPrint%>',<%=tableId2%>);"/>
