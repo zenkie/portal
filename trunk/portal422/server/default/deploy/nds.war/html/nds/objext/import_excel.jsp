@@ -37,14 +37,16 @@
 <%@ include file="/html/common/themes/top_meta.jsp" %>
 <%@ include file="/html/common/themes/top_meta-ext.jsp" %>
 <link rel="Shortcut Icon" href="/html/nds/images/portal.ico">
-<script language="javascript" src="/html/nds/js/jquery-1.3.2.min.js"></script>
-<script>
-   jQuery.noConflict();
-</script>
 <script language="javascript" src="/html/nds/js/prototype.js"></script>
+<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
+<!--script language="javascript" src="/html/nds/js/jquery1.2.3/hover_intent.js"></script-->
+
+<script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
+
 <script language="javascript" src="/html/nds/js/swfobject.js"></script>
 <script language="javascript" src="/html/nds/js/jquery.uploadify.v2.0.3.min.js"></script>
 <script language="javascript" src="/html/nds/js/import_excel.js"></script>
+
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/portal.css" media="screen" />
 <link type="text/css" rel="StyleSheet" href="/html/nds/css/importexcel.css" media="screen" />
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/nds_portal.css" media="screen" />
