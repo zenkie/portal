@@ -11,7 +11,7 @@ if( objectId == -1){
 	if(canModify){
 		validCommands.add( commandFactory.newButtonInstance("Modify", 
 			PortletUtils.getMessage(pageContext, "object.modify",null),
-			"oc.doModify()",null,"/html/nds/images/tb_new.gif"
+			"oc.doModify()",null,"/html/nds/images/tb_modify.gif"
 		));
 	}
 	if(canDelete){
@@ -23,14 +23,14 @@ if( objectId == -1){
 	if(canVoid){
 		validCommands.add( commandFactory.newButtonInstance("Void", 
 			PortletUtils.getMessage(pageContext, "object.void",null),
-			"oc.doVoid()",null,null
+			"oc.doVoid()",null,"/html/nds/images/tb_void.gif"
 		));
 	}
 	if(canSubmit){
 		boolean shouldWarn=Tools.getYesNo(userWeb.getUserOption("WARN_ON_SUBMIT","Y"),true);
 		validCommands.add( commandFactory.newButtonInstance("Submit", 
 			PortletUtils.getMessage(pageContext, "object.submit",null),
-			"oc.doSubmit("+ canModify +","+shouldWarn+")",null
+			"oc.doSubmit("+ canModify +","+shouldWarn+")",null,"/html/nds/images/tb_submit.gif"
 		));
 		validCommands.add( commandFactory.newButtonInstance("SubmitPrint", 
 			PortletUtils.getMessage(pageContext, "object.submitprint",null),
