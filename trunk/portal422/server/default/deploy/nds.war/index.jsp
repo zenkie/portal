@@ -14,13 +14,22 @@
 <title>首页</title> 
 <style type="text/css">
 ul,li{list-style:none;}
-body{padding:0;margin:0 auto;background:#EDF0F0;}
-.login{width:100%;height:550px;background:url(images/index.jpg) no-repeat center;}
+body{padding:0;margin:0 auto;}
+
+.login {
+width: 100%;
+height: 437px;
+background: url(images/index.gif) no-repeat left #790000;
+position: absolute;
+top: 100px;
+background-position: 199px 0px;
+}
+
 #bottom {
 padding-bottom:0px;
 padding-left:0px;
 padding-right:0px;
-padding-top:510px;
+padding-top:453px;
 clear: both;
 margin: 0 auto;
 left: 955px;
@@ -56,13 +65,13 @@ a.bottom-text:hover {
     text-decoration: underline;
 }
 #Layer2 {
-position:absolute;
-margin:10px auto;
-width:265px;
-height:300px;
-left: 62%;
-top: 115px;
-background:url(images/login.jpg) no-repeat center;
+position: absolute;
+margin: 10px auto;
+width: 339px;
+height: 300px;
+left: 57%;
+top: 63px;
+background: url(images/login-b.jpg) no-repeat center;
 }
 #Layer_2 {
 position:absolute;
@@ -80,27 +89,101 @@ color:#333399;
 width:65px;
 height:24px;
 left: 25%;
-top: 81%;
+top: 67%;
 }
-.STYLE29 {font-size:15px;color:#006699;font-family:"微软雅黑";font-weight:bold }
+.STYLE29 {
+	font-size: 16px;
+color: #5C676D;
+font-family: "微软雅黑";
+font-weight: bold;
+	 }
 #Layer3 {
-position:absolute;
-margin:10px auto;
-width:265px;
-height:300px;
-left: 62%;
-top: 115px;
-background:url(images/login.jpg) no-repeat center;
+position: absolute;
+margin: 10px auto;
+width: 339px;
+height: 300px;
+left: 57%;
+top: 63px;
+background: url(images/login-b.jpg) no-repeat center;
 }
 #LAYER3{
-position:absolute;
-margin:10px auto;
-width:108px;
-height:90px;
-left: 30%;
-top: 55%;
-z-index:2;
+position: absolute;
+margin: 10px auto;
+width: 221px;
+height: 90px;
+left: 20%;
+top: 43%;
+z-index: 2;
 }
+.bottom-logo{
+	background: url(images/bottom.gif) no-repeat center;
+	position: absolute;
+	width: 87px;
+	height: 20px;
+	left: 333px;
+	}
+	
+.bar{
+position: absolute;
+top: 347px;
+display: block;
+width: 100%;
+height: 90px;
+background: url("images/jxy-bg.gif") repeat-x top left;
+text-indent: -999em;
+-moz-opacity: .6;
+filter: alpha(opacity=60);
+opacity: 0.6;
+	
+	}	
+	
+#Layer_3 a {
+display: block;
+float: left;
+margin-left: 6px;
+line-height: 35px;
+vertical-align: middle;
+height: 36px;
+width: 103px;
+text-align: center;
+letter-spacing: 1px;
+white-space: nowrap;
+background: transparent url(images/button.png) repeat scroll 0%;
+color: #FDFDFD;
+	font-size: 16px;
+font-family: "微软雅黑";
+font-weight: bold;
+text-decoration: none;
+}	
+
+.title{
+width: 939px;
+overflow: hidden;
+right: 200px;
+position: absolute;
+	}
+
+.l{
+		font-size: 16px;
+color: #5C676D;
+font-family: "微软雅黑";
+font-weight: bold;
+	}	
+	
+.right_text{
+		font-size: 16px;
+color: #5C676D;
+font-family: "微软雅黑";
+font-weight: bold;
+	}	
+
+.lx a{
+		font-size: 16px;
+color: #5C676D;
+font-family: "微软雅黑";
+font-weight: bold;
+	}		
+	
 </style>
 <SCRIPT type=text/javascript>
 function onReturn(event){
@@ -130,12 +213,14 @@ function submitForm(){
 </head>
 
 <body>
-<div class="title"></div>
-<div class="login">
-<div id="bottom">
-	<div id="bottom-right">&copy;2011-2012上海伯俊软件科技有限公司 版权所有</div>
-	<div id="bottom-left">了解更多产品请点击:<br><a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></br>
+<div class="title">
+	<h4 class="Logo"><img src="images/left.gif" alt="伯俊logo"></h4>
 	</div>
+<div class="login">
+<div class="bar"></div>
+<div id="bottom">
+  <span class="bottom-logo"></span>
+	<div id="bottom-right">&copy;2011-2012上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
 </div>
 <div id="Layer3">
 <div id="LAYER3"> 
@@ -161,12 +246,12 @@ function submitForm(){
 </div>
 <div id="Layer2" >
 <div id="Layer_2">
-  <table width="250" cellspacing="0" height="80" border="0" style="margin-top:150px;">
+  <table width="250" cellspacing="0" height="80" border="0" style="margin-top:77px;">
 <tr>
 	 <td width="53" height="20"><span class="STYLE29">用户名:</span></td>
       <td width="175">
         <label>
-          <input id="login" name="login" type="text" class="Warning-120" size="19" value="<%=login %>" />
+          <input id="login" name="login" type="text" class="Warning-120" size="25" value="<%=login %>" />
         </label>
      </td>
     </tr>
@@ -174,7 +259,7 @@ function submitForm(){
       <td height="30"><span class="STYLE29">密&nbsp;&nbsp;&nbsp;码:</span></td>
       <td >
         <label>
-        	<input id="password1" name="<%= SessionParameters.get(request, "password")%>" type="password" value=""  size="19" class="Warning-120"/>
+        	<input id="password1" name="<%= SessionParameters.get(request, "password")%>" type="password" value=""  size="25" class="Warning-120"/>
   
         </label>
     </td>
@@ -190,7 +275,7 @@ function submitForm(){
 	 </tr>
 <tr>
 	 <td  height="22">
-	 <div id="Layer_3"><a href="#" onclick="javascript:submitForm()"><img src="/images/user-btn.gif" width="65" height="22" border="0" /></a></div>
+	 <div id="Layer_3"><a href="#" onclick="javascript:submitForm()"><!--img src="/images/button.png" width="103" height="36" border="0" /-->登  陆</a></div>
 	 </td>
 	 </tr>
 </form>

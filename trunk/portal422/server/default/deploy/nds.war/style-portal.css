@@ -1,20 +1,64 @@
 body {
 padding:0;
 margin:0 auto;
-background:#EDF0F0;
+}
+.login {
+width: 100%;
+height: 437px;
+background: url(images/index.gif) no-repeat left #790000;
+position: absolute;
+top: 93px;
+background-position: 199px 0px;
 }
 
+#bottom {
+padding-bottom:0px;
+padding-left:0px;
+padding-right:0px;
+padding-top:453px;
+clear: both;
+margin: 0 auto;
+left: 955px;
+top: 355px;
+width:1020px;
+}
+#bottom-left {
+padding-bottom:0px;
+padding-top:10px;
+color: #333333;
+font-size: 12px;
+text-align:center;
+}
+#bottom-right {
+padding-bottom:0px;
+padding-top:0px;
+color: #999999;
+font-size: 12px;
+text-align:center;
+}
+a.bottom-text {
+    color: #FF6600;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+a.bottom-text:hover {
+    color: #024770;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: underline;
+}
 #Layer2 {
-position:absolute;
-margin:10px auto;
-width:265px;
-height:300px;
-left: 62%;
-top: 114px;
-background:url(images/login.jpg) no-repeat center;
-z-index:2;
+position: absolute;
+margin: 10px auto;
+width: 339px;
+height: 300px;
+left: 57%;
+top: 63px;
+background: url(images/login-b.jpg) no-repeat center;
 }
-
 #Layer_2 {
 position:absolute;
 margin:10px auto;
@@ -24,9 +68,6 @@ left: 9%;
 top: 0%;
 z-index:2;
 }
-
-.STYLE29 {font-size:15px;color:#006699;font-family:"Œ¢»Ì—≈∫⁄";font-weight:bold }
-
 #Layer_3 {
 position:absolute;
 margin:0px auto;
@@ -34,8 +75,102 @@ color:#333399;
 width:65px;
 height:24px;
 left: 25%;
-top: 81%;
+top: 67%;
 }
+.STYLE29 {
+	font-size: 16px;
+color: #5C676D;
+font-family: "Œ¢»Ì—≈∫⁄";
+font-weight: bold;
+	 }
+#Layer3 {
+position: absolute;
+margin: 10px auto;
+width: 339px;
+height: 300px;
+left: 57%;
+top: 63px;
+background: url(images/login-b.jpg) no-repeat center;
+}
+#LAYER3{
+position: absolute;
+margin: 10px auto;
+width: 221px;
+height: 90px;
+left: 20%;
+top: 43%;
+z-index: 2;
+}
+.bottom-logo{
+	background: url(images/bottom.gif) no-repeat center;
+	position: absolute;
+	width: 87px;
+	height: 20px;
+	left: 333px;
+	}
+	
+.bar{
+position: absolute;
+top: 347px;
+display: block;
+width: 100%;
+height: 90px;
+background: url("images/jxy-bg.gif") repeat-x top left;
+text-indent: -999em;
+-moz-opacity: .6;
+filter: alpha(opacity=60);
+opacity: 0.6;
+	
+	}	
+	
+#Layer_3 a {
+display: block;
+float: left;
+margin-left: 6px;
+line-height: 35px;
+vertical-align: middle;
+height: 36px;
+width: 103px;
+text-align: center;
+letter-spacing: 1px;
+white-space: nowrap;
+background: transparent url(images/button.png) repeat scroll 0%;
+color: #FDFDFD;
+	font-size: 16px;
+font-family: "Œ¢»Ì—≈∫⁄";
+font-weight: bold;
+text-decoration: none;
+}	
+
+.title{
+width: 939px;
+overflow: hidden;
+right: 200px;
+position: absolute;
+	}
+
+.l{
+		font-size: 16px;
+color: #5C676D;
+font-family: "Œ¢»Ì—≈∫⁄";
+font-weight: bold;
+	}	
+	
+.right_text{
+		font-size: 16px;
+color: #5C676D;
+font-family: "Œ¢»Ì—≈∫⁄";
+font-weight: bold;
+	}	
+
+.lx a{
+		font-size: 16px;
+color: #5C676D;
+font-family: "Œ¢»Ì—≈∫⁄";
+font-weight: bold;
+	}		
+
+
 
 #head-login{
 width:100%;
@@ -342,6 +477,16 @@ list-style:none;}
     line-height:20px;
     width:100%;
 }
+.portlet-msg-error{
+	
+	position: absolute;
+margin: 0 0 0 -206px;
+		font-size: 16px;
+color: #B9B9B9;
+font-family: "Œ¢»Ì—≈∫⁄";
+font-weight: bold;
+	
+	}
 
 .width-left{
 width:112px;
@@ -401,102 +546,31 @@ height:293px;}
    padding:0;
    width:100%;}
 
-#bottom{
-padding-bottom:0px;
-padding-left:0px;
-padding-right:0px;
-padding-top:150px;
-clear: both;
-margin: 0 auto;
-left: 955px;
-top: 550px;
-width:1020px;
-}
 
-#bottom-bg{
-padding:5px 0 0;
-width:1003px;
-height:70px;}
 
-#bottom-left{
-padding-bottom:0px;
-padding-top:10px;
-color: #333333;
-font-size: 12px;
-text-align:center;}
+ 
 
-#bottom-right{
-padding-bottom:0px;
-padding-top:0px;
-color: #999999;
-font-size: 12px;
-text-align:center;
-}
 
-a.bottom-text{
-color:#ff6600;
-font-family:Arial, Helvetica, sans-serif;
-font-weight:bold;
-font-size:12px;
-text-decoration:underline;}
-
-a:hover.bottom-text{
-color:#024770;
-font-size:12px;
-font-family:Arial, Helvetica, sans-serif;
-font-weight:bold;
-text-decoration:underline;}
-
-#logo-01 {
-height:150px;
-width:1003px;
-margin:0 auto;
-padding:0;
-}
-
-.logo-left {
-height:150px;
-width:136px;
-float:left;
-}
-
-.logo-right {
-background:transparent url(images/head-right-logo.gif) no-repeat scroll 0 0;
-height:108px;
-float:right;
-width:867px;
-}
-
-#login-main{
-color: #999999;
-font-size: 12px;
-margin:0 auto;
-width:100%;
-height:550px;
-background:url(images/index.jpg) no-repeat center;
-}
 
 #login-user{
-color: #999999;
-font-size: 12px;
-font-size: 14px;
-font-weight: bold;
-width:517px;
-height:270px;
-padding-left:390px;
-padding-right:0px;
-padding-top:90px;
-margin:0 auto;
-z-index:-2;
+position: absolute;
+margin: 10px auto;
+width: 339px;
+height: 300px;
+left: 57%;
+top: 63px;
+background: url(images/login-b.jpg) no-repeat center;
 }
 
 #login-U{
-    color: #999999;
-	font-size: 16px;
-    padding-top:145px;
-	width:250px;
-	text-align:left;
-	margin:0 auto;}
+position: absolute;
+margin: 10px auto;
+width: 246px;
+height: 293px;
+left: 9%;
+top: 24%;
+z-index: 2;
+	}
 	
 #login-U ul{
    margin:0;
@@ -511,10 +585,11 @@ z-index:-2;
    width:100%;}
    
 #login-U li .left_text{
+	font-weight: bold;
     float:left;
     width:90px;
-    font-size:15px;
-	color:#006699;
+    font-size:16px;
+	color:#5C676D;
 	font-family:"Œ¢»Ì—≈∫⁄";
 	font-weight:bold
     text-align:right;
@@ -522,8 +597,27 @@ z-index:-2;
     padding:5px 0px;
 	padding-left:10px;
 	padding-top:9px;
-    +padding:3px 0px;/*IEø…÷¥––*/}
-	
+    +padding:3px 0px;/*IEø…÷¥––*/
+    }
+.right_text a{
+	display: block;
+float: left;
+margin-left: -23px;
+margin-top:21px;
+line-height: 35px;
+vertical-align: middle;
+height: 36px;
+width: 103px;
+text-align: center;
+letter-spacing: 1px;
+white-space: nowrap;
+background: transparent url(images/button.png) repeat scroll 0%;
+color: #FDFDFD;
+font-size: 16px;
+font-family: "Œ¢»Ì—≈∫⁄";
+font-weight: bold;
+text-decoration: none;
+	}	
 #login-U li .right_text{
     float:right;
     width:150px;
