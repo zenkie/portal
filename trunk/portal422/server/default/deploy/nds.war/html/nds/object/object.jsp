@@ -23,7 +23,12 @@ if(userWeb==null || userWeb.isGuest()){
 }
 String tableName=request.getParameter("table");
 int objectId=Tools.getInt(request.getParameter("id"),-1);
-PairTable fixedColumns= PairTable.parseIntTable(request.getParameter("fixedcolumns"),null );
+PairTable fixedColumns=null;
+try{
+		fixedColumns= PairTable.parseIntTable(request.getParameter("fixedcolumns"),null );
+}catch(NumberFormatException  e){
+ 		fixedColumns= PairTable.parse(request.getParameter("fixedcolumns"),null );
+}
 boolean isInput= "view".equals(request.getParameter("action"))? false: ParamUtils.getBooleanParameter(request, "input",true);
 String namespace="";
 int status=0;
