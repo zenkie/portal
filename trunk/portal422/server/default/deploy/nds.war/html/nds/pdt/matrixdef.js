@@ -8,10 +8,28 @@ MatrixDef.prototype = {
 		portalClient.init(null,null,"/servlets/binserv/Rest");
 		var query=parseQueryString();
 		this._pdtId=query.pdtid[0];
-		this._loadInfo();
+
 		var brandid=0;
+		var isbrand="false";
+		this._loadInfo();
+		this._isbrand();
 		//this._brandid="";
 	},
+	_isbrand:function(){
+		var expr={column:"NAME",condition:"=portal.4134"};
+	  	var params={table:"ad_param", columns:["VALUE"],params:expr, range:1};
+		var trans={id:1, command:"Query",params:params};
+		var a=new Array(1);
+		a[0]=trans;
+		portalClient.sendRequest(a, function(response){
+			if(!mx.checkResponse(response,0))return;
+			var rows=response.data[0].rows;
+			isbrand=rows[0][0];
+			//alert(isbrand);
+		});
+		
+	},
+	
 	_loadInfo:function(){
 		var expr={column:"id",condition:"="+this._pdtId};
 	  	var params={table:"m_product", columns:["colors","sizes","M_SIZEGROUP_ID","M_DIM1_ID"],params:expr, range:1};
@@ -24,7 +42,8 @@ MatrixDef.prototype = {
 			var colors= rows[0][0];
 			brandid=rows[0][3];
 			//alert(this._brandid);
-			var colorExpr={combine:"and",expr1:{column:"M_DIM1_ID",condition:brandid},expr2:{column:"id",condition:"in("+colors+") and isactive=\'Y\'"}};
+			//var colorExpr={combine:"and",expr1:{column:"M_DIM1_ID",condition:brandid},expr2:{column:"id",condition:"in("+colors+") and isactive=\'Y\'"}};
+			var colorExpr={column:"id",condition:"in("+colors+") and isactive=\'Y\'"};
 			mx.listColors(colorExpr,"sel_colors");
 			
 			var sizes= rows[0][1];
@@ -67,8 +86,7 @@ MatrixDef.prototype = {
 		if (!event) event = window.event;
 	  	if (event && event.keyCode && event.keyCode == 13) {
 		  	var v=$("inscolor").value;
-		  	//alert(brandid);
-		  	if(brandid!=null){
+		  	if(brandid!=null&&isbrand!="false"){
 		  	var expr={combine:"or",expr1:{column:"",condition:"exists(select 1 from dual WHERE M_COLOR.NAME='"+v+"' and M_COLOR.M_DIM1_ID="+brandid+")"},
 		  	expr2:{column:"",condition:"exists(select 1 from dual WHERE M_COLOR.VALUE='"+v+"' and M_COLOR.M_DIM1_ID="+brandid+")"}};
 		  	}else{
@@ -151,7 +169,12 @@ MatrixDef.prototype = {
 		//alert(expr);
 		//alert(ele);
 		//alert(brandid);
-		if(ele==undefined){expr={"combine":"and","expr1":{"column":"isactive","condition":"Y"},"expr2":{"column":"M_DIM1_ID","condition":brandid}}}
+		
+		if(brandid!=null&&isbrand!="false"){
+				if(ele==undefined){expr={"combine":"and","expr1":{"column":"isactive","condition":"Y"},"expr2":{"column":"M_DIM1_ID","condition":brandid}}}
+			}else{
+				if(ele==undefined){expr={"column":"isactive","condition":"Y"}}
+		}
 		var params={table:"m_color", columns:["id","value","name"],params:(expr==undefined?null:expr),
 			orderby:[{column:"name",asc:true}], range:5000};
 		//alert(expr["combine"]);		
