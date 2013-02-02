@@ -179,7 +179,7 @@ ObjectQuery.prototype = {
 					}); 
 					*/
 				//AjaxUtil.update(url, popup, null);
-				var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:427,top:'top',border: true,resize:true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,close:function(){oq.close_query();}});
+				var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:427,top:'7%',border: true,resize:true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,close:function(){oq.close_query();}});
 
 				new Ajax.Request(url, {
 				  method: 'get',
