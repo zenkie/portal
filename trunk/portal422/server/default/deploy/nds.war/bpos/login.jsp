@@ -36,7 +36,8 @@
        		}catch(IOException e3){}
   			}
 		}
-
+	str=str.trim();
+	String version="1,0,641,0";
 	String name="";
 	String oldclsid="";
 	boolean isNewVerssion=true;
@@ -45,10 +46,14 @@
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache"/>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache"/>
+<META HTTP-EQUIV="Expires" CONTENT="0"/> 
 <head>
-<link rel="stylesheet" type="text/css" href="bpos/login.css" />
 <%@ include file="/bpos/login_header.jsp" %>
 </head>
+
 <script type="text/javascript">
 	 function Thrink(){
  		<%if(null==generateHTML){%>
@@ -78,7 +83,6 @@
 			window.close();
 			return;
 		}
-		if(Cookies.get("name"))
 		jQuery("#login").val(Cookies.get("name"));
 		if(<%=isNewVerssion%>==true){
 				jQuery("input").removeAttr("disabled");
@@ -152,7 +156,19 @@
 				});
 			<%}%>	
 	});
+	
+	//用户名变成小写
+	function loginToLowerCase(event){
+		 var e=Event.element(event);
+		 var loginName=jQuery(e).val();
+		 if(loginName!=""){
+		 	 jQuery(e).val(loginName.toLowerCase());
+		 	}
+		}
 </script>
+<title>webpos</title>
+
+
 <body>
 <div class="main">
 <div class="kong">
@@ -185,7 +201,7 @@
 <span>店&nbsp;&nbsp;仓&nbsp;&nbsp;名：</span><select id="storeselect" class="loginSelect" style="width:225px;"></select>
 </li>
 <li><span>用&nbsp;&nbsp;户&nbsp;&nbsp;名：</span>
-<input y=1 id="login" name="u" type="text" class="login_input" autocomplete="off" value=""/><span id="alert"></span>
+<input y=1 id="login" name="u" type="text" class="login_input" autocomplete="off" style="text-transform:lowercase" onkeyup="loginToLowerCase(event)"value=""/><span id="alert"></span>
 </li>
 <li><span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
 <input y=2 id="password" name="p" autocomplete="off" <%if(isNewVerssion){%> disabled="true" <%}%> onsubmit="return false" type="password" onfocus="onBlur();" value="" class="login_input" /><input type="hidden" name="pj" id="paramjson"/>
@@ -221,7 +237,7 @@
 <%if(null==generateHTML){%>
 </form>
 <%}%>
-<OBJECT style="display:none" ID="MainApp" width="160" height="30" CLASSID="CLSID:<%=str.trim()%>" codebase="setup.cab"></OBJECT>
+<OBJECT style="display:none" ID="MainApp" width="160" height="30" CLASSID="CLSID:<%=str%>" codebase="setup.cab"></OBJECT>
 </div>
 </body>
 

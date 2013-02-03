@@ -63,7 +63,9 @@ if(ssId==-1 && nds.util.Validator.isNull(directTb) && ssviewFirst){
 	return;
 }
 %>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" />
 <head>
 <%@ include file="top_meta.jsp" %>
 <script>
@@ -97,7 +99,7 @@ jQuery(document).ready(function(){pc.navigate('<%=mmId%>')});
 </script>	
 </head>
 <body>
-<div style="height:100%;overflow:auto;position:absolute;top:0px">		
+<div style="height:100%;overflow:auto;top:0px">		
 	<table id="page-table" cellpadding="0" cellspacing="0" >
 	<tr>
 		<td style="vertical-align:top;width:100%;align:left;">

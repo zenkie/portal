@@ -9,23 +9,41 @@ if(null==cardno||cardno.trim().equals("")){
 	return;
 }
 if(null!=isvou&&!"".equals(isvou)){
-	String sql="select c.is_list_limit,c.is_accpay_afterdis,nvl(c.ACCOUNT_LIMIT_DUE,0),nvl(c.vou_dis,0),nvl(c.amt_acount,0),c.VOUCHERS_NO,nvl(c.QTY_LIMIT,0)	"+
+/**
+select c.is_list_limit,c.is_accpay_afterdis,nvl(c.ACCOUNT_LIMIT_DUE,0),nvl(c.vou_dis,0),nvl(c.amt_acount,0),c.VOUCHERS_NO,nvl(c.QTY_LIMIT,0)	"+
 						"from C_VOUCHERS c where (exists(select 1 from C_VOUCHERS_STORE S where S.C_VOUCHERS_ID=C.ID AND S.C_STORE_ID="+storeid+") OR C.IS_ALLSTORE='Y')"+
 						"AND upper(C.VOUCHERS_NO)=upper('"+cardno+"') "+ 
-						"and c.is_valid='Y' and c.isactive='Y' and to_number(to_char(sysdate,'yyyyMMdd'))<=c.valid_date";
+						"and c.is_valid='Y' and c.isactive='Y' and to_number(to_char(sysdate,'yyyyMMdd'))<=c.valid_date
+*/
+
+
+	String sql="select b.description,to_number(to_char(sysdate,'yyyyMMdd')),c.valid_date,nvl(d.no,''),nvl(d.name,''),c.is_list_limit,c.is_accpay_afterdis,nvl(c.ACCOUNT_LIMIT_DUE,0),nvl(c.vou_dis,0),nvl(c.amt_acount,0),c.VOUCHERS_NO,nvl(c.QTY_LIMIT,0) "+
+						 ",c.is_valid from C_VOUCHERS c,ad_limitvalue b,ad_limitvalue_group e,HR_EMPLOYEE d where (exists(select 1 from C_VOUCHERS_STORE S where S.C_VOUCHERS_ID=C.ID AND S.C_STORE_ID="+storeid+") OR C.IS_ALLSTORE='Y')"+
+						 " AND upper(C.VOUCHERS_NO)=upper('"+cardno+"')"+
+						 " and c.vou_type=b.value"+
+						 " and b.ad_limitvalue_group_id=e.id"+
+  					 " and e.name='VOU_TYPE'"+
+ 						 " and c.hr_employee_id=d.id(+)"+
+						 " and c.isactive='Y'";
 	List rl=QueryEngine.getInstance().doQueryList(sql);
 	JSONObject ro=new JSONObject();
 	if(null!=rl&&rl.size()>0){
 		ro.put("code",200);
 		List l=(List)rl.get(0);
 		JSONObject mes=new JSONObject();
-		mes.put("isListLimit",l.get(0));
-		mes.put("isAccayAfterDis",l.get(1));
-		mes.put("accountLimit",l.get(2));
-		mes.put("vouDis",l.get(3));
-		mes.put("amtAcount",l.get(4));
-		mes.put("vouNo",l.get(5));
-		mes.put("qtyLimit",l.get(6));
+		mes.put("vouType",l.get(0));//购物券类型：员工购物券、折扣券、...
+		mes.put("sysDate",l.get(1));//使用服务器时间，防止本地时间不正确
+		mes.put("validDate",l.get(2));//截止时间
+		mes.put("epeNo",l.get(3));//如果关联员工，则显示员工号
+		mes.put("epeName",l.get(4));//如果关联员工，则显示员工名称
+		mes.put("isListLimit",l.get(5));
+		mes.put("isAccayAfterDis",l.get(6));
+		mes.put("accountLimit",l.get(7));
+		mes.put("vouDis",l.get(8));
+		mes.put("amtAcount",l.get(9));
+		mes.put("vouNo",l.get(10));
+		mes.put("qtyLimit",l.get(11));
+		mes.put("isValid",l.get(12));//是否可用，即是否被核销
 		ro.put("meg",mes);
 	}else{
 		ro.put("code",500);

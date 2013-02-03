@@ -499,6 +499,7 @@ function onReturnretailprice(event){
  	<li>当前操作员:<span id="currentoperator" style="color:blue;"></span></li>
  	<li>日指标:<span id="daycurrent" style="color:blue;">0</span><span class="idTarget">/</span><span id="daytarget" style="color:blue;">0</span></li>
  	<li>月指标:<span id="monthcurrent" style="color:blue;">0</span><span class="idTarget">/</span><span id="monthtarget" style="color:blue;">0</span></li>
+ 	<li>零售笔数:<span id="numcurrent" style="color:blue;">0</span></li>
  	<li>月开卡指标:<span id="openVipCurrent" style="color:blue;">0</span><span class="idTarget">/</span><span id="openViptarget" style="color:blue;">0</span></li>
  	<li>挂单数:<span style="color:blue;" id="restordernum">0</span></li>
 	</ul>
