@@ -1439,7 +1439,7 @@ DynamicQuery.prototype = {
 			dcq.closediv();  
 		}
 		isClkSug=false;
-		time=0;
+		//time=0;
 		}
 		
 	 	if(typeof (this._dynshow_json.dynshowjson)!="object"||typeof (this._dynshow_json.qdata)=="undefined"||this._dynshow_json.qdata==""){
