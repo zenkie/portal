@@ -1917,7 +1917,7 @@ function msgbox(msg, title, boxType ) {
 	alert(msg);
 }
 function playAlert(){
-		if($("jpId")){
+		if($("jpId")&&!is_ie_8){
 			/*
         	if(!app1){
             	var app1=FABridge.b_playErrorSound.root();
@@ -1926,11 +1926,15 @@ function playAlert(){
 						jQuery("#jpId").jPlayer("stop");
             jQuery("#jpId").jPlayer("play");
             return;
-        }
+      }
 }
 function alertScan(msg){
 	 var _isIE7=(navigator.userAgent.indexOf('MSIE 7')>0);
 	if(_isIE7){
+		alert(msg);
+		return;
+	}
+	if(is_ie_8){
 		alert(msg);
 		return;
 	}
