@@ -8,6 +8,7 @@ var is_ie_5_5 = (is_ie && (agent.indexOf("msie 5.5") != -1));
 var is_ie_5_5_up = (is_ie && !is_ie_4 && !is_ie_5);
 var is_ie_6 = (is_ie && (agent.indexOf("msie 6.0") != -1));
 var is_ie_7 = (is_ie && (agent.indexOf("msie 7.0") != -1));
+var is_ie_8 = (is_ie && (agent.indexOf("msie 8.0") != -1));
 
 var is_mozilla = ((agent.indexOf("mozilla") != -1) && (agent.indexOf("spoofer") == -1) && (agent.indexOf("compatible") == -1) && (agent.indexOf("opera") == -1) && (agent.indexOf("webtv") == -1) && (agent.indexOf("hotjava") == -1));
 var is_mozilla_1_3_up = (is_mozilla && (navigator.productSub > 20030210));
