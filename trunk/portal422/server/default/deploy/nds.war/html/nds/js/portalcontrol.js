@@ -25,7 +25,12 @@ PortalControl.prototype = {
 		var tabs=new CategoryTabs(gMenuObjects);
 		//alert(tabs);
 		//查询功能按钮
+		//识别IE8 没有查询功能
+		if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.match(/8./i)=="8."){
+    $("page-nav-container").innerHTML=tabs.toString();
+  	}else{
 		$("page-nav-container").innerHTML=tabs.toString()+"<li id=\"search_bar\"><form name=\"lab\" method=\"post\" onsubmit=\"pc.navigate(\"ad_table\")\"><input id=\"pojam\" type=\"text\" autocomplete=\"off\"></form></li>";
+		}
 		//menu acction
 		jQuery('#page-nav-container a')
 		.css( {backgroundPosition: "-20px 35px"} )
@@ -37,7 +42,7 @@ PortalControl.prototype = {
 				jQuery(this).css({backgroundPosition: "-20px 35px"})
 			}})
 		});
-		if(tabs.childNodes.length>0&&tabs.childNodes[0].ssid!=-1){
+		if(tabs.childNodes.length>2&&tabs.childNodes[0].ssid!=-1){
 			tabs.childNodes[1].select();
 			}else{
 			tabs.childNodes[0].select();
@@ -142,6 +147,10 @@ PortalControl.prototype = {
 		//limitWidth=limitWidth+40;
 		
 		//var e=$("embed-lines");
+		//识别IE8 列表宽度问题
+		if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.match(/8./i)=="8."){
+    limitWidth=(jQuery("#portal-menu").css("display")=="block")?jQuery("#portal-menu").width():jQuery("#portal-separator").width();
+  	}
 		var e=$("portal-content");
 		if(e==null)return;
 		if (!is_safari) {
