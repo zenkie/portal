@@ -157,7 +157,7 @@
         return;
   }
 	int rangType=nds.util.Tools.getInt(QueryEngine.getInstance().doQueryOne("select value from ad_param where name='webpos.vipAreaRange'"),-1);
-	int subsys=nds.util.Tools.getInt(QueryEngine.getInstance().doQueryOne("select id from AD_SUBSYSTEM where name='在线店务'"),-1);
+	int subsys=nds.util.Tools.getInt(QueryEngine.getInstance().doQueryOne("select id from AD_SUBSYSTEM where name='门店管理'"),-1);
 	String menuList=(String)QueryEngine.getInstance().doQueryOne("select value from ad_param where name='webpos.menu.list'");
 	String menuReportList=(String)QueryEngine.getInstance().doQueryOne("select value from ad_param where name='webpos.menu.reportlist'");
 	//String menuReportList="发货订单汇总报表";
@@ -311,7 +311,7 @@ function onReturnretailprice(event){
 			<%}%>
 			<li class="hmain">
 				
-				<a target="_blank" href="/html/nds/portal/portal.jsp?ss=<%=subsys%>">在线店务</a>
+				<a target="_blank" href="/html/nds/portal/portal.jsp?ss=<%=subsys%>&&isstore=Y">在线店务</a>
 					<ul>
 						<%
 					for(int i=0;i<ml.size();i++){
