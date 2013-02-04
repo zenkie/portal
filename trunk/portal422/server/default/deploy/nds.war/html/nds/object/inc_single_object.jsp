@@ -258,7 +258,8 @@
 	            		h.put("readonly","readonly");
 	            	}
 	  						if(WebUtils.getBrowserType(request)==0){
-	            	h.put("onpropertychange","oc.onKeyPress(event)");
+	  						//特此注意在IE8下可能发生value循环BUG
+	            	h.put("onblur","oc.onKeyPress(event)");
 		            }else{
 		            h.put("oninput","oc.onKeyPress(event)");	
 		            	//h.put("onblur", "oc.isempty("+column_acc_Id+","+"fk_"+column_acc_Id+")");
@@ -293,7 +294,7 @@
          }        
                 h.put("title", model.getInputBoxIndicator(column,column_acc_Id,locale));
                 String attributeText2= (column.getJSONProps()!=null?column.getJSONProps().optString("input_attr",""):"");
-                System.out.println(column.getName()+"~~~"+attributeText2+"!!!!!!!!!!!!!!!!!");
+                //System.out.println(column.getName()+"~~~"+attributeText2+"!!!!!!!!!!!!!!!!!");
 	            %>
 	     <%
 	      if(column.getJSONProps()!=null){
