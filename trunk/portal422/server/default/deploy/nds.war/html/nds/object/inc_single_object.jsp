@@ -369,7 +369,7 @@
             if(column.getReferenceTable() !=null){
                 if(isFixedColumn==false){
                 %>
-                <span id="<%=namespace%>cbt_<%=column.getId()%>"  onaction="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
+                <span id="<%=namespace%>cbt_<%=column.getId()%>"  onclick="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
                 <script>
                 	<%if(Validator.isNotNull(column.getRegExpression())){%>
                 		createAction("<%=column_acc_Id%>", "<%=column.getRegExpression()%>");
