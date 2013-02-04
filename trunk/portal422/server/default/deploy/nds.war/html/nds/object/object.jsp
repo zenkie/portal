@@ -297,19 +297,24 @@ if(isVoid){
 </div>
 <input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
 <table><tr><td>
-	  <script>
-	  	 	jQuery(document).ready(function(){try{dcq.createdynlist(<%=dcqjsonarraylist%>);}catch(ex){};oc.initColumns();});
-	    	var ti=setInterval("try{dcq.dynquery();}catch(ex){}",500);
-				jQuery(document).ready(function(){
-					jQuery("#jpId").jPlayer( {
-						ready: function () {
-								jQuery(this).jPlayer("setMedia",<%=soundfile%>);
-							},
-							swfPath: "/html/nds/js/jplay",
-							supplied: "mp3,mp4,flv,oga,wav"
-				   });
-				});
-	  </script>
+<script>
+jQuery(document).ready(function(){
+	try{dcq.createdynlist(<%=dcqjsonarraylist%>);}catch(ex){};
+	oc.initColumns();
+	});
+	
+var ti=setInterval("try{dcq.dynquery();}catch(ex){}",500);
+
+jQuery(document).ready(function(){
+jQuery("#jpId").jPlayer( {
+	ready: function () {
+			jQuery(this).jPlayer("setMedia",<%=soundfile%>);
+		},
+		swfPath: "/html/nds/js/jplay",
+		supplied: "mp3,mp4,flv,oga,wav"
+  });
+});
+</script>
 </td></tr></table>
 <div id="jpId"></div>
 </body>
