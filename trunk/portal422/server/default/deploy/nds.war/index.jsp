@@ -34,7 +34,8 @@ clear: both;
 margin: 0 auto;
 left: 955px;
 top: 355px;
-width:1020px;
+/*width:1020px;*/
+width: 604px;
 }
 #bottom-left {
 padding-bottom:0px;
@@ -117,10 +118,12 @@ z-index: 2;
 }
 .bottom-logo{
 	background: url(images/bottom.gif) no-repeat center;
-	position: absolute;
+	/*position: absolute;*/
 	width: 87px;
 	height: 20px;
-	left: 333px;
+	/*left: 333px;*/
+	float: left;
+	display: block;
 	}
 	
 .bar{
@@ -219,8 +222,7 @@ function submitForm(){
 <div class="login">
 <div class="bar"></div>
 <div id="bottom">
-  <span class="bottom-logo"></span>
-	<div id="bottom-right">&copy;2011-2012上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
+	<div id="bottom-right"><span class="bottom-logo"></span>&copy;2011-2013上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
 </div>
 <div id="Layer3">
 <div id="LAYER3"> 

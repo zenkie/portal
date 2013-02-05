@@ -20,7 +20,8 @@ clear: both;
 margin: 0 auto;
 left: 955px;
 top: 355px;
-width:1020px;
+/*width:1020px;*/
+width: 604px;
 }
 #bottom-left {
 padding-bottom:0px;
@@ -103,10 +104,12 @@ z-index: 2;
 }
 .bottom-logo{
 	background: url(images/bottom.gif) no-repeat center;
-	position: absolute;
+	/*position: absolute;*/
 	width: 87px;
 	height: 20px;
-	left: 333px;
+	/*left: 333px;*/
+	float: left;
+	display: block;
 	}
 	
 .bar{

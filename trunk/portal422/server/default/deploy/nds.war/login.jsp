@@ -61,8 +61,7 @@ function submitForm(){
 	</div>
 <div id="login-main" class="login">
 	<div id="bottom">
-  <span class="bottom-logo"></span>
-	<div id="bottom-right">&copy;2011-2012上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
+	<div id="bottom-right"><span class="bottom-logo"></span>&copy;2011-2013上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
 </div>
 	<div class="bar"></div>
 <div id="login-user">
