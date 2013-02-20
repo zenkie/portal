@@ -156,17 +156,14 @@ for(int wasi=0;wasi<waListButtons.size();wasi++){
 	<%@ include file="table_list.jsp" %>
   </div>
 <script type="text/javascript">
-//test123
+ 
 jQuery("#hide_bar").mousedown(function(event){
       pc.menu_toggle(this);
       event.stopPropagation();
   });
-//jQuery('#page-table-query-tab ul').tabs();
-//jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
-//jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
+
 var new_high=document.documentElement.clientWidth;
-//jQuery("#embed-lines").css("width",new_high-209);
-//alert(new_high);
+
 jQuery("#embed-lines").css("height","100%");
 var param_count=jQuery("#list_query_form :input[name=param_count]").val();
 if(param_count==0){
@@ -179,7 +176,7 @@ for(int wasi=0;wasi<waListMenuItems.size();wasi++){
 	waListMenuItemStr.append(waListMenuItems.get(wasi).toHTML(locale,null));
 }
 if(waListMenuItems.size()>0){
-//System.out.println(StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\""));
+	//System.out.println(StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\""));
 %>
 
 pc.addListMenuItems("<%=StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\"")%>");
