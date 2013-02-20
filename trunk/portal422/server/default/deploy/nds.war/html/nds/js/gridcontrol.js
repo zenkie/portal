@@ -72,7 +72,7 @@ GridControl.prototype = {
 		if(this._inlineMode=="Y"){
 			this._toggleEditableFields(true);
 		}
-		this._initTable();
+		//this._initTable();
 	},
 	/**
 	@param idx - 's' stock qty, 'c' qty_consign, 'v' qty valid
@@ -1045,6 +1045,7 @@ GridControl.prototype = {
 		var pdt=$("eo_"+chkProductAttribute.value);
 		this._saveLineToGrid(chkResult,pdt);
 		this._tmpData=null;
+		ScrollableTable._matchFixedHead();
 		return true;
 	},
 	getLastFocusElement:function(){
@@ -1674,6 +1675,7 @@ GridControl.prototype = {
 		var q=this._gridQuery;
 		s=qr.start;
 		q.start= s;
+		//fth.refreshGrid();
 		dwr.util.removeAllRows("grid_table", { filter:function(tr) {
 		      return (tr.id != "templaterow");
 	    }});
@@ -1696,6 +1698,8 @@ GridControl.prototype = {
 			}
 		}catch(ex){}		
 		//try{$("itemdetail_form").focusFirstElement();}catch(e){}
+		//if(typeof(fth)=="object") fth.drawTable("embed-items");
+		ScrollableTable.set('modify_table','100%',260,false);
 	},
 	/**
 	* Setup line template for input
@@ -1726,7 +1730,7 @@ GridControl.prototype = {
 			更新SelectableTableRows to  selectable
 		};	
 		*/
-		var tb=jQuery('#modify_table').selectable({filter:'tr',tolerance:"fit",cancel:"input,:input,a,.ui-selected"});
+		var tb=jQuery('#grid_table').selectable({filter:'tr',tolerance:"fit",cancel:"input,:input,a,.ui-selected"});
 		 tb.dblclick(function(trElement){
 		   if(trElement.srcElement.type=="checkbox"){
 		   	return;
@@ -1986,3 +1990,248 @@ function doQuickSearch(){
 }
 
 
+	var scrollbarWidth = 0;
+	// http://jdsharp.us/jQuery/minute/calculate-scrollbar-width.php
+	function getScrollbarWidth() 
+	{
+		if (scrollbarWidth) return scrollbarWidth;
+		var div = jQuery('<div style="width:50px;height:50px;overflow:hidden;position:absolute;top:-200px;left:-200px;"><div style="height:400px;"></div></div>'); 
+		jQuery('body').append(div); 
+		var w1 = jQuery('div', div).innerWidth(); 
+		div.css('overflow-y', 'auto'); 
+		var w2 = jQuery('div', div).innerWidth(); 
+		jQuery(div).remove(); 
+		scrollbarWidth = (w1 - w2);
+		return scrollbarWidth;
+	}
+
+	var ScrollableTable = {
+
+
+	init: false,
+
+	_scrollBarWidth : 18,
+
+	set: function(id, width, height, overflowX, center) {
+
+		if (this.init) {
+			ScrollableTable._matchFixedHead();
+			return;
+		}
+
+		if (overflowX == null) {
+			overflowX = false;
+		}
+
+		if (center == null) {
+			center = false;
+		}
+
+		var masterTable = document.getElementById(id); 
+
+		if (masterTable == null) {
+			alert("Err \n no table ");
+			return;
+		}
+		if (masterTable.tHead == null) {
+			alert("err\n no <THEAD>");
+			return;
+		}
+
+		if (masterTable.caption != null) {
+			masterTable.caption.innerHTML = ""; 
+		}
+
+		var thHeight = masterTable.tHead.offsetHeight;
+
+		var tableHeader = masterTable.cloneNode(true);
+
+    var ptableid=tableHeader.id;
+		tableHeader.id = ptableid + "_H";
+		
+		while (tableHeader.tBodies[0].rows.length) {
+			tableHeader.tBodies[0].deleteRow(0);
+		}
+		tableHeader.tBodies[0].id='h_grid_table';
+		
+		tableHeader.cellSpacing="0";
+		
+	  tableHeader.style.position = "relative";
+		tableHeader.style.left = "0";
+		tableHeader.style.top = "0";
+		 
+	 var tableOrg = jQuery("#" + id);
+	 
+   var colsWidths = jQuery(tableOrg).find("thead tr:first td").map(function() {
+        return jQuery(this).width();
+    });
+		
+		
+		width=tableOrg.outerWidth()<902?902:tableOrg.outerWidth();
+		
+	  tableHeader.style.width = width+"px";
+	 
+		if (tableHeader.rows.length > 0) {
+			//获取每一行TR数据
+			  for (v = 0; v < tableHeader.rows.length; v++) {
+			  	var  trbody=tableHeader.rows[v];
+			    if (colsWidths.size() > 0) {
+			    	  //更新每行TD宽度
+			    	
+			        for (i = 0; i < trbody.children.length; i++) {
+			        	//alert(colsWidths[i]);
+			        	var tdbody=trbody.children[i]
+			            if (i == tdbody.length - 1) {
+			                if (browserVersion == 8.0)
+			                    tdbody.width=colsWidths[i] + scrollWidth+'px';
+			                else
+			                    tdbody.width=colsWidths[i]+'px';
+			            } else {
+			                tdbody.width=colsWidths[i]+1+'px';
+			            }
+			        }
+			    }
+			    
+			  }
+ 		}		
+		
+
+		
+		var divHeader = document.createElement("div");
+		divHeader.id = "D_" + ptableid;
+		divHeader.style.width = width + "px";
+		divHeader.style.height = thHeight + "px";
+		divHeader.style.overflow = "hidden";
+		divHeader.style.position = "relative";
+		divHeader.style.zIndex=12;
+		divHeader.appendChild(tableHeader);
+
+		masterTable.parentNode.insertBefore(divHeader, masterTable);
+
+		var tableBody = masterTable.cloneNode(true);
+		tableBody.id = tableBody.id + "_B";
+		tableBody.deleteTHead();
+		if (tableBody.rows.length > 0) {
+			//获取每一行TR数据
+			  for (v = 0; v < tableBody.rows.length; v++) {
+			  	var  trbody=tableBody.rows[v];
+			    if (colsWidths.size() > 0) {
+			    	  //更新每行TD宽度
+			    	
+			        for (i = 0; i < trbody.children.length; i++) {
+			        	//alert(colsWidths[i]);
+			        	var tdbody=trbody.children[i]
+			            if (i == tdbody.length - 1) {
+			                if (browserVersion == 8.0)
+			                    tdbody.width=colsWidths[i] + scrollWidth+'px';
+			                else
+			                    tdbody.width=colsWidths[i]+'px';
+			            } else {
+			                tdbody.width=colsWidths[i]+'px';
+			            }
+			        }
+			    }
+			    
+			  }
+ 		}
+ 		
+ 	  tableBody.style.width = width+ "px";//(width + getScrollbarWidth()) + "px";
+		
+		var divBody = document.createElement("div");
+		divBody.id = "D_" + tableBody.id;
+		divBody.style.width = (width + getScrollbarWidth()) + "px";
+		divBody.style.maxHeight = height + "px";
+		divBody.style.minHeight ="100px";
+		if (overflowX) {
+			divBody.style.overflow  = "scroll";
+		} else {
+			divBody.style.overflowY = "scroll";
+			divBody.style.overflowX = "hidden";
+			divBody.style.zIndex=11;
+		}
+		if (center) {
+			divBody.style.marginLeft  = getScrollbarWidth() + "px";
+		}
+		divBody.appendChild(tableBody);
+
+		masterTable.parentNode.insertBefore(divBody, masterTable);
+		masterTable.parentNode.removeChild(masterTable);
+   // jQuery('#modify_table_B thead').hide();
+		divBody.onscroll = function() {
+			ScrollableTable._onscroll(divHeader.id, divBody.id)
+		};
+
+		this.init = true;
+		gc._initTable();
+		//ScrollableTable._matchFixedHead();
+	},
+
+	
+	_onscroll: function(divHeaderId, divBodyId) {
+		var divHeader = document.getElementById(divHeaderId);
+		var divBody = document.getElementById(divBodyId);
+
+		divHeader.firstChild.style.left =  "-" + divBody.scrollLeft + "px";
+	},
+	
+		_matchFixedHead : function() {
+		/* 3 times change to match */
+		var thWidth = [];
+		var theadTD = jQuery("#modify_table_H").find("thead tr:first td");
+		var tbodyTD = jQuery("#modify_table_B").find("tbody tr:first td");
+		var diff=0;
+		theadTD.each(function(index) {
+			var tObj = jQuery(this);
+			var temp = tObj.width();
+			thWidth[index] = temp<24?26:temp;/*before +24px,now 26px for forbidding table's no wider.*/
+		});
+		tbodyTD.each(function(index) {
+			var temp = jQuery(this).width();
+			var arrayTemp = thWidth[index];
+			thWidth[index] = arrayTemp>temp?arrayTemp:temp;
+			diff=diff+(arrayTemp<temp?temp-arrayTemp:arrayTemp-temp);
+		});
+		if (Prototype.Browser.IE) {
+			tbodyTD.each(function(index) {
+				//thWidth[index] += 4;
+				jQuery(this).width(thWidth[index]);
+			});
+		} else{
+			//tbodyTD.each(function(index) {jQuery(this).css("min-width",thWidth[index]);});
+			tbodyTD.each(function(index) {jQuery(this).width(thWidth[index]);});
+			
+			
+		}
+		//theadTD.each(function(index) {jQuery(this).css("min-width",thWidth[index]);});
+		  theadTD.each(function(index) {jQuery(this).width(thWidth[index]);});
+
+ 
+    jQuery("#modify_table_H").width((jQuery("#modify_table_H").width()+diff));
+    jQuery("#modify_table_B").width(jQuery("#modify_table_H").width());
+		jQuery("#D_modify_table").width(jQuery("#modify_table_H").width());
+		jQuery("#D_modify_table_B").width((jQuery("#D_modify_table").width()+getScrollbarWidth()));
+     /*
+     var newidth=0;
+     jQuery.each(thWidth, function (i, item) {  
+             newidth=item+newidth;
+        });  
+       */ 
+       // alert(newidth);
+        
+   // alert(jQuery(this).innerWidth());   
+  // if (diff<=getScrollbarWidth()) {
+     //alert(jQuery("#modify_table_H").width());
+       //  alert(jQuery("#modify_table_B").width());
+     
+		 //jQuery("#D_modify_table").width((jQuery("#D_modify_table_B").width()+diff));
+		 //jQuery("#D_modify_table_B").width((jQuery("#D_modify_table").width()+getScrollbarWidth()));
+		//	}
+	//}
+		
+		//}
+		
+		//jQuery("#fthtr").remove();
+		//this._adjust();
+	},
+	
+}
