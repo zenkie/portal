@@ -20,7 +20,6 @@ org.json.JSONObject jc;
 
 int tabId= Integer.MAX_VALUE-1;
 boolean is_store=Tools.getYesNo(request.getParameter("isstore"),false);
-System.out.print(is_store);
 boolean hasOnlyActions=true;//not show reports if has only actions in subsystem
 if(ssId==-1&&!defaultboshome){
 	List subsystems =ssv.getSubSystems(request);
