@@ -22,10 +22,11 @@
  if(table.getName().endsWith("ITEM")) divEmbedItemId="embed-items";
  else divEmbedItemId="embed-items-short";
 %>
-<div class="<%=divEmbedItemId%>" id="embed-items">
-<table id="modify_table" width="100%" border="1" cellspacing="0" cellpadding="0"  align="center" bordercolordark="#FFFFFF" bordercolorlight="#FFFFFF">
+<div class="<%=divEmbedItemId%>" id="embed-items" style="width:902px;">
+<!--table id="modify_table" style="width:100%" border="1" cellspacing="0" cellpadding="0"  align="center" bordercolordark="#FFFFFF" bordercolorlight="#FFFFFF"-->
+<table class="modify_table" id="modify_table">
 	<thead><tr id="titletr">
-  	<td nowrap align='center' width="70"><%=PortletUtils.getMessage(pageContext, "rowindex",null)%></td>
+  	<td nowrap align='center'><%=PortletUtils.getMessage(pageContext, "rowindex",null)%></td>
 <%
 ArrayList columns=table.getColumns(meta.ITEM_COLUMN_MASKS,false,userWeb.getSecurityGrade() );
 int colWidth=15,maxLength=10;
@@ -103,7 +104,7 @@ for(int i=0;i< columns.size();i++){
  </thead>
  <tbody id="grid_table">
    <tr id="templaterow" style="display:none;">
-  	<td width="70" nowrap><span id="row"></span><span id="errmsg"></span><span id="state__"></span><span id="jsonobj"></span></td>
+  	<td nowrap ><span id="row"></span><span id="errmsg"></span><span id="state__"></span><span id="jsonobj"></span></td>
 <%
 for(int i=0;i< columns.size();i++){
 	col=(Column)columns.get(i);
@@ -128,11 +129,11 @@ for(int i=0;i< columns.size();i++){
 	}
 	isFixedColumn= (fixedColumns.get(new Integer(col.getId())) ==null)?false:true;
 %>
-<td class="pd1" width="<%=colSizes[i]%>%" <%=(alignRight[i]?"align='right'":"")%>>
+<td   <%=(alignRight[i]?"align='right'":"")%>>
 	<%if(refTable!=null && !isFixedColumn){
 		// hold img link, if column is fk, and not fixed, and can popup(menuItem)
 	%>
-		<span id="<%=cId%>_url" class="pd2">&nbsp;</span>
+		<span id="<%=cId%>_url" >&nbsp;</span>
 	<%}
 	values= col.getValues(locale);
 	if(values != null){// combox or check
