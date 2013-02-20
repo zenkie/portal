@@ -81,16 +81,16 @@ background-color: #EEEFF0;
 	background:	#999999;
 }
 .cbx{
-/*
- 	height:18px;
- 	width:18px;
-	*/
+
+ 	height:14px;
+ 	width:14px;
+	
 }
 .cbx2{
-/*
- 	height:18px;
- 	width:18px;
-	*/
+
+ 	height:14px;
+ 	width:14px;
+	
 }
 .readonly-text { border-color: #CCCCCC; border-style: solid; border-width: 1px;}
 .comboBoxList {position:absolute;padding: 0px;border: 1px solid  #000;}
