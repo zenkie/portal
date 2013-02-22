@@ -10,7 +10,7 @@ MatrixDef.prototype = {
 		this._pdtId=query.pdtid[0];
 
 		var brandid=0;
-		var isbrand="false";
+		isbrand="false";
 		this._loadInfo();
 		this._isbrand();
 		//this._brandid="";
