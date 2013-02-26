@@ -1730,7 +1730,7 @@ GridControl.prototype = {
 			更新SelectableTableRows to  selectable
 		};	
 		*/
-		var tb=jQuery('#grid_table').selectable({filter:'tr',tolerance:"fit",cancel:"input,:input,a,.ui-selected"});
+		var tb=jQuery('#modify_table').selectable({filter:'tr',tolerance:"fit",cancel:"input,:input,a,.ui-selected"});
 		 tb.dblclick(function(trElement){
 		   if(trElement.srcElement.type=="checkbox"){
 		   	return;
@@ -2014,7 +2014,7 @@ function doQuickSearch(){
 
 	set: function(id, width, height, overflowX, center) {
 
-		if (this.init) {
+		if (jQuery("#D_modify_table").length>0) {
 			ScrollableTable._matchFixedHead();
 			return;
 		}
@@ -2107,14 +2107,16 @@ function doQuickSearch(){
 		divHeader.appendChild(tableHeader);
 
 		masterTable.parentNode.insertBefore(divHeader, masterTable);
+		masterTable.deleteTHead();
+		
 
-		var tableBody = masterTable.cloneNode(true);
-		tableBody.id = tableBody.id + "_B";
-		tableBody.deleteTHead();
-		if (tableBody.rows.length > 0) {
+		//var tableBody = masterTable.cloneNode(true);
+		//tableBody.id = tableBody.id + "_B";
+		//tableBody.deleteTHead();
+		if (masterTable.rows.length > 0) {
 			//获取每一行TR数据
-			  for (v = 0; v < tableBody.rows.length; v++) {
-			  	var  trbody=tableBody.rows[v];
+			  for (v = 0; v < masterTable.rows.length; v++) {
+			  	var  trbody=masterTable.rows[v];
 			    if (colsWidths.size() > 0) {
 			    	  //更新每行TD宽度
 			    	
@@ -2135,10 +2137,10 @@ function doQuickSearch(){
 			  }
  		}
  		
- 	  tableBody.style.width = width+ "px";//(width + getScrollbarWidth()) + "px";
+ 	  masterTable.style.width = width+ "px";//(width + getScrollbarWidth()) + "px";
 		
 		var divBody = document.createElement("div");
-		divBody.id = "D_" + tableBody.id;
+		divBody.id = "D_" + masterTable.id+"_B";
 		divBody.style.width = (width + getScrollbarWidth()) + "px";
 		divBody.style.maxHeight = height + "px";
 		divBody.style.minHeight ="100px";
@@ -2152,10 +2154,23 @@ function doQuickSearch(){
 		if (center) {
 			divBody.style.marginLeft  = getScrollbarWidth() + "px";
 		}
-		divBody.appendChild(tableBody);
-
-		masterTable.parentNode.insertBefore(divBody, masterTable);
-		masterTable.parentNode.removeChild(masterTable);
+		
+			var bodyWrap = jQuery("#"+masterTable.id).wrap('<div></div>')
+									.parent()
+									.attr('id',divBody.id)
+									.css({
+										width: (width + getScrollbarWidth()),
+										maxHeight: height,
+										minHeight:100,
+										overflowY:'scroll',
+										overflowX:'hidden',
+										zIndex:11
+									});
+		//masterTable.parentNode.insertBefore(divBody,masterTable);
+ 			//masterTable.prependTo(divBody);
+ 			//jQuery("#"+masterTable.id).prependTo(divBody);
+		//masterTable.parentNode.insertBefore(divBody, masterTable);
+		//masterTable.parentNode.removeChild(masterTable);
    // jQuery('#modify_table_B thead').hide();
 		divBody.onscroll = function() {
 			ScrollableTable._onscroll(divHeader.id, divBody.id)
@@ -2178,7 +2193,7 @@ function doQuickSearch(){
 		/* 3 times change to match */
 		var thWidth = [];
 		var theadTD = jQuery("#modify_table_H").find("thead tr:first td");
-		var tbodyTD = jQuery("#modify_table_B").find("tbody tr:first td");
+		var tbodyTD = jQuery("#modify_table").find("tbody tr:first td");
 		var diff=0;
 		theadTD.each(function(index) {
 			var tObj = jQuery(this);
@@ -2205,11 +2220,12 @@ function doQuickSearch(){
 		//theadTD.each(function(index) {jQuery(this).css("min-width",thWidth[index]);});
 		  theadTD.each(function(index) {jQuery(this).width(thWidth[index]);});
 
- 
+  
     jQuery("#modify_table_H").width((jQuery("#modify_table_H").width()+diff));
-    jQuery("#modify_table_B").width(jQuery("#modify_table_H").width());
+    jQuery("#modify_table").width(jQuery("#modify_table_H").width());
 		jQuery("#D_modify_table").width(jQuery("#modify_table_H").width());
 		jQuery("#D_modify_table_B").width((jQuery("#D_modify_table").width()+getScrollbarWidth()));
+		
      /*
      var newidth=0;
      jQuery.each(thWidth, function (i, item) {  
