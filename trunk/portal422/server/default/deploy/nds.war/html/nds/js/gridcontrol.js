@@ -2015,10 +2015,14 @@ function doQuickSearch(){
 	set: function(id, width, height, overflowX, center) {
 
 		if (jQuery("#D_modify_table").length>0) {
+			var itemlen=document.getElementById("grid_table").rows.length;
+		if(itemlen>1){
 			ScrollableTable._matchFixedHead();
 			return;
+			}else{
+				return;
+			}
 		}
-
 		if (overflowX == null) {
 			overflowX = false;
 		}
@@ -2212,6 +2216,7 @@ function doQuickSearch(){
 				//thWidth[index] += 4;
 				jQuery(this).width(thWidth[index]);
 			});
+	
 		} else{
 			//tbodyTD.each(function(index) {jQuery(this).css("min-width",thWidth[index]);});
 			tbodyTD.each(function(index) {jQuery(this).width(thWidth[index]);});
