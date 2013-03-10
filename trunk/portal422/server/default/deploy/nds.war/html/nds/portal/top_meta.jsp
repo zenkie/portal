@@ -93,7 +93,7 @@
 <!--script language="javascript" src="/html/nds/js/objdropmenu.js"></script-->
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/objdropmenu.css">
 <!--link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/drop_menu3.css"-->
-<link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/home.css" />
+<link type="text/css" rel="stylesheet" href="/html/nds/portal/ssv/css/home.css" />
 <%}//end JAVASCRIPT_FAST_LOAD
 %>
 <title><%=userWeb.getClientDomainName()%></title>
