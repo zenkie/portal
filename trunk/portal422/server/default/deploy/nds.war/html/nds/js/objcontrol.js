@@ -515,13 +515,27 @@ ObjectControl.prototype = {
 			if(oc._toggleButtons(true) ==false) return;
 			this._executeCommandEvent(evt);
 		}else{
+			if(oc._toggleButtons(true) ==false) return;
+			this.submitWithConfirmation(false);
+			/*
 			evt.command=this._masterObj.table.name+"Submit";
 			evt.parsejson="Y";
 			evt.callbackEvent="SubmitObject";
 			evt.merge(this._masterObj.hiddenInputs);
 			if(oc._toggleButtons(true) ==false) return;
 			this._executeCommandEvent(evt);
+			*/
 		}
+    },
+    
+    submitWithConfirmation:function(b){
+    	var evt=$H();
+    	evt.command=this._masterObj.table.name+"Submit";
+		evt.parsejson="Y";
+		evt.callbackEvent="SubmitObject";
+		evt.merge(this._masterObj.hiddenInputs);
+		if(b)evt["check_submit.msg"]="ok";
+		this._executeCommandEvent(evt);
     },
 	
 	doDelete:function(){
@@ -573,6 +587,27 @@ ObjectControl.prototype = {
 			}else{
 				if(r.data!=null && r.data.sbresult!=null){
 				this._handleSPResult(r.data.sbresult);
+				}
+				//for check_submit, r.message is json object
+				if( r.data!=null &&  r.data.check_submit!=null){
+					var chksubmit=r.data.check_submit.evalJSON();
+					switch(chksubmit.code){
+						case 1:
+							msgbox(chksubmit.message);
+							this._toggleButtons(false);
+							break;
+						case 2:
+							if(confirm(chksubmit.message)){
+								setTimeout("oc.submitWithConfirmation(true)",100);
+								return;								
+							}else
+								this._toggleButtons(false);
+							break;
+						case 3:
+							this._toggleButtons(false);
+							eval(chksubmit.message);
+							break;
+					}
 				}else{
 				 this._closeWindowOrShowMessage(r.message);
 				}
