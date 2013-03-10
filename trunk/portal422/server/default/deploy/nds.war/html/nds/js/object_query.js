@@ -849,14 +849,23 @@ ObjectQuery.prototype = {
 			$(this._accepter_id[this._queryindex]+"_fd").title=$(this._accepter_id[this._queryindex]+"_fd").value;
 
 		}else if(this._returnType[this._queryindex]=="a"){
-			$(this._accepter_id[this._queryindex]).value=ret.desc;
-			if($("tab_"+this._accepter_id[this._queryindex])!=null){
-				$("tab_"+this._accepter_id[this._queryindex]).innerHTML=ret.desc;
+			// support accepter_id as function name instead of element, 2010-8-5 yfzhu
+			if($(this._accepter_id[this._queryindex])!=null){
+				$(this._accepter_id[this._queryindex]).value=ret.desc;
+				if($("tab_"+this._accepter_id[this._queryindex])!=null){
+					$("tab_"+this._accepter_id[this._queryindex]).innerHTML=ret.desc;
+				}
+				$(this._accepter_id[this._queryindex]+ "_expr").value=ret.filterxml;
+				$(this._accepter_id[this._queryindex]+ "_sql").value=ret.sql;
+				$(this._accepter_id[this._queryindex]).readOnly=true;
+				$(this._accepter_id[this._queryindex]).title=ret.desc;
+			}else{
+				if(typeof window[this._accepter_id[this._queryindex]]=="function"){
+					window[this._accepter_id[this._queryindex]]({sql:ret.sql,description:ret.desc,expression:ret.filterxml});
+				}else{
+					alert("Unexpected accepter found:"+(typeof window[this._accepter_id[this._queryindex]]));
+				}
 			}
-			$(this._accepter_id[this._queryindex]+ "_expr").value=ret.filterxml;
-			$(this._accepter_id[this._queryindex]+ "_sql").value=ret.sql;
-			$(this._accepter_id[this._queryindex]).readOnly=true;
-			$(this._accepter_id[this._queryindex]).title=ret.desc;
 		}else{
 			$(this._accepter_id[this._queryindex]).value=ret.desc;
 			$(this._accepter_id[this._queryindex]+ "_filter").value=ret.filterxml;
@@ -864,10 +873,11 @@ ObjectQuery.prototype = {
 			$(this._accepter_id[this._queryindex]).readOnly=true;
 			$(this._accepter_id[this._queryindex]).title=ret.desc;
 		}
+		try{
 		$(this._accepter_id[this._queryindex]+ "_img").src="/html/nds/images/clear.gif";
 		$(this._accepter_id[this._queryindex]+ "_link").title="clear";
 		$(this._accepter_id[this._queryindex]+ "_img").alt=gMessageHolder.CLEAR_CONDITION;
-		
+		}catch(ex){}
 		
 		this.close();
 	},
