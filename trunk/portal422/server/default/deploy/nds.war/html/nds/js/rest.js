@@ -13,6 +13,15 @@ PortalClient.prototype = {
 		this._appSecret=null;
 		this._serverURL=null;
 		this._sipStatusMsg={"0000":"\u670d\u52a1\u8bf7\u6c42\u5931\u8d25","9999":"\u670d\u52a1\u8bf7\u6c42\u6210\u529f","1001":"\u7b7e\u540d\u65e0\u6548","1002":"\u8bf7\u6c42\u8fc7\u671f","1003":"\u7528\u6237\u7ed1\u5b9a\u5931\u8d25","1004":"\u9700\u8981\u7ed1\u5b9a\u7528\u6237","1005":"/\u9700\u8981\u63d0\u4f9bAppKey","1006":"\u9700\u8981\u63d0\u4f9b\u670d\u52a1\u540d","1007":"\u9700\u8981\u63d0\u4f9b\u7b7e\u540d","1008":"\u9700\u8981\u63d0\u4f9b\u65f6\u95f4\u6233","1009":"\u7528\u6237\u8ba4\u8bc1\u5931\u8d25","1010":"\u65e0\u6743\u8bbf\u95ee\u670d\u52a1","1011":"\u670d\u52a1\u4e0d\u5b58\u5728","1012":"\u9700\u8981\u63d0\u4f9bSessionId","1013":"\u9700\u8981\u63d0\u4f9b\u7528\u6237\u540d"};
+		this._loadingDiv=null;
+	},
+	/**
+	 set loading div, will show this div when connecting server, and hide after response
+	 by default, this div should be hidden
+	 @param divId id of the loading div
+	*/
+	setLoadingDiv:function(divId){
+		this._loadingDiv=$(divId);
 	},
 	/**
 	 There's two kinds usage, local and remote. For local call, set serverURL without http
@@ -51,6 +60,8 @@ PortalClient.prototype = {
 	},
 	/**
 	Create a new object
+	ret=createObject("fi_v_asset", {C_COMPANY_ID__NAME:"ddf", FITYPE_ID__NAME:"ccc"})
+	console.log(ret)
 	*/
 	createObject:function(table,params,callback){
     	params.table=table;
@@ -170,19 +181,21 @@ PortalClient.prototype = {
 	 @param callback, callback function, who should have one argument for RestResponse object
 	*/
 	_sendRest:function(content,callback){
-		var url=this._serverURL+"?"+content;
+		var url=this._serverURL;
 	  	if(callback!=undefined){
 			new Ajax.Request(url, {
+				  postBody:	content,
 				  method: 'post',
-				  onLoading:function(){
-					},
-					onComplete:function(){
-					},	
+				  onCreate:function(){
+				  	if(portalClient._loadingDiv!=null)portalClient._loadingDiv.show();
+				  },
 				  onSuccess: function(transport) {
+				  	if(portalClient._loadingDiv!=null)portalClient._loadingDiv.hide();
 				  	var res= portalClient._createResponse(transport.getResponseHeader("sip_status"), transport.responseText);
 				  	callback(res);
 				  },
 				  onFailure:function(transport){
+				  	if(portalClient._loadingDiv!=null)portalClient._loadingDiv.hide();
 				  	var res= portalClient._createResponse("0000", null);
 				  	callback(res);
 				  }
@@ -190,6 +203,7 @@ PortalClient.prototype = {
 			);
 			return true;
 		}else{
+			if(portalClient._loadingDiv!=null)portalClient._loadingDiv.show();
 			var transport = Ajax.getTransport();
 			transport.open("POST", url, false);//synchronous
 			transport.setRequestHeader("Content-type", "application/x-www-form-urlencoded ; charset=UTF-8");
@@ -198,6 +212,8 @@ PortalClient.prototype = {
 	   			return this._createResponse(transport.getResponseHeader("sip_status"), transport.responseText);
 	   		}catch(ex){
 	   			return this._createResponse("0000",ex);
+	   		}finally{
+	   			if(portalClient._loadingDiv!=null)portalClient._loadingDiv.hide();
 	   		}
 			
 		}
