@@ -101,7 +101,7 @@ We also remove the borders, since they don't need them. */
 
 /* The first child image - the logo - has to be centered. Because of the image dimensions, we manually need to shift it a bit. */
 #page-nav-container li:first-child a img {
-   vertical-align:middle; margin-top:8px;
+   vertical-align:middle; margin-top:0px;
 }
 
 #page-nav-container li:last-child {
