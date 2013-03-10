@@ -41,6 +41,7 @@ ObjectControl.prototype = {
 	hide or show or fix some columns when on column value changed
 	@param idx index in _masterObj.table.props.display_condition
 	*/
+	
 	hideOrShowOrFixColumns:function(idx){
 		var i,col,hc,j;
 		var dc= this._masterObj.table.props.display_condition;
