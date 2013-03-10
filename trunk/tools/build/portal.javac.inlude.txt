@@ -117,3 +117,6 @@ org/apache/jspc/html/nds/websql/sqlresult_jsp.java
 org/apache/jspc/html/nds/step/ajaxtab_jsp.java
 org/apache/jspc/html/nds/step/index_jsp.java
 org/apache/jspc/html/nds/step/multiple_005fobject_jsp.java
+org/apache/jspc/html/nds/monitor/new_jsp.java
+org/apache/jspc/html/nds/monitor/index_jsp.java
+org/apache/jspc/html/nds/monitor/obj_jsp.java
