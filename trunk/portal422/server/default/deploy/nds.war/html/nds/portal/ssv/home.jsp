@@ -70,8 +70,6 @@ fkQueryModel.setQueryindex(-1);
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<%@ include file="/html/nds/portal/ssv/top_meta.jsp" %>
-
 <script>
 <%
 	// check whether to check timeout for portal page
@@ -84,7 +82,9 @@ fkQueryModel.setQueryindex(-1);
 	popup_window("<%=dialogURL%>");
 <%}
 %>	
-</script>	
+</script>		  
+</head>
+<body>
 		   <script type="text/javascript">
 		
 		  //nav
@@ -101,9 +101,6 @@ fkQueryModel.setQueryindex(-1);
     }); 
 
 		  </script>
-		  
-</head>
-<body>
 <%
 /**
 Navigation of ss
