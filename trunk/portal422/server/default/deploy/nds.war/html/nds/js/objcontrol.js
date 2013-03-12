@@ -205,6 +205,7 @@ ObjectControl.prototype = {
 	},
 	/**
 		@param r - SPResult, contains 'code' and 'message'
+				@param gcErrorFound - if true, something error in grid, will not refresh screen or grid
 		@return true, no need to continue following script(window should be closed or refreshed)
 	*/
 	_handleSPResult:function(r){
@@ -575,6 +576,21 @@ ObjectControl.prototype = {
 		if(oc._toggleButtons(true) ==false) return;
 		this._executeCommandEvent(evt);
     },
+    
+    _onUnSubmitObject:function(e){
+		var r=e.getUserData(); 
+		if(r.code!=0){
+			this._showMessage(r.message,true);
+		}else{
+			if(r.data!=null && r.data.printfile!=null){
+				msgbox(r.message);
+				this._closeWindow=true;
+				this._onPrintJasper(r.data.printfile);
+			}else
+				this._closeWindowOrShowMessage(r.message);
+		}
+    },
+     
     _onSubmitObject:function(e){
     	//console.log(e);
 		var r=e.getUserData(); 
@@ -796,7 +812,20 @@ ObjectControl.prototype = {
 			if(col.mask.substr(maskPos,1)==1){
 				ele=$("column_"+ col.id);
 				if(ele==null )continue;
-				if(!ele.disabled && this._checkInput(col,ele)==false) return false;
+				//if(!ele.disabled && this._checkInput(col,ele)==false) return false;
+				if(col.displaySetting=="clob"){
+					if(!col.isNullable){
+						//var oEditor =FCKeditorAPI.GetInstance("column_"+ col.id) ;
+						var oEditor=CKEDITOR.instances["column_"+ col.id];
+						if(oEditor!=null && oEditor.getData()==null){
+							msgbox( col.description+ gMessageHolder.CAN_NOT_BE_NULL);
+							return false;
+						}
+					}
+				}else{
+					if(!ele.disabled && this._checkInput(col,ele)==false) return false;
+				}
+			}				
 			}
 		}
 		return true;	
@@ -1006,6 +1035,31 @@ ObjectControl.prototype = {
 		return false;
       }
 	},
+		/**
+	@param input id id of text input
+	@param url new url information
+	*/
+	updateAttach:function(inputId, url){
+		var ele=$(inputId);
+		if(ele!=null) ele.value=url;
+		// 3 conditions: inc_single_object: image/attach, inc_edit_object.jsp: attach
+		ele=$("att_"+inputId);
+		if(ele!=null && ele.nodeName.toLowerCase()=="span"){
+			if(url=="")ele.innerHTML="";
+			else ele.innerHTML="<a href='"+url+"'>"+gMessageHolder.NEW_ATTACH+"</a>";
+		}
+		ele=$("imga_"+ inputId);
+		if(ele!=null && ele.nodeName.toLowerCase()=="a"){
+			if(url==""){
+				ele.hide();
+			}else{
+				ele.href=url;
+				$("img_"+ inputId).src=url+"&t="+Math.random();
+				ele.show();
+			}
+		}
+	},
+	
 	_tryAddCloseButton:function(){
 		var w = window.opener;
 		if(w==undefined)w= window.parent;
@@ -1057,6 +1111,7 @@ ObjectControl.prototype = {
 		var evt={};
 		evt.command="ExecuteAudit";
 		evt.callbackEvent="ExecuteAudit";
+		evt["nds.control.ejb.UserTransaction"]="N";
 		evt.auditAction=audittype;
 		evt.parsejson="Y";
 		var iids=new Array();
@@ -1071,6 +1126,24 @@ ObjectControl.prototype = {
 			msgbox(r.message.replace(/<br>/g,"\n"));
 		}
 		  this.closeDialog();
+	},
+		/**
+	 *add by robin 20130110 for meterial
+	 */
+	getStoreInfo2:function(){
+		var c_store_meterialId="";
+		var c_store_meterial_data="";
+		for(i=0;i<this._masterObj.columns.length;i++){
+			if( this._masterObj.columns[i].name.indexOf("Y_WAREHOUSE_ID")!=-1&&this._masterObj.columns[i].refColumnId!=-1){
+				c_store_meterialId=this._masterObj.columns[i].id;
+				if($("column_"+this._masterObj.columns[i].id).value==undefined){
+					c_store_meterial_data=$("column_"+this._masterObj.columns[i].id).innerHTML;
+				}else{
+					c_store_meterial_data=$("column_"+this._masterObj.columns[i].id).value;
+				}
+			}
+		}
+		return {"c_store_meterialId":c_store_meterialId,"c_store_meterial_data":c_store_meterial_data};
 	},
 	/**
 	 Only works when grid columns contains "m_product_id" and "m_attributesetinstance_id"
