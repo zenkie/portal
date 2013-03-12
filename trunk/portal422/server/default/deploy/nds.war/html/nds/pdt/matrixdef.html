@@ -47,6 +47,11 @@
 		当前选中颜色<br>
 		<SELECT id="sel_colors" class="selectbox" MULTIPLE size="25" ondblclick="mx.removeColors()"></SELECT>
 	</td>
+		<td>
+	<div>
+	<input type="button" onclick="mx.changeColorAlias()" value="修改别名">
+	</div>
+</td>
 </tr>
 <tr>
 	<td width="173"  align="left">
@@ -60,6 +65,7 @@
   		输入: <input type="text" name="inscolor" id="inscolor" size="12" value="" onkeypress="mx.checkColor(event)"><br>
   		信息: <span id="colormsg"></span>
 		</FIELDSET>
+		<td></td>
 	</td>
 </tr>
 </table>
