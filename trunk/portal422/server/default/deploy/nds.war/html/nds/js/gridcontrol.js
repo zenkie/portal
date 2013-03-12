@@ -22,6 +22,7 @@ GridControl.prototype = {
 		application.removeEventListener( "UpdateGrid", this.updateGrid, this);
 		application.removeEventListener( "CheckProductAttribute", this._checkProductAttribute, this);
 		application.removeEventListener( "ShowProductAttribute", this._showProductAttribute, this);
+		application.removeEventListener( "CheckMaterialAttribut",this._checkMaterialAttribute,this);
 		this._isDestroied=true;
 	},
 	initialize: function() {
@@ -61,6 +62,9 @@ GridControl.prototype = {
 		application.addEventListener( "CheckProductAttribute", this._checkProductAttribute, this);
 		application.addEventListener( "ShowProductAttribute", this._showProductAttribute, this);
 		application.addEventListener( "TurboScan", this._onTurboScan, this);
+		//add by robin 20121009 
+		application.addEventListener( "CheckMaterialAttribut",this._checkMaterialAttribute,this);
+		//end
 		// call _initGrid when recieved data
 		 
 		var q=Object.clone(this._gridQuery);
@@ -342,24 +346,26 @@ GridControl.prototype = {
 			$("so_M_PRODUCT_ID__NAME").focus();
 			return false;
 		}
-		if(parseInt(pdt)==0){
+		if(!isNaN(pdt)&&parseInt(pdt,10)==0){
 			//confirm error
-			$("turboscan_div").removeClassName("ts_error");
+			jQuery("#turboscan_div").css("background-color","white");
+			//$("turboscan_div").removeClassName("ts_error");
 			this._scanError=false;
 			$("so_M_PRODUCT_ID__NAME").value="";
 			$("so_M_PRODUCT_ID__NAME").focus();
 			return true;
 		}
-		if(parseInt(pdt)==1){
+		if(!isNaN(pdt)&&parseInt(pdt,10)==1){
 			//add boxno
 			try{
-				$("so_SHELFNO").value= parseInt($("so_SHELFNO").value)+1;
+				$("so_SHELFNO").value= parseInt($("so_SHELFNO").value,10)+1;
 				$("so_M_PRODUCT_ID__NAME").value="";
 				$("so_M_PRODUCT_ID__NAME").focus();
 				return true;
 			}catch(ex){}
 		}
 		if(this._scanError){
+			playAlert();
 			return false;
 		}
 		if(this._isWaitScanResult==true){
@@ -393,7 +399,8 @@ GridControl.prototype = {
 			$("ts_qty").innerHTML=String(this._okCount);
 		}else{
 			this._scanError=true;
-			$("turboscan_div").addClassName("ts_error");
+			jQuery("#turboscan_div").css("background-color","yellow");
+			//$("turboscan_div").addClassName("ts_error");
 			playAlert();
 		}
 		var clsname;
@@ -706,7 +713,12 @@ GridControl.prototype = {
 				//columns that modified in list will be checked
 				for(l=0;l< this._data.length;l++){
 					var line= this._data[l];	
-					if(!this._checkInputData(col, line[i], l+1)) return false;
+					//if(!this._checkInputData(col, line[i], l+1)) return false;
+					if(line[1]=="D")continue;
+					if(!this._checkInputData(col, line[i], l+1)) {
+						//alert(Object.toJSON(line));
+						return false;
+					}
 				}
 			}
 		}
@@ -782,6 +794,35 @@ GridControl.prototype = {
 		// check input validity
 		if(this._checkObjectInput()==false) return;
 		var chkProductAttribute=$("check_product_attribute");
+		var chkMaterialAttribute=$("check_material_attribute");
+		
+		//add by robin 20121009 ÎïÁÏ ÅÐ¶Ï
+		if(chkMaterialAttribute&&-1!=this._getPositionInData("Y_MATERIALALIAS_ID__NO")){
+			
+			var mtlValue=String($("eo_"+chkMaterialAttribute.value).value);
+			if(chkMaterialAttribute!=null&&chkMaterialAttribute.checked&&!mtlValue.blank()){
+				var evt={};
+				evt.command="cn.com.burgeon.command.CheckMaterialAttribute";
+				evt.callbackEvent="CheckMaterialAttribut";
+				evt["nds.control.ejb.UserTransaction"]="N";
+				evt.material=mtlValue;
+				evt.fixedColumns=this._fixedColumns;
+				if(typeof(oc)!="undefined" && oc!=null){
+					evt.masterObjId=oc._masterObj.hiddenInputs.id;
+					var storeInfo=oc.getStoreInfo2();
+					evt.store_colId=storeInfo.c_store_meterialId;
+					evt.storedata=storeInfo.c_store_meterial_data;
+				}
+				var qtyCol=jQuery.trim(this._getValue("bind_alias_qty_col"));
+				
+				evt.aliasQtyColumn=qtyCol?qtyCol:"QTY";
+				evt.tableId=this._gridMetadata.tableId;
+				if(this._currentRow!=-1 && this._data[this._currentRow][1]!="A") evt.trymatrix=false;
+				this._executeCommandEvent(evt);
+			}else{
+				this._saveLineToGrid(null,e);
+			}
+		}else 
 		if(chkProductAttribute){ 
 			var pdtValue=String($("eo_"+chkProductAttribute.value).value);
 			if(chkProductAttribute!=null && chkProductAttribute.checked && !pdtValue.blank() 
@@ -792,6 +833,7 @@ GridControl.prototype = {
 				var evt={};
 				evt.command="CheckProductAttribute";
 				evt.callbackEvent="CheckProductAttribute";
+				evt["nds.control.ejb.UserTransaction"]="N";
 				evt.product=pdtValue;
 				evt.fixedColumns=this._fixedColumns;
 				evt.tableId=this._gridMetadata.tableId;
@@ -1054,7 +1096,9 @@ GridControl.prototype = {
 	/**
 	 * Update line to grid, and wait for upload to server, if currentRow is -1, then a new row created
 	 * else update data and grid line of that row
-	 * 
+	 * 	 * 
+	 *edit by robin 20121022 :add check_material_attribute 
+	 *
 	 * @param chkResult if not null will contain attributes:
 		 * 		product_id: id of the product, set when code!=0
 		 * 		product_name: name of the product, set when code!=0
@@ -1109,6 +1153,34 @@ GridControl.prototype = {
 		if(chkResult!=null ){
 			line[3]=chkResult.asi_objs;
 			var ele=$("check_product_attribute");
+			var ele2=$("check_material_attribute");
+			if(ele2!=null&&dwr.util.getValue(ele2)==true){
+				if(chkResult.aliasId!=null){
+					i=this._getPositionInData("Y_MATERIALALIAS_ID__ID");
+					if(i!=-1)line[i]=chkResult.aliasId;
+					i=this._getPositionInData("Y_MATERIALALIAS_ID__NO");
+					if(i!=-1)line[i]=chkResult.aliasNo;
+					i=this._getPositionInData("Y_MATERIAL_ID__ID");
+					if(i!=-1)line[i]=chkResult.materialId;
+					i=this._getPositionInData("Y_MATERIAL_ID__CODE");
+					if(i!=-1)line[i]=chkResult.materialCode;
+					i=this._getPositionInData("Y_MATERIAL_ID;CODE");
+					if(i!=-1)line[i]=chkResult.materialCode;
+					i=this._getPositionInData("Y_MATERIAL_ID;NAME");
+					if(i!=-1)line[i]=chkResult.materialName;
+					i=this._getPositionInData("Y_MATERIAL_ID;KEY_WORD");
+					if(i!=-1)line[i]=chkResult.materialName;
+					i=this._getPositionInData("Y_COLOR_ID__CODE");
+					if(i!=-1)line[i]=chkResult.colorCode;
+					i=this._getPositionInData("Y_SPEC_ID__CODE");
+					if(i!=-1)line[i]=chkResult.specCode;
+					i=this._getPositionInData("Y_COLOR_ID;CODE");
+					if(i!=-1)line[i]=chkResult.colorCode;
+					i=this._getPositionInData("Y_SPEC_ID;CODE");
+					if(i!=-1)line[i]=chkResult.specCode;
+					
+				}
+			}
 			if (ele!=null && dwr.util.getValue(ele)==true){
 			/*
 				 * 		product_id: id of the product, set when code!=0
@@ -1167,6 +1239,24 @@ GridControl.prototype = {
 		}
 		return -1;
 	},
+	/**
+	 @param colId - column id
+	 @param inputId - input text id
+	*/
+	showUploadDlg:function(colId,inputId){
+		if(this._currentRow==-1 ){
+			alert(gMessageHolder.PLS_INPUT_URL);
+			return;
+		}
+		var objectId= this._data[this._currentRow][4];
+		if(objectId==-1){
+			alert(gMessageHolder.PLS_INPUT_URL);
+			return;
+		}	
+		var tableId=this._gridMetadata.tableId;
+		showDialog("/html/nds/objext/upload.jsp?table="+tableId+"&column="+
+			colId+"&objectid="+objectId+"&input="+inputId,940, 400,false,true);
+	},
 	_updateGridLine: function(row){
 		var cols=this._gridMetadata.columns,i,col;
 		var line= this._data[row];
@@ -1198,7 +1288,12 @@ GridControl.prototype = {
 				}else{
 					opt=escapeHTMLOption;//escape html, so no html can be written to html
 				}
-				this._setValue(line[0]+"_"+ col.name,line[i],opt );
+				// for image and url, convert to href
+				if( (col.dsptype==8 || col.dsptype==9) && line[i]!=null && !line[i].blank()){
+					this._setValue(line[0]+"_"+ col.name,"<a href='"+line[i]+"'>"+gMessageHolder.VIEW_ATTACH+"</a>",opt );
+				}else
+					this._setValue(line[0]+"_"+ col.name,line[i],opt);
+				//this._setValue(line[0]+"_"+ col.name,line[i],opt );
 				if(col.objIdPos!=-1 && col.rTableId!=-1){
 					if(line[col.objIdPos]!=null){
 						ele=$(line[0]+"_"+ col.name+"_url");
@@ -1264,6 +1359,7 @@ GridControl.prototype = {
 		}
 		evt.command="CheckProductAttribute";
 		evt.callbackEvent="ShowProductAttribute";
+		evt["nds.control.ejb.UserTransaction"]="N";
 		evt.product=pdtValue;
 		evt.tableId=this._gridMetadata.tableId;
 		evt.tag= row; // will return unchanged
@@ -1323,6 +1419,55 @@ GridControl.prototype = {
 			}
 		}
 	},	
+	_checkMaterialAttribute:function(e){
+		var chkResult=e.getUserData().data; // data
+		var chkMtlAttribute=$("check_material_attribute");
+		var mtl=$("eo_"+chkMtlAttribute.value);
+		if(chkResult.code!=0){
+			alertScan(chkResult.message);
+			mtl.focus();
+			dwr.util.selectRange(mtl, 0, this.MAX_INPUT_LENGTH);			
+		}else{
+			if(chkResult.showDialog){
+				/*
+				var ele = Alerts.fireMessageBox(
+				{
+					width: 800,
+					Height:360,
+					modal: true,
+					title: gMessageHolder.SET_PRODUCT_ATTRIBUTE
+				});
+				ele.innerHTML=chkResult.pagecontent;
+				executeLoadedScript(ele);
+				*/
+				/*
+				var ele = Alerts.fireMessageBox(
+				{
+					width: 800,
+					Height:360,
+					modal: true,
+					title: gMessageHolder.SET_PRODUCT_ATTRIBUTE
+				});
+				ele.innerHTML=chkResult.pagecontent;
+				executeLoadedScript(ele);
+				*/
+				var options=$H({id:"art_itemdetail_div",width:"auto",height:"auto",title:gMessageHolder.SET_PRODUCT_ATTRIBUTE,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome'});
+				options.content=chkResult.pagecontent;
+				art.dialog(options);				
+				if(this._currentRow!=-1){
+					var jo= this._data[this._currentRow][3]; // array, each elements is array of eleId and value
+					var i;
+					if(jo!=null)for(i=0;i< jo.length;i++){
+						this._setValue( jo[i][0], jo[i][1]);
+					}				
+				}
+				try{$("itemdetail_form").focusFirstElement();}catch(e){}
+				this._tmpData=chkResult;
+			}else{
+				this._saveLineToGrid(chkResult,mtl);
+			}
+		}
+	},
 	/**
 	 * set product attribute information with locale json 
 	 * returned data should contained 3 segments:1 is script, 2 is dom, 3 is other scripts
@@ -1578,10 +1723,12 @@ GridControl.prototype = {
 	 Refresh Grid according to data result from server
 	*@param r data set by nds.control.ejb.command.UpdateGridData,contains results for each row handling result
 	 and qresult for new data for successful rows
+	 	 @return true if error found, false if no error
 	*/
 	updateGrid: function (e) {
 		var r=e.getUserData().data; //@see nds.control.ejb.command.UpdateGridData
-		if(r.refresh){
+		var ele2=$("check_material_attribute");
+		if(r.refresh||(ele2!=null&&dwr.util.getValue(ele2)==true)){
 			this._isDirty=false;
 			this.newLine(false);
 			this.refreshGrid();
@@ -1645,6 +1792,7 @@ GridControl.prototype = {
 			this.refreshGrid();
 		}else{
 			if(errFound)alert( gMessageHolder.EXCEPTION+":\n"+ sMsg);
+			playAlert();
 		}
 	},
 	
@@ -1692,7 +1840,10 @@ GridControl.prototype = {
 		//focus on pdt if found 2010-1-9
 		try{
 			var chkProductAttribute=$("check_product_attribute");
-			if(chkProductAttribute!=null){
+			var chkMaterialAttr=$("check_material_attribute");
+			if(chkMaterialAttr!=null&&$("eo_"+chkMaterialAttr.value)!=null){
+			$("eo_"+chkMaterialAttr.value).focus();
+			}else if(chkProductAttribute!=null){
 				var pdt=$("eo_"+chkProductAttribute.value);
 				if(pdt!=null)pdt.focus();
 			}
