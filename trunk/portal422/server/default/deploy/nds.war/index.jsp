@@ -19,7 +19,7 @@ body{padding:0;margin:0 auto;}
 .login {
 width: 100%;
 height: 437px;
-background: url(images/index.gif) no-repeat left #00a0d9;
+background: url(images/index.gif) no-repeat left #790000;
 position: absolute;
 top: 100px;
 background-position: 199px 0px;
@@ -35,7 +35,7 @@ margin: 0 auto;
 left: 955px;
 top: 355px;
 /*width:1020px;*/
-width: 640px;
+width: 604px;
 }
 #bottom-left {
 padding-bottom:0px;
@@ -119,7 +119,7 @@ z-index: 2;
 .bottom-logo{
 	background: url(images/bottom.gif) no-repeat center;
 	/*position: absolute;*/
-	width: 130px;
+	width: 87px;
 	height: 20px;
 	/*left: 333px;*/
 	float: left;
@@ -132,7 +132,7 @@ top: 347px;
 display: block;
 width: 100%;
 height: 90px;
-/*background: url("images/jxy-bg.gif") repeat-x top left;*/
+background: url("images/jxy-bg.gif") repeat-x top left;
 text-indent: -999em;
 -moz-opacity: .6;
 filter: alpha(opacity=60);
