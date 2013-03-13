@@ -8,8 +8,7 @@ MatrixDef.prototype = {
 		portalClient.init(null,null,"/servlets/binserv/Rest");
 		var query=parseQueryString();
 		this._pdtId=query.pdtid[0];
-
-		var brandid=0;
+		brandid=null;
 		isbrand="false";
 		this._loadInfo();
 		this._isbrand();
@@ -42,6 +41,7 @@ MatrixDef.prototype = {
 			var colors= rows[0][0];
 			var colorsC;
 			var colorAlias=rows[0][4];
+			brandid=rows[0][3];
 			colorAlias=colorAlias?colorAlias.split(","):"";
 			var colorIds=colors?colors.split(","):null;
 			if(colorIds&&colorAlias.length==colorIds.length){
@@ -52,7 +52,6 @@ MatrixDef.prototype = {
 			}
 			var colorExpr={column:"id",condition:"in("+colors+")"};
 			mx.listColors(colorExpr,"sel_colors",colorsC);
-			brandid=rows[0][3];
 			//alert(this._brandid);
 			//var colorExpr={combine:"and",expr1:{column:"M_DIM1_ID",condition:brandid},expr2:{column:"id",condition:"in("+colors+") and isactive=\'Y\'"}};
 			var colorExpr={column:"id",condition:"in("+colors+") and isactive=\'Y\'"};
