@@ -827,7 +827,6 @@ ObjectControl.prototype = {
 				}
 			}				
 			}
-		}
 		return true;	
 	},
 	/**
