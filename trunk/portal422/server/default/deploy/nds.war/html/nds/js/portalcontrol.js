@@ -119,7 +119,7 @@ PortalControl.prototype = {
 	*/
 	setRefreshOnDialogClose:function(b){
 		if(b){
-			this._dialogOption={onClose:refreshPortalGrid};
+			this._dialogOption={close:refreshPortalGrid};
 		}else{
 			this._dialogOption={};
 		}
@@ -1197,7 +1197,7 @@ PortalControl.prototype = {
 		}
 	},
 	auditObj:function(urlaudit){
-		showObject2(urlaudit,{onClose:new Function('pc.navigate("/html/nds/audit/view.jsp");')});
+		showObject2(urlaudit,{close:new Function('pc.navigate("/html/nds/audit/view.jsp");')});
   },
 	/**
 	 * mark all check box checked
@@ -1732,11 +1732,11 @@ PortalControl.prototype = {
     },    
     modifyrep:function(){
     	var	cxtabId=$("rep_templet").value;
-    	showObject2("/html/nds/cxtab/cxtabdef.jsp?id="+cxtabId,{onClose:function(){pc.qrpt(cxtabId);}});
+    	showObject2("/html/nds/cxtab/cxtabdef.jsp?id="+cxtabId,{close:function(){pc.qrpt(cxtabId);}});
     },
     shrinkrep:function(cxtabId,parentId){
     	showObject2("/html/nds/cxtab/cxtabdef.jsp?id="+cxtabId+"&parentid="+parentId,
-    		{onClose:function(){pc.qrpt(cxtabId==-1?parentId:cxtabId);}});
+    		{close:function(){pc.qrpt(cxtabId==-1?parentId:cxtabId);}});
     },
     	/**
 	@return false if has already toggled to false
@@ -1768,7 +1768,7 @@ PortalControl.prototype = {
     			var	cxtabId=$("rep_templet").value;
     			this._doReportNow=false;
     			showObject2("/html/nds/cxtab/userdims.jsp?id="+cxtabId,
-    				{onClose:function(){if(pc.doReportNow())pc.doReportOnSelection(bIsOnSelection,tableId,filetype,true );},
+    				{close:function(){if(pc.doReportNow())pc.doReportOnSelection(bIsOnSelection,tableId,filetype,true );},
     					maxButton:false,closeButton:true},700,480);
     			return;	
     		}
