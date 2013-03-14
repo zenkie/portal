@@ -34,9 +34,15 @@
 	String jreportDesc=(String) ((List)list.get(0)).get(2);
 	String excelPath= (String) ((List)list.get(0)).get(3);
 	String jReportPath= (String) ((List)list.get(0)).get(4);
-
+	int[] columnMasks= new int[]{Column.MASK_QUERY_LIST};
+	int listViewPermissionType= 1;
 	JSONObject q=new JSONObject();
 	q.put("table", table.getName());
+	q.put("column_masks", JSONUtils.toJSONArrayPrimitive(columnMasks));
+	q.put("dir_perm",listViewPermissionType);
+	q.put("init_query",true);
+	q.put("start",0);
+	q.put("range",QueryUtils.DEFAULT_RANGE);
 	boolean firstDateColumnFound=false;	
 %>
 <div id="page-table-query">
@@ -220,7 +226,7 @@ if(Validator.isNotNull(excelPath)){%>
  int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
 if((objPerm & nds.security.Directory.READ )== nds.security.Directory.READ ){
 %>    
-      <input type="button" class="cbutton" onclick="javascript:showObject('/html/nds/cxtab/cxtabdef.jsp?id=<%=cxtabId%>')" value="<%=PortletUtils.getMessage(pageContext, "define-cxtab",null)%>">
+      <input type="button" class="cbutton" onclick="javascript:showObject2('/html/nds/cxtab/cxtabdef.jsp?id=<%=cxtabId%>',{close:function(){pc.qrpt(<%=cxtabId%>);}})" value="<%=PortletUtils.getMessage(pageContext, "define-cxtab",null)%>">
 <%}%>      
 <script>
  pc.initCxtabQuery(<%=q.toString()%>);
