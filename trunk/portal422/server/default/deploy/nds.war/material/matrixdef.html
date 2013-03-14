@@ -29,42 +29,10 @@
 如果条码已经被使用，删除动作将失败。
 <div id="tabs">
 <ul>
-<li><a href="#tab1" title="tab1"><span>选择颜色</span></a></li>
-<li><a href="#tab0" title="tab0"><span>选择规格</span></a></li>
+<li><a href="#tab0" title="tab0"><span>选择颜色</span></a></li>
+<li><a href="#tab1" title="tab1"><span>选择规格</span></a></li>
 </ul>
-<div id="tab0"><!-- start color tab -->
-<table cellpadding="4" cellspacing="0" width="400" height="316" align="center">
-<tr>
-	<td width="173"  height="117">
-		所有规格<br>
-		<SELECT id="all_specs" class="selectbox" MULTIPLE size="25" ondblclick="mx.addSpec()"></SELECT>
-	</td>
-	<td width="25" valign="top"><div class="mv">
-		<input type="button" value=">" onclick="mx.addSpec()"/> <p>
-		<input type="button" value="<" onclick="mx.removeSpecs()"/> <p>
-	</td>
-	<td width="173"  height="117">
-		当前选中规格<br>
-		<SELECT id="sel_specs" class="selectbox" MULTIPLE size="25" ondblclick="mx.removeSpecs()"></SELECT>
-	</td>
-</tr>
-<tr>
-	<td width="173"  align="left">
-		<div id="ls">
-			<input type="button" name="listspecs" value="列出所有规格" onclick="mx.listSpecs()">
-		</div>
-	</td>
-	<td>&nbsp;</td>
-	<td width="173">
-		<FIELDSET><LEGEND>手工新增规格</LEGEND>
-  		输入: <input type="text" name="insspec" id="insspec" size="12" value="" onkeypress="mx.checkSpec(event)"><br>
-  		信息: <span id="specmsg"></span>
-		</FIELDSET>
-	</td>
-</tr>
-</table>
-</div><!-- end color tab -->
-<div id="tab1"><!-- start size tab -->
+<div id="tab0"><!-- start size tab -->
 <table cellpadding="4" cellspacing="0" width="400" height="316" align="center">
 <tr>
 	<td width="173"  height="117">
@@ -97,9 +65,42 @@
 
 </table>	
 </div><!-- end size tab -->
+<div id="tab1"><!-- start color tab -->
+<table cellpadding="4" cellspacing="0" width="400" height="316" align="center">
+<tr>
+	<td width="173"  height="117">
+		所有规格<br>
+		<SELECT id="all_specs" class="selectbox" MULTIPLE size="25" ondblclick="mx.addSpec()"></SELECT>
+	</td>
+	<td width="25" valign="top"><div class="mv">
+		<input type="button" value=">" onclick="mx.addSpec()"/> <p>
+		<input type="button" value="<" onclick="mx.removeSpecs()"/> <p>
+	</td>
+	<td width="173"  height="117">
+		当前选中规格<br>
+		<SELECT id="sel_specs" class="selectbox" MULTIPLE size="25" ondblclick="mx.removeSpecs()"></SELECT>
+	</td>
+</tr>
+<tr>
+	<td width="173"  align="left">
+		<div id="ls">
+			<input type="button" name="listspecs" value="列出所有规格" onclick="mx.listSpecs()">
+		</div>
+	</td>
+	<td>&nbsp;</td>
+	<td width="173">
+		<FIELDSET><LEGEND>手工新增规格</LEGEND>
+  		输入: <input type="text" name="insspec" id="insspec" size="12" value="" onkeypress="mx.checkSpec(event)"><br>
+  		信息: <span id="specmsg"></span>
+		</FIELDSET>
+	</td>
+</tr>
+</table>
+</div><!-- end color tab -->
+
 </div>
 <script>
-jQuery('#tabs ul').tabs({ cache:true});
+jQuery('#tabs ul').tabs();
 </script>
 <div id="btns">
 	<input type="button" name="save" value="生成条码" onclick="mx.save()">
