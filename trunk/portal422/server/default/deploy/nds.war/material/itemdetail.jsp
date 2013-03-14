@@ -205,7 +205,7 @@ width:790px;}
 </table>
 </div>
 <input class="command2_button" type="button" name="createinstances" value="保存(J)" id="ratiodist_save" accessKey="J" >
-<input class="command2_button" type="button" name="cancel" value="取消(Q)" onclick="Alerts.killAlert(this)" accessKey="Q" >
+<input class="command2_button" type="button" name="cancel" value="取消(Q)" onclick="closeAlert()" accessKey="Q" >
 </div>
 <script>
 	<%
@@ -454,7 +454,7 @@ width:790px;}
 	});
 
 	function closeAlert(){
-		Alerts.killAlert(this);
+		art.dialog.get("art_itemdetail_div").close();
 	}
 	function checkCanSave(){
 		if(jQuery("#ratiodist_save").attr("disabled")=="true"){
@@ -492,7 +492,8 @@ width:790px;}
 			jQuery("#ratiodist_save").removeAttr("disabled");
 			if(jQuery.trim(data)=="success"){
 				freshRatioDist();
-				Alerts.killAlert($("ratiodist_body"));
+				//Alerts.killAlert($("ratiodist_body"));
+					art.dialog.get("art_itemdetail_div").close();
 				var focusInput=$("eo_"+$("check_material_attribute").value);
 				dwr.util.selectRange(focusInput,0,this.MAX_INPUT_LENGTH);
 				gc._lastFocusElement=focusInput;
