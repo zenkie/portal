@@ -236,7 +236,7 @@ for( int i=0;i< editColumns.size();i++){
 	<%}%>
 	<!--end-->
 	
-	<input type="text" id="bind_alias_qty_col" value="<%=bindAliasQtyCol%>" type="hiden" />
+	<input type="text" id="bind_alias_qty_col" value="<%=bindAliasQtyCol%>" type="hidden" />
 	<input type="checkbox" id="clear_after_insert" name="clear_after_save" checked><%=PortletUtils.getMessage(pageContext, "clear-after-insert",null)%>&nbsp;
 	<input type="checkbox" id="quick_save" name="quick_save" <%=(Tools.getYesNo(userWeb.getUserOption("QUICKSAVE","Y"),true)?"checked":"")%>><%=PortletUtils.getMessage(pageContext, "quick-save",null)%>
 		</div>
