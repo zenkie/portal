@@ -199,7 +199,8 @@ left: 213px;
     -moz-box-shadow: #CCC 0 0 .25em;
     box-shadow: #CCC 0 0 .25em;
     behavior: url(PIE.htc);
-    width:902px;
+    /*width:902px;*/
+    width:100%;
 }
 
 .ui-tabs-hide{
