@@ -76,7 +76,7 @@ document.bgColor="<%=colorScheme.getPortletBg()%>";
 	<tr>
 		<td valign="top" width="270" rowspan="2"><!--tree-->
 <%= PortletUtils.getMessage(pageContext, "available-columns",null)%>:<br>
-<div id="avcolumns">
+<div id="avcolumns" style="width:230px">
 <ul>
 	<%if(parentId!=-1){%>
 	<li><a href="#tab_parent_columns"><span><%= PortletUtils.getMessage(pageContext, "cxtab-parent-columns",null)%></span></a></li>
@@ -87,7 +87,7 @@ document.bgColor="<%=colorScheme.getPortletBg()%>";
 if(parentId!=-1){
 %>
 <div id="tab_parent_columns">
-	<div style="padding: 15px; overflow: auto; text-align: center; width: 200px; height: 370px;">
+	<div style="text-align: center; width: 200px; height: 398px;">
 		<select id="parent_columns" class="selectbox" size="25" onchange="cxtabDefControl.onSelectParentColumn()">
 			<optgroup label="<%=PortletUtils.getMessage(pageContext, "adcxtab-dimension",null)%>">
 			<%
@@ -112,7 +112,7 @@ if(parentId!=-1){
 <%}//end if parentId!=-1
 %>
 <div id="tab_fact_columns">
-<div style="border:1px solid #CCC;padding-left:15px;width:230px; height:400px;overflow-y: auto; overflow-x: auto;"> 	
+<div style="border:1px solid #CCC;padding-left:15px;width:205px; height:400px;overflow-y: auto; overflow-x: auto;"> 	
 <script type="text/javascript">
 /// XP Look
 webFXTreeConfig.rootIcon		= "<%=NDS_PATH%>/images/table.gif";
@@ -335,7 +335,7 @@ document.write(tree);
 </div>
 <script>
 try{
-	jQuery('#avcolumns ul').tabs();
+	jQuery('#avcolumns').tabs();
 }catch(ex){
 }
 </script>
