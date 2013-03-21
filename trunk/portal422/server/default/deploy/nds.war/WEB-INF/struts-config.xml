@@ -139,6 +139,7 @@
 
 		<action path="/portal/login" type="com.liferay.portal.action.LoginAction">
 			<forward name="portal.login" path="portal.login" />
+			<forward name="portal.vaildkey" path="/prg/vaildkey.jsp" />
 			<forward name="/portal/touch_protected.jsp" path="/portal/touch_protected.jsp" />
 			<forward name="/nds/portal/index.jsp" path="/nds/portal/index.jsp" />
 		</action>
