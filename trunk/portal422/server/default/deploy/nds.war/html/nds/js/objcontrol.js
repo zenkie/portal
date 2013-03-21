@@ -602,9 +602,6 @@ ObjectControl.prototype = {
 				this._closeWindow=true;
 				this._onPrintJasper(r.data.printfile);
 			}else{
-				if(r.data!=null && r.data.sbresult!=null){
-				this._handleSPResult(r.data.sbresult);
-				}
 				//for check_submit, r.message is json object
 				if( r.data!=null &&  r.data.check_submit!=null){
 					var chksubmit=r.data.check_submit.evalJSON();
@@ -625,6 +622,9 @@ ObjectControl.prototype = {
 							eval(chksubmit.message);
 							break;
 					}
+				}
+				if(r.data!=null && r.data.sbresult!=null){
+				this._handleSPResult(r.data.sbresult);
 				}else{
 				 this._closeWindowOrShowMessage(r.message);
 				}
