@@ -271,3 +271,5 @@ cxtab-too-many-jobs-running=报表队列已满，请稍后再试。
 cxtab-task-duplicate=您在最近刚请求执行了相同条件的报表，请在历史报表中下载，或耐心等待报表运行结束。
 not-in-audit-status=不在待审核状态,请刷新页面
 audit-record-changed=当前阶段状态已更新，请刷新页面
+inactive-key-error=当前产品与注册号不匹配请重新注册！
+inactive-keyfile-error=当前产品缺少注册文件请注册！
