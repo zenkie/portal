@@ -1278,7 +1278,7 @@ PortalControl.prototype = {
 		var qtot=qr.totalRowCount;
 		if(t=="begin_btn")s=0;
 		else if(t=="prev_btn"){ if (qs-qrange<0){s=0;}else{s=qs-qrange;}}
-		else if(t=="next_btn") s= qs+qrange;
+		else if(t=="next_btn") { if (qs+qrange>qtot){return;}else{s=qs+qrange;}}
 		else if(t=="end_btn") s= qtot-qrange;
 		else s= qs;
 		
