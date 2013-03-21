@@ -20,6 +20,12 @@
    <next-screen>INFO</next-screen>
 </url-mapping>
 <url-mapping>
+   <url>/uploadkey</url>
+   <screen>UPLOADKEY</screen>
+   <request-handler>nds.control.web.reqhandler.UploadKeyHandler</request-handler>
+   <next-screen>INFO</next-screen>
+</url-mapping>
+<url-mapping>
    <url>/savepref</url>
    <screen>SAVEPREFREFENCE</screen>
    <request-handler>nds.control.web.reqhandler.SavePreferenceRequestHandler</request-handler>
