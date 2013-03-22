@@ -334,6 +334,8 @@ boolean flagdest =false;
 Table store_table =null;
 Table dest_table =null;
 String attribueSetName=(String) QueryEngine.getInstance().doQueryOne("select name from m_attributeset where id="+ setId);
+String showSizeStyle = (String)QueryEngine.getInstance().doQueryOne("select value from ad_param where name='portal.4084'");
+String showColStyle = (String)QueryEngine.getInstance().doQueryOne("select value from ad_param where name='portal.4085'");
 List attributes=QueryEngine.getInstance().doQueryList("select a.id, a.name, a.clrsize from m_attribute a, m_attributeuse u where a.isactive='Y' and a.ATTRIBUTEVALUETYPE='L' and a.id=u.m_attribute_id and u.m_attributeset_id="+setId+" order by u.orderno asc");
 if(attributes.size()<1) throw new NDSException("Not find List type attribute in set id="+ setId);
 
@@ -353,24 +355,39 @@ List attributeValues=new ArrayList(); //elements are List, whose elements are Li
 for(int i=0;i< attributes.size();i++){
 	Object aid=((List)attributes.get(i)).get(0);
 	String sql;
-	if( Tools.getInt(((List)attributes.get(i)).get(2),-1)==2){
-		//cloth size, not color, should display only value without name
-		if(!showSizeDesc){
-			sql="select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
-		}else{
-			sql="select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
-		}
-	}else{
-		sql="select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end "+
-								"from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
-	}									
+   if (Tools.getInt(((List)attributes.get(i)).get(2), -1) == 2)
+   {
+     if ("NAME".equals(showSizeStyle)) {
+       sql = "select v.id, v.NAME from m_attributevalue v where v.isactive='Y' and v.m_attribute_id=" + aid;
+     }
+     else
+     {
+       if ("VALUENAME".equals(showSizeStyle))
+         sql = "select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end from m_attributevalue v where v.isactive='Y' and v.m_attribute_id=" + aid;
+       else
+         sql = "select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id=" + aid;
+     }
+   }
+   else
+   {
+     if ("NAME".equals(showColStyle)) {
+       sql = "select v.id, v.NAME from m_attributevalue v where v.isactive='Y' and v.m_attribute_id=" + aid;
+     }
+     else
+     {
+       if ("VALUENAME".equals(showColStyle))
+         sql = "select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end from m_attributevalue v where v.isactive='Y' and v.m_attribute_id=" + aid;
+       else
+         sql = "select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id=" + aid;
+     }
+   }							
 	if(checkAliasTableForAttributeSetInstanceExistance){
 		sql+=" and exists(select 1 from m_product_alias a, m_attributeinstance si,m_attributesetinstance asi "+
 		"where a.isactive='Y' and a.m_product_id="+productId+" and asi.id=a.M_ATTRIBUTESETINSTANCE_ID  and asi.M_ATTRIBUTESET_ID="+ setId+
 		" and a.M_ATTRIBUTESETINSTANCE_ID=si.M_ATTRIBUTESETINSTANCE_ID and si.M_ATTRIBUTEVALUE_ID=v.id and si.M_ATTRIBUTE_ID="+ aid +")";
 	}
-	sql +=" order by to_number(martixcol),value";
-	attributeValues.add( QueryEngine.getInstance().doQueryList(sql));
+		sql = sql + " order by to_number(martixcol),value";
+		attributeValues.add(QueryEngine.getInstance().doQueryList(sql));
 }
 
 
