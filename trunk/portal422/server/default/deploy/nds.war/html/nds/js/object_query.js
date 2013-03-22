@@ -708,8 +708,8 @@ ObjectQuery.prototype = {
 		var qrange=parseInt( $("q_range_select_"+this._queryindex).value,10);
 		var qtot=qr.totalRowCount;
         if(t=="q_begin_btn_"+this._queryindex)s=0;
-		else if(t=="q_prev_btn_"+this._queryindex) s= qs-qrange;
-		else if(t=="q_next_btn_"+this._queryindex) s= qs+qrange;
+		else if(t=="q_prev_btn_"+this._queryindex) { if (qs-qrange<0){s=0;}else{s=qs-qrange;}}
+		else if(t=="q_next_btn_"+this._queryindex) { if (qs+qrange>qtot){return;}else{s=qs+qrange;}}
 		else if(t=="q_end_btn_"+this._queryindex) s= qtot-qrange;
 		else s= qs;
 		
