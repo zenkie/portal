@@ -290,39 +290,40 @@
 </tr>
 </tbody>
 </table>
-
 </div>
 </div>
 </div>
-
-
 <script>
 jQuery('#tabs').tabs();
 jQuery(document).ready(function(){mm=new MonitorManager();mm.loadMonitor(<%=monitorId%>,<%=jo%>); });
 </script>
-
-<div id="dlg_saveas" style="display:none">
-<div id="TMPLdlg_saveas_content" style="border-width:1;border-style:solid;padding:0px;border-color:#cccccc;">
-<table cellpadding="4" cellspacing="0" border="0" width="400" height="100">
-<tbody><tr><td width="15%" nowrap="">另存名称:<font color="red">*</font>:</td>
-<td width="85%" align="left"><input type="text" id="TMPLsaveasname" value="" size="60" maxlength="255" onkeydown="mm.saveNameKeyDown(event)"></td>
-</tr>
-<tr>	
-<td>&nbsp;</td><td valign="top">
-<input class="command2_button" type="button" id="TMPLbtn_save_as" size="20" value="确定" onclick="mm.saveAsNow()"> &nbsp;
-<input class="command2_button" type="button" id="TMPLbtn_cancel_dim" size="20" value="取消" onclick="Alerts.killAlert(this)"> 
-<br><br>
-</td>
-</tr>		
-</tbody></table>
-</div>
-</div>
-<div id="loadingZone" style="position: absolute; z-index: 1000; top: 0px; right: 0px; display:none;">
-<div id="loadingMsgZone" style="padding: 4px; background: red none repeat scroll 0% 0%; position: absolute; top: 0px; right: 0px; width: 80px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; color: white; font-family: Arial,Helvetica,sans-serif;">服务器处理中</div>
-</div>
-
+	<div id="dlg_saveas" style="display: none">
+		<div id="TMPLdlg_saveas_content"
+			style="border-width: 1; border-style: solid; padding: 0px; border-color: #cccccc;">
+			<table cellpadding="4" cellspacing="0" border="0" width="400"
+				height="100">
+				<tr>
+					<td width="15%" nowrap>另存名称:<font color="red">*</font>:
+					</td>
+					<td width="85%" align="left"><input type="text"
+						id="TMPLsaveasname" value="" size="60" maxlength="255"
+						onkeydown="mm.saveNameKeyDown(event)" /></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td valign="top"><input class="command2_button" type='button'
+						id="TMPLbtn_save_as" size="20" value='确定' onclick="mm.saveAsNow()">
+						&nbsp; <input class="command2_button" type='button'
+						id="TMPLbtn_cancel_dim" size="20" value='取消'
+						onclick='art.dialog.list["SaveAsDlg"].close()'> <br> <br></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div id="loadingZone"
+		style="position: absolute; z-index: 1000; top: 0px; right: 0px; display: none;">
+		<div id="loadingMsgZone"
+			style="padding: 4px; background: red none repeat scroll 0% 0%; position: absolute; top: 0px; right: 0px; width: 80px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; color: white; font-family: Arial, Helvetica, sans-serif;">服务器处理中</div>
+	</div>
 </body>
-<script>
-	window.FCKeditorAPI = {Version : "2.6",VersionBuild : "18638",Instances : new Object(),GetInstance : function( name ){return this.Instances[ name ];},_FormSubmit : function(){for ( var name in FCKeditorAPI.Instances ){var oEditor = FCKeditorAPI.Instances[ name ] ;if ( oEditor.GetParentForm && oEditor.GetParentForm() == this )oEditor.UpdateLinkedField() ;}this._FCKOriginalSubmit() ;},_FunctionQueue	: {Functions : new Array(),IsRunning : false,Add : function( f ){this.Functions.push( f );if ( !this.IsRunning )this.StartNext();},StartNext : function(){var aQueue = this.Functions ;if ( aQueue.length > 0 ){this.IsRunning = true;aQueue[0].call();}else this.IsRunning = false;},Remove : function( f ){var aQueue = this.Functions;var i = 0, fFunc;while( (fFunc = aQueue[ i ]) ){if ( fFunc == f )aQueue.splice( i,1 );i++ ;}this.StartNext();}}}
-</script>
 </html>
