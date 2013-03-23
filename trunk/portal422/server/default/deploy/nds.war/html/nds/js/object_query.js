@@ -312,6 +312,13 @@ ObjectQuery.prototype = {
 		// get selected line
 		var acpt=$(this._accepter_id[this._queryindex]);
 		if(acpt==null){
+			if(typeof window[this._accepter_id[this._queryindex]]=="function"){
+				var objSelected={id:ele.id.replace(/chk_obj_/i, ""),ak:String(ele.alt)};
+				var func=window[this._accepter_id[this._queryindex]];
+				this.close();
+				func(objSelected);
+				return;
+			}
 			this.close();
 			return;
 		}
