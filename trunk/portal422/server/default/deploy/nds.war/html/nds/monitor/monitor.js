@@ -289,12 +289,16 @@ MonitorManager.prototype = {
 	},
 	_onLoadCxtabSearchForm:function(e){
 		//var div=$("cxtab_content");
+		/*
 		var div = Alerts.fireMessageBox({
 						width: 790,modal:true,noCenter: true,title: "设置报表条件",
 						maxButton:false,closeButton:false
-					});
-		div.innerHTML=e.getUserData().pagecontent;
-		executeLoadedScript(div);
+					});*/	
+		//div.innerHTML=e.getUserData().pagecontent;
+		//executeLoadedScript(div);
+		var options=$H({id:"cxtab_content",padding: 0,width:790,height:'auto',left: '25%',top:'top',title:"设置报表条件",skin:'chrome',drag:true,lock:true,esc:true,effect:false});
+	  options.content=e.getUserData().pagecontent;
+	  var par=art.dialog(options);
 		var op={escapeHtml:false};
 		for (var property in this._monitor.props.cxtabConditionInput) {
 			var ex=div.getElementsBySelector('input[name="'+ property +'"]');
@@ -337,11 +341,13 @@ MonitorManager.prototype = {
 			if(!mm.checkResponse(response,0))return;
 			$("cxtabConditionDesc").value=response.data[0].cxtabConditionDesc;
 			mm._monitor.props.cxtabConditionInput=params.cxtabInput;
-			Alerts.killAlert();
+			art.dialog.list["cxtab_content"].close();
+			//Alerts.killAlert();
 		});
 	},
 	cxtabFormCanceled:function(){
-		Alerts.killAlert();
+		//Alerts.killAlert();
+		art.dialog.list["cxtab_content"].close();
 	},
 	/**
 	User changed cxtab selection
@@ -620,9 +626,9 @@ MonitorManager.prototype = {
 			alert("请输入另存为的名称");
 			return;
 		}
-		Alerts.killAlert($("dlg_saveas_content"));
+		//Alerts.killAlert($("dlg_saveas_content"));
 		//save as a new monitor
-		
+		art.dialog.list["SaveAsDlg"].close();
 		var m=Object.clone( this._monitor);
 		m.id=-1;
 		m.name=saveAsName;
@@ -637,14 +643,19 @@ MonitorManager.prototype = {
 		this.saveAsNow();
 	},
 	showSaveAsDlg:function(){
+		/*
 		var ele = Alerts.fireMessageBox({
 					width: 550,modal: true,title: "另存为"
 				});
 		ele.innerHTML= $("dlg_saveas").innerHTML.replace(/TMPL/g,"");
+		*/
+		var options=$H({id:"SaveAsDlg",padding: 0,width:417,height:'auto',left: '25%',top:'top',title:"设置报表条件",skin:'chrome',drag:true,lock:true,esc:true,effect:false});
+	  options.content=$("dlg_saveas").innerHTML.replace(/TMPL/g,"");
+	  var par=art.dialog(options);		
 		$("saveasname").value=$("name").value+"#1";
 		$("saveasname").focus();
 		dwr.util.selectRange($("saveasname"), 0, 255);
-		executeLoadedScript(ele);
+		//executeLoadedScript(ele);
 	},
 	setCondition:function(){
 		//updateCondition is global function
@@ -791,12 +802,16 @@ function updateCxtabId(filter){
 function showObject(url, theWidth, theHeight,option){
 	if( theWidth==undefined || theWidth==null) theWidth=956;
     if( theHeight==undefined|| theHeight==null) theHeight=570;
-	var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:true};
+	//var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:true};
+    /*
     if(option!=undefined) 
     	Object.extend(options, option);
 	Alerts.popupIframe(url,options);
 	Alerts.resizeIframe(options);
-	Alerts.center();
+	Alerts.center();*/
+   var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,skin:'aero',ifrid:'popup-iframe-0',drag:true,resize:true,lock:true,esc:true,skin:'chrome',ispop:true});
+    if(option!=undefined)Object.extend(options, option);
+    art.dialog.open(url,options);
 }
 function msgbox(msg, title, boxType ) {
 	alert(msg);
