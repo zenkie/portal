@@ -1791,8 +1791,10 @@ GridControl.prototype = {
 			//if(confirm(gMessageHolder.RELOAD_SINCE_ATTRIBUTE_MATRIX_SPLITTED)) #MANTIS0000026
 			this.refreshGrid();
 		}else{
-			if(errFound)alert( gMessageHolder.EXCEPTION+":\n"+ sMsg);
-			playAlert();
+			if(errFound){
+				alert( gMessageHolder.EXCEPTION+":\n"+ sMsg);
+				playAlert();
+			}
 		}
 	},
 	
