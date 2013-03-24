@@ -1312,10 +1312,10 @@ _hidePopupWindow:function(){
 	    var tableDiv= document.getElementById("table_"+accepterId);
 	    var json= document.getElementById("json_"+accepterId); 
 	    if(tableDiv.offsetWidth!=0) {
-	    	 contentDiv.style.width=tableDiv.offsetWidth+17;
+	    	 contentDiv.style.width=tableWrapperDiv.offsetWidth;//+17;
 	         dropdownDiv.style.width=contentDiv.style.width;
 	         json.style.width=contentDiv.style.width;	  
-	         contentDiv.style.height=tableDiv.offsetHeight+26;
+	         contentDiv.style.height=tableWrapperDiv.offsetHeight;//+26;
              dropdownDiv.style.height=contentDiv.style.height;
 	         json.style.height=contentDiv.style.height;
 	         if(dropdwon_json.length==0){
