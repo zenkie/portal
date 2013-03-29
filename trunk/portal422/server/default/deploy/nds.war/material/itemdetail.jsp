@@ -466,6 +466,12 @@ width:790px;}
 		gc.refreshGrid();
 	}
 	function save(){
+		art.dialog.get("art_itemdetail_div").close();
+		oc._toggleButtons(true);		
+		if(oc._checkObjectInputs()==false){
+			oc._toggleButtons(false);
+	       	return;
+    	}
 		if(!checkCanSave()){
 			alert("不能重复保存！");
 			return;
@@ -493,7 +499,6 @@ width:790px;}
 			if(jQuery.trim(data)=="success"){
 				freshRatioDist();
 				//Alerts.killAlert($("ratiodist_body"));
-					art.dialog.get("art_itemdetail_div").close();
 				var focusInput=$("eo_"+$("check_material_attribute").value);
 				dwr.util.selectRange(focusInput,0,this.MAX_INPUT_LENGTH);
 				gc._lastFocusElement=focusInput;
