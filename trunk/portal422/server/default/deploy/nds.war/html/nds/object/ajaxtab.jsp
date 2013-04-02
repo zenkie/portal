@@ -1,6 +1,5 @@
 <%@ include file="/html/nds/common/init.jsp" %>
 <%@page errorPage="/html/nds/error.jsp"%>
-
 <%
     /**
      * Things needed in this page:
@@ -35,7 +34,7 @@
 	}
 %>
 <%
-
+try{
 Table mainTable=null;
 
 int mainTableId= ParamUtils.getIntParameter(request,"table", -1);
@@ -153,3 +152,15 @@ for (int i = 0; i < rfts.size(); i++) {
 }
 %>
 <%@ include file="/html/nds/object/object_tabcontent.jsp" %>
+<%}catch(Throwable txc){
+	out.print("<pre>");
+	Throwable e = txc;
+      while (e != null) {
+        e.printStackTrace(new PrintWriter(out));
+        Throwable prev = e;
+        e = e.getCause();
+        if (e == prev)
+          break;
+      }
+    out.print("</pre>");  
+}%>
