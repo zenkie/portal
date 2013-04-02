@@ -80,5 +80,10 @@ var gMessageHolder={
 	PROCESS_ING:"请在服务器处理完成后再输入",
 	DO_YOU_CONFIRM_UNVOID:"确认要取消作废当前对象吗？",
 	DO_YOU_CONFIRM_VOID:"确认要作废当前对象吗？",
-	DO_NOT_PRESS_TWICE:"请勿连续点击!"
+	DO_NOT_PRESS_TWICE:"请勿连续点击!",
+	VIEW_ATTACH:"查看附件",
+	VIEW_IMAGE:"查看图片",
+	PLS_INPUT_URL:"在新增行情况下不能上传文件，请直接输入文件URL或者保存当前行后再上传",
+	NEW_ATTACH:"点击此链接或按鼠标右键下载",
+	COMPLETE_CLOSE:"操作成功!"
 };
