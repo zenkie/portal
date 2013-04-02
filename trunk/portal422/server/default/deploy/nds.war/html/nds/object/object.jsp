@@ -59,6 +59,7 @@ ObjectUIConfig uiConfig=WebUtils.getTableUIConfig(table);
 request.setAttribute("table_help", new Integer(tableId));
 
 int selectedTabId=-1;
+NDSServletRequest ndsRequest=new NDSServletRequest(request);
 String sound=userWeb.getUserOption("ALERT_SOUND","");
 String soundfile="{"+sound.substring(sound.indexOf(".")+1)+":\""+sound+"\"}";
 //soundfile create
