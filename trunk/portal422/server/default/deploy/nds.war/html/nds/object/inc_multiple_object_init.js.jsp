@@ -13,6 +13,7 @@
 	q.put("column_masks", JSONUtils.toJSONArrayPrimitive(meta.ITEM_COLUMN_MASKS));
 	q.put("dir_perm", 1);
 	q.put("init_query",true);
+	q.put("nea.tabitems", true);//skip item permission check over parent table, @see AjaxUtils.parseQuery
 	q.put("fixedcolumns", fixedColumns.toURLQueryString(null));
 	int startIndex=Tools.getInt( ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("object.tab.startidx"),0);
 	if( table.getJSONProps()!=null) {
