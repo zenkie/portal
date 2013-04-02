@@ -2382,7 +2382,7 @@ function doQuickSearch(){
      //alert(theadTD[0].offsetWidth);
      //alert(tbodyTD[0].offsetWidth);
      //修复明细刷新不能宽度放大问题
-     if(theadTD[0].offsetWidth!=tbodyTD[0].offsetWidth){
+     if(theadTD[0].offsetWidth!=tbodyTD[0].offsetWidth&&tbodyTD[0].offsetWidth!=0){
     jQuery("#modify_table_H").width((jQuery("#modify_table_H").width()+diff));
     jQuery("#modify_table").width(jQuery("#modify_table_H").width());
 		jQuery("#D_modify_table").width(jQuery("#modify_table_H").width());
