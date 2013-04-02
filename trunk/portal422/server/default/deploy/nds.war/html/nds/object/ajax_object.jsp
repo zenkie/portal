@@ -47,7 +47,7 @@ if(table!=null){
 }
 request.setAttribute("table_help", new Integer(tableId));
 int selectedTabId=-1;
-
+NDSServletRequest ndsRequest=new NDSServletRequest(request);
 
 String fkURLTarget= ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("object.url.target");
 if(nds.util.Validator.isNotNull(fkURLTarget)){
