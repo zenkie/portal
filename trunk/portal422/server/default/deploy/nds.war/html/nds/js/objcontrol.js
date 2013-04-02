@@ -1031,8 +1031,10 @@ ObjectControl.prototype = {
 	    		art.dialog.close();
 	    		return true;
 		            }
-		return false;
+		//return false;
       }
+    window.location="/html/nds/info.jsp?nds.control.util.ValueHolder_message="+encodeURIComponent(gMessageHolder.COMPLETE_CLOSE);
+		return false;  
 	},
 		/**
 	@param input id id of text input
