@@ -65,8 +65,9 @@ overflow:auto;
  width:902px;
 }
 .embed-items-short{
-	height: expression( this.scrollHeight > 278 ? "278px": (this.scrollHeight < 100 ?"100px": "auto") );
-	max-height:278px;
+	height: expression( this.scrollHeight > 300 ? "300px": (this.scrollHeight < 100 ?"100px": "auto") );
+	/*max-height:278px;*/
+	max-height:300px;
 	min-height:100px;
 	width:100%;
 	/*overflow:auto;*/
