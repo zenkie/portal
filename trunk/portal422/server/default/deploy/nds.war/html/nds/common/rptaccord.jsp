@@ -71,6 +71,7 @@ query.setOrderBy(orderKey, true);
 query.setRange(0, Integer.MAX_VALUE  );
 Expression sexpr= userWeb.getSecurityFilter(table.getName(), 1);// read permission
 query.addParam(sexpr);
+//System.out.print(table.getName());
 result= QueryEngine.getInstance().doQuery(query);
 %>
 <div id="tab_accordion">
@@ -79,6 +80,7 @@ result= QueryEngine.getInstance().doQuery(query);
 	boolean isSummary;
 	String src;
 	ColumnLink categoryIdLink=new ColumnLink("AD_CXTAB.AD_CXTAB_CATEGORY_ID");
+	ColumnLink adtableLink=new ColumnLink("AD_CXTAB.AD_TABLE_ID");
 	for(int i=0;i< result.getRowCount();i++){
 		result.next();
 		pkid= result.getObject(1);
@@ -98,17 +100,18 @@ result= QueryEngine.getInstance().doQuery(query);
 	queryData.addSelection(dataTable.getPrimaryKey().getId());
 	queryData.addSelection(dataTable.getDisplayKey().getId());
 	queryData.addSelection(dataTable.getColumn("attr2").getId());
+		//add realtable
+	queryData.addSelection(dataTable.getColumn("AD_TABLE_ID").getId());
 	queryData.setOrderBy( new int[]{ dataTable.getAlternateKey().getId()}, true);
 	queryData.setRange(0, Integer.MAX_VALUE); 
 	Expression expr= new Expression(categoryIdLink,"="+pkid ,null);
-	
 	//set reporttype to "S"
 	expr=expr.combine(new Expression(new ColumnLink("AD_CXTAB.REPORTTYPE"), "=S",null), SQLCombination.SQL_AND,null);
 	expr=expr.combine(new Expression(new ColumnLink("AD_CXTAB.ISACTIVE"), "=Y",null), SQLCombination.SQL_AND,null);
-		expr=expr.combine(new Expression(new ColumnLink("AD_CXTAB.ISPUBLIC"), "=Y",null), SQLCombination.SQL_AND,null);
+	expr=expr.combine(new Expression(new ColumnLink("AD_CXTAB.ISPUBLIC"), "=Y",null), SQLCombination.SQL_AND,null);
 	expr=expr.combine(userWeb.getSecurityFilter(dataTable.getName(), 1) ,  SQLCombination.SQL_AND,null);
+	//expr=expr.combine(userWeb.getSecurityFilter((dataTable.getColumn("AD_TABLE_ID").getColumnLink().getLastColumn()), 1),SQLCombination.SQL_AND,null);
 	queryData.addParam(expr);//read permission
-
 	colOrderNo=dataTable.getColumn("orderno") ;
 	if(colOrderNo!=null)orderKey= new int[]{ colOrderNo.getId()};
 	else orderKey= new int[]{ dataTable.getAlternateKey().getId()};
@@ -117,6 +120,14 @@ result= QueryEngine.getInstance().doQuery(query);
 	String icon;
 	for(int j=0;j< resultData.getRowCount();j++){
 		resultData.next();
+		int rptid=Integer.parseInt(String.valueOf(resultData.getObject(4)));
+		Table p_table=manager.getTable(rptid);
+		// check write permission
+		//User should be Users.isAdmin=1 and has read permission on that table
+		if(!userWeb.isPermissionEnabled(p_table.getSecurityDirectory(),nds.security.Directory.READ)){
+				 // System.out.print(p_table.getName());
+				  continue;
+				}
 		icon=Validator.isNull((String)resultData.getObject(3) )? "cxtab.gif":"jrpt.gif";
 %>	
 		<div class="accordion_headings" onclick="javascript:<%=action%>(<%=resultData.getObject(1)%>)"><img src="<%=NDS_PATH%>/images/<%=icon%>" style="height:16px;width:20px;"></img><a><%=StringUtils.escapeForXML((String)resultData.getObject(2))%></a></div>
