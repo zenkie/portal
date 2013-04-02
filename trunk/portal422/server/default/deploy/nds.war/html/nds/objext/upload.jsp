@@ -6,6 +6,11 @@
 <%
 	request.setAttribute("tab_content", "/objext/inc_upload.jsp");
 	String tabName=PortletUtils.getMessage(pageContext, "upload",null);
+	String savedURL = null;
+	String objectpath=null;
+	if (holder != null) {savedURL = (String)holder.get("url");
+	objectpath = (String)holder.get("objectpath");
+	}
 	
 %>
 <script>
@@ -28,22 +33,41 @@
 	int tableId= ParamUtils.getIntAttributeOrParameter(request, "table", -1);
 	int columnId =ParamUtils.getIntAttributeOrParameter(request, "column", -1);
 	int objectId= ParamUtils.getIntAttributeOrParameter(request, "objectid", -1);
+	String inputId = request.getParameter("input");
 	Table table;
 	if( tableId == -1) {
         	out.println(PortletUtils.getMessage(pageContext, "object-type-not-set",null));
         	return;
 	}else{
     	table= tableManager.getTable(tableId);
-	}
-	Column col=tableManager.getColumn(columnId);
-	AttachmentManager attm=(AttachmentManager)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.ATTACHMENT_MANAGER);
-	Attachment att= new Attachment( userWeb.getClientDomain()+"/" + table.getRealTableName()+"/"+col.getName(),  ""+objectId );
-	List atts= attm.getVersionHistory(att);
+    	}
+			Column col=tableManager.getColumn(columnId);
+			AttachmentManager attm=(AttachmentManager)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.ATTACHMENT_MANAGER);
+			Attachment att=null;
+			if(objectpath!=null&&objectId==-1){
+			 att= new Attachment( userWeb.getClientDomain()+"/" + table.getRealTableName()+"/"+col.getName(),  ""+objectpath );
+			}else{
+			 att= new Attachment( userWeb.getClientDomain()+"/" + table.getRealTableName()+"/"+col.getName(),  ""+objectId );
+			}
+			List atts= attm.getVersionHistory(att);
+       int objPermission = 0;
+         if (objectId == -1)
+         {
+            objPermission = userWeb.getPermission(table.getSecurityDirectory());
+            if ((objPermission & 3) != 3)
+              throw new NDSException(PortletUtils.getMessage(pageContext, "no-permission", null));
+        }
+         else {
+           objPermission = userWeb.getObjectPermission(table.getName(), objectId);
+		        if ((objPermission & 1) != 1) {
+		             throw new NDSException(PortletUtils.getMessage(pageContext, "no-permission", null));
+		           }
+		    }			
 	
 /**------check permission---**/
-if(!userWeb.hasObjectPermission(table.getName(),objectId,  nds.security.Directory.READ)){
-   	throw new NDSException(PortletUtils.getMessage(pageContext, "no-permission",null));
-}
+//if(!userWeb.hasObjectPermission(table.getName(),objectId,  nds.security.Directory.READ)){
+//   	throw new NDSException(PortletUtils.getMessage(pageContext, "no-permission",null));
+//}
 /**------check permission end---**/
 
 %>
@@ -82,7 +106,7 @@ if(!userWeb.hasObjectPermission(table.getName(),objectId,  nds.security.Director
               		att= (Attachment) it.next();
               %>
               	<tr> 
-              		<td><a href="<%=request.getContextPath()+"/servlets/binserv/Attach?table="+tableId+"&column="+columnId+"&objectid="+ objectId +"&version="+att.getVersion() %>"><%=att.getVersion()%></a></td>
+              		<td><a href="<%=request.getContextPath()+"/servlets/binserv/Attach?table="+tableId+"&column="+columnId+"&objectid="+ objectpath==null?objectId:objectpath+"&version="+att.getVersion() %>"><%=att.getVersion()%></a></td>
               		<td><%=att.getOrigFileName()%></td>
               		<td><%=((java.text.SimpleDateFormat)QueryUtils.dateTimeSecondsFormatter.get()).format(att.getLastModified())%></td>
               		<td><%=att.getAuthor()%></td>
@@ -97,16 +121,19 @@ if(!userWeb.hasObjectPermission(table.getName(),objectId,  nds.security.Director
 <td align='left'><%=( (Attachment)atts.get(0)).getExtension()%></td></tr>
 <%}%>
 <tr><td></td><td>
+<%	if ((objPermission & 0x3) == 3) { %>
 <form name="sheet_upload_form2" method="post"
 action="<%=request.getContextPath() %>/control/command">
 <input type='hidden' name="directory" value='<%=table.getSecurityDirectory()%>'>
 <input type='hidden' name="command" value='DeleteAttachments'>
-<input type="hidden" name="next-screen" value="<%=NDS_PATH+"/objext/upload.jsp?table="+tableId+"&column="+columnId+"&objectid="+ objectId %>">
+<input type="hidden" name="next-screen" value="">
 <input type="hidden" name="table" value="<%=tableId %>">
 <input type="hidden" name="column" value="<%=columnId %>">
-<input type="hidden" name="objectid" value="<%=objectId %>">
+<input type="hidden" name="input" value="<%=inputId %>">
+<input type="hidden" name="objectid" value="<%=objectpath==null?objectId:objectpath%>">
 <input type="button" name="deleteall" value="<%=PortletUtils.getMessage(pageContext, "delete-all-versions",null)%>" onclick="javascript:sheet_upload_form2.submit()">
 </form>
+<%}%>
 </td></tr>
 
 <tr><td colspan=2>
@@ -114,7 +141,7 @@ action="<%=request.getContextPath() %>/control/command">
 <Script language="javascript">
      function checkUpload(form){
 		var bUploadFile=form.upload1.checked;
-		form.resetbt.click();
+		form.reset();
 		if(bUploadFile==0){
 			form.fileurl.disabled=0;
 			form.uploadfile.disabled=1;
@@ -136,7 +163,7 @@ action="<%=request.getContextPath() %>/control/command">
     function uploadform(form){
     	if(form.uploadfile.value=="" && form.fileurl.value==""){
     		alert("<%=PortletUtils.getMessage(pageContext, "must-input-upload-info",null)%>");
-    		return false;
+    		return;
     	}
     	submitForm(form);
     }
@@ -148,7 +175,9 @@ action="<%=request.getContextPath() %>/control/upload">
 <input type='hidden' name="directory" value='<%=table.getSecurityDirectory()%>'>
 <input type="hidden" name="table" value="<%=tableId %>">
 <input type="hidden" name="column" value="<%=columnId %>">
-<input type="hidden" name="objectid" value="<%=objectId %>">
+<input type="hidden" name="objectid" value="<%=objectpath==null?objectId:objectpath%>">
+<input type="hidden" name="input" value="<%=inputId %>">
+<!--% if (objectId != -1) {%-->
 <input type="radio" id="upload1" CHECKED name="upload" value="true" onclick="javascript:checkUpload(sheet_upload_form)">
 <%=PortletUtils.getMessage(pageContext, "file",null)%>
 :&nbsp;&nbsp;<input type="file" name="uploadfile" size="50" > 
@@ -158,22 +187,38 @@ action="<%=request.getContextPath() %>/control/upload">
 <%=PortletUtils.getMessage(pageContext, "fileurl",null)%>:&nbsp;&nbsp;
 <input type="text" name="fileurl" maxlength="300" size="50" >
 <p>
+<!--%}%-->
 	<div class="buttons">  
 <!--input type='button' name='UploadFile' value='<%=PortletUtils.getMessage(pageContext, "upload-update",null)%>' onclick='javascript:uploadform(sheet_upload_form)'-->
-<a id='UploadFile' name='UploadFile' href='javascript:uploadform(sheet_upload_form);'>
+<!--% if (objectId != -1) {%-->
+<a id="UploadFile" name="UploadFile" href="javascript:uploadform(sheet_upload_form);">
 <img src="/html/nds/images/tb_import.gif"/><%=PortletUtils.getMessage(pageContext, "upload-update",null)%></a>
+<!--%}%-->
 <!--input type='reset' name='resetbt'-->
 <%@ include file="/html/nds/common/helpbtn.jsp"%>
 <span id="closebtn"></span>
 </div>
+
 <Script language="javascript">
-if( window.self==window.top){
-	$("closebtn").innerHTML="<a id='btn_help' name='Close' href='javascript:window.close();'>"+
+function updURL(){
+var w = window.opener;
+if(w==undefined)w= art.dialog.opener;
+if (w){
+		var url="<%=savedURL%>";
+		if(url!="null"){
+		w.setTimeout("oc.updateAttach('<%=inputId%>','"+url+"');",1);
+		//showDialog when onclose refreshWindow
+		art.dialog.close();
+		return;
+		}else{
+			art.dialog.close();
+			return;
+		}
+			}
+    window.close();			
+}
+	$("closebtn").innerHTML="<a id='btn_help' name='Close' href='javascript:updURL();'>"+
 				"<img src=\"/html/nds/images/close.png\"/>"+gMessageHolder.CLOSE_DIALOG+"</a>";
-}else{
-		$("closebtn").innerHTML="<a id='btn_help' name='Close' href='javascript:art.dialog.close();'>"+
-				"<img src=\"/html/nds/images/close.png\"/>"+gMessageHolder.CLOSE_DIALOG+"</a>";
-	}
 </script>
 
 </form>
@@ -182,9 +227,6 @@ if( window.self==window.top){
 <script>
 checkUpload(sheet_upload_form);
 </script>
-
-    </div>
 </div>
-		
-
+</div>
 <%@ include file="/html/nds/footer_info.jsp" %>
