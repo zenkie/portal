@@ -342,8 +342,8 @@
 				<!--ckeditor:editor basePath="/html/nds/js/ckedit/ckeditor/" config="<%=settings%>" events="<%=eventHandler%>" editor="<%=column_acc_Id%>" value="<%=dataWithoutNBSP%>" /-->
     <%      }else if ( ds.getObjectType()==DisplaySetting.OBJ_FILE){
     %>		
-    			<input type='hidden' name="<%=inputName%>" value="<%=dataDB==null?"":dataDB%>">
-    			<%=dataWithoutNBSP%>
+    			<input id="<%=column_acc_Id%>" type='hidden' name="<%=inputName%>" value="<%=dataDB==null?"":dataDB%>">
+    			<span id="att_<%=column_acc_Id%>"><%=dataWithoutNBSP==null?"":dataWithoutNBSP%></span>
     <%		}else if( ds.getObjectType()==DisplaySetting.OBJ_IMAGE){
     			int maximagewidth= (ds.getColumns()==1?200:500);
     %>
@@ -394,7 +394,11 @@
             if ( ds.getObjectType()==DisplaySetting.OBJ_FILE ||ds.getObjectType()==DisplaySetting.OBJ_IMAGE ){
             
             %>
-            	<a href="javascript:showDialog('<%=NDS_PATH+"/objext/upload.jsp?table="+tableId+"&column="+column.getId()+"&objectid="+objectId%>',940, 400,true)"><img border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/attach.gif' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-config" ,null)%>'></a>
+             <span id="<%=namespace%>att_<%=column.getId()%>" onclick="javascript:showDialog('<%=NDS_PATH+"/objext/upload.jsp?table="+tableId+"&column="+column.getId()+"&objectid="+objectId+"&input="+column_acc_Id%>',940, 400,false)"><img border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/attach.gif' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-config" ,null)%>'>
+             </span>
+             <script>
+  						createButton(document.getElementById("<%=namespace%>att_<%=column.getId()%>"));
+  	  			 </script>
             <%
             }
             //自动备注显示 cyl 10.11
