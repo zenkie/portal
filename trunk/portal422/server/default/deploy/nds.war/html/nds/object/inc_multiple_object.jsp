@@ -22,7 +22,8 @@
  if(table.getName().endsWith("ITEM")) divEmbedItemId="embed-items";
  else divEmbedItemId="embed-items-short";
 %>
-<div class="<%=divEmbedItemId%>" id="embed-items" style="width:902px;">
+<!--div class="<%=divEmbedItemId%>" id="embed-items" style="width:902px;"-->
+<div class="<%=divEmbedItemId%>" id="embed-items" style="width:100%">
 <!--table id="modify_table" style="width:100%" border="1" cellspacing="0" cellpadding="0"  align="center" bordercolordark="#FFFFFF" bordercolorlight="#FFFFFF"-->
 <table class="modify_table" id="modify_table">
 	<thead><tr id="titletr">
