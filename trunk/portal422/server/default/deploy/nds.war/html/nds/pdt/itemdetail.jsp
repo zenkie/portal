@@ -61,6 +61,46 @@ static{
 	 	}
  	}
  }
+ /**
+ fix column in table
+ get table head
+ **/
+ private StringBuffer getAttributeTable_head(HashMap instances,int level, List attributes,List attributeValues, String prefix, List inputList,List li_store,List li_dest,int store_objectId, int dest_objectId,Table store_table,Table dest_table,boolean directory_store,boolean directory_dest,UserWebImpl userWeb){
+	int attrId=Tools.getInt( ((List)attributes.get(level)).get(0),-1);
+	String attrName= (String)((List)attributes.get(level)).get(1);
+	List attrValues= (List) attributeValues.get(level);
+	/*MessagesHolder mh= MessagesHolder.getInstance();
+	UserWebImpl usr=(UserWebImpl) WebUtils.getSessionContextManager(request.getSession(true)).getActor(nds.util.WebKeys.USER);
+	Locale locale= user.getLocale();
+	*/
+	StringBuffer sb=new StringBuffer();
+		DefaultWebEvent event=new DefaultWebEvent("CommandEvent");
+	MessagesHolder mh= MessagesHolder.getInstance();
+	int levels= attributes.size();
+	sb.append("<table align='left' id='modify_table_head' class='modify_table' border='1' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF'>");
+	int j,k, vId, lastVId;
+	String vDesc, lastVDesc;
+	Object instanceId;
+  if(level==levels-2){
+ 		// table, first row is the last level, first column is the second last level
+ 		int lastAttrId= Tools.getInt(((List)attributes.get(level+1)).get(0),-1);
+ 		String lastAttrName= (String)((List)attributes.get(level+1)).get(1);
+ 		List lastAttrValues= (List) attributeValues.get(level+1);
+ 		 
+ 		sb.append("<thead><tr><td style='width:62px;'>&nbsp;</td>");
+ 		for(j=0;j<lastAttrValues.size();j++){
+	 		lastVDesc= (String)((List)lastAttrValues.get(j)).get(1);	
+	 		lastVId= Tools.getInt(((List)lastAttrValues.get(j)).get(0),-1);
+	 		sb.append("<td class='hd' style='width:54px;'>").append(lastVDesc).append("</td>");
+	 	}
+	 	sb.append("<td class='hd' style='width:45px;'>").append(mh.getMessage(event.getLocale(), "row_total")).append("</td>");
+	 	sb.append("</tr></thead></table>");
+ }
+  	return sb;
+ }
+
+ 
+ 
 /**
  draw table of n level, checkbox name should in format like '_id1_id2_id3', id1 for first level,id2 for second, and so on
  @param prefix - is the prefix for checkbox name, for level 0, it will be "", for level 1, it will be "_id1", for level 2 "id1_ids2"
@@ -81,7 +121,7 @@ static{
 	DefaultWebEvent event=new DefaultWebEvent("CommandEvent");
 	MessagesHolder mh= MessagesHolder.getInstance();
 	int levels= attributes.size();
-	sb.append("<table align='left' id='modify_table_product' class='modify_table' border='1' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF'>");
+	sb.append("<table align='left' id='modify_table_product' class='modify_table' border='1' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF' style='position: relative; left: 0px; top: 0px;'>");
 	int j,k, vId, lastVId;
 	String vDesc, lastVDesc;
 	String key;
@@ -103,7 +143,8 @@ static{
  		int lastAttrId= Tools.getInt(((List)attributes.get(level+1)).get(0),-1);
  		String lastAttrName= (String)((List)attributes.get(level+1)).get(1);
  		List lastAttrValues= (List) attributeValues.get(level+1);
- 		sb.append("<tr><td>&nbsp;</td>");
+ 		
+ 		sb.append("<tr style='display:none;'><td>&nbsp;</td>");
  		for(j=0;j<lastAttrValues.size();j++){
 	 		lastVDesc= (String)((List)lastAttrValues.get(j)).get(1);	
 	 		lastVId= Tools.getInt(((List)lastAttrValues.get(j)).get(0),-1);
@@ -111,10 +152,11 @@ static{
 	 	}
 	 	sb.append("<td class='hd'>").append(mh.getMessage(event.getLocale(), "row_total")).append("</td>");
 	 	sb.append("</tr>");
+	 	
  		for(j=0;j<attrValues.size();j++){
  			vId=Tools.getInt(((List)attrValues.get(j)).get(0),-1);
 	 		vDesc= (String)((List)attrValues.get(j)).get(1);	
-	 		sb.append("<tr><td class='hd'>").append(vDesc).append("</td>");
+	 		sb.append("<tr><td class='hd' style='width:62px;'>").append(vDesc).append("</td>");
 	 		for(k=0;k<lastAttrValues.size();k++){
 	 			lastVId =Tools.getInt(((List)lastAttrValues.get(k)).get(0),-1);	
 	 			key= prefix+"_"+vId+"_"+lastVId;
@@ -123,7 +165,7 @@ static{
 	 			boolean flag_dest =false;
 	 			if(instanceId!=null){
 	 				nextInputId= inputCount+1>=totalInputs ?  ((Integer)inputList.get(0)).toString() : ((Integer)inputList.get(inputCount+1)).toString();
-		 			sb.append("<td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' name='A").append(instanceId).append("' id='P").
+		 			sb.append("<td style='width:54px;'><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' name='A").append(instanceId).append("' id='P").
 		 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,").append(j).append(",").append(k).append(");'").append(" 	onchange='return gc.oncellchange(").append(j).append(",").append(k).append(");'").append("><br><div class='product-storage'>");
 		 			if(store_objectId!=-1){
 			 			if(li_store.size()>0){
@@ -189,7 +231,7 @@ static{
 			 			}
 			 			if(!flag_dest){
 			 				if(directory_dest){
-			 					sb.append("<div class='psr'>&nbsp;</div>");
+			 					sb.append("<div class='psr'></div>");
 			 				}else{
 			 					sb.append("<div class='psr'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 			 				}
@@ -203,7 +245,7 @@ static{
 	 		}
 	 		sb.append("<td id='tot_");
 	 		sb.append(j);
-	 		sb.append("'align='center' valign='top'></td>");
+	 		sb.append("'align='center' valign='top' style='width:45px;'>&nbsp;</td>");
 	 		sb.append("</tr>");
 	 	}
  	}else{
@@ -471,8 +513,13 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 <%}%></td></tr>
 <tr><td>
 <form id="itemdetail_form" onsubmit="return false;">
-<div id="itemdetail_div" style="width:790px; height:360px;overflow-y: auto; overflow-x: auto; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px"> 
+<div id="itemdetail_div" style="width:100%; height:420px;overflow-y: hidden; overflow-x: scroll; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px"> 
+<div id="H_itemdetail_head" style="width: 100%; height: 20px; overflow: hidden; position: relative; z-index: 12;">
+<%=getAttributeTable_head(instances2,0,attributes,attributeValues,"",inputList,li_store,li_dest,store_objectId,dest_objectId,store_table,dest_table,directory_store,directory_dest,userWeb)%>
+</div>
+<div id="D_itemdetail_table" style="width: 100%; max-height: 380px; min-height: 300px; overflow-y: scroll; overflow-x: hidden; z-index: 11;">
 <%=getAttributeTable(instances2,0,attributes,attributeValues,"",inputList,li_store,li_dest,store_objectId,dest_objectId,store_table,dest_table,directory_store,directory_dest,userWeb)%>
+</div>
 </div>
 </form>
 </td></tr>
