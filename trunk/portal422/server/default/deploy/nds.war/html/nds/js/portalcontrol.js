@@ -2225,8 +2225,8 @@ function pop_up_or_clear(src, url, window_name, sObjectID){
 	}
 }
 function showObject2(url,option, theWidth, theHeight){
-	if( theWidth==undefined) theWidth=963;
-    if( theHeight==undefined) theHeight=570;
+	if( theWidth==undefined) theWidth=screen.availWidth-200;//theWidth=963; 
+    if( theHeight==undefined) theHeight=screen.availHeight-150;//theHeight=570;
     if(theWidth==-1){
     	//full screen
     	theWidth=screen.availWidth;
