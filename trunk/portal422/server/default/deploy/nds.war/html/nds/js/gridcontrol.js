@@ -922,6 +922,7 @@ GridControl.prototype = {
 				if(temp!=""){
 					temp_input=$("modify_table_product").rows[i].cells[cell+1].getElementsByTagName("input");
 					var input_ele=temp_input[0].id;
+					temp_input[0].focus();
 					dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
 					break;
 				}
@@ -942,6 +943,7 @@ GridControl.prototype = {
 				if(temp!=""){
 					temp_input=$("modify_table_product").rows[i].cells[cell+1].getElementsByTagName("input");
 					var input_ele=temp_input[0].id;
+					temp_input[0].focus();
 					dwr.util.selectRange(input_ele,0,this.MAX_INPUT_LENGTH);
 					break;
 				}
@@ -1015,7 +1017,7 @@ GridControl.prototype = {
 		    var temp_value;
 		    for(j=1;j<$("modify_table_product").rows.length;j++){
 		    	temp_value=$("modify_table_product").rows[j].cells[$("modify_table_product").rows[row].cells.length-1].innerHTML;
-		    	if(temp_value==""){
+		    	if(temp_value==""||temp_value=="&nbsp;"){
 		    		temp_value=0;
 		    	}
 		    	sum+=parseInt(temp_value);
@@ -1402,8 +1404,11 @@ GridControl.prototype = {
 				ele.innerHTML=chkResult.pagecontent;
 				executeLoadedScript(ele);
 				*/
-				var options=$H({id:"art_itemdetail_div",width:"auto",height:"auto",title:gMessageHolder.SET_PRODUCT_ATTRIBUTE,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome'});
+				var options=$H({id:"art_itemdetail_div",title:gMessageHolder.SET_PRODUCT_ATTRIBUTE,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome'});
 				options.content=chkResult.pagecontent;
+				//var throughBox = art.dialog.through;
+				//options.init=function(){try{$("itemdetail_form").focusFirstElement();}catch(e){}};
+				//throughBox(options);
 				art.dialog(options);
 				if(this._currentRow!=-1){
 					var jo= this._data[this._currentRow][3]; // array, each elements is array of eleId and value
@@ -2224,7 +2229,7 @@ function doQuickSearch(){
     });
 		
 		
-		width=tableOrg.outerWidth()<902?902:tableOrg.outerWidth();
+		width=tableOrg.outerWidth()<jQuery("#embed-items").width()?jQuery("#embed-items").width():tableOrg.outerWidth();
 		
 	  tableHeader.style.width = width+"px";
 	 
