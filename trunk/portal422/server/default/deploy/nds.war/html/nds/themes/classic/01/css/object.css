@@ -24,7 +24,7 @@ top: 40px;
 left: 0px;
 right: 0px;
 bottom: 0px;
-padding:30px 0px 5px 10px;
+padding:30px 5px 5px 5px;
 z-index: 50;
 /*
 position: fixed; 
@@ -62,7 +62,7 @@ overflow:auto;
 }
 #tabs{
  padding:0px 0px 7px 0px;
- width:902px;
+ /*width:902px;*/
 }
 .embed-items-short{
 	height: expression( this.scrollHeight > 300 ? "300px": (this.scrollHeight < 100 ?"100px": "auto") );
@@ -175,7 +175,7 @@ div.objtb div.obj{
     margin:3px 0px 0px 0px;
      border-radius: 3px 3px 3px 3px;
     */
-    width:902px;
+   /* width:902px;*/
     clear:both;
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #CCCCCC;
