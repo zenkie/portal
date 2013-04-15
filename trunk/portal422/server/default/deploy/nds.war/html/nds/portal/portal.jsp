@@ -79,7 +79,7 @@ boolean fav_show=Tools.getYesNo(userWeb.getUserOption("FAV_SHOW",defaultSsviewFi
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>BOS</title>
+<title>NewEmax</title>
 <!--meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"-->
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"/>
 <!--script language = javascript>max.Click();</script-->
