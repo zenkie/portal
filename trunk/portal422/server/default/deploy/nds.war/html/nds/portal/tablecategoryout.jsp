@@ -88,7 +88,7 @@ for(int e=0;e<tab.size();e++){
   }else if(tab.get(e)  instanceof WebAction){
   	  
 			action=(WebAction)tab.get(e);
-			System.out.println(action.getName());
+			//System.out.println(action.getName());
 			WebAction.ActionTypeEnum ate= action.getActionType();
 			WebAction.DisplayTypeEnum dst=action.getDisplayType();
 			if(ate.equals(WebAction.ActionTypeEnum.JavaScript)&&dst.equals(WebAction.DisplayTypeEnum.Accord)){
