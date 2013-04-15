@@ -71,6 +71,7 @@ List tab=(List)als.get(1);
 //String higthp=String.valueOf((tab.size()+1)*23);
 String Inable = new String();
 String Inaction = new String();
+WebAction action=null;
 
 for(int e=0;e<tab.size();e++){
 	String tabimg = new String();
@@ -85,19 +86,20 @@ for(int e=0;e<tab.size();e++){
 		Inable=Inable+"<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tableId+"')\">"+tabimg+"<a>"+StringUtils.escapeForXML(tdesc)+"</a></div>";
 		//System.out.println(Inable);
   }else if(tab.get(e)  instanceof WebAction){
-  	/*
-			WebAction action=(WebAction)tab.get(e);
+  	  
+			action=(WebAction)tab.get(e);
+			System.out.println(action.getName());
 			WebAction.ActionTypeEnum ate= action.getActionType();
 			WebAction.DisplayTypeEnum dst=action.getDisplayType();
-			if(ate.equals(WebAction.ActionTypeEnum.JavaScript)&&dst.equals(WebAction.DisplayTypeEnum.TreeNode)){
-			System.out.println("sdfsdfsdfdsf");
+			if(ate.equals(WebAction.ActionTypeEnum.JavaScript)&&dst.equals(WebAction.DisplayTypeEnum.Accord)){
 			Inable=Inable+"<div class=\"accordion_headings\" onclick=\""+action.getScript()+"\"><a>"+StringUtils.escapeForXML(action.getDescription())+"</a></div>";
-		}
-		*/
+		}else{
 		//扩展webaction treenode 支持 outlook 方式
-		WebAction action=(WebAction)tab.get(e);
-		Inaction=Inaction+action.toHTML(locale,actionEnv);
-		
+		  action=(WebAction)tab.get(e);
+		//System.out.println(action.getName());
+		//System.out.println(action.getActionType());
+			Inaction=Inaction+action.toHTML(locale,actionEnv);
+		}
 	}
 }
 //自适应调整OUTLOOK 菜单高度
