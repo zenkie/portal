@@ -165,7 +165,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						style=" song"
 						x="1"
 						y="1"
-						width="52"
+						width="54"
 						height="21"
 						key="textField"/>
 					<box></box>
@@ -285,7 +285,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						style=" song"
 						x="0"
 						y="1"
-						width="28"
+						width="30"
 						height="22"
 						key="textField"
 						stretchType="RelativeToTallestObject"/>
@@ -310,7 +310,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						style=" song"
 						x="1"
 						y="1"
-						width="22"
+						width="36"
 						height="22"
 						key="textField"
 						stretchType="RelativeToTallestObject"
@@ -324,9 +324,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="188"
+						x="201"
 						y="1"
-						width="57"
+						width="58"
 						height="22"
 						key="textField-1"
 						stretchType="RelativeToTallestObject"
@@ -342,9 +342,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="25"
+						x="38"
 						y="1"
-						width="50"
+						width="52"
 						height="22"
 						key="textField-1"
 						stretchType="RelativeToTallestObject"
@@ -358,9 +358,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="77"
+						x="90"
 						y="1"
-						width="50"
+						width="52"
 						height="22"
 						key="textField-1"
 						stretchType="RelativeToTallestObject"
@@ -374,9 +374,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="129"
+						x="142"
 						y="1"
-						width="57"
+						width="59"
 						height="22"
 						key="textField-1"
 						stretchType="RelativeToTallestObject"
@@ -415,7 +415,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						style=" song"
 						x="0"
 						y="1"
-						width="28"
+						width="30"
 						height="21"
 						key="textField"/>
 					<box></box>
@@ -426,7 +426,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				</textField>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="247" height="23" columnTotalGroup="MARTIXCRON">
+					<crosstabCell width="260" height="23" columnTotalGroup="MARTIXCRON">
 						<cellContents mode="Transparent">
 					<box>					<pen lineWidth="1.0" lineStyle="Solid"/>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
@@ -439,7 +439,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						style=" song"
 						x="1"
 						y="1"
-						width="22"
+						width="36"
 						height="21"
 						key="textField"/>
 					<box></box>
@@ -451,9 +451,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" pattern="#,###.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="188"
+						x="201"
 						y="0"
-						width="57"
+						width="58"
 						height="22"
 						key="textField"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -465,9 +465,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="25"
+						x="38"
 						y="0"
-						width="50"
+						width="52"
 						height="22"
 						key="textField"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -479,9 +479,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="77"
+						x="90"
 						y="0"
-						width="50"
+						width="52"
 						height="22"
 						key="textField-1"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -494,9 +494,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" pattern="#,###.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="129"
+						x="142"
 						y="0"
-						width="57"
+						width="59"
 						height="22"
 						key="textField-1"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -513,7 +513,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 					<box></box>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="247" height="0" rowTotalGroup="VALUE1" columnTotalGroup="MARTIXCRON">
+					<crosstabCell width="260" height="0" rowTotalGroup="VALUE1" columnTotalGroup="MARTIXCRON">
 						<cellContents mode="Transparent">
 					<box></box>
 						</cellContents>
@@ -531,7 +531,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						style=" song"
 						x="0"
 						y="1"
-						width="28"
+						width="30"
 						height="19"
 						backcolor="#ECE6E6"
 						key="textField"/>
@@ -543,7 +543,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				</textField>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="247" height="21" rowTotalGroup="PRODUCTNAME" columnTotalGroup="MARTIXCRON">
+					<crosstabCell width="260" height="21" rowTotalGroup="PRODUCTNAME" columnTotalGroup="MARTIXCRON">
 						<cellContents backcolor="#CCCCCC" mode="Transparent">
 					<box>					<pen lineWidth="1.0" lineStyle="Solid"/>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
@@ -556,7 +556,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 						style=" song"
 						x="1"
 						y="1"
-						width="22"
+						width="36"
 						height="19"
 						backcolor="#ECE6E6"
 						key="textField"/>
@@ -569,9 +569,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" pattern="#,###.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="188"
+						x="201"
 						y="0"
-						width="57"
+						width="58"
 						height="20"
 						key="textField"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -584,9 +584,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="25"
+						x="38"
 						y="0"
-						width="50"
+						width="52"
 						height="20"
 						key="textField-1"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -599,9 +599,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="77"
+						x="90"
 						y="0"
-						width="50"
+						width="52"
 						height="20"
 						key="textField-1"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -614,9 +614,9 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 				<textField isStretchWithOverflow="false" pattern="#,###.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						style=" song"
-						x="129"
+						x="142"
 						y="0"
-						width="57"
+						width="59"
 						height="20"
 						key="textField-1"/>
 					<box>					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -633,7 +633,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 					<box></box>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="247" height="0" rowTotalGroup="pdtvalue" columnTotalGroup="MARTIXCRON">
+					<crosstabCell width="260" height="0" rowTotalGroup="pdtvalue" columnTotalGroup="MARTIXCRON">
 						<cellContents mode="Transparent">
 					<box></box>
 						</cellContents>
@@ -643,7 +643,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 					<box></box>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="247" height="0" rowTotalGroup="PRICEACTUAL" columnTotalGroup="MARTIXCRON">
+					<crosstabCell width="260" height="0" rowTotalGroup="PRICEACTUAL" columnTotalGroup="MARTIXCRON">
 						<cellContents mode="Transparent">
 					<box></box>
 						</cellContents>
@@ -653,7 +653,7 @@ ORDER BY productname, productvalue, value1, value2]]></queryString>
 					<box></box>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="247" height="0" rowTotalGroup="PRICELIST" columnTotalGroup="MARTIXCRON">
+					<crosstabCell width="260" height="0" rowTotalGroup="PRICELIST" columnTotalGroup="MARTIXCRON">
 						<cellContents mode="Transparent">
 					<box></box>
 						</cellContents>

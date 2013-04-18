@@ -6,14 +6,14 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
-		 pageWidth="595"
+		 pageWidth="623"
 		 pageHeight="842"
-		 columnWidth="567"
+		 columnWidth="623"
 		 columnSpacing="0"
-		 leftMargin="14"
-		 rightMargin="14"
-		 topMargin="20"
-		 bottomMargin="20"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -208,7 +208,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="0"
 						y="0"
-						width="567"
+						width="560"
 						height="18"
 						key="textField"/>
 					<box></box>
@@ -253,7 +253,7 @@ and a.id= $P{objectid}]]></queryString>
 			<band height="35"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="0"
+						x="5"
 						y="0"
 						width="567"
 						height="34"

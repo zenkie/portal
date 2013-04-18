@@ -28,11 +28,12 @@
 	</parameter>
 	<queryString><![CDATA[select nvl(g.name,' ') as salesrep,e.name as productname,nvl(e.value,' ') as productvalue,
 f.value1,f.value2,
-b.qty,b.pricelist,b.priceactual,b.discount,b.tot_amt_actual as tot_amt_actual2
-from m_retailitem b,m_product e,m_attributesetinstance f,c_employee g
+b.qty,b.pricelist,b.priceactual,b.discount,b.tot_amt_actual as tot_amt_actual2,a.tot_qty,a.tot_amt_actual as tot_amt
+from m_retailitem b,m_product e,m_attributesetinstance f,c_employee g,m_retail a
 where b.m_product_id=e.id
 and b.m_attributesetinstance_id=f.id
 and b.salesrep_id=g.id(+)
+and a.id=b.m_retail_id
 and b.m_retail_id= $P{objectid2}]]></queryString>
 
 	<field name="SALESREP" class="java.lang.String"/>
@@ -45,6 +46,8 @@ and b.m_retail_id= $P{objectid2}]]></queryString>
 	<field name="PRICEACTUAL" class="java.math.BigDecimal"/>
 	<field name="DISCOUNT" class="java.math.BigDecimal"/>
 	<field name="TOT_AMT_ACTUAL2" class="java.math.BigDecimal"/>
+	<field name="TOT_QTY" class="java.math.BigDecimal"/>
+	<field name="TOT_AMT" class="java.math.BigDecimal"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -63,7 +66,7 @@ and b.m_retail_id= $P{objectid2}]]></queryString>
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="21"  isSplitAllowed="true" >
+			<band height="22"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="229"
@@ -265,7 +268,55 @@ and b.m_retail_id= $P{objectid2}]]></queryString>
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="22"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="476"
+						y="5"
+						width="36"
+						height="13"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_AMT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="434"
+						y="5"
+						width="34"
+						height="14"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_QTY}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="400"
+						y="5"
+						width="38"
+						height="13"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<text><![CDATA[合计：]]></text>
+				</staticText>
+				<line direction="BottomUp">
+					<reportElement
+						x="0"
+						y="-3"
+						width="535"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
 			</band>
 		</summary>
 </jasperReport>

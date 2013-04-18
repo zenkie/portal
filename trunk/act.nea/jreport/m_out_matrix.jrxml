@@ -81,7 +81,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-2"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[单据编号：]]></text>
 				</staticText>
@@ -94,7 +94,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-3"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[单据日期：]]></text>
 				</staticText>
@@ -107,7 +107,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-6"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[发货方：]]></text>
 				</staticText>
@@ -125,7 +125,7 @@ and a.id= $P{objectid}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement>
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
 				</textField>
@@ -133,12 +133,12 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="68"
 						y="21"
-						width="70"
+						width="148"
 						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCNO}]]></textFieldExpression>
 				</textField>
@@ -146,12 +146,12 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="68"
 						y="38"
-						width="70"
+						width="148"
 						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ORIGNAME}]]></textFieldExpression>
 				</textField>
@@ -164,7 +164,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-7"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[打印日期：]]></text>
 				</staticText>
@@ -177,7 +177,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["第" + $V{PAGE_NUMBER} + "页/"]]></textFieldExpression>
 				</textField>
@@ -190,7 +190,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["共"+$V{PAGE_NUMBER} + "页"]]></textFieldExpression>
 				</textField>
@@ -203,7 +203,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{BILLDATE}]]></textFieldExpression>
 				</textField>
@@ -212,11 +212,11 @@ and a.id= $P{objectid}]]></queryString>
 						x="0"
 						y="0"
 						width="567"
-						height="18"
+						height="21"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Center">
-						<font reportFont="song" size="14" isBold="true"/>
+						<font reportFont="song" size="16" isBold="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{BILLNAME}]]></textFieldExpression>
 				</textField>
@@ -229,7 +229,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-13"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[收货方：]]></text>
 				</staticText>
@@ -237,12 +237,12 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="68"
 						y="55"
-						width="70"
+						width="148"
 						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESTNAME}]]></textFieldExpression>
 				</textField>
@@ -284,7 +284,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-4"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[备注：]]></text>
 				</staticText>
@@ -297,7 +297,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRIPTION}]]></textFieldExpression>
 				</textField>
@@ -310,7 +310,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-8"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[创建人：]]></text>
 				</staticText>
@@ -323,7 +323,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-9"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[创建时间：]]></text>
 				</staticText>
@@ -336,7 +336,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{OWNERID}]]></textFieldExpression>
 				</textField>
@@ -349,7 +349,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{CREATIONDATE}]]></textFieldExpression>
 				</textField>
@@ -362,7 +362,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-10"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[提交人：]]></text>
 				</staticText>
@@ -375,7 +375,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-11"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[提交时间：]]></text>
 				</staticText>
@@ -388,7 +388,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{STATUSERID}]]></textFieldExpression>
 				</textField>
@@ -401,7 +401,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{STATUSTIME}]]></textFieldExpression>
 				</textField>
@@ -414,7 +414,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-15"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[出库人：]]></text>
 				</staticText>
@@ -427,7 +427,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="staticText-16"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<text><![CDATA[出库时间：]]></text>
 				</staticText>
@@ -440,7 +440,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField-2"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{OUTERID}]]></textFieldExpression>
 				</textField>
@@ -453,7 +453,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField-3"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{OUTTIME}]]></textFieldExpression>
 				</textField>
@@ -466,7 +466,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField-4"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{INERID}]]></textFieldExpression>
 				</textField>
@@ -479,7 +479,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField-5"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{INTIME}]]></textFieldExpression>
 				</textField>
@@ -492,7 +492,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{INERIDTEXT}]]></textFieldExpression>
 				</textField>
@@ -505,7 +505,7 @@ and a.id= $P{objectid}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font reportFont="song"/>
+						<font reportFont="song" size="10" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{INTIMETEXT}]]></textFieldExpression>
 				</textField>

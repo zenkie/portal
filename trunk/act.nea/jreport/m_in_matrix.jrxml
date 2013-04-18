@@ -67,7 +67,7 @@ and a.id= $P{objectid}]]></queryString>
 			</band>
 		</background>
 		<title>
-			<band height="6"  isSplitAllowed="true" >
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</title>
 		<pageHeader>
@@ -133,7 +133,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="68"
 						y="21"
-						width="70"
+						width="117"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -146,7 +146,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="68"
 						y="38"
-						width="70"
+						width="117"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -237,7 +237,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="68"
 						y="55"
-						width="70"
+						width="117"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -331,7 +331,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="68"
 						y="17"
-						width="62"
+						width="77"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -344,7 +344,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="68"
 						y="34"
-						width="62"
+						width="77"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -383,7 +383,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="208"
 						y="17"
-						width="62"
+						width="77"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -396,7 +396,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="208"
 						y="34"
-						width="62"
+						width="77"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -435,7 +435,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="347"
 						y="17"
-						width="62"
+						width="77"
 						height="15"
 						key="textField-2"/>
 					<box></box>
@@ -448,7 +448,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="347"
 						y="34"
-						width="62"
+						width="77"
 						height="15"
 						key="textField-3"/>
 					<box></box>
@@ -461,7 +461,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="488"
 						y="17"
-						width="62"
+						width="77"
 						height="15"
 						key="textField-4"/>
 					<box></box>
@@ -474,7 +474,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="488"
 						y="34"
-						width="62"
+						width="77"
 						height="15"
 						key="textField-5"/>
 					<box></box>

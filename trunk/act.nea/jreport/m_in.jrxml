@@ -161,7 +161,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="343"
 						y="46"
-						width="113"
+						width="191"
 						height="18"
 						key="textField"/>
 					<box></box>
@@ -174,7 +174,7 @@ and a.id= $P{objectid}]]></queryString>
 					<reportElement
 						x="343"
 						y="65"
-						width="113"
+						width="191"
 						height="17"
 						key="textField"/>
 					<box></box>

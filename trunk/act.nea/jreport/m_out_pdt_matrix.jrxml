@@ -8,12 +8,12 @@
 		 orientation="Portrait"
 		 pageWidth="595"
 		 pageHeight="842"
-		 columnWidth="567"
+		 columnWidth="588"
 		 columnSpacing="0"
-		 leftMargin="14"
-		 rightMargin="14"
-		 topMargin="5"
-		 bottomMargin="5"
+		 leftMargin="7"
+		 rightMargin="0"
+		 topMargin="20"
+		 bottomMargin="20"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -22,7 +22,7 @@
 	<import value="java.util.*" />
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
-	<reportFont name="song" isDefault="true" fontName="宋体" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
+	<reportFont name="song10" isDefault="false" fontName="宋体" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
 
 	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
 		<parameterDescription><![CDATA[objectid]]></parameterDescription>
@@ -30,41 +30,19 @@
 	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["file:///e:/act.nea/jreport/"]]></defaultValueExpression>
 	</parameter>
-	<queryString><![CDATA[select case a.STATUS when 2 then '出库单——'||replace(d.description,'出库','')||'单' else '出库单——'||replace(d.description,'出库','')||'单（拣货单）' end as billname,a.docno,case a.STATUS when 2 then to_date(a.dateout,'yyyy-mm-dd') else to_date(a.billdate,'yyyy-mm-dd') end as billdate,nvl(a.description,' ') as description,
-b.name as origname,a.destname,
-nvl(e1.name,'') as OWNERID,a.CREATIONDATE,nvl(e2.name,'') as STATUSERID,a.STATUSTIME,
-nvl(e3.name,'') as OUTERID,a.OUTTIME,nvl(e4.name,'') as INERID,a.INTIME,case a.BILLTYPE when 'M_RET_PUROUT' then '' else '入库人：' end as INERIDTEXT,case a.BILLTYPE when 'M_RET_PUROUT' then '' else '入库时间：' end as INTIMETEXT,
- case a.STATUS when 2 then a.tot_qtyout else a.tot_QTY end as tot_qtyout,
- case a.STATUS when 2 then a.tot_amtout_list else a.tot_amt_list end as tot_amtout_list
-from M_OUT a,c_store b,AD_LIMITVALUE_GROUP c,AD_LIMITVALUE d,USERS e1,USERS e2,USERS e3,USERS e4
-where a.c_orig_id=b.id
-and c.id=d.ad_limitvalue_group_id
-and c.name='BILLTYPE(M_OUT)'
-and a.BILLTYPE=d.value
-and a.ownerid=e1.id(+)
-and a.statuserid=e2.id(+)
-and a.OUTERID=e3.id(+)
-and a.INERID=e4.id(+)
-and a.id= $P{objectid}]]></queryString>
+	<queryString><![CDATA[select a.DOCNO,a.DESTNAME as name,
+(select c.name from  m_out m,c_store c where m.C_ORIG_ID =c.id and m.id = $P{objectid}) as origname,
+  nvl(a.DESCRIPTION,' ') as DESCRIPTION,to_char(OUTTIME,'yyyy-mm-dd hh24:mi:ss') as datetime,a.BILLDATE
+from m_out a,c_store b
+where a.id =$P{objectid}
+and a.C_ORIG_ID = b.id]]></queryString>
 
-	<field name="BILLNAME" class="java.lang.String"/>
 	<field name="DOCNO" class="java.lang.String"/>
-	<field name="BILLDATE" class="java.sql.Timestamp"/>
-	<field name="DESCRIPTION" class="java.lang.String"/>
+	<field name="NAME" class="java.lang.String"/>
 	<field name="ORIGNAME" class="java.lang.String"/>
-	<field name="DESTNAME" class="java.lang.String"/>
-	<field name="OWNERID" class="java.lang.String"/>
-	<field name="CREATIONDATE" class="java.sql.Timestamp"/>
-	<field name="STATUSERID" class="java.lang.String"/>
-	<field name="STATUSTIME" class="java.sql.Timestamp"/>
-	<field name="OUTERID" class="java.lang.String"/>
-	<field name="OUTTIME" class="java.sql.Timestamp"/>
-	<field name="INERID" class="java.lang.String"/>
-	<field name="INTIME" class="java.sql.Timestamp"/>
-	<field name="INERIDTEXT" class="java.lang.String"/>
-	<field name="INTIMETEXT" class="java.lang.String"/>
-	<field name="TOT_QTYOUT" class="java.math.BigDecimal"/>
-	<field name="TOT_AMTOUT_LIST" class="java.math.BigDecimal"/>
+	<field name="DESCRIPTION" class="java.lang.String"/>
+	<field name="DATETIME" class="java.lang.String"/>
+	<field name="BILLDATE" class="java.math.BigDecimal"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -75,181 +53,176 @@ and a.id= $P{objectid}]]></queryString>
 			</band>
 		</title>
 		<pageHeader>
-			<band height="69"  isSplitAllowed="true" >
+			<band height="116"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="5"
-						y="18"
-						width="62"
-						height="15"
+						x="0"
+						y="1"
+						width="588"
+						height="29"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song10" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[出库单]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="39"
+						y="33"
+						width="58"
+						height="17"
 						key="staticText-2"/>
 					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
 					</textElement>
-				<text><![CDATA[单据编号：]]></text>
+				<text><![CDATA[出库单号：]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="366"
-						y="18"
-						width="62"
-						height="15"
+						x="344"
+						y="33"
+						width="58"
+						height="17"
 						key="staticText-3"/>
 					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
 					</textElement>
-				<text><![CDATA[单据日期：]]></text>
+				<text><![CDATA[出库日期：]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="5"
-						y="35"
-						width="62"
-						height="15"
+						x="39"
+						y="50"
+						width="58"
+						height="17"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[出库店仓：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="344"
+						y="50"
+						width="58"
+						height="17"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[收货店仓：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="39"
+						y="84"
+						width="58"
+						height="17"
 						key="staticText-6"/>
 					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
 					</textElement>
-				<text><![CDATA[发货方：]]></text>
+				<text><![CDATA[备注：]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="428"
-						y="35"
-						width="123"
-						height="15"
-						forecolor="#000000"
+						x="97"
+						y="88"
+						width="466"
+						height="27"
 						key="textField-1"/>
-					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-</box>
-					<textElement>
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="68"
-						y="18"
-						width="165"
-						height="15"
-						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+					<textElement>
+						<font reportFont="song10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRIPTION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="97"
+						y="35"
+						width="166"
+						height="17"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCNO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="68"
-						y="35"
-						width="246"
-						height="15"
-						key="textField"/>
+						x="97"
+						y="53"
+						width="166"
+						height="17"
+						key="textField-3"/>
 					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+					<textElement>
+						<font reportFont="song10"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ORIGNAME}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement
-						x="366"
-						y="35"
-						width="62"
-						height="15"
-						key="staticText-7"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<text><![CDATA[打印日期：]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="366"
-						y="52"
-						width="62"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["第" + $V{PAGE_NUMBER} + "页/"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="428"
-						y="52"
-						width="123"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement>
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["共"+$V{PAGE_NUMBER} + "页"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="428"
-						y="18"
-						width="123"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{BILLDATE}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="0"
-						y="0"
-						width="567"
-						height="16"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font reportFont="song" size="10" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{BILLNAME}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="5"
-						y="52"
-						width="62"
-						height="15"
-						key="staticText-13"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<text><![CDATA[收货方：]]></text>
-				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="68"
-						y="52"
-						width="246"
-						height="15"
+						x="402"
+						y="35"
+						width="166"
+						height="17"
+						key="textField-4"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DATETIME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="402"
+						y="53"
+						width="166"
+						height="17"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="97"
+						y="70"
+						width="166"
+						height="18"
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font reportFont="song" size="9"/>
+						<font reportFont="song10"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESTNAME}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{BILLDATE}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="39"
+						y="67"
+						width="58"
+						height="17"
+						key="staticText-7"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font reportFont="song10"/>
+					</textElement>
+				<text><![CDATA[单据日期：]]></text>
+				</staticText>
 			</band>
 		</pageHeader>
 		<columnHeader>
@@ -257,16 +230,14 @@ and a.id= $P{objectid}]]></queryString>
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="35"  isSplitAllowed="true" >
+			<band height="41"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="0"
+						x="39"
 						y="0"
-						width="567"
-						height="34"
-						key="subreport-1"
-						stretchType="RelativeToTallestObject"
-						isPrintWhenDetailOverflows="true"/>
+						width="481"
+						height="41"
+						key="subreport-1"/>
 					<subreportParameter  name="objectid1">
 						<subreportParameterExpression><![CDATA[$P{objectid}]]></subreportParameterExpression>
 					</subreportParameter>
@@ -280,297 +251,37 @@ and a.id= $P{objectid}]]></queryString>
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="130"  isSplitAllowed="true" >
-				<staticText>
-					<reportElement
-						x="5"
-						y="0"
-						width="62"
-						height="12"
-						key="staticText-4"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<text><![CDATA[备注：]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="68"
-						y="0"
-						width="483"
-						height="12"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRIPTION}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="5"
-						y="12"
-						width="62"
-						height="15"
-						key="staticText-8"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<text><![CDATA[创建人：]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="5"
-						y="27"
-						width="62"
-						height="15"
-						key="staticText-9"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<text><![CDATA[创建时间：]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="68"
-						y="12"
-						width="62"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{OWNERID}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="68"
-						y="27"
-						width="62"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{CREATIONDATE}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="145"
-						y="12"
-						width="62"
-						height="15"
-						key="staticText-10"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<text><![CDATA[提交人：]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="145"
-						y="27"
-						width="62"
-						height="15"
-						key="staticText-11"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<text><![CDATA[提交时间：]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="208"
-						y="12"
-						width="62"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{STATUSERID}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="208"
-						y="27"
-						width="62"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{STATUSTIME}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="284"
-						y="12"
-						width="62"
-						height="15"
-						key="staticText-15"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<text><![CDATA[出库人：]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="284"
-						y="27"
-						width="62"
-						height="15"
-						key="staticText-16"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<text><![CDATA[出库时间：]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="347"
-						y="12"
-						width="62"
-						height="15"
-						key="textField-2"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{OUTERID}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="347"
-						y="27"
-						width="62"
-						height="15"
-						key="textField-3"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{OUTTIME}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="488"
-						y="12"
-						width="62"
-						height="15"
-						key="textField-4"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{INERID}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="488"
-						y="27"
-						width="62"
-						height="15"
-						key="textField-5"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{INTIME}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="425"
-						y="12"
-						width="62"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{INERIDTEXT}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="425"
-						y="27"
-						width="62"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{INTIMETEXT}]]></textFieldExpression>
-				</textField>
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="19"  isSplitAllowed="true" >
+			<band height="20"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="283"
-						y="3"
-						width="108"
-						height="15"
-						key="staticText-17"/>
+						x="127"
+						y="0"
+						width="54"
+						height="18"
+						key="staticText-8"/>
 					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10"/>
 					</textElement>
-				<text><![CDATA[合计数量:]]></text>
+				<text><![CDATA[经手人：]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="397"
-						y="3"
-						width="48"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_QTYOUT}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement
-						x="445"
-						y="3"
-						width="62"
-						height="15"
-						key="staticText-18"/>
+						x="332"
+						y="0"
+						width="54"
+						height="18"
+						key="staticText-9"/>
 					<box></box>
-					<textElement textAlignment="Right">
-						<font reportFont="song" size="9"/>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10"/>
 					</textElement>
-				<text><![CDATA[合计金额：]]></text>
+				<text><![CDATA[签收人：]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="507"
-						y="2"
-						width="60"
-						height="16"
-						key="textField"/>
-					<box></box>
-					<textElement>
-						<font reportFont="song" size="9"/>
-					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_AMTOUT_LIST}]]></textFieldExpression>
-				</textField>
 			</band>
 		</summary>
 </jasperReport>

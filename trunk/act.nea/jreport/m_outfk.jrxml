@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="m_outfk"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="595"
+		 pageHeight="396"
+		 columnWidth="555"
+		 columnSpacing="0"
+		 leftMargin="20"
+		 rightMargin="20"
+		 topMargin="10"
+		 bottomMargin="10"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+	<reportFont name="song10" isDefault="false" fontName="宋体" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
+
+	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
+		<parameterDescription><![CDATA[objectid]]></parameterDescription>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["file:///e:/act.nea/jreport/"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[select a.docno,
+         a.billdate,
+       nvl(to_char(a.dateout), ' ') as dateout,
+       nvl(a.description, ' ') as description,
+       b.DESCRIPTION as origname,
+       b1.DESCRIPTION as destname,
+       case a.STATUS
+           when 2 then
+            u3.NAME
+           else
+            '未入库'
+       end as INERNAME,
+       a.INTIME,
+       u1.NAME as CREATERNAME,
+       a.CREATIONDATE,
+       decode(billtype,
+              'M_SALEOUT',
+              '销售出库',
+              'M_RET_SALEOUT',
+              '销售退货出库',
+              'M_TRANSFEROUT',
+              '调拨出库',
+              'M_V_CUSRET_PUROUT',
+              '经销商采购退货出库',
+              'M_RET_PUROUT',
+              '采购退货出库'
+          ) as billtype,
+       e.name,
+       a.TRANWAY_PAY,
+       a.tranwayno,   
+       a.receiver_phone,
+       a.weightorsize,
+       a.dest_addr,
+       a.consignee,
+       u4.name as outname,
+       a.OUTTIME
+  from M_OUT               a,
+       c_store             b,
+       c_store             b1,
+       AD_LIMITVALUE_GROUP c,
+       AD_LIMITVALUE       d,
+       c_tranway_jz e,
+       USERS               u1,
+       USERS               u2,
+       USERS               u3,
+       users               u4
+       
+ where a.c_orig_id = b.id
+   and c.id = d.ad_limitvalue_group_id
+   and c.name = 'BILLTYPE(M_OUT)'
+   and a.BILLTYPE = d.value
+   and b1.name = a.destname
+   and a.OWNERID = u1.id(+)
+   and a.STATUSERID = u2.id(+)
+   and a.INERID = u3.id(+)
+   and a.OUTERID =u4.id(+)
+   and a.c_tranway_jz_id=e.id(+)
+   and a.id = $P{objectid}]]></queryString>
+
+	<field name="DOCNO" class="java.lang.String"/>
+	<field name="BILLDATE" class="java.math.BigDecimal"/>
+	<field name="DATEOUT" class="java.lang.String"/>
+	<field name="DESCRIPTION" class="java.lang.String"/>
+	<field name="ORIGNAME" class="java.lang.String"/>
+	<field name="DESTNAME" class="java.lang.String"/>
+	<field name="INERNAME" class="java.lang.String"/>
+	<field name="INTIME" class="java.sql.Timestamp"/>
+	<field name="CREATERNAME" class="java.lang.String"/>
+	<field name="CREATIONDATE" class="java.sql.Timestamp"/>
+	<field name="BILLTYPE" class="java.lang.String"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="TRANWAY_PAY" class="java.math.BigDecimal"/>
+	<field name="TRANWAYNO" class="java.lang.String"/>
+	<field name="RECEIVER_PHONE" class="java.lang.String"/>
+	<field name="WEIGHTORSIZE" class="java.lang.String"/>
+	<field name="DEST_ADDR" class="java.lang.String"/>
+	<field name="CONSIGNEE" class="java.lang.String"/>
+	<field name="OUTNAME" class="java.lang.String"/>
+	<field name="OUTTIME" class="java.sql.Timestamp"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="157"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="12"
+						y="48"
+						width="75"
+						height="17"
+						key="staticText-2"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[单据编号：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="199"
+						y="48"
+						width="75"
+						height="17"
+						key="staticText-3"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[单据日期：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="376"
+						y="48"
+						width="75"
+						height="17"
+						key="staticText-4"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[出库日期：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="199"
+						y="65"
+						width="75"
+						height="17"
+						key="staticText-6"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[发货方：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="376"
+						y="65"
+						width="75"
+						height="17"
+						key="staticText-7"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[收货方：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="422"
+						y="29"
+						width="124"
+						height="15"
+						forecolor="#000000"
+						key="textField-1"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="555"
+						height="29"
+						key="staticText-15"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song10" size="14" isBold="true" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[出库单]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="199"
+						y="82"
+						width="75"
+						height="17"
+						key="staticText-16"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[运货单号：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="376"
+						y="99"
+						width="75"
+						height="17"
+						key="staticText-17"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[收货人电话：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="12"
+						y="65"
+						width="75"
+						height="17"
+						key="staticText-18"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[单据类型：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="12"
+						y="82"
+						width="75"
+						height="17"
+						key="staticText-19"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[运输方式：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="376"
+						y="82"
+						width="75"
+						height="17"
+						key="staticText-20"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[运费：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="12"
+						y="99"
+						width="75"
+						height="17"
+						key="staticText-21"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[重量或体积：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="199"
+						y="99"
+						width="75"
+						height="17"
+						key="staticText-22"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[收货人：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="12"
+						y="116"
+						width="75"
+						height="17"
+						key="staticText-23"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[收货人地址：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="79"
+						y="48"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCNO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="262"
+						y="48"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{BILLDATE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="79"
+						y="65"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{BILLTYPE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="262"
+						y="65"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ORIGNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="443"
+						y="65"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESTNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="443"
+						y="48"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DATEOUT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="262"
+						y="82"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{TRANWAYNO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="443"
+						y="82"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TRANWAY_PAY}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="79"
+						y="99"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{WEIGHTORSIZE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="262"
+						y="99"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CONSIGNEE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="443"
+						y="99"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{RECEIVER_PHONE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="79"
+						y="116"
+						width="432"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DEST_ADDR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="79"
+						y="82"
+						width="108"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="12"
+						y="133"
+						width="75"
+						height="17"
+						key="staticText-24"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[备   注：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="79"
+						y="133"
+						width="459"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRIPTION}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="57"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="0"
+						width="555"
+						height="57"
+						key="subreport-1"/>
+					<subreportParameter  name="objectid1">
+						<subreportParameterExpression><![CDATA[$P{objectid}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "m_outfk_item.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="41"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="16"
+						y="5"
+						width="74"
+						height="16"
+						key="staticText-9"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[制单人：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="16"
+						y="23"
+						width="74"
+						height="16"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[制单时间：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="204"
+						y="5"
+						width="65"
+						height="16"
+						key="staticText-11"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[入库人：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="204"
+						y="23"
+						width="65"
+						height="16"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[入库时间：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="383"
+						y="5"
+						width="62"
+						height="16"
+						key="staticText-13"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[提交人：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="383"
+						y="23"
+						width="62"
+						height="16"
+						key="staticText-14"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<text><![CDATA[提交时间：]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="6"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CREATERNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="23"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{CREATIONDATE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="268"
+						y="6"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{INERNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="268"
+						y="23"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{INTIME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="445"
+						y="5"
+						width="110"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{OUTNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="445"
+						y="23"
+						width="110"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font reportFont="song10" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{OUTTIME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

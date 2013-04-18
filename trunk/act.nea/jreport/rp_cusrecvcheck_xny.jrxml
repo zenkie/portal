@@ -27,24 +27,79 @@
 	<parameter name="where" isForPrompting="true" class="java.lang.String">
 		<parameterDescription><![CDATA[where]]></parameterDescription>
 	</parameter>
-	<queryString><![CDATA[SELECT rownum b5 ,a0.NAME b0,RP_CUSRECVCHECK.BILLDATE b1,
-RP_CUSRECVCHECK.DOCNO b2,RP_CUSRECVCHECK.DESCRIPTION b3,a0.CODE b4,
-RP_CUSRECVCHECK.LAST_HIRE s0,RP_CUSRECVCHECK.COLLECT_AMT s1,
-RP_CUSRECVCHECK.DEDUCT_AMT s2,RP_CUSRECVCHECK.TOTAL s3 
-FROM RP_CUSRECVCHECK,C_CUSTOMER a0 
-WHERE  (a0.ID (+)=RP_CUSRECVCHECK.C_CUSTOMER_ID) 
-AND $P!{where}]]></queryString>
+	<queryString><![CDATA[SELECT rownum b5, w.b0 b0, w.b1 b1, w.b2 b2, w.b3 b3, w.b4 b4, w.s0 s0, w.s1 s1, w.s2 s2,
+			 w.s3 s3
+	FROM (SELECT h.b0 b0, h.b1 b1, h.b2 b2, h.b3 b3, h.b4 b4, h.s0 s0, h.s1 s1, h.s2 s2,
+								h.s3 s3
+					 FROM (SELECT a0.NAME b0, RP_CUSRECVCHECK.BILLDATE b1,
+												 RP_CUSRECVCHECK.DOCNO b2, RP_CUSRECVCHECK.DESCRIPTION b3, a0.CODE b4,
+												 substr(rp_cusrecvcheck.DESCRIPTION, 0, 15) AS s0,
+												 RP_CUSRECVCHECK.DEDUCT_AMT s1, RP_CUSRECVCHECK.COLLECT_AMT s2,
+												 RP_CUSRECVCHECK.TOTAL s3
+										FROM RP_CUSRECVCHECK, C_CUSTOMER a0
+									 WHERE (a0.ID(+) = RP_CUSRECVCHECK.C_CUSTOMER_ID)
+										 AND rp_cusrecvcheck.DESCRIPTION LIKE '%销售出库后生成'
+									and  $P!{where}
+									UNION
+									SELECT  a0.NAME b0, RP_CUSRECVCHECK.BILLDATE b1,
+												 RP_CUSRECVCHECK.DOCNO b2, RP_CUSRECVCHECK.DESCRIPTION b3, a0.CODE b4,
+												 r.docno s0, RP_CUSRECVCHECK.DEDUCT_AMT s1,
+												 RP_CUSRECVCHECK.COLLECT_AMT s2, RP_CUSRECVCHECK.TOTAL s3
+										FROM RP_CUSRECVCHECK, C_CUSTOMER a0, m_ret_sale r
+									 WHERE (a0.ID(+) = RP_CUSRECVCHECK.C_CUSTOMER_ID)
+										 AND r.id = rp_cusrecvcheck.M_RET_SALE_ID
+									and  $P!{where}
+									UNION
+									SELECT a0.NAME b0, RP_CUSRECVCHECK.BILLDATE b1,
+												 RP_CUSRECVCHECK.DOCNO b2, RP_CUSRECVCHECK.DESCRIPTION b3, a0.CODE b4,
+												 NULL AS s0, RP_CUSRECVCHECK.DEDUCT_AMT s1,
+												 RP_CUSRECVCHECK.COLLECT_AMT s2, RP_CUSRECVCHECK.TOTAL s3
+										FROM RP_CUSRECVCHECK, C_CUSTOMER a0
+									 WHERE (a0.ID(+) = RP_CUSRECVCHECK.C_CUSTOMER_ID)
+										 AND (rp_cusrecvcheck.DESCRIPTION NOT LIKE '%销售出库后生成' AND
+												 rp_cusrecvcheck.DESCRIPTION NOT LIKE '%销售退货入库后生成' OR
+												 rp_cusrecvcheck.DESCRIPTION IS NULL)
+									and  $P!{where}
+									UNION
+									SELECT a0.NAME b0,
+												 to_number(substr(rp_cusrecvcheck.BILLDATE, 1, 6) || '00') AS b1,
+												 '' AS b2, '期初余额' b3, a0.CODE b4, NULL AS s0, 0 s1, 0 s2,
+												 rp_cusrecvcheck.DEDUCT_AMT + rp_cusrecvcheck.TOTAL -
+													rp_cusrecvcheck.COLLECT_AMT s3
+										FROM (SELECT RP_CUSRECVCHECK.*,
+																	row_number() over(PARTITION BY c_customer_id ORDER BY billdate, docno) tt
+														 FROM RP_CUSRECVCHECK
+														) rp_cusrecvcheck, C_CUSTOMER a0
+									 WHERE rp_cusrecvcheck.tt <= 1
+										 AND (a0.ID(+) = rp_cusrecvcheck.C_CUSTOMER_ID
+												 and  $P!{where}
+												 )
+									
+									UNION
+									SELECT a0.NAME b0,
+												 to_number(substr(rp_cusrecvcheck.BILLDATE, 1, 6) || '99') AS b1,
+												 '' AS b2, '期末余额' b3, a0.CODE b4, NULL AS s0, 0 s1, 0 s2,
+												 rp_cusrecvcheck.TOTAL s3
+										FROM (SELECT RP_CUSRECVCHECK.*,
+																	row_number() over(PARTITION BY c_customer_id ORDER BY billdate DESC, docno DESC) tt
+														 FROM RP_CUSRECVCHECK
+														) rp_cusrecvcheck, C_CUSTOMER a0
+									 WHERE rp_cusrecvcheck.tt <= 1
+										 AND (a0.ID(+) = rp_cusrecvcheck.C_CUSTOMER_ID
+												 and  $P!{where}
+												 )) h
+					ORDER BY h.b0, h.b1, h.b2) w]]></queryString>
 
+	<field name="B5" class="java.math.BigDecimal"/>
 	<field name="B0" class="java.lang.String"/>
 	<field name="B1" class="java.math.BigDecimal"/>
 	<field name="B2" class="java.lang.String"/>
 	<field name="B3" class="java.lang.String"/>
 	<field name="B4" class="java.lang.String"/>
-	<field name="S0" class="java.math.BigDecimal"/>
+	<field name="S0" class="java.lang.String"/>
 	<field name="S1" class="java.math.BigDecimal"/>
 	<field name="S2" class="java.math.BigDecimal"/>
 	<field name="S3" class="java.math.BigDecimal"/>
-	<field name="b5" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -302,7 +357,7 @@ AND $P!{where}]]></queryString>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font reportFont="song" isPdfEmbedded ="true"/>
 					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{B5}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -370,7 +425,7 @@ AND $P!{where}]]></queryString>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font reportFont="song" isPdfEmbedded ="true"/>
 					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{S0}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{S0}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -422,19 +477,6 @@ AND $P!{where}]]></queryString>
 						<font reportFont="song" isPdfEmbedded ="true"/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{S3}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="1"
-						y="0"
-						width="26"
-						height="18"
-						key="textField"/>
-					<box></box>
-					<textElement>
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{b5}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

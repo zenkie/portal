@@ -26,14 +26,15 @@
 	<parameter name="objectid1" isForPrompting="false" class="java.lang.Integer">
 		<parameterDescription><![CDATA[objectid1]]></parameterDescription>
 	</parameter>
-	<queryString><![CDATA[select a.payamount,b.name as payway
-from m_retailpayitem a,c_payway b
-where a.c_payway_id=b.id
+	<queryString><![CDATA[select a.payamount,b.name as payway,c.amtchange
+from m_retailpayitem a,c_payway b,m_retail c
+where a.c_payway_id=b.id and c.id=a.m_retail_id
 and (a.description <> '找零' or a.description is null)
 and a.m_retail_id=$P{objectid1}]]></queryString>
 
 	<field name="PAYAMOUNT" class="java.math.BigDecimal"/>
 	<field name="PAYWAY" class="java.lang.String"/>
+	<field name="AMTCHANGE" class="java.math.BigDecimal"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -48,14 +49,40 @@ and a.m_retail_id=$P{objectid1}]]></queryString>
 			</band>
 		</pageHeader>
 		<columnHeader>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="17"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="64"
+						height="16"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
+					</textElement>
+				<text><![CDATA[付款方式：]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="112"
+						y="0"
+						width="64"
+						height="16"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
+					</textElement>
+				<text><![CDATA[付款金额：]]></text>
+				</staticText>
 			</band>
 		</columnHeader>
 		<detail>
 			<band height="21"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="144"
+						x="165"
 						y="3"
 						width="94"
 						height="17"
@@ -74,7 +101,7 @@ and a.m_retail_id=$P{objectid1}]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="7"
+						x="59"
 						y="3"
 						width="87"
 						height="17"
@@ -102,7 +129,42 @@ and a.m_retail_id=$P{objectid1}]]></queryString>
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="30"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="170"
+						y="9"
+						width="50"
+						height="16"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" pdfEncoding ="UniGB-UCS2-H"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{AMTCHANGE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="12"
+						y="9"
+						width="62"
+						height="16"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
+					</textElement>
+				<text><![CDATA[找   零：]]></text>
+				</staticText>
+				<line direction="BottomUp">
+					<reportElement
+						x="0"
+						y="4"
+						width="307"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
 			</band>
 		</summary>
 </jasperReport>
