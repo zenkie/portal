@@ -676,7 +676,7 @@ MC.prototype={
   initialize:function(){
   	//alert('777');
     this.modal=null;
-    this.URL="/html/nds/portal/getmessage.jsp";
+    this.URL="/bpos/getmessage.jsp";
     this.messages=[];
     this.title=null;
     this. timeoutId=null;
@@ -762,10 +762,17 @@ MC.prototype={
 			var priority;
 			var index=0;
 			var msgs='';
+			var tempobj={};
 			for (var i = 0; i < cs.length; i++) {	
 				index++;
+				 tempobj.temptitle=mc.getChildValue(cs[i],"TITLE");
+				 tempobj.tempdescription=mc.getChildValue(cs[i],"DESCRIPTION");
+				 tempobj.tempcretime=mc.getChildValue(cs[i],"CREATIONDATE");
+				 tempobj.tempid=mc.getChildValue(cs[i],"ID");
+				 tempobj.tempuname=mc.getChildValue(cs[i],"TRUENAME");
 				priority=mc.getChildValue(cs[i],"PRIORITYRULE"); 
-				str+="<tr id='dialog-tbr"+i+"' "+(priority=='1'?"style='background-color:#FFFFFF;'":"")+" onclick='mc.go("+mc.getChildValue(cs[i],"ID")+");' ";
+				//str+="<tr id='dialog-tbr"+i+"' "+(priority=='1'?"style='background-color:#FFFFFF;'":"")+" onclick='mc.go("+mc.getChildValue(cs[i],"ID")+");' ";
+				str+="<tr id='dialog-tbr"+i+"' "+(priority=='1'?"style='background-color:#FFFFFF;'":"")+" onclick='javascript:bxl.dlgo4("+Object.toJSON(tempobj)+")' ";
 				str+=" onmouseover='mc.highlight(this);'";
 				str+="><td style='border-bottom:1px dotted grey;'>"+index+"</td>";	
 				if (priority=='1'){count++;str +="<td style='border-bottom:1px dotted grey;'><span style='color:red'>!!!</span></td>";if(isHasImpNotice!=undefined){isHasImpNotice=true}}
@@ -775,8 +782,9 @@ MC.prototype={
 				str+="<td style='border-bottom:1px dotted grey;padding-left:5px;'>"+mc.getChildValue(cs[i],"NO")+"</td>";
 				str+="<td style='border-bottom:1px dotted grey;padding-left:5px;' title='"+mc.getChildValue(cs[i],"DESCRIPTION")+"'>"+mc.getChildValue(cs[i],"TITLE")+"</td>";
 				str+="</tr>";
-				 
-		    msgs+="	&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' onclick='javascript:bxl.dlgo2("+mc.getChildValue(cs[i],"ID")+")'>"+mc.getChildValue(cs[i],"TITLE")+"</a>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ";	      
+				
+				 msgs+="	&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' onclick='javascript:bxl.dlgo4("+Object.toJSON(tempobj)+")'>"+mc.getChildValue(cs[i],"TITLE")+"</a>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ";	      
+		   // msgs+="	&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' onclick='javascript:bxl.dlgo4("+mc.getChildValue(cs[i],"ID")+","+mc.getChildValue(cs[i],"CREATIONDATE")+","+mc.getChildValue(cs[i],"TITLE")+")'>"+mc.getChildValue(cs[i],"TITLE")+"</a>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ";	      
 		//	 msgs+="	&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' onclick='javascript:bpos.lineShop("+10084+",11"+")'>"+mc.getChildValue(cs[i],"TITLE")+"</a>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ";	      
 
 			}

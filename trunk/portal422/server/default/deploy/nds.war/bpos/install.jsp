@@ -30,7 +30,7 @@
 <META NAME="Author" CONTENT="">
 <META NAME="Keywords" CONTENT="">
 <META NAME="Description" CONTENT="">
-<link href="webpos.min.css" rel="stylesheet" type="text/css" />
+<link href="install.css" rel="stylesheet" type="text/css" />
 <script language="javascript" src="/html/nds/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.2.3/jquery.js"></script>
 <script>
@@ -156,7 +156,7 @@ function validate(){                                               //点击安�
 	});
 }
 jQuery(document).ready(function(){
-	jQuery("#hasNewVersion").html("<div class=\"userTXT-left\">数据下载地址：</div><div class=\"userTXT-right\"><input onblur=\"address()\" name=\"\" id=\"address\" type=\"text\" class=\"system-content-userINPUT\"/></div>");
+	jQuery("#hasNewVersion").html("<span>数据下载地址：</span><input onblur=\"address()\" name=\"\" id=\"address\" type=\"text\"  class=\"login_input\" />");
 	jQuery("input").removeAttr("disabled");
 	if(!HasRuntimeVersion(dotNETRuntimeVersion)){
 		jQuery("#isfw").css("display","");
@@ -177,7 +177,7 @@ jQuery(document).ready(function(){
 <input type="hidden" id="Framework" value="A" /> <!--判断Framework控件是否已经安装  已安装值为 A 反之为B-->
 <input type="hidden" id="ActivesX" value="A" /> <!--判断ActivesX控件是否已经安装  已安装值为 A 反之为B-->
 </form>
-<div class="system-content">
+<!--<div class="system-content">
 <div class="system-content-height"></div>
 <div class="system-content-logo"></div>
 <div class="system-text">
@@ -213,7 +213,32 @@ jQuery(document).ready(function(){
 </div>
 
 <div class="system-content-bottom">&copy;2008-2010 上海伯俊软件科技有限公司 版权所有 保留所有权<br />了解更多产品请点击：<a href="http://www.burgeon.com.cn" target="_blank" class="systemTXT">www.burgeon.com.cn </a></div>
-</div>
+</div>-->
+
+
+<div class="main">
+	<div class="kong">    
+       <a href="dotnetfx.exe" id="isfw" style="display:none;"  class="tips">请先下载安装Framework2.0</a>
+    	<a href="#" class="logo">伯俊软件</a>
+        <a href="WEBPOS登陆错误帮助.doc" class="webpos">帮助</a>
+    </div><!--end kong-->
+    <h1>安装界面</h1>
+    <ul>
+    	<form action="" method="get">
+    		<li id="hasNewVersion"><DIV style="font-weight:bold;color:red;text-align:center;font-size:15px">数据下载中，请稍后。。。。</DIV></li>
+            <li><span>POS机编号：</span><input disabled="true" id="posid" name="" type="text" class="login_input" /></li>
+            <li><span>店仓编号：</span><input disabled="true" onfocus="checkPosId()" id="storecode" name="" type="text" class="login_input" /></li>
+            <li><span>初始密码：</span><input disabled="true" onfocus="checkPosId()" id="storepw" name="" type="password"  class="login_input" /></li>
+
+            <li><span>&nbsp;</span><input disabled="true" onclick="validate()" type="button" value="登录" class="button1" /><input disabled="true" name=""   type="reset" value="取消" class="button2" /></li>
+        </form>
+    </ul>
+    <div class="copy">
+    	©2008-2012上海伯俊软件科技有限公司 版权所有 保留所有权<br />
+  了解更多产品请点击：<a href="http://www.burgeon.com.cn" target="_blank">www.burgeon.com.cn</a>
+    </div>
+    
+</div><!--end main-->
 <div style="display:none" id="obj"><OBJECT ID="MainApp" width="160" height="30" CLASSID="CLSID:<%=str.trim()%>" codebase="setup.cab"></OBJECT></div>
 </body>
 </html>

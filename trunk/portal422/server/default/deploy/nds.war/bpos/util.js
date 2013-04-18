@@ -7,3 +7,17 @@ function zeroize(v,len){
       }     
    return zeros + v;    
 }
+	/**
+	 *add by robin 20130319 用于隐藏单词中部分char
+	 *@tar 要处理的单词
+	 *@len 隐藏字符的长度
+	 *@start 开始位置， 为负数时 从后往前定位
+	 *@return 返回处理过的字符串
+	 */
+function hidePartOfWord(tar,len,start){
+	if(null==tar||undefined==tar||""==tar)return tar;
+	var sLen=tar.length;
+	if(sLen<=len)return  tar.replace(/./g,'*');
+	if(len+start>sLen)start=sLen-len;
+	return tar.replace(eval('/(.{'+start+'})(.{'+len+'})(.*)/'),"$1"+tar.substr(start,len).replace(/./g,"*")+"$3");
+}

@@ -352,7 +352,7 @@ changeIcon:function(mainNode) {alert("122");
  		jQuery("#mulbarcodescape").html("<div class=\"treatment-span-10\">型号</div><div class=\"treatment-span-10\">品名</div><div class=\"treatment-span-7\">条码</div><div class=\"treatment-span-8\">零售价</div><div class=\"treatment-span-6\">颜色</div><div class=\"treatment-span-6\">尺寸</div><div class=\"treatment-span-6\">颜色号</div><div class=\"treatment-span-6\">尺寸号</div><div class=\"treatment-span-8\">数量</div>");
  	}
  	 //tommy定制系列1与小类
-   if(bpos.master_data.params.pageStyle=="tommy") {
+   if(this.master_data.params.pageStyle=="tommy") {
 			  jQuery("#mulbarcodescape").html("	<div class=\"treatment-span-7\">条码</div><div class=\"treatment-span-10\">款号</div><div class=\"treatment-span-10\" >品名</div><div class=\"treatment-span-6\">颜色</div><div class=\"treatment-span-6\">尺寸</div><div class=\"treatment-span-6\">系列1</div><div class=\"treatment-span-6\">小类</div><div class=\"treatment-span-8\">标准价</div><div class=\"treatment-span-8\">数量</div>");
 	  }
  },
@@ -571,8 +571,14 @@ changeIcon:function(mainNode) {alert("122");
  			  case "webpos.useVipSms":params.useVipSms=jo.webpos[i].VALUE;break;
  			  case "webpos.validateVipPw":params.validateVipPw=jo.webpos[i].VALUE;break;
  			  case "webpos.QXAbsPath":params.QXAbsPath=jo.webpos[i].VALUE;break;
+ 			  //校验时间参数
+ 			  case "webpos.timeVerify":params.timeVerify=jo.webpos[i].VALUE;break;
+ 			  case "webpos.onLineSkuMatche":params.onLineSkuMatche=jo.webpos[i].VALUE;break;
+ 			  case "webpos.enableOffInventory":params.enableOffInventory=jo.webpos[i].VALUE;break;
  			}
  		}
+ 		if(params.enableOffInventory==undefined)params.enableOffInventory="true";
+ 		if(params.onLineSkuMatche==undefined)params.onLineSkuMatche="false";
  		if(params.validateVipPw==undefined)params.validateVipPw="false";
  		if(params.useVipSms==undefined)params.useVipSms="false";
  		if(params.canImportInventory==undefined)params.canImportInventory="false";
@@ -595,6 +601,9 @@ changeIcon:function(mainNode) {alert("122");
  		if(jo.m_dim1_id&&jo.m_dim1_id!=-1)params.m_dim1_id=jo.m_dim1_id;
  		if(!this.checkPayWayExists(params.defaultPayway))params.defaultPayway="现金";
  		if(!params.defaultVipType)params.defaultVipType="NON";
+ 		//校验时间参数
+ 		if(!params.timeVerify)params.timeVerify="P|M|5";
+ 		
  		this.master_data.params=params;
  	}
  },
@@ -632,7 +641,8 @@ changeIcon:function(mainNode) {alert("122");
 		var evt={};
 		evt.command="DBJSON";
 		evt.callbackEvent="BPOS_LOAD_MASTER";
-		var param={"store":$("storeName").value};
+		var param={"store":$("store_id").value};
+		//alert(Object.toJSON(param));
 		evt.param=Object.toJSON(param);
 		evt.table="m_retail";
 		evt.action="load_master";
@@ -1282,13 +1292,14 @@ changeIcon:function(mainNode) {alert("122");
 		this.loadMasterAction();
 		if(online){
 			  this.queryNotice();
-			}
+		}
+		//setTimeout('bxl.checkServerTime();',10000);
 	},
 	queryNotice:function(){
 	   	//第一次无论是否有紧急消息都显示
 		    mc.load();
 				bxl.newsQuery();
-		    setInterval('bxl.newsQuery()',10000);
+		    setInterval('bxl.newsQuery()',900000);
 		},
 	//修复离线时登录用户和记录用户不一致
 	repairOfflineMaster:function(online) {
@@ -1486,6 +1497,7 @@ changeIcon:function(mainNode) {alert("122");
 		var data=e.getUserData();
 		var ret=data.jsonResult.evalJSON();
 		//alert(Object.toJSON(ret));
+		
 		this.updatemasterdata(ret);
 		
 		if(this.offline==true&&isIE()){
@@ -1700,10 +1712,36 @@ changeIcon:function(mainNode) {alert("122");
 					bxl.matrixInsertnum();
 					bxl.matrixStyle(ret,$("colorShow").value,$("sizeShow").value,true);
 			}else{
-				$("m_retail_idx").value="";
 				var m_retail_idx=$("m_retail_idx");
+				
+				if(this.master_data.params.onLineSkuMatche=='true'&&this.checkIsOnline()){
+					jQuery.ajax({
+						type:"POST",
+						url:this.URL+"getMatchedSku.jsp",
+						data:"si="+m_retail_idx.value,
+						async:false,
+						error:function(){
+							alert("网络不畅,请稍后再试！");
+						},
+						success:function(data){
+							data=jQuery.trim(data);
+							var jn=data.evalJSON();
+							if(jn.code<0){
+								alert(jn.msg);
+							}else if(jn.code==0){
+								m_retail_idx.value=jn.msg;
+								bpos.insertLine();
+							}else if(jn.code==1){
+								m_retail_idx.value="";
+								bpos.selectFirstType();
+							}
+						}
+					});
+				}else{
+					m_retail_idx.value="";
+					this.selectFirstType();
+				}
 				m_retail_idx.focus();
-				this.selectFirstType();
 			}
 	},
 	//选择第一个可用 切换状态
@@ -1873,12 +1911,12 @@ changeIcon:function(mainNode) {alert("122");
 		if($("birthday"))$("birthday").innerHTML=(tempvip.birthday==null?"":tempvip.birthday);
 		if($("vipename"))$("vipename").innerHTML=tempvip.vipename;	
 		if($("sex"))$("sex").innerHTML=tempvip.sex;	
-		if($("idno"))$("idno").innerHTML=tempvip.idno;	
+		if($("idno"))$("idno").innerHTML=hidePartOfWord(tempvip.idno,5,14);	
 		if($("validdate"))$("validdate").innerHTML=tempvip.validdate;
 		if($("lastconsumption"))$("lastconsumption").innerHTML=tempvip.lastconsumption;
 		if($("integral"))$("integral").innerHTML=tempvip.integrals;
 		if($("tot_amt_actual"))$("tot_amt_actual").innerHTML=tempvip.tot_amt_actuals;
-		if($("telephone"))$("telephone").innerHTML=tempvip.mobil||"";
+		if($("telephone"))$("telephone").innerHTML=hidePartOfWord(tempvip.mobil,4,3)||"";
 		if($("toDealer")) $("toDealer").innerHTML=tempvip.customer||"";
 		if($("toStore")) $("toStore").innerHTML=tempvip.store||"";
 		
@@ -1905,7 +1943,9 @@ changeIcon:function(mainNode) {alert("122");
 		}else{
 			$("ok").disabled=false;
 		}
+		if($("retailupdate"))
 		$("retailupdate").disabled=false;
+		if($("retailchange"))
 	  $("retailchange").disabled=false;
 	},
 	//当正式选着VIP信息时
@@ -2015,11 +2055,11 @@ changeIcon:function(mainNode) {alert("122");
 	 */
 	changeret2vip:function(ret){
 		var vip={};
-		vip.vip_id=ret.VIP_ID;
+		vip.vip_id=parseInt(ret.VIP_ID,10);
 		vip.vipname=ret.VIPNAME||"";
 		vip.vipename=ret.VIPENAME||"";
 		vip.c_viptype=ret.R_VIPTYPE||"";
-		vip.c_viptype_id=ret.C_VIPTYPE_ID||-1;
+		vip.c_viptype_id=parseInt(ret.C_VIPTYPE_ID,10)||-1;
 		vip.discount=ret.DISCOUNT||1;
 		vip.idno=ret.IDNO||"";
 		if(ret.SEX=='W'||ret.SEX=='M'){
@@ -2044,17 +2084,17 @@ changeIcon:function(mainNode) {alert("122");
 		vip.customer=ret.CUSTOMER||"";
 		vip.store=ret.STORE||"";
 		vip.directstore=ret.DIRECTSTORE||"YN";
-		vip.c_city_id=ret.C_CITY_ID||-1;
-		vip.c_opencardtype_id=ret.C_OPENCARDTYPE_ID||-1;
+		vip.c_city_id=parseInt(ret.C_CITY_ID)||-1;
+		vip.c_opencardtype_id=parseInt(ret.C_OPENCARDTYPE_ID,10)||-1;
 		vip.enterdate=ret.ENTERDATE||-1;
 		vip.storecardno=ret.STORECARDNO||" ";
 		vip.description=ret.description||" ";
 		vip.description2=ret.DESCRIPTION2||" ";
-		vip.c_servicearea_id=ret.C_SERVICEAREA_ID||-1;
+		vip.c_servicearea_id=parseInt(ret.C_SERVICEAREA_ID)||-1;
 		vip.age=ret.AGE||-1;
 		vip.opencarddate=ret.OPENCARDDATE||"";
-		vip.c_customer_id=ret.C_CUSTOMER_ID||-1;
-		vip.c_customerup_id=ret.C_CUSTMOERUP_ID||-1;
+		vip.c_customer_id=parseInt(ret.C_CUSTOMER_ID)||-1;
+		vip.c_customerup_id=parseInt(ret.C_CUSTMOERUP_ID)||-1;
 		vip.vipdis=ret.vipdis||{};
 		vip.pass_word=ret.PASS_WORD||"";
 		//alert($("isDis").value);
@@ -2082,7 +2122,7 @@ changeIcon:function(mainNode) {alert("122");
 	 *@param : noResetRetailType 是否不重置零售类型
 	 */
 	killAlert:function(alertid,noResetRetailType){
-		//alert("asdfa"+alertid);
+		if(jQuery("#"+alertid).length==0)return;
 		Alerts.killAlert($(alertid));
 		this.noAlert=true;
 		if(!noResetRetailType) this.selectFirstType();
@@ -2092,6 +2132,17 @@ changeIcon:function(mainNode) {alert("122");
 		Alerts.killAlert($(alertid));
 		this.noAlert=false;
 		
+	},
+	/**
+	 *add by robin 20130306 用于查询VIP，只需要获取cardno
+	 */
+	checkvip3:function(){
+		if(!this.tempvip){
+			return;
+		}
+		jQuery("#vipno").val(this.tempvip.cardno);
+		this.tempvip=null;
+		this.killAlert2("query-search-content");
 	},
 	checkvip2:function(){
 		if(!this.tempvip){
@@ -2152,49 +2203,11 @@ changeIcon:function(mainNode) {alert("122");
 		$("ticketno").value=bpos.readvip();
 		//....
 	},
-	createviptablehtml:function(){
-		var vsc=parseInt(this.master_data.params.vipcontroltype,2);
-		var str="<table width=\"580\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">";
-  								
-		var txt,tid;
-		var ish=true;
-		var count=0;
-		var companyIsAokang=false;
-		var cardnoUpperCase=false;
-		if(this.master_data.params.company&&jQuery.trim(this.master_data.params.company)=='aokang')companyIsAokang=true;
-		if(this.master_data.params.company&&jQuery.trim(this.master_data.params.company)=='jnby')cardnoUpperCase=true;
-		for(var j=3;j>=0;j--){		  								 
-			if(this.getbitinbinary(vsc,j))count++;
-		}
-		for(var i=3;i>=0;i--){
-			switch(i){
-				case 3:if(companyIsAokang) {
-									txt='<input name=\"刷卡\" type=\"button\" class=\"btn-ka\" value=\"刷卡\" onclick=\"bpos.handleReadVip();\" />VIP&nbsp;卡号：';
-								}else if(this.master_data.comptype==1&&(this.master_data.params.company&&jQuery.trim(this.master_data.params.company)=='bsw')) {
-									txt='<input name=\"刷卡\" type=\"button\" class=\"btn-ka\" value=\"刷卡\" onclick=\"bpos.handleReadVip();\" />VIP&nbsp;卡号：';
-								}else txt='VIP&nbsp;卡号：'; tid='vip';break;
-				case 2:txt='手&nbsp;机&nbsp;号：';tid='tele';break;
-				case 1:txt='VIP&nbsp;姓名：';tid='name';break;
-				case 0:txt='身份证号：';tid='vipidno';break;
-			}
-			if(this.getbitinbinary(vsc,i)){
-				str+="<tr><td width=\"200\" height=\"25\" align=\"right\"><div class=\"VIP-txt\">"+txt+"</div></td>"+
-				"<td width=\"120\"><input "+((tid=='vip'&&cardnoUpperCase)?" onkeyup=\"$('vip').value=($('vip').value).toUpperCase()\" ":"")+" name=\"text\" id=\""+tid+"\" type=\"text\" class=\"VIP_input_110\" "+(companyIsAokang?"disabled='true'":"")+"/></td>";
-				if(ish==true){
-					str+="<td width=\"260\" rowspan=\""+count+"\" align=\"left\" valign=\"top\"><div id=\"showmultivip\" style=\"display:none\" class=\"VIP-table\"><div class=\"VIP-table-head\"><div class=\"VIP-span-1\">姓名</div><div class=\"VIP-span-2\">手机号</div>"+
-						"<div class=\"VIP-span-3\">卡号</div></div><div id=\"VIP-main\" class=\"VIP-sidebar\" style=\"height: 60px; width: 260px; visibility: visible; opacity: 1;\"></div>"+
-						"</td>";
-					ish=false;			
-				}
-				str+="</tr>";
-			}
-		}  								 
-  	return str+"</table>";
-	},
 	executeLoadedScript:function(ele){
 		executeLoadedScript(ele);
 		jQuery("td.pop-up-close>a").remove();
 	},
+
 	combineConditionAndsearchVip:function(){
 		var ptype=new Array();
 		var pvalue=new Array();
@@ -2594,50 +2607,157 @@ changeIcon:function(mainNode) {alert("122");
 			alert("短信已发送！请查收！");
 		}
 	},
-	showvip_alert:function(){
-		var ele = Alerts.fireMessageBox(
-				{
-					width: 600,
-					modal: true,
-					title: gMessageHolder.EDIT_MEASURE
-				});
-				ele.innerHTML= "<div id=\"query-search-content\">"+
-					"<table width=\"600\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">"+
-  				"<tr><td><div id=\"treatment_td\"><div id=\"treatment_text\">新零售单据：请输入VIP查询信息</div></div></td></tr>"+
-  				"<tr><td><div class=\"VIP_table\">"+this.createviptablehtml()+
-  				 "<table width=\"585\" border=\"1\" align=\"center\" cellpadding=\"1\" cellspacing=\"1\" bgcolor=\"#486489\" id=\"modify_table\">"+
-  										"<tr class=\"emtb\"><td width=\"116\" align=\"right\">VIP&nbsp;姓名：</td><td width=\"167\"><span id=\"vipname\"></span></td><td width=\"150\" align=\"right\">VIP&nbsp;类型：</td>"+
-    									"<td width=\"150\"><span id=\"c_viptype\"></span></td></tr><tr class=\"emtbts\"><td align=\"right\">英&nbsp;文&nbsp;&nbsp;名：</td><td><span id=\"vipename\"></span></td>"+
-    									"<td align=\"right\">出生日期：<br /></td><td><span id=\"birthday\" ></span></td></tr><tr class=\"emtb\"><td align=\"right\">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>"+
-    									"<td><span id=\"sex\"></span></td><td align=\"right\">身份证号：</td><td><span id=\"idno\"></span></td></tr><tr class=\"emtbts\"><td align=\"right\">失效日期:&nbsp;</td>"+
-    									"<td><span id=\"validdate\" ></span></td><td align=\"right\">上次消费日期：</td><td><span id=\"lastconsumption\"></span></td></tr>"+
-    								  "<tr class=\"emtb\"><td align=\"right\">可用积分：</td><td><span id=\"integral\"></span></td><td align=\"right\">累计消费金额：</td><td><span id=\"tot_amt_actual\"></span></td></tr>"+				  
-    								  "<tr class=\"emtbts\"><td align=\"right\">经销商：</td><td><span id=\"toDealer\"></span></td><td align=\"right\">开卡店仓：</td><td><span id=\"toStore\"></span></td></tr>"+
-    								  "<tr class=\"emtb\"><td align=\"right\">手机号码：</td><td><span id=\"telephone\"></span></td><td align=\"right\"></td><td><span></span></td></tr>"+				 
-    								  
-    								  "<tr "+(this.master_data.params.isIntlDis=='true'?"":"style=\"display:none;\"")+" class=\"emtbts\"><td align=\"right\">是否积分：</td> <td><select id='isIntl'><option value=\"Y\">----是----</option><option value=\"N\">----否----</option></select></td>"+
-                      "<td align=\"right\">是否打折：</td><td><select id='isDis'><option value=\"Y\">----是----</option> <option value=\"N\">----否----</option></select></td></tr>"+
-    									"</table></div></td></tr><tr><td align=\"center\"><div id=\"treatment_td\" align=\"center\">"+
-    									"<div id=\"treatment_text\">&nbsp;<input type=\"button\" value=\"新增\" id=\"retailadd\" onclick=\"bpos.retail_add();\" class=\"qinput\"/>&nbsp;"+
-    									"<input type=\"button\" value=\"升级\" id=\"retailupdate\" onclick=\"bpos.retail_update();\" class=\"qinput\"/>&nbsp;"+
-    									"<input type=\"button\" value=\"换卡\" id=\"retailchange\" onclick=\"bpos.retail_change();\" class=\"qinput\"/>&nbsp;"+
-    									"<input type=\"button\" value=\"确定\" id=\"ok\" onclick=\"bpos.checkvip2();\" class=\"qinput\"/>&nbsp;"+
-    									"<input name=\"cancle\" id=\"nok\" type=\"button\" class=\"qinput\" value=\"取消\"  onclick=\"javascript:bpos.tryClose();\"/></div></div></td></tr></table></div>";
-			 this.executeLoadedScript(ele);
-			 this.noAlert=false;
-			 if(this.master_data.params.vip_aum!='111'){
+	getConds:function(){
+		var conds=new Array();
+		var cardnoUpperCase=false;
+		var companyIsAokang=false;
+		if(this.master_data.params.company&&jQuery.trim(this.master_data.params.company)=='aokang')companyIsAokang=true;
+		if(this.master_data.params.company&&jQuery.trim(this.master_data.params.company)=='jnby')cardnoUpperCase=true;
+		var vsc=parseInt(this.master_data.params.vipcontroltype,2);
+		for(var i=3;i>=0;i--){
+			 var c;
+			switch(i){
+				case 3:if(companyIsAokang||(this.master_data.comptype==1&&(this.master_data.params.company&&jQuery.trim(this.master_data.params.company)=='bsw'))) {
+									
+									c={name:"VIP&nbsp;卡号",key:"vip",upperCase:cardnoUpperCase,btn:{name:"刷卡",key:"swingCard"},disabled:true};
+							 }else c={name:"VIP&nbsp;卡号",key:"vip",upperCase:cardnoUpperCase};break;
+				case 2:c={name:"手&nbsp;机&nbsp;号",key:"tele"};break;
+				case 1:c={name:"VIP&nbsp;姓名",key:"name"};break;
+				case 0:c={name:"身份证号",key:"vipidno"};break;
+			}
+			conds.push(c);
+		}
+		return conds;
+	},
+	/**
+	 *add by robin 20130306
+	 *画查询店仓界面
+	 */
+	drawQueryStore:function(){
+		var title="查询店仓信息";
+		var conds=[{name:"编号",key:"qstoreCode"},{name:"名称描述",key:"qstoreDes"},{name:"城市",key:"qstoreCity"},{name:"地址",key:"qstoreDre"}];
+		var itemC=[{name:"编号",key:"storeCodeI"},{name:"名称",key:"storeNameI"},{name:"地址",key:"storeDreI"},{name:"城市",key:"storeCityI"},{name:"省份",key:"storeProvinceI"},{name:"分公司",key:"storeBranchI"}];
+		var btns=[{name:"确定",key:"determineq"},{name:"取消",key:"cancelq"}];
+		var result=["编号","名称","地址"];
+		du.multiQuery(conds,itemC,btns,title,"",result);
+		this.noAlert=false;
+		var vipss=$("qstoreCode");
+		if(vipss&&vipss.disabled!=true)vipss.focus();
+		jQuery("#qstoreCode,#qstoreDes,#qstoreCity,#qstoreDre").bind("keyup",function(event){
+				if(event.target==this&&event.which==13){
+					bpos.combineConditionAndsearchStore();
+				}
+			});
+		jQuery("#cancelq").bind("click",function(event){
+					bpos.tempStore=null;
+					bpos.killAlert2("query-search-content");
+					$("search_condition").focus();
+		});
+		jQuery("#determineq").bind("click",function(event){
+				if(bpos.tempStore&&bpos.tempStore.name){
+					jQuery("#storenamer").val(bpos.tempStore.name);
+					bpos.tempStore=null;
+					bpos.killAlert2("query-search-content");
+					$("search_condition").focus();
+				}
+		});
+	},
+	/**
+	 *add by robin 20130306 合并条件然后查询店仓
+	 */
+	combineConditionAndsearchStore:function(){
+		var con={};
+		jQuery("#qstoreCode,#qstoreDes,#qstoreCity,#qstoreDre").each(function(){
+				if(this.value&&jQuery.trim(this.value)!=""){
+					con[this.id]=this.value;
+				}		
+			});
+		jQuery.ajax({
+				type:"POST",
+				url:this.URL+"getStoreInfo.jsp",
+				timeout:3000,
+				contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+				data:"cn="+Object.toJSON(con),
+				error:function(){
+					alert("网络不畅,请稍后再试！");
+				},
+				success:function(data){
+					var jo=data.evalJSON();
+					if(jo.code==0){alert(jo.msg);return;}
+					bpos.handlermultistore(jo.msg);
+				}
+			});
+	},
+	/**
+	 *add by robin 20130306
+	 *查询多个店仓信息后处理动作
+	 */
+	handlermultistore:function(ret){
+		if(ret.length>1){
+			jQuery("#showmultivip").css("display","");
+			var str="";
+			for(var i=0;i<ret.length;i++){
+				str+="<div class=\"VIP-row\" id=\"VIP-row-"+i+"\">"+
+							"<div class=\"VIP-row-line\">"+
+							"<div class=\"VIP-span-1\">"+ret[i].code+"</div><div class=\"VIP-span-2\">"+(ret[i].name=="null"?"":ret[i].name)+"</div><div class=\"VIP-span-4\">"+(ret[i].address=="null"?"":ret[i].address)+"</div></div></div>";
+			}
+			jQuery("#VIP-main").html(str);
+			jQuery("#VIP-main>div").bind("click",function(event){
+				jQuery("#VIP-main>div").css("background-color","");
+				jQuery(this).css("background-color","#75A9D6");
+			});
+			jQuery("#VIP-main>div").bind("dblclick",function(event){
+					var index=parseInt(this.id.replace("VIP-row-",""));
+					bpos.docheckstore(ret[index])
+					//this.tempvip=bpos.changeret2vip(ret[index]);
+					//bpos.updatevipinfohtml();
+					event.stopPropagation();
+			});
+		}else{
+			this.docheckstore(ret[0]);
+			jQuery("#ok").focus();
+		}
+	},
+	docheckstore:function(store){
+		this.tempStore=store;
+		$("storeCodeI").innerHTML=this.tempStore.code;
+		$("storeNameI").innerHTML=this.tempStore.name;
+		$("storeDreI").innerHTML=this.tempStore.address=="null"?"":this.tempStore.address;
+		$("storeCityI").innerHTML=this.tempStore.city=="null"?"":this.tempStore.city;
+		$("storeProvinceI").innerHTML=this.tempStore.province=="null"?"":this.tempStore.province;
+		$("storeBranchI").innerHTML=this.tempStore.block=="null"?"":this.tempStore.block;
+	},
+	/**
+	 *add by robin 20130306
+	 *画VIP查询界面
+	 */
+	drawvip_alert:function(title){
+		var conds=this.getConds();
+		var itemC=[{name:"VIP&nbsp;姓名",key:"vipname"},{name:"VIP&nbsp;类型",key:"c_viptype"},{name:"英&nbsp;文&nbsp;&nbsp;名",key:"vipename"},{name:"出生日期",key:"birthday"},
+							 {name:"性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别",key:"sex"},{name:"身份证号",key:"idno"},{name:"失效日期",key:"validdate"},{name:"上次消费日期",key:"lastconsumption"},
+							 {name:"可用积分",key:"integral"},{name:"累计消费金额",key:"tot_amt_actual"},{name:"经销商",key:"toDealer"},{name:"开卡店仓",key:"toStore"},
+							 {name:"手机号码",key:"telephone"}];
+		
+		if(!title)var title="新零售单据：请输入VIP查询信息";
+		var btns=new Array();
+		if(this.master_data.params.vip_aum!='000'){
 			 	var per=parseInt(this.master_data.params.vip_aum,2);
-			 	if((4&per)!=4)jQuery("#retailadd").hide();
-			 	if((2&per)!=2)jQuery("#retailupdate").hide();
-			 	if((1&per)!=1)jQuery("#retailchange").hide();
-			 }
-			 $("ok").disabled=true;
-			 //$("retailadd").disabled=true;
-			 $("retailupdate").disabled=true;
-			 $("retailchange").disabled=true;
-			 //var dsfd= jQuery("#sys_date").offset();
-			//alert(dsfd.top+":---:"+dsfd.left);
-	  	var vipss=$("vip");
+			 	if((4&per)==4)btns.push({name:"新增",key:"retailadd"});
+			 	if((2&per)==2)btns.push({name:"升级",key:"retailupdate"});
+			 	if((1&per)==1)btns.push({name:"换卡",key:"retailchange"});
+		}
+		btns.push({name:"确定",key:"ok"});
+		btns.push({name:"取消",key:"nok"});
+		
+		var extraStr="<tr "+(this.master_data.params.isIntlDis=='true'?"":"style=\"display:none;\"")+" class=\"emtbts\"><td align=\"right\">是否积分：</td> <td><select id='isIntl'><option value=\"Y\">----是----</option><option value=\"N\">----否----</option></select></td>"+
+                      "<td align=\"right\">是否打折：</td><td><select id='isDis'><option value=\"Y\">----是----</option> <option value=\"N\">----否----</option></select></td></tr>";
+		var result=["姓名","手机号","卡号"];
+		
+		
+		du.multiQuery(conds,itemC,btns,title,extraStr,result);
+		this.noAlert=false;
+		
+		var vipss=$("vip");
 			if(vipss&&vipss.disabled!=true)vipss.focus();
 			jQuery("#vip,#tele,#name,#vipidno").bind("keyup",function(event){
 				if(event.target==this&&event.which==13){
@@ -2692,7 +2812,7 @@ changeIcon:function(mainNode) {alert("122");
 						//jQuery("#ok").focus();
 					}
 				}else if(event.which==9){
-				  if($("retailupdate").disabled==false)tab=jQuery("#vip,#tele,#name,#vipidno,#retailadd,#retailupdate,#retailchange,#ok,#nok");
+				  tab=jQuery("#vip,#tele,#name,#vipidno,#retailadd,#retailupdate,#retailchange,#ok,#nok");
 					event.stopPropagation();
 					event.preventDefault();
 					var index1=0;
@@ -2705,6 +2825,20 @@ changeIcon:function(mainNode) {alert("122");
 					ipt.focus();
 				}
 			});		
+		
+	},
+	showvip_alert:function(){
+		
+		this.drawvip_alert();
+		
+		jQuery("#swingCard").bind("click",function(event){bpos.handleReadVip();});
+		jQuery("#retailupdate").bind("click",function(event){bpos.retail_update();});
+		jQuery("#retailadd").bind("click",function(event){bpos.retail_add();});
+		jQuery("#retailchange").bind("click",function(event){bpos.retail_change();});
+		jQuery("#ok").bind("click",function(event){bpos.checkvip2();});
+		jQuery("#nok").bind("click",function(event){bpos.tryClose();});
+
+	  	
 			
 			/*
 			jQuery.ajax({
@@ -2776,11 +2910,21 @@ changeIcon:function(mainNode) {alert("122");
 			ele.innerHTML= $("r_retail_no").innerHTML.replace(/TMP/g,"");
 			this.executeLoadedScript(ele);
 			this.noAlert=false;
-			//显示select
+			jQuery("#retaildata").tipInput("格式：20130304");
 			$("search_condition").style.visibility="visible";
-			//window.setTimeout('$("retailno").focus();',500);
+			jQuery("#queryvip").bind("click",function(event){
+					bpos.drawvip_alert();
+					jQuery("#swingCard").bind("click",function(event){bpos.handleReadVip();});
+					jQuery("#ok").bind("click",function(event){bpos.checkvip3();$("search_condition").focus();});
+					jQuery("#nok").bind("click",function(event){bpos.killAlert2("query-search-content");});
+				});
+			jQuery("#querystore").bind("click",function(event){
+					bpos.drawQueryStore();
+					
+				});
+			
 	    window.setTimeout('$("search_condition").focus();',500);
-			//var retailnox=$("retailno");
+	
 			this.search_control();
     }else{
     	this.checkretailno("");
@@ -2796,7 +2940,7 @@ changeIcon:function(mainNode) {alert("122");
 		jQuery("#retail_data").toggle();
 		//storename默认店仓名
 		if(document.getElementById("search_condition").value=="2"){
-			jQuery("#storename").val(this.master_data.c_store_name+"");
+			jQuery("#storenamer").val(this.master_data.c_store_name+"");
 		}
 		if(!snd)
 			this.search_control();
@@ -2810,7 +2954,7 @@ changeIcon:function(mainNode) {alert("122");
 			jQuery("#r_retail_no_content").bind("keydown",function(event){
 				if(event.which==9){
 					if(document.getElementById("search_condition").value=="2"){
-						tab=jQuery("#search_condition,#storename,#vipno,#saler,#retaildata,#search_ok,#search_nok");
+						tab=jQuery("#search_condition,#storenamer,#vipno,#saler,#retaildata,#search_ok,#search_nok");
 					}else{
 						tab=jQuery("#search_condition,#retailno,#search_ok,#search_nok");
 					}
@@ -3175,7 +3319,7 @@ changeIcon:function(mainNode) {alert("122");
 			evt.command="cn.com.burgeon.command.webpos.RetFuzzyQuery";
 			evt.permission="r";
 			var vip_cardno=jQuery.trim($("vipno").value);
-			var store_name=jQuery.trim($("storename").value);
+			var store_name=jQuery.trim($("storenamer").value);
 			var saler_name=jQuery.trim($("saler").value);
 			var sale_date=jQuery.trim($("retaildata").value);
 			var param={"vip_cardno":vip_cardno,"store_name":store_name,"saler_name":saler_name,"saleDate":sale_date,"productno":m_retail_productno};
@@ -3303,6 +3447,7 @@ changeIcon:function(mainNode) {alert("122");
 				alert("本单已有明细，不可更新！");
 			}else{
 				MainApp.Download();
+				//this.CacheData();
 			}
 		}
 	},
@@ -3370,9 +3515,11 @@ changeIcon:function(mainNode) {alert("122");
 	//ACTIVEX 本地打印小票 根据 JSON打印
 	printorder:function(param){
 		//alert(param);
+		var count=parseInt(this.locationConfig.PosConfig.小票联打次数,10);
+		if(isNaN(count)||count<1)count=this.master_data.params.printCount;
 		MainApp.printOrder(param);
-		if(this.master_data.params.printCount>1){
-			for(var i=0;i<this.master_data.params.printCount-1;i++){		
+		if(count>1){
+			for(var i=0;i<count-1;i++){		
 				MainApp.printOrder(param);			
 			}
 		}	
@@ -3423,8 +3570,8 @@ changeIcon:function(mainNode) {alert("122");
 		if(jQuery.trim($("retailno").value)){
 			retailno=jQuery.trim($("retailno").value);
 		}
-		if(jQuery.trim($("storename").value)){
-			storename=jQuery.trim($("storename").value);
+		if(jQuery.trim($("storenamer").value)){
+			storename=jQuery.trim($("storenamer").value);
 		}
 		if(jQuery.trim($("vipno").value)){
 			vipno=jQuery.trim($("vipno").value);
@@ -3467,7 +3614,7 @@ changeIcon:function(mainNode) {alert("122");
 					"<div class=\"treatmentLL-span-11\">单据编号</div>"+
 					"<div class=\"treatmentLL-span-4\">店仓</div>"+
 					"<div class=\"treatmentLL-span-4\">VIP卡号</div>"+
-					"<div class=\"treatmentLL-span-5\">操作员</div>"+
+					"<div class=\"treatmentLL-span-5\">VIP姓名</div>"+
 					"<div class=\"treatmentLL-span-8\">总数量</div>"+
 					"<div class=\"treatmentLL-span-5\">总成交金额</div>"+
 					"<div class=\"treatmentLL-span-11\">备注</div></div></div>"+
@@ -4192,6 +4339,9 @@ changeIcon:function(mainNode) {alert("122");
 	 		jQuery("#returnconsume").click();
 	 	}	
 	 });
+	 jQuery("#consumeprice").bind("blur",function(event){
+	 		jQuery("#consumeprice").val(bpos.alg(jQuery("#consumeprice").val(),true,2));
+	 });
 	},
 	killconsumepopup:function(){
 		this.killAlert("consumecardalert");
@@ -4210,7 +4360,7 @@ changeIcon:function(mainNode) {alert("122");
 	//20120709 增加 购物券付款 isvou
 	dealconsumepay:function(remmin,cardno,isvou){
 		
-		var amount=parseFloat($("consumeprice").value);
+		var amount=this.alg(parseFloat($("consumeprice").value),true,2);
 		if(isNaN(amount)||amount<=0||amount>remmin){
 			alert("错误：价格无法解析或超出范围");
 			return;
@@ -4380,9 +4530,9 @@ changeIcon:function(mainNode) {alert("122");
     							"</div></td></tr><tr><td colspan=4><div class=\"xiao_botder2\"><ul><li><div class=\"xiaoLeft\">"+payway+"号：</div>"+
 									"<div class=\"xiaoRight\"><input color='red' id=\"ticketno\" name=\"\" type=\"text\"  class=\"payment-vipTxt\" /></div>"+
 									"</li></ul></div></td></tr>"+
-									"<tr class=\"emtb\"><td width=\"80\" align=\"right\">类型:</td><td width=\"110\"><span id=\"vouType\"></span></td><td width=\"90\" align=\"right\">账户金额:</td><td width=\"110\"><span id=\"amtAcount\"></span></td></tr>"+
+									"<tr class=\"emtb\"><td width=\"80\" align=\"right\">类型:</td><td width=\"110\"><span id=\"vouType\"></span></td><td width=\"90\" align=\"right\">姓名:</td><td width=\"110\"><span id=\"epeName\"></span></td></tr>"+
 									"<tr class=\"emtb\"><td width=\"80\" align=\"right\">折后限额:</td><td width=\"110\"><span id=\"accountLimit\"></span></td><td width=\"90\" align=\"right\">有效期:</td><td width=\"110\"><span id=\"validDate\"></span></td></tr>"+
-									"<tr class=\"emtb\"><td width=\"80\" align=\"right\">工号:</td><td width=\"110\"><span id=\"epeNo\"></span></td><td width=\"90\" align=\"right\">姓名:</td><td width=\"110\"><span id=\"epeName\"></span></td></tr>"+
+									"<tr class=\"emtb\"><td width=\"80\" align=\"right\">工号:</td><td width=\"110\"><span id=\"epeNo\"></span></td><td width=\"90\"  align=\"right\"><span style=\"display:none\">账户金额:</span></td><td  width=\"110\"><span style=\"display:none\" id=\"amtAcount\"></span></td></tr>"+
 									
   								"<tr><td colspan=4><div id=\"treatment_td\" align=\"center\"><div id=\"treatment_text\">&nbsp;"+
 									"<input type=\"button\" value=\"确定\" onclick=\"bpos.confirmedVou();\" class=\"qinput\" id=\"xiao_ok\"/>&nbsp;"+
@@ -4756,6 +4906,7 @@ changeIcon:function(mainNode) {alert("122");
 		ele.innerHTML= $("pay").innerHTML.replace(/TMP/g,"").replace("VIP付款",this.vipPayTypeName);
 		this.executeLoadedScript(ele);
 		var sms="";
+		$("next").disabled=true;
 		if(this.checkUseSms())sms="<input type=\"button\" value=\"找回密码\" id=\"retailSms\" onclick=\"bpos.smsVip();\" class=\"qinput\"/>";
 		if(sms)jQuery("#vip_psw").after(sms);
 		if(this.vip.vip_id&&this.vip.ifcharge=='Y'&&this.checkIsOnline()){
@@ -5155,6 +5306,7 @@ changeIcon:function(mainNode) {alert("122");
 		jQuery("#paidamount").html(this.changenumber2yuan(this.gettotpayamount()));
 		jQuery("#charge").html(this.changenumber2yuan(this.change));
 	  dwr.util.selectRange($("currpay"), 0,20);
+	  if(this.alg(totprice,true)==0)jQuery("#next").removeAttr("disabled");
 	},
 	//Add by Robin 20101216 初始化积分付款界面，选择积分活动
 	initintegralpayhtml:function(){
@@ -5312,6 +5464,10 @@ changeIcon:function(mainNode) {alert("122");
 	  		event.stopPropagation();
 	  		event.preventDefault();
 	  		var num =parseFloat($("currpay").value);
+	  		if(num!=bpos.alg(num,true,2)){
+	  			$("discription").innerHTML  = "付款金额不符合进位要求，系统自动进位！";
+	  			num=bpos.alg(num,true,2);
+	  		}
 	  		var unnum=parseFloat(jQuery("#unpaidamount").html().replace("￥",""));
 				var pnum=parseFloat(jQuery("#paidamount").html().replace("￥",""));
 				pnum=isNaN(pnum)?0:pnum;
@@ -6066,6 +6222,7 @@ changeIcon:function(mainNode) {alert("122");
 		var str="<div class=\"payment-row\"><div class=\"payment-row-line\">"+
 				"<div class=\"payment-span-1\">"+paytype+"</div><div class=\"payment-span-3\">"+this.changenumber2yuan(payamount)+"</div></div></div>";
 		jQuery("#payment-main").append(str);
+		jQuery("#next").removeAttr("disabled");
 	},
 	//更新 付款明细this.payitem
 	updatepayitem:function(payway,num){
@@ -6253,7 +6410,7 @@ changeIcon:function(mainNode) {alert("122");
 		
 		var i=0;
 		var num =parseFloat($("currpay").value);
-		num=this.alg(num,true);
+		num=this.alg(num,true,2);
 		if(this.payitem.TotalAmount<0&&num>0){
 			dwr.util.selectRange($("currpay"),0,20);
 			return;
@@ -6351,13 +6508,14 @@ changeIcon:function(mainNode) {alert("122");
 	
 	
 	repay:function(){
-		
+		jQuery("#payselect option[text="+this.master_data.params.defaultPayway+"]").attr("selected","true");
 		if(this.vouinfo&&(this.vouinfo.useDis||this.vouinfo.changeItemsPrice)){
 			alert("已使用购物券折算了价格，不能重付！若要重付，请取消付款！");
 			return;
 		}
 		bxl.pay();
 		jQuery("#payment-main").html("");		
+		$("next").disabled=true;
 		//这些重置的变量是不是应该整合到一个方法中？
 		this.payment=[];//alert(2);
 		this.ticketnos=new Array();
@@ -6577,7 +6735,9 @@ changeIcon:function(mainNode) {alert("122");
 	如果初始化成功则返回true,否则返回false
 	*/
 	initInsertSaveDate:function(){
-			if(this.payitem.TotalAmount-this.gettotpayamount()>0){
+			 var totpayamount=this.getpaymentamount();
+	     
+			if(this.payitem.TotalAmount-totpayamount>0){
 				alert("付款金额小于应付金额！");
 				return false;
 			}else{
@@ -6644,8 +6804,7 @@ changeIcon:function(mainNode) {alert("122");
    	          discription2[j]=this.payment[j].remark;
    	     }
  	     }
-	     var totpayamount=this.getpaymentamount();
-	     if(totpayamount>this.payitem.TotalAmount){
+ 	     if(totpayamount>this.payitem.TotalAmount){
 	     		for(var o=0;o<this.payment.length;o++){
 	     			if(this.checkIsTicketPayWay(this.payment[o])){
 	     				paymount[o]=paymount[o].sub(totpayamount.sub(this.payitem.TotalAmount));
@@ -6747,11 +6906,13 @@ changeIcon:function(mainNode) {alert("122");
 			// add by robin 20121122 新增 VIP当日当月“按笔数”的活动的记录ID，没有就默认为-1
 			var vipbirdisid=items.vipbirdisid||-1;
 			
+			
+			
 		  //Add by Robin 20110301 增加字段isIntl值等于webpos.vip.isIntl 是否积分
 		  var isIntl='N';
 		  if(this.vip&&this.vip.isIntl=='Y')isIntl='Y';
 		  //注意 salerid1保存的是 salers 的 name,saler 保存的 是salers 的 id
-			this.submititems={"storeid":this.master_data.c_store_id,"printmetrail":"Y","billdate":sys_date,"description":comment,"storecode":this.master_data.storecode,
+			this.submititems={"storename":this.master_data.c_store_name,"storeid":this.master_data.c_store_id,"printmetrail":"Y","billdate":sys_date,"description":comment,"storecode":this.master_data.storecode,
 				"vipid":this.tempvip.vip_id||this.vip.vip_id||-1,"amtchange":this.change,"salerid":this.master_data.saler.id,"salerid1":m_retail_salerid,
 				"saler":m_retail_saler,"saler_truename":salertruename,"salercode":salercode,"qty":m_retail_qty,"priceactual":m_retail_priceactual,"pricelist":m_retail_pricelist,"price":m_retail_price,"productno":m_retail_productno,
 				"productname":m_retail_productname,"color":m_retail_color,"colorname":m_retail_colorname,"size":m_retail_size,"sizename":m_retail_sizename,
@@ -6818,7 +6979,7 @@ changeIcon:function(mainNode) {alert("122");
 		for(var i=0;i<this.master_data.payways.length;i++){
 			var pw=this.master_data.payways[i];
 			if(payway.payid==pw.id){
-				if(pw.isticket=="Y"){
+				if(pw.isticket=="Y"||(pw.ischarge=="N"&&pw.iscash=="Y")){
 					return true;
 				}
 			}
@@ -6863,8 +7024,9 @@ changeIcon:function(mainNode) {alert("122");
 	
 	//Add by Robin20110219 检查是否符合离线保存，无法离线：1.VIP付款、2.VIP积分付款、3.消费券、4.消费卡、5.VIP当日当月活动、6.使用购物券
 	//新增 VIP当日当月活动时不能 离线 20121122
+	//edit by robin 20130321 除掉 会普通消费券 的在线控制。即 普通消费券也可以 保存本地
 	checkCanSaveOnOffLine:function(){
-		if((this.checkIsOnline()&&this.master_data.params.offline=="false")||this.tempvipdis||this.checkHasTicketPayWay()||this.checkHasVouPayWay()||this.checkHasVipPayWay()||this.checkHasConsumeCardPayWay()||this.checkHasVipBirDis()){
+		if((this.checkIsOnline()&&this.master_data.params.offline=="false")||this.tempvipdis||this.checkHasVouPayWay()||this.checkHasVipPayWay()||this.checkHasConsumeCardPayWay()||this.checkHasVipBirDis()){
 			return false;
 		}
 		return true;
@@ -6908,10 +7070,16 @@ changeIcon:function(mainNode) {alert("122");
 			if(ret&&ret.vipdocno)this.submititems.b_vipmoney_docno=ret.vipdocno;
 			if(!ret){
 				this.submititems.vip_integral="-";
+				this.submititems.useIntegral="-";
 				this.submititems.cur_vip_integral="-";
+				this.submititems.integral_up='-';
+				this.submititems.viplevel="-";
 			}else if(ret&&ret.integral){
 				this.submititems.vip_integral=ret.integral;
 				this.submititems.cur_vip_integral=ret.cur_vip_integral||"0";
+				this.submititems.viplevel=ret.viplevel||"-";
+				this.submititems.integral_up=ret.integral_up||"-";
+				this.submititems.useIntegral=ret.useIntegral||"-";
 			}
 			info.param=this.submititems;
 			//记录打印信息,方便下次打印20101122
@@ -6975,10 +7143,12 @@ changeIcon:function(mainNode) {alert("122");
 	 *add by  robin 20121113增加是否可以进位的控制，因为计算单价的时候不应该去截取或进位，
 	 *因为进位了可能导致最终的付款金额错误,
 	 *@canAlg 为 true时 使用进位 否则使用保留5为小数的
+	 *@precision 进位精度，即保留小数位多少位。
 	 */
-	alg:function(value1,canAlg){ 
+	alg:function(value1,canAlg,precision){ 
 		if(typeof(value1)=="string")value1=parseFloat(value1);
 		if(!canAlg) return (Math.round(parseFloat(value1.mul(100000)))).div(100000); 
+		if(canAlg&&precision)return (Math.round(parseFloat(value1.mul(Math.pow(10,precision)))).div(Math.pow(10,precision))); 
 		var temp1=0;   	
 	 var calculation;
 	 if(this.master_data&&this.master_data.calculation)

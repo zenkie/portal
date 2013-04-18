@@ -83,7 +83,7 @@
 			window.close();
 			return;
 		}
-		jQuery("#login").val(Cookies.get("name"));
+		jQuery("#login").val((Cookies.get("name"))?(Cookies.get("name")):"");
 		if(<%=isNewVerssion%>==true){
 				jQuery("input").removeAttr("disabled");
 				if($("hasNewVersion"))

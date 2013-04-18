@@ -2767,11 +2767,107 @@ border:1px solid #476388;}
 	overflow: hidden;
 }
 
-.ac_loading {
-	background : Window url(../../../../../DOCUME~1/zhaoying/LOCALS~1/Temp/images/indicator.gif) right center no-repeat;
+/*add by sxq    notice*/
+
+#cmdline {
+background: transparent;
+border:0 none;
+color:#FFFFFF;
+height:18px;
+position:absolute;
+top:2px;
+left:28px;
+}
+#cmdloading{
+height:18px;
+width:18px;
+background:transparent url(images/loading.gif) no-repeat scroll 2px 50%;	
+}
+#cmdmsg { 
+position: absolute; 
+bottom:0px;
+left:0px;
+z-index:100;
+background:#FBFFE1;
+padding:5px;
+border:2px solid #F28A17;;
+text-align:left; 
+width:450px;
+max-height:300px;
+overflow-x:auto;
+}
+#cmdbtns{
+ text-align:right;
+ padding:10px 20px 5px 5px;
+ color:#A7A7A7;
+}
+#cmdhelp{
+ clear:both;
+ padding:10px 0px 5px 10px;
+}
+.cmdh{
+float:left;
+padding:5px 20px 5px 20px;
+width:40px;
 }
 
+
+#imul{
+width:200px;
+}
+#imbox .imu{
+float:left;
+font-weight:bold;
+padding:4px;
+}
+#imbox .imt{
+color:#999999;
+float:left;
+font-weight:normal;
+padding:4px;
+}
+#imbox .imm{
+clear:both;
+padding:0 4px;
+}
+#imbox .imf{
+clear:both;	
+padding:4px;
+}
+#imbox .ima{
+background:transparent url(images/imicons.png) no-repeat scroll 0px -100px;	
+width:16px;	
+height:16px;
+vertical-align:bottom;
+}
+#cmdbtns input[type="button"]{
+background:transparent url(images/button_bg.gif) repeat scroll 0%;
+border:1px solid #a7a7a7;
+padding:0 4px;
++padding:0px;/*IE*/
+}
+.imf a{
+color:blue;
+}
+.unread{
+font-weight:bold; 	
+}
+.nn1{
+color:#ff0000;
+/*background-position:0 0px;
+background:transparent url(/html/nds/images/n1.gif) no-repeat scroll 0 0;
+padding-left:16px;*/
+}
+.nn2{
+color:#800000;
+/*background-position:0 0px;
+background:transparent url(/html/nds/images/n2.gif) no-repeat scroll 0 0;
+padding-left:16px;*/
+}
 .ac_over {
 	background-color: Highlight;
 	color: HighlightText;
+}
+.ac_loading {
+	background : Window url(images/indicator.gif) right center no-repeat;
 }

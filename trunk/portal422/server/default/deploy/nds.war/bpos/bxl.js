@@ -14,9 +14,11 @@ BXL.prototype={
 	  	else alert(message);
 	   };
 		application.addEventListener("BPOS_SEARCH",this._onsearch,this);
+		application.addEventListener("U_Note_Read",this._noteread,this);
 		application.addEventListener("BPOS_PWD",this._onpwd,this);
 		this.lisense();
 		this.init();
+		this.checkServerTime();
 	},
 	init:function(){
 				this.mutilines=new Array();//批量录入		  
@@ -32,6 +34,108 @@ BXL.prototype={
 				this.d="";
 				this.date="";//查询返回的json
  },
+ //校验本地时间与服务器时间是否一致
+ checkServerTime:function(){
+ 	  window.setInterval(function(){bxl.getServerTime();}, 900000);
+ 	},
+ 	getServerTime:function(){
+ 		var timeverify="F|D|1";
+ 		try{
+ 			timeverify=bpos.master_data.params.timeVerify;
+ 	 	}catch(e){
+ 	 	}
+ 	  var verify=timeverify.split('|');
+ 	  var verifytype=verify[0];
+ 	  var timetype=verify[1];
+ 	  var timevalue=verify[2];
+ 		jQuery.ajax({
+				type:"POST",
+				cache:false,
+				url:bpos.URL+"getServerTime.jsp",
+				timeout:10000,
+				error:function(){
+					//alert('查询服务器时间失败！');
+				},
+				success:function(data){
+			 	 var d1=new Date(data);
+			   var d2=new Date();
+			   var diff = d2.getTime() - d1.getTime();
+			   if(diff<0){diff=0-diff;}
+				 if(jQuery("#timeAlert").length>0){
+				 	if(diff<2000*60)bpos.killAlert('timeAlert');
+				 	return;
+				 }
+				 	if(timetype=='D'){
+				     var day=Math.round(diff/(1000*3600*24));
+				     if(verifytype=='P'){
+				     	 (day>parseInt(timevalue,10))?jQuery("#dateIsNotCorrect").css("display","block"):jQuery("#dateIsNotCorrect").css("display","none");
+				     	}else{
+				     		jQuery("#dateIsNotCorrect").css("display","none");
+				     		if(bpos.noAlert&&day>parseInt(timevalue,10)){
+				     	    	bxl.timeAlert();
+				        	}
+				        	if(day<=parseInt(timevalue,10)){
+				        		try{
+				        				bpos.killAlert('timeAlert');
+				        	   }catch(e){}
+				        		} 
+				     		}
+				     
+				 		}
+				 		else if(timetype=='H'){
+				     var hours=Math.round(diff/(1000*3600));
+				     if(verifytype=='P'){
+				     	 hours>parseInt(timevalue,10)?jQuery("#dateIsNotCorrect").css("display","block"):jQuery("#dateIsNotCorrect").css("display","none");
+				     	}else{
+				     		jQuery("#dateIsNotCorrect").css("display","none");
+				     			if(bpos.noAlert&&hours>parseInt(timevalue,10)){
+				     	    	 bxl.timeAlert();
+				        	}
+				        	if(hours<=parseInt(timevalue,10)){
+				        		try{
+				        		bpos.killAlert('timeAlert');
+				        	   }catch(e){}
+				        		} 
+				     		}
+				     
+				 		}
+				 	else	if(timetype=='M'){
+				     var mins=Math.round(diff/(1000*60));
+				     if(verifytype=='P'){
+				     	mins>parseInt(timevalue,10)?jQuery("#dateIsNotCorrect").css("display","block"):jQuery("#dateIsNotCorrect").css("display","none");
+				     	}else{
+				     		jQuery("#dateIsNotCorrect").css("display","none");
+				     			if(bpos.noAlert&&mins>parseInt(timevalue,10)){
+				     	     	bxl.timeAlert();
+				        	}
+				        	if(mins<=parseInt(timevalue,10)){
+				        		try{
+				        		bpos.killAlert('timeAlert');
+				        	   }catch(e){}
+				        		} 
+				     		}
+				     
+				 		}
+				 	
+				
+				 
+				}
+		}); 
+ 		},
+//本地时间与服务器时间不等蒙层
+	timeAlert:function(){
+		
+		var ele = Alerts.fireMessageBox(
+				{
+					width: 400,
+					modal: true,
+					title: gMessageHolder.EDIT_MEASURE
+				});
+			var str="<div id=\"timeAlert\" style=\"height:50px;padding-top:20px;padding-left:20px;\"><font style=\"font-size:20px;color:red;padding-top:50px;\" >本地时间与服务器时间不一致，请修改！</font></div>";
+			ele.innerHTML=str;
+			bpos.executeLoadedScript(ele);
+			bpos.noAlert=false;
+	}, 
  //跑马灯通知
  	newsQuery:function(){
  	// jQuery("#dialog").dialog("destroy");
@@ -75,6 +179,67 @@ BXL.prototype={
     	});*/
 		
 	},
+	//系统消息cmdmsg赋值
+	dlgo4:function(tempobj){
+		
+		 jQuery("#dialog").parent().css("z-index","90");
+	   if(mc.modal)jQuery("#dialog").parent().prev(".ui-widget-overlay ").css("z-index","1");
+		
+		 jQuery("#cmdmsguname").html(tempobj.tempuname+":");
+		 jQuery("#cmdmsgtime").html(tempobj.tempcretime.substr(0,tempobj.tempcretime.length-2));
+		 jQuery("#cmdmsgcontent").html(tempobj.temptitle+"<p>"+tempobj.tempdescription+"</p>");
+		  jQuery("#cmdhref").html("<a href=\"#\"  onclick=javascript:bxl.dlgo3("+tempobj.tempid+") >查看通知明细</a>");
+		// jQuery("#cmdhref").attr("onclick","javascript:bxl.dlgo3('"+tempobj.tempid+"')");
+		 jQuery("#cmdbtns").html("<input type=\"button\" onClick=\"javascript:bxl.makesurereadmsg('"+tempobj.tempid+"')\"  value=\"&nbsp;&nbsp;确认已读&nbsp;&nbsp;\">");
+		 jQuery("#cmdmsg").css("display","block");
+		// jQuery("#cmdread").bind("onClick","javascript:bxl.makesurereadmsg('"+tempobj.tempid+"')");
+		},
+	makesurereadmsg:function(msgid){
+		if(msgid!=null && !isNaN(msgid)){
+			/*var evt={};
+			evt.command="U_Note_Read";
+			evt["nds.control.ejb.UserTransaction"]="Y";
+			evt.callbackEvent="U_Note_Read";
+			evt.noteid=msgid;
+			bxl.executeCommandEvent(evt);*/
+			
+			 var evt={};
+        evt.command="DBJSON";
+        evt.callbackEvent="U_Note_Read";
+        var param={"unoteid":parseInt(msgid,10)};
+        evt.param=Object.toJSON(param);
+        evt.table="U_NOTE";
+        evt.action="CONFIRMREAD";
+        evt.permission="W";
+        this._executeCommandEvent(evt);
+		
+		}
+		},
+	_noteread:function(e){
+			mc.refresh();
+			jQuery("#cmdmsg").css("display","none");
+				},
+	executeCommandEvent :function (evt) {
+		this._lastAccessTime= (new Date()).getTime();
+		//showProgressWindow(true);
+		Controller.handle( Object.toJSON(evt), function(r){
+				//try{
+					var result= r.evalJSON();
+					if (result.code !=0 ){
+						msgbox(result.message);
+				    	if($("list_query_form")!=null)toggleButtons($("list_query_form"),false);
+					}else {
+						var evt=new BiEvent(result.callbackEvent);
+						evt.setUserData(result); // result.data
+						application.dispatchEvent(evt);
+					}
+				/*}catch(ex){
+					msgbox(ex.message);
+				}*/
+			
+		});
+	},
+
 	dlgo3:function(targetId,Option){
 		 bxl.showObject2("/html/nds/object/object.jsp?table=U_NOTE&&fixedcolumns=&id="+targetId,956,570,Option);
 		},
@@ -89,7 +254,7 @@ BXL.prototype={
     	theWidth=screen.availWidth;
     	theHeight=screen.availHeight;
     }
-	var options=$H({width:theWidth,height:theHeight,title:"", modal:true,centerMode:"x",noCenter:true,maxButton:true});
+	var options=$H({width:theWidth,height:theHeight,title:"", modal:true,centerMode:"x",noCenter:true,maxButton:true,style:"z-index:9999"});
 	if(options!=undefined) options.merge(option);
 	if(options.iswindow==true){
 		popup_window(url,options.target, options.width,options.height);
@@ -342,11 +507,13 @@ closeDialog:function(){
 			str+="<option value='"+sy[i]+"'>"+sy[i]+"</option>";
 		}
 		var rets=bxl.splictRetByPropety(ret,"NAME",sy);
-		bxl.matrixSearchaction(rets[sy[0]],color,size,single);
+		bxl.sortSizeGroup(rets[sy[0]],color,size,single,sy[0]);
+		
 		jQuery("#color-size-show").html(sy[0]);	
 		jQuery("#styleM").html(str).bind("change",function() {
 			syret=jQuery("#styleM").find("option:selected").text();
-			bxl.matrixSearchaction(rets[syret],color,size,single);	
+			bxl.sortSizeGroup(rets[syret],color,size,single,syret);
+			//bxl.matrixSearchaction(rets[syret],color,size,single);	
 			jQuery("#color-size-show").html(jQuery("#styleM option:selected").text());
 		});
 	},
@@ -389,7 +556,7 @@ closeDialog:function(){
         return 'CR';
     }
 	},
-	matrixSearchaction:function(ret,color,size,single) {
+	matrixSearchaction:function(ret,color,size,single,qc,qtycan) {
 		this.single=single;
 		this.mutilines=new Array();
 		//默认是MSIZE,COL
@@ -425,6 +592,29 @@ closeDialog:function(){
 		colt+="<table id='coltable' width=\"90px\" height=\""+(row.length*28.5+bpos.gh_rows-1)+"px\" border='0' cellpadding='0' cellspacing='1' style='table-layout:fixed;'><tr>";
 		mt+="<tr><td class='td_bg_center' width=\"90px\"style=\"text-align:center;\" height=\"28.5px\"><div id=\"color-size-show\">颜色\尺寸</div></td>";		
 		rowt+="<tr><td width=\"90px\" height=\"28.5px\">&nbsp;</td>";		
+		var tempcol=new Array();
+		//alert(Object.toJSON(col));
+		tempcol.length=0;
+		if(qc!=undefined){
+			//先按尺寸组排序，若不在组里，直接显示不排序
+			for(var i=0;i<qc.length;i++)	 {
+					for(var j=0;j<col.length;j++){
+							if(qc[i][1]==col[j]){
+								tempcol.push(qc[i][1]);
+								}
+							}
+					}
+				if(tempcol.length!=col.length){
+						for(var n=0;n<col.length;n++){
+							if(!tempcol.contains(col[n])){
+								tempcol.push(col[n]);
+								}
+							}
+						
+					}	
+			 col=tempcol;
+			}
+				//alert(Object.toJSON(col));
 		for(var i=0;i<col.length;i++) {
 			if(isC)idx=this.getIndexByValue(cols[0]["MSIZE"],col[i]);
 			//整表第一行，显示尺寸——值
@@ -471,7 +661,7 @@ closeDialog:function(){
 		single?jQuery("#TMPnum0").attr("checked",true):dwr.util.selectRange(jQuery("#TMPnum0"),0,10); 
 		jQuery("#TMPnum0").focus();
 		
-		this.queryQtycan(ret);
+		this.queryQtycan(qtycan);
 			 //失去焦点时，检查输入格式
 		if(!single)	{jQuery("#style-body input").bind("blur",function(event){
 	      	if(this.value&&event.target==this){
@@ -488,7 +678,7 @@ closeDialog:function(){
 			 }); 
 			}
 			jQuery("#avaqty").click(function(){
-				bxl.queryQtycan(ret);
+				bxl.queryQtycan(qtycan);
 			});
 	 }else {
 	 	this.tryCancleM();
@@ -648,10 +838,36 @@ closeDialog:function(){
   		}
   	});				
 	},
-	//查询所有可用库存
-	queryQtycan:function(ret) {
-		jQuery("#avaqty").attr("disabled",true);
+	//尺寸组排序
+	sortSizeGroup:function(ret,color,size,single,tempstyle) {
+		
 		jQuery.ajax({
+				type:"POST",
+				cache:false,
+				url:bpos.URL+"getBarcodeQtyCanByUserId.jsp?styles="+encodeURI(bpos.change2array(ret)[0].NAME)+(bpos.URL?("&storeid="+bpos.master_data.c_store_id):""),
+				timeout:60000,
+				error:function(){
+					bxl.matrixSearchaction(ret,color,size,single);
+					//alert("网络不畅，请稍后重试...");
+				},
+				success:function(data){
+				//	alert('11');
+					//var rets=data.jsonResult.evalJSON();
+					eval("var qc="+bpos.change2array(data));
+				/*	var qc=bpos.change2array(data);
+					for(var i=0;i<qc.length;i++) {
+						alert(qc[i]);
+						alert(qc[i][0]);
+					}*/
+					bxl.matrixSearchaction(ret,color,size,single,qc[0],qc[1]);
+				}
+		}); 
+	},
+	//查询所有可用库存
+	queryQtycan:function(qc) {
+		//jQuery("#avaqty").attr("disabled",true);
+		
+	/*	jQuery.ajax({
 				type:"POST",
 				cache:false,
 				url:bpos.URL+"getBarcodeQtyCanByUserId.jsp?styles="+encodeURI(bpos.change2array(ret)[0].NAME)+(bpos.URL?("&storeid="+bpos.master_data.c_store_id):""),
@@ -662,12 +878,19 @@ closeDialog:function(){
 				},
 				success:function(data){
 					jQuery("#avaqty").removeAttr("disabled");
+				//	var data="[['102sdfds', '102sdf'], ['1afdsf', '2ds'], [33, 223], [45, 3], [343, 4], [343, 21], [34, 34], [34, 2], [2, 34], [9, 9]]";
 					eval("var qc="+bpos.change2array(data));
-					for(var i=0;i<qc.length;i++) {
-						jQuery("#"+qc[i][0]).html(qc[i][1]);
-					}
+					
+					
 				}
-		}); 
+		}); */
+		if(qc==undefined){
+			return;
+			}
+		for(var i=0;i<qc.length;i++) {
+						//alert(qc[i][0]);
+						jQuery("#"+qc[i][0]).html(qc[i][1]);
+		}
 	},
 
 	//根据尺寸和颜色在ret中搜索相应的对象
@@ -1317,6 +1540,7 @@ validate:function(d,isBillDate){
 	 if(bpos.master_data.params.multiSalers=="true"){
 	 	var multisalers=new Array();
 	 }
+	 var changeSale=false;
 	 for(var i=0;i<obj.length;i++){
 	  	if(obj[i].checked){
 	  		var j= parseInt(obj[i].id.replace("employee-",""),10);
@@ -1328,6 +1552,7 @@ validate:function(d,isBillDate){
 		  		bpos.master_data.saler.truename=bpos.master_data.salers[j].truename;
 		  		bpos.master_data.saler.dicountlmt=bpos.master_data.salers[j].discountlmt;
 	  		}
+	  		changeSale=true;
 	  	}
  	  }
  	  bpos.master_data.multisalers=multisalers;
@@ -1351,6 +1576,7 @@ validate:function(d,isBillDate){
 	    bpos.updateheaderhtml();	 
   	}
 		bxl.closeEmployee();
+		if(changeSale&&$("m_retail_idx").value)bpos.insertLine();
 	},
 		//设置成统一数量 
 	unite:function(){
@@ -1514,6 +1740,7 @@ searchdocNo:function(){
 		if(this.d.toString()==''){
 			alert("没有您要查询的内容");
 		}else{
+			
 			var arr=bpos.change2array(ret);
 			this.docdata=arr;
 			for(var i=0;i<arr.length;i++){	 
@@ -1534,7 +1761,7 @@ searchdocNo:function(){
 				 if(arr[i].VIPID==-1){
 				  	vipid="无";
 				 }else{
-				  	vipid=arr[i].VIPID;
+				  	vipid=(arr[i].JSON).evalJSON().param.vip_cardno;
 				 } 						
 				 if(arr[i].RECORD==""){
 				  	record="无记录";
@@ -1542,10 +1769,10 @@ searchdocNo:function(){
 				  	record=arr[i].RECORD;
 				 }
 				 var j=i+1;
-				 amt_total+=bpos.alg(parseFloat(arr[i].TOTAMT),true);
+				 amt_total=amt_total.add(parseFloat(arr[i].TOTAMT));
 				 qty_total+=parseInt(arr[i].TOTQTY,0);
 				 str+="<tr "+(i%2==1?"class=\"search-conduct\"":"class=\"search-row\"")+"><td class=\"search-text\"><input   type=\"radio\" name=\"doc\"  id="+i+" />"+j+"</td><td class=\"search-text\">"+arr[i].ORDERNO+"</td><td class=\"search-text\">"+arr[i].BILLDATE+"</td><td class=\"search-textR\">"+arr[i].TOTQTY+"</td>"+
-			  		  "<td class=\"search-textR\">"+bpos.alg(parseFloat(arr[i].TOTAMT),true)+"</td><td class=\"search-text\">"+vipid+"</td><td class=\"search-text\">"+arr[i].operatorname+"</td><td class=\"search-text\">"+upstatus+"</td><td class=\"search-text\">"+record+"</td><td class=\"search-text\">"+error_info+"</td></tr>";
+			  		  "<td class=\"search-textR\">"+bpos.alg(parseFloat(arr[i].TOTAMT),false)+"</td><td class=\"search-text\">"+vipid+"</td><td class=\"search-text\">"+arr[i].operatorname+"</td><td class=\"search-text\">"+upstatus+"</td><td class=\"search-text\">"+record+"</td><td class=\"search-text\">"+error_info+"</td></tr>";
 			 
 			}
 		}
@@ -1672,8 +1899,8 @@ searchdocNo:function(){
 					lines.priceactual=parseFloat(p.priceactual[i]);   
 					lines.qty=parseInt(p.qty[i]);
 			    lines.price=parseFloat(p.price[i]);  //应付价
-					lines.salerid=p.salerid1[i].toString();
-					lines.saler=p.saler[i].toString();
+					lines.salerid=(p.salerid1[i])?p.salerid1[i].toString():"";
+					lines.saler=(p.saler[i])?p.saler[i].toString():"";
 					lines.type=p.type[i].toString();
 					lines.orgdocno=p.orgdocno[i].toString();
 					lines.lineno=-1;
@@ -1801,6 +2028,16 @@ BXL.main=function(){
 }
 
 jQuery(document).ready(BXL.main);
+
+Array.prototype.contains = function(obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
 
 
 

@@ -15,16 +15,16 @@
     <td align="right" height="30">原单编号：</td><td align="left" ><input id="TMPretailno" type="text" size="80" class="org_q_input_80" onKeyPress="onReturnretailno(event);"/></td>
    </tr>
    <tr class="emtb" id="TMPstore_name"style="display:none">
-    <td align="right" height="30">店仓名称：</td><td align="left" ><input id="TMPstorename" type="text" size="80" class="org_q_input_80" onKeyPress="onReturnretailno(event);"/></td>
+    <td align="right" height="30">店仓名称：</td><td align="left" ><input id="TMPstorenamer" type="text" size="80" class="org_q_input_80" onKeyPress="onReturnretailno(event);"/><input type="button" id="TMPquerystore"  value="查询" style="height:20px" /></td>
    </tr>
    <tr class="emtb" id="TMPvip_no"style="display:none">
-    <td align="right" height="30">VIP卡号&nbsp;：</td><td align="left" ><input id="TMPvipno" type="text" size="80" class="org_q_input_80" onKeyPress="onReturnretailno(event);"/></td>
+    <td align="right" height="30">VIP卡号&nbsp;：</td><td align="left" ><input id="TMPvipno" type="text" size="80" class="org_q_input_80" onKeyPress="onReturnretailno(event);"/><input type="button" id="TMPqueryvip"  value="查询" style="height:20px" /></td>
    </tr>
    <tr class="emtb" id="TMPsaler_name"style="display:none">
     <td align="right" height="30">营&nbsp;业&nbsp;员&nbsp;：</td><td align="left" ><input id="TMPsaler" type="text" size="80" class="org_q_input_80" onKeyPress="onReturnretailno(event);"/></td>
    </tr>
    <tr class="emtb" id="TMPretail_data"style="display:none">
-    <td align="right" height="30">单据日期：</td><td align="left" ><input id="TMPretaildata" type="text" size="80" class="org_q_input_80" onkeypress="onReturnretailno(event);var k=event.keyCode||event.which||event.charCode; return k>=48&&k<=57||k==45"  ondragenter="return false" style="ime-mode:Disabled"/>日期格式：20120102</td>
+    <td align="right" height="30">单据日期：</td><td align="left" ><input id="TMPretaildata" type="text" size="80" class="org_q_input_80" onkeypress="onReturnretailno(event);var k=event.keyCode||event.which||event.charCode; return k>=48&&k<=57||k==45||k==32||k==9"  ondragenter="return false" style="ime-mode:Disabled"/>多个用空白字符隔开</td>
    </tr>
   <tr>
     <td colspan="2" align="center"><div id="TMPtreatment_td_inc" align="center"><div id="TMPtreatment_text">&nbsp;

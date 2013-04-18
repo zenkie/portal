@@ -11,7 +11,7 @@
     String generateHTML=request.getParameter("generateHTML");
     boolean isGeneHl=null==generateHTML?false:true;
     String storeName=isGeneHl?"webpos":null;
-    String storeId=isGeneHl?"webpos":null;
+    String storeId=isGeneHl?"-1":null;
     String userName=isGeneHl?"webpos":null;
   	int userId=-1;
   //Configurations conf= (Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS);
@@ -51,7 +51,7 @@
   Object s=null;
 	JSONObject jo=null;
 	try{
-		s=QueryEngine.getInstance().doQueryOne("select m_retail_param('"+storeName.trim()+"','"+userName+"') from dual");
+		s=QueryEngine.getInstance().doQueryOne("select m_retail_param("+storeId+",'"+userName+"') from dual");
 		String cond=new QueryRequestImpl().addParam(userWeb.getSecurityFilter("c_viptype",1));
 		if(null!=cond&&!"".equals(cond)){
 			cond=" and " + cond;
@@ -79,7 +79,7 @@
 		sql.append("]");
 		
 	}catch(Exception e){}
-	//out.print(jo.get("isenter").toString());
+	//out.print(jo.get("isenter").toString()+"-----"+storeId);
 	if((userWeb==null&&!isGeneHl) || (userWeb.isGuest()&&!isGeneHl)||null==jo||!jo.get("isenter").toString().equals("1")){
 %> 
 
@@ -164,18 +164,23 @@
 	if(null==menuList||"".equals(menuList)){
 		menuList="M_RETAIL";
 	}
-	menuList="'"+menuList.replace(",","','")+"'";
+	String menuListO="'"+menuList.trim()+"'";
+	menuList="'"+menuList.trim().replace(",","','")+"'";
 	List mrl=new ArrayList();
 	if(null!=menuReportList&&!"".equals(menuReportList)){
+		String menuReportListO="'"+menuReportList.trim()+"'";
 		menuReportList="'"+menuReportList.replace(",","','")+"'";
-		mrl=QueryEngine.getInstance().doQueryList("select ID,name FROM ad_cxtab WHERE NAME IN("+menuReportList+")");
+		mrl=QueryEngine.getInstance().doQueryList("select ID,name FROM ad_cxtab WHERE NAME IN("+menuReportList+") order by instr("+menuReportListO+",name)");
 	}
-	List ml=QueryEngine.getInstance().doQueryList("select ID,DESCRIPTION FROM AD_TABLE WHERE NAME IN("+menuList+")");
+	List ml=QueryEngine.getInstance().doQueryList("select ID,DESCRIPTION FROM AD_TABLE WHERE NAME IN("+menuList+") order by instr("+menuListO+",name)");
 	
 %>
 <head>
 
 <%@ include file="/bpos/index_header.jsp" %>
+
+
+
 <title>上海伯俊</title>
 <script type="text/javascript">
 jQuery(function(){
@@ -267,7 +272,17 @@ function onReturnretailprice(event){
 	<div class="form_top_right_b">
 		<OBJECT ID="MainApp" style="float:left;margin-left:20px;height:23px;width:77px" CLASSID="CLSID:<%=str.trim()%>" codebase="setup.cab"></OBJECT>
 
-
+<div style="float:left;margin-left:40px;" ><span style="font-size:15px;" id="clock"></span><br><span style="color:red;display:none;" id="dateIsNotCorrect"> 本地时间与服务器时间不一致！</span></div>
+<script>
+	var iscorrect=false;
+	function changeClock()
+	{
+	    var d = new Date();
+	    
+	    document.getElementById("clock").innerHTML = d.toLocaleString();
+	}
+	window.setInterval(changeClock, 1000);
+	</script>
 <div class="divHmain">
 		<ul>
 			<li  class="hmain">
@@ -311,7 +326,7 @@ function onReturnretailprice(event){
 			<%}%>
 			<li class="hmain">
 				
-				<a target="_blank" href="/html/nds/portal/portal.jsp?ss=<%=subsys%>&&isstore=Y">在线店务</a>
+				<a target="_blank" href="/html/nds/portal/portal.jsp?ss=<%=subsys%>">在线店务</a>
 					<ul>
 						<%
 					for(int i=0;i<ml.size();i++){
@@ -499,9 +514,9 @@ function onReturnretailprice(event){
  	<li>当前操作员:<span id="currentoperator" style="color:blue;"></span></li>
  	<li>日指标:<span id="daycurrent" style="color:blue;">0</span><span class="idTarget">/</span><span id="daytarget" style="color:blue;">0</span></li>
  	<li>月指标:<span id="monthcurrent" style="color:blue;">0</span><span class="idTarget">/</span><span id="monthtarget" style="color:blue;">0</span></li>
- 	<li>零售笔数:<span id="numcurrent" style="color:blue;">0</span></li>
  	<li>月开卡指标:<span id="openVipCurrent" style="color:blue;">0</span><span class="idTarget">/</span><span id="openViptarget" style="color:blue;">0</span></li>
  	<li>挂单数:<span style="color:blue;" id="restordernum">0</span></li>
+ 	<li>零售笔数:<span id="numcurrent" style="color:blue;">0</span></li>
 	</ul>
 </div>
 <div class="GreenBrowser">
@@ -512,6 +527,13 @@ function onReturnretailprice(event){
 			无最新系统消息！
      </div>
  </marquee>
+	</div>
+<div ondblclick="$('cmdmsg').hide()" style="display:none;" id="cmdmsg">
+	<div id="imbox"><div class="imu" id="cmdmsguname">:</div>
+		<div class="imt" id="cmdmsgtime"></div>
+		<div class="imm nn1" id="cmdmsgcontent"></div>
+		<div class="imf" id="cmdhref"><a href="#">查看通知明细</a></div></div><br>
+			<div id="cmdbtns"><input type="button"  value="&nbsp;&nbsp;确认已读&nbsp;&nbsp;"></div>
 	</div>
 <DIV id=eMeng style="BORDER-RIGHT: #455690 1px solid; BORDER-TOP: #a6b4cf 1px solid; Z-INDEX:99999; LEFT: 0px; VISIBILITY: hidden; BORDER-LEFT: #a6b4cf 1px solid; WIDTH: 180px; BORDER-BOTTOM: #455690 1px solid; POSITION: absolute; TOP: 0px; HEIGHT: 116px; BACKGROUND-COLOR: #c9d3f3">
 	<TABLE style="BORDER-TOP: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid" cellSpacing=0 cellPadding=0 width="100%" bgColor=#cfdef4 border=0>

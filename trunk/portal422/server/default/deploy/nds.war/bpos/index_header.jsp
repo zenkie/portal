@@ -19,6 +19,8 @@ if("true".equals(fastLoad)){
 	<script language="javascript" src="prototype.js"></script>
 	<script language="javascript" src="jquery.js"></script>
 	<script language="javascript" src="jquery.jmpopups.js"></script>
+	<script language="javascript" src="jquery.tipInput.js"></script>
+	<script language="javascript" src="jquery.autocomplete.js"></script>
 	<script language="javascript" src="ui.core.js"></script>
 	<script language="javascript" src="jQueryConflict.js"></script>
 	
@@ -43,5 +45,7 @@ if("true".equals(fastLoad)){
   <script language="javascript" src="newsquery.js"></script>
 	<script language="javascript" src="webpos.js"></script>
 	<script language="javascript" src="bxl.js"></script>
-	<script language="javascript" src="zody.js"></script>		
+	<script language="javascript" src="zody.js"></script>
+	<script language="javascript" src="drawUtil.js"></script>
+		
 <%}%>
