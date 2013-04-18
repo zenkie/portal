@@ -7,7 +7,7 @@ com.liferay.portal.util.CookieKeys.addSupportCookie(response);
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>burgeon portal--伯俊软件</title>
+<title>burgeon NewBos--伯俊软件</title>
 <link href="/style-portal.css" rel="stylesheet" type="text/css" />
 <SCRIPT type=text/javascript>
 	function selectTag(showContent,selfObj){
