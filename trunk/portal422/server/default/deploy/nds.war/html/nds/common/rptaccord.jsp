@@ -85,8 +85,10 @@ result= QueryEngine.getInstance().doQuery(query);
 		result.next();
 		pkid= result.getObject(1);
 		dk=  StringUtils.escapeForXML((String)result.getObject(2));
+		/*
 		isSummary=  Tools.getYesNo(result.getObject(3),false); //  default to false
 		src= java.net.URLEncoder.encode("/html/nds/common/tree2.xml.jsp?tbstruct="+tableId+"&parentnode="+pkid+"&tbdata="+dataTableId+"&fnc="+action,request.getCharacterEncoding());
+		*/
 %>
 	<div>
 	<h3><a><%=dk%></a></h3><div>
