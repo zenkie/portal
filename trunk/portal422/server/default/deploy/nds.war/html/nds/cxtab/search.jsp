@@ -249,6 +249,7 @@
 </div>
 
 <div id="rpt-sbtns">
+		<a href="javascript:mu.add_mufavorite('<%=table.getDescription(locale)%>','<%=tableId%>',true,'<%=cxtabId%>')"><img src="/html/nds/images/mufa.png"><%=PortletUtils.getMessage(pageContext, "mufavorite",null)%></a>
 <%
 
 if(Validator.isNotNull(excelPath)){%>
