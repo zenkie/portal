@@ -2323,7 +2323,7 @@ mufavorite.prototype = {
 		//this._brandid="";
 	},
 	
-	add_mufavorite:function(tb_name,tb_id){
+	add_mufavorite:function(tb_name,tb_id,rpt,cx_id){
 	//alert(tb_name);
 	//alert(tb_name+" is     "+tb_id);
 	//alert();
@@ -2331,8 +2331,18 @@ mufavorite.prototype = {
 	  var params={table:"MU_FAVORITE", columns:["id"],params:expr, range:1};
 		var trans={id:1, command:"Query",params:params};
 		var a=new Array(1);
+		var muac=null;
+		var isreport="N";
 		a[0]=trans;
+	 if(rpt==undefined || rpt==null){
 	 var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tb_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
+	 muac="javascript:pc.navigate('"+tb_id+"')";
+	 }else{
+	 var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.qrpt('"+cx_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
+	 muac="javascript:pc.qrpt('"+cx_id+"')";
+	 isreport="Y";
+	 }
+	 
 	//alert(fa_line);
 	art.dialog.confirm('是否添加到我的收藏夹？', function(topWin){
     // data 代表输入数据;
@@ -2353,7 +2363,7 @@ mufavorite.prototype = {
   jQuery("#mu_favorite").append(fa_line);
 	jQuery("#tab_accordion" ).accordion({active:0});
 	/*insert into mu_favorite*/
-		portalClient.createObject("MU_FAVORITE",{AD_TABLE_ID:tb_id,menu_no:1,fa_menu:tb_name,menu_re:'huhuh'}, function(response){
+		portalClient.createObject("MU_FAVORITE",{AD_TABLE_ID:tb_id,menu_no:1,fa_menu:tb_name,menu_re:muac,IS_REPORT:isreport}, function(response){
 			if(!mu.checkResponse(response,0))return;
 			//alert("±£´洉¹¦");
 			//mx.cancel();
