@@ -28,7 +28,7 @@ actionEnv.put("userweb", userWeb);
 List categoryChildren=ssv.getChildrenOfTableCategorybymenu(request,tablecategoryId,true/*include webaction*/ );
 Locale locale =userWeb.getLocale();
 int tableId,fa_tableId;
-Table table,fa_table;
+Table table;
 List mu_favorites=ssv.getSubSystemsOfmufavorite(request);
 String url,cdesc,tdesc,tabout,fa_tdesc;
 String famus = new String();
@@ -38,24 +38,20 @@ if(mu_favorites.size()>0){
 for(int j=0;j<mu_favorites.size();j++){
 List favs=(List)mu_favorites.get(j);
 String	fa_menu=(String)favs.get(0);
-List fa_tab=(List)favs.get(2);
+String	fa_muac=(String)favs.get(1);
+String	fa_rpt=(String)favs.get(2);
+Object	fa_tab=favs.get(3);
+String fa_tabimg = new String();
+if(fa_rpt.equals("Y"))fa_tabimg="<img src='/html/nds/images/cxtab.gif' style='height:16px;width:20px;'/>";
 
-for(int e=0;e<fa_tab.size();e++){
-   //System.out.println(fa_tab.size());
-	String fa_tabimg = new String();
-	if(fa_tab.get(e)  instanceof Table){
-		fa_table=(Table)fa_tab.get(e);
-		fa_tableId =fa_table.getId(); 
-		fa_tdesc=fa_table.getDescription(locale);
-		famus=famus+"<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+fa_tableId+"')\">"+fa_tabimg+"<a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+fa_tableId+"');\">"+fa_tableId+"</a><a>"+StringUtils.escapeForXML(fa_tdesc)+"</a></div>";
-					}
-					
-		}
-				//System.out.println(famus);
-	}
+if(fa_tab instanceof Table){
+		fa_tableId =((Table)fa_tab).getId(); 
+		fa_tdesc=((Table)fa_tab).getDescription(locale);
+		famus=famus+"<div class=\"accordion_headings\" onclick=\""+fa_muac+"\">"+fa_tabimg+"<a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+fa_tableId+"');\">"+fa_tableId+"</a><a>"+StringUtils.escapeForXML(fa_tdesc)+"</a></div>";
+	  			}	
+			}	
 }
-
-
+System.out.println(famus);
 //String tabout = new String();
 TableManager manager=TableManager.getInstance();
 TableCategory tc= manager.getTableCategory(tablecategoryId);
