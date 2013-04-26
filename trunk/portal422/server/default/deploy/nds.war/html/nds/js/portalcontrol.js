@@ -2333,7 +2333,6 @@ mufavorite.prototype = {
 		var a=new Array(1);
 		var muac=null;
 		var isreport="N";
-		var p_id;
 		a[0]=trans;
 		if(rpt==undefined || rpt==null){
 			var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tb_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
@@ -2349,6 +2348,7 @@ mufavorite.prototype = {
 	portalClient.sendRequest(a,function(response){
 		if(!mu.checkResponse(response,0))return;
 		var rows=response.data[0].rows;
+		var p_id;
 		try{
 			p_id= rows[0][0];
 		}catch(e){p_id=-1;}
