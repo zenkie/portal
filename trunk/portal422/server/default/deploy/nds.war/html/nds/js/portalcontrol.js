@@ -2348,11 +2348,11 @@ mufavorite.prototype = {
 	portalClient.sendRequest(a,function(response){
 		if(!mu.checkResponse(response,0))return;
 		var rows=response.data[0].rows;
-		var p_id;
+		var pid;
 		try{
-			p_id= rows[0][0];
-		}catch(e){p_id=-1;}
-		if(p_id>0){
+			pid=rows[0][0];
+		}catch(e){pid=-1;}
+		if(pid>0){
 			art.dialog({background:'#600',背景色opacity: 0.87,content:'['+tb_name+']收藏夹中已存在,无需添加!',icon: 'error',cancel: true});
 			return;}
 	jQuery("#mu_favorite").append(fa_line);
