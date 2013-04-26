@@ -2333,16 +2333,31 @@ mufavorite.prototype = {
 		var a=new Array(1);
 		var muac=null;
 		a[0]=trans;
+		var isreport="N";
+	 if(rpt==undefined || rpt==null){
+	 var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tb_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
+	 muac="javascript:pc.navigate('"+tb_id+"')";
+	 }else{
+	 var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.qrpt('"+cx_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
+	 muac="javascript:pc.qrpt('"+cx_id+"')";
+	 isreport="Y";
+	 }
 	//alert(fa_line);
 	art.dialog.confirm('是否添加到我的收藏夹?',function(topWin){
     // data 代表输入数据;
 	portalClient.sendRequest(a,function(response){
 		if(!mu.checkResponse(response,0))return;
 		var rows=response.data[0].rows;
-		var pid=0;
-		if(pid>0){
-			art.dialog({background:'#600',背景色opacity: 0.87,content:'['+tb_name+']收藏夹中已存在,无需添加!',icon: 'error',cancel: true});
-			return;}
+		try{
+			var p_id= rows[0][0];
+		  }catch(e){var p_id=-1}
+		if(p_id>0){
+		art.dialog({background: '#600', // 背景色
+    opacity: 0.87,	// 透明度
+    content: '['+tb_name+']收藏夹中已存在,无需添加!',
+    icon: 'error',
+    cancel: true});
+		return;}
 	jQuery("#mu_favorite").append(fa_line);
 	jQuery("#tab_accordion" ).accordion({active:0});
 	/*insert into mu_favorite*/
