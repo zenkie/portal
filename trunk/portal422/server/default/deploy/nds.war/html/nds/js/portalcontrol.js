@@ -2368,20 +2368,17 @@ mufavorite.prototype = {
 			//mx.cancel();
 		});
 	});
-    
-  }, function(){
-    art.dialog.tips('你取消了操作');
-  });
+	},function(){art.dialog.tips('你取消了操作');});
 	},
-	
+
 	del_mufavorite:function(tb_id){
 		var expr={column:"",condition:"exists(select 1 from dual where MU_FAVORITE.ownerid=$USER_ID$ and MU_FAVORITE.ad_table_id="+tb_id+")"};
 	  var params={table:"MU_FAVORITE", columns:["id"],params:expr, range:1};
 		var trans={id:1, command:"Query",params:params};
 		var a=new Array(1);
 		a[0]=trans;
-		art.dialog.confirm('是否从收藏夹中删除？', function(){
-		portalClient.sendRequest(a, function(response){
+		art.dialog.confirm('是否从收藏夹中删除?',function(){
+		portalClient.sendRequest(a,function(response){
 			if(!mu.checkResponse(response,0))return;
 			var rows=response.data[0].rows;
 			var p_id= rows[0][0];
@@ -2389,16 +2386,14 @@ mufavorite.prototype = {
 			portalClient.deleteObject("MU_FAVORITE",p_id,"id",function(response){
 			if(!mu.checkResponse(response,0))return;
 			//mx.cancel();
-			mu.flash_mufavorite(tb_id);		
-		   });
+			mu.flash_mufavorite(tb_id);});
 		});
-		}, function(){
-    art.dialog.tips('你取消了操作');
-  });
-		},
+		},function(){art.dialog.tips('你取消了操作');});
+	},
+
 	flash_mufavorite:function(tb_id){
 		jQuery("#mu_favorite > div:contains("+tb_id+")").hide('drop');
-		},
+	},
 	/**
 	 Check response created via _createResponse is ok
 	 @param response created by _createResponse
@@ -2406,17 +2401,15 @@ mufavorite.prototype = {
 	 @return true if all is good,else false
 	*/
 	checkResponse:function(response, transIdx){
-		if(response==null){alert("服务器处理异常,请重试!");return false;}
-		if(response.isok!=true){alert("服务器处理异常:"+ response.message+"("+response.code+")");return false;}
+		if(response==null){alert("服务器处理异常,请重试!");return;}
+		if(response.isok!=true){alert("服务器处理异常:"+ response.message+"("+response.code+")");return;}
 		if(transIdx!=undefined && response.data[transIdx].code!=0){
 			alert("处理异常:"+ response.data[transIdx].message+"("+response.data[transIdx].code+")");
 			return false;
 		}
-		return true;
-	}
+		return true;}
 }
-	
-	mufavorite.main = function () {
+	mufavorite.main=function(){
 	mu=new mufavorite();
-};
+	};
 jQuery(document).ready(mufavorite.main); 
