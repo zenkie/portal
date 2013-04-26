@@ -2334,12 +2334,6 @@ mufavorite.prototype = {
 		var muac=null;
 		var isreport="N";
 		a[0]=trans;
-		if(rpt==undefined || rpt==null){
-			var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tb_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
-			muac="javascript:pc.navigate('"+tb_id+"')";
-		}else{
-			var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.qrpt('"+cx_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
-		}
 	//alert(fa_line);
 	art.dialog.confirm('是否添加到我的收藏夹?',function(topWin){
     // data 代表输入数据;
