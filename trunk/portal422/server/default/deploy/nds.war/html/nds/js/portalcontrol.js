@@ -2365,7 +2365,6 @@ mufavorite.prototype = {
 	/*insert into mu_favorite*/
 		portalClient.createObject("MU_FAVORITE",{AD_TABLE_ID:tb_id,menu_no:1,fa_menu:tb_name,menu_re:muac,IS_REPORT:isreport}, function(response){
 			if(!mu.checkResponse(response,0))return;
-			//alert("±£´洉¹¦");
 			//mx.cancel();
 		});
 	});
@@ -2389,7 +2388,6 @@ mufavorite.prototype = {
 			//alert(p_id);
 			portalClient.deleteObject("MU_FAVORITE",p_id,"id",function(response){
 			if(!mu.checkResponse(response,0))return;
-			//alert("±£´洉¹¦");
 			//mx.cancel();
 			mu.flash_mufavorite(tb_id);		
 		   });
@@ -2408,10 +2406,10 @@ mufavorite.prototype = {
 	 @return true if all is good,else false
 	*/
 	checkResponse:function(response, transIdx){
-		if(response==null){alert("·�¦mӬ³££¬ȫט˔");return false;}
-		if(response.isok!=true){alert("·�¦mӬ³£:"+ response.message+"("+response.code+")");return false;}
+		if(response==null){alert("服务器处理异常,请重试!");return false;}
+		if(response.isok!=true){alert("服务器处理异常:"+ response.message+"("+response.code+")");return false;}
 		if(transIdx!=undefined && response.data[transIdx].code!=0){
-			alert("´¦mӬ³£:"+ response.data[transIdx].message+"("+response.data[transIdx].code+")");
+			alert("处理异常:"+ response.data[transIdx].message+"("+response.data[transIdx].code+")");
 			return false;
 		}
 		return true;
