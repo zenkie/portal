@@ -51,19 +51,19 @@ PortalControl.prototype = {
 		}catch(ex){}
 		this._isButtonDisabled=false;
 		this._isListPageLoaded=false;
-		this._listPageLoadTime=0; 
+		this._listPageLoadTime=0;
 		this._defaultListMode=1;// default to read
 		this._resizable=true; //allow resize
 		this._tableObj=null;
 		this._data=null;// hold grid infor
-		this._gridMetadata=null; 
+		this._gridMetadata=null;
 		this.MAX_INPUT_LENGTH=1000;// this is used for selection range
 		this._cxtabInputId=null;
 		this._cxtabId=null; // current cxtab id
 		this._lastAccessTime= (new Date()).getTime();
 		// marquee.js
 		var scr1 = new dw_scroller('bottom-adv-content', 300, 20, 5, 'v', true);
-		
+
 		application.addEventListener( "RefreshGrid", this._refreshGrid, this);
 		application.addEventListener( "UpdateGrid", this._updateGrid, this);
 		application.addEventListener( "ListSubmit", this._onListSubmit, this);
@@ -92,7 +92,7 @@ PortalControl.prototype = {
 		webFXTreeConfig.tIcon			= "/html/nds/js/xloadtree111/images/xp/T.png";
 		webFXTreeConfig.blankIcon		= "/html/nds/js/xloadtree111/images/xp/blank.png";
 		webFXTreeConfig.usePersistence  = false;
-		
+
 		//if(document.getElementById("objdropbtn")!=null)ObjDropMenu.init(true);//hover 下拉列表菜单
 
 	},
@@ -106,10 +106,10 @@ PortalControl.prototype = {
 		this._lastAccessTime= (new Date()).getTime();
 	},
 	setWarningOnSubmit:function(b){
-		this._warningOnSubmit=b;	
+		this._warningOnSubmit=b;
 	},
 	setResizable:function(b){
-		this._resizable=b;	
+		this._resizable=b;
 	},
 	setDialogOption:function(opt){
 		this._dialogOption=opt;
@@ -142,10 +142,10 @@ PortalControl.prototype = {
 		var limitWidth;
 		//if(!pc._resizable) limitWidth=15;
 		//else limitWidth=245+15;//15 is added to reflect the addtion a toggle bar div between menu and table
-		//following modified by ken to estimated the client area after hiding of main navigation menu.	
-		limitWidth=(jQuery("#portal-menu").css("display")=="block")?jQuery("#portal-menu").width()+jQuery("#portal-separator").width():jQuery("#portal-separator").width();		
+		//following modified by ken to estimated the client area after hiding of main navigation menu.
+		limitWidth=(jQuery("#portal-menu").css("display")=="block")?jQuery("#portal-menu").width()+jQuery("#portal-separator").width():jQuery("#portal-separator").width();
 		//limitWidth=limitWidth+40;
-		
+
 		//var e=$("embed-lines");
 		//识别IE8 列表宽度问题
 		if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.match(/8./i)=="8."){
@@ -187,7 +187,7 @@ PortalControl.prototype = {
 		this.executeCommandEvent(evt);
 	},
 	/**
-	 * Create WebFXLoadTree and return 
+	 * Create WebFXLoadTree and return
 	 */
 	createTree:function(desc,src,sAction,bExpandAll){
 		var tree = new WebFXLoadTree(desc, src, sAction);
@@ -202,9 +202,9 @@ PortalControl.prototype = {
 		div.innerHTML=e.getUserData().data.pagecontent;
 		executeLoadedScript(div);
 	},
-	
+
 	_onExecuteAudit:function(e){
-		var r=e.getUserData(); 
+		var r=e.getUserData();
 		if(r.message){
 			msgbox(r.message.replace(/<br>/g,"\n"));
 		}
@@ -246,7 +246,7 @@ PortalControl.prototype = {
 			msgbox(r.message.replace(/<br>/g,"\n"));
 		}
 		if(r.url){
-			var option={close:function(){pc.refreshCxtabHistoryFiles(null);}};			
+			var option={close:function(){pc.refreshCxtabHistoryFiles(null);}};
 			if(!r.url.endsWith(".htm")){
 				//download only, not shown
 				showObject( r.url, 400, 200,option);
@@ -254,14 +254,14 @@ PortalControl.prototype = {
 				showObject( r.url,null,null,option);
 			}
 		}
-		
+
 		toggleButtons($("list_query_form"),false);
     },
     _onDeleteCxtabFiles:function(e){
     	this.refreshCxtabHistoryFiles(null);
     },
     _onDeleteFile:function(e){
-	    var r=e.getUserData().data; 
+	    var r=e.getUserData().data;
 		if(r.message){
 			msgbox(r.message.replace(/<br>/g,"\n"));
 		}
@@ -312,7 +312,7 @@ PortalControl.prototype = {
 				}
 			}else{
 				//error found
-				a=[rowIdx,rsOne.action,rsOne.msg,line[3]];			
+				a=[rowIdx,rsOne.action,rsOne.msg,line[3]];
 				errFound=true;
 			}
 			for(j=0;j<a.length;j++) line[j]= a[j];
@@ -324,7 +324,7 @@ PortalControl.prototype = {
 		}
 		this._isDirty=false;
 	},
-	
+
 	/**
 	* Return row of QueryResult which has the ID equals to oId
 	  @param qr QueryResultImpl.toJSONObject, which has ID column in the first column of qr.rows
@@ -339,8 +339,8 @@ PortalControl.prototype = {
 			if(row[0]==oId) return row;
 		}
 		return null;
-	},	
-	
+	},
+
 	/**
 	 * Get row and column in this._data of current focus in table
 	 * @param e event object
@@ -369,10 +369,10 @@ PortalControl.prototype = {
 		if(r.row==-1 || r.column==-1){
 			//debug("found position error:row="+ r.row+",col="+ r.column);
 			return null;
-		}		
+		}
 		return r;
 	},
-		
+
 	/**
 	 * When key pressed in table, move focus
 	 */
@@ -404,7 +404,7 @@ PortalControl.prototype = {
 				}
 				break;
 			}
-		}		
+		}
 	},
 /**
 	 * When cell value changed in table, this method will be called
@@ -419,7 +419,7 @@ PortalControl.prototype = {
 			line[1]="M";
 		}
 		this._updateGridLineState(line);
-		
+
 	},
 	/**
 	 * Wrapper dwr.util.getValue for checkbox value conversion "true" to "Y", "false" to "N"
@@ -430,9 +430,9 @@ PortalControl.prototype = {
 			if(v==true) v="Y";
 			else if(v==false) v="N";
 		}
-		
+
 		return v;
-	},	
+	},
 	/**
 	 * This is modified one of dwr.2.0.1 for checkbox value setting.
 		Old one only let "true" for checked, now "Y" will also be checked one
@@ -484,19 +484,19 @@ PortalControl.prototype = {
 				 $("end_btn").setEnabled(false);
 			}
 		}
-	},	
+	},
 /**
 	*Reload grid data according to query result
 	* @param qr QueryResult.toJSONObject()
 	*/
 	_refreshGrid :function (e) {
-		var qr=e.getUserData().data; 
+		var qr=e.getUserData().data;
 		var rowCount=qr.rowCount;
 		var i,s,a;
 		var q=this._gridQuery;
 		s=qr.start;
 		q.start= s;
-	
+
 		if(qr.rows==null || qr.rows==undefined){
 			// data insert by html
 			if(qr.pagecontent!=null){
@@ -540,13 +540,13 @@ PortalControl.prototype = {
 				  //e.style.width="100%";
 				  //}
 	        //alert(ptc_width);
-	        
-	  			
+
+
 				}
 			}
 		}else{
 			dwr.util.removeAllRows($("grid_table"));
-			
+
 			//data insert by lines
 			var alerts= qr.alerts;
 			this._data=new Array();
@@ -558,7 +558,7 @@ PortalControl.prototype = {
 			}
 		}
 		this._updateSubtotal(qr);
-		
+
 		this._syncGridControl(qr);
 		toggleButtons($("list_query_form"),false);
 		var desc=  qr.queryDesc;
@@ -567,12 +567,12 @@ PortalControl.prototype = {
 		dwr.util.setValue($("chk_select_all"),false);
 	},
 	/**
-	 * Update subtotal 
+	 * Update subtotal
 	 * @param qr QueryResult
 	 */
 	_updateSubtotal:function(qr){
 		var sr=qr.subtotalRow;
-		
+
 		if($("tr_pagesum")==null || sr==null) return;
 		var i;
 		var cols=this._gridMetadata.columns;
@@ -583,7 +583,7 @@ PortalControl.prototype = {
 		}
 		var fr= qr.fullRangeSubTotalRow;
 		if(fr==null){
-			$("tr_totalsum").hide();	
+			$("tr_totalsum").hide();
 		}else{
 			$("tr_totalsum").show();
 			for(i=0;i< cols.length;i++){
@@ -593,8 +593,8 @@ PortalControl.prototype = {
 			}
 		}
 	},
-	
-	/** 
+
+	/**
 	 * Insert a line into grid
 	 * @param row, which row in data array, start from 0
 	   @param bScrollToView if true, will try to scroll the row to view
@@ -609,12 +609,12 @@ PortalControl.prototype = {
 		}else{
 			this._dwrcloneNode("templaterow",{ idPrefix:line[0]+"_" });
 		}
-		
+
 		this._updateGridLineCss(row, rowCss);
 		this._updateGridLine(row);
-		
+
 		if(bScrollToView)ele.scrollIntoView(false);
-	},	
+	},
 	/**
 	 * Update both tr css and input/select in it
 	 */
@@ -628,7 +628,7 @@ PortalControl.prototype = {
 		ele.getElementsBySelector('input[type="text"]', 'select').each(function(e){
 			e.addClassName(rowCss);
 		});
-		
+
 	},
 	_updateGridLine: function(row){
 		var cols=this._gridMetadata.columns,i,col;
@@ -666,7 +666,7 @@ PortalControl.prototype = {
 	},
 	/**
 	 * change line css
-	 */	
+	 */
 	chk:function(line0Value){
 		var checked= $(line0Value+"_chk").checked==1;
 		var re=$(line0Value+"_templaterow");
@@ -675,7 +675,7 @@ PortalControl.prototype = {
 	},
 /**
 	 * Copy from dwr.util.cloneNode, elimiate first "$" in ids when clone
-	 */	
+	 */
 	_cloneNode:function(ele,options){
 		ele = dwr.util._getElementById(ele, "cloneNode()");
 		if (ele == null) return null;
@@ -703,7 +703,7 @@ PortalControl.prototype = {
 	  }
      	$("grid_table").appendChild(clone);
 	  return clone;
-	},	
+	},
 	_updateIds :function(ele, options) {
 	  if (options == null) options = {};
 	  if (ele.id) {
@@ -716,7 +716,7 @@ PortalControl.prototype = {
 	      this._updateIds(child, options);
 	    }
 	  }
-	},	
+	},
 	fk:function(tableId, objId){
 		dlgo(tableId, objId);
 	},
@@ -753,13 +753,13 @@ PortalControl.prototype = {
 			$( line[0]+"_state__" ).innerHTML="<img src='/html/nds/images/line_"+line[1]+".gif' width='16' height='16'/>";
 			dwr.util.setValue($(line[0]+"_chk" ),true);
 		}
-	},	
+	},
 	deleteCxtabFiles:function(cxtabId){
 		var evt={};
 		evt.cxtabid=cxtabId;
 		evt.command="DeleteCxtabFiles";
 		evt.callbackEvent="DeleteCxtabFiles";
-		this.executeCommandEvent(evt);    	
+		this.executeCommandEvent(evt);
 	},
 	doDeleteFile:function(){
 		var fm=$("myfolderfm");
@@ -771,14 +771,14 @@ PortalControl.prototype = {
 		}
 		if(selectedFiles.length==0){
 			alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
-            return;	
+            return;
 		}
 		var evt={};
 		evt.files= selectedFiles;
 		evt.command="DeleteFile";
 		evt.callbackEvent="DeleteFile";
-		this.executeCommandEvent(evt);    	
-		
+		this.executeCommandEvent(evt);
+
 	},
 	doRefreshMyFolder:function(){
 		this.navigate("/html/nds/portal/myfolder.jsp");
@@ -794,7 +794,7 @@ PortalControl.prototype = {
 			evt.command="ExecuteWebAction";
 			evt.query=this.getQuery();
 			evt.callbackEvent="ExecuteWebAction";
-			this.executeCommandEvent(evt); 	
+			this.executeCommandEvent(evt);
 		}
 	},
 	/**
@@ -802,7 +802,7 @@ PortalControl.prototype = {
 	*/
 	getQuery:function(){
 		var q={};
-		q.selection=this._getSelectedItemIds();	
+		q.selection=this._getSelectedItemIds();
 		q.query=Object.clone(this._gridQuery);
 		q.table=this._tableObj.id;
 		q.id=-1;
@@ -815,17 +815,17 @@ PortalControl.prototype = {
 		new Insertion.Bottom($("portal-dock-list-"+this._tableObj.id), html);
 	},
 	_onExecuteWebAction:function(e){
-		var r=e.getUserData().data; 
+		var r=e.getUserData().data;
 		if(r.message && r.code !=3 && r.code!=4){
 			msgbox(r.message.replace(/<br>/g,"\n"));
 		}
 		switch(r.code){
 			case 1://refresh list
-				this.refreshGrid();				
+				this.refreshGrid();
 				break;
 			case 2://refresh page
-				//window.location.reload();	
-				window.location.reload();	
+				//window.location.reload();
+				window.location.reload();
 				break;
 			case 3://using message as url, and load target from user data
 				var tgt=r.target;
@@ -833,7 +833,7 @@ PortalControl.prototype = {
 				if( tgt.startsWith("_")){
 					popup_window(r.message, tgt);
 				}else{
-					this.navigate(r.message, tgt);	
+					this.navigate(r.message, tgt);
 				}
 				break;
 			case 4:// message as javascript
@@ -894,15 +894,15 @@ PortalControl.prototype = {
 		}
 		if($(tgt)==null){
 			alert( "div id="+ tgt+" not found");
-			return;	
+			return;
 		}
-		
+
 		this._lastAccessTime= (new Date()).getTime();
 		var url;
 		if(tn.indexOf(".")<0){
 			url= "/html/nds/portal/table.jsp?table="+tn;
 		}else{
-			url= tn;	
+			url= tn;
 		}
 		new Ajax.Request(url, {
 		  method: 'get',
@@ -919,7 +919,7 @@ PortalControl.prototype = {
 		  	  	}
 		  	  	var exc=transport.getResponseHeader("nds.exception");
 		  	  	if(exc!=null && exc.length>0){
-		  	  		alert(decodeURIComponent(exc));	
+		  	  		alert(decodeURIComponent(exc));
 		  	  	}else{
 		  	  		var pt=$(tgt);
 		    		pt.innerHTML=transport.responseText;
@@ -930,10 +930,10 @@ PortalControl.prototype = {
 		});
 	},
 	/**
-	 * @param t 
+	 * @param t
 	 * 	mainobjurl - record url,
 		metadata: contains columns for table construction,
-		query: gridQuery 
+		query: gridQuery
 	 */
 	setTableObj:function(t){
 		this._lastAccessTime= (new Date()).getTime();
@@ -974,11 +974,11 @@ PortalControl.prototype = {
 		  	  	}
 		  	  	var exc=transport.getResponseHeader("nds.exception");
 		  	  	if(exc!=null && exc.length>0){
-		  	  		alert(decodeURIComponent(exc));	
+		  	  		alert(decodeURIComponent(exc));
 		  	  	}
 		  	//}catch(e){}
 		  }
-		});			
+		});
 	},
 	/**
 	 * @param q gridQuery only for cxtab
@@ -1001,7 +1001,7 @@ PortalControl.prototype = {
 		q.callbackEvent="RefreshGrid";
 		this._executeQuery(q);*/
 		this.queryList();
-		
+
 	},
 	getTableObj:function(){
 		return this._tableObj;
@@ -1039,7 +1039,7 @@ PortalControl.prototype = {
 		}else if(queryObj.dir_perm==1){
 			queryObj.resulthandler="/html/nds/portal/table_result.jsp";
 		}else{
-			queryObj.resulthandler=null;	
+			queryObj.resulthandler=null;
 		}
 //		queryObj.tryrecent=$("chk_tryrecent").checked?true:false;
 		var s= Object.toJSON(queryObj);
@@ -1051,7 +1051,7 @@ PortalControl.prototype = {
 					var result= r.evalJSON();
 					if (result.code !=0 ){
 						msgbox(result.message);
-						
+
 					}else {
 						var evt=new BiEvent(result.callbackEvent);
 						evt.setUserData(result);
@@ -1062,7 +1062,7 @@ PortalControl.prototype = {
 				}*/
 		  	}
 		);
-	},	
+	},
 	executeCmdList:function(cmd){
 		this._lastAccessTime= (new Date()).getTime();
 	    if (cmd.indexOf("Delete")>=0 ){
@@ -1075,7 +1075,7 @@ PortalControl.prototype = {
 	            return false;
 	        }
 	    }
-	    
+
 	    if(this._tableObj.actionGROUPSUBMIT==true){
 	    	if(cmd.indexOf("Submit")>=0 && this._isMultipleRowSelected() ){
 		    	if (!confirm(gMessageHolder.DO_YOU_CONFIRM_GROUPSUBMIT)) {
@@ -1083,9 +1083,9 @@ PortalControl.prototype = {
 		        }
 	    	}
 	    }
-	    
+
 	    $("list_form").command.value=cmd;
-	    
+
 	    toggleButtons($("list_query_form"),true);
 		progressBar.showBar();
 		progressBar.togglePause();
@@ -1099,7 +1099,7 @@ PortalControl.prototype = {
 			pc._isListPageLoaded=true;
 			pc._stopListPageLoadingState();
 		});
-	    
+
 	},
 	/**
 	 @return main table record ids selected in array
@@ -1113,7 +1113,7 @@ PortalControl.prototype = {
 				if( cks[i].checked){
 				  	selectedIds.push(cks[i].value);
 				}
-			}	
+			}
 		}else{
 			for(j=0;j< this._data.length;j++){
 				if( $(this._data[j][0]+"_chk").checked){
@@ -1136,7 +1136,7 @@ PortalControl.prototype = {
 				if( cks[i].checked){
 				  	selectedIdx[i++]= j;
 				}
-			}						
+			}
 		}else{
 			for(j=0;j< this._data.length;j++){
 				if( $(this._data[j][0]+"_chk").checked){
@@ -1144,7 +1144,7 @@ PortalControl.prototype = {
 				}
 			}
 		}
-		return selectedIdx;		
+		return selectedIdx;
 	},
 
 	toggleSubTotal:function(){
@@ -1154,7 +1154,7 @@ PortalControl.prototype = {
 		q.subtotal=true;
 		q.callbackEvent="RefreshGrid";
 		this._executeQuery(q);
-		
+
 	},
 /**
 	 * copy row information to object
@@ -1174,7 +1174,7 @@ PortalControl.prototype = {
 			if(row==-1) return;
 			this.editRow(row);
 		}
-	},	
+	},
 	/**
 	 * copy row information to object
 	 * @row index in data
@@ -1231,7 +1231,7 @@ PortalControl.prototype = {
 		if(ck.checked==true){
 			jQuery("#"+tr_id).addClass("ui-selected");
 			}else{
-			jQuery("#"+tr_id).removeClass("ui-selected");	
+			jQuery("#"+tr_id).removeClass("ui-selected");
 				}
 	 	dwr.util.setValue($("chk_select_all"), false);
 	},
@@ -1255,15 +1255,15 @@ PortalControl.prototype = {
 		}
 		evt.command=$("command").value;
 		evt.callbackEvent="ExecuteAudit";
-		evt.parsejson="Y"; // to normal event 
+		evt.parsejson="Y"; // to normal event
 		if($("comments")!=null)evt.comments=$("comments").value;
 		var itemids= $("form1").getInputs("checkbox","itemid");
 		var iids=new Array();
 		for(var i=0;i<itemids.length;i++ )
 			if(itemids[i].checked) iids.push(itemids[i].value);
 		evt.itemid= iids;
-		this.executeCommandEvent(evt);    	
-	 	
+		this.executeCommandEvent(evt);
+
 	},
 	/***
 	* Invoke by buttons, include btn_begin,btn_next,btn_prev,btn_end
@@ -1281,7 +1281,7 @@ PortalControl.prototype = {
 		else if(t=="next_btn") { if (qs+qrange>qtot){return;}else{s=qs+qrange;}}
 		else if(t=="end_btn") s= qtot-qrange;
 		else s= qs;
-		
+
 		qr.start=s;
 		qr.range=qrange;
 		this._gridQuery.range=qrange;
@@ -1303,7 +1303,7 @@ PortalControl.prototype = {
 	/**
 	 * Reorder grid query
 	 * @param columnId the column id that will be ordered by, if the same as old
-	 * order by column, will toggle asc and desc, else do asc 
+	 * order by column, will toggle asc and desc, else do asc
 	 */
 	orderGrid: function(columnId){
 		if(this._checkDirty()==false){
@@ -1316,7 +1316,7 @@ PortalControl.prototype = {
 				if(ele!=null)ele.innerHTML="";
 				this._gridQuery.order_columns=columnId;
 				this._gridQuery.order_asc=true;
-			}		
+			}
 			this._executeQuery(this._gridQuery);
 		}
 	},
@@ -1324,7 +1324,7 @@ PortalControl.prototype = {
 	 * Reorder grid query
 	 * @param clinkid the column link that will be ordered by, if the same as old
 	 * order by column, will toggle asc and desc, else do asc
-	 	@event 
+	 	@event
 	 */
 	orderGrid2: function(clinkid,event){
 		if(this._checkDirty()==false){
@@ -1344,7 +1344,7 @@ PortalControl.prototype = {
 				}
 				if(!bFound){
 					orders.push({c:clinkid,t:true});
-				}				
+				}
 			}else{
 				//single order
 				var od;
@@ -1360,17 +1360,17 @@ PortalControl.prototype = {
 				if(!bFound){
 					od=({c:clinkid,t:true});
 				}
-				this._gridQuery.orders=new Array(od);	
+				this._gridQuery.orders=new Array(od);
 			}
 			this._executeQuery(this._gridQuery);
 		}
 	},
 	/**
-	* export 
+	* export
 	*/
 	exportGrid:function(){
 		this._submitToNewWindow("/html/nds/reports/create_report.jsp");
-		
+
 	},
 	analyzeGrid:function(){
 		this._submitToNewWindow("/html/nds/cxtab/quickview.jsp");
@@ -1393,7 +1393,7 @@ PortalControl.prototype = {
 	},
     _submitToNewWindow:function(resulthandler){
 		var fm= $("export_form");
-		$("exp_resulthandler").value=resulthandler; 
+		$("exp_resulthandler").value=resulthandler;
 		$("query_json").value=Object.toJSON(this._gridQuery);
 		fm.submit();
 		/*var url=fm.readAttribute('action')+"?"+fm.serialize();
@@ -1443,7 +1443,7 @@ PortalControl.prototype = {
 	*/
 	fillProcessEvent:function(evt){
 		var meta=this._gridMetadata;
-		var i; 
+		var i;
 		evt.parsejson="N";
 		evt.column_masks=meta.column_masks;
 		evt.qlcid=this._gridQuery.qlcid;
@@ -1468,10 +1468,10 @@ PortalControl.prototype = {
 		 for ahyy project, will do encryption for table named B_V2_PRJ_TOKEN
 		*/
 		if(hasData && meta.table=='B_V2_PRJ_TOKEN'){
-			usbkey.ahyyEncryptPrice(evt);	
+			usbkey.ahyyEncryptPrice(evt);
 		}
-		return hasData;	
-	},    
+		return hasData;
+	},
     doModify:function(){
     	if(this._gridQuery.dir_perm==1){
     		alert(gMessageHolder.PLEASE_SWITCH_TO_MODIFY_VIEW);
@@ -1487,12 +1487,12 @@ PortalControl.prototype = {
 				msgbox(gMessageHolder.NO_DATA_TO_PROCESS);
 				return;
 			}
-			this.executeCommandEvent(evt);    
+			this.executeCommandEvent(evt);
 		}catch(e){
-			alert(e.message);	
+			alert(e.message);
 		}
     },
-	
+
 	/**
 	 * @return false if object panel contains invalid data
 	 */
@@ -1512,7 +1512,7 @@ PortalControl.prototype = {
 				}
 			}
 		}
-		return true;	
+		return true;
 	},
 	/**
 	 * @param col GridColumn
@@ -1539,7 +1539,7 @@ PortalControl.prototype = {
 			}
 		}
 		return true;
-	},    
+	},
     _submitWithoutUpdate:function(){
 		var evt={};
 		evt.command="ListSubmit";
@@ -1548,9 +1548,9 @@ PortalControl.prototype = {
 		evt.itemid=this._getSelectedItemIds();
 		if(evt.itemid.length==0){
  			alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
-            return;				
+            return;
 		}
-		this.executeCommandEvent(evt);    	
+		this.executeCommandEvent(evt);
     },
     _getEnv:function(){
     	var env={};
@@ -1592,7 +1592,7 @@ PortalControl.prototype = {
 			  	 var ret=transport.responseText;
 			  	 if(ret==null || ret=="") return;
 			  	 try{
-			  	 	ret= ret.evalJSON();	
+			  	 	ret= ret.evalJSON();
 			  	 	if(ret.message!=null || ret.help!=null)pc.cmdmsgbox(ret.message,ret.help);
 				  	if(ret.code!=0){
 				  	 	if(ret.message==null|| ret.message=="") pc.cmdmsgbox("Server error, code:"+ ret.code);
@@ -1610,7 +1610,7 @@ PortalControl.prototype = {
 			  	pc.cmdmsgbox("cmd failed, check network connection:");
 			  }
 			}
-		);  			
+		);
     },
     /**
      * Do submit when at least has one line checked. Will confirm all rows update successfully
@@ -1620,7 +1620,7 @@ PortalControl.prototype = {
     	if(this._warningOnSubmit){
     		if (!confirm(gMessageHolder.DO_YOU_CONFIRM_SUBMIT)) {
             	return;
-        	}	
+        	}
     	}
 		if(this._gridQuery.dir_perm==1){
 			this._submitWithoutUpdate();
@@ -1636,16 +1636,16 @@ PortalControl.prototype = {
 					evt.submitList=this._getSelectedItemIds();
 					if(evt.submitList.length==0){
 						alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES_FOR_SUBMIT);
-			            return;	
+			            return;
 					}else{
-						this.executeCommandEvent(evt);    
+						this.executeCommandEvent(evt);
 					}
 				}
 			}catch(e){
-				alert(e.message);	
+				alert(e.message);
 			}
     	}
-			
+
     },
     /**
      * @param b if true, void, false: unvoid
@@ -1658,12 +1658,12 @@ PortalControl.prototype = {
 		evt.itemid=this._getSelectedItemIds();
 		if(evt.itemid.length==0){
  			alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
-            return;				
+            return;
 		}
 		if (!confirm( gMessageHolder.DO_YOU_CONFIRM_VOID)) {
         	return;
-    	}		
-		this.executeCommandEvent(evt);  
+    	}
+		this.executeCommandEvent(evt);
     },
     /**
      * @param b if true, void, false: unvoid
@@ -1676,12 +1676,12 @@ PortalControl.prototype = {
 		evt.itemid=this._getSelectedItemIds();
 		if(evt.itemid.length==0){
  			alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
-            return;				
+            return;
 		}
 		if (!confirm( gMessageHolder.DO_YOU_CONFIRM_UNVOID)) {
         	return;
-    	}		
-		this.executeCommandEvent(evt);  
+    	}
+		this.executeCommandEvent(evt);
     },
 	doAdd:function(){
     	showObject2(gridInitObject.mainobjurl+"-1",this._dialogOption);
@@ -1694,13 +1694,13 @@ PortalControl.prototype = {
 		evt.itemid=this._getSelectedItemIds();
 		if(evt.itemid.length==0){
  			alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
-            return;				
+            return;
 		}
         if (!confirm(gMessageHolder.DO_YOU_CONFIRM_DELETE)) {
             return;
         }
-		this.executeCommandEvent(evt);    	
-    },    
+		this.executeCommandEvent(evt);
+    },
     doListAdd:function(){
     	popup_window("/html/nds/objext/object_batchadd.jsp?table="+this._tableObj.id);
     },
@@ -1729,7 +1729,7 @@ PortalControl.prototype = {
 		evt.cxtab= $("rep_templet").value;
 		evt.filetype= filetype;
 		this.executeCommandEvent(evt);
-    },    
+    },
     modifyrep:function(){
     	var	cxtabId=$("rep_templet").value;
     	showObject2("/html/nds/cxtab/cxtabdef.jsp?id="+cxtabId,{close:function(){pc.qrpt(cxtabId);}});
@@ -1744,7 +1744,7 @@ PortalControl.prototype = {
 	_toggleButtons:function(disable){
 		if(disable && this._isButtonDisabled){
 			alert(gMessageHolder.DO_NOT_PRESS_TWICE);
-			return false;	
+			return false;
 		}
 		this._isButtonDisabled=disable;
 		var es=$("rpt-sbtns").getElementsBySelector("input[type='button']");
@@ -1757,12 +1757,12 @@ PortalControl.prototype = {
 				es[i].enable();
 			}
 		}
-	},	
+	},
     /**
      * @param filetype html (default) or xls
      */
     doReportOnSelection:function(bIsOnSelection,tableId, filetype, isUserDimsSet){
-    	//this._toggleButtons(true);		
+    	//this._toggleButtons(true);
     	if(filetype=="cub" && ( isUserDimsSet==undefined || isUserDimsSet!=true )){
     		if(this._cxtabUserDims >0){
     			var	cxtabId=$("rep_templet").value;
@@ -1770,7 +1770,7 @@ PortalControl.prototype = {
     			showObject2("/html/nds/cxtab/userdims.jsp?id="+cxtabId,
     				{close:function(){if(pc.doReportNow())pc.doReportOnSelection(bIsOnSelection,tableId,filetype,true );},
     					maxButton:false,closeButton:true},700,480);
-    			return;	
+    			return;
     		}
     	}
     	var	cxtabValue=$("rep_templet").value;
@@ -1796,7 +1796,7 @@ PortalControl.prototype = {
 		evt.filetype= filetype;
 		evt["nds.control.ejb.UserTransaction"]="N";
 		this.executeCommandEvent(evt);
-    	
+
     },
     /*
     doReportOnSelection:function(bIsOnSelection,tableId, filetype){
@@ -1822,11 +1822,11 @@ PortalControl.prototype = {
 		//if(filetype!="xls") filetype="htm";
 		evt.filetype= filetype;
 		this.executeCommandEvent(evt);
-    	
+
     },
     */
 	queryList:function(){
-		
+
 		var fm=$("list_query_form");
 	    toggleButtons($("list_query_form"),true);
 	    if(this.hasValueInput(fm))
@@ -1872,7 +1872,7 @@ PortalControl.prototype = {
         if(A.params.id.length==0){
         	  //alert(123);
             alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
-            return 
+            return
         }
         this.executeCommandEvent(A)
     },
@@ -1896,11 +1896,11 @@ PortalControl.prototype = {
             };
             B.location.href=C
         }
-        
+
     },
     //等待打印
     waitOneMomentToPrint:function(){
-        
+
         // detect if browser is Chrome
         //chrome print 忽略
        // Good! Bug fixed. The bug was fixed as part of v.23 if I'm not wrong
@@ -1910,7 +1910,7 @@ PortalControl.prototype = {
 				        var realPrintFunc = window.print;
 				        var interval = 2500; // 2.5 secs
 				        var nextAvailableTime = +new Date(); // when we can safely print again
-				
+
 				        // overwrite window.print function
 				        window.print = function() {
 				            var now = +new Date();
@@ -1935,7 +1935,7 @@ PortalControl.prototype = {
 			showObject2("/html/nds/objext/import_excel.jsp?table="+this._tableObj.id,pc._dialogOption);
 		else
 			popup_window("/html/nds/objext/import_excel.jsp?table="+this._tableObj.id);
-		*/	
+		*/
 
     },
 	doListCopyTo:function(){
@@ -1943,7 +1943,7 @@ PortalControl.prototype = {
 	},
 	doUpdateSelection:function(){
 		this._doActionOnSelectedItems("/html/nds/objext/selectedupdate.jsp?table="+this._tableObj.id);
-	}, 
+	},
 	doUpdateResultSet:function(){
 		this._submitToNewWindow("/html/nds/objext/batchupdate.jsp");
 	},
@@ -1963,7 +1963,7 @@ PortalControl.prototype = {
 			alert(gMessageHolder.PLEASE_SELECT_LINES_LESS_THAN);
 			return false;
 		}
-	    var objectIds=selectedIds.join(",");	        
+	    var objectIds=selectedIds.join(",");
 		showObject2(uri+ "&objectids="+encodeURIComponent(objectIds),this._dialogOption);
 
 	},
@@ -1971,7 +1971,7 @@ PortalControl.prototype = {
     	this._submitToNewWindow("/html/nds/print/options.jsp");
     },
 	_stopListPageLoadingState:function(){
-		progressBar.togglePause(); 
+		progressBar.togglePause();
 		progressBar.hideBar();
 		toggleButtons($("list_query_form"),false);
 	},
@@ -1989,7 +1989,7 @@ PortalControl.prototype = {
      /**
      * Init list table to handle selection action
      */
-  
+
     _initGridSelectionControl:function(){
    	//var isMultiSelectEnabled=false;
 		//selTb= new SelectableTableRows(document.getElementById("inc_table"), isMultiSelectEnabled);// set as global object
@@ -1999,7 +1999,7 @@ PortalControl.prototype = {
 //	        	// remove previous selected on
 //	        	var i,j,bUnSelected,bSelected, idx;
 //	        	var curSelected=  selTb.getSelectedItems();
-//	        	
+//
 //	        	for(i=0;i<prevSelected.length;i++){
 //	        		bUnSelected=true;
 //	        		for(j=0;j<curSelected.length;j++){
@@ -2041,19 +2041,19 @@ PortalControl.prototype = {
     jQuery('#grid_table').selectable({
         filter:'tr',tolerance:"touch",cancel: "input,:input,a,.ui-selected,span",
         stop: function(event, ui) {
-        	
+
         	if(jQuery(".ui-selected").length>1){
       		jQuery( ".ui-selected", this ).each(function() {
 					     //var index = $( "#selectable li" ).index( this );
 					     //alert(this);
-					      //var index = jQuery( "#grid_table tr" ).index( this ); 
+					      //var index = jQuery( "#grid_table tr" ).index( this );
 					      this.children[0].children[0].checked=true;
 					      this.children[0].children[0].focus=true;
 					      //alert(index);
 					     //result.append( " #" + ( index + 1 ) );
-					     
+
 				   });
-				   event.stopPropagation(); 
+				   event.stopPropagation();
 				  // jQuery("input:checkbox").attr("checked",true);
 				  }
         },
@@ -2061,10 +2061,10 @@ PortalControl.prototype = {
         	//alert(jQuery(".ui-selected").length);
           //alert(ui);
           ui.unselected.children[0].children[0].checked=false;
-          event.stopPropagation(); 
-        	} 
+          event.stopPropagation();
+        	}
         //selected: function(event, ui) {}
-    
+
      }).dblclick(
  		function(trElement){
  			//alert(trElement);
@@ -2080,10 +2080,10 @@ PortalControl.prototype = {
 		   pc.editLine(pid);
 
 		}
-		);     
+		);
 
     },
- 
+
 
 	_loadForm:function(fm, fmAction, elId, returnFunction) {
 		this._lastAccessTime= (new Date()).getTime();
@@ -2091,8 +2091,8 @@ PortalControl.prototype = {
 			onComplete:returnFunction }
 		);
 	},
-	
-     
+
+
 	/**
 	* Request server handle command event
 	* @param evt CommandEvent
@@ -2114,7 +2114,7 @@ PortalControl.prototype = {
 				/*}catch(ex){
 					msgbox(ex.message);
 				}*/
-			
+
 		});
 	},
 	/*function control show hide navigation menu on the left hand side
@@ -2142,8 +2142,8 @@ PortalControl.prototype = {
    e.blur();
    if(jQuery("#portal-menu").css("display")=="block" ){
 		jQuery("#leftToggler").height(jQuery("#leftToggler").height()-5);
-		jQuery("#portal-menu").css("display","none"); 
-		//jQuery("#page-table-query").css("width","99%"); 
+		jQuery("#portal-menu").css("display","none");
+		//jQuery("#page-table-query").css("width","99%");
 		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-right.gif");
 		jQuery("#leftToggler").attr("class","leftToggler2");
 		jQuery("#hide_bar").attr("class","show_bar");
@@ -2151,7 +2151,7 @@ PortalControl.prototype = {
 	}else{
 		jQuery("#portal-menu").css("display","block");
 		jQuery("#leftToggler").height("100%");
-		//jQuery("#page-table-query").css("width","1151px"); 
+		//jQuery("#page-table-query").css("width","1151px");
 		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-left.gif");
 		jQuery("#leftToggler").attr("class","leftToggler");
 		jQuery("#hide_bar").attr("class","hide_bar");
@@ -2205,7 +2205,7 @@ function refreshPortalGrid(){
 	if(gridTableBody!=null)pc.refreshGrid();
 }
 function showProgressWindow(bShow){
-	
+
 }
 function debug(message, stacktrace){
 	dwr.engine._debug(message, stacktrace);
@@ -2225,7 +2225,7 @@ function pop_up_or_clear(src, url, window_name, sObjectID){
 	}
 }
 function showObject2(url,option, theWidth, theHeight){
-	if( theWidth==undefined) theWidth=screen.availWidth-200;//theWidth=963; 
+	if( theWidth==undefined) theWidth=screen.availWidth-200;//theWidth=963;
     if( theHeight==undefined) theHeight=screen.availHeight-150;//theHeight=570;
     if(theWidth==-1){
     	//full screen
@@ -2258,8 +2258,8 @@ function showObject(url, theWidth, theHeight,option){
 	Alerts.popupIframe(url,options);
 	Alerts.resizeIframe(options);
 	Alerts.center();
-	
-*/	
+
+*/
 }
 var selTb;
 var prevSelected;
@@ -2282,7 +2282,7 @@ function startUpload(){
 }
 
 function stopUpload(code){
-	
+
       var result = '';
       if (code == 0){
          result = '<font color="green">Success!</font><br/><br/>';
@@ -2290,7 +2290,7 @@ function stopUpload(code){
          result = '<font color="red">Fail!</font><br/><br/>';
       }
       document.getElementById('f1_upload_process').innerHTML = result;
-      return true;   
+      return true;
 }
 
 function parseQueryString(queryString){
@@ -2322,58 +2322,52 @@ mufavorite.prototype = {
 		//var brandid=0;
 		//this._brandid="";
 	},
-	
+
 	add_mufavorite:function(tb_name,tb_id,rpt,cx_id){
 	//alert(tb_name);
 	//alert(tb_name+" is     "+tb_id);
 	//alert();
 		var expr={column:"",condition:"exists(select 1 from dual where MU_FAVORITE.ownerid=$USER_ID$ and MU_FAVORITE.ad_table_id="+tb_id+")"};
-	  var params={table:"MU_FAVORITE", columns:["id"],params:expr, range:1};
+		var params={table:"MU_FAVORITE", columns:["id"],params:expr, range:1};
 		var trans={id:1, command:"Query",params:params};
 		var a=new Array(1);
 		var muac=null;
 		var isreport="N";
 		a[0]=trans;
-	 if(rpt==undefined || rpt==null){
-	 var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tb_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
-	 muac="javascript:pc.navigate('"+tb_id+"')";
-	 }else{
-	 var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.qrpt('"+cx_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
-	 muac="javascript:pc.qrpt('"+cx_id+"')";
-	 isreport="Y";
-	 }
-	 
+		if(rpt==undefined || rpt==null){
+			var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tb_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
+			muac="javascript:pc.navigate('"+tb_id+"')";
+		}else{
+			var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.qrpt('"+cx_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
+			muac="javascript:pc.qrpt('"+cx_id+"')";
+			isreport="Y";
+		}
 	//alert(fa_line);
-	art.dialog.confirm('是否添加到我的收藏夹？', function(topWin){
+	art.dialog.confirm('是否添加到我的收藏夹?',function(topWin){
     // data 代表输入数据;
-	portalClient.sendRequest(a, function(response){
-			if(!mu.checkResponse(response,0))return;
-			var rows=response.data[0].rows;
-			try{
-			   var p_id= rows[0][0];
-		  }catch(e){var p_id=-1}
-	if(p_id>0){
-		art.dialog({
-    background: '#600', // 背景色
-    opacity: 0.87,	// 透明度
-    content: '['+tb_name+']收藏夹中已存在,无需添加!',
-    icon: 'error',
-    cancel: true});
-		return;}					
-  jQuery("#mu_favorite").append(fa_line);
+	portalClient.sendRequest(a,function(response){
+		if(!mu.checkResponse(response,0))return;
+		var rows=response.data[0].rows;
+		try{
+			var p_id= rows[0][0];
+		}catch(e){var p_id=-1}
+		if(p_id>0){
+			art.dialog({background:'#600',背景色opacity: 0.87,content:'['+tb_name+']收藏夹中已存在,无需添加!',icon: 'error',cancel: true});
+			return;}
+	jQuery("#mu_favorite").append(fa_line);
 	jQuery("#tab_accordion" ).accordion({active:0});
 	/*insert into mu_favorite*/
-		portalClient.createObject("MU_FAVORITE",{AD_TABLE_ID:tb_id,menu_no:1,fa_menu:tb_name,menu_re:muac,IS_REPORT:isreport}, function(response){
-			if(!mu.checkResponse(response,0))return;
-			//mx.cancel();
-		});
+	portalClient.createObject("MU_FAVORITE",{AD_TABLE_ID:tb_id,menu_no:1,fa_menu:tb_name,menu_re:muac,IS_REPORT:isreport}, function(response){
+		if(!mu.checkResponse(response,0))return;
+		//mx.cancel();
+	});
 	});
 	},function(){art.dialog.tips('你取消了操作');});
 	},
 
 	del_mufavorite:function(tb_id){
 		var expr={column:"",condition:"exists(select 1 from dual where MU_FAVORITE.ownerid=$USER_ID$ and MU_FAVORITE.ad_table_id="+tb_id+")"};
-	  var params={table:"MU_FAVORITE", columns:["id"],params:expr, range:1};
+		var params={table:"MU_FAVORITE", columns:["id"],params:expr, range:1};
 		var trans={id:1, command:"Query",params:params};
 		var a=new Array(1);
 		a[0]=trans;
@@ -2412,4 +2406,4 @@ mufavorite.prototype = {
 	mufavorite.main=function(){
 	mu=new mufavorite();
 	};
-jQuery(document).ready(mufavorite.main); 
+jQuery(document).ready(mufavorite.main);
