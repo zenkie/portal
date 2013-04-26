@@ -2333,6 +2333,7 @@ mufavorite.prototype = {
 		var a=new Array(1);
 		var muac=null;
 		var isreport="N";
+		var p_id;
 		a[0]=trans;
 		if(rpt==undefined || rpt==null){
 			var fa_line="<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tb_id+"')\"><a class=\"fa_mu\" href=\"javascript:mu.del_mufavorite('"+tb_id+"');\">"+tb_id+"</a><a>"+tb_name+"</a></div>";
@@ -2349,8 +2350,8 @@ mufavorite.prototype = {
 		if(!mu.checkResponse(response,0))return;
 		var rows=response.data[0].rows;
 		try{
-			var p_id= rows[0][0];
-		}catch(e){var p_id=-1;}
+			p_id= rows[0][0];
+		}catch(e){p_id=-1;}
 		if(p_id>0){
 			art.dialog({background:'#600',背景色opacity: 0.87,content:'['+tb_name+']收藏夹中已存在,无需添加!',icon: 'error',cancel: true});
 			return;}
