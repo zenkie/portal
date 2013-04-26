@@ -2332,7 +2332,6 @@ mufavorite.prototype = {
 		var trans={id:1, command:"Query",params:params};
 		var a=new Array(1);
 		var muac=null;
-		var isreport="N";
 		a[0]=trans;
 	//alert(fa_line);
 	art.dialog.confirm('是否添加到我的收藏夹?',function(topWin){
