@@ -2348,10 +2348,7 @@ mufavorite.prototype = {
 	portalClient.sendRequest(a,function(response){
 		if(!mu.checkResponse(response,0))return;
 		var rows=response.data[0].rows;
-		var pid;
-		try{
-			pid=rows[0][0];
-		}catch(e){pid=-1;}
+		var pid=0;
 		if(pid>0){
 			art.dialog({background:'#600',背景色opacity: 0.87,content:'['+tb_name+']收藏夹中已存在,无需添加!',icon: 'error',cancel: true});
 			return;}
