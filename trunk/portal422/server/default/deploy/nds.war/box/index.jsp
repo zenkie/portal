@@ -27,6 +27,7 @@
     }
     
     String b_box="M_BOX";
+	String soundfile="null";
     String tname=request.getParameter("tableid");
     if("lessbox?".equals(tname)){
       b_box="M_V_LESSBOX";
@@ -68,9 +69,11 @@
     for(int jo2i=0;jo2i<intsCode.size();jo2i++){
     	if(null!=((List)intsCode.get(jo2i)).get(0)&&!"".equals((String)((List)intsCode.get(jo2i)).get(0)))
      	jo2.put( (String)((List)intsCode.get(jo2i)).get(0),(String)((List)intsCode.get(jo2i)).get(1) );
-    }
-		String soundfile="{"+sound.substring(sound.indexOf(".")+1)+":\""+sound+"\"}"; 
-%>
+		}
+		if(!sound.equals("")){
+			soundfile="{"+sound.substring(sound.indexOf(".")+1)+":\""+sound+"\"}"; 
+		}
+		%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
