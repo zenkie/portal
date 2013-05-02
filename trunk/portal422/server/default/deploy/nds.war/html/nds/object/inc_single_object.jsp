@@ -259,7 +259,9 @@
 	            	}
 	  						if(WebUtils.getBrowserType(request)==0){
 	  						//特此注意在IE8下可能发生value循环BUG
-	            	h.put("onblur","oc.onKeyPress(event)");
+							//修正bug在ie8下如果有查询条件设有过滤时
+							//查询返回结果焦点触发onblur清除id的问题
+	            	h.put("onKeyPress","oc.onKeyPress(event)");
 		            }else{
 		            h.put("oninput","oc.onKeyPress(event)");	
 		            	//h.put("onblur", "oc.isempty("+column_acc_Id+","+"fk_"+column_acc_Id+")");
