@@ -349,12 +349,14 @@
     <%		}else if( ds.getObjectType()==DisplaySetting.OBJ_IMAGE){
     			int maximagewidth= (ds.getColumns()==1?200:500);
     %>
-    			<input type='hidden' name="<%=inputName%>" value="<%=dataDB==null?"":dataDB%>">
-    			<%if(!nds.util.Validator.isNull((String)dataDB)){
-    					//onmousewheel="resize_img_by_wheel(this);"
+				<input type='hidden' id="<%=column_acc_Id%>" name="<%=inputName%>" value="<%=dataDB==null?"":dataDB%>">
+				<%
+				String imgHREFStyle="";
+				if(nds.util.Validator.isNull((String)dataDB)){
+					imgHREFStyle="style='display:none;'";
+    			}	
     			%>
-    				<a <%=fkURLTarget%> href="<%=dataDB%>"><img border=0 src="<%=dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>"  ></a>
-    			<%}%>	
+				<a <%=imgHREFStyle%> id="imga_<%=column_acc_Id%>" target="_blank" href="<%=dataDB%>"><img id="img_<%=column_acc_Id%>" border=0 src="<%=dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>"  ></a>
     <%  	}else if( ds.getObjectType()==DisplaySetting.OBJ_XML){
     			java.util.Hashtable hxml = new java.util.Hashtable();
 	            hxml.put("tabIndex", (++tabIndex)+"");
