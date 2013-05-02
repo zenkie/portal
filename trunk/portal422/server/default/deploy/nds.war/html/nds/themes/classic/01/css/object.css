@@ -5,8 +5,8 @@ border: 0;
 /*
 DROPlist 飘逸
 overflow: hidden;
-height: 100%; 
-max-height: 100%; 
+height: 100%;
+max-height: 100%;
 */
 font-family:Tahoma,Arial;
 font-size:76%;
@@ -14,9 +14,9 @@ font-size:76%;
 * html body{ /*IE6 hack*/
 padding: 40px 0px 0px 0px;
 }
-* html #objtb{ /*IE6 hack*/ 
-height: 100%; 
-width: 100%; 
+* html #objtb{ /*IE6 hack*/
+height: 100%;
+width: 100%;
 }
 
 #objtb{
@@ -27,7 +27,7 @@ bottom: 0px;
 padding:30px 5px 5px 5px;
 z-index: 50;
 /*
-position: fixed; 
+position: fixed;
 overflow: auto;
 */
 }
@@ -78,7 +78,7 @@ overflow:auto;
 /*height: expression( this.scrollHeight > 260 ? "260px": (this.scrollHeight < 100 ?"100px": "auto") );
 max-height:260px;
 min-height:100px;
- 
+
 max-height:260px;
 min-height:100px;
 */
@@ -88,14 +88,14 @@ width:100%;
 overflow-x: scroll;
 overflow-y: hidden;
 padding:0px;
-}	
+}
 #hidden_iframe{
 	display :none;
 }
 #obj-content{
 padding:0px 15px 4px 15px;
 }
-#obj-bottom{ 
+#obj-bottom{
 clear: both;
 display :block;
 }
@@ -252,7 +252,7 @@ table.objtb td input:textarea{
 }
 
 div.objtb div.tabs{
-width: 730px; 
+width: 730px;
 padding:1px 1px 5px 1px;
 background-color:#E5EBF3;
 border:1px solid #999999;
@@ -290,12 +290,13 @@ margin:1px 0px 5px 0px;
 	padding:2px 20px 0px 0px;
 }
 fieldset.line{
-  border: 1px groove #CCCCCC; 
+  border: 1px groove #CCCCCC;
   padding: 0px 0px 0px 5px;
-} 
+}
 
 .modify_table,
 #modify_table{
+width:100%;
 border-collapse: collapse;
 }
 .modify_table thead,
@@ -332,7 +333,7 @@ background-color:#fff;
 border-collapse: collapse;
 border:1px solid #77A5E0;
 }
- 
+
 #thead-embed-items thead {
 background:	#fff;
 }
@@ -531,7 +532,7 @@ background:#EFF4FA;
 }
 
 td.desc{vertical-align:top;
-background-color:#efefef; 
+background-color:#efefef;
 text-align:left;
 padding-left:5px;
 white-space: nowrap;
@@ -562,16 +563,16 @@ table.objtb input.ipt-3-1,
 table.objtb input.ipt-3-2,
 table.objtb input.ipt-4-1,
 table.objtb input.ipt-4-4,
-table.objtb input.ipt-4-2{ 
+table.objtb input.ipt-4-2{
 	border-top-style: none;
 	border-right-style: none;
 	border-bottom-style: solid;
 	border-left-style: none;
 	border-bottom-width: 1px;
-	border-bottom-color: #A7C0D6; 
+	border-bottom-color: #A7C0D6;
   color: #333333;
   padding-top:2px;
-  vertical-align: bottom; 
+  vertical-align: bottom;
 }
 table.emtb input.ipt-3-1,
 table.emtb input.ipt-3-2,
@@ -596,8 +597,8 @@ table.objtb input.ipt-3-2{
 	border-bottom-style: solid;
 	border-left-style: none;
 	border-bottom-width: 1px;
-	border-bottom-color: #A7C0D6; 
- vertical-align: middle; 
+	border-bottom-color: #A7C0D6;
+ vertical-align: middle;
  color: #333333;
  margin:1px 0px 0px 0px;
 }
@@ -614,7 +615,7 @@ vertical-align:center;
 */
 text-align:left;
 /*
-单对象标签下移 
+单对象标签下移
 vertical-align: bottom;
 */
 }
@@ -656,7 +657,7 @@ cursor:pointer;
 VERTICAL-ALIGN: top;
 }
 .dateview{
-FONT-SIZE: 9px; 
+FONT-SIZE: 9px;
 COLOR:#BFA277;
 }
 .comments{
@@ -716,14 +717,14 @@ text-align:left;
     background:url("/html/nds/themes/classic/01/images/pre.gif") no-repeat right top;
     padding:3px 35px 3px 35px;
     color:#627EB7;
-} 
+}
 .prenocurr{
     float:left;
     display:block;
     background:url("/html/nds/themes/classic/01/images/pre.gif") no-repeat right bottom;
     padding:3px 35px 3px 35px;
     color:#627EB7;
-}  
+}
 .crosscurr{
     float:left;
     display:block;
