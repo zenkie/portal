@@ -354,10 +354,22 @@
 				String imgHREFStyle="";
 				if(nds.util.Validator.isNull((String)dataDB)){
 					imgHREFStyle="style='display:none;'";
-    			}	
+				}
     			%>
-				<a <%=imgHREFStyle%> id="imga_<%=column_acc_Id%>" target="_blank" href="<%=dataDB%>"><img id="img_<%=column_acc_Id%>" border=0 src="<%=dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>"  ></a>
-    <%  	}else if( ds.getObjectType()==DisplaySetting.OBJ_XML){
+				<a <%=imgHREFStyle%> id="imga_<%=column_acc_Id%>" target="_blank" href="<%=dataDB==null?"":dataDB%>"><img id="img_<%=column_acc_Id%>" border=0 src="<%=dataDB==null?"":dataDB%>&thum=Y" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>"  >
+	<%			if(column.getJSONProps()!=null&&dataDB!=null){
+				JSONObject jor=column.getJSONProps();
+				if(jor.has("imgshow")){
+					JSONObject jo=column.getJSONProps().getJSONObject("imgshow");
+					JSONObject img_opt=jo.getJSONObject("option");
+				%>
+				<script>
+					try{jQuery('#imga_<%=column_acc_Id%>').jqzoom(<%=img_opt%>);}catch(e){};
+				</script>
+				<%}
+				}%>
+				</a>
+	<%			}else if( ds.getObjectType()==DisplaySetting.OBJ_XML){
     			java.util.Hashtable hxml = new java.util.Hashtable();
 	            hxml.put("tabIndex", (++tabIndex)+"");
 	            
