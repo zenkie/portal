@@ -8,6 +8,12 @@
 .main_left ul.ico a{ color:black;width:100%; min-width:62px; _width:62px; height:17px; text-align:center; display:block; padding-top:72px;}
 /****ico***/
 
+#loadbox .ul{ padding:10px; width:210px;}
+#loadbox  ul li{ float:left;}
+#loadbox	ul li a{ display:block; font-size:13:px; width:65px; height:70px; text-align:center; line-height:11px; border:0px solid #ccc; position:relative; margin:0px 6px 0px 0px;}
+#loadbox	ul li a:hover{ border:0px solid #f50; position:relative; z-index:1;}
+#loadbox	ul img{width:50px;padding: 2px;}
+
 .main_left ul.ico a.classId_61{background:url(/html/nds/portal/ssv/images/01.png) no-repeat center top;}
 .main_left ul.ico a.classId_61:hover{background:url(/html/nds/portal/ssv/images/001.png) no-repeat center top;}
 
