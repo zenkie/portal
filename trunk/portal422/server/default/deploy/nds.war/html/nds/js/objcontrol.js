@@ -1055,8 +1055,15 @@ ObjectControl.prototype = {
 				ele.hide();
 			}else{
 				ele.href=url;
-				$("img_"+ inputId).src=url+"&t="+Math.random();
+				var oimg=$("img_"+ inputId);
+				oimg.src=url+"&t="+Math.random()+"&thum=Y";
 				ele.show();
+				if(jQuery(".zoomPad")){
+					jQuery(".zoomPad").remove();
+					jQuery("#imga_"+ inputId).removeData("jqzoom");
+					jQuery("#imga_"+ inputId).append(oimg);
+					executeLoadedScript(ele);
+				}
 			}
 		}
 	},
