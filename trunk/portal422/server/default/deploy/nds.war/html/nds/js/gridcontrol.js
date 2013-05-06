@@ -66,7 +66,6 @@ GridControl.prototype = {
 		application.addEventListener( "CheckMaterialAttribut",this._checkMaterialAttribute,this);
 		//end
 		// call _initGrid when recieved data
-		 
 		var q=Object.clone(this._gridQuery);
 		q.callbackEvent="RefreshGrid";
 		this._executeQuery(q);
@@ -2170,7 +2169,7 @@ function doQuickSearch(){
 
 	_scrollBarWidth : 18,
 
-	set: function(id, width, height, overflowX, center) {
+	set: function(id, height, overflowX, center) {
 
 		if (jQuery("#D_modify_table").length>0) {
 			var itemlen=document.getElementById("grid_table").rows.length;
@@ -2229,9 +2228,9 @@ function doQuickSearch(){
     });
 		
 		
-		width=tableOrg.outerWidth()<jQuery("#embed-items").width()?jQuery("#embed-items").width():tableOrg.outerWidth();
+		//width=tableOrg.outerWidth()<jQuery("#embed-items").width()?jQuery("#embed-items").width():tableOrg.outerWidth();
 		
-	  tableHeader.style.width = width+"px";
+	  //tableHeader.style.width = width+"px";
 	 
 		if (tableHeader.rows.length > 0) {
 			//获取每一行TR数据
@@ -2261,7 +2260,7 @@ function doQuickSearch(){
 		
 		var divHeader = document.createElement("div");
 		divHeader.id = "D_" + ptableid;
-		divHeader.style.width = width + "px";
+		//divHeader.style.width = width + "px";
 		divHeader.style.height = thHeight + "px";
 		divHeader.style.overflow = "hidden";
 		divHeader.style.position = "relative";
@@ -2299,11 +2298,11 @@ function doQuickSearch(){
 			  }
  		}
  		
- 	  masterTable.style.width = width+ "px";//(width + getScrollbarWidth()) + "px";
+ 	  //masterTable.style.width = width+ "px";//(width + getScrollbarWidth()) + "px";
 		
 		var divBody = document.createElement("div");
 		divBody.id = "D_" + masterTable.id+"_B";
-		divBody.style.width = (width + getScrollbarWidth()) + "px";
+		//divBody.style.width = (width + getScrollbarWidth()) + "px";
 		divBody.style.maxHeight = height + "px";
 		divBody.style.minHeight ="100px";
 		if (overflowX) {
@@ -2321,7 +2320,7 @@ function doQuickSearch(){
 									.parent()
 									.attr('id',divBody.id)
 									.css({
-										width: (width + getScrollbarWidth()),
+										//width: (width + getScrollbarWidth()),
 										maxHeight: height,
 										minHeight:100,
 										overflowY:'scroll',
@@ -2378,8 +2377,6 @@ function doQuickSearch(){
 		} else{
 			//tbodyTD.each(function(index) {jQuery(this).css("min-width",thWidth[index]);});
 			tbodyTD.each(function(index) {jQuery(this).width(thWidth[index]);});
-			
-			
 		}
 		//theadTD.each(function(index) {jQuery(this).css("min-width",thWidth[index]);});
 		  theadTD.each(function(index) {jQuery(this).width(thWidth[index]);});
@@ -2388,8 +2385,8 @@ function doQuickSearch(){
      //alert(tbodyTD[0].offsetWidth);
      //修复明细刷新不能宽度放大问题
      if(theadTD[0].offsetWidth!=tbodyTD[0].offsetWidth&&tbodyTD[0].offsetWidth!=0){
-    jQuery("#modify_table_H").width((jQuery("#modify_table_H").width()+diff));
-    jQuery("#modify_table").width(jQuery("#modify_table_H").width());
+		jQuery("#modify_table_H").width((jQuery("#modify_table_H").width()+diff));
+		jQuery("#modify_table").width(jQuery("#modify_table_H").width());
 		jQuery("#D_modify_table").width(jQuery("#modify_table_H").width());
 		jQuery("#D_modify_table_B").width((jQuery("#D_modify_table").width()+getScrollbarWidth()));
  }
