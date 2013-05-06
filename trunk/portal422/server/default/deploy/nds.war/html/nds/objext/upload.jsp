@@ -73,9 +73,9 @@
 %>
 
 <br>
-<table border="0" cellspacing="0" cellpadding="0" align="center" bordercolordark="#FFFFFF" bordercolorlight="#999999" width="100%">
+<table style="word-break:break-all;" border="0" cellspacing="0" cellpadding="0" align="center" bordercolordark="#FFFFFF" bordercolorlight="#999999" width="100%">
           <tr>
-            <td> <table border="0" cellspacing="5" cellpadding="0" align="center" width="90%"><tr>
+            <td> <table style="white-space:nowrap;" border="0" cellspacing="5" cellpadding="0" align="center" width="90%"><tr>
               <br>
          <td><b><%=PortletUtils.getMessage(pageContext, "referred-by",null)%>:</b></td>
          <td> <a href="<%=NDS_PATH+"/object/object.jsp?table="+tableId+"&id="+objectId%>"><%=NDS_PATH+"/object/object.jsp?table="+tableId+"&id="+objectId%></a>
