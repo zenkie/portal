@@ -34,7 +34,9 @@ if(nds.util.Validator.isNull(dialogURL)){
     String	company_str=(String)QueryEngine.getInstance().doQueryOne("select description  from AD_LIMITVALUE t where t.ad_limitvalue_group_id=(select id from AD_LIMITVALUE_GROUP t2 where t2.name='PORTAL_NEWS')   and t.value='company'");
     //通过表来获得跳转的子系统ssid号
      int	V_AUDITBILL_id=Tools.getInt(QueryEngine.getInstance().doQueryOne("select a.ad_subsystem_id from ad_tablecategory a,ad_table b where a.id=b.ad_tablecategory_id and b.name='V_AUDITBILL'"),-1);
-     int	U_NOTE_id=Tools.getInt(QueryEngine.getInstance().doQueryOne("select a.ad_subsystem_id from ad_tablecategory a,ad_table b where a.id=b.ad_tablecategory_id and b.name='U_NOTE'"),-1);
+	 int	U_NOTE_id=Tools.getInt(QueryEngine.getInstance().doQueryOne("select a.ad_subsystem_id from ad_tablecategory a,ad_table b where a.id=b.ad_tablecategory_id and b.name='U_NOTE'"),-1);
+	//下载工具
+	List al=(List)QueryEngine.getInstance().doQueryList("select name,dw_link,dw_img from dw_tools");
 %>
 <%!	
  	private final static int MAX_SUBJECT_LENGTH_NARROW_1024=30;
@@ -162,6 +164,24 @@ SubSystem ss;
                 <div class="title_right">&nbsp;</div>
             </div><!--end title-->
         </div><!--end main_box-->
+		<div id="loadbox">
+			<ul>
+				<%
+				String name="";
+				String dw_link="";
+				String dw_img=null;
+				if(al.size()>0){
+				for(int j=0;j<al.size();j++){
+					name=(String)((List)(al.get(j))).get(0);
+					dw_link=(String)((List)(al.get(j))).get(1);
+					dw_img=(String)((List)(al.get(j))).get(2);
+				%>
+				<li><a href="<%=dw_link%>"><img src="<%=dw_img==null?"/html/nds/portal/ssv/images/dw.png":dw_img%>"><%=name%></a></li>
+				<% }
+				}
+				%>
+			</ul>
+		</div>
     </div><!--end main_right-->
 </body>
 </html>
