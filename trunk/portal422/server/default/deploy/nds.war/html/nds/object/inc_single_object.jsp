@@ -355,7 +355,7 @@
 				if(nds.util.Validator.isNull((String)dataDB)){
 					imgHREFStyle="style='display:none;'";
 				}
-				if(((String)dataDB).indexOf("Attach")>0){dataDB=dataDB+"&thum=Y";}
+				if(dataDB!=null&&((String)dataDB).indexOf("Attach")>0){dataDB=dataDB+"&thum=Y";}
     			%>
 				<a <%=imgHREFStyle%> id="imga_<%=column_acc_Id%>" target="_blank" href="<%=dataDB==null?"":dataDB%>"><img id="img_<%=column_acc_Id%>" border=0 src="<%=dataDB==null?"":dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>"  >
 	<%			if(column.getJSONProps()!=null&&dataDB!=null){
