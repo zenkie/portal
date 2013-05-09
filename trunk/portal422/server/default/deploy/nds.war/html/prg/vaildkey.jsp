@@ -90,12 +90,15 @@ a.bottom-text {
 }
 </style>
 <link rel="Shortcut Icon" href="/html/nds/images/portal.ico">
-<script language="javascript" src="/html/nds/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
-<script language="javascript" src="/html/nds/js/swfobject.js"></script>
-<script language="javascript" src="/html/nds/js/jquery.uploadify.v2.0.3.min.js"></script>
+<script language="javascript" src="/html/prg/upload/jquery.uploadify.min.js"></script>
+<script>
+	jQuery.noConflict();
+</script>
+<script language="javascript" src="/html/nds/js/prototype.js"></script>
 <script language="javascript" src="/html/prg/fileupload.js"></script>
+<link rel="stylesheet" type="text/css" href="/html/prg/upload/uploadify.css">
 </head>
 <body>
 <div width=100% margin:0 auto>	
@@ -125,11 +128,11 @@ a.bottom-text {
       <div id="flashcontent">
           <input id="fileInput1" name="file1" size="35" type="file"/>
       </div>
-<input type='button' id="btnImport" name='Upload' value='开始上传并处理' onclick="javascript:fup.beginUpload();" >
+<!--input type='button' id="btnImport" name='Upload' value='开始上传并处理' onclick="javascript:fup.beginUpload();" -->
 <script language="javascript">
         var upinit={
             'sizeLimit':1024*1024 *1,
-            'buttonText'	: 'BROWSER',
+            'buttonText'	: '上传证书',
             'fileDesc'      : '上传文件(dat)',
             'fileExt'		: '*.dat;'
         };

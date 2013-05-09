@@ -8,43 +8,42 @@ FileUpload.prototype = {
 	initForm:function(upinit,para){
 		this._upinit=upinit;
 		this._para=para;
-		$("#fileInput1").uploadify({
-			'uploader'      : '/html/nds/js/uploadify.swf',
-			'script'        : '/control/uploadkey',
-			'cancelImg'     : '/html/nds/images/cancel.png',
+		jQuery("#fileInput1").uploadify({
+			'swf'           : '/html/prg/upload/uploadify.swf',
+			'uploader'      : '/control/uploadkey',
+			//'cancelImg'   : '/html/prg/upload/uploadify-cancel.png',
 			'folder'        : '/html/nds',
 			'multi'         : false,
-			'wmode'		: 'transparent',
+			//'auto'			:false,
 			'sizeLimit'     : this._upinit.sizeLimit,
 			'buttonText'	: this._upinit.buttonText,
 			'fileDesc'      : this._upinit.fileDesc,
 			'fileExt'       : this._upinit.fileExt,
-			onError: function (evt, b, c, errorObj) {
-	         if (errorObj.info == 404)
+			'formData'	: this._para,
+			'method'   : 'post',
+			onUploadError: function (evt, b, c, s) {
+			//alert(123);
+	         if (b== 404)
 	            alert('Could not find upload script.');
 	         else
-	            alert('error '+errorObj.type+": "+errorObj.info);
+	            alert('error '+b+": "+c);
 			},
-			onComplete:function(a,b,c,response,e){
+			onUploadSuccess: function(a,b,response){
 				// you can handle response here
 				/*$("#output").css("display","block");
 				 */
-				$("#whole").html(response);
+				jQuery("#whole").html(b);
 				//alert(response);
 				//window.location.href="/html/prg/regSuccess.jsp";
 				return true;
-			},
-			onAllComplete:function (evt, data) {
-	         	return true;
 			}
 		});			
 	},
 	
 	beginUpload:function(){
 		var para=this._para;
-		$('#fileInput1').uploadifySettings("scriptData",para,true);	
-		$('#fileInput1').uploadifyUpload();
- 	}
+		//jQuery('#fileInput1').Settings("scriptData",para,true);	
+		jQuery('#fileInput1').uploadify('upload','*'); }
 };
 FileUpload.main = function () {
 	fup=new FileUpload();
