@@ -1,5 +1,6 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page errorPage="/html/nds/error.jsp"%>
-<%@ include file="/html/nds/common/init.jsp" %>
+<%@ include file="/html/nds/common/init.jsp"%>
 <%@ page import="nds.excel.*"%>
 <%
     /**
@@ -34,24 +35,24 @@
    
 %><html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@ include file="/html/common/themes/top_meta.jsp" %>
 <%@ include file="/html/common/themes/top_meta-ext.jsp" %>
 <link rel="Shortcut Icon" href="/html/nds/images/portal.ico">
-<script language="javascript" src="/html/nds/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
-<!--script language="javascript" src="/html/nds/js/jquery1.2.3/hover_intent.js"></script-->
-
 <script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
-
-<script language="javascript" src="/html/nds/js/swfobject.js"></script>
-<script language="javascript" src="/html/nds/js/jquery.uploadify.v2.0.3.min.js"></script>
+<script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script>
+<script>
+	jQuery.noConflict();
+</script>
+<script language="javascript" src="/html/nds/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/js/import_excel.js"></script>
-
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/portal.css" media="screen" />
 <link type="text/css" rel="StyleSheet" href="/html/nds/css/importexcel.css" media="screen" />
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/nds_portal.css" media="screen" />
 <link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/custom-ext.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="/html/nds/css/importexcel_prt.css" media="print" /> 
+<link rel="stylesheet" type="text/css" href="/html/nds/js/upload/uploadify.css">
 <title>Import</title>
 </head>
 <body id="maintab-body">
@@ -228,6 +229,7 @@ if(udxColumns.size()>0){
 
 	var upinit={"sizeLimit": <%=(1024*1024 * Tools.getInt( conf.getProperty("import.excel.maxsize", "1"),1))%>,
 		/*'buttonText'	: '...',*/
+		'buttonText'	: '上传导入文件..',
 		'fileDesc'      : '<%= PortletUtils.getMessage(pageContext, "import-file-desc" ,null)%>'
 		};
 	var para={"table":<%=table.getId()%>, "objectid":<%=objectId%>,
