@@ -1056,7 +1056,11 @@ ObjectControl.prototype = {
 			}else{
 				ele.href=url;
 				var oimg=$("img_"+ inputId);
+				if(url.indexOf("Attach")>0){
 				oimg.src=url+"&t="+Math.random()+"&thum=Y";
+				}else{
+				oimg.src=url;
+				}
 				ele.show();
 				if(jQuery(".zoomPad")){
 					jQuery(".zoomPad").remove();
