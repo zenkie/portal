@@ -2169,7 +2169,7 @@ function doQuickSearch(){
 
 	_scrollBarWidth : 18,
 
-	set: function(id, height, overflowX, center) {
+	set: function(id,width,height, overflowX, center) {
 
 		if (jQuery("#D_modify_table").length>0) {
 			var itemlen=document.getElementById("grid_table").rows.length;
