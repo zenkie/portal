@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8"%>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/common/init.jsp"%>
 <%@ page import="nds.excel.*"%>
