@@ -352,17 +352,25 @@
 				<input type='hidden' id="<%=column_acc_Id%>" name="<%=inputName%>" value="<%=dataDB==null?"":dataDB%>">
 				<%
 				String imgHREFStyle="";
+				String Pdata="";
 				if(nds.util.Validator.isNull((String)dataDB)){
 					imgHREFStyle="style='display:none;'";
 				}
-				if(dataDB!=null&&((String)dataDB).indexOf("Attach")>0){dataDB=dataDB+"&thum=Y";}
+				if(dataDB!=null&&((String)dataDB).indexOf("Attach")>0){
+				Pdata=dataDB+"&thum=Y";
+				}else{
+				Pdata=(String)dataDB;
+				}
     			%>
-				<a <%=imgHREFStyle%> id="imga_<%=column_acc_Id%>" target="_blank" href="<%=dataDB==null?"":dataDB%>"><img id="img_<%=column_acc_Id%>" border=0 src="<%=dataDB==null?"":dataDB%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>"  >
+				<a <%=imgHREFStyle%> id="imga_<%=column_acc_Id%>" target="_blank" href="<%=dataDB==null?"":dataDB%>"><img id="img_<%=column_acc_Id%>" border=0 src="<%=dataDB==null?"":Pdata%>" class="img-<%=columnsPerRow%>-<%=ds.getColumns()%>"  >
 	<%			if(column.getJSONProps()!=null&&dataDB!=null){
 				JSONObject jor=column.getJSONProps();
 				if(jor.has("imgshow")){
+					JSONObject img_opt=null;
 					JSONObject jo=column.getJSONProps().getJSONObject("imgshow");
-					JSONObject img_opt=jo.getJSONObject("option");
+					if(jo.has("option")){
+						img_opt=jo.getJSONObject("option");
+					}
 				%>
 				<script>
 					try{jQuery('#imga_<%=column_acc_Id%>').jqzoom(<%=img_opt%>);}catch(e){};
