@@ -641,7 +641,7 @@ PortalControl.prototype = {
 		//update grid line
 		$( line[0]+"_row" ).innerHTML="<input type='checkbox' id='"+ line[0] +"_chk' value='Y' class='cbx' onchange='pc.chk(\""+line[0]+"\")' /><a href='javascript:pc.editLine(\""+line[0]+"\")'>"+ (row+1+this._gridQuery.start)+"</a>";
 		$( line[0]+"_state__" ).innerHTML="";
-		$( line[0]+"_errmsg" ).innerHTML=(line[2]==null?"":"<a class='helpLink' onclick='showHelpTip(event, pc._data["+row+"][2], false); return false' href='javascript:void(0);'><img src='/html/nds/images/alert.gif' border='0'/></a>");
+		$( line[0]+"_errmsg" ).innerHTML=(line[2]==null?"":"<a id='"+line[0]+"_opmsg' onclick='pc.showtips(event);' title='"+pc._data[row][2]+"' href='javascript:void(0);'><img src='/html/nds/images/alert.gif' border='0'/></a>");
 		var e, v;
 		for(i=4;i< cols.length;i++){
 			col= cols[i];
@@ -663,6 +663,15 @@ PortalControl.prototype = {
 			}
 		}
 		this._updateGridLineState(line);
+		var err_omsg=jQuery("#"+line[0]+"_opmsg");
+		if(err_omsg&&line[2]!=null){
+		err_omsg.poshytip({className:'tip-green',alignX: 'inner-left',
+			alignY: 'bottom',offsetX: 0,offsetY:6,
+			showOn: 'none',alignTo:'target'
+		});
+		err_omsg.poshytip('show');
+		err_omsg.poshytip('hideDelayed',3000);
+		}
 	},
 	/**
 	 * change line css
@@ -1647,6 +1656,16 @@ PortalControl.prototype = {
     	}
 
     },
+    /**
+	*@mouse_event showtips
+	*/
+	showtips:function(e){
+		var err_omsg=jQuery(e.currentTarget);
+		err_omsg.poshytip('show');
+		err_omsg.poshytip('hideDelayed',3000);
+	},
+
+
     /**
      * @param b if true, void, false: unvoid
      */
