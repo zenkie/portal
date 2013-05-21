@@ -14,7 +14,7 @@
 <script language="javascript1.5" src="/html/nds/js/ieemu.js"></script>
 <script language="javascript" src="/html/nds/js/cb2.js"></script>
 <script language="javascript" src="/html/nds/js/xp_progress.js"></script>
-<script language="javascript" src="/html/nds/js/helptip.js"></script>
+<!--script language="javascript" src="/html/nds/js/helptip.js"></script-->
 <script language="javascript" src="/html/nds/js/print.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
 <script>
@@ -22,6 +22,7 @@
 </script>
 <!--script language="javascript" src="/html/nds/js/jquery1.2.3/hover_intent.js"></script-->
 
+<script language="javascript" src="/html/nds/js/potips/jquery.poshytip.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
 <script language="javascript" src="/html/nds/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/js/CloneTableHeader.js"></script>		
@@ -87,6 +88,8 @@
 <!--link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/pag-tab.css" /-->
 <link type="text/css" href="/html/nds/js/jquery1.3.2/css/smoothness/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
 <link type="text/css" rel="StyleSheet" href="/html/nds/js/jdate/My97DatePicker/skin/WdatePicker.css"/>
+<link type="text/css" rel="StyleSheet" href="/html/nds/js/potips/tip-yellowsimple/tip-yellowsimple.css">
+<link type="text/css" rel="StyleSheet" href="/html/nds/js/potips/tip-green/tip-green.css">
 <!--link type="text/css" rel="StyleSheet" href="/html/nds/js/flyout/flyout.ribbon.css"></script-->
 <!--link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/jquery-ui-1.7.3.custom.css" /-->
 <!--link type="text/css" rel="stylesheet" href="/html/nds/themes/ui-lightness/ui.all.css" /-->
