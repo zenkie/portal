@@ -251,9 +251,23 @@ var masterObject={
 	 JSONArray inputColumnsJson=new JSONArray();
 	 for(int i=0;i<inputColumns.size();i++){
 	 	inputColumnsJson.put( ((Column)inputColumns.get(i)).toJSONObject(locale));
-	 } 
+	 }
+	ArrayList modifyColumns=table.getColumns(new int[]{3}, false,userWeb.getSecurityGrade(),true);
+	//Columns input for Modify 
+		 JSONArray modifyColumnsJson=new JSONArray();
+		 for(int i=0;i<modifyColumns.size();i++){
+		 	modifyColumnsJson.put( ((Column)modifyColumns.get(i)).toJSONObject(locale));
+	 }
+	ArrayList addColumns=table.getColumns(new int[]{1}, false,userWeb.getSecurityGrade(),true);
+	//Columns input for ADD 
+		 JSONArray addColumnsJson=new JSONArray();
+		 for(int i=0;i<addColumns.size();i++){
+		 	addColumnsJson.put( ((Column)addColumns.get(i)).toJSONObject(locale));
+	 }
 	%>
-	columns:<%=inputColumnsJson.toString()%>
+	columns:<%=inputColumnsJson.toString()%>,
+	modifycolumns:<%=modifyColumnsJson.toString()%>,
+	addcolumns:<%=addColumnsJson.toString()%>
 };
 </script>	
 	<%
