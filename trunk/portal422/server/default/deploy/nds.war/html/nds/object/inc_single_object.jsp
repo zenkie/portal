@@ -200,6 +200,7 @@
                     <input:checkbox name="<%=inputName%>" default="<%=dataValue%>" value="Y" attributes="<%=a%>" attributesText="<%=(attributesText+"class='cbx2'")%>"/>
                     <%}else{
                     	a.put("class", "objsl");
+						a.put("onkeydown", "oc.moveTableFocus(event)");
                     %>
                     <input:select name="<%=inputName%>" default="<%=dataValue%>" attributes="<%= a %>" options="<%= o %>" attributesText="<%=(attributesText+fixedColumnMark)%>" />
                     <%
@@ -220,6 +221,7 @@
                     <input:checkbox name="<%=inputName%>" default="<%=defaultValue%>" value="Y" attributes="<%=a%>" attributesText="<%=(attributesText+"class='cbx2'")%>"/>
                     <%}else{
                     	a.put("class", "objsl");
+						a.put("onkeydown", "oc.moveTableFocus(event)");
                     %>
                     <input:select name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= a %>" options="<%= o %>" attributesText="<%=(attributesText+fixedColumnMark)%>" />
                     <%}
@@ -250,6 +252,7 @@
 	            h.put("maxlength", String.valueOf(inputSize));
 	            h.put("tabIndex", (++tabIndex)+"");
 	            h.put("class", TableQueryModel.getTextInputCssClass(columnsPerRow,column));
+				h.put("onkeydown", "oc.moveTableFocus(event)");
 	            if(fkQueryModel!=null){
 	            	//add key catcher 
 	            	//h.put("onkeydown",fkQueryModel.getKeyEventScript());
@@ -319,6 +322,7 @@
 	            htextArea.put("wrap", "soft");
 	            htextArea.put("tabIndex", (++tabIndex)+"");
 	            htextArea.put("class", TableQueryModel.getTextAreaInputCssClass(columnsPerRow,column));
+				htextArea.put("onkeydown", "oc.moveTableFocus(event)");
 				%>
 				<input:textarea name="<%=inputName%>" attributes="<%= htextArea %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributesText+fixedColumnMark)%>"/><%= type%>
 				
