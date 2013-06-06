@@ -377,7 +377,7 @@ PortalControl.prototype = {
 	 * When key pressed in table, move focus
 	 */
 	moveTableFocus: function(e){
-		var r,ele;
+		var r,ele,molist;
 		switch(e.keyCode){
 			case 38:{//UP
 				r= this._getCurrentPositionInData(e);
@@ -391,8 +391,46 @@ PortalControl.prototype = {
 				}
 				break;
 			}
-			case 40://DOWN
-			case 13:{//Enter
+			//case 40://DOWN
+			case 13:{//enter
+				var pos,mol,pwidth;
+				r= this._getCurrentPositionInData(e);
+				molist=this._gridMetadata.columnsWhenModify;
+				mol=molist.length-1;
+				if(r!=null){
+				if(["M","A","S"].indexOf( this._data[r.row][1])>-1){
+					jQuery.each(molist, function(index,value){
+						if(pos>0)return false;
+						if(index==mol){pos=index; return false;}
+						if(value==r.column&&pc._gridMetadata.columns[molist[index+1]].dsptype!=5){
+						//ele= this._data[r.row][0]+"_"+  this._gridMetadata.columns[molist[index+1]].name;
+						//dwr.util.selectRange(ele, 0, this.MAX_INPUT_LENGTH);
+						
+						pos=index;
+						return false;
+						//break;
+						}
+						else if(value==r.column&&pc._gridMetadata.columns[molist[index+1]].dsptype==5){
+						pos=index+1;
+						r.column=molist[pos];
+						//return true;
+						}
+					});
+					if(pos==mol){
+						pos=2;r.row=r.row+1;
+					}
+					try{
+					ele= this._data[r.row][0]+"_"+  this._gridMetadata.columns[molist[pos+1]].name;
+					pwidth=jQuery("#"+ele).position().left;
+					jQuery("#portal-content").animate({scrollLeft: pwidth-80}, 300);
+					dwr.util.selectRange(ele, 0, this.MAX_INPUT_LENGTH);
+					}catch(e){}
+					break;
+				}
+				}
+				break;
+			}
+			case 40:{//down
 				r= this._getCurrentPositionInData(e);
 				if(r!=null)while(r.row<this._data.length-1){
 					r.row = r.row+1;
@@ -883,6 +921,8 @@ PortalControl.prototype = {
 		//alert(tn.split('@'))
 		//alert(tgt);
 		if(tgt==undefined || tgt==null || tgt=='null') tgt="portal-content";
+		//recover scrollLeft to 0
+		jQuery("#portal-content").scrollLeft(0);
 		//support iframe, create one if not exists
 		if(tgt=="ifr"){
 			var ifr=$("ifr");
@@ -1001,7 +1041,10 @@ PortalControl.prototype = {
 	_initList:function(){
 		// prepare table body only for IE, see #_refreshGrid
 		this._gridQuery= gridInitObject.query;
-		this._gridQuery.dir_perm=this._defaultListMode;
+		//this._gridQuery.dir_perm=this._defaultListMode;
+		//add modify _defaultListMode not default 1
+		//_defaultListMode eq this.gridQuery.dir_perm
+		this.setDefaultListMode(this._gridQuery.dir_perm);
 		if($("switch-view-txt")!=null){
 			$("switch-view-txt").innerHTML= (this._defaultListMode==1?gMessageHolder.MODIFY_VIEW:gMessageHolder.READ_ONLY_VIEW);
 		}
