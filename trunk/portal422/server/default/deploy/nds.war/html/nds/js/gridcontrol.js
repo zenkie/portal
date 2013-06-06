@@ -1921,8 +1921,49 @@ GridControl.prototype = {
 				}
 				break;
 			}
-			case 40://DOWN
-			case 13:{//Enter
+			case 13:{//enter
+				var pos,mol;
+				var cur_scroll=jQuery("#embed-items").scrollLeft();
+				r= this._getCurrentPositionInData(e);
+				molist=this._gridMetadata.columnsWhenModify;
+				mol=molist.length-1;
+				if(r!=null){
+				if(["M","A","S"].indexOf( this._data[r.row][1])>-1){
+					jQuery.each(molist, function(index,value){
+						if(pos>0)return false;
+						if(index==mol){pos=index; return false;}
+						if(value==r.column&&gc._gridMetadata.columns[molist[index+1]].dsptype!=5){
+						//ele= this._data[r.row][0]+"_"+  this._gridMetadata.columns[molist[index+1]].name;
+						//dwr.util.selectRange(ele, 0, this.MAX_INPUT_LENGTH);
+						
+						pos=index;
+						return false;
+						//break;
+						}
+						else if(value==r.column&&gc._gridMetadata.columns[molist[index+1]].dsptype==5){
+						pos=index+1;
+						r.column=molist[pos];
+						//return true;
+						}
+					});
+					if(pos==mol){
+						pos=2;r.row=r.row+1;
+					for (var i=pos;i<molist.length;i++){
+						if(this._gridMetadata.columns[molist[i+1]].dsptype!=5){pos=i;cur_scroll=0;break;}
+						}
+					}
+					try{
+					ele= this._data[r.row][0]+"_"+  this._gridMetadata.columns[molist[pos+1]].name;
+					var pwidth=cur_scroll+jQuery("#"+ele).width();
+					jQuery("#embed-items").animate({scrollLeft: pwidth+50}, 300);
+					dwr.util.selectRange(ele, 0, this.MAX_INPUT_LENGTH);
+					}catch(e){}
+					break;
+				}
+				}
+				break;
+			}
+			case 40:{//DOWN
 				r= this._getCurrentPositionInData(e);
 				if(r!=null)while(r.row<this._data.length-1){
 					r.row = r.row+1;
