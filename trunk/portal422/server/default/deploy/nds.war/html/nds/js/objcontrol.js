@@ -1015,6 +1015,110 @@ ObjectControl.prototype = {
 	  }
 	},
 	/**
+	 * When key pressed in object, move focus next input
+	 */
+	moveTableFocus: function(e){
+		var r,ele,molist;
+		switch(e.keyCode){
+			case 13:{//enter
+				var pos,mol,intype;
+				intype=this._masterObj.hiddenInputs.id==-1?"add":"mod";
+				r= this._getCurrentPositionInData(e,intype);
+				molist=intype=="add"?this._masterObj.addcolumns:this._masterObj.modifycolumns;
+				mol=molist.length-1;
+				if(r!=null){
+				if(this._masterObj.table.mask.indexOf("A")>-1||this._masterObj.table.mask.indexOf("M")>-1){
+					if(r.column==mol){pos=mol; return false;}
+					pos=r.column+1;
+					try{
+					var pid=intype=="add"?this._masterObj.addcolumns[pos].id:this._masterObj.modifycolumns[pos].id;
+					ele= "column_"+pid;
+					dwr.util.selectRange(ele, 0, this.MAX_INPUT_LENGTH);
+					}catch(e){}
+					}
+					break;
+				}else if(inlineObject&&!r){
+					//alert("ddd");
+					intype=inlineObject.hiddenInputs.id==-1?"add":"mod";
+					r= this._getabDataPosition(e,intype);
+					molist=intype=="add"?inlineObject.addcolumns:inlineObject.modifycolumns;
+					mol=molist.length-1;
+					if(r!=null){
+						if(inlineObject.table.mask.indexOf("A")>-1||inlineObject.table.mask.indexOf("M")>-1){
+							if(r.column==mol){pos=mol; return false;}
+							pos=r.column+1;
+							try{
+							var pid=intype=="add"?inlineObject.addcolumns[pos].id:inlineObject.modifycolumns[pos].id;
+							ele= "column_"+pid;
+							dwr.util.selectRange(ele, 0, this.MAX_INPUT_LENGTH);
+							}catch(e){}
+							}
+					}
+					break;
+				}
+				break;
+				}
+			}
+	},
+	/**
+	 * Get column in this._masterObj of current focus in object form
+	 * @param e event object
+	 * @return {column:int},null if not found or reach the boundary of grid
+	 */
+	_getCurrentPositionInData:function(e,intype){
+		if(e!=null) e = e.target != null ? e.target : e.srcElement;
+		if(e==null) return null;
+		var p= e.id.indexOf("_",0);
+		var d0= e.id.substr(0,p);
+		var d1= e.id.substr(p+1);
+		var i, r={column:-1},cols;
+		if(intype=='add'){
+			cols=this._masterObj.addcolumns;
+		}else if(intype=='mod'){
+			cols=this._masterObj.modifycolumns;
+		}
+		for(i=0;i<cols.length;i++ ){
+			if(cols[i].id== d1){
+				r.column= i;
+				break;
+			}
+		}
+		if(r.column==-1){
+			//debug("found position error:row="+ r.row+",col="+ r.column);
+			return null;
+		}
+		return r;
+	},
+		/**
+	 * Get column in inlineObject of current focus in tabs object form
+	 * @param e event object
+	 * @return {column:int},null if not found or reach the boundary of grid
+	 */
+	_getabDataPosition:function(e,intype){
+		if(e!=null) e = e.target != null ? e.target : e.srcElement;
+		if(e==null) return null;
+		var p= e.id.indexOf("_",0);
+		var d0= e.id.substr(0,p);
+		var d1= e.id.substr(p+1);
+		var i, r={column:-1},cols;
+		if(intype=='add'){
+			cols=inlineObject.addcolumns;
+		}else if(intype=='mod'){
+			cols=inlineObject.modifycolumns;
+		}
+		for(i=0;i<cols.length;i++ ){
+			if(cols[i].id== d1){
+				r.column= i;
+				break;
+			}
+		}
+		if(r.column==-1){
+			//debug("found position error:row="+ r.row+",col="+ r.column);
+			return null;
+		}
+		return r;
+	},
+	/**
 	 * @return false if failed to close
 	 */
 	closeDialog:function(ifr){
