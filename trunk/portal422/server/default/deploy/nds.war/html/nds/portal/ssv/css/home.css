@@ -62,23 +62,53 @@
 .main_left ul.ico a.classId_45:hover{background:url(/html/nds/portal/ssv/images/hover_49.gif) no-repeat center top;}
 /******/
 .main_left ul.ico li img{width:39px; height:42px;}
-.main_left ul.audit{width:100%; background:#eee; overflow:hidden; clear:both; padding:1px 0;margin-left:20px;}
-.main_left ul.audit li{float:left; width:45%; overflow:hidden;}
+.main_left ul.audit{width:100%;clear:both; padding:1px 0;margin-left:20px;height: 20px;}
+.main_left ul.audit li{float:left; width:50%; overflow:hidden;}
 .main_left ul.audit li.set_up{width:50%;}
 .main_left ul.audit li span{float:left; margin-left:8px; display:inline; line-height:23px;}
 .button{width:53px; height:23px; display:block; float:left; color:#fff; text-align:center; line-height:22px; margin-left:5px; background:url(/html/nds/portal/ssv/images/home_61.gif) no-repeat left top;}
 .button:hover{background:url(/html/nds/portal/ssv/images/home_59.gif) no-repeat left top; color:#fff;}
 .search{float:left; margin-left:3px;}
-.audit_input{width:40%; height:20px; background:#f4f4f4; line-height:20px; border:1px solid #999; color:#555; float:left;}
 .main_left ul.docno{width:100%;  clear:both; overflow:hidden;  background:#bab9b9; color:#fff; margin:0 auto;}
 
 *html .main_left ul.docno,*+html .main_left ul.docno{width:100%;  clear:both; overflow:hidden;  background:#bab9b9; color:#fff; margin-left:-5px;}
 .main_left ul.docno li{float:left; display:inline;  text-align:center; height:25px; line-height:25px;}
 .main_left ul.docno li.checkbox{width:8%;}
-
+.aus_input{
+width: 50px;
+height: 20px;
+margin-left: 9px;
+padding-left: 5px;
+padding-right: 10px;
+/*color: #eee;*/
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+background:#f4f4f4;
+line-height:15px; 
+border:1px solid #999; 
+color:#555;
+ float:left;
+}
+.pus_input{
+width: 180px;
+height: 20px;
+margin-left: 9px;
+padding-left: 5px;
+padding-right: 10px;
+/*color: #eee;*/
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+background:#f4f4f4;
+line-height:15px; 
+border:1px solid #999; 
+color:#555;
+ float:left;
+}
 
 .main_left ul.docno li.docno_con{width:22%;}
-.data{width:100%; margin:0 auto 2px auto; height:98px; clear:both; overflow-y:scroll; overflow-x:hidden;}
+.data{width:100%; margin:0 auto 2px auto; height:120px; clear:both; overflow-y:scroll; overflow-x:hidden;}
 .more{float:right; padding:7px 5px 0 0;}
 .main_left ul.news{width:100%;  float:left; margin-left:2px;}
 .main_left ul.news li{border:1px solid #ccc; padding:3px 6px 3px 15px; white-space:nowrap; overflow:hidden; background:#eeeeee url(/html/nds/portal/ssv/images/icon.gif) no-repeat 5px center; clear: both; margin-top:1px;}
@@ -104,8 +134,8 @@
 /*common*/
 .left{float:left;}
 .right{float:right;}
-.clear{clear:both; height:0px; overflow:hidden;}
-.main_box,.main_box2{width:100%; background:#f6f4f4; overflow:hidden;margin-top:-2px;}
+.clear{clear:both; height:180px; overflow:hidden;}
+.main_box,.main_box2{width:100%;overflow:hidden;margin-top:-2px;}
 #bottom_tab{
 background: url("/html/nds/themes/classic/01/images/leftmenutitle.png") repeat-x scroll right 0 transparent;
 cursor: pointer;
@@ -116,7 +146,7 @@ zoom: 1;
 
 }
 .main_box2{background:#fff;}
-.main_box3{background:#eee; margin-bottom:5px;}
+.main_box3{ margin-bottom:5px;position: relative;top: 150px;}
 .title{width:100%; clear:both; height:25px; border:1px solid #ccc; background:url(/html/nds/portal/ssv/images/title_bg.gif) repeat-x left top;}
 .fa_title{width:100%; clear:both; height:28px; border-top:1px solid #ccc; border-bottom:1px solid #ccc; background:url("/html/nds/themes/classic/01/images/left-top.png") repeat-x scroll right 0 transparent;}
 .fa_title_sp{
