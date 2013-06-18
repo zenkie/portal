@@ -1241,7 +1241,7 @@ ObjectControl.prototype = {
 		if(r.message){
 			msgbox(r.message.replace(/<br>/g,"\n"));
 		}
-		  this.closeDialog();
+		  this.closeDialog("popup-iframe-0");
 	},
 		/**
 	 *add by robin 20130110 for meterial
