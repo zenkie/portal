@@ -22,7 +22,7 @@
 	<import value="java.util.*" />
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
-	<reportFont name="song" isDefault="true" fontName="宋体" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
+	<reportFont name="song" isDefault="true" fontName="宋体" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
 
 	<parameter name="objectid" isForPrompting="true" class="java.lang.Integer">
 		<parameterDescription><![CDATA[objectid]]></parameterDescription>
@@ -53,25 +53,25 @@
 			</band>
 		</background>
 		<title>
-			<band height="59"  isSplitAllowed="true" >
+			<band height="57"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="5"
-						y="25"
-						width="44"
+						y="23"
+						width="54"
 						height="15"
 						key="staticText-2"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[发货店仓:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="49"
-						y="40"
-						width="123"
+						x="59"
+						y="38"
+						width="128"
 						height="15"
 						forecolor="#000000"
 						key="textField-1"/>
@@ -81,59 +81,59 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement>
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="5"
-						y="40"
+						y="38"
 						width="54"
 						height="15"
 						key="staticText-7"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[打印日期：]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="496"
-						y="40"
+						y="38"
 						width="28"
 						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{PAGE_NUMBER} + " /"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="512"
-						y="40"
+						y="38"
 						width="33"
 						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[" "+$V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="49"
-						y="25"
-						width="235"
+						x="59"
+						y="23"
+						width="229"
 						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ORGNAME}]]></textFieldExpression>
 				</textField>
@@ -146,46 +146,46 @@
 						key="staticText-19"/>
 					<box></box>
 					<textElement textAlignment="Center">
-						<font reportFont="song"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[检货合并]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="288"
-						y="25"
-						width="44"
+						y="23"
+						width="51"
 						height="15"
 						key="staticText-24"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[收货店仓:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="471"
-						y="40"
+						y="38"
 						width="28"
 						height="15"
 						key="staticText-31"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[page:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="331"
-						y="25"
-						width="235"
+						x="339"
+						y="23"
+						width="227"
 						height="15"
 						key="textField-3"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ORGNAME}]]></textFieldExpression>
 				</textField>
@@ -211,7 +211,7 @@
 						key="staticText-37"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[款号]]></text>
 				</staticText>
@@ -224,7 +224,7 @@
 						key="staticText-38"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[品名]]></text>
 				</staticText>
@@ -237,7 +237,7 @@
 						key="staticText-39"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[条码]]></text>
 				</staticText>
@@ -250,7 +250,7 @@
 						key="staticText-40"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[颜色]]></text>
 				</staticText>
@@ -263,7 +263,7 @@
 						key="staticText-41"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[尺寸]]></text>
 				</staticText>
@@ -276,7 +276,7 @@
 						key="staticText-42"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[数量]]></text>
 				</staticText>
@@ -314,30 +314,30 @@
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="20"  isSplitAllowed="true" >
+			<band height="17"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="5"
 						y="2"
-						width="44"
+						width="54"
 						height="15"
 						key="staticText-36"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[提货单号:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="yyyy-MM-dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="49"
+						x="59"
 						y="2"
-						width="518"
+						width="508"
 						height="15"
 						key="textField-2"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOCNO}]]></textFieldExpression>
 				</textField>

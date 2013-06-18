@@ -22,6 +22,7 @@
 	<import value="java.util.*" />
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
+	<reportFont name="song" isDefault="true" fontName="宋体" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
 
 	<style 
 		name="header"
@@ -43,7 +44,7 @@
 		<parameterDescription><![CDATA[objectid1]]></parameterDescription>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["file:///e:/act.nea/jreport/"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["file:///d:/act.nea/jreport/"]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[select e.name,e.id as pdtid,b.VALUE1,b.VALUE2,a.qty,f.attribname,g.QTY as qty2,f.id,to_char(i.martixcol,'000') as martixcol
 from   m_box_pickup a,M_ATTRIBUTESETINSTANCE b,m_product c,M_PRODUCT e,m_dim f,V_FA_STORAGE g,m_box_src h,M_ATTRIBUTEVALUE i
@@ -120,8 +121,8 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.25"/>
 </box>
-					<textElement verticalAlignment="Bottom">
-						<font size="8"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
 					</textElement>
 				<text><![CDATA[款号]]></text>
 				</staticText>
@@ -130,7 +131,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 						style="header"
 						x="111"
 						y="0"
-						width="190"
+						width="184"
 						height="15"
 						key="staticText-4"/>
 					<box>					<pen lineWidth="0.25"/>
@@ -139,17 +140,17 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.25"/>
 </box>
-					<textElement verticalAlignment="Bottom">
-						<font size="8"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
 					</textElement>
 				<text><![CDATA[检货量]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						style="header"
-						x="301"
+						x="295"
 						y="0"
-						width="34"
+						width="43"
 						height="15"
 						key="staticText-5"/>
 					<box>					<pen lineWidth="0.25"/>
@@ -158,15 +159,15 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.25"/>
 </box>
-					<textElement verticalAlignment="Bottom">
-						<font size="8"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
 					</textElement>
 				<text><![CDATA[数量小计]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						style="header"
-						x="335"
+						x="338"
 						y="0"
 						width="23"
 						height="15"
@@ -177,15 +178,15 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.25"/>
 </box>
-					<textElement textAlignment="Left" verticalAlignment="Bottom">
-						<font size="8"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
 					</textElement>
 				<text><![CDATA[库位]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						style="header"
-						x="457"
+						x="460"
 						y="0"
 						width="66"
 						height="15"
@@ -196,8 +197,8 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.25"/>
 </box>
-					<textElement verticalAlignment="Bottom">
-						<font size="8"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
 					</textElement>
 				<text><![CDATA[]]></text>
 				</staticText>
@@ -215,8 +216,8 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.25"/>
 </box>
-					<textElement verticalAlignment="Bottom">
-						<font size="8"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
 					</textElement>
 				<text><![CDATA[颜色]]></text>
 				</staticText>
@@ -234,14 +235,14 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.25"/>
 </box>
-					<textElement verticalAlignment="Bottom">
-						<font size="8"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
 					</textElement>
 				<text><![CDATA[配饰信息]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="358"
+						x="361"
 						y="0"
 						width="99"
 						height="15"
@@ -252,8 +253,8 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 </box>
-					<textElement textAlignment="Center" verticalAlignment="Bottom">
-						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font reportFont="song"/>
 					</textElement>
 				<text><![CDATA[库存量]]></text>
 				</staticText>

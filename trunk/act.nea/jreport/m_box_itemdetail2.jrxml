@@ -22,6 +22,7 @@
 	<import value="java.util.*" />
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
+	<reportFont name="song" isDefault="true" fontName="宋体" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
 
 	<style 
 		name="common"
@@ -123,7 +124,10 @@ order by to_char(i.martixcol,'000')]]></queryString>
 						height="137"
 						key="crosstab-1"/>
 					<crosstabHeaderCell>						<cellContents mode="Transparent">
-					<box>					<bottomPen lineWidth="0.0"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 </box>
 				<staticText>
 					<reportElement
@@ -138,7 +142,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement>
-						<font/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[]]></text>
 				</staticText>
@@ -155,7 +159,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement>
-						<font/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[]]></text>
 				</staticText>
@@ -172,7 +176,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement>
-						<font/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[]]></text>
 				</staticText>
@@ -199,7 +203,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{name}]]></textFieldExpression>
 				</textField>
@@ -207,7 +211,11 @@ order by to_char(i.martixcol,'000')]]></queryString>
 						</crosstabRowHeader>
 						<crosstabTotalRowHeader>
 						<cellContents mode="Transparent">
-					<box></box>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
 				<staticText>
 					<reportElement
 						style="common"
@@ -223,7 +231,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[合计]]></text>
 				</staticText>
@@ -242,7 +250,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement>
-						<font size="8"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[]]></text>
 				</staticText>
@@ -271,7 +279,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{value1}]]></textFieldExpression>
 				</textField>
@@ -300,7 +308,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{addsdesc}]]></textFieldExpression>
 				</textField>
@@ -329,7 +337,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{value2}]]></textFieldExpression>
 				</textField>
@@ -351,7 +359,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement>
-						<font/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[]]></text>
 				</staticText>
@@ -368,7 +376,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement>
-						<font/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[]]></text>
 				</staticText>
@@ -417,7 +425,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{qty}]]></textFieldExpression>
 				</textField>
@@ -441,7 +449,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{tot_sum}]]></textFieldExpression>
 				</textField>
@@ -475,7 +483,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{sum}]]></textFieldExpression>
 				</textField>
@@ -491,7 +499,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{location}]]></textFieldExpression>
 				</textField>
@@ -525,7 +533,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{sum}]]></textFieldExpression>
 				</textField>
@@ -545,7 +553,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[]]></text>
 				</staticText>
@@ -602,24 +610,10 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{value2}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement
-						style="common"
-						x="16"
-						y="7"
-						width="0"
-						height="0"
-						key="staticText-1"/>
-					<box></box>
-					<textElement>
-						<font/>
-					</textElement>
-				<text><![CDATA[Static Text]]></text>
-				</staticText>
 						</cellContents>
 						</crosstabColumnHeader>
 					</columnGroup>
@@ -647,7 +641,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{qty2}]]></textFieldExpression>
 				</textField>
@@ -670,7 +664,7 @@ order by to_char(i.martixcol,'000')]]></queryString>
 					<rightPen lineWidth="0.25"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" size="8" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{sum}]]></textFieldExpression>
 				</textField>

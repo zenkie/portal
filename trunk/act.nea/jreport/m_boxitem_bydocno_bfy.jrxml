@@ -83,7 +83,7 @@ and b.boxno=$P{boxno}]]></queryString>
 						key="textField-17"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NO}]]></textFieldExpression>
 				</textField>
@@ -96,7 +96,7 @@ and b.boxno=$P{boxno}]]></queryString>
 						key="textField-18"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
 				</textField>
@@ -104,12 +104,12 @@ and b.boxno=$P{boxno}]]></queryString>
 					<reportElement
 						x="178"
 						y="3"
-						width="73"
+						width="64"
 						height="15"
 						key="textField-19"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{VALUE1}]]></textFieldExpression>
 				</textField>
@@ -117,12 +117,12 @@ and b.boxno=$P{boxno}]]></queryString>
 					<reportElement
 						x="242"
 						y="3"
-						width="67"
+						width="57"
 						height="15"
 						key="textField-20"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{VALUE2}]]></textFieldExpression>
 				</textField>
@@ -135,7 +135,7 @@ and b.boxno=$P{boxno}]]></queryString>
 						key="textField-21"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{QTYOUT}]]></textFieldExpression>
 				</textField>
@@ -148,20 +148,20 @@ and b.boxno=$P{boxno}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font reportFont="song" isPdfEmbedded ="true"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{PRICELIST}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="397"
+						x="421"
 						y="3"
 						width="46"
 						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font reportFont="song" isPdfEmbedded ="true"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOTALL}]]></textFieldExpression>
 				</textField>
@@ -191,7 +191,7 @@ and b.boxno=$P{boxno}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid"/>
 </box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[  该箱合计:]]></text>
 				</staticText>
@@ -205,7 +205,7 @@ and b.boxno=$P{boxno}]]></queryString>
 					<box>					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
 </box>
 					<textElement textAlignment="Left">
-						<font reportFont="song" size="9"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{box_qty}]]></textFieldExpression>
 				</textField>

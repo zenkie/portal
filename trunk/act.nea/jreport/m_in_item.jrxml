@@ -90,7 +90,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[数量]]></text>
 				</staticText>
@@ -110,7 +110,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[入库量]]></text>
 				</staticText>
@@ -130,7 +130,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[标准价]]></text>
 				</staticText>
@@ -150,7 +150,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[标准金额]]></text>
 				</staticText>
@@ -170,7 +170,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[入库标准金额]]></text>
 				</staticText>
@@ -190,7 +190,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[商品]]></text>
 				</staticText>
@@ -210,9 +210,9 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
-				<text><![CDATA[配饰信息]]></text>
+				<text><![CDATA[品名]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -230,7 +230,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[颜色]]></text>
 				</staticText>
@@ -250,7 +250,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[尺寸]]></text>
 				</staticText>
@@ -282,7 +282,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font reportFont="song10"/>
+						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{QTY}]]></textFieldExpression>
 				</textField>
@@ -301,7 +301,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font reportFont="song10"/>
+						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{QTYIN}]]></textFieldExpression>
 				</textField>
@@ -320,7 +320,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font reportFont="song10"/>
+						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{PRICELIST}]]></textFieldExpression>
 				</textField>
@@ -339,7 +339,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font reportFont="song10"/>
+						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_AMT_LIST}]]></textFieldExpression>
 				</textField>
@@ -358,7 +358,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font reportFont="song10"/>
+						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOT_AMTIN_LIST}]]></textFieldExpression>
 				</textField>
@@ -377,7 +377,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font reportFont="song10"/>
+						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PRODUCTNAME}]]></textFieldExpression>
 				</textField>
@@ -396,7 +396,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font reportFont="song10"/>
+						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{VALUE1}]]></textFieldExpression>
 				</textField>
@@ -415,7 +415,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font reportFont="song10"/>
+						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{VALUE2}]]></textFieldExpression>
 				</textField>
@@ -430,7 +430,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<textElement>
 						<font fontName="宋体" pdfFontName="STSong-Light" isPdfEmbedded ="true" pdfEncoding ="UniGB-UCS2-H"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ATT}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PRODUCTNAME}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
@@ -454,7 +454,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Right">
-						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["共 " + $V{PAGE_NUMBER} + " 页， "]]></textFieldExpression>
 				</textField>
@@ -474,7 +474,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement>
-						<font fontName="宋体" pdfFontName="STSong-Light" size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[" 第 " + $V{PAGE_NUMBER} + " 页 "]]></textFieldExpression>
 				</textField>
@@ -491,7 +491,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{sum1}]]></textFieldExpression>
 				</textField>
@@ -504,7 +504,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{sum2}]]></textFieldExpression>
 				</textField>
@@ -517,7 +517,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{sum4}]]></textFieldExpression>
 				</textField>
@@ -530,7 +530,7 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{sum5}]]></textFieldExpression>
 				</textField>
@@ -550,19 +550,10 @@ and b.m_in_id=$P{objectid1}]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font reportFont="song10" size="12"/>
+						<font fontName="宋体" pdfFontName="STSong-Light" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="UniGB-UCS2-H" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[总合计:]]></text>
 				</staticText>
-				<rectangle>
-					<reportElement
-						x="41"
-						y="12"
-						width="49"
-						height="0"
-						key="rectangle-1"/>
-					<graphicElement stretchType="NoStretch"/>
-				</rectangle>
 				<line direction="TopDown">
 					<reportElement
 						x="3"
