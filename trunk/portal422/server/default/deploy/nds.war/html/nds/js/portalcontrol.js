@@ -1310,16 +1310,17 @@ PortalControl.prototype = {
 		evt["nds.control.ejb.UserTransaction"]="N";
 		evt.parsejson="Y"; // to normal event
 		if($("comments")!=null)evt.comments=$("comments").value;
-		var itemids= $("form1").getInputs("checkbox","itemid");
+		var itemids=$("form1").getInputs("checkbox","itemid");
 		var iids=new Array();
 		for(var i=0;i<itemids.length;i++){
 			if(itemids[i].checked) iids.push(itemids[i].value);
 		}
 		evt.itemid=iids;
-		if(iids.length==0 && (act=="accept" || act=="reject" || act=="assign")){
-		alert("请勾选单据");
-		return false;
+		if(iids.length==0 && (act=="accept"||act=="reject"||act=="assign")){
+			alert("请选择单据!");
+			return false;
 		}
+
 		this.executeCommandEvent(evt);
 
 	},
@@ -1347,15 +1348,15 @@ PortalControl.prototype = {
 		evt["nds.control.ejb.UserTransaction"]="N";
 		evt.parsejson="Y"; // to normal event 
 		if($("comments")!=null)evt.comments=$("comments").value;
-		var itemids= $("form1").getInputs("checkbox","itemid");
+		var itemids=$("form1").getInputs("checkbox","itemid");
 		var iids=new Array();
 		for(var i=0;i<itemids.length;i++){
 			if(itemids[i].checked) iids.push(itemids[i].value);
 		}
 		evt.itemid=iids;
-		if(iids.length==0 && (act=="accept" || act=="reject" || act=="assign")){
-				alert("请勾选单据");
-				return false;
+		if(iids.length==0 && (act=="accept"||act=="reject"||act=="assign")){
+			alert("请选择单据!");
+			return false;
 		}
 		this.executeCommandEvent(evt);
 	},	
