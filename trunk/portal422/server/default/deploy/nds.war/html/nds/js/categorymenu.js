@@ -154,9 +154,15 @@ function CategoryTabItem(oTableCategory) {
 	categoryTabHandler.all["C"+this.id] = this;
 }
 CategoryTabItem.prototype.select = function() {
-	if ((categoryTabHandler.selected) && (categoryTabHandler.selected != this)) { categoryTabHandler.selected.deSelect(); }
+	if ((categoryTabHandler.selected) && (categoryTabHandler.selected != this)) { 
+		if(categoryTabHandler.selected.id!=0&&this.oTableCategory.id==0){
+			window.location="/html/nds/portal/portal.jsp";
+		};
+		categoryTabHandler.selected.deSelect(); 
+	}
 	categoryTabHandler.selected = this;
 	document.getElementById("page-tab-"+this.id).className="page-tab-selected";
+	//alert(this.oTableCategory.url);
 	if(dwr.engine._preHook) dwr.engine._preHook();
 	new Ajax.Request(this.oTableCategory.url, {
 	  method: 'get',
