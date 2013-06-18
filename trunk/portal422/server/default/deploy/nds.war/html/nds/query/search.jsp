@@ -5,12 +5,12 @@
 <%
  /**
  * Do quick search in popup window. When table.isDropdown==true, will so data directly
- * param 
+ * param
  *      table* - table id to be queried
  *      return_type*  - "m" for mutiple, and "s" for single, "n" for none, "f" for Filter
  			"f" - will create nds.schema.Filter object for that accepter.
  * 		accepter_id*  - element id of document to recieve the result
- *      qdata		- the default condition for AK column in search form, can be omitted. 
+ *      qdata		- the default condition for AK column in search form, can be omitted.
  					By default, user can input qdata in textbox, then presss query button to open search form, and in search form (this page),
  					qdata will appear in ak input position, user press find button and qdata will be constructed in query sql consequently.
  		fixedcolumns - columns that willl be fixed during query
@@ -23,7 +23,7 @@ String returnType= request.getParameter("return_type");
 String accepter_id= request.getParameter("accepter_id");
 String qdata= request.getParameter("qdata");
 String security= request.getParameter("security");
-int queryindex =Tools.getInt(request.getParameter("queryindex"),-1)+1;
+int queryindex =Tools.getInt(request.getParameter("queryindex"),-1)+1;
 if(Validator.isNull(qdata))qdata="";
 boolean mustBeActive=Tools.getYesNo(request.getParameter("mustbeactive"),true);
 boolean immediate=Tools.getYesNo(request.getParameter("immediate"),false);
@@ -45,11 +45,11 @@ String addURL="/html/nds/object/object.jsp?table="+tableId+"&id=-1";
 
 QueryRequestImpl qRequest=QueryEngine.getInstance().createRequest(userWeb.getSession());
 qRequest.setMainTable(table.getId());
-// show all columns 
+// show all columns
 qRequest.addAllShowableColumnsToSelection(Column.QUERY_LIST,false);
 qRequest.setResultHandler(NDS_PATH+"/query/ajax_result.jsp");
 Expression sexpr= userWeb.getSecurityFilter(table.getName(), 1);// read permission
-
+System.out.print(request.getParameter("fixedcolumns"));
 PairTable fixedColumns=PairTable.parse(request.getParameter("fixedcolumns"), null);    // columnlink=value
 
 Expression fixedExpr=Expression.parsePairTable(fixedColumns);// nerver null, maybe empty
@@ -124,7 +124,7 @@ if(allowMultipleSelection){
 		 <ul class="gamma-tab">
 			<li class="current"><%= PortletUtils.getMessage(pageContext, "multi-result",null)%></li>
 		</ul>
-		<div id="multi-content">		
+		<div id="multi-content">
 			<div id="multi-list_<%=queryindex%>" class="multi-list">
 					<%@ include file="/html/nds/query/multiple_result.jsp" %>
 				</div>
@@ -140,21 +140,21 @@ if(allowMultipleSelection){
 		</td>
 		<td width="99%" valign="top">
 <%}
-%>		
+%>
 <div id="query_content" align="right">
 <%
  if ((searchOnColumn != null) && (searchOnColumn.isFilteredByWildcard()) && ((!allowMultipleSelection) || (searchOnColumn.getDisplaySetting().getObjectType() == 12))){
  /*
-	if(searchOnColumn!=null && searchOnColumn.isFilteredByWildcard() 
-		 && !allowMultipleSelection 
+	if(searchOnColumn!=null && searchOnColumn.isFilteredByWildcard()
+		 && !allowMultipleSelection
 		){
 		*/
 		Expression expr= WebUtils.parseWildcardFilter(searchOnColumn,request,userWeb);
 %>
-<input type='hidden' id="q_form_param_expr_<%=queryindex%>" name='param_expr' value='<%=expr.toHTMLInputElement()%>'>	
-<%		
+<input type='hidden' id="q_form_param_expr_<%=queryindex%>" name='param_expr' value='<%=expr.toHTMLInputElement()%>'>
+<%
 	}
-%>	
+%>
 <form id="q_form_<%=queryindex%>" name="q_form_<%=queryindex%>" method="post" action="/servlets/QueryInputHandler" onSubmit="oq.search();return false;" >
     <input type='hidden' name='tab_count' value='<%=tab_count%>'>
 	<div id="query-search-content">
@@ -164,7 +164,7 @@ if(allowMultipleSelection){
 				<div id="q_search_condition">
 				<%@ include file="inc_search_condition.jsp" %>
 				</div>
-			</div>      
+			</div>
 		</div><%//end id="query-search-tab"%>
 	</div>
 </form>
@@ -256,8 +256,8 @@ if(allowMultipleSelection){
 	<%}%>
 <%
 	if(immediate || table.isDropdown() || (table.getRowCount()<100 && table.getRowCount()>0) ){
-%>	
-	oq.search(); 
+%>
+	oq.search();
 <%}
-%> 
+%>
 </script>
