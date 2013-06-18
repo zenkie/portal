@@ -35,6 +35,7 @@ org/apache/jspc/html/nds/object/ajax_005fobject_jsp.java
 org/apache/jspc/html/nds/object/inlineobj_jsp.java
 org/apache/jspc/html/nds/object/multiple_005fobject_jsp.java
 org/apache/jspc/html/nds/object/object_jsp.java
+org/apache/jspc/html/nds/object/workflow_jsp.java
 org/apache/jspc/html/nds/objext/batchupdate_jsp.java
 org/apache/jspc/html/nds/objext/copyto_jsp.java
 org/apache/jspc/html/nds/objext/template_jsp.java
