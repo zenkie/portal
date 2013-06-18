@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <div>
-<table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0" id="modify_table">
+<table border="1" align="center" cellpadding="0" cellspacing="0" id="modify_table_q">
  <tbody id="content_<%=queryindex%>">
 <tr id="m_multiple_row_<%=queryindex%>" style="display:none;" class="emtbts">
 	  <td width="20" id="m_multiple_<%=queryindex%>">&nbsp;</td>
