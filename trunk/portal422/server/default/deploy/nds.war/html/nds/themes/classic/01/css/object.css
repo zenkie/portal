@@ -294,6 +294,38 @@ fieldset.line{
   padding: 0px 0px 0px 5px;
 }
 
+#modify_table_q{
+border-collapse: collapse;
+}
+
+#modify_table_q thead {
+background: #fff;
+}
+
+#modify_table_q thead td {
+border: 1px solid #77A5E0;
+background:url(/html/nds/images/obj-center-menu-bg.jpg);
+cursor: pointer;
+_cursor:hand;
+white-space: nowrap;
+ text-align: center;
+  font-size: 12px;
+}
+
+#modify_table_q tr {
+height:20px;
+}
+
+#modify_table_q td {
+white-space: nowrap;
+border-bottom: 1px solid #DBE2E7;
+border-left: 1px solid #DBE2E7;
+border-right: 1px solid #DBE2E7;
+border-top: 1px solid #DBE2E7;
+word-break: break-all;
+ text-align: center;
+}
+
 .modify_table,
 #modify_table{
 width:100%;
@@ -323,6 +355,7 @@ white-space: nowrap;
 border-bottom: 1px solid #DBE2E7;
 border-left: 1px solid #DBE2E7;
 border-right: 1px solid #DBE2E7;
+border-top: 1px solid #DBE2E7;
 word-break: break-all;
  text-align: center;
 }
