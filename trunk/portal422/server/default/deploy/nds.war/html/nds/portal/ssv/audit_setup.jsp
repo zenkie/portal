@@ -19,14 +19,13 @@ fkQueryModel.setQueryindex(-1);
 	<tr>
 		<td align="center">
 			<table border="0" cellpadding="0" cellspacing="0">
-			
 			<tr>
 				<td>
 					<table border="0" cellpadding="0" cellspacing="0">
 					<tr>
 						<td>
 							<font class="gamma" size="2">
-							<%= PortletUtils.get(pageContext, "assign-to") %>
+							<%=PortletUtils.getMessage(pageContext,"assign-to")%>
 							</font>
 						</td>
 						<td width="10">
