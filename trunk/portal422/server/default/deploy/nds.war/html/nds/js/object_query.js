@@ -133,6 +133,7 @@ ObjectQuery.prototype = {
 			  	  	if(exc!=null && exc.length>0){
 			  	  		alert(decodeURIComponent(exc));
 			  	  	}else{
+			  	  		options.content=transport.responseText;
 			  	  		var par=art.dialog(options);
 			  	  		 //4.6 转载时自动运行SCRIPT脚本
 			  	  		//var pdiv=$(par.data.id);
@@ -210,6 +211,7 @@ ObjectQuery.prototype = {
 				  	  		var pt=$(popup);
 				    		pt.innerHTML=transport.responseText;
 				    		executeLoadedScript(pt);*/
+							options.content=transport.responseText;
 				    		var par=art.dialog(options);
 				    		//4.6 转载时自动运行SCRIPT脚本
 			  	  		//var pdiv=$(par.data.id);
