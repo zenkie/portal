@@ -1307,6 +1307,7 @@ PortalControl.prototype = {
 		}
 		evt.command=$("command").value;
 		evt.callbackEvent="ExecuteAudit";
+		evt["nds.control.ejb.UserTransaction"]="N";
 		evt.parsejson="Y"; // to normal event
 		if($("comments")!=null)evt.comments=$("comments").value;
 		var itemids= $("form1").getInputs("checkbox","itemid");
@@ -1314,9 +1315,49 @@ PortalControl.prototype = {
 		for(var i=0;i<itemids.length;i++ )
 			if(itemids[i].checked) iids.push(itemids[i].value);
 		evt.itemid= iids;
+		if(iids.length==0 && (act=="accept" || act=="reject" || act=="assign")){
+		alert("请勾选单据");
+		return false;
+		}
 		this.executeCommandEvent(evt);
 
 	},
+
+	submitAuditForm2:function(act){
+		var evt={};
+		if(act=='assign' || act=='setout'){
+		 	var v=$("assignee2").value;
+	 		if (v==null || v.length==0){
+	 		 	alert("请选择代办人");
+	 		 	$("assignee").focus();
+	 		 	return false;
+	 		}
+	 		
+	 		evt.assignee=v;
+	 	}
+	 	if($("auditActionType").value=="auditAction")
+			evt.auditAction= act;
+		else{
+			evt.auditSetupAction= act;
+		}
+		evt.command=$("command").value;
+		evt["next-screen"]= "/html/nds/portal/portal.jsp";
+		evt.callbackEvent="ExecuteAudit";
+		evt["nds.control.ejb.UserTransaction"]="N";
+		evt.parsejson="Y"; // to normal event 
+		if($("comments")!=null)evt.comments=$("comments").value;
+		var itemids= $("form1").getInputs("checkbox","itemid");
+		var iids=new Array();
+		for(var i=0;i<itemids.length;i++ )
+			if(itemids[i].checked) iids.push(itemids[i].value);
+		evt.itemid= iids;
+		if(iids.length==0 && (act=="accept" || act=="reject" || act=="assign")){
+				alert("请勾选单据");
+				return false;
+		}
+		this.executeCommandEvent(evt);
+	},	
+
 	/***
 	* Invoke by buttons, include btn_begin,btn_next,btn_prev,btn_end
 	@param t id of the button
