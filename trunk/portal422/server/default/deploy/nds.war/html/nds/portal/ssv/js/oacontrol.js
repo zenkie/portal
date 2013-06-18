@@ -39,7 +39,7 @@ OAControl.prototype = {
 		if(r.message){
 			msgbox(r.message.replace(/<br>/g,"\n"));
 		}
-		window.location="/html/nds/portal/ssv/index.jsp";
+		window.location="/html/nds/portal/portal.jsp";
 		//window.location.reload(true);
 	},
 	clearCache:function(){
@@ -73,6 +73,7 @@ OAControl.prototype = {
 			}
 		}
 	},
+
 	checkAll:function(fm){
 		var ca=$("chk_select_all");
 		
@@ -83,6 +84,7 @@ OAControl.prototype = {
 			cks[i].checked= ck;
 		}
 	},
+
 	unselectall:function(){
 	 	dwr.util.setValue($("chk_select_all"), false);
 	},
@@ -91,20 +93,28 @@ OAControl.prototype = {
 	*/
 	auditObj:function(aid){
 		
-		showObject2("/html/nds/object/audit.jsp?id="+aid,{onClose:new Function('window.location="/html/nds/portal/ssv/index.jsp";')});
-  	
-  	},
-  		showdlg2:function(url){
+		showObject2("/html/nds/object/audit.jsp?id="+aid,{close:function(){window.location="/html/nds/portal/portal.jsp";}});
+	},
+
+	showdlg2:function(url){
+		/*
 		var popup = Alerts.fireMessageBox2({
 				width:530,height:100,modal:true,centerMode:"xy",noCenter:true,title:"外出设置",queryindex:-1,
 				onClose: function() {window.location="/html/nds/portal/ssv/index.jsp";}
-			});
-  	new Ajax.Request(url, {
+			});*/
+		var options=$H({queryindex:-1,padding: 0,width:530,height:200,border: true,resize:true,title:'外出设置',skin:'chrome',drag:true,lock:true,esc:true,
+			close:function(){window.location="/html/nds/portal/portal.jsp";}});
+		
+		new Ajax.Request(url, {
 		  method: 'get',
 		  onSuccess: function(transport) {
-		  	var pt=$(popup);
-		    pt.innerHTML=transport.responseText;
-		    executeLoadedScript(pt);
+			  /*
+			  var pt=$(popup);
+			  pt.innerHTML=transport.responseText;
+			  executeLoadedScript(pt);
+			  */
+			  options.content=transport.responseText;
+			  var par=art.dialog(options);
 		  },
 		  onFailure:function(transport){
 		  	  	if(transport.getResponseHeader("nds.code")=="1"){
@@ -115,17 +125,17 @@ OAControl.prototype = {
 		  	  	if(exc!=null && exc.length>0){
 		  	  		alert(decodeURIComponent(exc));	
 		  	  	}else{
-		  	  		var pt=$(popup);
-		    		pt.innerHTML=transport.responseText;
-		    		executeLoadedScript(pt);
-		  	  	}
+				/*var pt=$(popup);
+				pt.innerHTML=transport.responseText;
+				executeLoadedScript(pt);
+				*/
+				  options.content=transport.responseText;
+				  var par=art.dialog(options);
+				}
 		  }
-		});	
-	
-		Alerts.center();  
-  	
-  	
-  	},
+		});
+		//Alerts.center();
+	},
   	
   	showdlg:function(url){
 		var popup = Alerts.fireMessageBox({
@@ -200,7 +210,7 @@ OAControl.prototype = {
 			evt.auditSetupAction= act;
 		}
 		evt.command=$("command").value;
-		evt["next-screen"]= "/html/nds/portal/ssv/index.jsp";
+		evt["next-screen"]= "/html/nds/portal/portal.jsp";
 		evt.callbackEvent="ExecuteAudit";
 		evt["nds.control.ejb.UserTransaction"]="N";
 		evt.parsejson="Y"; // to normal event 
@@ -214,7 +224,7 @@ OAControl.prototype = {
 				alert("请勾选单据");
 				return false;
 		}
-		this._executeCommandEvent(evt);    	
+		this._executeCommandEvent(evt);
 	 	
 	},	
 	submitAuditForm2:function(act){
@@ -235,7 +245,7 @@ OAControl.prototype = {
 			evt.auditSetupAction= act;
 		}
 		evt.command=$("command").value;
-		evt["next-screen"]= "/html/nds/portal/ssv/index.jsp";
+		evt["next-screen"]= "/html/nds/portal/ssv/home.jsp";
 		evt.callbackEvent="ExecuteAudit";
 		evt["nds.control.ejb.UserTransaction"]="N";
 		evt.parsejson="Y"; // to normal event 
@@ -249,7 +259,7 @@ OAControl.prototype = {
 				alert("请勾选单据");
 				return false;
 		}
-		this._executeCommandEvent(evt);    	
+		this._executeCommandEvent(evt);
 	 	
 	},	
 	/**
@@ -258,7 +268,7 @@ OAControl.prototype = {
 	*/
 	_executeCommandEvent :function (evt) {
 		showProgressWindow(true);
-		ajaxController.handle(Object.toJSON(evt), function(r){
+		Controller.handle(Object.toJSON(evt), function(r){
 				//console.log(r);
 				//try{
 					var result= r.evalJSON();
@@ -317,16 +327,15 @@ function autoH() {
 function dlgo(tableId, objId){
 	popup_window("/html/nds/object/object.jsp?table="+tableId+"&id="+objId);
 }
+/*
 function showObject(url, theWidth, theHeight,option){
 	if( theWidth==undefined || theWidth==null) theWidth=956;
     if( theHeight==undefined|| theHeight==null) theHeight=570;
-	var options={width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"xy",noCenter:true,maxButton:true,onClose:new Function('window.location="/html/nds/portal/ssv/index.jsp";')};
-    if(option!=undefined) 
-    	Object.extend(options, option);
-	Alerts.popupIframe(url,options);
-	Alerts.resizeIframe(options);
-	Alerts.center();
+	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,ifrid:'popup-iframe-0',resize:true,drag:true,lock:true,skin:'chrome',ispop:true,close:new Function('window.location="/html/nds/portal/portal.jsp";')});
+	if(option!=undefined) Object.extend(options, option);
+	art.dialog.open(url,options);
 }
+
 function showObject2(url,option, theWidth, theHeight){
 	
 	if( theWidth==undefined) theWidth=956;
@@ -336,17 +345,19 @@ function showObject2(url,option, theWidth, theHeight){
     	theWidth=screen.availWidth;
     	theHeight=screen.availHeight;
     }
-	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE, modal:true,centerMode:"x",noCenter:true,maxButton:true,onClose:new Function('window.location="/html/nds/portal/ssv/index.jsp";')});
+	var options=$H({width:theWidth,height:theHeight,title:gMessageHolder.IFRAME_TITLE,ifrid:'popup-iframe-0',resize:true,drag:true,lock:true,skin:'chrome',ispop:true,close:new Function('window.location="/html/nds/portal/portal.jsp";')});
 	if(options!=undefined) options.merge(option);
-	if(options.iswindow==true){		
+	if(options.iswindow==true){
 		popup_window(url,options.target, options.width,options.height);
 	}else{
-	
-		Alerts.popupIframe(url,options);		
-		Alerts.resizeIframe(options);
-		Alerts.center2();
+		//alert(options.title);
+		art.dialog.open(url,options);
+		//Alerts.popupIframe(url,options);
+		//Alerts.resizeIframe(options);
+		//Alerts.center();
 	}
 }
+*/
 function executeLoadedScript(el) {
 	var scripts = el.getElementsByTagName("script"); // to enable all scripts, el must be set in table
 	for (var i = 0; i < scripts.length; i++) {
