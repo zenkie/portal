@@ -1315,7 +1315,7 @@ PortalControl.prototype = {
 		for(var i=0;i<itemids.length;i++){
 			if(itemids[i].checked) iids.push(itemids[i].value);
 		}
-		evt.itemid= iids;
+		evt.itemid=iids;
 		if(iids.length==0 && (act=="accept" || act=="reject" || act=="assign")){
 		alert("请勾选单据");
 		return false;
@@ -1352,7 +1352,7 @@ PortalControl.prototype = {
 		for(var i=0;i<itemids.length;i++){
 			if(itemids[i].checked) iids.push(itemids[i].value);
 		}
-		evt.itemid= iids;
+		evt.itemid=iids;
 		if(iids.length==0 && (act=="accept" || act=="reject" || act=="assign")){
 				alert("请勾选单据");
 				return false;
