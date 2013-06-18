@@ -274,7 +274,8 @@ columns=table.getShowableColumns(actionType);
 %>
 <div id="obj-top">
 <div class="buttons">
-	<%= LanguageUtil.get(pageContext, "audit-comments",null)%>:<input id="comments" class="form-text" type="text" value="" name="comments" maxlength="255" size="80"/>&nbsp;
+	&nbsp;&nbsp;
+	<%=LanguageUtil.get(pageContext,"audit-comments",null)%>:<input id="comments" class="form-text" type="text" value="" name="comments" maxlength="255" size="80"/>&nbsp;
 	<span id="buttons"><!--BUTTONS_BEGIN-->
 	<%
 	 validCommands.add(commandFactory.newButtonInstance("Accept", PortletUtils.getMessage(pageContext, "object.accept",null),"oc.audit('accept',"+auditid+")","A"));
@@ -285,7 +286,7 @@ columns=table.getShowableColumns(actionType);
 %>
 <%@ include file="inc_command.jsp" %>
 			<!--BUTTONS_END--></span>
-	<span id="closebtn"></span>
+	<span id="closebtn"></span><a href="workflow.jsp?table=<%=tableId%>&id=<%=objectId%>"><%=PortletUtils.getMessage(pageContext, "view-workflow",null)%></a> 
 	</div>
 	<div id="message" class="nt"  style="visibility:hidden;">
 	</div>
