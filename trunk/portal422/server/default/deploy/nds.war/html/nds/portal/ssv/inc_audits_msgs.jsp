@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ include file="/html/nds/common/init.jsp" %>
 <%
 MessagesHolder mh = MessagesHolder.getInstance();
 String header_message="";
