@@ -314,6 +314,18 @@ SubSystem ss;
 			</ul>
 		</div>
     </div><!--end main_right-->
+	    <div class="main_right">
+    	<div class="main_box">
+        	<div class="title">
+            	<div class="title_left">&nbsp;<img src="/html/nds/portal/ssv/images/wth.png"></div>
+                &nbsp;<h1>&nbsp;&nbsp;&nbsp;天气指南</h1>
+                <div class="title_right">&nbsp;</div>
+            </div><!--end title-->
+		</div>
+		<div id="wth">
+			<iframe src="http://www.thinkpage.cn/weather/weather.aspx?uid=jackrain&cid=101010100&l=zh-CHS&p=CMA&a=1&u=C&s=12&m=1&x=1&d=3&fc=&bgc=&bc=&ti=1&in=1&li=2&ct=iframe" frameborder="0" scrolling="no" width="210" height="280" allowTransparency="true"></iframe>
+		</div>
+	</div>
 </body>
 </html>
 
