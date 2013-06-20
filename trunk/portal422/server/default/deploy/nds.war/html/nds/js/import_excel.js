@@ -126,7 +126,7 @@ ImportXLS.prototype = {
 				jQuery("#btnImport").attr("disabled", "");
 				return;
 			}
-			para.update_columns= a;
+			para.update_columns=a.join(",");
 			jQuery("#update_columns").val(a.join(","));
 		}
 		

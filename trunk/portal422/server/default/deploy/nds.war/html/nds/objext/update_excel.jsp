@@ -176,6 +176,7 @@ for(int i=0;i<columns.size();i++){
 		'fileDesc'      : '<%= PortletUtils.getMessage(pageContext, "import-file-desc" ,null)%>'
 		};
 	var para={"table":<%=table.getId()%>, "objectid":<%=objectId%>,
+		"partial_update":true,
 		"formRequest":"/html/nds/msg.jsp",
 		"next-screen":"/html/nds/text.jsp",
 		"best_effort":"true","nds.control.ejb.UserTransaction":"N",
