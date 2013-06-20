@@ -118,7 +118,7 @@ color:#555;
 .more{float:right; padding:7px 5px 0 0;}
 .main_left ul.news{width:100%;  float:left; margin-left:2px;}
 .main_left ul.news li{border:1px solid #ccc; padding:3px 6px 3px 15px; white-space:nowrap; overflow:hidden; background:#eeeeee url(/html/nds/portal/ssv/images/icon.gif) no-repeat 5px center; clear: both; margin-top:1px;}
-.main_right{min-width:200px; width:20%; float:right;height: 250px;}
+.main_right{min-width:200px; width:20%; float:right;height: 303px;}
 .main_right h2{margin: 0;padding:3px 10px; font-size:12px; font-weight:bold; cursor:pointer;}
 .main_right h2.add{ background:url(/html/nds/portal/ssv/images/login_63.gif) no-repeat 98% center;}
 .main_right h2.minus{ background:url(/html/nds/portal/ssv/images/login_12.gif) no-repeat 98% center;}
