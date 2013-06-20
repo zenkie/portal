@@ -323,7 +323,7 @@ SubSystem ss;
             </div><!--end title-->
 		</div>
 		<div id="wth">
-			<iframe src="http://localhost/html/nds/sinawa/index.html" frameborder="0" scrolling="no" width="210" height="280" allowTransparency="true"></iframe>
+			<iframe src="/html/nds/sinawa/index.html" frameborder="0" scrolling="no" width="210" height="280" allowTransparency="true"></iframe>
 		</div>
 	</div>
 </body>
