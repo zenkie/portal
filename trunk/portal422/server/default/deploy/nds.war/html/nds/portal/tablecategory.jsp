@@ -43,7 +43,7 @@ if((userWeb.getPermission("M_PRODUCT_ALIAS_LIST")& nds.security.Directory.READ )
      var fa_show=jQuery("#fav_show").val();
      //alert(fa_show);
      if($("mu_favorite").childElementCount>0&&fa_show!='1'){var act=0;}
-     jQuery("#tab_accordion").accordion({ header: "h3",autoHeight:true,navigation:true,active:act});
+     jQuery("#tab_accordion").accordion({ header: "h3",collapsible:true,autoHeight:true,navigation:true,active:act});
 //			.sortable({
 //				axis: "y",
 //				handle: "h3",

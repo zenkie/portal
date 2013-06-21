@@ -44,7 +44,7 @@ pc.createTree("<%= PortletUtils.getMessage(pageContext, "report-center",null)%>"
      var result=data;
      jQuery("#tree-list").html(result.xml);
      jQuery("#tree-list").css("padding","0");
-     jQuery("#tab_accordion").accordion({ header: "h3",autoHeight:false,navigation:true});
+     jQuery("#tab_accordion").accordion({ header: "h3",collapsible:true,autoHeight:false,navigation:true});
    });
 }
 <%
