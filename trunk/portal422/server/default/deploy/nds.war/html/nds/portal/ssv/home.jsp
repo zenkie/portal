@@ -314,7 +314,7 @@ SubSystem ss;
 			</ul>
 		</div>
     </div><!--end main_right-->
-	    <div class="main_right">
+	    <div class="main_right1">
     	<div class="main_box">
         	<div class="title">
             	<div class="title_left">&nbsp;<img src="/html/nds/portal/ssv/images/wth.png"></div>
@@ -323,7 +323,7 @@ SubSystem ss;
             </div><!--end title-->
 		</div>
 		<div id="wth">
-			<iframe src="/html/nds/sinawa/index.html" frameborder="0" scrolling="no" width="210" height="280" allowTransparency="true"></iframe>
+			<iframe src="/html/nds/sinawa/index.html" frameborder="0" scrolling="no" width="210" height="230" allowTransparency="true"></iframe>
 		</div>
 	</div>
 </body>
