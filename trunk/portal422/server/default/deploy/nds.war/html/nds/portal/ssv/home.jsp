@@ -116,7 +116,7 @@ SubSystem ss;
 
 <div class="main"> 
 	<div class="main_left">
-    	<div class="main_box main_box2">
+    	<div class="main_box main_box2" style="height:306px;">
         	<div class="title">
             	<div class="title_left">&nbsp;</div>
                 <h1>子系统</h1>
