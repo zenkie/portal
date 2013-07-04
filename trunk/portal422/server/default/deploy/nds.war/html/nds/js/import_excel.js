@@ -24,10 +24,11 @@ ImportXLS.prototype = {
 				'auto'          : false,
 				//'wmode'		: 'transparent',
 				/*'buttonImg'	: '/html/nds/images/cancel.png',*/
-				'sizeLimit'     : this._upinit.sizeLimit,
+				'fileSizeLimit'     : this._upinit.sizeLimit,
 				'buttonText'	: this._upinit.buttonText,
-				'fileDesc'      : this._upinit.fileDesc,
-				'fileExt'       : '*.xls;*.csv;*.txt',
+				'fileTypeDesc'      : this._upinit.fileDesc,
+				'fileTypeExts'       : '*.xls;*.csv;*.txt;*.xlsx',
+				'successTimeout' : 3600,
 				//'formData'	: this._para,
 				'method'   : 'post',
 				onUploadError: function (evt, b, c, s) {
@@ -49,6 +50,7 @@ ImportXLS.prototype = {
 					ele.innerHTML= response;*/
 					jQuery("#output").css("display","block");
 					jQuery("#whole").html(b);
+					//jQuery("#whole").html(response);
 					return true;
 				},
 				onQueueComplete:function (queueData) {
