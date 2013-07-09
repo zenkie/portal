@@ -1856,7 +1856,63 @@ GridControl.prototype = {
 		}catch(ex){}		
 		//try{$("itemdetail_form").focusFirstElement();}catch(e){}
 		//if(typeof(fth)=="object") fth.drawTable("embed-items");
+		//ScrollableTable.set('modify_table','100%',260,false);
+		
+		
+		/*
+		var widths=[];
+		var masterTable=$("modify_table");
+		if($(masterTable.id+"_scroll")){return;}
+		
+		var masterTableHeader =jQuery("#modify_table").find("thead tr:first td");
+		masterTableHeader.each(function(index){
+			widths[index]=jQuery(this).width();
+		});
+
+		masterTable.tHead.style.position="absolute";
+		masterTable.tHead.style.width=masterTable.getWidth()+"px";
+		masterTable.tHead.style.left="0px";
+		masterTable.tHead.style.top="0px";
+		
+		var parentDiv= $("embed-items");
+		parentDiv.style.paddingTop=masterTable.tHead.getHeight()+"px";
+		parentDiv.style.position="relative";
+		parentDiv.style.overflowY="auto";
+		parentDiv.style.overflowX="auto";
+		
+		var tableBodyDiv=document.createElement("div");
+		tableBodyDiv.id=masterTable.id+"_scroll";
+		parentDiv.appendChild(tableBodyDiv);
+		$(masterTable.id+"_scroll").appendChild($("modify_table"));
+		
+		var tableHeader=jQuery("#modify_table").find("thead tr:first td");
+		var tableBody=jQuery("#modify_table").find("tbody tr:first td");
+		tableHeader.each(function(index){
+			this.style.minWidth=widths[index]+"px";
+			//jQuery(this).width(widths[index]);
+		});
+		tableBody.each(function(index){
+			this.style.minWidth=widths[index]+"px";
+			//jQuery(this).width(widths[index]);
+		});
+		*/
+		
+		
+		var parentDiv= $("embed-items");
+		parentDiv.style.overflowY="auto";
+		parentDiv.style.overflowX="auto";
+		parentDiv.onscroll=function(){
+			//alert("a");
+			//this.scrollTop="0px";
+			if(this.scrollTop>0){
+				//AddScrollTableHeader(this);
+				
+				this.style.overflowY="hidden";
 		ScrollableTable.set('modify_table','100%',260,false);
+			}
+			return true;
+		}
+		
 	},
 	/**
 	* Setup line template for input
@@ -2057,10 +2113,155 @@ GridControl.prototype = {
 };
 // define static main method
 GridControl.main = function () {
-	
+
 	gc=new GridControl();
 };
 
+function AddScrollTableHeader(div) {
+	var scrollDiv=$("scrollTableHeader");
+	if(scrollDiv){
+		AdjustTableHeader();
+		scrollDiv.style.top=div.scrollTop+"px";
+		return;
+	}
+	
+	var masterTable=$("modify_table");
+	// tableHeader=masterTable.tHead.cloneNode(true);
+
+	// var table=document.createElement("table");
+	// table.id="tableHeader";
+	// table.style=masterTable.style;
+	// table.appendChild(tableHeader);
+	
+	var tableHeader = masterTable.cloneNode(true);
+	tableHeader.id = "tableHeader";
+	
+	while (tableHeader.tBodies[0].rows.length) {
+		tableHeader.tBodies[0].deleteRow(0);
+	}
+		
+	var divTableHeader = document.createElement("div");
+	divTableHeader.id = "scrollTableHeader";
+	divTableHeader.style.width=masterTable.tHead.getWidth()+"px"; //paco 2013-7-3
+	divTableHeader.style.height =masterTable.tHead.getHeight()+"px"; //paco 2013-7-3
+	divTableHeader.style.overflowX="hidden";
+	divTableHeader.style.overflowY="hidden";
+	divTableHeader.style.position ="absolute";// "absolute";
+	divTableHeader.style.background="blue";
+	divTableHeader.style.top= "0px";
+	//divTableHeader.style.zIndex=parentDiv.style.zIndex+1;
+	
+	//divTableHeader.css({'position':'absolute', 'overflow-y':'auto', height:'0px',width:'20px'})
+	//parentDiv.appendChild(divTableHeader);
+	divTableHeader.appendChild(tableHeader);
+	masterTable.parentNode.appendChild(divTableHeader);
+	
+	AdjustTableHeader();
+}
+
+function AdjustTableHeader(){
+	var widths=[];
+
+	var tableTH = jQuery("#modify_table").find("thead tr:first td");
+	var tableHeader = jQuery("#tableHeader").find("thead tr:first td");
+	
+	tableTH.each(function(index){
+		var tObj = jQuery(this);
+		widths[index]= tObj.width();
+	});
+	
+	tableHeader.each(function(index){
+		var tObj = jQuery(this);
+		tObj.width(widths[index]);
+	});
+}
+
+//态改变的时候执行这个方法.
+/*
+document.onreadystatechange = function(){
+	if(document.readyState =="complete"){
+		var divScrollBay=$("embed-items");
+		divScrollBay.scroll=function(){
+			alert("a");
+			//return false;
+		}
+	
+	
+		var divScroll=$("scrollDiv");
+		var masterTable=$("modify_table");
+		divScroll.style.left=masterTable.getWidth()+"px";
+		divScroll.style.height=(masterTable.getHeight()-22)+"px";
+		
+		divscroll.onscroll=function(){
+			alert("a");
+		}
+		
+	}
+	//alert($("modify_table").getWidth()+"complete");
+};
+*/
+
+// function subSomething()
+// {
+// if(document.readyState == "complete") //当页面加载状态为完全结束时进入
+	// alert($("modify_table").getWidth()+"“complete”");//这是你的操作
+// }
+
+
+/*
+window.onload = function(){ 
+	 // alert($("modify_table").getWidth()+"load");
+	 // alert($("D_modify_table_B").getWidth());
+   // ScrollableTable._matchFixedHead(); 
+   // ScrollableTable.set('modify_table','100%',260,false);
+}; 
+*/
+
+//paco 2013-7-3 begin
+(function($,h,c){
+	var a=$([]),e=$.resize=$.extend($.resize,{}),i,k="setTimeout",j="resize",d=j+"-special-event",b="delay",f="throttleWindow";
+	e[b]=250;
+	e[f]=true;
+	$.event.special[j]={
+		setup:function(){
+			if(!e[f]&&this[k]){return false}
+			var l=$(this);
+			a=a.add(l);
+			$.data(this,d,{w:l.width(),h:l.height()});
+			if(a.length===1){g()}
+		},
+		teardown:function(){
+			if(!e[f]&&this[k]){return false}
+			var l=$(this);
+			a=a.not(l);
+			l.removeData(d);
+			if(!a.length){clearTimeout(i)}
+		},
+		add:function(l){
+			if(!e[f]&&this[k]){return false}
+			var n;
+			function m(s,o,p){
+				var q=$(this),r=$.data(this,d);
+				r.w=o!==c?o:q.width();
+				r.h=p!==c?p:q.height();
+				n.apply(this,arguments)}
+				if($.isFunction(l)){n=l;return m}
+				else{n=l.handler;l.handler=m}
+		}
+	};
+	
+	function g(){
+		i=h[k](function(){
+			a.each(function(){
+				var n=$(this),m=n.width(),l=n.height(),o=$.data(this,d);
+				if(m!==o.w||l!==o.h){n.trigger(j,[o.w=m,o.h=l])}
+			});
+			g()
+		},e[b])
+	}
+})(jQuery,this);
+//paco 2013-7-3 end
+	
 var EditableGridMetadata = Class.create();
 // define constructor
 EditableGridMetadata.prototype = {
@@ -2230,6 +2431,8 @@ function doQuickSearch(){
 		}
 
 		var masterTable = document.getElementById(id); 
+		//masterTable.style.tableLayout="fixed";
+		var masterWidth=masterTable.getWidth(); //paco 2013-7-3
 
 		if (masterTable == null) {
 			alert("Err \n no table ");
@@ -2261,18 +2464,26 @@ function doQuickSearch(){
 	  tableHeader.style.position = "relative";
 		tableHeader.style.left = "0";
 		tableHeader.style.top = "0";
+		//tableHeader.style.tableLayout="fixed";
 		 
 	 var tableOrg = jQuery("#" + id);
-	 
-   var colsWidths = jQuery(tableOrg).find("thead tr:first td").map(function() {
-        return jQuery(this).width();
-    });
-		
 		
 		//width=tableOrg.outerWidth()<jQuery("#embed-items").width()?jQuery("#embed-items").width():tableOrg.outerWidth();
 		
 	  //tableHeader.style.width = width+"px";
 	 
+		
+		
+		var colsWidths = jQuery(tableOrg).find("thead tr:first td").map(function() {
+			return jQuery(this).width();
+		});
+		
+		var allWidths=0;
+		colsWidths.each(function(index){
+			allWidths+=colsWidths[index];
+		});
+	
+		
 		if (tableHeader.rows.length > 0) {
 			//获取每一行TR数据
 			  for (v = 0; v < tableHeader.rows.length; v++) {
@@ -2283,38 +2494,48 @@ function doQuickSearch(){
 			        for (i = 0; i < trbody.children.length; i++) {
 			        	//alert(colsWidths[i]);
 			        	var tdbody=trbody.children[i]
+						tdbody.width=colsWidths[i]+'px';
 			            if (i == tdbody.length - 1) {
-			                if (browserVersion == 8.0)
-			                    tdbody.width=colsWidths[i] + scrollWidth+'px';
-			                else
+			                // if (browserVersion == 8.0)
+			                    // tdbody.width=colsWidths[i] + scrollWidth+'px';
+			                // else
 			                    tdbody.width=colsWidths[i]+'px';
 			            } else {
-			                tdbody.width=colsWidths[i]+1+'px';
+			                //tdbody.width=colsWidths[i]+1+'px'; //paco 2013-7-3
+							tdbody.width=colsWidths[i]+'px'; //paco 2013-7-3
+							//tdbody.width=(colsWidths[i]/allWidths)+"%";
 			            }
 			        }
 			    }
 			    
 			  }
- 		}		
-		
-
+ 		}
 		
 		var divHeader = document.createElement("div");
 		divHeader.id = "D_" + ptableid;
-		//divHeader.style.width = width + "px";
+		//divHeader.style.width =masterWidth + "px"; //paco 2013-7-3
 		divHeader.style.height = thHeight + "px";
 		divHeader.style.overflow = "hidden";
-		divHeader.style.position = "relative";
+		divHeader.style.position = "relative";//"absolute";
 		divHeader.style.zIndex=12;
 		divHeader.appendChild(tableHeader);
 
 		masterTable.parentNode.insertBefore(divHeader, masterTable);
+		//masterTable.tHead.style.display="none";
 		masterTable.deleteTHead();
 		
-
+		/*
+		tableOrg = jQuery(ptableid + "_H");
+	 
+		colsWidths = jQuery(tableOrg).find("thead tr:first td").map(function() {
+			return jQuery(this).width();
+		});
+		*/
 		//var tableBody = masterTable.cloneNode(true);
 		//tableBody.id = tableBody.id + "_B";
 		//tableBody.deleteTHead();
+		
+		
 		if (masterTable.rows.length > 0) {
 			//获取每一行TR数据
 			  for (v = 0; v < masterTable.rows.length; v++) {
@@ -2324,32 +2545,35 @@ function doQuickSearch(){
 			    	
 			        for (i = 0; i < trbody.children.length; i++) {
 			        	//alert(colsWidths[i]);
-			        	var tdbody=trbody.children[i]
+			        	var tdbody=trbody.children[i];
 			            if (i == tdbody.length - 1) {
-			                if (browserVersion == 8.0)
-			                    tdbody.width=colsWidths[i] + scrollWidth+'px';
-			                else
+			                // if (browserVersion == 8.0)
+			                    // tdbody.width=colsWidths[i] + scrollWidth+'px';
+			                // else
 			                    tdbody.width=colsWidths[i]+'px';
 			            } else {
 			                tdbody.width=colsWidths[i]+'px';
+							//tdbody.width=(colsWidths[i]/allWidths)+"%";
 			            }
 			        }
 			    }
 			    
 			  }
  		}
+		
  		
  	  //masterTable.style.width = width+ "px";//(width + getScrollbarWidth()) + "px";
 		
 		var divBody = document.createElement("div");
 		divBody.id = "D_" + masterTable.id+"_B";
 		//divBody.style.width = (width + getScrollbarWidth()) + "px";
+		//divBody.style.width=(masterWidth + getScrollbarWidth()) + "px"; //paco 2013-7-3
 		divBody.style.maxHeight = height + "px";
 		divBody.style.minHeight ="100px";
 		if (overflowX) {
-			divBody.style.overflow  = "scroll";
+			divBody.style.overflow  = "auto";
 		} else {
-			divBody.style.overflowY = "scroll";
+			divBody.style.overflowY = "auto";
 			divBody.style.overflowX = "hidden";
 			divBody.style.zIndex=11;
 		}
@@ -2357,17 +2581,20 @@ function doQuickSearch(){
 			divBody.style.marginLeft  = getScrollbarWidth() + "px";
 		}
 		
+		
 			var bodyWrap = jQuery("#"+masterTable.id).wrap('<div></div>')
 									.parent()
 									.attr('id',divBody.id)
 									.css({
 										//width: (width + getScrollbarWidth()),
+										//width: (masterWidth + getScrollbarWidth()) + "px",//paco 2013-7-3
 										maxHeight: height,
 										minHeight:100,
-										overflowY:'scroll',
+										overflowY:'auto',
 										overflowX:'hidden',
 										zIndex:11
 									});
+									
 		//masterTable.parentNode.insertBefore(divBody,masterTable);
  			//masterTable.prependTo(divBody);
  			//jQuery("#"+masterTable.id).prependTo(divBody);
@@ -2379,9 +2606,9 @@ function doQuickSearch(){
 		};
 
 		//this.init = true;
-		ScrollableTable._matchFixedHead();
-		gc._initTable();
 		//ScrollableTable._matchFixedHead();
+		gc._initTable();
+		ScrollableTable._matchFixedHead();
 	},
 
 	
@@ -2395,6 +2622,7 @@ function doQuickSearch(){
 		_matchFixedHead : function() {
 		/* 3 times change to match */
 		var thWidth = [];
+
 		var theadTD = jQuery("#modify_table_H").find("thead tr:first td");
 		var tbodyTD = jQuery("#modify_table").find("tbody tr:first td");
 		var diff=0;
@@ -2409,6 +2637,7 @@ function doQuickSearch(){
 			thWidth[index] = arrayTemp>temp?arrayTemp:temp;
 			diff=diff+(arrayTemp<temp?temp-arrayTemp:arrayTemp-temp);
 		});
+		
 		if (Prototype.Browser.IE) {
 			tbodyTD.each(function(index) {
 				//thWidth[index] += 4;
@@ -2420,17 +2649,22 @@ function doQuickSearch(){
 			tbodyTD.each(function(index) {jQuery(this).width(thWidth[index]);});
 		}
 		//theadTD.each(function(index) {jQuery(this).css("min-width",thWidth[index]);});
-		  theadTD.each(function(index) {jQuery(this).width(thWidth[index]);});
+		theadTD.each(function(index) {jQuery(this).width(thWidth[index]);});
 
      //alert(theadTD[0].offsetWidth);
      //alert(tbodyTD[0].offsetWidth);
      //修复明细刷新不能宽度放大问题
-     if(theadTD[0].offsetWidth!=tbodyTD[0].offsetWidth&&tbodyTD[0].offsetWidth!=0){
+	 
+	 
+      //if(theadTD[0].offsetWidth!=tbodyTD[0].offsetWidth&&tbodyTD[0].offsetWidth!=0){
+	if(diff>0){ 
 		jQuery("#modify_table_H").width((jQuery("#modify_table_H").width()+diff));
+		//jQuery("#modify_table_H").width(diff);
 		jQuery("#modify_table").width(jQuery("#modify_table_H").width());
 		jQuery("#D_modify_table").width(jQuery("#modify_table_H").width());
 		jQuery("#D_modify_table_B").width((jQuery("#D_modify_table").width()+getScrollbarWidth()));
- }
+	}
+	
      /*
      var newidth=0;
      jQuery.each(thWidth, function (i, item) {  
@@ -2454,5 +2688,153 @@ function doQuickSearch(){
 		//jQuery("#fthtr").remove();
 		//this._adjust();
 	},
-	
 }
+
+//拖放程序
+var Drag = Class.create();
+Drag.prototype = {
+  //拖放对象
+  initialize: function(drag, options) {
+	this.Drag = $(drag);//拖放对象
+	this._x = this._y = 0;//记录鼠标相对拖放对象的位置
+	this._marginLeft = this._marginTop = 0;//记录margin
+	//事件对象(用于绑定移除事件)
+	this._fM = BindAsEventListener(this, this.Move);
+	this._fS = Bind(this, this.Stop);
+	
+	this.SetOptions(options);
+	
+	this.Limit = !!this.options.Limit;
+	this.mxLeft = parseInt(this.options.mxLeft);
+	this.mxRight = parseInt(this.options.mxRight);
+	this.mxTop = parseInt(this.options.mxTop);
+	this.mxBottom = parseInt(this.options.mxBottom);
+	
+	this.LockX = !!this.options.LockX;
+	this.LockY = !!this.options.LockY;
+	this.Lock = !!this.options.Lock;
+	
+	this.onStart = this.options.onStart;
+	this.onMove = this.options.onMove;
+	this.onStop = this.options.onStop;
+	
+	this._Handle = $(this.options.Handle) || this.Drag;
+	this._mxContainer = $(this.options.mxContainer) || null;
+	
+	this.Drag.style.position = "absolute";
+	//透明
+	if(isIE && !!this.options.Transparent){
+		//填充拖放对象
+		with(this._Handle.appendChild(document.createElement("div")).style){
+			width = height = "100%"; backgroundColor = "#fff"; filter = "alpha(opacity:0)"; fontSize = 0;
+		}
+	}
+	//修正范围
+	this.Repair();
+	addEventHandler(this._Handle, "mousedown", BindAsEventListener(this, this.Start));
+  },
+  //设置默认属性
+  SetOptions: function(options) {
+	this.options = {//默认值
+		Handle:			"",//设置触发对象（不设置则使用拖放对象）
+		Limit:			false,//是否设置范围限制(为true时下面参数有用,可以是负数)
+		mxLeft:			0,//左边限制
+		mxRight:		9999,//右边限制
+		mxTop:			0,//上边限制
+		mxBottom:		9999,//下边限制
+		mxContainer:	"",//指定限制在容器内
+		LockX:			false,//是否锁定水平方向拖放
+		LockY:			false,//是否锁定垂直方向拖放
+		Lock:			false,//是否锁定
+		Transparent:	false,//是否透明
+		onStart:		function(){},//开始移动时执行
+		onMove:			function(){},//移动时执行
+		onStop:			function(){}//结束移动时执行
+	};
+	Extend(this.options, options || {});
+  },
+  //准备拖动
+  Start: function(oEvent) {
+	if(this.Lock){ return; }
+	this.Repair();
+	//记录鼠标相对拖放对象的位置
+	this._x = oEvent.clientX - this.Drag.offsetLeft;
+	this._y = oEvent.clientY - this.Drag.offsetTop;
+	//记录margin
+	this._marginLeft = parseInt(CurrentStyle(this.Drag).marginLeft) || 0;
+	this._marginTop = parseInt(CurrentStyle(this.Drag).marginTop) || 0;
+	//mousemove时移动 mouseup时停止
+	addEventHandler(document, "mousemove", this._fM);
+	addEventHandler(document, "mouseup", this._fS);
+	if(isIE){
+		//焦点丢失
+		addEventHandler(this._Handle, "losecapture", this._fS);
+		//设置鼠标捕获
+		this._Handle.setCapture();
+	}else{
+		//焦点丢失
+		addEventHandler(window, "blur", this._fS);
+		//阻止默认动作
+		oEvent.preventDefault();
+	};
+	//附加程序
+	this.onStart();
+  },
+  //修正范围
+  Repair: function() {
+	if(this.Limit){
+		//修正错误范围参数
+		this.mxRight = Math.max(this.mxRight, this.mxLeft + this.Drag.offsetWidth);
+		this.mxBottom = Math.max(this.mxBottom, this.mxTop + this.Drag.offsetHeight);
+		//如果有容器必须设置position为relative来相对定位，并在获取offset之前设置
+		!this._mxContainer || CurrentStyle(this._mxContainer).position == "relative" || CurrentStyle(this._mxContainer).position == "absolute" || (this._mxContainer.style.position = "relative");
+	}
+  },
+  //拖动
+  Move: function(oEvent) {
+	//判断是否锁定
+	if(this.Lock){ this.Stop(); return; };
+	//清除选择
+	window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+	//设置移动参数
+	this.SetPos(oEvent.clientX - this._x, oEvent.clientY - this._y);
+  },
+  //设置位置
+  SetPos: function(iLeft, iTop) {
+	//设置范围限制
+	if(this.Limit){
+		//设置范围参数
+		var mxLeft = this.mxLeft, mxRight = this.mxRight, mxTop = this.mxTop, mxBottom = this.mxBottom;
+		//如果设置了容器，再修正范围参数
+		if(!!this._mxContainer){
+			mxLeft = Math.max(mxLeft, 0);
+			mxTop = Math.max(mxTop, 0);
+			mxRight = Math.min(mxRight, this._mxContainer.clientWidth);
+			mxBottom = Math.min(mxBottom, this._mxContainer.clientHeight);
+		};
+		//修正移动参数
+		iLeft = Math.max(Math.min(iLeft, mxRight - this.Drag.offsetWidth), mxLeft);
+		iTop = Math.max(Math.min(iTop, mxBottom - this.Drag.offsetHeight), mxTop);
+	}
+	//设置位置，并修正margin
+	if(!this.LockX){ this.Drag.style.left = iLeft - this._marginLeft + "px"; }
+	if(!this.LockY){ this.Drag.style.top = iTop - this._marginTop + "px"; }
+	//附加程序
+	this.onMove();
+  },
+  //停止拖动
+  Stop: function() {
+	//移除事件
+	removeEventHandler(document, "mousemove", this._fM);
+	removeEventHandler(document, "mouseup", this._fS);
+	if(isIE){
+		removeEventHandler(this._Handle, "losecapture", this._fS);
+		this._Handle.releaseCapture();
+	}else{
+		removeEventHandler(window, "blur", this._fS);
+	};
+	//附加程序
+	this.onStop();
+  }
+};
+
