@@ -360,6 +360,35 @@ word-break: break-all;
  text-align: center;
 }
 
+.itemdetail_table{
+width:100%;
+border-collapse: collapse;
+}
+.itemdetail_table thead{
+background: #fff;
+}
+.itemdetail_table thead td{
+border: 1px solid #77A5E0;
+/*background:url(/html/nds/images/obj-center-menu-bg.jpg);*/
+cursor: pointer;
+_cursor:hand;
+white-space: normal;
+ text-align: center;
+  font-size: 12px;
+  background-color: rgb(168, 199, 255);
+}
+.itemdetail_table tr{
+height:20px;
+}
+.itemdetail_table td{
+white-space: nowrap;
+border-bottom: 1px solid #DBE2E7;
+border-left: 1px solid #DBE2E7;
+border-right: 1px solid #DBE2E7;
+border-top: 1px solid #DBE2E7;
+word-break: break-all;
+ text-align: center;
+}
 /*
 #thead-embed-items table{
 background-color:#fff;

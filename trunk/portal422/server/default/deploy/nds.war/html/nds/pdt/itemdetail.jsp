@@ -3,12 +3,12 @@
 <%!
 private nds.log.Logger logger= nds.log.LoggerManager.getInstance().getLogger("itemdetail.jsp");
 private final static int TABINDEX_START=20000;
-private static boolean showSizeDesc=false;//most company will not show size desc 
+private static boolean showSizeDesc=false;//most company will not show size desc
 static{
 	Configurations conf2= (Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS);
 	showSizeDesc="true".equals(conf2.getProperty("pdt.matrix.size.show_desc"));
 }
- 
+
  /**
  * This is to record input element sequence, and will create next input element for each input
  */
@@ -38,9 +38,9 @@ static{
 	 	}
  		for(j=0;j<attrValues.size();j++){
  			vId=Tools.getInt(((List)attrValues.get(j)).get(0),-1);
-	 		vDesc= (String)((List)attrValues.get(j)).get(1);	
+	 		vDesc= (String)((List)attrValues.get(j)).get(1);
 	 		for(k=0;k<lastAttrValues.size();k++){
-	 			lastVId =Tools.getInt(((List)lastAttrValues.get(k)).get(0),-1);	
+	 			lastVId =Tools.getInt(((List)lastAttrValues.get(k)).get(0),-1);
 	 			key= prefix+"_"+vId+"_"+lastVId;
 	 			instanceId= instances.get(key);
 	 			if(instanceId!=null){
@@ -77,7 +77,7 @@ static{
 		DefaultWebEvent event=new DefaultWebEvent("CommandEvent");
 	MessagesHolder mh= MessagesHolder.getInstance();
 	int levels= attributes.size();
-	sb.append("<table align='left' id='modify_table_head' class='modify_table' border='1' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF'>");
+	sb.append("<table align='left' id='modify_table_head' class='itemdetail_table' border='1' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF'>");
 	int j,k, vId, lastVId;
 	String vDesc, lastVDesc;
 	Object instanceId;
@@ -86,10 +86,10 @@ static{
  		int lastAttrId= Tools.getInt(((List)attributes.get(level+1)).get(0),-1);
  		String lastAttrName= (String)((List)attributes.get(level+1)).get(1);
  		List lastAttrValues= (List) attributeValues.get(level+1);
- 		 
+
  		sb.append("<thead><tr><td style='width:62px;'>&nbsp;</td>");
  		for(j=0;j<lastAttrValues.size();j++){
-	 		lastVDesc= (String)((List)lastAttrValues.get(j)).get(1);	
+	 		lastVDesc= (String)((List)lastAttrValues.get(j)).get(1);
 	 		lastVId= Tools.getInt(((List)lastAttrValues.get(j)).get(0),-1);
 	 		sb.append("<td class='hd' style='width:54px;'>").append(lastVDesc).append("</td>");
 	 	}
@@ -99,8 +99,8 @@ static{
   	return sb;
  }
 
- 
- 
+
+
 /**
  draw table of n level, checkbox name should in format like '_id1_id2_id3', id1 for first level,id2 for second, and so on
  @param prefix - is the prefix for checkbox name, for level 0, it will be "", for level 1, it will be "_id1", for level 2 "id1_ids2"
@@ -131,7 +131,7 @@ static{
 	 	//iteration
 		for(j=0;j<attrValues.size();j++){
 	 		vId=Tools.getInt(((List)attrValues.get(j)).get(0),-1);
-	 		vDesc= (String)((List)attrValues.get(j)).get(1);	
+	 		vDesc= (String)((List)attrValues.get(j)).get(1);
 	 		sb.append("<tr><td class='hd'>").
 	 		append(vDesc).append("</td><td>&nbsp;</td></tr>");
 	 		sb.append("<tr><td>&nbsp;</td><td>").append(
@@ -143,22 +143,22 @@ static{
  		int lastAttrId= Tools.getInt(((List)attributes.get(level+1)).get(0),-1);
  		String lastAttrName= (String)((List)attributes.get(level+1)).get(1);
  		List lastAttrValues= (List) attributeValues.get(level+1);
- 		
+
  		sb.append("<tr style='display:none;'><td>&nbsp;</td>");
  		for(j=0;j<lastAttrValues.size();j++){
-	 		lastVDesc= (String)((List)lastAttrValues.get(j)).get(1);	
+	 		lastVDesc= (String)((List)lastAttrValues.get(j)).get(1);
 	 		lastVId= Tools.getInt(((List)lastAttrValues.get(j)).get(0),-1);
 	 		sb.append("<td class='hd'>").append(lastVDesc).append("</td>");
 	 	}
 	 	sb.append("<td class='hd'>").append(mh.getMessage(event.getLocale(), "row_total")).append("</td>");
 	 	sb.append("</tr>");
-	 	
+
  		for(j=0;j<attrValues.size();j++){
  			vId=Tools.getInt(((List)attrValues.get(j)).get(0),-1);
-	 		vDesc= (String)((List)attrValues.get(j)).get(1);	
+	 		vDesc= (String)((List)attrValues.get(j)).get(1);
 	 		sb.append("<tr><td class='hd' style='width:62px;'>").append(vDesc).append("</td>");
 	 		for(k=0;k<lastAttrValues.size();k++){
-	 			lastVId =Tools.getInt(((List)lastAttrValues.get(k)).get(0),-1);	
+	 			lastVId =Tools.getInt(((List)lastAttrValues.get(k)).get(0),-1);
 	 			key= prefix+"_"+vId+"_"+lastVId;
 	 			instanceId= instances.get(key);
 	 			boolean flag_store =false;
@@ -193,7 +193,7 @@ static{
 					 					}else{
 					 						sb.append("<div class='v'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
-					 					
+
 					 				}
 					 				sb.append("</div>");
 					 				flag_store =true;
@@ -245,7 +245,7 @@ static{
 	 		}
 	 		sb.append("<td id='tot_");
 	 		sb.append(j);
-	 		sb.append("'align='center' valign='top' style='width:45px;'>&nbsp;</td>");
+	 		sb.append("'align='center' valign='top' style='width:45px;max-width:45px;'>&nbsp;</td>");
 	 		sb.append("</tr>");
 	 	}
  	}else{
@@ -287,7 +287,7 @@ static{
 					 					}else{
 					 						sb.append("<div class='v'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
-					 					
+
 					 				}
 					 				sb.append("</div>");
 					 				flag_store =true;
@@ -348,8 +348,8 @@ static{
 <%
 try{
 /*
-  Create json object for all attributes selected with input number 
-  
+  Create json object for all attributes selected with input number
+
   @param table - table id ,which contains columns: m_attributesetinstance_id,m_product_id
   @param pdtid    - product id
   @param asid - attribute set id of that product
@@ -357,7 +357,7 @@ try{
 TableManager manager=TableManager.getInstance();
 
 Table table = manager.getTable(Tools.getInt(request.getParameter("table"),-1));
-if (!table.isActionEnabled(Table.ADD) ||( (table.getColumn("m_product_id")==null && !table.getName().equalsIgnoreCase("m_product")) 
+if (!table.isActionEnabled(Table.ADD) ||( (table.getColumn("m_product_id")==null && !table.getName().equalsIgnoreCase("m_product"))
 				|| table.getColumn("m_attributesetinstance_id")==null)) throw new NDSException("@no-permission@");
 if((userWeb.getPermission(table.getSecurityDirectory())& nds.security.Directory.WRITE )!= nds.security.Directory.WRITE ){
 	out.print(PortletUtils.getMessage(pageContext, "no-permission",null));
@@ -422,7 +422,7 @@ for(int i=0;i< attributes.size();i++){
        else
          sql = "select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id=" + aid;
      }
-   }							
+   }
 	if(checkAliasTableForAttributeSetInstanceExistance){
 		sql+=" and exists(select 1 from m_product_alias a, m_attributeinstance si,m_attributesetinstance asi "+
 		"where a.isactive='Y' and a.m_product_id="+productId+" and asi.id=a.M_ATTRIBUTESETINSTANCE_ID  and asi.M_ATTRIBUTESET_ID="+ setId+
@@ -477,7 +477,7 @@ if(li_store!=null && li_store.size()>0)  idOfanyOfStoreStorage=Tools.getInt(((Li
 if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)li_dest.get(0)).get(2),-1);
 %>
 <div id="itemdetail_div">
-<table cellpadding="1" cellspacing="0" border="0" width="100%"  style="margin-top: 5px;">	
+<table cellpadding="1" cellspacing="0" border="0" width="100%"  style="margin-top: 5px;">
 <tr><td><%= PortletUtils.getMessage(pageContext, "bg-batch-value",null)%>:
 <input type="text" id="itemdetail_defaultvalue" value="" size="10"> &nbsp;
 <span style="display:none"><input type="checkbox" id="itemdetail_notnull" value="1"></span><!--<%= PortletUtils.getMessage(pageContext, "do-not-create-record-for-null",null)%>-->
@@ -494,7 +494,7 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 				directory_store=true;
 		}
 %>
-<span id="store1_desc"><%=store_col.getDescription(locale)%>:<%=storedata%></span> 
+<span id="store1_desc"><%=store_col.getDescription(locale)%>:<%=storedata%></span>
 <span class="store1_desc_s"><input type="checkbox" id="sqty" value="sqty" checked onclick="gc.showQty('s')"><%=PortletUtils.getMessage(pageContext, "show_qty",null)%></span>
 <span class="store1_desc_c"><input type="checkbox" id="cqty" value="cqty" checked onclick="gc.showQty('c')"><%=PortletUtils.getMessage(pageContext, "show_qty_consign",null)%></span>
 <span class="store1_desc_v"><input type="checkbox" id="vqty" value="vqty" checked onclick="gc.showQty('v')"><%=PortletUtils.getMessage(pageContext, "show_qty_valid",null)%></span>
@@ -513,8 +513,8 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 <%}%></td></tr>
 <tr><td>
 <form id="itemdetail_form" onsubmit="return false;">
-<div id="itemdetail_div" style="width:100%; height:420px;overflow-y: hidden; overflow-x: scroll; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px"> 
-<div id="H_itemdetail_head" style="width: 100%; height: 20px; overflow: hidden; position: relative; z-index: 12;">
+<div id="itemdetail_div" style="width:100%; height:420px;overflow-y: hidden; overflow-x: scroll; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px">
+<div id="H_itemdetail_head" style="width: 100%;overflow: hidden; position: relative; z-index: 12;">
 <%=getAttributeTable_head(instances2,0,attributes,attributeValues,"",inputList,li_store,li_dest,store_objectId,dest_objectId,store_table,dest_table,directory_store,directory_dest,userWeb)%>
 </div>
 <div id="D_itemdetail_table" style="width: 100%; max-height: 380px; min-height: 300px; overflow-y: scroll; overflow-x: hidden; z-index: 11;">
