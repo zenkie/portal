@@ -529,6 +529,22 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 </td></tr>
 </table>
 </div>
+<script type="text/javascript">
+	var theadTd = jQuery("#modify_table_head").find("thead tr:first td");
+	theadTd[theadTd.size()-1].style.paddingRight=getScrollbarWidth()+"px";
+	function getScrollbarWidth() 
+	{
+		if (scrollbarWidth) return scrollbarWidth;
+		var div = jQuery('<div style="width:50px;height:50px;overflow:hidden;position:absolute;top:-200px;left:-200px;"><div style="height:400px;"></div></div>'); 
+		jQuery('body').append(div); 
+		var w1 = jQuery('div', div).innerWidth(); 
+		div.css('overflow-y', 'auto'); 
+		var w2 = jQuery('div', div).innerWidth(); 
+		jQuery(div).remove(); 
+		scrollbarWidth = (w1 - w2);
+		return scrollbarWidth;
+	}
+</script>
 <%}catch(Throwable t){
 	logger.error("/html/nds/pdt/itemdetail.jsp", t);
 	out.print(PortletUtils.getMessage(pageContext, "exception",null)+":"+ t.getMessage());
