@@ -10,7 +10,7 @@
     String columnNames = request.getParameter("columnNames");
     QueryRequestImpl qRequest = null;
     qRequest= (QueryRequestImpl)request.getAttribute("query");
-    System.out.println("qRequest:"+ qRequest.getParamExpression());
+    //System.out.println("qRequest:"+ qRequest.getParamExpression());
     QueryResult result = QueryEngine.getInstance().doQuery(qRequest);
     if(result == null){
   	if(sql == null)
@@ -81,12 +81,12 @@
     ClientControllerWebImpl controller=(ClientControllerWebImpl)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.WEB_CONTROLLER);
     boolean isExcel=extension.equalsIgnoreCase("xls");
     boolean isnewExcel=extension.equalsIgnoreCase("xlsx");
-    System.out.println(extension);
-    System.out.println(isnewExcel); 
+    //System.out.println(extension);
+    //System.out.println(isnewExcel); 
 	if (isExcel){
 	    event.setParameter("command", "ExportExcel");
     }else if(isnewExcel){ 
-    	System.out.println("newxlsx"); 
+    	//System.out.println("newxlsx"); 
     	 event.setParameter("command", "ExportExcel");
     }else{
 	    event.setParameter("command", "ExportText");
