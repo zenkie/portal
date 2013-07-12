@@ -156,6 +156,14 @@ border-width: 0px 0px 1px;
 background-color:transparent;
 color: #333333;
 }
+
+.input_only {
+font: normal 9pt "Verdana", "Arial", "Helvetica", "sans-serif";
+vertical-align: middle;
+border-width: 0px 0px 0px;
+text-align: right;
+color:green;
+}
 .disabled {  background-color:#CCCCCC; font-style:italic;color:#FFFFFF;}
 
 .body_class{
