@@ -44,6 +44,7 @@ GridControl.prototype = {
 		var metaObj=new EditableGridMetadata(initObj.getGridMetadata());
 		this._gridMetadata= metaObj;
 		this._tmpData=null;
+		this._wrow=null;
 		this.MAX_INPUT_LENGTH=1000;// this is used for selection range
 		this._gridTable= null;// @see _initTable
 		// init dwr
@@ -1293,7 +1294,19 @@ GridControl.prototype = {
 				if( (col.dsptype==8 || col.dsptype==9) && line[i]!=null && !line[i].blank()){
 					this._setValue(line[0]+"_"+ col.name,"<a href='"+line[i]+"'>"+gMessageHolder.VIEW_ATTACH+"</a>",opt );
 				}else
+					if(this._wrow!=undefined&&this._wrow[row]!==undefined&&this._wrow[row]!==null&&this._wrow[row].type=="readrow"){
+					this._setValue(line[0]+"_"+ col.name,line[i],opt,true);
+					}else if (this._wrow!=undefined&&this._wrow[row]!==undefined&&this._wrow[row]!==null&&this._wrow[row].type=="readcol") {
+						var rcol=this._wrow[row].col;
+						if(rcol.indexOf(col.columnId)>=0){
+						this._setValue(line[0]+"_"+ col.name,line[i],opt,true);
+						}else{
+						this._setValue(line[0]+"_"+ col.name,line[i],opt);
+						}
+					}else{
 					this._setValue(line[0]+"_"+ col.name,line[i],opt);
+					}
+
 				//this._setValue(line[0]+"_"+ col.name,line[i],opt );
 				if(col.objIdPos!=-1 && col.rTableId!=-1){
 					if(line[col.objIdPos]!=null){
@@ -1827,6 +1840,7 @@ GridControl.prototype = {
 		var rowCount=qr.rowCount;
 		var i,s,a;
 		var q=this._gridQuery;
+		this._wrow=qr.wrow;
 		s=qr.start;
 		q.start= s;
 		//fth.refreshGrid();
@@ -2064,13 +2078,17 @@ GridControl.prototype = {
 	 * This is modified one of dwr.2.0.1 for checkbox value setting.
 		Old one only let "true" for checked, now "Y" will also be checked one
 	 */
-	_setValue: function(ele, val, options) {
+	_setValue: function(ele, val, options,readyonly) {
 		var e=$(ele);
 		if(e==null) return;
 		try{
 		if(e.type == "checkbox"){
 			if(val=="Y") val=true;
 			else if(val=="N") val=false;
+		}
+		if(readyonly){
+			jQuery("#"+ele).attr("class","input_only");
+			$(ele).disabled=true;
 		}
 		dwr.util.setValue(e,val,options);
 		}catch(ex){
