@@ -49,7 +49,7 @@ int sizeAll=0;
 for(int i=0;i< columns.size();i++){
 	col=(Column)columns.get(i);
 	alignRight[i]= ( col.getType()==Column.NUMBER && col.getReferenceTable()==null && (!col.isValueLimited()));
-	isModifiable=isModify && col.isMaskSet(Column.MASK_CREATE_EDIT)&&col.isMaskSet(Column.MASK_MODIFY_EDIT);
+	isModifiable=isModify /*&& col.isMaskSet(Column.MASK_CREATE_EDIT)*/&&col.isMaskSet(Column.MASK_MODIFY_EDIT);
 	colWidth=15;
 	if(col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK) colWidth=5;
 	if(!isModifiable){
@@ -86,7 +86,7 @@ for(int i=0;i< columns.size();i++){
 	colWidth=15;
 	if(col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK) colWidth=5;
 	// for other columns that are modifiable in both creation form and modification form
-	isModifiable=isModify && col.isMaskSet(Column.MASK_CREATE_EDIT)&&col.isMaskSet(Column.MASK_MODIFY_EDIT);
+	isModifiable=isModify /*&& col.isMaskSet(Column.MASK_CREATE_EDIT)*/&&col.isMaskSet(Column.MASK_MODIFY_EDIT);
 	if(!isModifiable){
 		colWidth= col.isColumnLink()? col.getColumnLink().getLastColumn().getLength(): col.getLength();
 		if(colWidth>30) colWidth=30;
@@ -119,7 +119,7 @@ for(int i=0;i< columns.size();i++){
 		maxLength=col.getLength();
 	}
 	cId= colName; 
-	isModifiable=isModify && col.isMaskSet(Column.MASK_CREATE_EDIT)&&col.isMaskSet(Column.MASK_MODIFY_EDIT);
+	isModifiable=isModify /*&& col.isMaskSet(Column.MASK_CREATE_EDIT)*/&&col.isMaskSet(Column.MASK_MODIFY_EDIT);
 	colWidth=15;
 	if(col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK) colWidth=5;
 	if(!isModifiable){
@@ -209,7 +209,9 @@ for(int i=0;i< columns.size();i++){
 </div> <!-- embed-items-->
 <%
 if(isModify && refbyTable!=null){
+	//System.out.print(refbyTable.getInlineMode());
 	if("Y".equals(refbyTable.getInlineMode())){
+	//System.out.print("mode Y");
 		// if only  modify allowed(no add/delete) will not display this table
 		String tbDisplay;
 		if(!table.isActionEnabled(Table.DELETE) && !table.isActionEnabled(Table.ADD) ){
@@ -220,6 +222,19 @@ if(isModify && refbyTable!=null){
 %>
 	<div id="inc-edit-line" <%=tbDisplay%>>
 	<%@ include file="inc_edit_object.jsp" %>
+	</div>
+	<%}else if("A".equals(refbyTable.getInlineMode())){
+		// if only  modify allowed(no add/delete) will not display this table
+		//System.out.print("mode YA");
+		String tbDisplay;
+		if(!table.isActionEnabled(Table.DELETE) && !table.isActionEnabled(Table.ADD) ){
+			tbDisplay="style='display:none'";
+		}else{
+			tbDisplay="";
+		}
+%>
+	<div id="inc-edit-line" <%=tbDisplay%>>
+	<%@ include file="inc_edit_object_add.jsp" %>
 	</div>
 	<%}else if("N".equals(refbyTable.getInlineMode())){%>
 	<div id="inc-line-buttons">
