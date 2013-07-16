@@ -92,9 +92,11 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
             	}else{
             		//will check type first, for number, construct operator, for date, two fields, for string, contains or equal
             		if(column.getType()==Column.DATE||column.getType()==Column.DATENUMBER ){
+                  
             			String showDefaultRange=firstDateColumnFound?"N":"Y";// only first date column will have default range set
+                  String showTime = column.getType() == Column.DATE?"Y":"N";
             		%>
-            		<input:daterange id="<%=inputName%>" name="<%=inputName%>" showDefaultRange="<%=showDefaultRange%>" attributes="<%= h %>"/>
+            		<input:daterange id="<%=inputName%>" name="<%=inputName%>" showTime="<%= showTime %>" showDefaultRange="<%=showDefaultRange%>" attributes="<%= h %>"/>
             		<%	firstDateColumnFound=true;
             		}else if(column.getType()==Column.NUMBER){
             		%>
