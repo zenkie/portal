@@ -405,6 +405,11 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
+     <attribute>
+      <name>showTime</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
     <attribute>
       <name>attributes</name>
       <required>false</required>
