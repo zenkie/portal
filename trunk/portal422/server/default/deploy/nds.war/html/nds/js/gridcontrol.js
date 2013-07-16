@@ -1915,6 +1915,7 @@ GridControl.prototype = {
 		var parentDiv= $("embed-items");
 		parentDiv.style.overflowY="auto";
 		parentDiv.style.overflowX="auto";
+		gc._initTable();
 		parentDiv.onscroll=function(){
 			//alert("a");
 			//this.scrollTop="0px";
