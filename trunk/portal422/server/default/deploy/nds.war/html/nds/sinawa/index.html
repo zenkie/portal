@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -20,6 +20,7 @@ jintian();
 $(".city").html(remote_ip_info.city);
  */
 $.ajax({
+contentType:'application/x-javascript',
 dataType:'script',
 scriptCharset:'gb2312',////////
 url:'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js',
