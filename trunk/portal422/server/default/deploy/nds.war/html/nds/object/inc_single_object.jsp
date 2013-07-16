@@ -291,12 +291,12 @@
 				if(Validator.isNotNull(column.getRegExpression())){
                 	h.put("onchange", column.getRegExpression()+"()");
                 }
-                
-         //System.out.print(inputName+"       "+column.getSQLType());
-        if(column.getSQLType()==23){
-                 h.put("onfocus","WdatePicker()");
-              //System.out.print(column.getSQLType());
-         }        
+				//System.out.print(inputName+"       "+column.getSQLType());
+               if (column.getType() == 3)
+                    h.put("onfocus", "WdatePicker()");
+                    else if (column.getType() == 1) {
+                   h.put("onfocus", "WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})");
+                }
                 h.put("title", model.getInputBoxIndicator(column,column_acc_Id,locale));
                 String attributeText2= (column.getJSONProps()!=null?column.getJSONProps().optString("input_attr",""):"");
                 //System.out.println(column.getName()+"~~~"+attributeText2+"!!!!!!!!!!!!!!!!!");
