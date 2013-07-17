@@ -270,7 +270,7 @@ WebUtils.checkTableQueryPermission(table.getName(), request);
                             	}else{
                             		//will check type first, for number, construct operator, for date, two fields, for string, contains or equal
                             		if(column.getType()==Column.DATE||column.getType()==Column.DATENUMBER ){
-										String showTime = column.getType() == Column.DATE| ? "Y" : "N";
+										String showTime = column.getType() == Column.DATE?"Y":"N";
                             		%>
                             		<input:daterange id="<%=column_acc_Id%>" name="<%=inputName%>" attributes="<%= h %>" showTime="<%=showTime%>"/>
                             		<%
