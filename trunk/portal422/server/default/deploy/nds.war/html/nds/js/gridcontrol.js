@@ -2451,7 +2451,7 @@ function doQuickSearch(){
 
 		var masterTable = document.getElementById(id); 
 		//masterTable.style.tableLayout="fixed";
-		var masterWidth=masterTable.getWidth(); //paco 2013-7-3
+		//var masterWidth=masterTable.getWidth(); //paco 2013-7-3
 
 		if (masterTable == null) {
 			alert("Err \n no table ");
