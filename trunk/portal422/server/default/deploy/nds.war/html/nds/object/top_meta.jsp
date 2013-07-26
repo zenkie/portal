@@ -84,6 +84,7 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <script language="javascript" src="/html/nds/js/artDialog4/plugins/iframeTools.js"></script>
 <script type="text/javascript" src="/html/nds/js/jplay/jquery.jplayer.min.js"></script>
 <script type="text/javascript" src="/html/nds/js/jqzoom/jquery.jqzoom-core.js"></script>
+<script language="javascript" src="/html/nds/js/potips/jquery.poshytip.js"></script>
 <!--script language="javascript" src="/html/nds/js/artdialog/artDialog.js"></script-->
 <!--link type="text/css" rel="stylesheet" href="/html/nds/js/artdialog/skin/chrome.css" /-->
 <!--link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/jquery-ui-1.7.3.custom.css" /-->
@@ -97,6 +98,7 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/aple_menu.css">
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/object.css">
 <link type="text/css" rel="stylesheet" href="/html/nds/js/jqzoom/css/jquery.jqzoom.css"/>
+<link type="text/css" rel="StyleSheet" href="/html/nds/js/potips/tip-yellowsimple/tip-yellowsimple.css">
 <!--link type="text/css" rel="stylesheet" href="/html/nds/js/artdialog4/skins/chrome.css" /-->
 <link type="text/css" rel="StyleSheet" href="/html/nds/js/jdate/My97DatePicker/skin/WdatePicker.css"/>
 <%}%>
