@@ -869,3 +869,98 @@ border: 0px;
 .buttons {
 height:24px;line-height:24px;vertical-align:center;padding: 3px 0px 0 8px;
 }
+
+#ts_line{
+  padding: 18px 0 34px 0;
+border-bottom: 1px #f1f1f1 solid;
+position: relative;
+height: 56px;
+overflow: hidden;
+}
+
+.ts-item-show{
+  /*width: 104px;*/
+float: left;
+margin-top: 5px;
+}
+
+.ts-item-show a{
+/*background-position: left -100px;
+background-image: url("http://img01.taobaocdn.com/tps/i1/T157BrFeXgXXa_64wL-112-1000.png");
+background-repeat: no-repeat;*/
+cursor: pointer;
+/*display: inline-block;*/
+}
+
+.ts-item-show img{
+  width: 50px;
+height: 50px;
+/*border: 1px solid #ccc;*/
+margin-right: 10px;
+}
+
+
+.ts-item-flow{
+  display: inline;
+float: left;
+width: 76.78571%;
+margin: 0 .89286%;
+position: relative;
+padding-top: 10px;
+}
+
+#ts_line ul.ts-item-flow .ts-line,#ts_line ul.ts-item-flow .rate-line{
+height: 0;
+position: absolute;
+top: 15px;
+margin: 0;
+width: 44%;
+font-size: 0;
+overflow: hidden;
+border-bottom: 2px #e9e9e9 solid;
+z-index: 1;
+left: 0;
+
+}
+
+.ts-item-flow li {
+position: relative;
+z-index: 2;
+margin-right: 19.6%;
+float: left;
+}
+
+
+#ts_line .ts-item-flow .rate-line{
+  width: 95%;
+}
+
+
+#ts_line ul.ts-item-flow .rate-line{
+-webkit-transition: width linear .6s;
+transition: width linear .6s;
+border-bottom: 2px #ff4200 solid;
+width: .1%;
+}
+
+
+
+.ts-item-flow li a{
+  display: inline-block;
+width: 8px;
+height: 8px;
+border: 3px #e9e9e9 solid;
+border-radius: 8px;
+background-color: #fff;
+cursor: pointer;
+border-color: #ff4200!important;
+}
+
+.ts-item-flow li em{
+position: absolute;
+width: 50px;
+top: 27px;
+left: -10px;
+}
+
+
