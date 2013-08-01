@@ -214,9 +214,10 @@
         for (int i = 0; i < al.size(); i++) {
           List advTemplate = (List)al.get(i);
           Object id = advTemplate.get(0);
-          Object name = advTemplate.get(1);
+          String name = (String)advTemplate.get(1);
+          //System.out.print(name);
  %>
-         <option value="cx"<%=id%>打印模板:<%=name%></option>
+         <option value="cx"<%=id%> >打印模板:<%=name%></option>
         <%}%>
 </select> &nbsp; 格式：<select id="printFileType" name="printFileType"><option value="pdf">PDF</option><option value="xls">Excel</option>
 <option value="csv">CSV</option><option value="htm">Html</option></select> &nbsp;&nbsp;<a href="javascript:void(0)" onclick="mm.toggleNote('note2')">&nbsp;?&nbsp;</a>
