@@ -296,10 +296,11 @@ MonitorManager.prototype = {
 					});*/	
 		//div.innerHTML=e.getUserData().pagecontent;
 		//executeLoadedScript(div);
-		var options=$H({id:"cxtab_content",padding: 0,width:790,height:'auto',left: '25%',top:'top',title:"设置报表条件",skin:'chrome',drag:true,lock:true,esc:true,effect:false});
+		var options=$H({id:"cxtab_content",padding: 0,width:790,height:'auto',left: '25%',top:'top',title:"设置报表条件",skin:'chrome',drag:true,lock:true,esc:true,effect:false,queryindex:1});
 	  options.content=e.getUserData().pagecontent;
 	  var par=art.dialog(options);
 		var op={escapeHtml:false};
+		var div=$("rpt-search");
 		for (var property in this._monitor.props.cxtabConditionInput) {
 			var ex=div.getElementsBySelector('input[name="'+ property +'"]');
 			if(ex==null|| ex.length==0)ex=div.getElementsBySelector('select[name="'+ property +'"]');
