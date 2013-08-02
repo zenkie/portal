@@ -508,32 +508,7 @@ resource-ref, security-constraint, login-config, security-role,
 env-entry, and ejb-ref elements should follow this fragment.
 -->
 <!--##############################################-->
-<servlet><servlet-name>org.apache.jspc.html.nds.monitor.list_jsp
-</servlet-name><servlet-class>org.apache.jspc.html.nds.monitor.list_jsp
-</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.monitor.monitors_jsp
-</servlet-name><servlet-class>org.apache.jspc.html.nds.monitor.monitors_jsp
-</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.monitor.cxtab_005fsearch_jsp
-</servlet-name><servlet-class>org.apache.jspc.html.nds.monitor.cxtab_005fsearch_jsp
-</servlet-class></servlet>
-<servlet><servlet-name>org.apache.jspc.html.nds.monitor.jreport_005fsearch_jsp
-</servlet-name><servlet-class>org.apache.jspc.html.nds.monitor.jreport_005fsearch_jsp</servlet-class>
-</servlet>
 
-
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.monitor.list_jsp
-</servlet-name><url-pattern>/html/nds/monitor/list.jsp
-</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.monitor.monitors_jsp
-</servlet-name><url-pattern>/html/nds/monitor/monitors.jsp
-</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.monitor.cxtab_005fsearch_jsp
-</servlet-name><url-pattern>/html/nds/monitor/cxtab_search.jsp
-</url-pattern></servlet-mapping>
-<servlet-mapping><servlet-name>org.apache.jspc.html.nds.monitor.jreport_005fsearch_jsp</servlet-name>
-<url-pattern>/html/nds/monitor/jreport_search.jsp</url-pattern>
-</servlet-mapping>
 @webinc@
 <servlet-mapping>
 	<servlet-name>ConnectorServlet</servlet-name>
