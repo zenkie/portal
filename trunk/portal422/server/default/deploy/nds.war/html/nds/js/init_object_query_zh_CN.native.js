@@ -18,5 +18,6 @@ var gMessageHolder={
 	RETAILER_NOT_EMPTY:"经销商不能为空!",
 	M_PRODUCT_NOT_EMPTY:"商品名称不能为空!",
 	CONFORM_CREATE_SELL:"的确想要生成销售价格明细吗？",
-	CONFORM_UPDATE_SELL:"的确想要更新销售价格明细吗？"
+	CONFORM_UPDATE_SELL:"的确想要更新销售价格明细吗？",
+	NO_DATA_TO_PROCESS:"没有数据需要处理"
 };
