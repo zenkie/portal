@@ -17,14 +17,14 @@ org.json.JSONObject dcqjsonObject=null;
 %>
 <table align="center" border="0" cellpadding="1" cellspacing="1" width="100%" class="emtb">
 <%
-ArrayList editColumns=table.getColumns(new int[]{Column.MASK_CREATE_EDIT},false,userWeb.getSecurityGrade() ); // not to show uiController
+ArrayList editColumns=table.getColumns(new int[]{Column.MASK_CREATE_SHOW},false,userWeb.getSecurityGrade() ); // not to show uiController
 String columnClasses;
 int colIdx=-1; // colIdx max to columnsPerRow(equal), each row has (columnsPerRow x 2) <td>;
 int widthPerColumn= (int)(100/(columnsPerRow*2));
 String columnDomId,columnDomName,colDisplayName;
 int maxInputLength;
 FKObjectQueryModel fkQueryModel;
-TableQueryModel model= new TableQueryModel(tableId, new int[]{Column.MASK_CREATE_EDIT},true,true,locale,userWeb.getSecurityGrade());
+TableQueryModel model= new TableQueryModel(tableId, new int[]{Column.MASK_CREATE_SHOW},true,true,locale,userWeb.getSecurityGrade());
 ButtonFactory commandFactory= ButtonFactory.getInstance(pageContext,locale);
 boolean hideInEditMode;
 boolean checkPdtBarcodeOnly=false;
