@@ -123,3 +123,5 @@ org/apache/jspc/html/nds/step/multiple_005fobject_jsp.java
 org/apache/jspc/html/nds/monitor/new_jsp.java
 org/apache/jspc/html/nds/monitor/index_jsp.java
 org/apache/jspc/html/nds/monitor/obj_jsp.java
+org/apache/jspc/html/nds/monitor/cxtab_005fsearch_jsp.java
+org/apache/jspc/html/nds/monitor/jreport_005fsearch_jsp.java
