@@ -85,6 +85,7 @@
     <script type="text/javascript" src="/html/nds/js/selectableelements.js"></script>
     <script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script>
     <script language="javascript" src="/html/nds/js/calendar.js"></script>
+    <script language="javascript" src="/html/nds/js/jdate/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
@@ -97,7 +98,8 @@
 		<script language="javascript" src="/html/nds/js/artDialog4/plugins/iframeTools.js"></script>
     <script language="javascript" src="/distribution/distribution.js"></script>
     <link type="text/css" rel="stylesheet" href="/html/nds/themes/classic/01/css/header_aio_min.css"/>
-    <link typ e="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css"/>
+    <link type="text/css" rel="stylesheet" href="/html/nds/css/nds_header.css"/>
+    <link type="text/css" rel="StyleSheet" href="/html/nds/js/jdate/My97DatePicker/skin/WdatePicker.css"/>
     <link href="ph.css" rel="stylesheet" type="text/css"/>
 </head>
 <script language="javascript">
