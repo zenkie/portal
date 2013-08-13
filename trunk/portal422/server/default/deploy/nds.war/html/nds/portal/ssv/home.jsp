@@ -92,7 +92,7 @@ fkQueryModel.setQueryindex(-1);
 		
 		  //nav
    jQuery(function(){
-	    jQuery.post("/html/nds/portal/tablecategoryout.jsp?id=4667&&onlyfa='Y'",
+	    jQuery.post("/html/nds/portal/tablecategoryout.jsp?id=-1&&onlyfa='Y'",
 			   function(data){
 			     var result=data;
 			      //alert(data);
