@@ -17,7 +17,7 @@
 	String NDS_PATH=nds.util.WebKeys.NDS_URI;
 	UserWebImpl userWeb =null;
 	try{
-		userWeb= ((UserWebImpl)WebUtils.getSessionContextManager(session).getActor(nds.util.WebKeys.USER));	
+		userWeb= ((UserWebImpl)WebUtils.getSessionContextManager(session).getActor(nds.util.WebKeys.USER));
 	}catch(Exception userWebException){
 		System.out.println("########## found userWeb=null##########"+userWebException);
 	}
@@ -105,12 +105,13 @@ result= QueryEngine.getInstance().doQuery(query);
 		//add realtable
 	queryData.addSelection(dataTable.getColumn("AD_TABLE_ID").getId());
 	queryData.setOrderBy( new int[]{ dataTable.getAlternateKey().getId()}, true);
-	queryData.setRange(0, Integer.MAX_VALUE); 
+	queryData.setRange(0, Integer.MAX_VALUE);
 	Expression expr= new Expression(categoryIdLink,"="+pkid ,null);
 	//set reporttype to "S"
 	expr=expr.combine(new Expression(new ColumnLink("AD_CXTAB.REPORTTYPE"), "=S",null), SQLCombination.SQL_AND,null);
 	expr=expr.combine(new Expression(new ColumnLink("AD_CXTAB.ISACTIVE"), "=Y",null), SQLCombination.SQL_AND,null);
 	expr=expr.combine(new Expression(new ColumnLink("AD_CXTAB.ISPUBLIC"), "=Y",null), SQLCombination.SQL_AND,null);
+	expr=expr.combine(new Expression(new ColumnLink("AD_CXTAB.AD_TABLE_ID;ISACTIVE"), "=Y",null), SQLCombination.SQL_AND,null);
 	expr=expr.combine(userWeb.getSecurityFilter(dataTable.getName(), 1) ,  SQLCombination.SQL_AND,null);
 	//expr=expr.combine(userWeb.getSecurityFilter((dataTable.getColumn("AD_TABLE_ID").getColumnLink().getLastColumn()), 1),SQLCombination.SQL_AND,null);
 	queryData.addParam(expr);//read permission
@@ -119,7 +120,7 @@ result= QueryEngine.getInstance().doQuery(query);
 	else orderKey= new int[]{ dataTable.getAlternateKey().getId()};
 	queryData.setOrderBy(orderKey, true);
 	resultData= QueryEngine.getInstance().doQuery(queryData);
-	String icon;
+	String icon="";
 	for(int j=0;j< resultData.getRowCount();j++){
 		resultData.next();
 		int rptid=Integer.parseInt(String.valueOf(resultData.getObject(4)));
@@ -131,12 +132,11 @@ result= QueryEngine.getInstance().doQuery(query);
 				  continue;
 				}
 		icon=Validator.isNull((String)resultData.getObject(3) )? "cxtab.gif":"jrpt.gif";
-%>	
+%>
 		<div class="accordion_headings" onclick="javascript:<%=action%>(<%=resultData.getObject(1)%>)"><img src="<%=NDS_PATH%>/images/<%=icon%>" style="height:16px;width:20px;"></img><a><%=StringUtils.escapeForXML((String)resultData.getObject(2))%></a></div>
 <%	}
-%>		
-	</div></div>	
-<%		
-	}%>	
+%>
+	</div></div>
+<%
+	}%>
 </div>
-
