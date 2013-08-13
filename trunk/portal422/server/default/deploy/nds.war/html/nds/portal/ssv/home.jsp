@@ -128,7 +128,9 @@ SubSystem ss;
 								for(int ii=0;ii< sss.size();ii++){
 									ss=sss.get(ii);
 								%>								
-								<li><a href="javascript:pc.ssv(<%=ss.getId()%>)" class="classId_<%=ss.getId()%>"><%=ss.getName()%></a></li>
+								<li><a href="javascript:pc.ssv(<%=ss.getId()%>)" class="classId_<%=ss.getId()%>"><img src="<%=ss.getIconURL()%>" border="0"/><p><%=ss.getName()%></p></a>
+									</a>
+								</li>
 								<%	
 								}
 								%>

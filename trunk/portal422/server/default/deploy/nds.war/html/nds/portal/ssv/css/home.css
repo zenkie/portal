@@ -5,15 +5,16 @@
 .main_left ul.ico{width:99.6%; margin:15px auto; overflow:hidden; clear:both; padding-left:2.4%;}
 *html .main_left ul.ico,*+html .main_left ul.ico{width:99.6%; margin:5px auto; overflow:hidden; clear:both; padding-left:0.0%;}
 .main_left ul.ico li{float:left;  width:10.7%; min-width:62px; height:90px;  margin:0 0 8px 2px; display:inline; text-align:center;}
-.main_left ul.ico a{ color:black;width:100%; min-width:62px; _width:62px; height:17px; text-align:center; display:block; padding-top:72px;}
+.main_left ul.ico a{ color:black;width:100%; min-width:62px; _width:62px;text-align:center; display:block; padding-top:4px;text-decoration:none;
+}
 /****ico***/
 
 #loadbox .ul{ padding:10px; width:210px;}
 #loadbox  ul li{ float:left;}
-#loadbox	ul li a{ display:block; font-size:13:px; width:65px; height:70px; text-align:center; line-height:11px; border:0px solid #ccc; position:relative; margin:0px 6px 0px 0px;}
+#loadbox	ul li a{ display:block; font-size:13:px; width:65px; height:70px; text-align:center; line-height:11px; border:0px solid #ccc; margin:0px 6px 0px 0px;}
 #loadbox	ul li a:hover{ border:0px solid #f50; position:relative; z-index:1;}
 #loadbox	ul img{width:50px;padding: 2px;}
-
+/*
 .main_left ul.ico a.classId_61{background:url(/html/nds/portal/ssv/images/01.png) no-repeat center top;}
 .main_left ul.ico a.classId_61:hover{background:url(/html/nds/portal/ssv/images/001.png) no-repeat center top;}
 
@@ -66,8 +67,20 @@
 
 .main_left ul.ico a.classId_45{background:url(/html/nds/portal/ssv/images/home_49.gif) no-repeat center top;}
 .main_left ul.ico a.classId_45:hover{background:url(/html/nds/portal/ssv/images/hover_49.gif) no-repeat center top;}
-/******/
-.main_left ul.ico li img{width:39px; height:42px;}
+*/
+.main_left ul.ico li img{
+	-webkit-transition:all .3s ease-in-out;
+	transition:all .3s ease-in-out;
+	width:60px; height:60px;
+}
+.main_left ul.ico li a:hover img{
+/*-webkit-transform:rotate(360deg);*/
+	-webkit-transform:scale(1.1);
+	transform:scale(1.1);
+	margin:6px 6px;
+	border-radius:8px;
+	box-shadow:0 0 20px rgb(189, 173, 173);
+	}
 .main_left ul.audit{width:100%;clear:both; padding:1px 0;margin-left:20px;height: 20px;}
 .main_left ul.audit li{float:left; width:50%; overflow:hidden;}
 .main_left ul.audit li.set_up{width:50%;}
@@ -153,7 +166,7 @@ zoom: 1;
 
 }
 .main_box2{background:#fff;}
-.main_box3{ margin-bottom:5px;position: relative;/*top: 150px;*/}
+.main_box3{ margin-bottom:5px;/*position: relative;top: 150px;*/}
 .title{width:100%; clear:both; height:25px; border:1px solid #ccc; background:url(/html/nds/portal/ssv/images/title_bg.gif) repeat-x left top;}
 .fa_title{width:100%; clear:both; height:28px; border-top:1px solid #ccc; border-bottom:1px solid #ccc; background:url("/html/nds/themes/classic/01/images/left-top.png") repeat-x scroll right 0 transparent;}
 .fa_title_sp{
