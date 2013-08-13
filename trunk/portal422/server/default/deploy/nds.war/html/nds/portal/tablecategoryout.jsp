@@ -51,7 +51,7 @@ if(fa_tab instanceof Table){
 	  			}	
 			}	
 }
-System.out.println(famus);
+//System.out.println(famus);
 //String tabout = new String();
 TableManager manager=TableManager.getInstance();
 TableCategory tc= manager.getTableCategory(tablecategoryId);
