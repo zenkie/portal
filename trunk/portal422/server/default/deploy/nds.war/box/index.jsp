@@ -28,6 +28,7 @@
     
     String b_box="M_BOX";
 	String soundfile="null";
+    String sc_soundfile="null";
     String tname=request.getParameter("tableid");
     if("lessbox?".equals(tname)){
       b_box="M_V_LESSBOX";
@@ -57,6 +58,8 @@
     boolean hasReadPermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.READ);
     boolean hasSubmitPermission=userWeb.hasObjectPermission(tableName,m_box_id,nds.security.Directory.SUBMIT);
     String sound=userWeb.getUserOption("ALERT_SOUND","");
+    String sc_sound=userWeb.getUserOption("SCAN_SOUND","");
+
     String comp=String.valueOf(QueryEngine.getInstance().doQueryOne("select VALUE from AD_PARAM where NAME='portal.company'"));
     int barcodeCutLength=nds.util.Tools.getInt(QueryEngine.getInstance().doQueryOne("select VALUE from AD_PARAM where NAME='portal.6001'"),0);
     java.util.List newOldBar=QueryEngine.getInstance().doQueryList("select distinct o.no,n.no from "+b_box+"_PICKUP i, M_PDT_ALIAS_CON c, M_PRODUCT_ALIAS n, M_PRODUCT_ALIAS o where n.ID=c.M_PDA_NEW_ID AND o.ID=c.M_PDA_OLD_ID and i.m_product_id=n.m_product_id and i.m_attributesetinstance_id=n.m_attributesetinstance_id and i."+b_box+"_id="+m_box_id );
@@ -73,6 +76,9 @@
 		if(!sound.equals("")){
 			soundfile="{"+sound.substring(sound.indexOf(".")+1)+":\""+sound+"\"}"; 
 		}
+        if(!sc_sound.equals("")){
+            sc_soundfile="{"+sc_sound.substring(sc_sound.indexOf(".")+1)+":\""+sc_sound+"\"}"; 
+        }
 		%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -112,15 +118,29 @@
 <script language="javascript">
     jQuery(document).ready(function(){box.load()});
     jQuery(document).ready(function(){box.loadBox(<%=jo%>,<%=jo2%>);});
-				jQuery(document).ready(function(){
-					jQuery("#jpId").jPlayer( {
-						ready: function () {
-								jQuery(this).jPlayer("setMedia",<%=soundfile%>);
-							},
-							swfPath: "/html/nds/js/jplay",
-							supplied: "mp3,mp4,flv,oga,wav"
-				   });
-				});
+    <%if(sound!=""){%>
+    jQuery(document).ready(function(){
+    jQuery("#jpId").jPlayer({
+        ready: function () {
+                jQuery(this).jPlayer("setMedia",<%=soundfile%>);
+            },
+            swfPath: "/html/nds/js/jplay",
+            supplied: "mp3,mp4,flv,oga,wav"
+      });
+    });
+    <%}%>
+
+    <%if(sc_sound!=""){%>
+    jQuery(document).ready(function(){
+    jQuery("#jpsId").jPlayer({
+        ready: function () {
+                jQuery(this).jPlayer("setMedia",<%=sc_soundfile%>);
+            },
+            swfPath: "/html/nds/js/jplay",
+            supplied: "mp3,mp4,flv,oga,wav"
+      });   
+    });
+    <%}%>
 </script>
 
 <input id="skuAddRange" type="hidden" value="<%=skuAddRange%>"/>
@@ -375,5 +395,6 @@
  </div>
 </div>
 <div id="jpId"></div>
+<div id="jpsId"></div>
 </body>
 </html>

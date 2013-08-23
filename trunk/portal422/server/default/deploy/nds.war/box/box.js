@@ -1385,6 +1385,17 @@ BOX.prototype={
             return;
         }
 		},
+    playScan:function(){
+      /*
+      if($("sound").value&&$("sound").value.strip()!="0")
+        null;*/
+      //this.doPlay();
+          if($("jpsId")){
+            jQuery("#jpsId").jPlayer("stop");
+            jQuery("#jpsId").jPlayer("play");
+            return;
+        }
+    },
     /**
     原方法有第二次不播放的问题
     playErrorSound:function(){
@@ -1624,7 +1635,8 @@ BOX.prototype={
     			var sreturn=new Array();
     			if(box.checkIsArray(box.returnData.data)&&box.returnData.data){
 	    			sreturn=box.returnData.data;
-	    		}else if(!(box.checkIsArray(box.returnData.data))&&box.returnData.data){
+	    		}
+else if(!(box.checkIsArray(box.returnData.data))&&box.returnData.data){
 	    			sreturn[0]=box.returnData.data;	
 	    		}
     			for(var sr=0;sr<sreturn.length;sr++){
@@ -1776,6 +1788,7 @@ BOX.prototype={
      this.todoWhenScanBarcodeSucc(code,snum,count);
      this.additionalQty=this.getTotAdditionalQty();
      //alert(" 2: "+this.additionalQty);
+     this.playScan();
      this.updateAdditionalText();
     },
     getrecord:function(code){
