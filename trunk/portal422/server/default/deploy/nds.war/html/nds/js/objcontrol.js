@@ -1430,6 +1430,18 @@ ObjectControl.prototype = {
 	show_qlink:function(url,tit){
 		var options=$H({width:'auto',height:'auto',title:tit,ifrid:'popup-iframe-0',drag:true,lock:true,esc:true,skin:'chrome',ispop:false,effect:false});
 		art.dialog.open(url,options);
+	},
+	playScan:function(){
+		if($("jpsId")&&!is_ie_8){
+			/*
+        	if(!app1){
+            	var app1=FABridge.b_playErrorSound.root();
+                app1.setStr($("sound").value.strip());
+			}*/
+						jQuery("#jpsId").jPlayer("stop");
+            jQuery("#jpsId").jPlayer("play");
+            return;
+      }
 	}
 };
 // define static main method

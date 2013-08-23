@@ -397,6 +397,7 @@ GridControl.prototype = {
 		if(chkResult.isok){
 			this._okCount++;
 			$("ts_qty").innerHTML=String(this._okCount);
+			playScan();
 		}else{
 			this._scanError=true;
 			jQuery("#turboscan_div").css("background-color","yellow");
@@ -1749,6 +1750,7 @@ GridControl.prototype = {
 			this._isDirty=false;
 			this.newLine(false);
 			this.refreshGrid();
+			playScan();
 			return;	
 		}
 		var rs=r.results; //[] elements like: {rowIdx: 12, id:11, msg:null,action:"A"}
@@ -1807,6 +1809,7 @@ GridControl.prototype = {
 		if(errFound==false && bRefresh==true){
 			//if(confirm(gMessageHolder.RELOAD_SINCE_ATTRIBUTE_MATRIX_SPLITTED)) #MANTIS0000026
 			this.refreshGrid();
+			playScan();
 		}else{
 			if(errFound){
 				alert( gMessageHolder.EXCEPTION+":\n"+ sMsg);
@@ -2136,151 +2139,7 @@ GridControl.main = function () {
 	gc=new GridControl();
 };
 
-function AddScrollTableHeader(div) {
-	var scrollDiv=$("scrollTableHeader");
-	if(scrollDiv){
-		AdjustTableHeader();
-		scrollDiv.style.top=div.scrollTop+"px";
-		return;
-	}
-	
-	var masterTable=$("modify_table");
-	// tableHeader=masterTable.tHead.cloneNode(true);
 
-	// var table=document.createElement("table");
-	// table.id="tableHeader";
-	// table.style=masterTable.style;
-	// table.appendChild(tableHeader);
-	
-	var tableHeader = masterTable.cloneNode(true);
-	tableHeader.id = "tableHeader";
-	
-	while (tableHeader.tBodies[0].rows.length) {
-		tableHeader.tBodies[0].deleteRow(0);
-	}
-		
-	var divTableHeader = document.createElement("div");
-	divTableHeader.id = "scrollTableHeader";
-	divTableHeader.style.width=masterTable.tHead.getWidth()+"px"; //paco 2013-7-3
-	divTableHeader.style.height =masterTable.tHead.getHeight()+"px"; //paco 2013-7-3
-	divTableHeader.style.overflowX="hidden";
-	divTableHeader.style.overflowY="hidden";
-	divTableHeader.style.position ="absolute";// "absolute";
-	divTableHeader.style.background="blue";
-	divTableHeader.style.top= "0px";
-	//divTableHeader.style.zIndex=parentDiv.style.zIndex+1;
-	
-	//divTableHeader.css({'position':'absolute', 'overflow-y':'auto', height:'0px',width:'20px'})
-	//parentDiv.appendChild(divTableHeader);
-	divTableHeader.appendChild(tableHeader);
-	masterTable.parentNode.appendChild(divTableHeader);
-	
-	AdjustTableHeader();
-}
-
-function AdjustTableHeader(){
-	var widths=[];
-
-	var tableTH = jQuery("#modify_table").find("thead tr:first td");
-	var tableHeader = jQuery("#tableHeader").find("thead tr:first td");
-	
-	tableTH.each(function(index){
-		var tObj = jQuery(this);
-		widths[index]= tObj.width();
-	});
-	
-	tableHeader.each(function(index){
-		var tObj = jQuery(this);
-		tObj.width(widths[index]);
-	});
-}
-
-//态改变的时候执行这个方法.
-/*
-document.onreadystatechange = function(){
-	if(document.readyState =="complete"){
-		var divScrollBay=$("embed-items");
-		divScrollBay.scroll=function(){
-			alert("a");
-			//return false;
-		}
-	
-	
-		var divScroll=$("scrollDiv");
-		var masterTable=$("modify_table");
-		divScroll.style.left=masterTable.getWidth()+"px";
-		divScroll.style.height=(masterTable.getHeight()-22)+"px";
-		
-		divscroll.onscroll=function(){
-			alert("a");
-		}
-		
-	}
-	//alert($("modify_table").getWidth()+"complete");
-};
-*/
-
-// function subSomething()
-// {
-// if(document.readyState == "complete") //当页面加载状态为完全结束时进入
-	// alert($("modify_table").getWidth()+"“complete”");//这是你的操作
-// }
-
-
-/*
-window.onload = function(){ 
-	 // alert($("modify_table").getWidth()+"load");
-	 // alert($("D_modify_table_B").getWidth());
-   // ScrollableTable._matchFixedHead(); 
-   // ScrollableTable.set('modify_table','100%',260,false);
-}; 
-*/
-
-//paco 2013-7-3 begin
-(function($,h,c){
-	var a=$([]),e=$.resize=$.extend($.resize,{}),i,k="setTimeout",j="resize",d=j+"-special-event",b="delay",f="throttleWindow";
-	e[b]=250;
-	e[f]=true;
-	$.event.special[j]={
-		setup:function(){
-			if(!e[f]&&this[k]){return false}
-			var l=$(this);
-			a=a.add(l);
-			$.data(this,d,{w:l.width(),h:l.height()});
-			if(a.length===1){g()}
-		},
-		teardown:function(){
-			if(!e[f]&&this[k]){return false}
-			var l=$(this);
-			a=a.not(l);
-			l.removeData(d);
-			if(!a.length){clearTimeout(i)}
-		},
-		add:function(l){
-			if(!e[f]&&this[k]){return false}
-			var n;
-			function m(s,o,p){
-				var q=$(this),r=$.data(this,d);
-				r.w=o!==c?o:q.width();
-				r.h=p!==c?p:q.height();
-				n.apply(this,arguments)}
-				if($.isFunction(l)){n=l;return m}
-				else{n=l.handler;l.handler=m}
-		}
-	};
-	
-	function g(){
-		i=h[k](function(){
-			a.each(function(){
-				var n=$(this),m=n.width(),l=n.height(),o=$.data(this,d);
-				if(m!==o.w||l!==o.h){n.trigger(j,[o.w=m,o.h=l])}
-			});
-			g()
-		},e[b])
-	}
-})(jQuery,this);
-//paco 2013-7-3 end
-	
 var EditableGridMetadata = Class.create();
 // define constructor
 EditableGridMetadata.prototype = {
@@ -2350,6 +2209,20 @@ function playAlert(){
             return;
       }
 }
+
+function playScan(){
+		if($("jpsId")&&!is_ie_8){
+			/*
+        	if(!app1){
+            	var app1=FABridge.b_playErrorSound.root();
+                app1.setStr($("sound").value.strip());
+			}*/
+						jQuery("#jpsId").jPlayer("stop");
+            jQuery("#jpsId").jPlayer("play");
+            return;
+      }
+}
+
 function alertScan(msg){
 	 var _isIE7=(navigator.userAgent.indexOf('MSIE 7')>0);
 	if(_isIE7){
@@ -2683,177 +2556,7 @@ function doQuickSearch(){
 		jQuery("#D_modify_table").width(jQuery("#modify_table_H").width());
 		jQuery("#D_modify_table_B").width((jQuery("#D_modify_table").width()+getScrollbarWidth()));
 	}
-	
-     /*
-     var newidth=0;
-     jQuery.each(thWidth, function (i, item) {  
-             newidth=item+newidth;
-        });  
-       */ 
-       // alert(newidth);
-        
-   // alert(jQuery(this).innerWidth());   
-  // if (diff<=getScrollbarWidth()) {
-     //alert(jQuery("#modify_table_H").width());
-       //  alert(jQuery("#modify_table_B").width());
-     
-		 //jQuery("#D_modify_table").width((jQuery("#D_modify_table_B").width()+diff));
-		 //jQuery("#D_modify_table_B").width((jQuery("#D_modify_table").width()+getScrollbarWidth()));
-		//	}
-	//}
-		
-		//}
-		
-		//jQuery("#fthtr").remove();
-		//this._adjust();
-	},
+	}
 }
 
-//拖放程序
-var Drag = Class.create();
-Drag.prototype = {
-  //拖放对象
-  initialize: function(drag, options) {
-	this.Drag = $(drag);//拖放对象
-	this._x = this._y = 0;//记录鼠标相对拖放对象的位置
-	this._marginLeft = this._marginTop = 0;//记录margin
-	//事件对象(用于绑定移除事件)
-	this._fM = BindAsEventListener(this, this.Move);
-	this._fS = Bind(this, this.Stop);
-	
-	this.SetOptions(options);
-	
-	this.Limit = !!this.options.Limit;
-	this.mxLeft = parseInt(this.options.mxLeft);
-	this.mxRight = parseInt(this.options.mxRight);
-	this.mxTop = parseInt(this.options.mxTop);
-	this.mxBottom = parseInt(this.options.mxBottom);
-	
-	this.LockX = !!this.options.LockX;
-	this.LockY = !!this.options.LockY;
-	this.Lock = !!this.options.Lock;
-	
-	this.onStart = this.options.onStart;
-	this.onMove = this.options.onMove;
-	this.onStop = this.options.onStop;
-	
-	this._Handle = $(this.options.Handle) || this.Drag;
-	this._mxContainer = $(this.options.mxContainer) || null;
-	
-	this.Drag.style.position = "absolute";
-	//透明
-	if(isIE && !!this.options.Transparent){
-		//填充拖放对象
-		with(this._Handle.appendChild(document.createElement("div")).style){
-			width = height = "100%"; backgroundColor = "#fff"; filter = "alpha(opacity:0)"; fontSize = 0;
-		}
-	}
-	//修正范围
-	this.Repair();
-	addEventHandler(this._Handle, "mousedown", BindAsEventListener(this, this.Start));
-  },
-  //设置默认属性
-  SetOptions: function(options) {
-	this.options = {//默认值
-		Handle:			"",//设置触发对象（不设置则使用拖放对象）
-		Limit:			false,//是否设置范围限制(为true时下面参数有用,可以是负数)
-		mxLeft:			0,//左边限制
-		mxRight:		9999,//右边限制
-		mxTop:			0,//上边限制
-		mxBottom:		9999,//下边限制
-		mxContainer:	"",//指定限制在容器内
-		LockX:			false,//是否锁定水平方向拖放
-		LockY:			false,//是否锁定垂直方向拖放
-		Lock:			false,//是否锁定
-		Transparent:	false,//是否透明
-		onStart:		function(){},//开始移动时执行
-		onMove:			function(){},//移动时执行
-		onStop:			function(){}//结束移动时执行
-	};
-	Extend(this.options, options || {});
-  },
-  //准备拖动
-  Start: function(oEvent) {
-	if(this.Lock){ return; }
-	this.Repair();
-	//记录鼠标相对拖放对象的位置
-	this._x = oEvent.clientX - this.Drag.offsetLeft;
-	this._y = oEvent.clientY - this.Drag.offsetTop;
-	//记录margin
-	this._marginLeft = parseInt(CurrentStyle(this.Drag).marginLeft) || 0;
-	this._marginTop = parseInt(CurrentStyle(this.Drag).marginTop) || 0;
-	//mousemove时移动 mouseup时停止
-	addEventHandler(document, "mousemove", this._fM);
-	addEventHandler(document, "mouseup", this._fS);
-	if(isIE){
-		//焦点丢失
-		addEventHandler(this._Handle, "losecapture", this._fS);
-		//设置鼠标捕获
-		this._Handle.setCapture();
-	}else{
-		//焦点丢失
-		addEventHandler(window, "blur", this._fS);
-		//阻止默认动作
-		oEvent.preventDefault();
-	};
-	//附加程序
-	this.onStart();
-  },
-  //修正范围
-  Repair: function() {
-	if(this.Limit){
-		//修正错误范围参数
-		this.mxRight = Math.max(this.mxRight, this.mxLeft + this.Drag.offsetWidth);
-		this.mxBottom = Math.max(this.mxBottom, this.mxTop + this.Drag.offsetHeight);
-		//如果有容器必须设置position为relative来相对定位，并在获取offset之前设置
-		!this._mxContainer || CurrentStyle(this._mxContainer).position == "relative" || CurrentStyle(this._mxContainer).position == "absolute" || (this._mxContainer.style.position = "relative");
-	}
-  },
-  //拖动
-  Move: function(oEvent) {
-	//判断是否锁定
-	if(this.Lock){ this.Stop(); return; };
-	//清除选择
-	window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
-	//设置移动参数
-	this.SetPos(oEvent.clientX - this._x, oEvent.clientY - this._y);
-  },
-  //设置位置
-  SetPos: function(iLeft, iTop) {
-	//设置范围限制
-	if(this.Limit){
-		//设置范围参数
-		var mxLeft = this.mxLeft, mxRight = this.mxRight, mxTop = this.mxTop, mxBottom = this.mxBottom;
-		//如果设置了容器，再修正范围参数
-		if(!!this._mxContainer){
-			mxLeft = Math.max(mxLeft, 0);
-			mxTop = Math.max(mxTop, 0);
-			mxRight = Math.min(mxRight, this._mxContainer.clientWidth);
-			mxBottom = Math.min(mxBottom, this._mxContainer.clientHeight);
-		};
-		//修正移动参数
-		iLeft = Math.max(Math.min(iLeft, mxRight - this.Drag.offsetWidth), mxLeft);
-		iTop = Math.max(Math.min(iTop, mxBottom - this.Drag.offsetHeight), mxTop);
-	}
-	//设置位置，并修正margin
-	if(!this.LockX){ this.Drag.style.left = iLeft - this._marginLeft + "px"; }
-	if(!this.LockY){ this.Drag.style.top = iTop - this._marginTop + "px"; }
-	//附加程序
-	this.onMove();
-  },
-  //停止拖动
-  Stop: function() {
-	//移除事件
-	removeEventHandler(document, "mousemove", this._fM);
-	removeEventHandler(document, "mouseup", this._fS);
-	if(isIE){
-		removeEventHandler(this._Handle, "losecapture", this._fS);
-		this._Handle.releaseCapture();
-	}else{
-		removeEventHandler(window, "blur", this._fS);
-	};
-	//附加程序
-	this.onStop();
-  }
-};
 

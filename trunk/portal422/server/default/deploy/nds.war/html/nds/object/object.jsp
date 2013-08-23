@@ -62,6 +62,9 @@ int selectedTabId=-1;
 NDSServletRequest ndsRequest=new NDSServletRequest(request);
 String sound=userWeb.getUserOption("ALERT_SOUND","");
 String soundfile="{"+sound.substring(sound.indexOf(".")+1)+":\""+sound+"\"}";
+
+String sc_sound=userWeb.getUserOption("SCAN_SOUND","");
+String sc_soundfile="{"+sc_sound.substring(sc_sound.indexOf(".")+1)+":\""+sc_sound+"\"}";
 //soundfile create
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -320,8 +323,9 @@ jQuery(document).ready(function(){
 	
 var ti=setInterval("try{dcq.dynquery();}catch(ex){}",500);
 
+<%if(sound!=""){%>
 jQuery(document).ready(function(){
-jQuery("#jpId").jPlayer( {
+jQuery("#jpId").jPlayer({
 	ready: function () {
 			jQuery(this).jPlayer("setMedia",<%=soundfile%>);
 		},
@@ -329,8 +333,23 @@ jQuery("#jpId").jPlayer( {
 		supplied: "mp3,mp4,flv,oga,wav"
   });
 });
+<%}%>
+
+<%if(sc_sound!=""){%>
+jQuery(document).ready(function(){
+jQuery("#jpsId").jPlayer({
+	ready: function () {
+			jQuery(this).jPlayer("setMedia",<%=sc_soundfile%>);
+		},
+		swfPath: "/html/nds/js/jplay",
+		supplied: "mp3,mp4,flv,oga,wav"
+  });	
+});
+<%}%>
+
 </script>
 </td></tr></table>
 <div id="jpId"></div>
+<div id="jpsId"></div>
 </body>
 </html>
