@@ -8,6 +8,7 @@
 */
 private static boolean listEditable=Tools.getYesNo(((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("list.editable","Y"),true);
 private static boolean listUiconf=Tools.getYesNo(((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("list.uiconf","N"),true);
+private static boolean listHelp="true".equals( ((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("list.help","false"));
 %>
 
 <%
@@ -141,9 +142,9 @@ if(!listUiconf)listViewPermissionType=1;
 //System.out.print(listViewPermissionType);
 //System.out.println(WebUtils.getTableUIConfig(table).getDefaultAction());
 //System.out.println(nds.web.config.ObjectUIConfig.ACTION_EDIT);
-%>
-	<!--input type="button" class="cbutton" value="<%=PortletUtils.getMessage(pageContext, "help",null)%>" onclick="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"/-->
+if(listHelp){%>
 	<a href="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"><img src="/html/nds/images/help.png"/><%=PortletUtils.getMessage(pageContext, "help",null)%></a>
+<%}%>	
 	<a href="javascript:mu.add_mufavorite('<%=table.getDescription(locale)%>','<%=tableId%>')"><img src="/html/nds/images/mufa.png"/><%=PortletUtils.getMessage(pageContext, "mufavorite",null)%></a>
 <%
 // these are list buttons of webaction
