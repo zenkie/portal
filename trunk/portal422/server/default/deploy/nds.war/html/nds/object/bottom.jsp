@@ -2,7 +2,7 @@
 /**
 	Nothing currently
  */
-%><iframe id="print_iframe" name="print_iframe" width="1" height="1" src="<%= contextPath %>/html/common/null.html"></iframe>
+%><iframe id="print_obj_iframe" name="print_obj_iframe" width="1" height="1" src="<%= contextPath %>/html/common/null.html"></iframe>
 <!--%
 String sound=userWeb.getUserOption("ALERT_SOUND","");
 if(!sound.equals("") && !sound.equals("0")){%-->
