@@ -328,7 +328,7 @@ ObjectControl.prototype = {
 		else
 			pf=e.getUserData().data.printfile;
 		var f="/servlets/binserv/Download?filename="+encodeURIComponent(pf);
-		var ifm=window.print_iframe;
+		var ifm=window.print_obj_iframe;
 		window.location.href=f;
 	},      
 	/**
@@ -341,7 +341,7 @@ ObjectControl.prototype = {
 		else
 			pf=e.getUserData().data.printfile;
 		var f="/servlets/binserv/GetFile?filename="+encodeURIComponent(pf)+"&del=Y";
-		var ifm=window.print_iframe;
+		var ifm=window.print_obj_iframe;
 		var disabledZone=$('disabledZone');
 		if(disabledZone)disabledZone.style.visibility = 'visible';
 		if(Prototype.Browser.IE){
@@ -363,24 +363,58 @@ ObjectControl.prototype = {
 				popup_window(f);	
 			}
 		}else{
-			$("print_iframe").onload=function () {
+			$("print_obj_iframe").onload=function () {
 				//firefox will call onload before pdf is loaded completely, so we wait here
  				setTimeout('oc.waitOneMomentToPrint()', 1000);
      		};	
 			ifm.location.href= f;
 		}
 
-	},   
+	},
+	/*
+	    //µÈ´ý´òÓ¡
+    waitOneMomentToPrint:function(){
+
+        // detect if browser is Chrome
+        //chrome print ºöÂÔ
+       // Good! Bug fixed. The bug was fixed as part of v.23 if I'm not wrong
+				if(navigator.userAgent.toLowerCase().indexOf("chrome") >  -1) {
+				    // wrap private vars in a closure
+				    (function() {
+				        var realPrintFunc = window.print;
+				        var interval = 2500; // 2.5 secs
+				        var nextAvailableTime = +new Date(); // when we can safely print again
+
+				        // overwrite window.print function
+				        window.print = function() {
+				            var now = +new Date();
+				            // if the next available time is in the past, print now
+				            if(now > nextAvailableTime) {
+				                realPrintFunc();
+				                nextAvailableTime = now + interval;
+				            } else {
+				                // print when next available
+				                setTimeout(realPrintFunc, nextAvailableTime - now);
+				                nextAvailableTime += interval;
+				            }
+				        }
+				    })();
+				}
+				window.print_obj_iframe.focus();
+        window.print_obj_iframe.print()
+    },
+*/
 	waitOneMomentToPrint:function(){
 		if($('disabledZone'))$('disabledZone').style.visibility = 'hidden';
-   		window.print_iframe.focus();
-   		window.print_iframe.print();
+   		window.print_obj_iframe.focus();
+   		window.print_obj_iframe.print();
    		//console.log("waitOneMomentToPrint:"+ oc._closeWindow);
    		if(oc._closeWindow) {
    			alert(gMessageHolder.CLOSE_AFTER_PRINT);
    			oc._closeWindowOrShowMessage(null);
    		}
-	}, 
+	},
+
     doPrint:function(){
     	var evt={};
 		evt.tag="Print";
