@@ -116,7 +116,7 @@ float:left;
 	// order: id, name, description, previewurl,allow_fg 
 	QueryResult rt=userWeb.getReportTemplates(table, reportType);
 	//Loading templates from ad_cxtab 
-	List al= QueryEngine.getInstance().doQueryList("select id, name, description from ad_cxtab where ad_table_id="+tableId +" and reporttype="+ (objectId==-1?"'L'":"'P'")+ " order by orderno, id");
+	List al= QueryEngine.getInstance().doQueryList("select id, name, description from ad_cxtab where ad_table_id="+tableId +" and reporttype="+ (objectId==-1?"'L'":"'P'")+ " and isactive='Y' order by orderno, id");
 	
 	Object id,name; String previewurl, allow_fg,description;
 			
