@@ -461,7 +461,7 @@ ObjectQuery.prototype = {
 	   var list = art.dialog.list;
 			for (var i in list) {
    				var title_id=list[i].DOM.title[0].id;
-   				if(now_popw==title_id){
+   				if(now_popw==title_id&&list[i].config.id!='turboscan_div'){
    					 list[i].close();
    					}
 			};
