@@ -160,12 +160,13 @@ a1 = jQuery("#pojam").autocomplete(options);
 a1.enable();
 });
 
-
+<%if(msgref_time>0){%>
 jQuery(document).ready(function(){
 
 setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);			
 
 });
+<%}%>
 </script>	
 </head>
 <body>
