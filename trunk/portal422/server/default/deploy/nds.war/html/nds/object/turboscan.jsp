@@ -13,7 +13,6 @@ if(tableId==-1) throw new NDSException("table not found:"+request.getParameter("
 Table table= manager.getTable(tableId);
 if(!table.isActionEnabled(Table.ADD))throw new NDSException("table not support add:"+request.getParameter("table"));
 PairTable fixedColumns= PairTable.parseIntTable(request.getParameter("fixedcolumns"),null );
-
 int tabIndex=20000;
 final int maxColumnLength=15;
 int columnsPerRow=4;
@@ -21,6 +20,7 @@ nds.util.PairTable values;
 int type;
 String fixedColumnMark;
 boolean isFixedColumn;
+Table refTable;
 %>
 <div id="turboscan_div">
 <div id="ts_info">
@@ -104,7 +104,7 @@ for( int i=0;i< editColumns.size();i++){
 	}else{// begin for not select
             fixedColumnMark= (fixedColumns.get(new Integer(column.getId())) ==null)?"":"DISABLED";
 			isFixedColumn= (fixedColumns.get(new Integer(column.getId())) ==null)?false:true;
-
+			//System.out.print("aaaaaaa");
             java.util.Hashtable h = new java.util.Hashtable();
             h.put("id",columnDomId);
             h.put("size", String.valueOf(inputSize));
@@ -115,12 +115,28 @@ for( int i=0;i< editColumns.size();i++){
 			h.put("onkeydown", "gc.onScanReturn(event)");            
             String defaultValue;
             if(!isFixedColumn) defaultValue=userWeb.replaceVariables(userWeb.getUserOption(column.getName(),column.getDefaultValue()));
-            else defaultValue= PortletUtils.getMessage(pageContext, "maintain-by-sys",null);
-            
+			else defaultValue= PortletUtils.getMessage(pageContext, "maintain-by-sys",null);
+			refTable= column.getReferenceTable();
+			if(refTable!=null&&!"M_PRODUCT_ID".equals(column.getName())){
+            	fkQueryModel=new FKObjectQueryModel(false,refTable, columnDomId,column,null);
+            	fkQueryModel.setQueryindex(-1);
+			}else{
+				fkQueryModel=null;
+			}
     %>
       <input:text name="<%=columnDomName%>" attributes="<%= h %>" default="<%=defaultValue%>"  attributesText="<%=fixedColumnMark%>" /><%= typeIndicator%>
-    <%
-    }// end for not select
+	  <%
+	  if(refTable !=null&&!"M_PRODUCT_ID".equals(column.getName())){
+	  if(!isFixedColumn){%>
+    <span id="cbt_<%=columnDomId%>"  onclick="<%=fkQueryModel.getButtonClickEventScript() %>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
+    <script>
+    	<%if(Validator.isNotNull(column.getRegExpression())){%>
+    		createAction("<%=columnDomId%>", "<%=column.getRegExpression()%>");
+    	<%}%>
+    	createButton(document.getElementById("cbt_<%=columnDomId%>"));
+	</script>
+	<%		}}
+	}// end for not select
 	%>
 </div>
 </td>
