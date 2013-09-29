@@ -85,7 +85,7 @@
     <script type="text/javascript" src="/html/nds/js/selectableelements.js"></script>
     <script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script>
     <script language="javascript" src="/html/nds/js/calendar.js"></script>
-    <script language="javascript" src="/html/nds/js/jdate/My97DatePicker/WdatePicker.js"></script>
+    <script language="javascript" src="/html/nds/js/jdate/My97DatePicker/WdatePicker_dp.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
     <script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>

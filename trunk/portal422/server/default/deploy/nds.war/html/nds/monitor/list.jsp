@@ -62,7 +62,7 @@
 <script language="javascript" src="/html/nds/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
 <script language="javascript" src="/html/nds/js/artDialog4/plugins/iframeTools.js"></script>
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-ui-1.8.21.custom.min.js"></script>
-<script language="javascript" src="/html/nds/js/jdate/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" src="/html/nds/js/jdate/My97DatePicker/WdatePicker_dp.js"></script>
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/portal.css">
 <link type="text/css" rel="StyleSheet" href="/html/nds/css/cb2.css">
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/nds_portal.css">
