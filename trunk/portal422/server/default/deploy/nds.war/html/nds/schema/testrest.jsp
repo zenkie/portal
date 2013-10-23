@@ -7,6 +7,9 @@
 <%
 	String command=request.getParameter("command");
 	String cmdparam=  request.getParameter("params");
+	String appkey=  request.getParameter("appkey");
+	String pwd=  request.getParameter("pwd");
+
 	ValueHolder vh= null;
 	JSONArray ja=null;
 if(	command !=null){
@@ -14,9 +17,9 @@ if(	command !=null){
 	a.setLenient(false);
 	
 	HashMap<String, String> params =new HashMap<String, String>();
-	params.put("sip_appkey","nea@burgeon.com.cn");
+	params.put("sip_appkey",appkey);
 	params.put("sip_timestamp", a.format(new Date()));
-	params.put("sip_sign","test");
+	params.put("sip_sign",pwd);
 /*
 tranaction - 单个Transaction的内容，不能与transactions 同时存在
 transactions -[transaction,...] //多个Transaction, 一个transaction里的多个操作将全部成功，或全部失败，每个Transaction对象的定义见下
@@ -42,7 +45,10 @@ transaction:{
 }	
 %>
 <form name="p" method="post" action="testrest.jsp">
-	<table border=0><tr><td>
+	<table border=0>
+		<tr><td>appkey:</td><td><input type="text" id="appkey" name="appkey"></input></td></tr>
+		<tr><td>password:</td><td><input type="text" id="pwd" name="pwd"></input></td></tr>
+		<tr><td>
 	command:</td><td><select id="command" name="command"><option value="ObjectCreate">ObjectCreate </option>
 		<option value="ObjectModify">ObjectModify </option> 
 		<option value="ObjectDelete">ObjectDelete </option> 
