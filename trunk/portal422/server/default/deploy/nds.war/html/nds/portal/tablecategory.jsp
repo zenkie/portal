@@ -8,8 +8,8 @@ if(userWeb==null || userWeb.isGuest()){
 	response.sendRedirect("/login.jsp?redirect="+redirect);
 	return;
 }
-if((userWeb.getPermission("M_PRODUCT_ALIAS_LIST")& nds.security.Directory.READ )!= nds.security.Directory.READ )
-	throw new NDSException("@no-permission@");
+//if((userWeb.getPermission("M_PRODUCT_ALIAS_LIST")& nds.security.Directory.READ )!= nds.security.Directory.READ )
+//	throw new NDSException("@no-permission@");
 	
    TableManager manager=TableManager.getInstance();
    int catId=Tools.getInt( request.getParameter("id"), -1);
