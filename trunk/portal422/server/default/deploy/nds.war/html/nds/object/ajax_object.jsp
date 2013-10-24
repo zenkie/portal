@@ -15,6 +15,7 @@
      *  
      */
     String urlOfThisPage;
+	private static boolean objHelp="true".equals( ((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("obj.help","false"));
 %>
 <%
 request.setAttribute("showtabs",Boolean.FALSE);

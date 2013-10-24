@@ -14,6 +14,7 @@
      *  5.  input	  if false, must be view page, else will determined by user permission
      */
     String urlOfThisPage;
+	private static boolean objHelp="true".equals( ((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("obj.help","false"));
 %>
 <%
 if(userWeb==null || userWeb.isGuest()){
@@ -66,6 +67,7 @@ String soundfile="{"+sound.substring(sound.indexOf(".")+1)+":\""+sound+"\"}";
 String sc_sound=userWeb.getUserOption("SCAN_SOUND","");
 String sc_soundfile="{"+sc_sound.substring(sc_sound.indexOf(".")+1)+":\""+sc_sound+"\"}";
 //soundfile create
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

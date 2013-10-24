@@ -26,8 +26,9 @@ columns=table.getShowableColumns(actionType);
 		<a id="objdropbtn"><img src="/html/nds/images/button_more.png"/><%=PortletUtils.getMessage(pageContext, "more",null)%></a>
 		<!--BUTTONS_END--></span>
 	<%}%>
-	
-	<%@ include file="/html/nds/common/helpbtn.jsp"%><span id="closebtn"></span>
+<%if(objHelp){%>	
+<%@ include file="/html/nds/common/helpbtn.jsp"%>
+<%}%><span id="closebtn"></span>
 </div>
 <div id="objmenu" class="obj-dock interactive-mode"><!--OBJMENU_BEGIN--><%@ include file="inc_objmenu_modify.jsp" %><!--OBJMENU_END--></div>
 <div id="message" class="nt"><%@ include file="inc_message.jsp" %></div>

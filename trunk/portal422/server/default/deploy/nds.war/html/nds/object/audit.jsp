@@ -16,6 +16,9 @@
      *  3.  auditid   用于审核人审核单据所定义工作流的id 即 au_phaseinstance.id; 
      */
     String urlOfThisPage;
+	private static boolean objHelp="true".equals( ((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("obj.help","false"));
+
+	
 %>
 <%
 String tableName=request.getParameter("table");
