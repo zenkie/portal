@@ -261,7 +261,74 @@ OAControl.prototype = {
 		}
 		this._executeCommandEvent(evt);
 	 	
-	},	
+	},
+	/**
+	* @param tn  table name or real url
+	  @param tg, target of div to insert into, default to "portal-content"
+	*/
+	navigate:function(tn,tgt){
+		if(tn.indexOf('@')>0){
+		tgt=tn.split('@')[1];
+		tn=tn.split('@')[0];
+		}
+		//alert(tn.split('@'))
+		//alert(tgt);
+		if(tgt==undefined || tgt==null || tgt=='null') tgt="portal-content";
+		//support iframe, create one if not exists
+		if(tgt=="ifr"){
+			var ifr=$("ifr");
+			if(ifr==null){
+				//src='/html/js/common/null.html'
+				$("portal-content").innerHTML="<iframe id='ifr' name='ifr' width='"+this._getContentWidth()+"' height='500px' FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING='auto'>";
+				ifr=$("ifr");
+			}
+			jQuery(ifr).load(function()
+				{
+					//alert("loaded iframe");
+					// Set inline style to equal the body height of the iframed content.
+					this.style.height = this.contentWindow.document.body.offsetHeight + 'px';
+				}
+			);
+			ifr.src=tn;
+			return;
+		}
+		if($(tgt)==null){
+			alert( "div id="+ tgt+" not found");
+			return;
+		}
+
+		this._lastAccessTime= (new Date()).getTime();
+		var url;
+		if(tn.indexOf(".")<0){
+			url= "/html/nds/portal/table.jsp?table="+tn;
+		}else{
+			url= tn;
+		}
+		new Ajax.Request(url, {
+		  method: 'get',
+		  onSuccess: function(transport) {
+		  	var pt=$(tgt);
+		    pt.innerHTML=transport.responseText;
+		    executeLoadedScript(pt);
+		  },
+		  onFailure:function(transport){
+		  	//try{
+		  	  	if(transport.getResponseHeader("nds.code")=="1"){
+		  	  		window.location="/c/portal/login";
+		  	  		return;
+		  	  	}
+		  	  	var exc=transport.getResponseHeader("nds.exception");
+		  	  	if(exc!=null && exc.length>0){
+		  	  		alert(decodeURIComponent(exc));
+		  	  	}else{
+		  	  		var pt=$(tgt);
+		    		pt.innerHTML=transport.responseText;
+		    		executeLoadedScript(pt);
+		  	  	}
+		  	//}catch(e){}
+		  }
+		});
+	},
 	/**
 	* Request server handle command event
 	* @param evt CommandEvent
@@ -292,13 +359,15 @@ OAControl.prototype = {
 // define static main method
 OAControl.main = function () {
 	oa=new OAControl();
+/*
 	autoH();
 	jQuery(window).resize(function(){
 		autoH();
 	});
+*/
 };
 
-jQuery(document).ready(OAControl.main); 
+jQuery(document).ready(OAControl.main);
 
 function msgbox(msg, title, boxType ) {
 	showProgressWindow(false);
@@ -418,3 +487,6 @@ function popup_window(url,tgt,theWidth,theHeight){
     var newWindow=window.open(url,tgt,features);
     newWindow.focus();
 }
+
+
+

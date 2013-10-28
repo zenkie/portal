@@ -189,3 +189,38 @@ border: 0px;
 .title_left{width:3px; height:26px; float:left;}
 .title_right{width:3px; height:26px; float:right;}
 .title h1{margin: 0;font-weight:bold; color:black; height:26px; line-height:25px; font-size:12px; float:left; padding-left:10px;}
+
+
+
+#audit_table{
+width:100%;/*-moz-user-select: none;*/
+}
+
+
+#audit_table,
+.sort-table {
+border-collapse: collapse;
+}
+
+#audit_table thead td, .sort-table thead td {
+   /*  background: url("/html/nds/themes/classic/01/images/tablethbg.gif") repeat-x scroll 0 0 transparent; */
+	background:#bab9b9;
+    border-bottom: 1px solid #CCCCCC;
+    border-top: 1px solid #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    white-space: nowrap;
+color:white;
+}
+
+#audit_table td, .sort-table td {
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #DBE2E7;
+border-bottom: 1px solid #DBE2E7;
+    margin: 0;
+    padding: 0 2px;
+    line-height: 22px;
+}
