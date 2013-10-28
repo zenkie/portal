@@ -207,7 +207,7 @@
                               		<input:text name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= h %>" /><%= type%>
                                     <input type='hidden' name='<%=column_acc_name+"/sql"%>' id='<%=column_acc_Id + "_sql"%>' />
                                     <input type='hidden' name='<%=column_acc_name+"/filter"%>' id='<%=column_acc_Id + "_filter"%>' />
-                                        <span id='<%=column_acc_Id+"_link"%>' title="popup" onaction="<%=fkQueryModel.getButtonClickEventScript(false)%>">
+                                        <span id='<%=column_acc_Id+"_link"%>' title="popup" onclick="<%=fkQueryModel.getButtonClickEventScript(false)%>">
                                         	<img id='<%=column_acc_Id+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/filterobj.gif' alt='<%=PortletUtils.getMessage(pageContext, "open-new-page-to-search",null)%>'>
                                         </span>
 										<script>createButton(document.getElementById("<%=column_acc_Id+"_link"%>"));</script>	

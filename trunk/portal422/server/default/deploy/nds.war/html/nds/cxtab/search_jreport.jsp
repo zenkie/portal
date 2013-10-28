@@ -147,7 +147,7 @@
 	              		<input:text name="<%=inputName%>" default="<%=defaultValue%>" attributes="<%= h %>" />
 	                    <input type='hidden' name='<%=inputName+"/sql"%>' id='<%=inputName + "_sql"%>' />
 	                    <input type='hidden' name='<%=inputName+"/filter"%>' id='<%=inputName + "_filter"%>' />
-                        <span id='<%=inputName+"_link"%>' title="popup" onaction="<%=fkQueryModel.getButtonClickEventScript()%>"><img id='<%=inputName+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' alt='<%=PortletUtils.getMessage(pageContext, "open-new-page-to-search",null)%>'></span>
+                        <span id='<%=inputName+"_link"%>' title="popup" onclick="<%=fkQueryModel.getButtonClickEventScript()%>"><img id='<%=inputName+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' alt='<%=PortletUtils.getMessage(pageContext, "open-new-page-to-search",null)%>'></span>
 						<script>createButton(document.getElementById("<%=inputName+"_link"%>"));</script>	
                     <%
                     }else{
@@ -159,7 +159,7 @@
 			            %>
 			            <input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=defaultValue%>" />
 						<input type="hidden" id="fk_<%=inputName%>" name="fk_<%=inputName%>" value="">
-						<span id="cbt_<%=inputName%>"  onaction="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
+						<span id="cbt_<%=inputName%>"  onclick="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
                 		<script>
                 			createButton(document.getElementById("cbt_<%=inputName%>"));
                 		</script>						

@@ -73,7 +73,7 @@ request.setAttribute("urls", urls);
      String url="/html/nds/query/search.jsp?table="+factTableId+"&return_type=m&accepter_id="+filterInputId;
 %>
 <input readonly='on' type="text" id="<%=filterInputId%>" name="<%=filterInputId%>" value='<%=qRequest.getParamDesc(true).trim()%>' size="80" maxlength="1500">
-<span id='<%=filterInputId+"_link"%>'  title="clear" onaction='oq.toggle("<%=url%>","<%=filterInputId%>")'><img id='<%=filterInputId+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/clear.gif'></span>
+<span id='<%=filterInputId+"_link"%>'  title="clear" onclick='oq.toggle("<%=url%>","<%=filterInputId%>")'><img id='<%=filterInputId+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/clear.gif'></span>
 <script>createButton(document.getElementById("<%=filterInputId+"_link"%>"));</script>
 <input type="hidden" id="<%=filterInputId+"_expr"%>" name="<%=filterInputId+"_expr"%>" value='<%=(expr==null?"":expr.toHTMLInputElement())%>'>
 <input type="hidden" id="<%=filterInputId+"_sql"%>" name="<%=filterInputId+"_sql"%>" value=''>
@@ -97,7 +97,7 @@ request.setAttribute("urls", urls);
 <td width="40%" valign="top" nowrap="" height="18" align="left" colspan="1">
 <input id="<%=column_acc_Id%>" name="<%=column_acc_Id%>" readonly="on" type="text" onchange="cxtabControl.loadCxtabProcessParam()" value="" onkeydown="<%=fkQueryModel.getKeyEventScript()%>" size="20" maxlength="180" tabindex="4" >
 <font size="2"><img width="16" height="18" align="absmiddle" src="<%=NDS_PATH%>/images/char.gif"/></font>
-<span id="cbt_<%=column.getId()%>"  onaction="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' alt='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
+<span id="cbt_<%=column.getId()%>"  onclick="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' alt='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
 <script>createButton(document.getElementById("cbt_<%=column.getId()%>"));</script>
 </td>
 <td colspan="2">    
@@ -129,7 +129,7 @@ request.setAttribute("urls", urls);
 <td height="18" width="40%" align="left">
 <input id="<%=column_acc_Id%>" class="inputline" type="text" value="<%=defaultQueue%>" onkeydown="<%=fkQueryModel.getKeyEventScript()%>" size="30" maxlength="180" name="<%=inputName%>"/>
 <font size="2"><img width="16" height="18" align="absmiddle" src="<%=NDS_PATH%>/images/char.gif"/></font>
-<span id="cbt_<%=column.getId()%>"  onaction="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' alt='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
+<span id="cbt_<%=column.getId()%>"  onclick="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' alt='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
 <script>createButton(document.getElementById("cbt_<%=column.getId()%>"));</script>
 </td><td width="50%"><span class='comments' >--<%=LanguageUtil.get(pageContext, "cxtab-queue-comments") %></span></td>
 </tr>
