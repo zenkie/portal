@@ -88,7 +88,7 @@ fkQueryModel.setQueryindex(-1);
 <%}%>
 
 </ul>
-<table width="95%" cellspacing="1" cellpadding="2" class="sort-table" id="audit_table">
+<table width="95%" cellspacing="1" cellpadding="2" class="aud-table" id="audit_table">
 <thead><tr>
 <td width=1><input class='cbx' type="checkbox" id="chk_select_all" name="chk_select_all" value=1 onclick='javscript:pc.checkAll("form1",<%=pageRecordCount%>)'> </td>
 <td><%= LanguageUtil.get(pageContext,  "docno" )%></td>
@@ -145,7 +145,7 @@ fkQueryModel.setQueryindex(-1);
 		    <td width=1>
 		    <input class='cbx' type='checkbox' id='chk_obj_<%=oid%>' name='itemid' value='<%=oid%>' onclick="pc.unselectall()">
 			</td>
-			<td><a href="javascript:pc.auditObj('/html/nds/object/audit.jsp?table=<%=tableId%>&id=<%=recordId%>&auditid=<%=oid%>')"><%=recordDocNo%></a></td>
+			<td><a href="javascript:oa.auditObj(<%=oid%>)"><%=recordDocNo%></a></td>
 			<td><a href="javascript:dlgo(<%=phaseInstanceTableId%>,<%=oid%>)"><%=processName%></a></td>
 			<td><%=brief%></td>
 			<td>

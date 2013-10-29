@@ -202,7 +202,7 @@ width:100%;/*-moz-user-select: none;*/
 border-collapse: collapse;
 }
 
-#audit_table thead td, .sort-table thead td {
+#audit_table thead td, .aud-table thead td {
    /*  background: url("/html/nds/themes/classic/01/images/tablethbg.gif") repeat-x scroll 0 0 transparent; */
 	background:#bab9b9;
     border-bottom: 1px solid #CCCCCC;
@@ -216,7 +216,7 @@ border-collapse: collapse;
 color:white;
 }
 
-#audit_table td, .sort-table td {
+#audit_table td, .aud-table td {
     border-left: 1px solid #FFFFFF;
     border-right: 1px solid #DBE2E7;
 border-bottom: 1px solid #DBE2E7;

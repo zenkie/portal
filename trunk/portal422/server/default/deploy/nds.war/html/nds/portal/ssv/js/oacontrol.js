@@ -93,7 +93,7 @@ OAControl.prototype = {
 	*/
 	auditObj:function(aid){
 		
-		showObject2("/html/nds/object/audit.jsp?id="+aid,{close:function(){window.location="/html/nds/portal/portal.jsp";}});
+		showObject2("/html/nds/object/audit.jsp?id="+aid,{close:function(){pc.navigate('/html/nds/portal/ssv/inc_audit.jsp','audit_cox');}});
 	},
 
 	showdlg2:function(url){
