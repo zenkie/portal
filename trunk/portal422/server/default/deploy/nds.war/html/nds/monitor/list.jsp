@@ -172,7 +172,7 @@
 									value="" size="20" maxlength="40" /> <input id="cxtabId"
 									type="hidden" value="" /> <span id="cbt_cxtabId"
 									class="coolButton"
-									onaction="oq.toggle('/html/nds/query/search.jsp?table=<%=cxtabTable.getId()%>&amp;return_type=s&amp;column=<%=cxtabColumn%>&amp;accepter_id=updateCxtabId&amp;queryindex=-1','updateCxtabId')">
+									onaction="oq.toggle('/html/nds/query/search.jsp?table=<%=cxtabTable.getId()%>&amp;fixedcolumns=ad_cxtab.REPORTTYPE=S&amp;return_type=s&amp;column=<%=cxtabColumn%>&amp;accepter_id=updateCxtabId&amp;queryindex=-1','updateCxtabId')">
 									<img width="16" height="16" border="0" align="absmiddle"
 									title="Find" src="/html/nds/images/find.gif" alt="" />
 								</span>
