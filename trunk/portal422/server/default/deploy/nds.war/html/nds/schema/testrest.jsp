@@ -9,7 +9,7 @@
 	String cmdparam=  request.getParameter("params");
 	String appkey=  request.getParameter("appkey");
 	String pwd=  request.getParameter("pwd");
-
+	String serverUrl=null;
 	ValueHolder vh= null;
 	JSONArray ja=null;
 if(	command !=null){
@@ -40,8 +40,12 @@ transaction:{
 	ja.put(tra);
 	
 	params.put("transactions", ja.toString());
-	
-	vh=RestUtils.sendRequest("http://localhost/servlets/binserv/Rest", params,"POST");
+
+	Enumeration  enu=request.getHeaders("Origin");
+	if(enu.hasMoreElements()){ 
+		serverUrl=(String)enu.nextElement(); 
+	}
+	vh=RestUtils.sendRequest(serverUrl+"/servlets/binserv/Rest", params,"POST");
 }	
 %>
 <form name="p" method="post" action="testrest.jsp">
