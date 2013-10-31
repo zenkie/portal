@@ -5,7 +5,9 @@
   int cs= Tools.getInt(request.getParameter("cs"),-1);
   int un= Tools.getInt(request.getParameter("un"),-1);
   int pn= Tools.getInt(request.getParameter("pn"),-1);
-   String cp=(String)request.getParameter("cp");
+  String cp=(String)request.getParameter("cp");
+  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+  Date expdate= df.parse((String)request.getParameter("exp"));
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,7 +22,7 @@ position: absolute;
 }
 .main {
 width: 100%;
-height: 344px;
+height: 400px;
 background: no-repeat left #790000;
 position: absolute;
 top: 100px;
@@ -30,7 +32,7 @@ background-position: 199px 0px;
 padding-bottom: 0px;
 padding-left: 0px;
 padding-right: 0px;
-padding-top: 453px;
+padding-top: 510px;
 clear: both;
 margin: 0 auto;
 left: 955px;
@@ -152,7 +154,7 @@ border-radius: 0 0 6px 0;
 <div class="main" style="text-align:center;">
 <font color="#ffffff">
 <h1>BOS注册产品信息</h1>
-<h2>客户代码：<span><%=cp%></span></h2>
+<h2>客户名称：<span><%=cp%></span></h2>
 <table class="bordered">
 <thead>
   <tr>
@@ -169,6 +171,10 @@ border-radius: 0 0 6px 0;
     <td><%=cs%></td>
   </tr>
 </table>
+<font color="yellow">
+	<h2>服务到期时间：<span><%=df.format(expdate)%></span></h2>
+	<h2>距离服务到期还有：<span><%=(expdate.getTime()-System.currentTimeMillis())/(24*60*60*1000)>0?(expdate.getTime()-System.currentTimeMillis())/(24*60*60*1000):0%></span>天</h2>
+</font>
 </font>
 <h1><a href="/html/nds/portal/portal.jsp"><font color="yellow">继续使用</font></a></h1>
 <ul><font color="yellow">当前点数已超过证书授权，系统将于1小时时候自动关闭！</font></ul>

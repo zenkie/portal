@@ -13,6 +13,8 @@
 	Connection conn=null;
 	String mac=null;
 	Object sc=null;
+	Date expdate=new java.util.Date();
+	java.text.SimpleDateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
 	try{
 	conn= nds.query.QueryEngine.getInstance().getConnection();
 	pstmt= conn.prepareStatement("select mac from users where id=?");
@@ -34,7 +36,8 @@
 	    	LicenseWrapper o = (LicenseWrapper)b.next();
 	    	un=o.getNumUsers();
 			pn=o.getNumPOS();
-			cp=o.getCompany();
+			cp=o.getName();
+			expdate=o.getExpiresDate();
 	    }
 		cu=Tools.getInt(engine.doQueryOne("select count(*) from users t where t.isactive='Y' and t.IS_SYS_USER!='Y'"), -1);
 		cs=Tools.getInt(engine.doQueryOne("select count(*) from c_store t where t.isactive='Y' and t.isretail='Y'"), -1);
@@ -188,7 +191,7 @@ border-radius: 0 0 6px 0;
 <div class="main" style="text-align:center;">
 <font color="#ffffff">
 <h1>BOS注册产品信息</h1>
-<h2>客户代码：<span><%=cp%></span></h2>
+<h2>客户名称：<span><%=cp%></span></h2>
 <table class="bordered">
 <thead>
   <tr>
@@ -205,6 +208,10 @@ border-radius: 0 0 6px 0;
     <td><%=cs%></td>
   </tr>
 </table>
+<font color="yellow">
+	<h2>服务到期时间：<span><%=df.format(expdate)%></span></h2>
+	<h2>距离服务到期还有：<span><%=(expdate.getTime()-System.currentTimeMillis())/(24*60*60*1000)>0?(expdate.getTime()-System.currentTimeMillis())/(24*60*60*1000):0%></span>天</h2>
+</font>
 </font>
 </div>
 <div id="bottom">
