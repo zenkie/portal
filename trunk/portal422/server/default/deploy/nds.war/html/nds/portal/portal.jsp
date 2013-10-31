@@ -58,8 +58,6 @@ boolean ssviewFirst=Tools.getYesNo(userWeb.getUserOption("SSVIEW",defaultSsviewF
 
 int  msgref_time=Integer.parseInt(userWeb.getUserOption("REFTIME","300"));
 
-
-
 int ssId=Tools.getInt(request.getParameter("ss"),-1);
 /*
 if(ssId==-1 && nds.util.Validator.isNull(directTb)&&defaultboshome){
@@ -75,11 +73,16 @@ if(ssId==-1 && nds.util.Validator.isNull(directTb) && ssviewFirst && !defaultbos
 
 boolean fav_show=Tools.getYesNo(userWeb.getUserOption("FAV_SHOW",defaultSsviewFirst?"Y":"N"),true);
 
+nds.util.License.LicenseType ltype=nds.control.web.WebUtils.getLtype();
+String mms=nds.control.web.WebUtils.getMms();
+String cp=nds.control.web.WebUtils.getCompany();
+//System.out.println("ltype "+ltype.toString());
+//System.out.println("aaaaaaaaaaa");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>NewBos</title>
+	<title>NewBos <%="<"+cp+">"%></title>
 <!--meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"-->
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"/>
 <!--script language = javascript>max.Click();</script-->
@@ -112,6 +115,7 @@ jQuery(document).ready(function(){
 /*
 横动调跟随变化标题坐标
 */
+	<%if(mms != null && mms.length() != 0) {out.print(mms);}%>
 	jQuery('#roll').hide();
 	jQuery("#portal-content").scroll(function() {
 		if(jQuery("#portal-content").scrollTop() >= 200){
@@ -167,9 +171,13 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 
 });
 <%}%>
-</script>	
+</script>
 </head>
+<%if(ltype.toString().equals("Evaluation")){%>
+<body style="background:url('/servlets/binserv/Image?image=apt') !important">
+<%}else{%>
 <body>
+<%}%>
 <%@ include file="body_meta.jsp"%>
 <!--object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
         id="playErrorSoundTest" width="1" height="1"

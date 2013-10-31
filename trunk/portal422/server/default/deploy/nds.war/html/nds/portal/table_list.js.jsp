@@ -1,7 +1,7 @@
 <%
 	org.json.JSONObject tableObj=new org.json.JSONObject();
 	tableObj.put("id", tableId);
-	tableObj.put("desc", table.getDescription(locale));
+	tableObj.put("desc", table.getDescription(locale)+" <"+nds.control.web.WebUtils.getCompany()+">");
 	tableObj.put("actionADD", canAdd);
 	tableObj.put("actionMODIFY", canModify);
 	tableObj.put("actionDELETE", canDelete);
