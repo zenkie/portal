@@ -61,6 +61,8 @@ CKEDITOR.editorConfig = function( config )
 	 config.toolbarCanCollapse = true; 
 	   //工具栏默认是否展开
     config.toolbarStartupExpanded = false; 
+	config.enterMode=2;
+	//config.removePlugins='elementspath';
 	 //使用自定义工具栏 
 	 // config.toolbar = 
 	 // [ 
