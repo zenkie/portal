@@ -356,7 +356,7 @@ MonitorManager.prototype = {
 	setCxtabCondition:function(){
 		var cxtabId;
 		if($("cxtabId")!=null) cxtabId=parseInt($("cxtabId").value);
-		if(cxtabId==NaN|| cxtabId<=0){
+		if(isNaN(cxtabId)|| cxtabId<=0){
 			alert("请首先选择报表模板");
 			return;
 		}
