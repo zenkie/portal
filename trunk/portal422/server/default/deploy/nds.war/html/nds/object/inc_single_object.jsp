@@ -322,7 +322,7 @@
 	            htextArea.put("wrap", "soft");
 	            htextArea.put("tabIndex", (++tabIndex)+"");
 	            htextArea.put("class", TableQueryModel.getTextAreaInputCssClass(columnsPerRow,column));
-				htextArea.put("onkeydown", "oc.moveTableFocus(event)");
+				//htextArea.put("onkeydown", "oc.moveTableFocus(event)");
 				%>
 				<input:textarea name="<%=inputName%>" attributes="<%= htextArea %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributesText+fixedColumnMark)%>"/><%= type%>
 				
