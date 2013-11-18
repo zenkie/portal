@@ -186,5 +186,5 @@ fkQueryModel.setQueryindex(-1);
 </form>
 <input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
 <script type="text/javascript">
- var selTb= new SelectableTableRows(document.getElementById("inc_table"), false);
+ //var selTb= new SelectableTableRows(document.getElementById("inc_table"), false);
 </script>
