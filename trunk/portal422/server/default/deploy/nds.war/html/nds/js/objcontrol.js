@@ -211,7 +211,7 @@ ObjectControl.prototype = {
 	_handleSPResult:function(r){
 		oc._toggleButtons(false);
 		var b=false;
-		if(r.message && r.code !=3 && r.code!=4 && r.code!=5){
+		if(r.message && r.code!=4 && r.code!=5){
 			msgbox(r.message.replace(/<br>/g,"\n"));
 		}
 		switch(r.code){
