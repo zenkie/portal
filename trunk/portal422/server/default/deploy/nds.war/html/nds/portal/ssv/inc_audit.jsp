@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="utf-8"%>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/common/init.jsp" %>
 <%@ page import="org.json.*"%>
@@ -44,6 +45,7 @@ boolean showAssignment=ParamUtil.get(request,"showassign",false);
  int pageRecordCount;
  String className,assigneeName=null;
  int assigneeId=-1;
+ Date crdate=new Date();
 FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(TableManager.getInstance().getTable("users"), "assignee",null); 
 fkQueryModel.setQueryindex(-1);
 %>
@@ -95,6 +97,7 @@ fkQueryModel.setQueryindex(-1);
 <td><%= manager.getTable("au_process").getDescription(locale)%></td>
 <td><%= LanguageUtil.get(pageContext,  "description" )%></td>
 <td><%= LanguageUtil.get(pageContext,  showAssignment?"assignee":"creationdate")%></td>
+<td>延期时间</td>
 </tr>
 </thead>
 <%
@@ -128,7 +131,8 @@ fkQueryModel.setQueryindex(-1);
  	  brief=StringUtils.shortenInBytes( (String)result.getObject(6), maxTitleLength);
  	 if(!showAssignment){
 	 	 if(result.getObject(7) !=null){ 
-	 	 	creationDate= df.format((java.util.Date)result.getObject(7));
+		 creationDate= df.format((java.util.Date)result.getObject(7));
+		 crdate=(java.util.Date)result.getObject(7);
 	 	 }else{
 	 	 	creationDate=StringUtils.NBSP;
 	 	 }
@@ -155,6 +159,7 @@ fkQueryModel.setQueryindex(-1);
 				<%=creationDate%>
 			<%}%>
 			</td>
+			<td><%=(System.currentTimeMillis()-crdate.getTime())/(24*60*60*1000)>0?(System.currentTimeMillis()-crdate.getTime())/(24*60*60*1000):0%>天</td>
 		</tr>
 		
 <%
