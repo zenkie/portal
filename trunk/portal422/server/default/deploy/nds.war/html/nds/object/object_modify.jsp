@@ -22,6 +22,10 @@ if(objectId == -1 || (result!=null && result.getTotalRowCount()>0)){
 <%if(objHelp){%>
 <%@ include file="/html/nds/common/helpbtn.jsp"%>
 <%}%><span id="closebtn"></span>
+<%if (AuditUtils.hasPhaseInstance(tableId, objectId, userWeb.getUserId())) {%>
+<a href="workflow.jsp?table=<%=tableId%>&id=<%=objectId%>">
+	<%=PortletUtils.getMessage(pageContext, "view-workflow", null)%></a>
+<%}%>
 </div>
 <div id="objmenu" class="obj-dock interactive-mode"><!--OBJMENU_BEGIN--><%@ include file="inc_objmenu_modify.jsp" %><!--OBJMENU_END--></div>
 <div id="message" class="nt">
