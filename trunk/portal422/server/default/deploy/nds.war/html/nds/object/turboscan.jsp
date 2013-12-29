@@ -1,3 +1,4 @@
+<%@ page language="java" import="org.json.*" pageEncoding="utf-8"%>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/common/init.jsp" %>
 <%@ page import="org.json.*" %>
@@ -22,12 +23,22 @@ String fixedColumnMark;
 boolean isFixedColumn;
 Table refTable;
 %>
+<script>
+	function uppercase(event){
+	if (!event) event = window.event;
+		if (!(event && event.keyCode && event.keyCode == 13)) {
+			return true;
+		}
+	var cv= event.target != null ? event.target : event.srcElement;
+	cv.value=cv.value.toUpperCase();
+	}
+</script>
 <div id="turboscan_div">
-<div id="ts_info">
-<%=PortletUtils.getMessage(pageContext, "turbo-scan-info",null)%>
-</div>
-<table align="center" border="0" cellpadding="1" cellspacing="1" width="100%" class="emtb">
-<tr>
+	<div id="ts_info">
+		<%=PortletUtils.getMessage(pageContext,"turbo-scan-info",null)%>
+	</div>
+	<table align="center" border="0" cellpadding="1" cellspacing="1" width="100%" class="emtb">
+		<tr>
 <%
 
 ArrayList editColumns=table.getColumns(new int[]{Column.MASK_CREATE_EDIT},false,userWeb.getSecurityGrade() ); // not to show uiController
@@ -64,13 +75,14 @@ for( int i=0;i< editColumns.size();i++){
 	}
     colDisplayName=  model.getDescriptionForColumn(column);
 %>
-<td height="18" width="<%=widthPerColumn*2/3%>%" nowrap align="right" valign='top' class="desc">
-<div id="lb_<%=columnDomId%>" class="desc-txt<%=column.isNullable()?"":" nn"%>" <%=hideInEditMode?"style='display:none'":""%>> <%=colDisplayName%>:</div>
-</td>
-<td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' class="value"><div id="tf_<%=columnDomId%>" <%=hideInEditMode?"style='display:none'":""%>>
+	<td height="18" width="<%=widthPerColumn*2/3%>%" nowrap align="right" valign='top' class="desc">
+	<div id="lb_<%=columnDomId%>" class="desc-txt<%=column.isNullable()?"":" nn"%>" <%=hideInEditMode?"style='display:none'":""%>><%=colDisplayName%>:</div>
+	</td>
+	<td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left" valign='top' class="value">
+		<div id="tf_<%=columnDomId%>" <%=hideInEditMode?"style='display:none'":""%>>
 <%
     type= column.getType();
-    
+
     typeIndicator= model.toTypeIndicator(column,columnDomId,locale);
     int inputSize= (column.getStatSize()<=0? maxColumnLength:column.getStatSize());
     values =column.getValues(locale);
@@ -88,19 +100,19 @@ for( int i=0;i< editColumns.size();i++){
         a.put("id",columnDomId);
         a.put("tabIndex", (++tabIndex)+"");
         a.put("onkeydown", "gc.onScanReturn(event)");
-        
+
         //String defaultValue= (column.getDefaultValue()==null?"0":userWeb.replaceVariables(column.getDefaultValue()));
         String defaultValue=userWeb.getUserOption(column.getName(),column.getDefaultValue() );
         defaultValue= (defaultValue==null?"0":userWeb.replaceVariables(defaultValue));
-        
+
 		if(column.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK){
 		%>
-        <input:checkbox name="<%=columnDomName%>" default="<%=defaultValue%>" value="Y" attributes="<%=a%>" attributesText="class='cbx'"/>
-		<%}else{  
+		<input:checkbox name="<%=columnDomName%>" default="<%=defaultValue%>" value="Y" attributes="<%=a%>" attributesText="class='cbx'"/>
+		<%}else{
 			a.put("class", "objsle");
 		%>
-   		<input:select name="<%=columnDomName%>" default="<%=defaultValue%>" attributes="<%= a %>" options="<%= o %>" />
-   		<%}
+		<input:select name="<%=columnDomName%>" default="<%=defaultValue%>" attributes="<%= a %>" options="<%= o %>" />
+		<%}
 	}else{// begin for not select
             fixedColumnMark= (fixedColumns.get(new Integer(column.getId())) ==null)?"":"DISABLED";
 			isFixedColumn= (fixedColumns.get(new Integer(column.getId())) ==null)?false:true;
@@ -110,9 +122,9 @@ for( int i=0;i< editColumns.size();i++){
             h.put("size", String.valueOf(inputSize));
             h.put("maxlength", maxInputLength+"");
             h.put("tabIndex", (++tabIndex)+"");
-            //h.put("class","inputline "+ columnClasses); 
+            //h.put("class","inputline "+ columnClasses);
             h.put("class", TableQueryModel.getTextInputCssClass(columnsPerRow,column));
-			h.put("onkeydown", "gc.onScanReturn(event)");            
+			h.put("onkeydown", "uppercase(event);gc.onScanReturn(event)");
             String defaultValue;
             if(!isFixedColumn) defaultValue=userWeb.replaceVariables(userWeb.getUserOption(column.getName(),column.getDefaultValue()));
 			else defaultValue= PortletUtils.getMessage(pageContext, "maintain-by-sys",null);
@@ -122,13 +134,13 @@ for( int i=0;i< editColumns.size();i++){
             	fkQueryModel.setQueryindex(-1);
 			}else{
 				fkQueryModel=null;
-			}
-    %>
-      <input:text name="<%=columnDomName%>" attributes="<%= h %>" default="<%=defaultValue%>"  attributesText="<%=fixedColumnMark%>" /><%= typeIndicator%>
+			}%>
+			<input:text name="<%=columnDomName%>" attributes="<%= h %>" default="<%=defaultValue%>"  attributesText="<%=fixedColumnMark%>" /><%= typeIndicator%>
 	  <%
 	  if(refTable !=null&&!"M_PRODUCT_ID".equals(column.getName())){
 	  if(!isFixedColumn){%>
-    <span id="cbt_<%=columnDomId%>"  onclick="<%=fkQueryModel.getButtonClickEventScript() %>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
+	  <span id="cbt_<%=columnDomId%>" onclick="<%=fkQueryModel.getButtonClickEventScript()%>">
+		  <img border=0 width=16 height=16 align=absmiddle src="<%=fkQueryModel.getImageURL()%>" title="<%=PortletUtils.getMessage(pageContext,"open-new-page-to-search",null)%>"></span>
     <script>
     	<%if(Validator.isNotNull(column.getRegExpression())){%>
     		createAction("<%=columnDomId%>", "<%=column.getRegExpression()%>");
@@ -147,10 +159,12 @@ for( int i=0;i< editColumns.size();i++){
 </table>
 <div id="ts_sum">
 	<div id="ts_desc"><%=PortletUtils.getMessage(pageContext, "scan-sum",null)%>:<span id="ts_qty">0</span></div>
-	<div id="ts_close"><input type="button" onclick="javascript:gc.closeTurboScan()" value="<%=PortletUtils.getMessage(pageContext, "close-turbo-scan",null)%>" accesskey="G" class="cbutton"/></div>
+	<div id="ts_close">
+		<input type="button" onclick="javascript:gc.closeTurboScan()" value="<%=PortletUtils.getMessage(pageContext, "close-turbo-scan",null)%>" accesskey="G" class="cbutton"/
+	</div>
 </div>
 <fieldset id="ts_output">
-  <legend><%=PortletUtils.getMessage(pageContext, "turbo-scan-log",null)%></legend>
+	<legend><%=PortletUtils.getMessage(pageContext, "turbo-scan-log",null)%></legend>
 <div id="ts_whole">
 	<span id="tsrow_0" class="tsrow">
 </div>
