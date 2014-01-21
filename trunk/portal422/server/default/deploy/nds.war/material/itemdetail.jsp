@@ -467,7 +467,7 @@ width:790px;}
 	}
 	function save(){
 		art.dialog.get("art_itemdetail_div").close();
-		oc._toggleButtons(true);		
+		//oc._toggleButtons(true);		
 		if(oc._checkObjectInputs()==false){
 			oc._toggleButtons(false);
 	       	return;
