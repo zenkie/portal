@@ -23,6 +23,7 @@ if(userWeb==null || userWeb.isGuest()){
 	return;
 }
 String tableName=request.getParameter("table");
+int maintabid=Tools.getInt(request.getParameter("mainobjecttableid"),-1);
 int objectId=Tools.getInt(request.getParameter("id"),-1);
 PairTable fixedColumns=null;
 try{

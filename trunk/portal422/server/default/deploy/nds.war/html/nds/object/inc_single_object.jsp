@@ -233,9 +233,10 @@
             }
     }// end if(value != null)
     else{ // begin if value ==null
-        if(column.getReferenceTable() !=null){		
-    	  	fkQueryModel=new FKObjectQueryModel(true,column.getReferenceTable(), column_acc_Id,column,null);
-    	  	fkQueryModel.setQueryindex(-1);
+	if(column.getReferenceTable() !=null){		
+	fkQueryModel=new FKObjectQueryModel(true,column.getReferenceTable(), column_acc_Id,column,null);
+	fkQueryModel.setQueryindex(-1);
+	if(maintabid!=-1&&column.isFilteredByWildcard()){fkQueryModel.setWfcfixcol(fixedColumns);}
     	  }else{
     	  	fkQueryModel=null;
 				}
