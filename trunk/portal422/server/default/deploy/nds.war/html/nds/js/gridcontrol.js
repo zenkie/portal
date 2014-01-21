@@ -675,6 +675,7 @@ GridControl.prototype = {
 					var result= r.evalJSON();
 					if (result.code !=0 ){
 						msgbox(result.message);
+						oc._toggleButtons(false);
 					}else {
 						var evt=new BiEvent(result.callbackEvent);
 						evt.setUserData(result);
