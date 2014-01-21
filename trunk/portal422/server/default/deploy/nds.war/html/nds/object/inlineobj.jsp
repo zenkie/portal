@@ -20,6 +20,7 @@ PairTable fixedColumns=(PairTable)request.getAttribute("fixedcolumns");
 boolean isInput= "true".equals(request.getAttribute("ismodify"));
 int objectId=Tools.getInt(request.getAttribute("inline_id"),-1);
 RefByTable rfb= (RefByTable)request.getAttribute("refbytable");
+int maintabid=Tools.getInt(request.getParameter("mainobjecttableid"),-1);
 if(rfb==null){
   out.println("Internal Error: wrong parameter when calling inlineobj.jsp");
   return;

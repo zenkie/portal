@@ -22,6 +22,7 @@
 %>
 <%
 String tableName=request.getParameter("table");
+int maintabid=Tools.getInt(request.getParameter("mainobjecttableid"),-1);
 int objectId=Tools.getInt(request.getParameter("id"),-1);
 int auditid=Tools.getInt(request.getParameter("auditid"),-1);
 if(userWeb==null || userWeb.isGuest()){
