@@ -20,6 +20,7 @@
 <%
 request.setAttribute("showtabs",Boolean.FALSE);
 String tableName=request.getParameter("table");
+int maintabid=Tools.getInt(request.getParameter("mainobjecttableid"),-1);
 int objectId=Tools.getInt(request.getParameter("id"),-1);
 PairTable fixedColumns= PairTable.parseIntTable(request.getParameter("fixedcolumns"),null );
 boolean isInput=ParamUtils.getBooleanParameter(request, "input",true);
