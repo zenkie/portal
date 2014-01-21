@@ -14,6 +14,7 @@
  					By default, user can input qdata in textbox, then presss query button to open search form, and in search form (this page),
  					qdata will appear in ak input position, user press find button and qdata will be constructed in query sql consequently.
  		fixedcolumns - columns that willl be fixed during query
+ 		wfc_fixcol - columns that willl be fixed during query isFilteredByWildCard
  		column      - the column id that currently working on, if column has specifile filters defined, that filter will set in search codition
  		wfc_<columnid> - when column isFilteredByWildcard, values of those reference columns can be fetched here
   		mustbeactive - default to "Y", if "N", will include those records that has "isactive" set to "N"
@@ -27,10 +28,11 @@ int queryindex =Tools.getInt(request.getParameter("queryindex"),-1)+1;
 if(Validator.isNull(qdata))qdata="";
 boolean mustBeActive=Tools.getYesNo(request.getParameter("mustbeactive"),true);
 boolean immediate=Tools.getYesNo(request.getParameter("immediate"),false);
-Column searchOnColumn= TableManager.getInstance().getColumn(Tools.getInt(request.getParameter("column"),-1));
+TableManager manager =TableManager.getInstance();
+Column searchOnColumn= manager.getColumn(Tools.getInt(request.getParameter("column"),-1));
 
-Table table= TableManager.getInstance().getTable(Tools.getInt(request.getParameter("table"),-1));
-if(table==null) table=TableManager.getInstance().getTable(request.getParameter("table"));
+Table table= manager.getTable(Tools.getInt(request.getParameter("table"),-1));
+if(table==null) table=manager.getTable(request.getParameter("table"));
 if(table==null) throw new NDSException("table not found");
 int tableId= table.getId();
 
@@ -49,10 +51,25 @@ qRequest.setMainTable(table.getId());
 qRequest.addAllShowableColumnsToSelection(Column.QUERY_LIST,false);
 qRequest.setResultHandler(NDS_PATH+"/query/ajax_result.jsp");
 Expression sexpr= userWeb.getSecurityFilter(table.getName(), 1);// read permission
-System.out.print(request.getParameter("fixedcolumns"));
-PairTable fixedColumns=PairTable.parse(request.getParameter("fixedcolumns"), null);    // columnlink=value
+System.out.print("fixedcolumns is: "+request.getParameter("fixedcolumns"));
+PairTable fixedColumns=null;
+Expression fixedExpr=new Expression();
+try{
+		fixedColumns= PairTable.parseIntTable(request.getParameter("fixedcolumns"),null );
+		for( Iterator it=fixedColumns.keys();it.hasNext();){
+	        	Integer key=(Integer) it.next();
+	            Column col=manager.getColumn( key.intValue());
+	            ColumnLink cl=new ColumnLink( col.getTable().getName()+"."+ col.getName());
+	            fixedExpr= new Expression(cl,"="+ fixedColumns.get(key),null);
+	        }
 
-Expression fixedExpr=Expression.parsePairTable(fixedColumns);// nerver null, maybe empty
+}catch(NumberFormatException  e){
+ 		fixedColumns= PairTable.parse(request.getParameter("fixedcolumns"),null );
+ 		fixedExpr=Expression.parsePairTable(fixedColumns);
+}
+//PairTable fixedColumns=PairTable.parse(request.getParameter("fixedcolumns"), null);    // columnlink=value
+
+//Expression fixedExpr=Expression.parsePairTable(fixedColumns);// nerver null, maybe empty
 
 /*if(mustBeActive && table.isAcitveFilterEnabled()) {
 fixedExpr=new Expression(new ColumnLink(new int[]{table.getColumn("isactive").getId()}),"=Y",null).combine(fixedExpr,Expression.SQL_AND,null);
