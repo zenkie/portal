@@ -12,6 +12,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>首页</title> 
+<link href="/style-portal.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 ul,li{list-style:none;}
 body{padding:0;margin:0 auto;}
@@ -19,7 +20,8 @@ body{padding:0;margin:0 auto;}
 .login {
 width: 100%;
 height: 437px;
-background: url(images/index.gif) no-repeat left #790000;
+background: url(/images/index-horse.jpg) no-repeat,url(/images/index-bg-horse.png) repeat;/* left #DEAD4A;*/
+/*background: url(images/index.gif) no-repeat left #790000;*/
 position: absolute;
 top: 100px;
 background-position: 199px 0px;
@@ -132,7 +134,7 @@ top: 347px;
 display: block;
 width: 100%;
 height: 90px;
-background: url("images/jxy-bg.gif") repeat-x top left;
+/*background: url("images/jxy-bg-horse.gif") repeat-x top left;*/
 text-indent: -999em;
 -moz-opacity: .6;
 filter: alpha(opacity=60);
@@ -186,7 +188,18 @@ color: #5C676D;
 font-family: "微软雅黑";
 font-weight: bold;
 	}		
-	
+.bar {
+position: absolute;
+top: 347px;
+display: block;
+width: 100%;
+height: 90px;
+background: url("");
+text-indent: -999em;
+-moz-opacity: .6;
+filter: alpha(opacity=60);
+opacity: 0.6;
+}	
 </style>
 <SCRIPT type=text/javascript>
 function onReturn(event){

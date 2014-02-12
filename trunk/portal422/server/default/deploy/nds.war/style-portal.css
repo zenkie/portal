@@ -394,16 +394,16 @@ height:179px;}
 
 input.Warning-120 {
   border:1px solid #ccc;
-  height:16px;
+  /*height:16px;
   width:120px;
-  vertical-align:bottom;
+  vertical-align:bottom;*/
 }
 
 input.Warning-60 {
   border:1px solid #ccc;
-  height:16px;
+  /*height:16px;
   width:60px;
-  text-transform:uppercase;
+  text-transform:uppercase;*/
 }
 
 input.Warning-130 {
