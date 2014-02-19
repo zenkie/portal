@@ -23,5 +23,6 @@
 	query.addSelection(table.getPrimaryKey().getId());
 	query.addParam(filter);
 	request.setAttribute("query", query);
+	request.setAttribute("editype","single");
 	request.getRequestDispatcher("/html/nds/objext/batchupdate.jsp").forward(request, response);	
 %>
