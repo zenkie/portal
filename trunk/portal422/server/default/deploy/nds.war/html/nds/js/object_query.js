@@ -1663,6 +1663,19 @@ DynamicQuery.main = function(){
 };
 jQuery(document).ready(DynamicQuery.main);
 
+	/**
+	 * Get column by id in master object, return null if not found
+	 * column properties:
+	 * 	@see nds.schema.Column.toJSONObject(locale)
+	 */
+function getColumnById(masobj,id){
+		var i;
+		for(i=0;i<masobj.columns.length;i++){
+			if(masobj.columns[i].id==id) return masobj.columns[i];
+		}
+		return null;
+}
+
 /**
 	 * Get updated url containing options value
 	 * @param options, if not empty, will has format like:
@@ -1685,7 +1698,11 @@ function reconstructQueryURL(orgURL, options,accepter_id){
 			// columns in objcontrol
 			for(i=0;i< ocArray.length;i++){
 				ele=$("column_"+ ocArray[i]);
+				if(typeof oc === 'undefined'){
+				column=getColumnById(masterObject,ocArray[i]);
+				}else{
 				column = oc.getColumnById(ocArray[i]);
+				}
 				//console.log("ele="+ ele+",ccolumn="+ column+", v="+ dwr.util.getValue(ele));
 				if(ele!=null){
 					v=dwr.util.getValue(ele);
