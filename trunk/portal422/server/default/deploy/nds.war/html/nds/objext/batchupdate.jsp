@@ -4,7 +4,7 @@
 <%
 
 	String tabName=PortletUtils.getMessage(pageContext, "object.batchupdate",null);
-	
+	//System.out.print(tabName);
 	String object_page_url=NDS_PATH+"/objext/batchupdate.jsp";
 	request.setAttribute("page_help", "BatchUpdate");
 	int navTabTotalWidth=DEFAULT_TAB_WIDTH; //total table width
@@ -36,7 +36,6 @@ if(fixedColumns==null) fixedColumns=new PairTable();
 // for status
 String directory;
 directory=table.getSecurityDirectory();
-
 int perm= WebUtils.getDirectoryPermission(directory, request);
 if(perm==0) throw new NDSException(PortletUtils.getMessage(pageContext, "no-permission",null));
 boolean isWriteEnabled= ( ((perm & 3 )==3)) ;
@@ -162,7 +161,7 @@ var masterObject={
     };
 	request.setAttribute("showcheckbox","false");
 	%>
-		<%@ include file="/html/nds/objext/inc_mulit_object.jsp" %>
+		<%@ include file="/html/nds/objext/inc_single_object.jsp" %>
 	<br>
 	</td></tr>
 </table>
