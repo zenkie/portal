@@ -180,10 +180,15 @@
             }
     }// end if(value != null)
     else{ // begin if value ==null
-          if(column.getReferenceTable() !=null){		
-			fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column);
-			//fkQueryModel=new FKObjectQueryModel(true,column.getReferenceTable(), column_acc_Id,column,null);
-    	  	fkQueryModel.setQueryindex(-1);
+	if(column.getReferenceTable() !=null){
+			//System.out.print(request.getAttribute("editype"));
+			//String ptype=(String)request.getAttribute("editype");
+			if(request.getAttribute("editype")!=null&&((String)request.getAttribute("editype")).equals("single")){
+				fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column);
+				}else{
+				fkQueryModel=new FKObjectQueryModel(true,column.getReferenceTable(), column_acc_Id,column,null);
+				}
+		    	  	fkQueryModel.setQueryindex(-1);
     	  }else{
     	  	fkQueryModel=null;
     	  }
