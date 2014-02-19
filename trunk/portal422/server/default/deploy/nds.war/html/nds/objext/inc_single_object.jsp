@@ -181,7 +181,8 @@
     }// end if(value != null)
     else{ // begin if value ==null
           if(column.getReferenceTable() !=null){		
-    	  	fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column);
+			//fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column);
+			fkQueryModel=new FKObjectQueryModel(true,column.getReferenceTable(), column_acc_Id,column,null);
     	  	fkQueryModel.setQueryindex(-1);
     	  }else{
     	  	fkQueryModel=null;
