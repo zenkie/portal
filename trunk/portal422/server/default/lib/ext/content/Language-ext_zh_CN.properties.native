@@ -970,3 +970,4 @@ switch-im-state=点击切换即时通讯器状态，绿色表示已接入,灰色表示断开
 my-notice=通知
 view-workflow=查看工作流
 execute-cus=多维数据表
+inactive-user-smslogin=当前用户必须使用短信登录!

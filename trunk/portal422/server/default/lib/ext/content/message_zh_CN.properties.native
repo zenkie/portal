@@ -273,3 +273,4 @@ not-in-audit-status=不在待审核状态,请刷新页面
 audit-record-changed=当前阶段状态已更新，请刷新页面
 inactive-key-error=当前产品与注册号不匹配请重新注册！
 inactive-keyfile-error=当前产品缺少注册文件请注册！
+inactive-user-smslogin=当前用户必须使用短信登录!
