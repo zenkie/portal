@@ -72,6 +72,8 @@
 <!--script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.bgpos.js"></script-->
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery.autocomplete-min.js"></script>
 <script type="text/javascript" src="/html/nds/js/jplay/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="/html/nds/js/jqzoom/jquery.jqzoom-core.js"></script>
+<script type="text/javascript" src="/html/nds/js/jqzoom/imgShowPop.js"></script>
 <!--link type="text/css" rel="stylesheet" href="/html/nds/js/artdialog4/skin/chrome.css" /-->
 <link type="text/css" rel="stylesheet" href="/html/nds/js/xloadtree111/xtree.css" />
 <link type="text/css" rel="StyleSheet" href="/html/nds/css/portlet.css">
@@ -90,6 +92,7 @@
 <link type="text/css" rel="StyleSheet" href="/html/nds/js/jdate/My97DatePicker/skin/WdatePicker.css"/>
 <link type="text/css" rel="StyleSheet" href="/html/nds/js/potips/tip-yellowsimple/tip-yellowsimple.css">
 <link type="text/css" rel="StyleSheet" href="/html/nds/js/potips/tip-green/tip-green.css">
+<link type="text/css" rel="stylesheet" href="/html/nds/js/jqzoom/css/jquery.jqzoom.css"/>
 <!--link type="text/css" rel="StyleSheet" href="/html/nds/js/flyout/flyout.ribbon.css"></script-->
 <!--link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/jquery-ui-1.7.3.custom.css" /-->
 <!--link type="text/css" rel="stylesheet" href="/html/nds/themes/ui-lightness/ui.all.css" /-->
