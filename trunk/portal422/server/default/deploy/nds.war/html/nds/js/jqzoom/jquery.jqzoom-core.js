@@ -527,6 +527,11 @@
                         this.node.leftpos = Math.abs(settings.xOffset);
                         this.node.toppos = (smallimage.pos.t - smallimage.btop + smallimage.oh + Math.abs(settings.yOffset) + settings.zoomHeight < screen.height) ? (smallimage.oh + Math.abs(settings.yOffset)) : (0 - settings.zoomHeight - Math.abs(settings.yOffset));
                         break;
+                   case "ds":
+                        this.node.leftpos = smallimage.pos.l+Math.abs(settings.xOffset);
+                        this.node.toppos = smallimage.pos.t;
+						break;
+
                     default:
                         this.node.leftpos = (smallimage.rightlimit + Math.abs(settings.xOffset) + settings.zoomWidth < screen.width) ? (smallimage.ow + Math.abs(settings.xOffset)) : (0 - settings.zoomWidth - Math.abs(settings.xOffset));
                         this.node.toppos = Math.abs(settings.yOffset);
@@ -541,11 +546,22 @@
             };
             this.append = function () {
                 $('.zoomPad', el).append(this.node);
-                this.node.css({
-                    position: 'absolute',
+				if(settings.position=='ds'){
+					 this.node.css({
+                    //position: 'absolute',
+					position: 'fixed',
                     display: 'none',
                     zIndex: 5001
                 });
+				}else{
+                this.node.css({
+                    position: 'absolute',
+					//position: 'fixed',
+
+                    display: 'none',
+                    zIndex: 5001
+                });
+				}
                 if (settings.zoomType == 'innerzoom') {
                     this.node.css({
                         cursor: 'default'
