@@ -494,7 +494,7 @@ ObjectControl.prototype = {
 			// hash type
 			evt.masterobj=$H(Form.serializeElements( this._getInputs("obj_inputs_1"),true));
 			// special treatment on clob type column
-			evt.masterobj.merge(this._loadClobs());
+			evt.masterobj.merge(this._loadClobs("submit"));
 
 			var addtionalInputs=$("obj_inputs_2");
 			if(addtionalInputs!=null){
@@ -540,7 +540,7 @@ ObjectControl.prototype = {
 			// hash type
 			evt.masterobj=$H(Form.serializeElements( this._getInputs("obj_inputs_1"),true));
 			// special treatment on clob type column
-			evt.masterobj.merge(this._loadClobs());
+			evt.masterobj.merge(this._loadClobs("submit"));
 
 			var addtionalInputs=$("obj_inputs_2");
 			if(addtionalInputs!=null){
@@ -771,7 +771,7 @@ ObjectControl.prototype = {
 	 * Load clob objects, and will remove hidden object's input value
 	 * @return Hash object
 	 */
-	_loadClobs:function(){
+	_loadClobs:function(p){
 		var clobs={};
 		
 		var cols= this._masterObj.columns;
@@ -785,7 +785,7 @@ ObjectControl.prototype = {
 					//clobs[col.name.toLowerCase()] = oEditor.GetHTML();
 					clobs[col.name.toLowerCase()]=oEditor.getData();
 					clobs["column_"+ col.id]="";
-					oEditor.destroy();	
+					if(p!="submit"){oEditor.destroy();}
 				}
 			}
 		}
