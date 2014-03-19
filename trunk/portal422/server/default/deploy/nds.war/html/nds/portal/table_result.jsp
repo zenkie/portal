@@ -1,6 +1,6 @@
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/common/init.jsp" %>
-
+<%@ page import="org.json.*"%>
 <%!
     private final static int SELECT_NONE=1;
     private final static int SELECT_SINGLE=2;
@@ -140,7 +140,34 @@ for(int i=0;i< meta.getColumnCount();i++){
 			if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_BUTTON){
             	nds.web.button.ButtonCommandUI uic= (nds.web.button.ButtonCommandUI)colmn.getUIConstructor();
             	columnData= uic.constructHTML(request, colmn, Tools.getInt(result.getObject(1),-1));
-            }else if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK){
+				}else if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_IMAGE){
+				String img_src=columnData;
+				columnData="<a id=\"imga_"+itemId+"\" target=\"_blank\" href=\""+img_src+"\">";
+				columnData+="<img src=\""+img_src+"\" width=\"50px\" height=\"50px\" style=\"float: left;padding-left:0px\"></a>";
+				if(colmn.getJSONProps()!=null&&img_src!=null){
+				JSONObject jor=colmn.getJSONProps();
+				if(jor.has("imgshowlist")){
+					JSONObject img_opt=null;
+					JSONObject jo=colmn.getJSONProps().getJSONObject("imgshowlist");
+					//System.out.print(jo);
+					if(jo.has("rfcolumn")&&jo.optInt("rfcolumn",-1)>0){
+					//System.out.print("rfcolumn->"+jo.optInt("rfcolumn"));
+						Column lable_col=manager.getColumn(jo.optInt("rfcolumn"));
+						int pos=meta.findPositionInSelection(lable_col);
+						String rfcolumn_des= result.getString(pos+1,false);
+						columnData+="<span title=\""+rfcolumn_des+"\" style=\"width:150px;float: left; text-align: left; margin-left: 10px\">"+rfcolumn_des+"</span>";
+						}
+					if(jo.optString("method").equals("jq")&&jo.has("option")){
+						img_opt=jo.getJSONObject("option");
+						columnData+="<script>try{jQuery(\"#imga_"+itemId+"\").jqzoom("+img_opt+");}catch(e){};</script>";
+					}else if(jo.optString("method").equals("sp")){
+						columnData+="<script>try{jQuery(\"#imga_"+itemId+"\").imgShowPop();}catch(e){};</script>";
+					}
+							//columnData="<img src=\""+columnData+"\" width=\"50px\" height=\"50px\" style=\"float: left;padding-left:5px\">";
+					}
+				}
+				
+			}else if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK){
             	if("Y".equals(originColumnDataObj)){
 	            	columnData="<span class='ckbox'/>";
 	            	//<input type='checkbox' value='Y' class='cbx' onclick='return false' checked />
