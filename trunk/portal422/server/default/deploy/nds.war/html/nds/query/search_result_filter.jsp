@@ -20,6 +20,8 @@ String condition=(String)request.getParameter("condition");
 String type=(String)request.getParameter("type");
 Expression paremExpr= query.getParamExpression();
 String paramExpStr=(paremExpr==null?"":paremExpr.toHTMLInputElement());
+paramExpStr=userWeb.replaceVariables(paramExpStr);
+System.out.print(paramExpStr);
 String desc="";
 nds.schema.Filter fo=new nds.schema.Filter();
 fo.setDescription(desc);
@@ -30,7 +32,7 @@ fo.setDescription(desc);
 	desc=query.getParamDesc(true);
 	fo.setSql(condition+" ("+ encode(query.toPKIDSQL(true))+")");
 }*/
-desc=query.getParamDesc(false);
+desc=userWeb.replaceVariables(query.getParamDesc(false));
 fo.setSql(condition+" ("+ encode(query.toPKIDSQL(false))+")");
 fo.setExpression(paramExpStr);
 //System.out.print(fo.getExpression());
