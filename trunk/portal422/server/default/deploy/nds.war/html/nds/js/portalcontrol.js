@@ -42,7 +42,7 @@ PortalControl.prototype = {
 				jQuery(this).css({backgroundPosition: "-20px 35px"})
 			}})
 		});
-		if(tabs.childNodes.length>2&&tabs.childNodes[0].ssid!=-1){
+		if(tabs.childNodes.length>=2&&tabs.childNodes[0].ssid!=-1){
 			tabs.childNodes[1].select();
 			}else{
 			tabs.childNodes[0].select();
