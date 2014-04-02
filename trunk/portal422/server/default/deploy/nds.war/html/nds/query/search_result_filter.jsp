@@ -20,20 +20,25 @@ String condition=(String)request.getParameter("condition");
 String type=(String)request.getParameter("type");
 Expression paremExpr= query.getParamExpression();
 String paramExpStr=(paremExpr==null?"":paremExpr.toHTMLInputElement());
-paramExpStr=userWeb.replaceVariables(paramExpStr);
+//paramExpStr=userWeb.replaceVariables(paramExpStr);
 //System.out.print(paramExpStr);
 String desc="";
 nds.schema.Filter fo=new nds.schema.Filter();
 fo.setDescription(desc);
-/*if("a".equals(type)){
+//System.out.print(type);
+if("a".equals(type)){
 	desc=query.getParamDesc(false);
 	fo.setSql(condition+" ("+ encode(query.toPKIDSQL(false))+")");
-}else{
+	}else{
+	//System.out.print("aaaaa");
 	desc=query.getParamDesc(true);
+	System.out.print(desc);
 	fo.setSql(condition+" ("+ encode(query.toPKIDSQL(true))+")");
-}*/
-desc=userWeb.replaceVariables(query.getParamDesc(false));
-fo.setSql(condition+" ("+ encode(query.toPKIDSQL(false))+")");
+	paramExpStr=userWeb.replaceVariables(paramExpStr);
+}
+//desc=userWeb.replaceVariables(query.getParamDesc(false));
+//desc=query.getParamDesc(false);
+//fo.setSql(condition+" ("+ encode(query.toPKIDSQL(false))+")");
 fo.setExpression(paramExpStr);
 //System.out.print(fo.getExpression());
 %> 
