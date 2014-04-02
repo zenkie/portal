@@ -21,7 +21,7 @@ String type=(String)request.getParameter("type");
 Expression paremExpr= query.getParamExpression();
 String paramExpStr=(paremExpr==null?"":paremExpr.toHTMLInputElement());
 paramExpStr=userWeb.replaceVariables(paramExpStr);
-System.out.print(paramExpStr);
+//System.out.print(paramExpStr);
 String desc="";
 nds.schema.Filter fo=new nds.schema.Filter();
 fo.setDescription(desc);
