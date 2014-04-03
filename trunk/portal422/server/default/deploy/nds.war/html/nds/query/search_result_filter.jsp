@@ -18,6 +18,9 @@
 QueryRequest query =(QueryRequest) request.getAttribute("query");
 String condition=(String)request.getParameter("condition");
 String type=(String)request.getParameter("type");
+String fromtype=(String)request.getParameter("fromtype");
+//System.out.print(fromtype);
+//System.out.print("aaaaaaaa");
 Expression paremExpr= query.getParamExpression();
 String paramExpStr=(paremExpr==null?"":paremExpr.toHTMLInputElement());
 //paramExpStr=userWeb.replaceVariables(paramExpStr);
@@ -26,13 +29,13 @@ String desc="";
 nds.schema.Filter fo=new nds.schema.Filter();
 fo.setDescription(desc);
 //System.out.print(type);
-if("a".equals(type)){
+if("a".equals(type)||"a".equals(fromtype)){
 	desc=query.getParamDesc(false);
 	fo.setSql(condition+" ("+ encode(query.toPKIDSQL(false))+")");
 	}else{
 	//System.out.print("aaaaa");
 	desc=query.getParamDesc(true);
-	System.out.print(desc);
+	//System.out.print(desc);
 	fo.setSql(condition+" ("+ encode(query.toPKIDSQL(true))+")");
 	paramExpStr=userWeb.replaceVariables(paramExpStr);
 }
