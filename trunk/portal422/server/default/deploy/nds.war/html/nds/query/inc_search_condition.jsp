@@ -64,7 +64,7 @@
             	h.put("id",column_acc_Id);
                inputName += "/value";
 			if(column.getReferenceTable() !=null){                                   
-               	FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column,null,false);
+               	FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(column.getReferenceTable(), column_acc_Id,column,null,false,returnType);
                	fkQueryModel.setQueryindex(queryindex);
                	
         %>
