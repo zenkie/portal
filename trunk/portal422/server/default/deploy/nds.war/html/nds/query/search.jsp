@@ -21,6 +21,7 @@
 		immediate  -  "default to "N", if "Y", will do search immediately
 */
 String returnType= request.getParameter("return_type");
+String fromtype= request.getParameter("fromtype");
 String accepter_id= request.getParameter("accepter_id");
 String qdata= request.getParameter("qdata");
 String security= request.getParameter("security");
@@ -91,6 +92,7 @@ queryObj.put("start",0);
 queryObj.put("must_be_active",mustBeActive);
 queryObj.put("range",QueryUtils.DEFAULT_RANGE);
 queryObj.put("resulthandler","/html/nds/query/search_result.jsp");
+queryObj.put("fromtype",fromtype);
 
 JSONArray sporder=null;
 if( table.getJSONProps()!=null) sporder=table.getJSONProps().optJSONArray("orderby");
