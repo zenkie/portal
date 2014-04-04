@@ -247,7 +247,7 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
 						if(table !=null ){
 							if (isChecked){
 								column_acc_Id="filter_"+dirId;
-								toggle_url="/html/nds/query/search.jsp?table="+table.getId()+"&return_type=a&accepter_id="+column_acc_Id;
+								toggle_url="/html/nds/query/search.jsp?table="+table.getId()+"&return_type=a&accepter_id="+column_acc_Id+"&fromtype=a";
 					%>
 								<span id='<%=column_acc_Id+"_link"%>' title="popup" onaction='oq.toggle_m("<%=toggle_url%>","<%=column_acc_Id%>");tab_action("<%=dirTag%>");'><img id='<%=column_acc_Id+"_img"%>' border=0 width=16 height=16 align=absmiddle src='/html/nds/images/add_filter.gif' alt='<%=PortletUtils.getMessage(pageContext, "open-new-page-to-search",null)%>'></span>
                                	<script>createButton(document.getElementById("<%=column_acc_Id+"_link"%>"));</script>
