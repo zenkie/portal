@@ -886,7 +886,14 @@ ObjectControl.prototype = {
 	 * @return false if contains invalid data
 	 */
 	_checkInput: function(col,ele){
+		if(col.displaySetting=="clob"){
+		var oEditor=CKEDITOR.instances["column_"+ col.id];
+		if(oEditor!=null){
+		var d=oEditor.getData();
+		}
+		}else{
 		var d=String(dwr.util.getValue( ele));
+		}
 		var blank=(String(d)).blank();
 		if(!col.isNullable &&  (blank || (col.isValueLimited && d=="0") )){
 			msgbox( col.description+ gMessageHolder.CAN_NOT_BE_NULL);
