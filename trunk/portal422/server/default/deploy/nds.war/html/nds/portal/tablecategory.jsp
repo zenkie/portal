@@ -53,6 +53,7 @@ if(userWeb==null || userWeb.isGuest()){
 //					ui.item.children( "h3" ).triggerHandler( "focusout" );
 //				}
 //			});
+	<%=(url==null?"null":"javascript:pc.navigate('"+url+"','ifr');")%>
    });
   
 	}
