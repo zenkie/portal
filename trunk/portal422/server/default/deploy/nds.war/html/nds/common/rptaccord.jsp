@@ -63,6 +63,7 @@ if(parentnode ==-1){
 	query.addParam(table.getParentNodeColumn().getId(), ""+parentnode);
 }
 query.addParam(table.getColumn("isactive").getId(), "Y");
+query.addParam(table.getColumn("AD_CLIENT_ID").getId(),userWeb.getAdClientId()+"");
 int[] orderKey;
 Column colOrderNo=table.getColumn("orderno") ;
 if(colOrderNo!=null)orderKey= new int[]{ colOrderNo.getId()};
@@ -125,9 +126,10 @@ result= QueryEngine.getInstance().doQuery(query);
 		resultData.next();
 		int rptid=Integer.parseInt(String.valueOf(resultData.getObject(4)));
 		Table p_table=manager.getTable(rptid);
+		//System.out.print(p_table);
 		// check write permission
 		//User should be Users.isAdmin=1 and has read permission on that table
-		if(!userWeb.isPermissionEnabled(p_table.getSecurityDirectory(),nds.security.Directory.READ)){
+		if(p_table!=null&&!userWeb.isPermissionEnabled(p_table.getSecurityDirectory(),nds.security.Directory.READ)){
 				 // System.out.print(p_table.getName());
 				  continue;
 				}
