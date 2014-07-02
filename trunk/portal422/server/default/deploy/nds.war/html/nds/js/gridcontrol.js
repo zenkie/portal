@@ -1144,7 +1144,7 @@ GridControl.prototype = {
 				else v=null;
 				line.push(v);
 				if(col.defocus){
-				focusInput=jQuery("#eo_"+col.name);
+				focusInput=document.getElementById("eo_"+col.name);
 				dwr.util.selectRange(focusInput,0,this.MAX_INPUT_LENGTH);
 				this._lastFocusElement= focusInput;
 
