@@ -1,3 +1,4 @@
+<%@ page language="java"  pageEncoding="utf-8"%>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/header.jsp" %>
 <%
@@ -16,7 +17,7 @@
     	userWeb.checkPermission(qRequest.getMainTable().getSecurityDirectory(), nds.security.Directory.EXPORT);
     }
     if((ru.getQuota() - ru.getSpaceUsed()) <= 0){
-        //空间已经用完
+    //绌洪棿宸茬粡鐢ㄥ畬
         nds.control.util.ValueHolder vh = new nds.control.util.ValueHolder();
         vh.put("message",PortletUtils.getMessage(pageContext, "warn-insufficient-disk-space",null));
         request.setAttribute(nds.util.WebKeys.VALUE_HOLDER,vh);
@@ -124,7 +125,7 @@
               <input type="hidden" name="page" value="no">
               <input type="hidden" name="ak" value="yes">
               <input type="hidden" name="pk" value="no">
-              <input type="hidden" name="column" value="yes">
+			  <br>鏄惁鏄剧ず琛ㄥご:<input type="checkbox" name="column" value="yes" checked>
               </td>
             </tr>
             <%/* begin obsolete
