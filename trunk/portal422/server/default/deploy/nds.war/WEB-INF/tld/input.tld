@@ -105,6 +105,11 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
+	<attribute>
+      <name>isFold</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
   </tag>
   <tag>
     <name>password</name>
