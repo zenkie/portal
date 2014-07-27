@@ -78,9 +78,10 @@ top: 0px;
 left: 22px;
 display: block;
 width: 195px;
-height: 43px;
+height: 50px;
 background: url("/html/nds/themes/classic/01/images/burgeon_logo.png") no-repeat top left;
 text-indent: -999em;
+background-size:78%;
 }
 
 
