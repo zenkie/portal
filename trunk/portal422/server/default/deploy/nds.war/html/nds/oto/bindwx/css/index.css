@@ -1,0 +1,940 @@
+﻿/***************整体***********/
+#wrap {
+    width: 100%;
+    background-color: #fff;
+}
+
+
+/********************************头部***********************************/
+#header {
+    width: 100%;
+    height: 52px;
+    background: #2E313F url(../images/topHeadTitle.png) no-repeat fixed top;
+    border-bottom: 1px solid #292C39;
+    top: 0px;
+    position: relative;
+}
+
+#wxheader {
+    width: 100%;
+    height: 52px;
+    background: #2E313F url(../images/topHeadTitlewx.png) no-repeat fixed top;
+    border-bottom: 1px solid #292C39;
+    top: 0px;
+    position: relative;
+}
+
+
+#topNav {
+    width: 960px;
+    height: 40px;
+    margin: 0 auto;
+    padding-top: 6px;
+}
+
+#topNav .navigation {
+    float: right;
+}
+
+#topNav a {
+    height: 40px;
+    line-height: 40px;
+    color: #ffffff;
+    margin: 0 0 0 15px;
+}
+
+#topNav a:hover {
+    text-decoration: underline;
+}
+
+
+/************************main  sideNav主体 侧边栏**********************/
+
+#main {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+#sideNav {
+    width: 164px;
+    float: left;
+    /*height:800px;*/
+    background: #25293a;
+    overflow: hidden;
+    position: relative;
+}
+
+#topnav {
+    width: 164px;
+    float: left;
+}
+
+.hideFunction {
+    width: 6px;
+    background: #25293c;
+    position: relative;
+    /*height:800px;*/
+    float: left;
+    cursor: pointer;
+}
+
+    .hideFunction img {
+        position: absolute;
+        left: 0;
+    }
+
+#sideNav a {
+    display: block;
+    width: 164px;
+    height: 50px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+#sideNav .verticalNav {
+    position: absolute;
+}
+
+    #sideNav .verticalNav li {
+        background: #2c3044;
+    }
+
+
+    #sideNav .verticalNav img {
+        margin: 0px 5px 0 35px;
+        *margin: 15px 5px 15px 20px;
+        vertical-align: middle;
+    }
+
+
+    #sideNav .verticalNav a {
+        border-top: #222639 1px solid;
+        border-bottom: #32394f 1px solid;
+    }
+
+        #sideNav .verticalNav a.downStyle {
+            background: url(../images/down.png) no-repeat 120px center;
+        }
+
+        #sideNav .verticalNav a.topStyle {
+            background: url(../images/top.png) no-repeat 120px center;
+        }
+
+    #sideNav .verticalNav span {
+        line-height: 50px;
+        vertical-align: middle;
+        margin-left: 31px;
+    }
+
+
+    #sideNav .verticalNav a:hover {
+        background-color: #373d57;
+    }
+
+.navTitle {
+    text-align: center;
+    font-weight: bold;
+    line-height: 50px;
+    background: #FA577E url(../images/editBg.png) no-repeat bottom left;
+}
+
+    .navTitle:hover {
+        background: #FA577E url(../images/editBgh.png) no-repeat bottom left;
+    }
+
+.app {
+    background: url(../images/appDownLoad.JPG) no-repeat;
+    width: 100%;
+}
+
+.wxnavTitle {
+    text-align: center;
+    font-weight: bold;
+    line-height: 50px;
+    background: #60b11e url(../images/editBgwx.png) no-repeat bottom left;
+}
+
+    .wxnavTitle:hover {
+        background: #60b11e url(../images/editBgwxh.png) no-repeat bottom left;
+    }
+
+
+#sideNav .verticalNav .catgBranch li {
+    height: 33px;
+    background-color: #25293a;
+}
+
+
+#sideNav .verticalNav .catgBranch a {
+    height: 33px;
+    font-size: 12px;
+    border: none;
+    color: #d9d9d9;
+    background-color: none;
+    border-left: 5px solid #25293a;
+}
+
+    #sideNav .verticalNav .catgBranch a span {
+        line-height: 33px;
+        margin-left: 31px;
+    }
+
+    #sideNav .verticalNav .catgBranch a:hover {
+        background-color: #25293a;
+        border-left: 5px solid #80c128;
+    }
+
+#sideNav .verticalNav .catgBranch .wxBr:hover {
+    background-color: #25293a;
+    border-left: 5px solid #80c128;
+}
+
+#sideNav .verticalNav .catgBranch .current {
+    color: #fa577e;
+    background-color: #2e313f;
+    border-left: 5px solid #fa577e;
+}
+
+
+#sideNav .verticalNav .catgBranch .wxcurrent {
+    color: #9ceb30;
+    background-color: #25293a;
+    border-left: 5px solid #80c128;
+}
+
+    #sideNav .verticalNav .catgBranch .wxcurrent:hover {
+        border-left: 5px solid #80c128;
+    }
+#sideNav .verticalNav li .emchargeimg{
+    width:22px;
+    height:12px;
+    display:inline-block;
+    vertical-align:middle;
+    background:url(../Images/chargeicon.png) no-repeat;
+    margin-left:2px;
+}
+/****************************mainContent 主要内容*******************************/
+
+#mainContent {
+    padding:10px 20px 10px 50px;
+}
+
+    #mainContent .location {
+        height: 40px;
+        line-height: 40px;
+        color: #303030;
+        background: #ffffff;
+        border-bottom: 1px solid #e5e5e5;
+        padding-left: 15px;
+    }
+
+        #mainContent .location a {
+            color: #4E7FD7;
+        }
+
+
+
+/*********************catgoryBox 分类*****************************************/
+
+.catgoryBox a {
+    display: inline-block;
+    width: 140px;
+    height: 140px;
+    margin: 24px 0 0 40px;
+}
+
+    .catgoryBox a img {
+        margin: 30px 45px 10px 45px;
+    }
+
+
+/**
+
+/**颜色**/
+.catgColor1 {
+    background-color: #E74C3C;
+}
+
+.catgColor2 {
+    background-color: #1ABC9C;
+}
+
+.catgColor3 {
+    background-color: #E67E22;
+}
+
+.catgColor4 {
+    background-color: #8E44AD;
+}
+
+.catgColor5 {
+    background-color: #F1C40F;
+}
+
+.catgColor6 {
+    background-color: #3498DB;
+}
+
+.catgColor7 {
+    background-color: #2ECC71;
+}
+
+
+
+
+/**********************鼠标浮动************************/
+a.catgColor1:hover {
+    background-color: #e0352a;
+}
+
+a.catgColor2:hover {
+    background-color: #12a87e;
+}
+
+a.catgColor3:hover {
+    background-color: #de5818;
+}
+
+a.catgColor4:hover {
+    background-color: #6c2f94;
+}
+
+a.catgColor5:hover {
+    background-color: #ecaf0a;
+}
+
+a.catgColor6:hover {
+    background-color: #2479d0;
+}
+
+a.catgColor7:hover {
+    background-color: #20bd4f;
+}
+
+
+
+
+
+/*********分类文字********************/
+
+.catgTitle {
+    font-size: 16px;
+    line-height: 16px;
+    text-align: center;
+    color: #fff;
+}
+
+
+
+
+
+/******************************/
+#dataDownload {
+    width: 682px;
+    height: 136px;
+    background: url(../images/dataDownload.png) no-repeat bottom left;
+    margin: 30px 0 20px 40px;
+}
+
+.dataBox, .download {
+    width: 341px;
+    height: 100%;
+    float: left;
+    position: relative;
+}
+
+.download {
+    margin-left: -2px;
+}
+
+.dataBox img {
+    margin: 12px;
+    float: left;
+}
+
+.dataBox a {
+    float: left;
+    width: 44%;
+    margin: 5px 10px;
+    text-align: center;
+    color: #4e7fd7;
+}
+
+    .dataBox a:hover {
+        text-decoration: underline;
+    }
+
+.dataBox span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.dataBox span, .dataBox small {
+    display: block;
+    margin: 0 auto;
+}
+
+.download img {
+    float: left;
+    margin: 12px 15px 0 40px;
+    ;
+}
+
+.download .btns {
+    float: left;
+    margin: 15px 0px;
+}
+
+
+
+.download .downbtn {
+    display: block;
+    width: 140px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin: 10px;
+    background: url(../images/btnBg.png) no-repeat bottom left;
+    color: #000000;
+}
+
+
+.download a:hover, .download a:active {
+    background: url(../images/ActiveBtnBG.png) no-repeat bottom left;
+}
+
+
+
+
+/******************footer*******************/
+
+
+#footer {
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    background-color: #2e313f;
+    color: #c6c6c6;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.links {
+    display: inline-block;
+}
+
+    .links a {
+        color: #c6c6c6;
+        padding: 5px;
+    }
+
+        .links a:hover {
+            color: #fff;
+        }
+
+
+/******************鼠标图片放大*******************/
+
+
+/* tooltip */
+#tooltip {
+    position: absolute;
+    border: 1px solid #ccc;
+    background: #333;
+    padding: 2px;
+    display: none;
+    color: #fff;
+    z-index:9999;
+}
+
+/******微信控制面板二维码展示**/
+.dataBox {
+    margin-right: 30px;
+}
+
+.xScanCode {
+    overflow: hidden;
+    padding: 10px;
+}
+
+    .xScanCode dl {
+        float: left;
+        margin-right: 10px;
+    }
+
+    .xScanCode img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .xScanCode dl {
+        margin-right: 45px;
+    }
+
+    .xScanCode dd {
+        text-align: center;
+    }
+
+
+/******************newHeader*******************/
+
+#newHeader {
+    width: 100%;
+    height: 80px;
+    background: url(../images/nhbg.jpg) repeat-x;
+    overflow: hidden;
+}
+
+.newLogo {
+    float: left;
+    margin: 22px 22px 0 15px;
+}
+
+ul.newFunction {
+    float: left;
+    widht: 60%;
+}
+
+    ul.newFunction li {
+        float: left;
+        width: 98px;
+        height: 78px;
+    }
+
+        ul.newFunction li.newFunctionLi {
+            float: left;
+            width: 2px;
+            background: url(../images/nhlibg.jpg) no-repeat left;
+            height: 78px;
+        }
+
+        ul.newFunction li span {
+            width: 100%;
+            margin-top: 12px;
+            text-align: center;
+            display: block;
+            height: 30px;
+        }
+
+            ul.newFunction li span a {
+                background: url(../images/nhhead.png) no-repeat;
+                background-repeat: no-repeat;
+            }
+
+                ul.newFunction li span a.nf1 {
+                    background-position: 21px 2px;
+                    height: 30px;
+                    display: block;
+                    background-repeat: no-repeat;
+                }
+
+        ul.newFunction li:hover span a.nf1, ul.newFunction li.active span a.nf1 {
+            background-position: -45px 2px;
+            _background-position: -43px 2px;
+            background-repeat: no-repeat;
+        }
+
+        ul.newFunction li span a.nf2 {
+            height: 30px;
+            display: block;
+            background-position: 21px -34px;
+            background-repeat: no-repeat;
+        }
+
+        ul.newFunction li:hover span a.nf2, ul.newFunction li.active span a.nf2 {
+            background-position: -51px -32px;
+        }
+
+        ul.newFunction li span a.nf3 {
+            background-position: 23px -73px;
+            background-repeat: no-repeat;
+            height: 30px;
+            display: block;
+        }
+
+        ul.newFunction li:hover span a.nf3, ul.newFunction li.active span a.nf3 {
+            background-position: -44px -73px;
+            _background-position: -43px -73px;
+        }
+
+        ul.newFunction li span a.nf4 {
+            background-position: 26px -108px;
+            background-repeat: no-repeat;
+            height: 30px;
+            display: block;
+        }
+
+        ul.newFunction li:hover span a.nf4, ul.newFunction li.active span a.nf4 {
+            background-position: -44px -108px;
+        }
+
+        ul.newFunction li span a.nf5 {
+            background-position: 23px -152px;
+            background-repeat: no-repeat;
+            height: 30px;
+            display: block;
+        }
+
+        ul.newFunction li:hover span a.nf5, ul.newFunction li.active span a.nf5 {
+            background-position: -51px -151px;
+        }
+
+        ul.newFunction li span a.nf6 {
+            background-position: 28px -186px;
+            background-repeat: no-repeat;
+            height: 30px;
+            display: block;
+        }
+
+        ul.newFunction li:hover span a.nf6, ul.newFunction li.active span a.nf6 {
+            background-position: -51px -186px;
+        }
+
+        ul.newFunction li cite a {
+            color: #a7aaba;
+            display: block;
+            width: 100%;
+            text-align: center;
+            height: 35px;
+            line-height: 35px;
+            font-size: 14px;
+            font-style: normal;
+        }
+
+        ul.newFunction li:hover cite a, ul.newFunction li.active cite a {
+            color: #9ceb30;
+        }
+
+        ul.newFunction li:hover, ul.newFunction li.active {
+            background: #222538 url(../images/nhli.png) no-repeat bottom center;
+        }
+
+.newHead {
+    width: 49px;
+    float: right;
+    margin: 6px 10px 0 0;
+}
+
+    .newHead a img {
+        border: 1px solid #0d0f18;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+    }
+
+    .newHead a p {
+        color: #a7aaba;
+        text-align: center;
+        margin-top: -5px;
+    }
+
+/******************newFirst*******************/
+
+.newFirst {
+    width: 721px;
+    margin: 25px 0 0 35px;
+    overflow: hidden;
+}
+
+.newFirstL {
+    width: 461px;
+    float: left;
+    overflow: hidden;
+}
+
+.newFirstR {
+    width: 251px;
+    float: right;
+    overflow: hidden;
+}
+
+table.newBlue {
+    background: url(../images/nf1.jpg) no-repeat;
+    width: 100%;
+    color: #fff;
+    font-size: 14px;
+}
+
+    table.newBlue td {
+        padding: 34px 0;
+        height: 87px;
+        text-align: center;
+    }
+
+        table.newBlue td b {
+            font-weight: normal;
+            font-size: 30px;
+        }
+
+table.newRed {
+    background: url(../images/nf2.jpg) no-repeat;
+    width: 100%;
+}
+
+ul.nfWeixin {
+    width: 100%;
+    margin-top: 11px;
+    background: #fff;
+    overflow: hidden;
+    height: 180px;
+}
+
+    ul.nfWeixin li cite {
+        float: left;
+        padding: 10px;
+        border-right: 2px solid #f1f1f1;
+        display: inline-block;
+    }
+
+    ul.nfWeixin li span {
+        float: right;
+        padding: 0px 25px;
+        width: 252px;
+        line-height: 27px;
+        display: inline-block;
+    }
+
+        ul.nfWeixin li span b {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        ul.nfWeixin li span a {
+            color: #3576ff;
+        }
+
+ul.nfAddress {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 11px;
+}
+
+    ul.nfAddress li {
+        background: #fff;
+        line-height: 46px;
+        color: #25293c;
+        margin-bottom: 8px;
+        float: left;
+        display: inline-block;
+        padding-left: 10px;
+        width: 240px;
+        height: 46px;
+        overflow: hidden;
+    }
+
+        ul.nfAddress li cite {
+            width: 40px;
+            float: left;
+            display: block;
+            margin-top: 5px;
+            display: inline-block;
+            *margin-top: 12px;
+        }
+
+        ul.nfAddress li span {
+            width: 200px;
+            float: left;
+            display: block;
+        }
+
+            ul.nfAddress li span b {
+                font-size: 14px;
+                font-weight: normal;
+            }
+
+/**newPay**/
+.newPay {
+    margin: 2px 52px 0 38px;
+}
+
+table.newPay1 {
+    background: url(../images/newPaybg.jpg) repeat-x;
+    height: 61px;
+    line-height: 61px;
+    color: #282828;
+}
+
+    table.newPay1 b {
+        color: #6fbf00;
+        font: 16px "微软雅黑";
+        background: url(../images/right.jpg) no-repeat left center;
+        padding-left: 28px;
+    }
+
+    table.newPay1 cite {
+        background: url(../images/citebg.jpg) no-repeat right center;
+        padding-right: 12px;
+        font-style: normal;
+    }
+
+    table.newPay1 strong {
+        color: #f86200;
+        font: 26px Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        vertical-align: middle;
+    }
+
+.newPay2 {
+    height: 174px;
+    border: 2px solid #d4dcee;
+    margin-top: 34px;
+    background: #f9f9f9;
+    padding: 12px 0 0 27px;
+}
+
+table.newPayTable td {
+    line-height: 45px;
+}
+
+    table.newPayTable td a.astyle {
+        background: url(../images/next.jpg) no-repeat;
+        width: 108px;
+        height: 34px;
+        display: block;
+        color: #fff;
+        text-align: center;
+        line-height: 34px;
+    }
+
+        table.newPayTable td a.astyle:hover {
+            background: url(../images/next2.jpg) no-repeat;
+        }
+
+    table.newPayTable td b {
+        color: #f86200;
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+    table.newPayTable td a {
+        color: #3970d2;
+    }
+/**edition**/
+.edit {border: 1px solid #e2e2e2;background: #fafafa;font-family:"微软雅黑";}
+.editTitle{border-bottom:1px dashed #e2e2e2;padding:19px 32px 11px 35px;color:#919191;line-height:30px;}
+.editTitle h3{line-height:39px;font-size:24px;color:#7eca15;}
+.editTitle a{color:#7eca15;text-decoration:underline;}
+
+.editionAll{width:100%;}
+.editionScroll{width:100%;}
+table.edition {text-align:center;}
+table.edition th{background:#373d57;color:#fff;font-size:12px;height:60px;}
+table.edition th b,table.edition td b{font-size:16px;font-weight:bold;}
+table.edition em{color:#7eca15;font-style:normal;}
+.xbuy{margin:4px auto;width:106px;margin-bottom:2px;}
+.xbuy a{width:106px;height:38px;line-height:38px;color:#fff;background:#ff8933;display:block;}
+.xbuy a.active{background:#ff784e;}
+.xbuy2{margin:4px auto;width:106px;margin-bottom:2px;}
+.xbuy2 a{width:106px;height:38px;line-height:38px;color:#fff;background:#ff8933;display:block;}
+.xbuy2 a.active{background:#ccc;}
+table.edition td.td1{background:#92e0bd;height:49px;border-radius:15px 15px 0px 0px;-moz-border-radius:15px 15px 0px 0px;-webkit-border-radius:15px 15px 0px 0px;border-right:0;}
+table.edition td.td2{background:#7dace5;height:49px;border-radius:15px 15px 0px 0px;-moz-border-radius:15px 15px 0px 0px;-webkit-border-radius:15px 15px 0px 0px;border-right:0;}
+table.edition td.td3{background:#ffd178;height:49px;border-radius:15px 15px 0px 0px;-moz-border-radius:15px 15px 0px 0px;-webkit-border-radius:15px 15px 0px 0px;border-right:0;}
+table.edition td{height:60px;border-right:1px solid #fff;}
+table.edition td strong{font-size:16px;color:#7eca15;font-weight:bold;}
+table.edition td p{line-height:22px;}
+table.edition tr.back td{background:#f6f6f6;}
+.pnote{font-size:40px;font-weight:bold;color:#66b103;}
+
+/* 微网站模板选择 */
+.templatelist{
+	width:100%;
+}
+.templatelist li{
+	display:inline-block;
+	width:170px;
+	height:380px;
+	margin:30px 10px;
+	float:left;
+}
+.templatelist li a{
+	display:inline-block;
+	width:170px;
+	height:380px;
+	background:url(../images/radio_iphone0.png) left top no-repeat;
+	position:relative;
+}
+.templatelist li a:hover{
+	background:url(../images/radio_iphone.png) left top no-repeat;
+}
+.templatelist li a.selected{
+	background:url(../images/radio_iphone.png) left top no-repeat;
+}
+.templatelist li a.bz{
+	background:url(../images/radio_iphone_whitebz.png) left top no-repeat;
+}
+.templatelist li a.bz:hover{
+	background:url(../images/radio_iphone_blackbz.png) left top no-repeat;
+}
+.templatelist li a.bz.selected{
+	background:url(../images/radio_iphone_blackbz.png) left top no-repeat;
+}
+.templatelist li a.pt{
+	background:url(../images/radio_iphone_whitept.png) left top no-repeat;
+}
+.templatelist li a.pt:hover{
+	background:url(../images/radio_iphone_blackpt.png) left top no-repeat;
+}
+.templatelist li a.pt.selected{
+	background:url(../images/radio_iphone_blackpt.png) left top no-repeat;
+}
+.templatelist li a.zz{
+	background:url(../images/radio_iphone_whitezz.png) left top no-repeat;
+}
+.templatelist li a.zz:hover{
+	background:url(../images/radio_iphone_blackzz.png) left top no-repeat;
+}
+.templatelist li a.zz.selected{
+	background:url(../images/radio_iphone_blackzz.png) left top no-repeat;
+}
+.templatelist li a img.templateimg{
+	position:absolute;
+	left:14px;
+	top:68px;
+	width:143px;
+	height:229px;
+} 
+.templatechoose{
+	display:inline-block;
+	width:50px;
+	padding-left:20px;
+	height:18px;
+	line-height:20px;
+	position:absolute;
+	bottom:5px;
+	left:50%;
+	margin-left:-35px;
+	text-align:center;
+	background:url(../images/checkboximg.png) no-repeat;
+}
+.templatelist li a.selected .templatechoose{
+	background:url(../images/checkboximg2.png) no-repeat;
+}
+.stylelist{
+	width:100%;
+	background:#f5f5f5;
+	height:35px;
+	margin:10px 0;
+	line-height:35px;
+}
+.stylelist a{
+	display:inline-block;
+	padding:0 10px;
+	margin:0 10px;
+	font-size:14px;	
+	color:#222;
+	float:left;
+}
+.stylelist a:hover{
+	color:#56a54b;
+}
+.stylelist a.selected{
+	color:#56a54b;
+	font-weight:bold;
+	background:url(../images/templatedot.gif) center bottom no-repeat;
+}
+.stylelist a.selected:hover{
+	color:#56a54b;
+}

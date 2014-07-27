@@ -1,0 +1,647 @@
+﻿@charset "utf-8";
+/** CSS Document **/
+html, body {
+    -webkit-text-size-adjust: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #a1a1a1;
+    background: #f2f2f2;
+    text-align: left;
+    font: 12px/1.5 "微软雅黑", 黑体,Droid Sans Fallback, Arial, sans-serif;
+    outline: none;
+}
+
+ul, li, dl, dt, dd, form, p {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+input, select, textarea, option {
+    font: 100% Verdana;
+    border: 0;
+    COLOR: #666;
+    outline: none;
+    margin: 0;
+    padding: 0;
+}
+
+table input, select, textarea, option {
+    font: 100% Verdana;
+    border: 0;
+    COLOR: #666;
+    outline: none;
+    margin: 0;
+    padding: 0;
+}
+
+.clear {
+    clear: both;
+    font-size: 0;
+    line-height: 0;
+    height: 0;
+}
+
+img {
+    border: none;
+}
+
+input[type="button"]:hover {
+    cursor: pointer;
+}
+
+a {
+    color: #595959;
+    text-decoration: none;
+}
+
+    a:active, a:focus {
+        outline: none;
+        cursor: pointer;
+    }
+
+    a.active, a:hover {
+        color: #595959;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+h1, h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+div, table, td {
+    cursor: default;
+}
+
+em, cite {
+    font-style: normal;
+}
+.inputStyle3,.inputStyle4,table.searchTable{ behavior: url(../../js/ie-css3.htc); position:relative;z-index:999;}
+
+
+.site {
+    width: 960px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.top {
+    width: 100%;
+    height: 79px;
+    margin-bottom: 17px;
+}
+
+.logo {
+    margin: 20px 0 0 30px;
+}
+
+.edit {
+    width: 912px;
+    border: 1px solid #e2e2e2;
+    margin: 0 auto;
+    background: #fafafa;
+}
+
+.editTitle {
+    border-bottom: 1px dashed #e2e2e2;
+    padding: 19px 32px 11px 35px;
+    color: #919191;
+    line-height: 30px;
+}
+
+    .editTitle h3 {
+        line-height: 39px;
+        font-size: 24px;
+        color: #7eca15;
+    }
+
+    .editTitle a {
+        color: #000;
+        text-decoration: underline;
+    }
+
+.editContent {
+    padding: 52px 0 47px 97px;
+}
+
+.editContent2 {
+    padding: 26px;
+}
+
+table.editTable td {
+    line-height: 57px;
+    height: 57px;
+    padding-left: 10px;
+    font-size: 14px;
+    color: #272727;
+}
+
+table.editTable th {
+    text-align: right;
+    color: #272727;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+table.editTable td input {
+    line-height: 40px;
+    height: 40px;
+    width: 295px;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding-left: 13px;
+    color: #272727;
+    font-size: 14px;
+}
+
+table.editTable td span {
+    line-height: 40px;
+    height: 40px;
+    width: 600px;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding-left: 13px;
+    color: #272727;
+    font-size: 14px;
+    display: block;
+}
+
+table.editTable td em {
+    color: #919191;
+}
+
+table.editTable td a cite {
+    color: #7eca15;
+}
+
+table.editTable td b {
+    color: #C00;
+}
+
+table.editTable td input:focus {
+    border: 2px solid #7eca15;
+    width: 293px;
+}
+
+table.editTable td select {
+    line-height: 40px;
+    height: 40px;
+    width: 115px;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding-left: 13px;
+    color: #272727;
+    font-size: 14px;
+}
+
+table.editTable td cite.wrong {
+    background: url(/images/newsite/wrong.jpg) no-repeat left center;
+    padding-left: 20px;
+    width: 21px;
+    height: 21px;
+    float: left;
+    margin-top: 5.5%;
+    *margin-top: 90%;
+    display: block;
+}
+
+table.editTable td cite.right {
+    background: url(/images/newsite/right.png) no-repeat left center;
+    padding-left: 20px;
+    width: 21px;
+    height: 21px;
+    float: left;
+    display: block;
+}
+
+
+
+.footer {
+    line-height: 22px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+    .footer a {
+        color: #7eca15;
+    }
+
+.top2 {
+    text-align: center;
+    margin-top: 50px;
+    color: #272727;
+    font-size: 24px;
+}
+
+.edit2 {
+    padding: 48px 0 0 250px;
+}
+
+.inputStyle {
+    width: 246px;
+    background: url(../images/inputbg.jpg) repeat-x;
+    height: 52px;
+    line-height: 52px;
+    display: block;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    float: left;
+    margin-right: 16px;
+    display: inline;
+}
+
+.inputStyle:hover {
+	background: url(../images/inputbg3.jpg) repeat-x;
+	color: #fff;
+}
+
+.inputStyle2 {
+    width: 146px;
+    background: url(/images/newsite/inputbg2.jpg) repeat-x;
+    height: 48px;
+    line-height: 48px;
+    display: block;
+    color: #7eca15;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #e2e2e2;
+    font-weight: bold;
+    float: left;
+}
+
+    .inputStyle2:hover {
+        background: url(/images/newsite/inputbg4.jpg) repeat-x;
+        color: #272727;
+    }
+
+/**search**/
+.csearch {
+    padding: 40px 75px 23px 75px;
+    width: 189px;
+}
+
+.csearch2 {
+    padding: 40px 75px 23px 155px;
+    width: 189px;
+    height:100px;
+}
+
+table.searchTable{background:#7eca15;*background:none;height:33px;border-radius:16px;-moz-border-radius:16px;-webkit-border-radius:16px;}
+.inputStyle3{background:#7eca15 url(../../images/csearch2.jpg) no-repeat;width:153px;height:33px;line-height:33px;padding-left:17px;color:#fff;border:0;border-radius:16px 0px 0px 16px;-moz-border-radius:16px 0px 0px 16px;-webkit-border-radius:16px 0px 0px 16px;}
+.inputStyle4{background:#7eca15 url(../../images/csearch.jpg) no-repeat left center;width:32px;height:33px;border:0;border-radius:0px 16px 16px 0px;-moz-border-radius:0px 16px 16px 0px;-webkit-border-radius:0px 16px 16px 0px;}
+
+
+ul.place {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+    ul.place li {
+        padding-left: 75px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 12px;
+    }
+
+        ul.place li b {
+            color: #282828;
+            font-size: 16px;
+            width: 140px;
+            text-align: right;
+            display: block;
+            float: left;
+            font-weight: bold;
+        }
+
+        ul.place li a {
+            height: 28px;
+            line-height: 28px;
+            padding: 0 15px;
+            background: #fff;
+            border: 1px solid #e2e2e2;
+            margin: 12px 0 0 15px;
+            float: left;
+            display: inline-block;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            text-decoration: none;
+        }
+
+            ul.place li a.active {
+                background: #fff url(/images/newsite/jiao.jpg) no-repeat right bottom;
+                border: 2px solid #7eca15;
+                padding: 0 14px;
+                height: 26px;
+                line-height: 26px;
+            }
+
+        ul.place li.liStyle {
+            background: #f6f6f6;
+        }
+
+        ul.place li.active {
+            background: #f6f6f6 url(/images/newsite/line.jpg) repeat-y;
+        }
+
+        ul.place li strong {
+            color: #ff346a;
+            font-size: 16px;
+        }
+
+        ul.place li em {
+            color: #282828;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+ul.place2 li {
+    padding-right: 100px;
+}
+
+    ul.place2 li a {
+        float: right;
+    }
+
+        ul.place2 li a:hover {
+            background: #7eca15;
+            color: #fff;
+        }
+
+ul.place3 {
+}
+
+ul.place4 {
+    color: #000;
+}
+
+    ul.place4 li {
+        padding-left: 15px;
+    }
+
+/**新增choose**/
+.chTitle {
+    background: url(/images/newsite/chtitle.jpg) repeat-x;
+    height: 52px;
+    line-height: 52px;
+    margin-top:-1px;
+}
+
+    .chTitle a {
+        width: 303px;
+        float: left;
+        display: block;
+        text-align: center;
+        border-right: 1px solid #e2e2e2;
+        font-size: 16px;
+    }
+
+        .chTitle a.active {
+            background: url(/images/newsite/trans.jpg) repeat-x;
+            color: #7fca15;
+        }
+
+.chooseContent {
+    background: #fafafa;
+    padding: 24px 35px;
+}
+
+.chTitle2 {
+    height: 42px;
+    line-height: 42px;
+}
+
+    .chTitle2 h3 {
+        color: #282828;
+        font-size: 14px;
+        float: left;
+        width: 70%;
+    }
+
+    .chTitle2 cite {
+        float: right;
+        width: 20%;
+        text-align: right;
+    }
+
+.level {
+    width: 100%;
+    height: 14px;
+    background: url(/images/newsite/levelbg.jpg) repeat-x;
+}
+
+    .level cite {
+        background: url(/images/newsite/levelbg2.jpg) repeat-x;
+        height: 14px;
+        float: left;
+    }
+
+    .level em {
+        background: url(/images/newsite/cirlce2.jpg) no-repeat;
+        width: 14px;
+        height: 14px;
+        float: left;
+        display: block;
+    }
+
+ul.detail {
+    width: 100%;
+    overflow: hidden;
+    padding-top: 17px;
+}
+
+    ul.detail li {
+        float: left;
+        margin-right: 79px;
+        display: inline;
+        text-align: center;
+    }
+
+
+
+.tong {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 297px;
+    background: url(/images/newsite/tongbg.jpg) repeat-x;
+    height: 52px;
+    line-height: 52px;
+    border-left: 1px solid #78c70b;
+    border-right: 1px solid #78c70b;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    text-align: center;
+}
+
+    .tong a {
+        color: #fff;
+        font-size: 14px;
+        display: block;
+    }
+
+        .tong a:hover {
+            background: url(/images/newsite/tongbg2.jpg) repeat-x;
+        }
+
+.stepButton2 {
+    padding: 19px 40px;
+    overflow: hidden;
+}
+
+    .stepButton2 a {
+        height: 33px;
+        line-height: 33px;
+        padding: 0 16px;
+        background: #7dc21d;
+        color: #fff;
+        font-size: 14px;
+        border-radius: 16px;
+        -moz-border-radius: 16px;
+        -webkit-border-radius: 16px;
+        float: right;
+        text-align: center;
+        text-decoration: none;
+    }
+
+        .stepButton2 a:hover {
+            background: #6cb902;
+        }
+
+.weixin {
+    position: absolute;
+    top: 59px;
+    right: 67px;
+    text-align: center;
+    line-height: 22px;
+}
+
+    .weixin a {
+        color: #ff346a;
+    }
+    .site1 {
+    width: 960px;
+    overflow: hidden;
+}
+
+/*--------header4---------*/
+.h4ul
+{
+    list-style:none;
+    float:left;
+    margin-left:30px;
+    margin-top:-10px;
+}
+.h4ul li
+{
+    float:left;
+    width:2px;
+    background:url(/images/nhlibg.jpg) no-repeat left;
+    height:57px;
+    width:98px;
+    padding:0 5px;
+    text-align:center;
+}
+.h4ul li span a
+{
+     background: url(/images/nhhead.png) no-repeat;
+}
+.h4ul li cite a
+{
+    color: #a7aaba;
+    display: block;
+    width: 100%;
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    font-style: normal;
+}
+.h4ul li:hover cite a,.h4ul li.active cite a
+{
+    color:#9ceb30;
+}
+.h4ul li span a.nf1
+{
+    background-position: 23px -73px;
+    _background-position: 23px -73px;
+    background-repeat: no-repeat;
+    height:30px;
+    display:block;
+   
+}
+.h4ul li:hover span a.nf1,.h4ul li.active span a.nf1
+{
+    background-position: -44px -73px;
+    _background-position: -44px -73px;
+}
+.h4ul li span a.nf2
+{
+    background-position: 21px -34px;
+    _background-position: 21px -34px;
+    background-repeat: no-repeat;
+    height:30px;
+    display:block;
+   
+}
+.h4ul li:hover span a.nf2,.h4ul li.active span a.nf2
+{
+    background-position: -51px -32px;
+    _background-position: -51px -32px;
+}
+.h4ul li span a.nf3
+{
+    background-position: 23px -152px;
+    _background-position: 23px -152px;
+    background-repeat: no-repeat;
+    height:30px;
+    display:block;
+   
+}
+.h4ul li:hover span a.nf3,.h4ul li.active span a.nf3
+{
+    background-position: -51px -151px;
+    _background-position: -51px -151px;
+}
+.rightlogout
+{
+    float:right; 
+    width:60px; 
+    height:60px;
+    margin-top:-10px;
+    margin-right:8px;
+}
+.rightlogout a
+{
+    margin-top:10px;
+    color: #9ceb30;
+    display: block;
+    width: 100%;
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+    font-size: 12px;
+    font-style: normal;
+    text-decoration:underline;
+}
+.rightlogout a:hover
+{
+    color:#f04a61;
+}
