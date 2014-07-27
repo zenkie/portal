@@ -1,0 +1,49 @@
+﻿.global-modal { display: none; position: absolute; top: 0; left: 0; z-index: 999; width: 100%; opacity: 0.2; background-color: black; }
+body *{font-family: "微软雅黑";}
+#dialogContent { margin-left: 150px; }
+
+.full { width: 100%; height: 100%; }
+.none { display: none; }
+.mt15 { margin-top:15px; }
+
+/**************************页数******************************/
+.global-pageing { height: 40px; }
+
+.global-pageing a { color: #5e5e5e; background-color: #ffffff; padding: 3px 5px; border: 1px solid #e2e2e2; margin: 0px 2px; }
+
+.global-pageing a.paging-activeItem { color: #ffffff; background-color: #5e5e5e; }
+
+.global-pageing a:hover { border: 1px solid #4a516d; }
+
+.global-pageing a:active { color: #fff; background-color: #4a516d; border: 1px solid #4a516d; }
+
+.global-pageing a.firstPage { padding-left: 15px; background: #fff url(../images/firstlastPages.png) no-repeat center left; _margin-bottom: -8px; }
+
+.global-pageing a.lastPage { padding-right: 15px; background: #fff url(../images/firstlastPages.png) no-repeat -106px center; _margin-bottom: -8px; }
+
+.global-pageing a.firstPage:active { background: #4a516d url(../images/firstlastPages.png) no-repeat -17px center; }
+
+.global-pageing a.lastPage:active { padding-right: 15px; background: #4a516d url(../images/firstlastPages.png) no-repeat -60px center; }
+
+
+.tmpl-module { background: url(../Images/img_placeholder.png) center no-repeat; background-color: #e1e1e1; }
+
+/******************************************************************************/
+
+.layout-column { float:left; }
+.layout-item { margin-right:2px; margin-bottom:2px; position:relative; }
+.layout-item .curtain { display:none;}
+
+.inline-block { display:inline-block; }
+.inline-block { *display:inline; }
+
+.w150 { width:150px; }
+
+#contentWrap {
+	height: calc(100% - 51px);
+	margin-top: 10px;
+}
+
+.cursor-default{ cursor:default; }
+.ajaxLoading{ background-color: white; padding: 10px 53px; border: 1px solid #ccc; text-align: center; }
+.ajaxLoading .text { color:#303030; }
