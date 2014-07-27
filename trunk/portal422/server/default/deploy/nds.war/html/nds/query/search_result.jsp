@@ -112,6 +112,7 @@ for(int i=0;i< meta.getColumnCount();i++){
     String columnData=result.getString(i+1, true);
     String originColumnData= result.getString(i+1, false);
     colmn=manager.getColumn(meta.getColumnId(i+1));
+	if(nds.util.Validator.isNotNull(colmn.getValueInterpeter())&&"nds.web.interpreter.AcionColnterpreter".equalsIgnoreCase(colmn.getValueInterpeter())){continue;}
     if(colmn.getMoney() != null)
         columnData = StringUtils.displayMoney(originColumnData, colmn.getMoney());
     String url=null,tname = colmn.getTable().getDescription(locale);

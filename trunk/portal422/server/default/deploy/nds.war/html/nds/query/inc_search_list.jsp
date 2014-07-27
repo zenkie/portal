@@ -1,6 +1,6 @@
 
 <form id="q_fm_list_<%=queryindex%>">
-<table width="100%" cellspacing="0" cellpadding="0"  align="center">
+<table width="100%" cellspacing="0" cellpadding="0"  align="left">
     <tr >
     <td align="left">
 <div id="q_line"></div>
@@ -24,6 +24,7 @@ boolean isFixedColumn;
 
 for(int i=0;i< columns.size();i++){
 	col=(Column)columns.get(i);
+	if(nds.util.Validator.isNotNull(col.getValueInterpeter())&&"nds.web.interpreter.AcionColnterpreter".equalsIgnoreCase(col.getValueInterpeter())){continue;}
 	if(col.getReferenceTable()!=null){
 		col2=col.getReferenceTable().getAlternateKey();
 		colName=col.getName()+"__"+ col2.getName();	
