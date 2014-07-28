@@ -48,7 +48,6 @@
 <%@ taglib uri="http://struts.apache.org/tags-nested" prefix="nested" %>
 <%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://struts.apache.org/tags-tiles-el" prefix="tiles-el" %>
-<%@ taglib uri="http://ckeditor.com" prefix="ckeditor" %>
 
 <%@ page contentType="text/html; charset=UTF-8" %>
 
