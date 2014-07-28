@@ -22,6 +22,7 @@ if(userWeb==null || userWeb.isGuest()){
 	response.sendRedirect("/login.jsp?redirect="+redirect);
 	return;
 }
+NDS_PATH=NDS_PATH+"/oto";
 String tableName=request.getParameter("table");
 int maintabid=Tools.getInt(request.getParameter("mainobjecttableid"),-1);
 int objectId=Tools.getInt(request.getParameter("id"),-1);
@@ -68,7 +69,19 @@ String soundfile="{"+sound.substring(sound.indexOf(".")+1)+":\""+sound+"\"}";
 String sc_sound=userWeb.getUserOption("SCAN_SOUND","");
 String sc_soundfile="{"+sc_sound.substring(sc_sound.indexOf(".")+1)+":\""+sc_sound+"\"}";
 //soundfile create
-
+if(table.getJSONProps()!=null && table.getJSONProps().optBoolean("singdata",false) ){
+QueryRequestImpl qr;
+QueryResult rt=null;
+qr=QueryEngine.getInstance().createRequest(userWeb.getSession());
+qr.setMainTable(table.getId());
+qr.addSelection(table.getColumn("ID").getId());
+qr.addParam(table.getColumn("AD_CLIENT_ID").getId(),userWeb.getAdClientId()+"");
+rt= QueryEngine.getInstance().doQuery(qr);
+for (int j = 0; j < rt.getRowCount(); j++) {
+rt.next();
+objectId=Tools.getInt(rt.getObject(1).toString(),-1);
+}
+}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -83,6 +96,15 @@ String sc_soundfile="{"+sc_sound.substring(sc_sound.indexOf(".")+1)+":\""+sc_sou
 <!--<div id="obj-content">-->
 <%
 if(table!=null){
+	int colspan=0;
+	int bigrowspan=0;
+	int endcolumn=-1;
+	int currentrow=-1;
+	int startcolumn=0;
+	Boolean isFind=false;
+	JSONArray rowspans=null;
+	JSONObject currentrowspan=null;
+	
 	String object_page_url=NDS_PATH+"/object/object.jsp?table="+
 		 tableId+ "&id="+ objectId+ "&select_tab="+ selectedTabId+(isInput?"":"&input=false");
 	if(fixedColumns!=null)
@@ -253,7 +275,7 @@ var masterObject={
 	},
 	table:<%=tableObj%>,
 	<%
-	 ArrayList inputColumns=table.getColumns(new int[]{1,3}, false,userWeb.getSecurityGrade());// Columns input for Add/Modify 
+	 ArrayList inputColumns=table.getColumns(new int[]{1,3}, true,userWeb.getSecurityGrade());// Columns input for Add/Modify 
 	 JSONArray inputColumnsJson=new JSONArray();
 	 for(int i=0;i<inputColumns.size();i++){
 	 	inputColumnsJson.put( ((Column)inputColumns.get(i)).toJSONObject(locale));
@@ -300,17 +322,17 @@ var masterObject={
 if(status==2){
 %>
 <div id="statusimg">
-	<img src="<%=NDS_PATH+"/images/submitted-small" + ("CN".equals(locale.getCountry())? "_zh_CN":"")+".gif"%>" width="74" height="58">
+	<img src="<%=NDS_PATH+"/themes/01/images/submitted-small" + ("CN".equals(locale.getCountry())? "_zh_CN":"")+".gif"%>" width="74" height="58">
 </div>
 <%}else if(status==3){%>
 <div id="statusimg">
-	<img src="<%=NDS_PATH+"/images/auditing" + ("CN".equals(locale.getCountry())? "_zh_CN":"")+".gif"%>" width="74" height="58">
+	<img src="<%=NDS_PATH+"/themes/01/images/auditing" + ("CN".equals(locale.getCountry())? "_zh_CN":"")+".gif"%>" width="74" height="58">
 </div>
 <%}
 if(isVoid){
 %>
 <div id="statusimg">
-	<img src="<%=NDS_PATH+"/images/void" + ("CN".equals(locale.getCountry())? "_zh_CN":"")+".gif"%>" width="74" height="58">
+	<img src="<%=NDS_PATH+"/themes/01/images/void" + ("CN".equals(locale.getCountry())? "_zh_CN":"")+".gif"%>" width="74" height="58">
 </div>
 <%}%>
 <div id="obj-bottom">
@@ -354,5 +376,6 @@ jQuery("#jpsId").jPlayer({
 </td></tr></table>
 <div id="jpId"></div>
 <div id="jpsId"></div>
+<div id="whole">
 </body>
 </html>
