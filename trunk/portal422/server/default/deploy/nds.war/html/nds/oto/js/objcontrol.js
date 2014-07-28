@@ -295,12 +295,12 @@ ObjectControl.prototype = {
 		$("timeoutBox").style.visibility = 'hidden';
 	},	
 	doNewObject:function(){
-		var url="/html/nds/object/object.jsp?input=true&table=" +
+		var url="/html/nds/oto/object/object.jsp?input=true&table=" +
 			this._masterObj.table.id+ "&id=-1";
 		window.location=url;
     },
     doShowObject:function(tableId, objectId){
-		var url="/html/nds/object/object.jsp?input=true&table=" +tableId+ "&id=" + this._masterObj.hiddenInputs.id;
+		var url="/html/nds/oto/object/object.jsp?input=true&table=" +tableId+ "&id=" + this._masterObj.hiddenInputs.id;
 		window.location=url;
     },
     doSelectView:function(viewIdString){
@@ -372,11 +372,11 @@ ObjectControl.prototype = {
 
 	},
 	/*
-	    //�ȴ���ӡ
+	    //µÈ´ý´òÓ¡
     waitOneMomentToPrint:function(){
 
         // detect if browser is Chrome
-        //chrome print ����
+        //chrome print ºöÂÔ
        // Good! Bug fixed. The bug was fixed as part of v.23 if I'm not wrong
 				if(navigator.userAgent.toLowerCase().indexOf("chrome") >  -1) {
 				    // wrap private vars in a closure
@@ -435,7 +435,7 @@ ObjectControl.prototype = {
 
     },
     doGoAuditPage:function(){
-    	window.location="/html/nds/object/audit.jsp?table="+this._masterObj.hiddenInputs.table+"&id="+this._masterObj.hiddenInputs.id;
+    	window.location="/html/nds/oto/object/audit.jsp?table="+this._masterObj.hiddenInputs.table+"&id="+this._masterObj.hiddenInputs.id;
     },
 	doGoModifyPage:function(tableId, objectId, url){
 		window.location=url;
@@ -494,7 +494,7 @@ ObjectControl.prototype = {
 			// hash type
 			evt.masterobj=$H(Form.serializeElements( this._getInputs("obj_inputs_1"),true));
 			// special treatment on clob type column
-			evt.masterobj.merge(this._loadClobs("submit"));
+			evt.masterobj.merge(this._loadClobs());
 
 			var addtionalInputs=$("obj_inputs_2");
 			if(addtionalInputs!=null){
@@ -540,7 +540,7 @@ ObjectControl.prototype = {
 			// hash type
 			evt.masterobj=$H(Form.serializeElements( this._getInputs("obj_inputs_1"),true));
 			// special treatment on clob type column
-			evt.masterobj.merge(this._loadClobs("submit"));
+			evt.masterobj.merge(this._loadClobs());
 
 			var addtionalInputs=$("obj_inputs_2");
 			if(addtionalInputs!=null){
@@ -771,21 +771,21 @@ ObjectControl.prototype = {
 	 * Load clob objects, and will remove hidden object's input value
 	 * @return Hash object
 	 */
-	_loadClobs:function(p){
+	_loadClobs:function(){
 		var clobs={};
 		
 		var cols= this._masterObj.columns;
 		for(var i=0;i<cols.length;i++){
 			var col= cols[i];
 			if(col.displaySetting=="clob"){
-				//�滻Ϊckeditor
+				//Ìæ»»Îªckeditor
 				//var oEditor = FCKeditorAPI.GetInstance("column_"+ col.id) ;
 				var oEditor=CKEDITOR.instances["column_"+ col.id];
 				if(oEditor!=null){
 					//clobs[col.name.toLowerCase()] = oEditor.GetHTML();
 					clobs[col.name.toLowerCase()]=oEditor.getData();
 					clobs["column_"+ col.id]="";
-					if(p!="submit"){oEditor.destroy();}
+					//oEditor.destroy();	
 				}
 			}
 		}
@@ -1004,6 +1004,7 @@ ObjectControl.prototype = {
 		p= te.indexOf("<!--OBJ_INPUTS1_BEGIN-->");
 		pe= te.indexOf("<!--OBJ_INPUTS1_END-->");
 		if(p>0 && pe>p){
+			for(name in CKEDITOR.instances){CKEDITOR.instances[name].destroy()}
 			$("obj_inputs_1").innerHTML=te.substring(p+ "<!--OBJ_INPUTS1_BEGIN-->".length,pe);
 			
 		}
@@ -1483,6 +1484,12 @@ ObjectControl.prototype = {
             jQuery("#jpsId").jPlayer("play");
             return;
       }
+	},
+	showmap:function(ele){
+	var options=$H({width:'auto',height:'auto',title:'坐标选择',ifrid:'popup-iframe-0',drag:true,lock:true,esc:true,skin:'chrome',ispop:false,effect:false});
+	var url="/html/nds/oto/getmap/get_address.jsp?id="+ele.id;
+
+	art.dialog.open(url,options);
 	}
 };
 // define static main method
