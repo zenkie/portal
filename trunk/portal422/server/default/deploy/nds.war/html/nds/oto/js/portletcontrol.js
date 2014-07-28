@@ -216,7 +216,7 @@ PortletControl.prototype = {
     	alert("not implemented yet!");
     },
     doShowObject:function(tableId, objectId){
-		var url="/html/nds/object/object.jsp?input=true&table=" +tableId+ "&id=" + objectId;
+		var url="/html/nds/oto/object/object.jsp?input=true&table=" +tableId+ "&id=" + objectId;
 		popup_window(url);
     },
     doSelectView:function(viewIdString,objectId){
@@ -462,7 +462,7 @@ function msgbox(msg, title, boxType ) {
 * Show table object info
 */
 function dlgo(tableId, objId){
-	popup_window("/html/nds/object/object.jsp?table="+tableId+"&id="+objId);
+	popup_window("/html/nds/oto/object/object.jsp?table="+tableId+"&id="+objId);
 }
 
 function showProgressWindow(bShow){
