@@ -23,7 +23,7 @@ columns=table.getShowableColumns(actionType);
 	<%if(!userWeb.isGuest()){%>
 		<span id="buttons"><!--BUTTONS_BEGIN--><%@ include file="inc_single_object_view_buttons.jsp" %>
 		<!--input id="objdropbtn" type="button"  class='cbutton' value="<%=PortletUtils.getMessage(pageContext, "more",null)%>"-->
-		<a id="objdropbtn"><img src="/html/nds/images/button_more.png"/><%=PortletUtils.getMessage(pageContext, "more",null)%></a>
+		<!--<a id="objdropbtn"><img src="/html/nds/images/button_more.png"/><%=PortletUtils.getMessage(pageContext, "more",null)%></a>-->
 		<!--BUTTONS_END--></span>
 	<%}%>
 <%if(objHelp){%>	
@@ -34,7 +34,7 @@ columns=table.getShowableColumns(actionType);
 	<%=PortletUtils.getMessage(pageContext, "view-workflow", null)%></a>
 <%}%>
 </div>
-<div id="objmenu" class="obj-dock interactive-mode"><!--OBJMENU_BEGIN--><%@ include file="inc_objmenu_modify.jsp" %><!--OBJMENU_END--></div>
+<div id="objmenu" class="obj-dock interactive-mode"><!--OBJMENU_BEGIN<%@ include file="inc_objmenu_modify.jsp" %>OBJMENU_END--></div>
 <div id="message" class="nt"><%@ include file="inc_message.jsp" %></div>
 </div>
 
