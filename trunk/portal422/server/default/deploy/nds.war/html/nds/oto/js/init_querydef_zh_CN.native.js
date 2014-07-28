@@ -1,4 +1,4 @@
-var NDS_PATH="/html/nds";
+var NDS_PATH="/html/nds/oto/";
 var gMessageHolder={
 	LOADING:"服务器处理中",
 	CATEGORY_GUIDE:"分类导航",

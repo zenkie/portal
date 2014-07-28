@@ -1,4 +1,4 @@
-var NDS_PATH="/html/nds";
+var NDS_PATH="/html/nds/oto/";
 
 var gMessageHolder={
       MUST_BE_DATE_TYPE:"必须是日期型",

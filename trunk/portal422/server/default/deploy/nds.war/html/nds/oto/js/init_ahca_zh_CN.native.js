@@ -1,4 +1,4 @@
-var NDS_PATH="/html/nds";
+var NDS_PATH="/html/nds/oto/";
 
 var gMessageHolder={
 	INTERNAL_ERROR:"服务器处理请求时遇到异常",	

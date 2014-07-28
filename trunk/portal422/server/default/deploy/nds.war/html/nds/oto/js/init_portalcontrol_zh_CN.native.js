@@ -1,4 +1,4 @@
-var NDS_PATH="/html/nds";
+var NDS_PATH="/html/nds/oto/";
 function PortalInitObject(){}
 PortalInitObject.prototype={
 };
