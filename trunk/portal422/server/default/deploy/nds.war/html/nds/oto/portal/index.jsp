@@ -36,9 +36,11 @@
  	response.sendRedirect("/login.jsp");
  	return;
  } 
+ 
+ 
  boolean isPopupPortal=Tools.getYesNo(userWeb.getUserOption("POPUP_PORTAL","N"), true);
  if(!isPopupPortal || nds.util.Validator.isNotNull(redirect)){
- 	response.sendRedirect("/html/nds/portal/portal.jsp"+redirect);
+ 	response.sendRedirect("/html/nds/oto/portal/portal.jsp?ss=88"+redirect);
  	return;
  }
   if(true){
