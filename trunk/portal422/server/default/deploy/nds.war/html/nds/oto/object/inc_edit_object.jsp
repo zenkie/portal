@@ -215,7 +215,7 @@ for( int i=0;i< editColumns.size();i++){
    
 }
 %>
-<tr class="emtbts">
+<tr class="emtbts" style="display:none;">
 	<td colspan="<%=columnsPerRow*2%>"> 
 		<div id="emtbts_lgd"><div id="legend_line"><%= PortletUtils.getMessage(pageContext, "new-line",null)%></div></div>
 	 	<div id="emtbts_cks">
