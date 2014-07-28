@@ -15,6 +15,7 @@
 %>
 
 <%
+
  String dialogURL=request.getParameter("redirect");
  if(userWeb==null || userWeb.getUserId()==userWeb.GUEST_ID){
  	/*session.invalidate();
@@ -50,6 +51,19 @@ if(isNotPopupPortal){
 	//update current user's setting, no exception will be thrown
 	userWeb.saveUserOption("POPUP_PORTAL","N",false);
 }
+
+
+String searchmenu="select ifs.isconnect FROM wx_interfaceset ifs WHERE ifs.ad_client_id=?";
+int ad_client_id=userWeb.getAdClientId();
+Object isc=QueryEngine.getInstance().doQueryOne(searchmenu,new Object[]{ad_client_id});
+String isContiune=String.valueOf(isc);
+System.out.print("isContinue->"+isContiune);
+if("N".equals(isContiune)){
+	request.getRequestDispatcher("/html/nds/oto/bindwx/index.jsp").forward(request, response);
+	return;
+}
+
+
 TableManager manager=TableManager.getInstance();
 Configurations conf= (Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS);
 nds.query.web.SubSystemView ssv=new nds.query.web.SubSystemView();
@@ -59,17 +73,6 @@ boolean ssviewFirst=Tools.getYesNo(userWeb.getUserOption("SSVIEW",defaultSsviewF
 int  msgref_time=Integer.parseInt(userWeb.getUserOption("REFTIME","300"));
 
 int ssId=Tools.getInt(request.getParameter("ss"),-1);
-/*
-if(ssId==-1 && nds.util.Validator.isNull(directTb)&&defaultboshome){
-	List<SubSystem> sss =ssv.getSubSystems(request, nds.query.web.SubSystemView.PERMISSION_VIEWABLE);
-	SubSystem ss=sss.get(0);
-	ssId=ss.getId();
-}
-*/
-if(ssId==-1 && nds.util.Validator.isNull(directTb) && ssviewFirst && !defaultboshome){
-	request.getRequestDispatcher("/html/nds/portal/ssv/index.jsp").forward(request, response);
-	return;
-}
 
 boolean fav_show=Tools.getYesNo(userWeb.getUserOption("FAV_SHOW",defaultSsviewFirst?"Y":"N"),true);
 
@@ -111,59 +114,6 @@ jQuery(document).ready(loadWelcomePage);
 <%
 	}
 %>
-jQuery(document).ready(function(){
-/*
-横动调跟随变化标题坐标
-*/
-	<%if(mms != null && mms.length() != 0) {out.print(mms);}%>
-	jQuery('#roll').hide();
-	jQuery("#portal-content").scroll(function() {
-		if(jQuery("#portal-content").scrollTop() >= 200){
-			jQuery('#roll').fadeIn(400);
-			jQuery('#page-nav-commands').css("position","absolute");
-    }
-    else
-    {
-    jQuery('#roll').fadeOut(200);
-    jQuery('#page-nav-commands').css("position","relative");
-    }
-    if(jQuery("#portal-content").scrollLeft()>=1){
-    var left_scr=jQuery("#portal-content").scrollLeft();
-    jQuery('#page-table-query').css("margin-left",8+left_scr);
-    //jQuery('.table-buttons2').css("padding-left",2+left_scr);
-    jQuery('#page-nav-commands').css("right",4-left_scr);
-    
-    }else{
-    jQuery('#page-table-query').css("margin-left",8);
-    //jQuery('.table-buttons2').css("padding-left",2);
-    jQuery('#page-nav-commands').css("right",4);
-    }
-  });
-
-  jQuery('#roll_top').click(function(){jQuery("#portal-content").animate({scrollTop: '0px'}, 500);});
-  jQuery('#roll_bottom').click(function(){jQuery("#portal-content").animate({scrollTop:jQuery('#list-legend').offset().top}, 500);});
-  //jQuery('#flyout-ribbon').FlyoutRibbon();
-  pc.resize();
-});
-
-jQuery(function(){
-var onAutocompleteSelect =function(value, data){
-pc.navigate(data);
-}; 
-var options = {
-serviceUrl: 'QueryServices.jsp',//获取数据的后台页面
-width: 150,//提示框的宽度
-delimiter: /(,|;)\s*/,//分隔符
-onSelect: onAutocompleteSelect,//选中之后的回调函数
-deferRequestBy: 0, //单位微秒
-params: {country: 'Yes' },//参数
-noCache: false //是否启用缓存 默认是开启缓存的
-//minChars:2
-};
-a1 = jQuery("#pojam").autocomplete(options);
-a1.enable();
-});
-
 <%if(msgref_time>0){%>
 jQuery(document).ready(function(){
 
@@ -218,35 +168,38 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 </div>
 <div id="portal-main" style="margin-left:0px">		
 	<table id="page-table" cellpadding="0" cellspacing="0" >
-	<tr><td width="1%" norwap class="topleft" >
+	<tr><td width="196px" class="topleft">
 		   <table cellspacing="0" cellpadding="0" border="0" width="100%">
-			<tr><td id="portal-menu" style="display:block;vertical-align:top;">
+			<tr>
+				<td id="portal-menu" style="display:block;vertical-align:top;">
 			<div style="margin:0;overflow:hidden;" >
 			<%@ include file="list_menu.jsp" %>
 			</div>
-		   	</td><td id="portal-separator" style="vertical-align:top;width:7px;height:100%;display:none;" >
-			<div id="leftToggler" style="vertical-align:middle;" class="leftToggler" onclick="pc.menu_toggle(this);" onmouseover="pc.menu_hl(1);" onmouseout="pc.menu_hl(0);"  >
-
-				</div></td>
+		   	</td>
 			</tr></table></td>
-		<td style="vertical-align:top;width:100%;align:left;">
-	<div id="portal-content" style=""></div>	
-	</td></tr>
+			<td id="portal-separator" style="vertical-align:top;width:1%;height:100%;display:none;" >
+			<div id="leftToggler" style="vertical-align:middle;" class="leftToggler" onclick="pc.menu_toggle(this);" onmouseover="pc.menu_hl(1);" onmouseout="pc.menu_hl(0);"  >
+			</div></td>
+		<td id="portal-right" style="vertical-align:top;width:100%;align:left;">
+		<div id="portal-content"></div>	
+		</td>
+	</tr>
 	</table>
 </div>
-<div id="cmdmsg" style="display:none;" ondblclick="$('cmdmsg').hide()"></div>
+<!--div id="cmdmsg" style="display:none;" ondblclick="$('cmdmsg').hide()"></div>
 <div id="jpId"></div>
 <div id="jp_container" class="jp-audio"></div>
 <div id="portal-bottom">
-	<iframe id="print_iframe" name="print_iframe" width="1" height="1" src="<%= contextPath %>/html/common/null.html"></iframe>
-	<%@ include file="bottom.jsp" %>
+	<iframe id="print_iframe" name="print_iframe" width="1" height="1" src="<!%= contextPath %>/html/common/null.html"></iframe>
+	<!--%@ include file="bottom.jsp" %>
 </div>
-<div id="roll" style="display:none; "><div title="" id="roll_top"></div><div title="" id="roll_bottom"></div></div>
+<div id="roll" style="display:none; "><div title="" id="roll_top"></div><div title="" id="roll_bottom"></div></div-->
+
 </body>
-<%
+<!--%
  if(!fav_show){
 %>
  <input id="fav_show" value=1 type="hidden"/>
-<%}%>
+<!--%}%-->
 </html>
 
