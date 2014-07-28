@@ -226,12 +226,12 @@ ObjectQuery.prototype = {
 				$(accepter_id+ "_img").alt="";
 		      	$(accepter_id).value="";
 		      	if(this._returnType[this._queryindex]=="a"){
-		      		$(accepter_id+ "_img").src="/html/nds/images/add_filter.gif";
+		      		$(accepter_id+ "_img").src="/html/nds/oto/themes/01/images/add_filter.gif";
 		      			if($("tab_"+accepter_id)!=null){
 							$("tab_"+accepter_id).innerHTML="";
 						}
 		      	}else{
-		      		$(accepter_id+ "_img").src="/html/nds/images/filterobj.gif";
+		      		$(accepter_id+ "_img").src="/html/nds/oto/themes/01/images/filterobj.gif";
 		    	}
 				if($(accepter_id+ "_fd")!=null){
 					$(accepter_id+ "_fd").value="";
@@ -676,7 +676,7 @@ ObjectQuery.prototype = {
 		}
     },
 	fk:function(tableId, objId){
-		popup_window("/html/nds/object/object.jsp?table="+tableId+"&id="+objId);
+		popup_window("/html/nds/oto/object/object.jsp?table="+tableId+"&id="+objId);
 	},
     mo:function(tid){
 		popup_window(this._mainobjurl[this._queryindex]+tid);
@@ -883,7 +883,7 @@ ObjectQuery.prototype = {
 			$(this._accepter_id[this._queryindex]).title=ret.desc;
 		}
 		try{
-		$(this._accepter_id[this._queryindex]+ "_img").src="/html/nds/images/clear.gif";
+		$(this._accepter_id[this._queryindex]+ "_img").src="/html/nds/oto/themes/01/images/clear.gif";
 		$(this._accepter_id[this._queryindex]+ "_link").title="clear";
 		$(this._accepter_id[this._queryindex]+ "_img").alt=gMessageHolder.CLEAR_CONDITION;
 		}catch(ex){}
