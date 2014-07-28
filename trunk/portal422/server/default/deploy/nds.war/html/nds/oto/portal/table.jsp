@@ -14,7 +14,8 @@ private static boolean listHelp="true".equals( ((Configurations)WebUtils.getServ
 <%
  /**
 	 List table, how query page and list box, param
-	 	1. table -- table id or name
+	 1. table -- table id or name
+	  		fixedcolumns - columns that willl be fixed during query
  */
 String tn= request.getParameter("table");
 //System.out.println(tn);
@@ -47,8 +48,25 @@ boolean isStatusValid= table.isActionEnabled(Table.SUBMIT);
 boolean isModify=canModify;
 /**------check permission end---**/
 //load list query configuration, 2010-2-25
-nds.web.config.QueryListConfig qlc=userWeb.getDefaultQueryListConf(tableId);
-
+//System.out.print("aaaaaaaa");
+nds.web.config.QueryListConfig qlc=userWeb.getDefaultQueryListConf(tableId,true);
+//PairTable fixedCol=null;
+//request.getParameter("fixedcolumns")
+fixedColumns= PairTable.parseIntTable(request.getParameter("fixedcolumns"),null);
+//ArrayList<ColumnLink> cls=new ArrayList<ColumnLink>();
+/*
+if(fixedCol!=null){
+for( Iterator it=fixedCol.keys();it.hasNext();){
+	        	Integer key=(Integer) it.next();
+	            Column col=TableManager.getInstance().getColumn( key.intValue());
+	            ColumnLink cl=new ColumnLink( col.getTable().getName()+"."+ col.getName());
+				//fixedExpr= new Expression(cl,"="+ fixedColumns.get(key),null);
+				cls.add(cl);
+				}
+//System.out.print("sddsfdsf");
+qlc.setConditions(cls);
+}
+*/
 /** -- add support for webaction of listbutton --**/
   Connection actionEnvConnection=null;
   List<WebAction> waListButtons=new ArrayList<WebAction>(), waListMenuItems=new ArrayList<WebAction>();
@@ -76,6 +94,7 @@ nds.web.config.QueryListConfig qlc=userWeb.getDefaultQueryListConf(tableId);
   }finally{
   	if(actionEnvConnection!=null)try{actionEnvConnection.close();}catch(Throwable ace){}
   }
+  int[] selectRanges;
 %>
 <!--div id="breadcrumb" style="width:99%">
 <%
@@ -85,55 +104,67 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 	Table tr=tmgr.getTable( Tools.getInt( it.next(),-1));
 	if(tr!=null) sb.append("&nbsp;&#9642; <a href=\"javascript:pc.navigate('").append(tr.getId())
 		.append("')\">").append(tr.getDescription(locale)).append("</a>");
+		
 }
 %>
 &nbsp;&nbsp;<%=PortletUtils.getMessage(pageContext, "my-recent-visit",null)%>:&nbsp;<%=sb.toString()%>
 </div-->
-<div id="page-table-query" style="width:99%;">
-	<div id="page-table-query-tab" style="border: 1px solid #CCC;width:99%;overflow: hidden;">
-		<ul id="navBar"><li><a id="hide_bar" class="hide_bar"></a><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "query-setting",null)%>&nbsp;-&nbsp;<%=table.getDescription(locale)%></span></a></li></ul>
-		<%
-		if(search_show.equals("Y")){%>
-		<script type="text/javascript">
-		jQuery("#navBar").toggle(function(){
-     jQuery("#tab1").show('blind','',500,'');
-            },function(){ 
-     jQuery("#tab1").hide('blind','',500,'');
-    });
-    </script>
-		<div id="tab1"  class="ui-tabs-panel" style="display:none;">
-		<%}else{%>
-		<script type="text/javascript">
-		jQuery("#navBar").toggle(function(){
-     jQuery("#tab1").hide('blind','',500,'');
-            },function(){ 
-     jQuery("#tab1").show('blind','',500,'');
-    });
-    </script>
+	<%
+	JSONObject jopro=table.getJSONProps()==null?new JSONObject():table.getJSONProps();
+	//String contexturl="/html/nds/oto/viewtmp/viewtmp.jsp";
+	String leftstyle="style='width:100%'";
+	if(jopro.has("splitab")){
+	JSONObject jop=jopro.optJSONObject("splitab");
+	 String rightwidth=jop.optString("rightwidth");
+	 String leftwidth=jop.optString("leftwidth");
+	 String contexturl=jop.optString("contexturl");
+	 leftstyle="style='width:"+leftwidth+"'";
+	 contexturl+="&rightpct="+rightwidth;
+	 System.out.print(contexturl);
+	 if(contexturl!=null){
+	 %>
+		<jsp:include page="<%=contexturl%>" flush="true" />
+	<%}}%>
+
+
+
+	<div id="page-table-query" <%=leftstyle%> >
+	<!--<div id="page-table-query-tab" style="border: 1px solid #CCC;width:85%;overflow: hidden;">-->
+	<div id="page-table-query-tab" style="width:99%;overflow: hidden;">
+
+		<h4 id="table_title" class="table_title"><%=table.getDescription(locale)%></h4>
 		<div id="tab1"  class="ui-tabs-panel">
-		<%}%>
 			<div id="query-content">
 			<%@ include file="table_query.jsp" %>
 			</div>
 		</div>
   </div>
-</div>  
-<div id="page-nav-commands">
 </div>
- <div class="table-buttons2">
- 		        	
-	 &nbsp;<a href="javascript:pc.queryList()"><img src="/html/nds/images/findpage.png"/><%=PortletUtils.getMessage(pageContext, "object.search",null)%></a> 	 
+
+<div id="page-nav-commands" style="float:left;">
+</div>
+
+ <div class="table-buttons2">       	
+<!--
+&nbsp;<a href="javascript:pc.queryList()"><img src="/html/nds/images/findpage.png"/><%=PortletUtils.getMessage(pageContext, "object.search",null)%></a>
+-->
+	
 <%
 if(userWeb.isAdmin()){
 %>
+
 <!--input type="button" class="cbutton"  title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "query-list-config",null)%>" onclick="javascript:pc.switchConfig()"/-->
+<!--
 <a href="javascript:pc.switchConfig()"><img src="/html/nds/images/cog.png"/><%=PortletUtils.getMessage(pageContext, "query-list-config",null)%></a>
+-->
 <%
 }else{
 	if(nds.web.config.QueryListConfigManager.getInstance().getQueryListConfigs(tableId,false).size()>0){
 %>
 <!--input type="button" class="cbutton" title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "switch-config",null)%>" onclick="javascript:pc.switchConfig()"/-->
+<!--
 <a href="javascript:pc.switchConfig()"><img src="/html/nds/images/cog.png"/><%=PortletUtils.getMessage(pageContext, "switch-config",null)%></a>
+-->
 <%		
 	}
 }
@@ -143,21 +174,24 @@ if(!listUiconf)listViewPermissionType=1;
 //System.out.println(WebUtils.getTableUIConfig(table).getDefaultAction());
 //System.out.println(nds.web.config.ObjectUIConfig.ACTION_EDIT);
 if(listHelp){%>
+	<!--
 	<a href="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"><img src="/html/nds/images/help.png"/><%=PortletUtils.getMessage(pageContext, "help",null)%></a>
+	-->
 <%}%>	
+<!--
 	<a href="javascript:mu.add_mufavorite('<%=table.getDescription(locale)%>','<%=tableId%>')"><img src="/html/nds/images/mufa.png"/><%=PortletUtils.getMessage(pageContext, "mufavorite",null)%></a>
+-->
 <%
 // these are list buttons of webaction
 for(int wasi=0;wasi<waListButtons.size();wasi++){
 	out.println(waListButtons.get(wasi).toHREF(locale,null));
 }
-%>	
+%>	 
 	</div>
-<div id="result-scroll" >
- <%@ include file="/html/nds/portal/inc_result_scroll.jsp" %>
+	  <div id="result-scroll" >
+ <%@ include file="/html/nds/oto/portal/inc_result_scroll.jsp" %>
 </div>
-	
-	<div id="page-table-content">
+	<div id="page-table-content" <%=leftstyle%>>
 	<%@ include file="table_list.js.jsp" %>
 	<%@ include file="table_list.jsp" %>
   </div>
