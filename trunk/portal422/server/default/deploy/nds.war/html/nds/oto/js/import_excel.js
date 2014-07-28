@@ -16,10 +16,10 @@ ImportXLS.prototype = {
 		this._para=para;
 		if(this.isFlashInstalled()){
 			jQuery("#fileInput1").uploadify({
-				'swf'      : '/html/nds/js/upload/uploadify.swf',
+				'swf'      : '/html/nds/oto/js/upload/uploadify.swf',
 				'uploader'        : '/control/importexcel',
 				//'cancelImg'     : '/html/nds/images/cancel.png',
-				'folder'        : '/html/nds',
+				'folder'        : '/html/nds/oto/',
 				'multi'         : false,
 				'auto'          : false,
 				//'wmode'		: 'transparent',

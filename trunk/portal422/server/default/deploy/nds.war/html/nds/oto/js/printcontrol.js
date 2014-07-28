@@ -154,11 +154,11 @@ PrintControl.prototype = {
     	showDialog("/html/nds/print/check_template.jsp?table="+tid, 400, 200,true);
     },
     editJReport:function(reportId){
-    	url="/html/nds/object/object.jsp?table=ad_cxtab&id="+reportId;
+    	url="/html/nds/oto/object/object.jsp?table=ad_cxtab&id="+reportId;
     	popup_window(url);
     },
     editReport:function(reportId){
-    	url="/html/nds/object/object.jsp?table=ad_report&id="+reportId;
+    	url="/html/nds/oto/object/object.jsp?table=ad_report&id="+reportId;
     	popup_window(url);
     },
 	/**
@@ -198,7 +198,7 @@ function msgbox(msg, title, boxType ) {
 * Show table object info
 */
 function dlgo(tableId, objId){
-	showObject("/html/nds/object/object.jsp?table="+tableId+"&id="+objId);
+	showObject("/html/nds/oto/object/object.jsp?table="+tableId+"&id="+objId);
 }
 
 function showProgressWindow(bShow){

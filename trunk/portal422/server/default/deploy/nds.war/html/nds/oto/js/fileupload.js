@@ -9,10 +9,10 @@ FileUpload.prototype = {
 		this._upinit=upinit;
 		this._para=para;
 		$("#fileInput1").uploadify({
-			'uploader'      : '/html/nds/js/uploadify.swf',
+			'uploader'      : '/html/nds/oto/js/uploadify.swf',
 			'script'        : '/control/fileupload',
 			'cancelImg'     : '/html/nds/images/cancel.png',
-			'folder'        : '/html/nds',
+			'folder'        : '/html/nds/oto/',
 			'multi'         : false,
 			'wmode'		: 'transparent',
 			'sizeLimit'     : this._upinit.sizeLimit,

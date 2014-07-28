@@ -13,7 +13,7 @@ MC.prototype={
 		
   initialize:function(){
     this.modal=null;
-    this.URL="/html/nds/portal/getmessage.jsp";
+    this.URL="/html/nds/oto/portal/getmessage.jsp";
     this.messages=[];
     this.title=null;
     this. timeoutId=null;
@@ -156,7 +156,7 @@ MC.prototype={
 	     	 if(!mc.modal){jQuery("#dialog").parent().stop();
 	     	jQuery("#dialog").parent().css('opacity',1);}
 	     	var Option={onClose:function(){return mc.refresh();}} ;
-	    	 showObject("/html/nds/object/object.jsp?table=10083&&fixedcolumns=&id="+targetId,956,570,Option);
+	    	 showObject("/html/nds/oto/object/object.jsp?table=10083&&fixedcolumns=&id="+targetId,956,570,Option);
 	    	  
 	    	  }
 

@@ -19,13 +19,13 @@ SSVIEW.prototype = {
 						
 	},
 	view:function(ssId){
-		window.location="/html/nds/portal/portal.jsp?ss="+ssId;
+		window.location="/html/nds/oto/portal/portal.jsp?ss="+ssId;
 	}, 
 	help:function(d){
 		var tgt="ssv-help"
 		var url;
 		if(!isNaN(d)){
-			url= "/html/nds/portal/ssv/help.jsp?ss=" +d;
+			url= "/html/nds/oto/portal/ssv/help.jsp?ss=" +d;
 		}else{
 			url= d;	
 		}

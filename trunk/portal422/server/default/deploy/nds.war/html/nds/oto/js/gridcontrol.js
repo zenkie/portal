@@ -29,7 +29,7 @@ GridControl.prototype = {
 		this._regexp_integer=new RegExp(/^[+|-]?\d+$/);
 		this._isDestroied=false;
 		this._isDirty=false;
-		this._objpage="/html/nds/object/object.jsp";
+		this._objpage="/html/nds/oto/object/object.jsp";
 		this._currentNewRowId=1;
 		this._currentRow= -1;// which row index is editing, start from 0, -1 means a new line
 		this._data=null; // table data, first column is rowIdx
@@ -173,7 +173,7 @@ GridControl.prototype = {
 		}
 	},	
 	fk:function(tableId, objId){
-		var url="/html/nds/object/object.jsp?table="+tableId+"&id="+objId;
+		var url="/html/nds/oto/object/object.jsp?table="+tableId+"&id="+objId;
 		popup_window(url,"_blank", 956,570);
 	},
 	/**
@@ -273,7 +273,7 @@ GridControl.prototype = {
 	load an inline edit dialog for input only, without more interaction
 	*/
 	turboScan:function(){
-		var url = '/html/nds/object/turboscan.jsp?table='+gc._gridMetadata.tableId;
+		var url = '/html/nds/oto/object/turboscan.jsp?table='+gc._gridMetadata.tableId;
 		/*
 		new Ajax.Request(url, {
 		  method: 'get',

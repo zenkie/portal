@@ -150,7 +150,7 @@ function msgbox(msg, title, boxType ) {
 * Show table object info
 */
 function dlgo(tableId, objId){
-	showObject("/html/nds/object/object.jsp?table="+tableId+"&id="+objId);
+	showObject("/html/nds/oto/object/object.jsp?table="+tableId+"&id="+objId);
 }
 
 function showProgressWindow(bShow){

@@ -8,11 +8,11 @@
     	popup_window(reportURL);
 	}
     function editReport(reportId){
-    	url="/html/nds/object/object.jsp?table=ad_report&id="+reportId;
+    	url="/html/nds/oto/object/object.jsp?table=ad_report&id="+reportId;
     	popup_window(url);
     }
     function editJReport(reportId){
-    	url="/html/nds/object/object.jsp?table=ad_cxtab&id="+reportId;
+    	url="/html/nds/oto/object/object.jsp?table=ad_cxtab&id="+reportId;
     	popup_window(url);
     }
     function checkActionPath(){
