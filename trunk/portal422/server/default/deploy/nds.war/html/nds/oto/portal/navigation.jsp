@@ -17,33 +17,38 @@ org.json.JSONArray menuObjs=new org.json.JSONArray();
 org.json.JSONArray tables=new org.json.JSONArray();
 org.json.JSONObject tb;
 org.json.JSONObject jc;
+SysModel smode=null;
+List subsystems=null;
 
 int tabId= Integer.MAX_VALUE-1;
 boolean is_store=Tools.getYesNo(request.getParameter("isstore"),false);
 boolean hasOnlyActions=true;//not show reports if has only actions in subsystem
+System.out.print("defaultboshome->"+defaultboshome);
 if(ssId==-1&&!defaultboshome){
-	List subsystems =ssv.getSubSystems(request);
-	// list all subsystems, for backward compatibility
+	smode=manager.getSysModel("WEIXIN");
+	if(smode!=null){subsystems=smode.children();}
+	else{subsystems=new ArrayList();}
 	String homeByJSP=conf.getProperty("home.jsp","true");
 	
-	
+	/*
 	if("true".equalsIgnoreCase(homeByJSP)){
 		jc=new org.json.JSONObject();
 		jc.put("id", 0);
 		jc.put("desc",PortletUtils.getMessage(pageContext, "navitab",null));
-		jc.put("url", "home.jsp");
+		jc.put("url", "/html/nds/oto/portal/ssv/home.jsp");
 		menuObjs.put(jc);
 	}
+	*/
 	
 	for (int i=0; i< subsystems.size(); i++){   
-	     subSystem=(SubSystem)subsystems.get(i);        
-	     subSystemId=subSystem.getId();
-	     subSystemDesc=subSystem.getDescription(locale);
-	     jc=new org.json.JSONObject();
-	     jc.put("id", subSystemId);
-		 jc.put("desc", subSystemDesc);
-		 jc.put("url","subsystem.jsp?id="+subSystemId); 
-		 menuObjs.put(jc);
+		subSystem=(SubSystem)subsystems.get(i);        
+		subSystemId=subSystem.getId();
+		subSystemDesc=subSystem.getDescription(locale);
+		jc=new org.json.JSONObject();
+		jc.put("id", subSystemId);
+		jc.put("desc", subSystemDesc);
+		jc.put("url","subsystem.jsp?id="+subSystemId); 
+		menuObjs.put(jc);
 	} 
 	jc=new org.json.JSONObject();
 	jc.put("id",  tabId--);
@@ -55,27 +60,29 @@ if(ssId==-1&&!defaultboshome){
 	// list table categories as menu
 	// list all subsystems, for boshome backward compatibility 
 	//String bos_homeByJSP=conf.getProperty("boshome","true");
-	/*
-	if("true".equalsIgnoreCase(bos_homeByJSP)){
+	
+	/*if("true".equalsIgnoreCase(bos_homeByJSP)){
 		jc=new org.json.JSONObject();
 		jc.put("id", 0);
 		jc.put("desc",PortletUtils.getMessage(pageContext, "navitab",null));
-		jc.put("url", "/html/nds/portal/ssv/home.jsp");
+		jc.put("url", "/html/nds/oto/portal/ssv/home.jsp");
 		menuObjs.put(jc);
 	}
-	*/
+	
 	if(defaultboshome&&!is_store){
 		jc=new org.json.JSONObject();
 		jc.put("id", 0);
 		jc.put("desc",PortletUtils.getMessage(pageContext, "navitab",null));
-		jc.put("url", "/html/nds/portal/ssv/home.jsp?ss=-1");
+		jc.put("url", "/html/nds/oto/portal/ssv/home.jsp?ss=-1");
 		jc.put("ssid",ssId);
 		menuObjs.put(jc);
 	}
+	*/
+	
 	List cats;
-  if(ssId!=-1){
-	 cats=ssv.getTableCategories(request,ssId);
-	}else{cats=new ArrayList();}
+	if(ssId!=-1){cats=ssv.getTableCategories(request,ssId);}
+	else{cats=new ArrayList();}
+	
 	for (int i=0; i< cats.size(); i++){   
 	     List child=(List)cats.get(i);
 	     Object o =child.get(0);
@@ -84,7 +91,10 @@ if(ssId==-1&&!defaultboshome){
 		     jc=new org.json.JSONObject();
 		     jc.put("id", tc.getId());
 			 jc.put("desc", tc.getName());
-			 jc.put("url","tablecategory.jsp?id="+tc.getId()); 
+			 jc.put("url","tablecategory.jsp?id="+tc.getId());
+			 jc.put("icoURL",tc.getIcoURL());
+			
+			 jc.put("icoURLback",tc.getIcoURLback());
 			 menuObjs.put(jc);
 			 hasOnlyActions=false;
 	     }else if(o instanceof WebAction){
@@ -93,18 +103,21 @@ if(ssId==-1&&!defaultboshome){
 		     jc.put("id", "_"+wa.getId());//nerver equals to Tablecategory
 			 jc.put("desc", wa.getDescription());
 			 jc.put("url","webaction.jsp?id="+wa.getId()); 
-			 menuObjs.put(jc);     	
+			 
+			 menuObjs.put(jc);    
+			
 	     }else{
 	     	throw new Error("Unsupported type in ssv:"+ o.getClass());	
 	     }
 	}
-	if(!hasOnlyActions){
+	/*if(!hasOnlyActions){
 		jc=new org.json.JSONObject();
 		jc.put("id",  tabId--);
 		jc.put("desc",PortletUtils.getMessage(pageContext, "report-center",null));
 		jc.put("url", "/html/nds/cxtab/rpthome.jsp");
 		menuObjs.put(jc);
-	}
+	}*/
+	
 
 }	
 %>
