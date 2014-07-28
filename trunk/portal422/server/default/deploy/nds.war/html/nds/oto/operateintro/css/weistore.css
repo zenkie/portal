@@ -1,0 +1,244 @@
+/* 微商城 */
+.head span{
+	letter-spacing:4px;
+	height: 28px;	
+	line-height: 28px;
+	position: relative;
+	display: block;
+	font-size: 28px;
+	font-family: "微软雅黑","宋体";
+	color: #04355d;
+	font-weight: normal;
+	text-align:right;	
+}
+.head{
+	line-height: 30px;	
+	padding:128px;
+	cursor: pointer;
+}
+button{
+	display: inline-block;
+	vertical-align: middle;
+	background: url(/html/nds/oto/operateintro/images/but_p.png);
+	border-radius:5px 5px 5px 7px;
+	width: 123px;
+	height: 38px;
+	border: 0 none;
+	cursor: pointer;
+	outline: 0;
+	overflow: hidden;
+	color:#FFFFFF;
+	font-size:20px;
+	font-weight:bold;
+}
+.right{
+	left:150px;
+	margin:35px;
+	float:right;
+}
+.ewmdiv{
+	width:24%;
+	float:right;
+}
+
+.ewmdiv span{
+	letter-spacing:4px;
+	height: 28px;	
+	line-height: 28px;
+	position: relative;
+	display: block;
+	text-align: left;
+	font-family: "微软雅黑","宋体";
+	color: #5d5b5b;
+	font-weight: normal;	
+	font-size:12px;
+}
+
+.ewmdiv img{
+	height:133px;
+}
+
+.buttondiv{
+	height: 38px;
+	line-height: 38px;
+	text-align:right;
+	padding-top:50px;
+	width: 75%;
+}
+.main{
+	height:100%;
+	background:url("/html/nds/oto/operateintro/images/storebg.png") no-repeat;
+	background-position : 0px 114px;
+	margin:0px !important;
+}
+
+/* 微官网 */
+
+.website .head span{
+	letter-spacing:2px;
+	height: 28px;	
+	line-height: 28px;
+	position: relative;
+	font-size: 26px;
+	font-family: "微软雅黑","宋体";
+	color: #04355d;
+	font-weight: normal;
+	text-align:right;	
+}
+.website  .head{
+	line-height: 30px;	
+	padding:128px 50px 69px 50px;
+	cursor: pointer;
+}
+.website  button{
+	display: inline-block;
+	vertical-align: middle;
+	background: url(/html/nds/oto/operateintro/images/but_p_blue.png);
+	border-radius:5px 5px 5px 7px;
+	width: 123px;
+	height: 38px;
+	border: 0 none;
+	cursor: pointer;
+	outline: 0;
+	overflow: hidden;
+	color:#FFFFFF;
+	font-size:20px;
+	font-weight:bold;
+}
+.website  .ewmdiv{
+	/* padding-right:100px; */
+	float:right;
+}
+
+.website  .buttondiv{
+	height: 38px;
+	line-height: 38px;
+	text-align:right;
+	padding-top: 20%;
+	padding-left: 11%;
+	width: 78%;
+}
+.website{
+	height:100%;
+	background:url("/html/nds/oto/operateintro/images/websitebg_p.png") no-repeat;
+	background-position : -55px 100px;
+	margin:0px !important;
+	min-width: 1000px;
+	width: 99%;
+	clear: both;
+}
+
+/* 微会员 */
+.member .head span{
+	letter-spacing:2px;
+	height: 28px;	
+	line-height: 28px;
+	position: relative;
+	font-size: 26px;
+	font-family: "微软雅黑","宋体";
+	color: #04355d;
+	font-weight: normal;
+	text-align:right;	
+}
+.member  .head{
+	line-height: 30px;	
+	padding:128px 50px 69px 50px;
+	cursor: pointer;
+}
+.member  button{
+	display: inline-block;
+	vertical-align: middle;
+	background: url(/html/nds/oto/operateintro/images/but_member.jpg);
+	border-radius:5px 5px 5px 7px;
+	width: 132px;
+	height: 38px;
+	border: 0 none;
+	cursor: pointer;
+	outline: 0;
+	overflow: hidden;
+	color:#FFFFFF;
+	font-size:20px;
+	font-weight:bold;
+	padding-left:21px;
+}
+.member .ewnwidth{
+	margin-top:16%;
+	float:right;
+	width:32%;
+}
+
+.member .buttondiv{
+	height: 38px;
+	line-height: 38px;
+	text-align:right;
+	padding-top: 36%;
+	padding-left: 12%;
+	width: 70%;
+}
+.member{
+	height:100%;
+	background:url("/html/nds/oto/operateintro/images/weimember.png") no-repeat;
+	background-position : -68px 60px;
+	margin:0px !important;
+	min-width: 1000px;
+	width: 99%;
+	clear: both;
+}
+
+/* 微信接口 */
+.weixin .ewmdiv{
+	float:right;
+	margin-top:15%;
+	width:28%;
+}
+.weixin button{
+	display: inline-block;
+	vertical-align: middle;
+	background: url(/html/nds/oto/operateintro/images/but_green.png);
+	border-radius:5px 5px 5px 7px;
+	width: 123px;
+	height: 38px;
+	border: 0 none;
+	cursor: pointer;
+	outline: 0;
+	overflow: hidden;
+	color:#FFFFFF;
+	font-size:20px;
+	font-weight:bold;
+}
+
+.weixin  .buttondiv{
+	height: 38px;
+	line-height: 38px;
+	text-align:right;
+	padding-top: 35%;
+	padding-left: 19%;
+	width: 67%;
+}
+.weixin{
+	height:100%;
+	background:url("/html/nds/oto/operateintro/images/weixinbg.png") no-repeat;
+	background-position : -95px 16px;
+	margin:0px !important;
+	min-width: 1000px;
+	width: 99%;
+	clear: both;
+}
+.footer{
+	text-align: center;
+	height: 75px; line-height: 75px;
+	position: absolute;
+	bottom: 0;
+	width: 88%;
+
+}
+.footSpan{
+	letter-spacing:11px;
+	height: 28px;	
+	line-height: 28px;
+	font-size: 26px;
+	font-family: "微软雅黑","宋体";
+	color: #231816;
+	font-weight: normal;
+	text-align:right;	
+}

@@ -1,0 +1,176 @@
+@charset "utf-8";
+/** CSS Document **/
+html, body {
+    -webkit-text-size-adjust: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #a1a1a1;
+    text-align: left;
+    font: 12px/1.5 "微软雅黑", 黑体,Droid Sans Fallback, Arial, sans-serif;
+    outline: none;
+}
+
+ul, li, p {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    color: #595959;
+    text-decoration: none;
+}
+
+a:active, a:focus {
+	outline: none;
+	cursor: pointer;
+}
+
+a.active, a:hover {
+	color: #595959;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+div{
+    cursor: default;
+}
+
+em, cite {
+    font-style: normal;
+}
+
+
+.site {
+    width: 100%;
+    overflow: hidden;
+	padding-top: 4px;
+}
+
+.stepL {
+    width: 16%;
+    float: left;
+}
+
+.stepL h2 {
+	padding: 17px 27px;
+	line-height: 24px;
+	font-size: 16px;
+	color: #fff;
+	background: #373d57;
+}
+
+ul.stepDetail {
+    padding:5% 10%;
+    background: #25293c;
+    overflow: hidden;
+    
+}
+
+ul.stepDetail li a {
+	float: left;
+	padding-bottom: 13px;
+	color: #999fb6;
+	background: url(/html/nds/oto/operateintro/images/sline.jpg) repeat-y 8px 0;
+	width:100%;
+}
+
+ul.stepDetail li a h3 {
+	font-size: 14px;
+	line-height: 30px;
+	background: url(/html/nds/oto/operateintro/images/scircle1.png) no-repeat 0px center;
+	padding-left: 29px;
+}
+
+ul.stepDetail li a p {
+	font-size: 12px;
+	line-height: 20px;
+	padding-left: 29px;
+}
+
+ul.stepDetail li a:hover, ul.stepDetail li a.active {
+	color: #fff !important;
+}
+
+ul.stepDetail li a:hover h3, ul.stepDetail li a.active h3 {
+	background: url(/html/nds/oto/operateintro/images/scircle2.png) no-repeat 0px center;
+	color:white;
+}
+
+ul.stepDetail li a:hover p, ul.stepDetail li a.active p {
+	color:white;
+}
+
+.stepLine {
+    width: 130px;
+    height: 4px;
+    background: #4d5267;
+    border-radius: 2px;
+    color: #fff;
+    float: left;
+}
+
+.stepLine cite {
+	height: 4px;
+	background: #9ceb30;
+	display: block;
+	border-radius: 2px;
+}
+
+.stepBot {
+    padding:7% 11%;
+    background: #373d57;
+}
+
+.stepBot em {
+    float: right;
+    color: #fff;
+    margin-top: -5px;
+}
+
+.stepButton {
+    padding: 6px 41px 15px 41px;
+    border-bottom: 1px solid #d4d4d4;
+    height: 28px;
+}
+
+.stepButton a {
+	height: 32px;
+	line-height: 32px;
+	padding: 0 16px;
+	background: url(/html/nds/oto/operateintro/images/btbg1.jpg) repeat-x;
+	color: #7c7c7c;
+	font-size: 14px;
+	border: 1px solid #e2e2e2;
+	display: inline-block;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	float: left;
+}
+
+.stepButton a:hover {
+	background: url(/html/nds/oto/operateintro/images/btbg2.jpg) repeat-x;
+}
+
+.stepButton a.aR {
+	float: right;
+	margin-right:18%;
+}
+
+.StepRDetail {
+	width:1008px !important;
+	padding-left:30px !important;
+	height:500px !important;
+}
