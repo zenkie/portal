@@ -16,13 +16,13 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
 <input type='hidden' name='accepter_id' value='<%=accepter_id %>'>
 <input type='hidden' name='qlcid' value='<%=qlc.getId()%>'>
 <input type='hidden' name='param_count' value='<%=qColumns.size() %>'>
-<input type='hidden' name='resulthandler' value='/html/nds/portal/table_list.jsp'>
+<input type='hidden' name='resulthandler' value='/html/nds/oto/portal/table_list.jsp'>
 <input type='hidden' name='show_maintableid' value='true'>
   
 <table border="0" cellspacing="0" cellpadding="0" align='center' width="98%" bordercolordark="#FFFFFF" bordercolorlight="#999999">
   <tr>
     <td  colspan="2">
-      <table align="center" border="0" cellpadding="1" cellspacing="1" width="100%" >
+      <table align="center" border="0" cellpadding="1" cellspacing="1" width="100%" style="display: inline-block;">
         <%
         int columnsPerRow=4;// 4 field per row
         int widthPerColumn= (int)(100/(columnsPerRow*2));
@@ -34,14 +34,14 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
 			String desc= clink.getDescription(locale);
 			String inputName=clink.toHTMLString();
 			int inputSize= (column.getReferenceTable()!=null? column.getReferenceTable().getAlternateKey().getLength():column.getLength());
-      String type=TableQueryModel.toTypeDesc(column,locale);
+			String type=TableQueryModel.toTypeDesc(column,locale);
 			nds.util.PairTable values = column.getValues(locale);
 			if(i%columnsPerRow == 0)out.print("<tr>");
         %>
-          <td height="18" width="<%=widthPerColumn*2/3%>%" nowrap align="left">
+          <td height="18" nowrap align="left" width="5%" class="text-title">
 			<div class="desc-txt"><%=desc%>:</div>
           </td>
-          <td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left">
+          <td height="18" nowrap align="left" width="15%" class="text-value">
            <%
             if(values != null){
                 StringHashtable o = new StringHashtable();
@@ -85,7 +85,7 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
                     <input type='hidden' name='<%=inputName+"/sql"%>' id='<%=inputName + "_sql"%>' />
                     <input type='hidden' name='<%=inputName+"/filter"%>' id='<%=inputName + "_filter"%>' />
                     <span id='<%=inputName+"_link"%>' title="popup" onclick="<%=fkQueryModel.getButtonClickEventScript()%>">
-                    	<img id='<%=inputName+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/filterobj.gif' alt='<%=PortletUtils.getMessage(pageContext, "open-new-page-to-search",null)%>'>
+                    	<img id='<%=inputName+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/oto/themes/01/images/filterobj.gif' alt='<%=PortletUtils.getMessage(pageContext, "open-new-page-to-search",null)%>'>
                     </span>
 						<script>createButton(document.getElementById("<%=inputName+"_link"%>"));</script>	
                     <%
@@ -119,12 +119,13 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
 
             }%>
           </td>
-        <%
-        if(i%columnsPerRow == (columnsPerRow -1))out.print("</tr>");
-        }
-      %>
+		<%if(i%columnsPerRow == (columnsPerRow -1))out.print("</tr>");}%>
+		<%if(qColumns.size()>0){%>
+		<td><div class="findbutton"><a href="javascript:pc.queryList()"><img src="/html/nds/images/findicon.png"/><%=PortletUtils.getMessage(pageContext, "object.search",null)%></a></div>
+		</td>
+			<%}%>
       </table>
-    </td>
+  </td>
   </tr>
 </table>
 <input type='hidden' name='show_all' value='true'>
