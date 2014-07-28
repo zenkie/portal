@@ -311,7 +311,45 @@ artDialog.load = function(url, options, cache){
 	
 	return _proxyDialog(config);
 };
-
+/**
+ * Ajax填充内容
+ * @param	{String}			地址
+ * @param	{Object}			配置参数
+ * @param	{Boolean}			是否允许缓存. 默认true
+ */
+artDialog.load = function(url,data, options, cache){
+	cache = cache || false;
+	var opt = options || {};
+		
+	var config = {
+		id:'load_dialog',
+		zIndex: _zIndex(),
+		init: function(here){
+			var api = this,
+				aConfig = api.config;
+			
+			$.ajax({
+				url: url,
+				data:data,
+				type: 'post',
+				success: function (content) {
+					api.content(content);
+					opt.init && opt.init.call(api, here);		
+				},
+				cache: cache
+			});
+			
+		}
+	};
+	
+	delete options.content;
+	
+	for (var i in opt) {
+		if (config[i] === undefined) config[i] = opt[i];
+	};
+	
+	return _proxyDialog(config);
+};
 
 /**
  * 警告

@@ -36,8 +36,8 @@ button.aui_state_highlight:hover { color:#FFF; border-color:#0F3A56; }
 button.aui_state_highlight:active { border-color:#1c6a9e; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bbee', endColorstr='#2288cc'); background: linear-gradient(top, #33bbee, #2288cc); background: -moz-linear-gradient(top, #33bbee, #2288cc); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#33bbee), to(#2288cc)); }
 /* common end */
 
-.aui_inner { background:#FFF; border:1px solid #666; }
-.aui_nw, .aui_ne, .aui_sw, .aui_se { width:3px; height:3px; }
+.aui_inner { /*background:#FFF;*/ /*border:1px solid #666;*/ background:transparent;}
+.aui_nw, .aui_ne, .aui_sw, .aui_se { /*width:3px; height:3px;*/ }
 .aui_nw, .aui_n, .aui_ne, .aui_w, .aui_e, .aui_sw, .aui_s, .aui_se { background:rgba(0, 0, 0, .05); background:#000\9!important; filter:alpha(opacity=5); }
 .aui_titleBar { position:relative; height:100%;  }
 .aui_title { position:absolute; top:0; left:0; width:100%; height:24px; text-indent:-9999em; overflow:hidden; font-size:0; }
@@ -49,7 +49,7 @@ button.aui_state_highlight:active { border-color:#1c6a9e; filter: progid:DXImage
 @media screen and (min-width:0) {
 	.aui_close { width:20px; height:20px; line-height:20px; right:-10px; top:-10px; border-radius:20px; background:#999; color:#FFF; box-shadow:0 1px 3px rgba(0, 0, 0, .3); -moz-transition: linear .06s; -webkit-transition: linear .06s; transition: linear .06s; }
 	.aui_close:hover { width:24px; height:24px; line-height:24px; right:-12px; top:-12px; color:#FFF; box-shadow:0 1px 3px rgba(209, 40, 42, .5); background:#d1282a; border-radius:24px; }
-	.aui_state_lock .aui_dialog { box-shadow:0 3px 26px rgba(0, 0, 0, .9); -moz-transition:-moz-box-shadow linear .2s; -webkit-transition: -webkit-box-shadow linear .2s; transition: -webkit-box-shadow linear .2s; }
+	.aui_state_lock .aui_dialog { /*box-shadow:0 3px 26px rgba(0, 0, 0, .9);*/ -moz-transition:-moz-box-shadow linear .2s; -webkit-transition: -webkit-box-shadow linear .2s; transition: -webkit-box-shadow linear .2s; }
 	.aui_dialog:active { box-shadow:0 0 5px rgba(0, 0, 0, .1)!important; }
 	.aui_state_drag .aui_outer { box-shadow:none!important; }
 }
