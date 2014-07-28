@@ -1,0 +1,108 @@
+body {
+font-family: "Microsoft YaHei","微软雅黑",Helvetica,"黑体",Arial,Tahoma;
+font-size: 14px;
+/* background-color: #fff; */
+ma
+}
+ul,li{
+padding-left: 0;
+list-style-type: none;
+margin:0;
+}
+a{
+color: #2e7dc6;
+text-decoration: none;
+}
+.main_bd{
+border: 1px solid #d3d3d3;
+}
+.main_head{
+padding: 6px 20px;
+border-bottom: 1px solid #cfcfcf;
+}
+.main_head h3{
+font-weight: 400;
+font-style: normal;
+font-size: 14px;
+}
+.message_avatar{
+float:left;
+margin-right: 15px;
+}
+.message_avatar img{
+width: 50px;
+height: 56px;
+}
+.message_item{
+min-height:66px;
+border-bottom: 1px solid #dddcdc;
+padding: 15px;
+position:relative;
+}
+.message_item:hover {
+background-color: #f3f3f3;
+}
+.message_time{
+float:right;
+color: #7b7b7b;
+}
+.message_content{
+margin-top: 10px;
+color: #7b7b7b;
+}
+.appmsgImgArea{
+float:left;
+margin-right: 15px;
+}
+.appmsgImgArea img{
+width:100px;
+height:48px;
+}
+.left_content{
+position: relative;
+left: 70px;
+width: 261px;
+padding:15px;
+border: 1px solid #AFAFAF;
+box-shadow: 0px 1px 0px #D5D5D5;
+background-color: #ECECEC;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#e5e5e5), color-stop(0.1, #f3f3f3), color-stop(0.3, #f1f1f1), color-stop(0.5, #ececec), color-stop(0.7, #e9e9e9), color-stop(0.9, #e6e6e6), color-stop(1, #e5e5e5));
+background-image: -moz-linear-gradient(top, #f3f3f3 10%, #f1f1f1 30%, #ececec 50%, #e9e9e9 70%, #e6e6e6 90%, #e5e5e5 100%);
+color:#000;
+}
+.left_content:after{
+content:"";
+position: absolute;
+left: -8px;
+top: 11px;
+width: 13px;
+height: 24px;
+background: url(../images/bubble_white_guid1dbc1c.png) no-repeat;
+}
+.right_content{
+position: relative;
+left: 0px;
+width: 261px;
+padding:15px;
+border: 1px solid #7AA23F;
+box-shadow: 0px 1px 0px #D5D5D5;
+background-color: #B2CF73;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+background: -webkit-gradient(linear, left top, left bottom, from(#cdeb96), to(#a4c363), color-stop(0.1, #b4d174), color-stop(0.3, #b2cf73), color-stop(0.5, #afcc74), color-stop(0.7, #abca6c), color-stop(0.9, #a9c572), color-stop(1, #a4c363));
+background-image: -moz-linear-gradient(top, #b4d174 10%, #b2cf73 30%, #afcc74 50%, #abca6c 70%, #a9c572 90%, #a4c363 100%);
+color:#000;
+}
+.right_content:after{
+content:"";
+position: absolute;
+right: -12px;
+top: 11px;
+width: 13px;
+height: 24px;
+background: url(../images/bubble_green_guid1dbc1c.png) no-repeat;
+}

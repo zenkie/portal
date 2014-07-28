@@ -1,0 +1,58 @@
+a{
+text-decoration: none;
+}
+a:hover{
+text-decoration: none;
+}
+.comment{
+position: absolute;
+bottom: 0px;
+}
+.com_form p {
+height: 28px;
+line-height: 28px;
+position: relative;
+margin-top: 10px;
+}
+span.emotion:hover {
+background-position: 2px -28px;
+}
+span.emotion {
+width: 42px;
+height: 20px;
+background: url(/html/nds/oto/attention/images/icon.gif) no-repeat 2px 2px;
+padding-left: 20px;
+cursor: pointer;
+float:left;
+}
+/**表情样式start**/
+#facebox td{
+padding:0px;
+float: left;
+line-height: 27px;
+height: 27px;
+font-size: 0;
+text-align: center;
+width: 27px;
+border-bottom: 1px solid #d3d3d3;
+border-left: 1px solid #d3d3d3;
+background-color: #fff;
+}
+/**表情样式end**/
+/**头部图像样式start**/
+.topdiv{
+text-align:left;
+border-bottom: 1px solid #ededed;
+height: 72px;
+}
+.topimg{
+height:50px;width:60px;float:left;
+border:0px;
+margin-top: 10px;
+}
+.toph4{
+border:none;
+padding:34px 0px 0px 0px;
+margin: 0px 0px 0px 87px;
+}
+/**头部图像样式end**/
