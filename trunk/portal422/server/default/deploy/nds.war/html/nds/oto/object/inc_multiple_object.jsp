@@ -6,7 +6,7 @@
  %>
 <table border="0" width="98%">
   <tr>
-    <td nowrap>
+    <td nowrap s>
     <%@ include file="inc_multiple_object_scroll.jsp" %>
     </td>
     <td>
@@ -23,7 +23,7 @@
  else divEmbedItemId="embed-items-short";
 %>
 <!--div class="<%=divEmbedItemId%>" id="embed-items" style="width:902px;"-->
-<div class="<%=divEmbedItemId%>" id="embed-items" style="width:100%">
+<div class="<%=divEmbedItemId%>" id="embed-items" style="width:100%;min-height: 100px;">
 <!--table id="modify_table" style="width:100%" border="1" cellspacing="0" cellpadding="0"  align="center" bordercolordark="#FFFFFF" bordercolorlight="#FFFFFF"-->
 <table class="modify_table" id="modify_table">
 	<thead><tr id="titletr">
@@ -220,7 +220,7 @@ if(isModify && refbyTable!=null){
 			tbDisplay="";
 		}
 %>
-	<div id="inc-edit-line" <%=tbDisplay%>>
+	<div id="inc-edit-line" cl=0 <%=tbDisplay%>>
 	<%@ include file="inc_edit_object.jsp" %>
 	</div>
 	<%}else if("A".equals(refbyTable.getInlineMode())){
@@ -233,7 +233,7 @@ if(isModify && refbyTable!=null){
 			tbDisplay="";
 		}
 %>
-	<div id="inc-edit-line" <%=tbDisplay%>>
+	<div id="inc-edit-line" cl=1 <%=tbDisplay%>>
 	<%@ include file="inc_edit_object_add.jsp" %>
 	</div>
 	<%}else if("N".equals(refbyTable.getInlineMode())){%>
@@ -241,7 +241,7 @@ if(isModify && refbyTable!=null){
 	<%@ include file="inc_multiple_object_buttons.jsp" %>
 	</div>
 	<%}else if("B".equals(refbyTable.getInlineMode())){%>   
-	<div id="inc-edit-line">
+	<div id="inc-edit-line" cl=2>
 	<%@ include file="inc_edit_object_product_only.jsp" %>
 	</div>
 <%  }

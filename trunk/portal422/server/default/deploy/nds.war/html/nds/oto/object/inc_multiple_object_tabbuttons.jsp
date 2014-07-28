@@ -1,3 +1,4 @@
+<%@ page pageEncoding="utf-8"%>
 <%
 /** -- add support for webaction of tab buttons --**/
   Connection actionEnvConnection=null;
@@ -25,4 +26,8 @@
 for(int wasi=0;wasi<waTabButtons.size();wasi++){
 	out.println(waTabButtons.get(wasi).toHTML(locale,actionEnv));
 }
-%>
+if(table.isActionEnabled(Table.DELETE)){
+	ButtonFactory commandFactory= ButtonFactory.getInstance(pageContext,locale);
+	%>
+	<td>&nbsp;<input class="cbutton" type="button" name="DeleteLine" accesskey="E" title="标记删除，需点击页面顶端的保存按钮完成服务器端的删除" onclick="javascript:doDeleteLine();" value="删除选中行"></td>
+<%}%>
