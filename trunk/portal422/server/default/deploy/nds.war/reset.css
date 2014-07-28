@@ -1,0 +1,273 @@
+html,body,select,h1,h2,h3,h4,h5,h6,div,ul,ol,li,dl,dt,dd,iframe,textarea,input,button,p,select,option,strong,b,a,span,del,pre,table,tr,th,td{
+	margin:0; padding:0; 
+	-webkit-text-size-adjust:none;
+}
+body{
+	font-family: "微软雅黑"; font-size: 100%;
+}
+ul,dl,ol{ list-style:none;}
+table{ border-collapse:collapse;}
+a{ text-decoration:none;}
+img{ 
+	border:none; 
+}
+h1,h2,h3,h4,h5,h6,em,del{ 
+	font-style:normal; font-size: 100%;
+}
+
+input,button,textarea{
+	font-family:"微软雅黑";
+	outline: none; 
+	resize:none;
+}
+.cl{ zoom:1;}
+.cl:after{ display:block; clear:both; content:'';}
+
+
+.bold{ font-weight: 600;}
+.tc{ text-align: center;}
+.tl{ text-align: left;}
+.tr{ text-align: right;}
+.ti8{ text-indent: 8px;}
+.ti10{ text-indent: 10px;}
+.ti12{ text-indent: 12px;}
+.ti20{ text-indent: 20px;}
+
+.bgn{ background: none;}
+
+.inline{ display: inline;}
+.inline-b{ display: inline-block;}
+.none{ display: none;}
+.block{ display: block;}
+
+.oh{ overflow: hidden;}
+.oya{ overflow: auto; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;}
+.oa{ overflow: auto; -webkit-overflow-scrolling: touch;}
+
+.w100p,.wh100p{width: 100%;}
+.h100p,.wh100p{height: 100%;}
+
+.fl{ float: left;}
+.fr{ float: right;}
+.pr{ position: relative;}
+.pa{ position: absolute;}
+.lt50p{ left: 50%; top: 50%;}
+.l0, .lt0, .ltrb0{ left: 0;}
+.t0, .lt0, .ltrb0{ top: 0;}
+.b0, .br0, .ltrb0{ bottom: 0;}
+.r0, .br0, .ltrb0{ right: 0;}
+
+
+.vm{ vertical-align: middle;}
+
+.mlra{ margin-left: auto; margin-right: auto;}
+
+.mt10, .mtb10{ margin-top: 10px;}
+.mb10, .mtb10{ margin-bottom: 10px;}
+.ml10, .mlr10{ margin-left: 10px;}
+.mr10, .mlr10{ margin-right: 10px;}
+
+.ml20, .mlr20{ margin-left: 20px;}
+.mr20, .mlr20{ margin-right: 20px;}
+.mt20, .mtb20{ margin-top: 20px;}
+.mb20, .mtb20{ margin-bottom: 20px;}
+
+.ml8, .mlr8{ margin-left: 8px;}
+.mr8, .mlr8{margin-right: 8px;}
+.mt8, .mtb8{ margin-top: 8px;}
+.mb8, .mtb8{margin-bottom: 8px;}
+
+.m0{ margin: 0!important}
+
+.pl10, .plr10{ padding-left: 10px;}
+.pr10, .plr10{ padding-right: 10px;}
+.pt10, .ptb10{ padding-top: 10px;}
+.pb10, .ptb10{ padding-bottom: 10px;}
+
+.pl20, .plr20{ padding-left: 20px;}
+.pr20, .plr20{ padding-right: 20px;}
+.pt20, .ptb20{ padding-top: 20px;}
+.pb20, .ptb20{ padding-bottom: 20px;}
+
+.pl8, .plr8{ padding-left: 8px;}
+.pr8, .plr8{ padding-right: 8px;}
+.pt8, .ptb8{ padding-top: 8px;}
+.pb8, .ptb8{ padding-bottom: 8px;}
+
+.p0{ padding: 0!important;}
+
+.bdln{ border-left: none!important;}
+.bdrn{ border-right: none!important;}
+.bdtn{ border-top: none!important;}
+.bdbn{ border-bottom: none!important;}
+.bdn{ border: none!important;}
+
+.br4{ border-radius: 4px;}
+.br8{ border-radius: 8px;}
+.br10{ border-radius: 10px;}
+.br20{ border-radius: 20px;}
+
+.flex{
+	display:-webkit-box;
+	display:-webkit-flex;
+	display:flex;
+}
+.box-sz{
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-ms-box-sizing:border-box;
+	box-sizing:border-box;
+}
+.flex-column{
+	-webkit-box-orient:vertical;
+	-webkit-flex-direction:column;
+	flex-direction:column;
+}
+.flex-row{
+	-webkit-box-orient:horizontal;
+	-webkit-flex-direction:row;
+	flex-direction:row;
+}
+.items-cen{
+	-webkit-box-align:center;
+	align-items:center;
+}
+.justify-cen{
+	-webkit-box-pack:center;
+	justify-content:center;
+}
+.self-cen{
+	-webkit-align-self:center;
+	-moz-align-self:center;
+	align-self:center;
+}
+.flex1{
+	-webkit-box-flex:1;
+	-webkit-flex:1;
+	flex:1;
+}
+.flex2{
+	-webkit-box-flex:2;
+	-webkit-flex:2;
+	flex:2;
+}
+
+body{
+		min-width: 1276px; /*min-height: 667px;*/
+	}
+
+	#header, #footer{
+		text-indent: 16%;
+	}
+	#login-box .inputs input, #login-box .verifi-l, #login-box .login{
+		text-indent: 61px;
+		background: url(./images/wm-login.png) no-repeat;
+	}
+	::-webkit-input-placeholder{
+		color: white;
+	}
+	input:-moz-input-placeholder,  {
+		color:white; 
+	}
+
+	#login-box{
+		background: linear-gradient(rgba(0, 0, 0, 0), rgba(35, 24, 21, .25), rgba(0, 0, 0, 0));
+	}
+	#container{
+		
+	}
+
+	#header{
+		height: 65px; line-height: 65px; z-index: 2; position: absolute; width: 100%;
+	}
+	#header{
+		font-size: 27px;
+	}
+	#header{
+		color: #959595;
+	}
+
+	#content{
+		height: 100%;
+	}
+	#content{
+		background: url(./images/wm-login-bg.jpg) no-repeat;
+		background-size: 100% 100%;
+	}
+
+	#login-box{
+		width: 220px;
+		right: 23%; top:30px; bottom:30px;
+	}
+	#login-box .head{
+		height: 50px;
+	}
+	#login-box .inputs input{
+		height: 30px;
+		color: white;
+	}
+	
+	#login-box .inputs #password1{
+		background-position: 0 -30px;
+	}
+	#login-box .verifi{
+		
+	}
+	#login-box .verifi-l{
+		height: 30px; width: 120px; line-height: 30px;
+		font-size: 14px; color: white;
+		background-position: 0 -60px;
+	}
+	#login-box .verifi-r{
+		height: 30px;
+	}
+	#login-box .links a{
+		color: white; font-size: 12px;
+		line-height: 12px;
+	}
+	#login-box .links a:hover{
+		text-decoration: underline;
+	}
+	#login-box .login{
+		width: 120px; height: 30px; line-height: 30px;
+		margin: 47px auto 10px auto;
+		color: white;
+		cursor: pointer;
+		background-position: 0 -90px;
+	}
+	#login-box .rwm{
+		font-size: 12px; color: white;
+		height:90px;
+	}
+	#login-box .rwm *{
+		display:none;
+	}
+	#footer{
+		height: 75px; line-height: 75px;
+		z-index: 3;
+	}
+	#footer{
+		font-size: 12px;
+	}
+	#footer .links{
+		//margin-left: 25%;
+		margin-right: 1%;
+	}
+	.font-color{
+		color:white !important;
+	}
+	.font-color >a{
+		color:white !important;
+	}
+	#footer >a{
+		color:white;
+	}
+	.login >a{
+		color:white;
+	}
+	
+	.login-a{
+		width: 120px;
+		height: 30px;
+		line-height: 30px;
+	}

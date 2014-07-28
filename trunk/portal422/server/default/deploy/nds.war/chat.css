@@ -1,0 +1,80 @@
+.chatContainer{
+display: block;
+position: fixed;
+z-index: 2147483646 !important;
+left: auto;
+margin-left: 0px;
+right:150px;
+top:44%;
+bottom: auto;
+margin-top: -138px;
+width:141px;
+height: 277px;
+}
+.chatContainer .chatRight h3{
+text-align: center;
+padding-top: 5px;
+color: #66cdcc;
+background: #08304a;
+height: 30px;
+}
+.chatLeft{
+position: absolute;
+top: 30%;
+}
+.chatRight{
+background: #26a5ac;
+width: 121px;
+left: 0px;
+height: 301px;
+position: absolute;
+}
+.chatLinkman div{
+margin-bottom: 12px;
+height: 44px;
+background-repeat: no-repeat;
+background-position: 70px 0px;
+color: white;
+background: rgba(255, 255, 255, 0.3)
+}
+.chatLinkman div p{
+background-image: url("./images/qq.png");
+background-repeat: no-repeat;
+background-position: 74px -4px;
+height: 44px;
+padding: 11px 0px 0px 18px;
+font-size:15px;
+}
+.chatDate{
+margin-top: 20px;
+font-size: 14px;
+}
+.chatDate p{
+color:white;
+}
+.chatDate .chatTime{
+margin-top: 20px;
+}
+.chatDate .chatTime p{
+background-image: url("./images/time.png");
+background-repeat: no-repeat;
+background-position: 12px;
+height:30px;
+padding: 4px 0px 0px 45px;
+}
+
+.chatEWMContainer{
+display: block;
+position: fixed;
+z-index: 2147483646 !important;
+left: auto;
+right: 8px;
+top: 44%;
+bottom: auto;
+margin-top: -138px;
+width: 141px;
+height: 277px;
+}
+.chatEWMContainer span{
+font-size:13px;
+}

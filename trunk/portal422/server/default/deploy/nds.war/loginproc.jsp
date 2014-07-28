@@ -8,6 +8,9 @@ int changecycle=0;
 
 try{
   String user=request.getParameter("login");
+  String pwd=request.getParameter("password");
+  System.out.print("user is"+user);
+  System.out.print("password is"+pwd);
   conn=QueryEngine.getInstance().getConnection();
   //get portal parameters about password
   stmt=conn.prepareStatement("select name, value from ad_param where name in ('portal.password.complexcheck','portal.password.firstloginchange','portal.password.changecycle') and isactive='Y'");
