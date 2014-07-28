@@ -208,7 +208,7 @@ function noContextMenu() {
 }
 
  function opt_(oid){
- 	window.location="/html/nds/portal/portal.jsp?table="+oid;
+ 	window.location="/html/nds/oto/portal/portal.jsp?table="+oid;
  }
  function opc_(oid){
  	window.location="/html/nds/objext/objects.jsp?category="+encodeURIComponent(oid);
@@ -11102,7 +11102,7 @@ ObjectQuery.prototype = {
 		}
     },
 	fk:function(tableId, objId){
-		popup_window("/html/nds/object/object.jsp?table="+tableId+"&id="+objId);
+		popup_window("/html/nds/oto/object/object.jsp?table="+tableId+"&id="+objId);
 	},
     mo:function(tid){
 		popup_window(this._mainobjurl+tid);

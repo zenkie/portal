@@ -208,7 +208,7 @@ function noContextMenu() {
 }
 
  function opt_(oid){
- 	window.location="/html/nds/portal/portal.jsp?table="+oid;
+ 	window.location="/html/nds/oto/portal/portal.jsp?table="+oid;
  }
  function opc_(oid){
  	window.location="/html/nds/objext/objects.jsp?category="+encodeURIComponent(oid);
@@ -13013,12 +13013,12 @@ ObjectControl.prototype = {
 		$("timeoutBox").style.visibility = 'hidden';
 	},	
 	doNewObject:function(){
-		var url="/html/nds/object/object.jsp?input=true&table=" +
+		var url="/html/nds/oto/object/object.jsp?input=true&table=" +
 			this._masterObj.table.id+ "&id=-1";
 		window.location=url;
     },
     doShowObject:function(tableId, objectId){
-		var url="/html/nds/object/object.jsp?input=true&table=" +tableId+ "&id=" + this._masterObj.hiddenInputs.id;
+		var url="/html/nds/oto/object/object.jsp?input=true&table=" +tableId+ "&id=" + this._masterObj.hiddenInputs.id;
 		window.location=url;
     },
     doSelectView:function(viewIdString){
@@ -13635,7 +13635,7 @@ GridControl.prototype = {
 	initialize: function() {
 		this._isDestroied=false;
 		this._isDirty=false;
-		this._objpage="/html/nds/object/object.jsp";
+		this._objpage="/html/nds/oto/object/object.jsp";
 		this._currentNewRowId=1;
 		this._currentRow= -1;// which row index is editing, start from 0, -1 means a new line
 		this._data=null; // table data, first column is rowIdx
@@ -15478,7 +15478,7 @@ ObjectQuery.prototype = {
 		}
     },
 	fk:function(tableId, objId){
-		popup_window("/html/nds/object/object.jsp?table="+tableId+"&id="+objId);
+		popup_window("/html/nds/oto/object/object.jsp?table="+tableId+"&id="+objId);
 	},
     mo:function(tid){
 		popup_window(this._mainobjurl+tid);
