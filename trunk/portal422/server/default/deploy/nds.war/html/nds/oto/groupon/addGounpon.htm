@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+	<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
+	<script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
+	<script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script>
+	<script>
+		jQuery.noConflict();
+	</script>
+	<script language="javascript" src="/html/nds/js/prototype.js"></script>
+	<script language="javascript" src="./js/fileupload.js"></script>
+	<script language="javascript" src="./js/WdatePIcker.js"></script>
+	<script language="javascript" src="/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
+	<link rel="stylesheet" type="text/css" href="./css/uploadify.css">	
+	<link href="./css/goodsCatg.css" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="./css/style.css"></link>
+	<link type="text/css" rel="stylesheet" href="./css/index.css"></link>
+ <title>添加团购</title>
+</head>
+<body>    
+	<div id="mainContent">
+	<h4 id="">添加团购</h4>    
+    <div id="contentWrap">
+	<div id="operaterBar">
+		<input type="button" class="btn searchBtn" value="保存" onclick="AddGroupon()">
+	</div>
+	<div class="tableDiv">
+        <table class="fieldTable">
+            <tbody><tr>
+                <th>
+                    团购名称：
+                </th>
+                <td>
+                    <input type="text" id="groupontitle" name="groupontitle" value="" maxlength="128">
+                    <span class="required">*</span>
+                    <br><span class="tiptext">（最多不超过128个汉字）</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    团购价格：
+                </th>
+                <td>
+                    <input type="text" id="gorouponprice" name="gorouponprice" value="" onkeyup="this.value=this.value.replace(/\D/g,&#39;&#39;)" onafterpaste="this.value=this.value.replace(/\D/g,&#39;&#39;)" onchange="this.value=this.value.replace(/\D/g,&#39;&#39;)">元
+                    <span class="required">*</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    团购图片：
+                </th>
+                <td>
+                    <img src="./images/noimage.png" style="border:1px solid #c0c0c0; width:50px; height:50px;float:left" id="grouponimage">
+                    <input type="button" name="imgFile" class="btn searchBtn" id="fileInput1" value="选择图片">
+                    <span class="required">*</span>
+					<span class="tiptext">（建议上传尺寸为600px*600px的图片）</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    开始时间：
+                </th>
+                <td>
+                    <input class="Wdate" type="text" id="begintime" name="begintime" onclick="beginDatePicker();">
+                    <span class="required">*</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    结束时间：
+                </th>
+                <td>
+                    <input class="Wdate" type="text" id="endtime" name="endtime" onclick="endDatePicker();">
+                    <span class="required">*</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    选择参加团购的商品：
+                </th>
+                <td>
+                    <span class="required">*</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                </th>
+                <td>
+				 <div>
+					<fieldset class="forsearch">
+							<div>
+								<label for="">&nbsp;&nbsp;&nbsp;&nbsp;名称：</label><input type="text" id="lblGoodsName" name="goodsName">
+								<input type="hidden" id="lblGoodsTypeID" name="goodsTypeID" value="">
+								<input type="hidden" id="mulitSelect" name="mulitSelect" value="">
+								<input class="btn searchBtn" type="submit" value="搜索" id="btnSearch" onclick="searchGoods()">
+							</div>
+					</fieldset>
+				</div>
+                    <div>
+                        <iframe src="./goodsPaged.jsp" id="iframepage" name="iframepage" frameborder="0" width="100%" height="400px"></iframe>
+                    </div>
+                </td>
+            </tr>
+        </tbody></table>
+		</div>
+    </div>
+</div>
+<div id="whole">
+<script type="text/javascript">
+        var upinit={
+            'sizeLimit':1024*1024 *1,
+            'buttonText'	: '选择图片',
+            'fileDesc'      : '上传文件(dat)',
+            'fileExt'		: '*.dat;'
+        };
+        var para={
+            "next-screen":"/html/prg/msgjson.jsp",
+            "formRequest":"/html/nds/msg.jsp",
+           // "JSESSIONID":"<%=session.getId()%>",
+			"isThum":true,
+			"width":600,
+			"hight":600,
+			"onsuccess":"jQuery(\"#grouponimage\").attr(\"src\",\"$filepath$\");",
+			"onfail":"alert(\"上传图片失败，请重新选择上传\");"	,
+			"modname":"gounpon"
+        };
+        jQuery(document).ready(function(){
+               fup.initForm(upinit,para); 
+        });
+		
+    function beginDatePicker() {
+        WdatePicker({
+            el: "begintime", dateFmt: 'yyyy-MM-dd HH:mm:ss', minDate: '%y-%M-%d %H:%m:%s'
+        });
+    }
+     function endDatePicker() {
+        var begin = jQuery("#begintime").val();
+        if (begin == "") {
+            begin = "%y/%M/%d %H:%m:%s";
+        }
+        WdatePicker({ el: "endtime", dateFmt: 'yyyy-MM-dd HH:mm:ss', minDate: '' + begin });
+    }
+	
+	function searchGoods(){	
+		var searchWord = "./goodsPaged.jsp?goodsName="+jQuery("#lblGoodsName").val();
+		jQuery('#iframepage').attr("src",searchWord);
+	}
+
+    function AddGroupon() {
+        var title = jQuery("#groupontitle").val().trim();
+        var price = jQuery("#gorouponprice").val();
+		var img = jQuery("#grouponimage").attr("src");
+        var begintime = jQuery("#begintime").val();
+        var endtime = jQuery("#endtime").val();
+        var goodsid = 0;
+		var remaintime = Date.parse(endtime)-Date.parse(begintime);
+	   jQuery("#iframepage").contents().find("input[name=GoodsCheckbox]:checked").each(function () {
+            goodsid = jQuery(this).val();
+        });
+		
+        if (goodsid == 0) {
+            alert("请选择商品！");
+            return false;
+        }
+
+        if (title == "" || title.length <= 0) {
+            alert("请输入团购名称！");
+            return false;
+        }
+
+        if (price == "" || price.length <= 0) {
+            alert("请输入价格！");
+            return false;
+        }		
+		if(remaintime < 0){
+			alert("请重新选择时间");
+			return false;
+		}
+		
+		goodsid = goodsid.replace(/goods_/,"");
+		var _params = "{\"table\":15979,\"NAME\":\""+title+"\",\"PRICE\":"+price+",\"PHOTO\":\""+img+"\",\"STARTTIME\":\""+begintime+"\",\"ENDTIME\":\""+endtime+"\",\"WX_APPENDGOODS_ID\":"+goodsid+"}";
+        jQuery.ajax({
+            url: '/html/nds/schema/restajax.jsp',
+            type: 'post',
+            data:{command:"ObjectCreate",params:_params},
+			success: function (data) {			
+			var _data = eval("("+data+")");
+                if (_data[0].code == 0) {
+				art.dialog({
+				time: 2,
+				lock:true,
+				cancel: false,
+				content: '添加数据成功',
+				close:function(){
+					location.href = "/html/nds/oto/groupon/index.jsp";
+				}
+				
+				});
+				
+                } else {
+                    alert("添加数据失败");
+                }
+            }
+        });
+    }
+</script>
+</body></html>

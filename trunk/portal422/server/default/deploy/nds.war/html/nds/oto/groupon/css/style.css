@@ -1,0 +1,467 @@
+/********************************css  reset**********************************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	font: 12px/1.5  宋体, Arial, sans-serif;
+	/* background-color:#f1f1f1; */
+	
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+img{
+border:none;
+}
+a{
+    text-decoration:none;
+    outline:none;blr:expression(this.onFocus=this.blur());
+}
+
+/*input*/
+input, button, textarea, select, optgroup, option { font-family: inherit; font-size: inherit; font-style: inherit; font-weight: inherit; }
+input,button,select{ *font-size:100%; /*vertical-align:middle;*/ height:24px;}
+input{ height:20px; line-height:20px;}
+
+input[type="checkbox"]{
+    border:none;
+}
+input[type="radio"]{
+    border:none;
+}
+
+/*浮动*/
+/* .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix { display: inline-block; }
+.clearfix { display: block; } */
+.cb { clear: both; }
+.cl { clear: left; }
+.cr { clear: right; }
+.fl { float: left; display: inline; }
+.fr { float: right; display: inline; }
+
+.none { display: none; }
+
+.clearfix:after {
+    content: "020";
+    display: block;
+    height: 0;
+    clear: both;
+	visibility:hidden;
+}
+.clearfix {
+    zoom: 1;
+}
+
+/*统一按钮样式*/
+input.btn{
+ background-color:#4a516d;
+ color:#fff;
+ border:1px  solid  #4a516d;
+ cursor:pointer;
+ line-height:24px;
+ height:24px;
+}
+
+input.btn:active{
+background-color:#3c4051;
+}
+
+a.btn{
+ background-color:#4a516d;
+ color:#fff;
+ border:1px  solid  #4a516d;
+ cursor:pointer;
+ line-height:24px;
+ height:24px;
+ padding:6px 8px;
+}
+
+a.btn:active{
+background-color:#3c4051;
+}
+
+
+
+/**********************保存按钮*****************************/
+.saveBtn{
+width:70px;
+height:30px;
+}
+
+/*******************关闭按钮**********************/
+a.closeBtn{
+float:right;
+width:32px;
+height:30px;
+border-left:1px solid #424962;
+background:#4a516d url(../images/close.png) no-repeat bottom left;
+}
+
+.close{
+display:none;
+}
+a.closeBtn:hover{
+background:#525978 url(../images/close.png) no-repeat bottom left;
+}
+
+/***********************弹出操作框*****************************/
+.popupBox{
+    background-color:#fff;
+}
+
+.popupHead  tr {
+height:30px;
+background-color:#4a516d;
+color:#fff;
+}
+
+.popupBox-lastTr td{
+padding-bottom:20px;
+}
+
+.originalName{
+float:left;
+line-height:30px;
+padding-left:10px;
+}
+
+
+/*表格样式*/
+
+table{
+display:table;
+}
+
+tr{
+display:table-row;
+}
+
+thead{
+display:table-header-group;
+}
+
+tbody{
+display:table-row-group;
+}
+td,th{
+display:table-cell;
+}
+
+
+.toright{
+text-align:right;
+}
+
+.toleft{
+text-align:left;
+}
+
+.tocenter{
+    text-align:center;
+    vertical-align:middle;
+}
+.tocenter2{
+    text-align:left;
+    vertical-align:middle;
+    padding-left:20px;
+}
+.totop{
+    vertical-align:top;
+}
+
+/*************添加编辑表单样式**********/
+.sTitle
+{
+    font-size: 16px; 
+    font-weight: bold; 
+    padding: 20px 0px 10px 20px;
+}
+
+#contentWrap .fieldTable{
+    margin-top:10px
+}
+
+.fieldTable{    
+    line-height:28px;   
+    height:28px;
+}
+.fieldTable th{
+    text-align:right;
+    vertical-align:top;    
+    padding-right:10px;
+}
+.fieldTable th{
+    width:120px;
+}
+#contentWrap .fieldTable th{
+    width:150px;
+}
+.fieldTable td{
+    text-align:left;
+    vertical-align:bottom;
+    padding:2px 0px !important;
+}
+.fieldTable td input{
+    border:solid 1px #CCC;
+}
+.fieldTable td input[type="radio"]{
+    border:none;
+}
+.fieldTable td input[type="checkbox"]{
+    border:none;
+    vertical-align:middle;
+}
+
+.fieldTable td textarea{
+    border:solid 1px #CCC;
+    background-color:#fff;
+}
+.fieldTable td select{
+    border:solid 1px #CCC;
+    background-color:#fff;
+    height:20px;
+    line-height:20px;   
+    width:130px; 
+}
+
+
+/*************排序按钮样式**************/
+a.sortBtn{
+display:inline-block;
+*float:left;
+width:22px;
+height:22px;
+padding-right:1px;
+}
+
+.ascBtn{
+background: url(../images/orderBg.png) no-repeat 0px -23px;
+_background: url(../images/defaultAsc.png) no-repeat bottom left;
+}
+.descBtn{
+background: url(../images/orderBg.png) no-repeat  -23px -23px;
+_background: url(../images/defaultDesc.png) no-repeat bottom left;
+}
+
+
+a.ascBtn:hover{
+background: url(../images/orderBg.png) no-repeat 0px -46px;
+_background: url(../images/hoverAsc.png) no-repeat bottom left;
+}
+a.descBtn:hover{
+background: url(../images/orderBg.png) no-repeat  -23px 0px;
+_background: url(../images/hoverDesc.png) no-repeat bottom left;
+}
+
+
+a.ascBtn:active{
+background: url(../images/orderBg.png) no-repeat 0px 0px;
+_background: url(../images/activeAsc.png) no-repeat bottom left;
+}
+a.descBtn:active{
+background: url(../images/orderBg.png) no-repeat  -23px -46px;
+_background: url(../images/activeDesc.png) no-repeat bottom left;
+}
+
+
+/****表格部分统一样式**/
+
+.normaltable th{
+background-color:#4a516d;
+color:#fff;
+border:1px solid #424962;
+}
+
+.normaltable td{
+border:1px solid #cecece;
+}
+
+/********************************排序按钮************************/
+.normaltable a.sortBtn{
+vertical-align:middle;
+*margin:0 5px;
+_margin:10px 5px;
+}
+
+/************************************翻页*************************************/
+.turnPage{
+color:#5e5e5e;
+background-color:#ffffff;
+padding:3px 5px;
+border:1px solid #e2e2e2;
+}
+.turnPage:hover{
+border:1px solid #4a516d;
+}
+
+.turnPage:active{
+color:#fff;
+background-color:#4a516d;
+border:1px solid #4a516d;
+}
+
+.turnPage.firstPage{
+padding-left:15px;
+background:#fff url(../images/firstlastPages.png) no-repeat  center  left;
+_margin-bottom:-8px;
+}
+
+.turnPage.lastPage{
+padding-right:15px;
+background:#fff url(../images/firstlastPages.png) no-repeat  -106px  center;
+_margin-bottom:-8px;
+}
+
+.firstPage:active{
+background: #4a516d url(../images/firstlastPages.png) no-repeat  -17px center ;
+}
+.lastPage:active{
+padding-right:15px;
+background: #4a516d url(../images/firstlastPages.png) no-repeat  -60px  center;
+}
+
+/****颜色**/
+.bge2 { background-color:#E2E2E2; }
+
+
+/**调整后新加 */
+
+.success-reminder{
+position:fixed;
+top:50%;
+left:50%;
+font-size:14px;
+min-width:190px;
+padding:0 10px;
+min-height:40px;
+line-height:40px;
+background-color:#596dbe;
+color:#fff;
+text-align:center;
+margin:0 auto;
+}
+
+.success-reminder-fail{
+background-color:rgb(241, 98, 98);    
+}
+
+.errorNo{
+font-size:黑体;
+font-size:30px;
+font-weight:normal;
+}
+
+.explanation{
+font-size:16px;
+font-weight:normal;
+}
+
+.errortip{
+float:left;
+margin-bottom:100px;
+}
+
+.sucComplete{
+width:60px;
+}
+
+.complete-application{
+padding-top:60px;
+height:600px;
+}
+
+.completeRmind{
+position:absolute;
+margin:20px 0px 0px 35px;
+font-size:14px;
+}
+
+.completeLink{
+    font-size:14px;
+    margin-left:95px;
+}
+
+/*-----------必填------------*/
+.required{
+    color:Red;
+    padding-left:0px;
+}
+
+/*-----------导览图标注-----------*/
+.mark{
+    background:url('../Images/markicon.png') no-repeat;
+    width:25px;
+    height:40px;
+    position:absolute;
+    z-index:500;
+}
+/*------------提示文字样式------------*/
+.tiptext {
+    color:#919191;
+    font-size:12px;
+}
+/*------------右下浮动帮助------------*/
+.floattip{
+    width:32px;
+    height:83px;
+    position:fixed;
+    right:0;
+    top:50%;
+    margin-top:-41px;
+    z-index:9999;
+}
+.floattip a{
+    display:inline-block;
+    width:32px;
+    height:41px;
+    float:left;
+}
+.floathelp {    
+    background:url(/images/helpbook.png) no-repeat;    
+}
+    .floathelp:hover {
+         background:url(/images/helpbookp.png) no-repeat;
+    }
+.floatupdate
+{
+    margin-top:1px;
+    background:url(/images/floatupdate.png) no-repeat;
+}
+    .floatupdate:hover{
+        background:url(/images/floatupdatep.png) no-repeat;
+    }
