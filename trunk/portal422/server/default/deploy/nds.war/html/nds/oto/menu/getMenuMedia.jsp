@@ -23,7 +23,7 @@ List tuwen;
 QueryEngine engine=QueryEngine.getInstance();
 String sql="select mai.id,mai.title,mai.url,mai.fromid,mai.objid,maq.keyword"+
 		   " from wx_messageautoq maq JOIN wx_messageautoitem mai ON maq.groupid=mai.groupid  AND maq.ad_client_id=mai.ad_client_id"+
-		   " WHERE maq.keyword=? and maq.ad_client_id=?"
+		   " WHERE maq.keyword=? and maq.ad_client_id=?";
 List allTuWen=engine.doQueryList(sql,new Object[]{keyword,ad_client_id});
 if(allTuWen==null||allTuWen.size()<=0){return;}
 JSONObject alltwjo=new JSONObject();
