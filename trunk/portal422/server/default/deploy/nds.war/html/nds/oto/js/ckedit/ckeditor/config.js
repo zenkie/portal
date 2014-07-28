@@ -60,7 +60,7 @@ CKEDITOR.editorConfig = function( config )
 	 config.toolbar = "Full"; 
 	 config.toolbarCanCollapse = true; 
 	   //工具栏默认是否展开
-    config.toolbarStartupExpanded = false; 
+    config.toolbarStartupExpanded = true; 
 	config.enterMode=2;
 	//config.removePlugins='elementspath';
 	 //使用自定义工具栏 
@@ -87,7 +87,7 @@ CKEDITOR.editorConfig = function( config )
 	// ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
 	// ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
 	// '/',
-	['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+	['Source','Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
 	['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
 	['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
 	['Link','Unlink','Anchor'],
@@ -96,12 +96,12 @@ CKEDITOR.editorConfig = function( config )
 	['Styles','Format','Font','FontSize'],
 	['TextColor','BGColor']
 	];
-	 config.filebrowserBrowseUrl = '/html/nds/js/ckedit/ckfinder/ckfinder.html',
-	 config.filebrowserImageBrowseUrl = '/html/nds/js/ckedit/ckfinder/ckfinder.html?type=Images',
-	 config.filebrowserFlashBrowseUrl = '/html/nds/js/ckedit/ckfinder/ckfinder.html?type=Flash',
-	 config.filebrowserUploadUrl = '/html/nds/js/ckedit/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files',
-	 config.filebrowserImageUploadUrl = '/html/nds/js/ckedit/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images',
-	 config.filebrowserFlashUploadUrl = '/html/nds/js/ckedit/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash',
+	 config.filebrowserBrowseUrl = '/html/nds/oto/js/ckedit/ckfinder/ckfinder.html',
+	 config.filebrowserImageBrowseUrl = '/html/nds/oto/js/ckedit/ckfinder/ckfinder.html?type=Images',
+	 config.filebrowserFlashBrowseUrl = '/html/nds/oto/js/ckedit/ckfinder/ckfinder.html?type=Flash',
+	 config.filebrowserUploadUrl = '/html/nds/oto/js/ckedit/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files',
+	 config.filebrowserImageUploadUrl = '/html/nds/oto/js/ckedit/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images',
+	 config.filebrowserFlashUploadUrl = '/html/nds/oto/js/ckedit/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash',
 	 config.filebrowserWindowWidth = '1000',
 	 config.filebrowserWindowHeight = '700'
 };
