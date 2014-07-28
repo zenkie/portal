@@ -1,0 +1,107 @@
+.comment{
+position: absolute;
+bottom: 0px;
+}
+.com_form p {
+height: 28px;
+line-height: 28px;
+position: relative;
+margin-top: 10px;
+}
+span.emotion:hover {
+background-position: 2px -28px;
+}
+span.emotion {
+width: 42px;
+height: 20px;
+background: url(/html/nds/oto/attention/images/icon.gif) no-repeat 2px 2px;
+padding-left: 20px;
+cursor: pointer;
+float:left;
+}
+/**表情样式start**/
+#facebox td{
+padding:0px;
+float: left;
+line-height: 27px;
+height: 27px;
+font-size: 0;
+text-align: center;
+width: 27px;
+border-bottom: 1px solid #d3d3d3;
+border-left: 1px solid #d3d3d3;
+background-color: #fff;
+}
+i, cite, em, var, address, dfn {
+font-style: italic;
+}
+
+ul, ol {
+padding-left: 0;
+list-style-type: none;
+}
+
+li {
+display: list-item;
+text-align: -webkit-match-parent;
+}
+
+.emotion_wrp {
+display: none;
+width: 421px;
+top: 100%;
+left: 20px;
+}
+
+.emotions {
+-moz-user-select: none;
+overflow: hidden;
+border-top: 1px solid #d3d3d3;
+border-right: 1px solid #d3d3d3;
+background-color: #d3d3d3;
+float:left;
+}
+
+.emotions_item {
+float: left;
+line-height: 27px;
+height: 27px;
+font-size: 0;
+text-align: center;
+width: 27px;
+border-bottom: 1px solid #d3d3d3;
+border-left: 1px solid #d3d3d3;
+background-color: #fff;
+}
+
+.emotions_item i {
+display: inline-block;
+cursor: pointer;
+width: 24px;
+height: 24px;
+vertical-align: middle;
+background: transparent url(../images/default1df61f.gif) no-repeat 0 0;
+}i, cite, em, var, address, dfn {
+font-style: italic;
+}
+
+.emotions_preview {
+top: 0;
+margin-left:421px;
+right: -81px;
+display: block;
+width: 80px;
+height: 80px;
+line-height: 80px;
+font-size: 0;
+text-align: center;
+border: 1px solid #d3d3d3;
+background-color: #fff;
+}
+.emotions_preview img {
+top: 50%;
+left: 50%;
+margin-left: -12px;
+margin-top: 26px;
+}
+/**表情样式end**/

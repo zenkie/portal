@@ -1,0 +1,334 @@
+html,body{
+    width: 100%;
+    height:100%;
+	font-family: "微软雅黑";
+}
+body *{font-family: "微软雅黑";}
+input{font-size:12px;font-family: "微软雅黑";
+}
+a{text-decoration:none;}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+#mainContent {
+    width: 100%;
+    //background: #f1f1f1;
+    margin-top: -2px;
+    
+    *margin: 0px;
+} 
+#mainContent .location {
+        height: 40px;
+        line-height: 40px;
+        color: #303030;
+        //background: #ffffff;
+        border-bottom: 1px solid #e5e5e5;
+        padding-left: 15px;
+		font-size:12px;
+}
+
+#mainContent .location a {
+            color: #4E7FD7;
+}
+
+/**************顶部 按钮修改 start***********/
+.uploadify-button-text{
+font-size:12px;
+}
+h4 {
+height: 36px;
+width: auto;
+line-height: 36px;
+position: relative;
+display: block;
+text-align: left;
+padding: 10px 0px 0px 10px;
+font-size: 16px;
+font-family: "微软雅黑","微软雅黑";
+color: #333;
+font-weight: normal;
+border-bottom: 1px solid #ededed;
+margin: 0px 0px 20px 0px;
+}
+.btnGreenS {
+    padding: 5px 20px;
+    cursor: pointer;
+    display: inline - block;
+    text-align: center;
+    overflow: visible;
+    color: #fff;
+    margin: 0;
+    padding: 3px 5px;
+	min-width:55px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	background: #67b959 !important;
+	background-image: -webkit-linear-gradient(top,#67b959 3%,#56a548 97%);
+	color: #fff;
+	border: 1px solid #c3c3c3;
+	border-color: #3d810c;
+}
+.btnGreenS: hover {
+	background-color: #56a548;
+	background-image: linear-gradient(top,#56a548 3%,#56a548 97%);
+	background-image: -moz-linear-gradient(top,#56a548 3%,#56a548 97%);
+	background-image: -webkit-linear-gradient(top,#56a548 3%,#56a548 97%);
+	background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #56a548),color-stop(1, #56a548));
+	background-position: center bottom;
+    color: #fff;
+}
+
+#fileInput1{
+margin-top:130px
+}
+/**************顶部 按钮修改 end***********/
+
+/**************页签***********/
+.tag-panel{
+width:100%;
+background:#e2e2e2;
+margin:0px auto;
+border: 1px solid #c6c6c6;
+}
+
+.tag-panel-head
+{
+height:42px;
+border-bottom:1px solid #e2e2e2;
+background-color:#fff;
+}
+.tag-panel-head a
+{
+	text-decoration: none;
+    display:inline-block;
+    float:left;
+    height:42px;
+    line-height:42px;
+    padding:0 20px;
+    font-size:14px;
+    border-right:1px solid #c6c6c6;    
+    color:#5e5e5e;
+    background-color:#fff;
+}
+#allMessage #main{
+background:#f1f1f1;
+padding:25px 0px 30px 0px;
+}
+
+.tag-panel-head a.tag-panel-iscurrent
+{
+    font-weight:bold;
+    background:url(../images/tabsbg.gif) #e2e2e2 left top repeat-x;
+}
+
+.tag-panel-content{
+padding:0px 15px 0px 15px;
+*padding-top:0px;
+_padding-top:0px;
+}
+a.btn{
+ background-color:#4a516d;
+ color:#fff;
+ border:1px  solid  #4a516d;
+ cursor:pointer;
+ line-height:24px;
+ height:24px;
+ font-size:12px;
+ padding:6px 8px;
+}
+
+a.btn:active{
+background-color:#3c4051;
+}
+/*统一按钮样式*/
+input.btn{
+ /*background-color:#4a516d;
+ color:#fff;
+ border:1px  solid  #4a516d;
+ cursor:pointer;
+ line-height:24px;
+ height:24px;*/
+}
+
+input.btn:active{
+background-color:#3c4051;
+}
+/********************************表格部分*************************/
+ 
+#goodsTable{
+
+
+margin-top:10px;
+background-color:#fff;
+float:left;
+padding-left:10px;
+padding-right:10px;
+max-height:350px;
+
+}
+
+
+#goodsTable, .normaltable td{
+border:1px solid #cecece;
+}
+
+#goodsTable, .normaltable td input{
+border:solid 1px #CCC;
+}
+
+
+#goodsTable th{
+line-height:12px;
+padding:8px 0px;
+}
+
+#goodsTable td{
+line-height:26px;
+padding:5px 2px;
+min-width:60px;
+vertical-align:middle;
+text-align:center;
+}
+
+#goodsTable a.operateBtn{
+color:#0059a4;
+text-decoration:none;
+outline:none
+}
+
+#goodsTable a.operateBtn:hover{
+text-decoration:underline;
+color:#f60;
+}
+
+#goodsTable a.disableBtn{
+color:gray;
+text-decoration:none;
+outline:none
+}
+
+#goodsTable a.disableBtn:hover{
+color:gray;
+text-decoration:none;
+outline:none;
+cursor:not-allowed
+}
+
+#goodsTable a.setBtn {
+display: inline-block;
+padding: 0 10px;
+margin: 0 2px 0px 3px;
+vertical-align: middle;
+}
+#goodsTable a.setBtn:hover {
+color: white;
+background-color: #4A516D;
+}
+#goodsTable a.setBtn {
+color: #5E5E5E;
+background-color: #F1F1F1;
+border: 1px solid #D4D4D4;
+}
+/****表格部分统一样式**/
+
+.normaltable th{
+background-color:#4a516d;
+color:#fff;
+border:1px solid #424962;
+}
+
+.normaltable td{
+border:1px solid #cecece;
+}
+/********************************栏目添加*************************/
+#contentWrap .fieldTable{
+    margin-top:10px;
+	width:100%;
+}
+
+.fieldTable{    
+	width:60%;
+    line-height:28px;   
+    height:28px;
+}
+.fieldTable th{
+    text-align:right;
+    vertical-align:top;    
+    padding-right:10px;
+}
+.fieldTable th{
+    width:120px;
+	font-weight: normal;
+	font-size: 12px;
+}
+#contentWrap .fieldTable th{
+    width:65px;
+}
+.fieldTable td{
+    text-align:left;
+    vertical-align:bottom;
+    padding:2px 0px !important;
+}
+.fieldTable td input{
+    border:solid 1px #CCC;
+}
+.fieldTable td input[type="radio"]{
+    border:none;
+}
+.fieldTable td input[type="checkbox"]{
+    border:none;
+    vertical-align:middle;
+}
+.fieldTable td a{font-size:12px;text-decoration:none;}
+.fieldTable td textarea{
+    border:solid 1px #CCC;
+    background-color:#fff;
+}
+.fieldTable td select{
+    border:solid 1px #CCC;
+    background-color:#fff;
+    height:20px;
+    line-height:20px;   
+    width:130px; 
+}
+.required {
+color: red;
+padding-left: 0px;
+}
+.tiptext {
+color: #919191;
+font-size: 12px;
+}
+
+/***************跳转去向下拉列表样式*************************/
+#goodsTableCon{padding-top: 10px;padding-bottom: 10px;}
+#listTable{width:100%;width:100%;}
+#listTable table { margin-top:10px; font-size:12px;text-align: center;}
+#listTable table thead{
+	
+	background-color:#4a516d;
+
+	color:#FFFFFF;
+	display:block;
+	}
+#listTable table thead tr td{text-align: center;}
+#listTable table tbody{/**border: 1px solid #CCCCCC;padding-top:15px;*/ font-size:12px;text-align: center;display:block;overflow:auto;max-height:200px;}
+#listTable table tbody td{border: 1px solid #CCCCCC;}
+
+.tag-panel-head a:hover {
+text-decoration: none;
+}
+
+
+
+
+.goodsChoose{background-color:#e2e2e2;padding:10px  10px 1px 10px; margin-top:10px; }
+.goodsChoose {font-size:12px;}
+.goodsChoose form p{margin-top:0px;font-size:12px;}
+.goodsChoose form p label{padding:0px 10px 0px 10px;}
+.goodsChoose form p input{width:120px;}
+.goodsChoose form p input.searchBtn{line-height: 23px;height: 28px;width:50px; margin-left:10px;}
+#listTable table tbody tr td a{ font-size:12px; color:#000000; padding-right:10px;}
+#listTable table tbody th{text-align: center;}
