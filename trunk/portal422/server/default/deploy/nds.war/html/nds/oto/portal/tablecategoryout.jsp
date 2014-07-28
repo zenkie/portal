@@ -29,10 +29,10 @@ List categoryChildren=ssv.getChildrenOfTableCategorybymenu(request,tablecategory
 Locale locale =userWeb.getLocale();
 int tableId,fa_tableId;
 Table table;
-List mu_favorites=ssv.getSubSystemsOfmufavorite(request);
+List mu_favorites=new ArrayList();//ssv.getSubSystemsOfmufavorite(request);
 String url,cdesc,tdesc,tabout,fa_tdesc;
 String famus = new String();
-
+//System.out.print(mu_favorites.size());
 if(mu_favorites.size()>0){
 //System.out.println("mu_favorites     "+mu_favorites.size());
 for(int j=0;j<mu_favorites.size();j++){
@@ -56,8 +56,10 @@ if(fa_tab instanceof Table){
 TableManager manager=TableManager.getInstance();
 TableCategory tc= manager.getTableCategory(tablecategoryId);
 //System.out.println(tc.getName());
-//String tabout1 = new String();
-String tabout1 ="<div><h3 class=\"ui-accordion-first\"><a style=\"color:white;\">我的收藏夹</a></h3><div id=\"mu_favorite\">"+famus+"</div></div>";
+String tabout1 = new String();
+if(mu_favorites.size()>0){
+tabout1 ="<div><h3 class=\"ui-accordion-first\"><a style=\"color:white;\">我的收藏夹</a></h3><div id=\"mu_favorite\">"+famus+"</div></div>";
+}
 for(int j=0;j<categoryChildren.size();j++){
 List als=(List)categoryChildren.get(j);
 String	ACCORDION_name=(String)als.get(0);
@@ -79,7 +81,7 @@ for(int e=0;e<tab.size();e++){
 			//tabimg="<img src=\""+table.getAccordico()+"\" style=\"height:16px;width:20px;\">";
 			tabimg="<img src=\""+StringUtils.escapeForXML(table.getAccordico())+"\" style=\"height:16px;width:20px;\"></img>";
 			}
-		Inable=Inable+"<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tableId+"')\">"+tabimg+"<a>"+StringUtils.escapeForXML(tdesc)+"</a></div>";
+		Inable=Inable+"<div class=\"accordion_headings\" onclick=\"javascript:pc.navigate('"+tableId+"','null',this)\">"+tabimg+"<a>"+StringUtils.escapeForXML(tdesc)+"</a></div>";
 		//System.out.println(Inable);
   }else if(tab.get(e)  instanceof WebAction){
   	  
@@ -103,7 +105,7 @@ for(int e=0;e<tab.size();e++){
 //System.out.println(Inable);
 //height:300px;
 if(tab.size()>=12&&Inable!=null){
-	tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div style=\"max-height:566px\">"+Inable+"</div></div>";
+	tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div style=\"max-height:500px\">"+Inable+"</div></div>";
 	}else if(Inable != null && Inable.length() != 0){
   tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div>"+Inable+"</div></div>";
 	}else{
