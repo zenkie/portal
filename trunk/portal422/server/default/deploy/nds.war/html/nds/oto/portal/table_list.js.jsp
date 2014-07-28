@@ -3,10 +3,10 @@
 	tableObj.put("id", tableId);
 	tableObj.put("desc", table.getDescription(locale)+" <"+nds.control.web.WebUtils.getCompany()+">");
 	tableObj.put("actionADD", canAdd);
-	tableObj.put("actionMODIFY", canModify);
+	/*tableObj.put("actionMODIFY", canModify);*/
 	tableObj.put("actionDELETE", canDelete);
 	tableObj.put("actionSUBMIT", canSubmit);
-	tableObj.put("actionEXPORT", canExport);
+	/*tableObj.put("actionEXPORT", canExport);*/
 	tableObj.put("actionGROUPSUBMIT", canSubmit &&  table.isActionEnabled(Table.GROUPSUBMIT));
 	tableObj.put("actionVOID", canVoid);
 	
@@ -29,10 +29,15 @@
 	q.put("table", table.getName());
 	q.put("qlcid", qlc.getId());
 	q.put("dir_perm",listViewPermissionType);
-	q.put("init_query",false);
+	q.put("init_query",true);
+	//System.out.print(fixedColumns.toURLQueryString(null));
 	q.put("fixedcolumns", fixedColumns.toURLQueryString(null));
 	q.put("start",0);
-	q.put("range",QueryUtils.DEFAULT_RANGE);
+	boolean isFold=false;
+	JSONObject porper=table.getJSONProps();
+	if(porper !=null&&porper.has("fold")){isFold=porper.optBoolean("fold");}
+	if(isFold){q.put("range",50);}
+	else{q.put("range",QueryUtils.DEFAULT_RANGE);}
 	if(table.isSubTotalEnabled()){
 		q.put("subtotal",true); // show sub total
 	}
@@ -65,7 +70,7 @@
     }else{
 		singleObjectPageURL=(
 			nds.util.Validator.isNotNull(table.getRowURL())? nds.util.WebKeys.NDS_URI +  table.getRowURL() +"?":
-			nds.util.WebKeys.NDS_URI +"/object/object.jsp?table="+table.getId()
+			nds.util.WebKeys.NDS_URI +"/oto/object/object.jsp?table="+table.getId()
 			)
 			+"&"+WebUtils.getMainTableLink(request)+"&fixedcolumns="+java.net.URLEncoder.encode(fixedColumns.toURLQueryString(""))+"&id=";
 	}

@@ -5,7 +5,7 @@
     private final static int SELECT_NONE=1;
     private final static int SELECT_SINGLE=2;
     private final static int SELECT_MULTIPLE=3;
-    private final static int MAX_COLUMNLENGTH_WHEN_TOO_LONG=50;//QueryUtils.MAX_COLUMN_CHARS -3
+    private final static int MAX_COLUMNLENGTH_WHEN_TOO_LONG=20;//QueryUtils.MAX_COLUMN_CHARS -3
 	/**
 	* if s.length()> maxLength, return it's first maxLength chars, else, return full
 	*/
@@ -13,6 +13,7 @@
 		return ( s.length()> maxLength)?s.substring(0,maxLength-1):s;
 	}
 %>
+
 <%
 /**
   Fetch "result" from HttpRequest.Attribute, and construct result data
@@ -73,7 +74,7 @@
     columnAligns[0]= "left";
 
     //String queryPath= contextPath+"/servlets/viewObject?table=";//Hawke
-    String queryPath= NDS_PATH+"/object/object.jsp?input=false&table=";//Hawke
+    String queryPath= NDS_PATH+"/oto/object/object.jsp?input=false&table=";//Hawke
     int pkId= qRequest.getMainTable().getPrimaryKey().getId();
 	
     int serialno=startIndex -1, currentId; 
@@ -81,14 +82,87 @@
     
     Object tmpAKValue;
     String akData;
+	//int currentO=0;
+	int cltId=-1;
+	//int levid=-1;
+	int parentcid=-1;
+	boolean isParent=false;
+	boolean isFold=false;
+	int levvalue=-1;
+	String clt=null;
+	String orders=null;
+	String Parentcolumn=null;
+	//String levcolumn=null;
+	Column cl=null;
+	Table table=result.getQueryRequest().getMainTable();
+	JSONObject porper=table.getJSONProps();
+	if(porper !=null&&porper.has("fold")){isFold=porper.optBoolean("fold");}
+	//if(porper !=null&&porper.has("correlation")){clt=porper.optString("correlation");}else{isFold=false;}
+	if(porper !=null&&porper.has("orders")){orders=porper.optString("orders");}else{isFold=false;}
+	if(porper !=null&&porper.has("parentcolumn")){Parentcolumn=porper.optString("parentcolumn");}else{isFold=false;}
+	//if(porper !=null&&porper.has("levcolumn")){levcolumn=porper.optString("levcolumn");}else{isFold=false;}
+	/*if(nds.util.Validator.isNotNull(clt)){
+		cl=table.getColumn(clt);
+		if(cl.getReferenceTable()!=null){
+			ColumnLink cll= new ColumnLink(table.getName()+"."+ cl.getName()+";"+cl.getReferenceTable().getAlternateKey().getName());
+			cltId=meta.findPositionInSelection(cll);
+		}else{
+			cltId=meta.findPositionInSelection(cl);
+		}
+	}*/
+	if(nds.util.Validator.isNotNull(orders)){
+		cl=table.getColumn(orders);
+		if(cl.getReferenceTable()!=null){
+			ColumnLink cll= new ColumnLink(table.getName()+"."+ cl.getName()+";"+cl.getReferenceTable().getAlternateKey().getName());
+			cltId=meta.findPositionInSelection(cll);
+		}else{
+			cltId=meta.findPositionInSelection(cl);
+		}
+		if(cltId<=-1){isFold=false;}
+	}else{
+		isFold=false;
+	}
+	if(nds.util.Validator.isNotNull(Parentcolumn)){
+		cl=table.getColumn(Parentcolumn);
+		parentcid=meta.findPositionInSelection(cl);
+		if(parentcid<=-1){isFold=false;}
+	}else{
+		isFold=false;
+	}
+	String values=null;
+	
+	Object o=null;
+	ArrayList al=qRequest.getAllSelectionColumns();
+	JSONArray ja=null;
+	JSONObject joo=new JSONObject();
+	
+
+	boolean isShow=true;
+	String[] stors=null;
    while(result.next()){
    		if(serialno%1==0) whiteBg = (whiteBg==false);
         serialno ++;
+		levvalue=0;
         // first column is id
         String itemId = result.getObject(1).toString();
-        
+		if(cltId>-1){
+			values=String.valueOf(result.getObject(cltId+1));
+			if(nds.util.Validator.isNotNull(values)){
+				stors=values.split("_");
+				levvalue=stors.length-1;
+			}
+		}
+		if(parentcid>-1){
+			isParent="Y".equalsIgnoreCase(String.valueOf(result.getObject(parentcid+1)));
+		}	
+		/*if(levid>-1){
+			levvalue=Tools.getInt(result.getObject(levid+1),-1);
+		}*/
+	//if(isFold&&nds.util.Validator.isNull(values)){currentO++;}
 %>
-<tr id='<%=itemId%>_templaterow' class='<%=(whiteBg?"even-row":"odd-row")%>'>
+
+<!--tr id='<!--%=itemId%>_templaterow' class='<!--%=(whiteBg?"even-row":"odd-row")%>'-->
+<tr id='<%=itemId%>_templaterow' <%=(isFold?"oa='"+values+"'":"")%>>
 <%
     String resPkId = null; 
     String tdAttributes;
@@ -104,6 +178,13 @@ for(int i=0;i< meta.getColumnCount();i++){
     String originColumnData= result.getString(i+1, false);
     Object originColumnDataObj=result.getObject(i+1);
     colmn=manager.getColumn(meta.getColumnId(i+1));
+
+	porper=colmn.getJSONProps();
+	if(porper!=null&&porper.has("tableshow")){
+		isShow=porper.optBoolean("tableshow",true);
+	}else{isShow=true;}
+	
+	
     if(colmn.getMoney() != null)
         columnData = StringUtils.displayMoney(originColumnData, colmn.getMoney());
     String url=null,tname = colmn.getTable().getDescription(locale);
@@ -123,28 +204,52 @@ for(int i=0;i< meta.getColumnCount();i++){
         }
         columnData="<a href="+aUrl+"><img border='0' src='/html/nds/images/out.png'/></a>&nbsp;"+columnData;
     }else{
-		
+		if(nds.util.Validator.isNotNull(columnData)&&columnData.indexOf("<ori>")>-1){
+			columnData=columnData.replaceAll("<ori>.*(?=</ori>)</ori>", "");
+		}
         if( colmn.getLength()>QueryUtils.MAX_COLUMN_CHARS && columnData.length()>MAX_COLUMNLENGTH_WHEN_TOO_LONG){
             if( Tools.isHTMLAnchorTag(columnData)){
                 // just return the columnData
             }else{
+				
                 columnData= "<span title=\""+columnData+"\">"+getStringOfLimitLength(columnData,MAX_COLUMNLENGTH_WHEN_TOO_LONG)+"...</span>";
             }
         }else if(colmn.getId() == pkId && meta.getColumnLink(i+1).length()==1){
             itemId = columnData;
             resPkId = columnData;
             tdAttributes="";
-           	columnData ="<input class='cbx' type='checkbox' name='itemid' value='" + (itemId)+"' onclick=pc.unselectall(this)>";
-           	columnData +="<a href='javascript:pc.mo(\""+itemId+"\")' >"+ serialno+"</a>";
+
+			
+			
+			if(isFold){
+				columnData="";
+				for(int k=1;k<levvalue;k++){
+					columnData+="<div id='category-blank'></div>";
+				}
+				if(isParent){
+					columnData +="<span"+(isFold?" oa='"+values+"_'":" ")+"class='fold-show' href='javascript:void(0);' onclick=\"fold(this,'"+values+"_')\"></span>";
+					columnData +="<input class='cbx' type='checkbox' name='itemid' value='" + (itemId)+"' onclick=pc.unselectall(this)>";
+					columnData +="<a  class='checkall'  class='numb' >"+ serialno+"</a>";
+				}else{
+					columnData +="<div id='category-b'></div>";
+					columnData +="<input class='cbx' type='checkbox' name='itemid' value='" + (itemId)+"' onclick=pc.unselectall(this)>";
+					columnData +="<a  class='checkall'  class='numb' >"+ serialno+"</a>";
+				}
+			}else{
+				columnData ="<input class='cbx' type='checkbox' name='itemid' value='" + (itemId)+"' onclick=pc.unselectall(this)>";
+				columnData +="<a  class='checkall'  class='numb' >"+ serialno+"</a>";
+			}
+			
         }else{
 			if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_BUTTON){
             	nds.web.button.ButtonCommandUI uic= (nds.web.button.ButtonCommandUI)colmn.getUIConstructor();
             	columnData= uic.constructHTML(request, colmn, Tools.getInt(result.getObject(1),-1));
-				}else if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_IMAGE){
-				String img_src=columnData;
-				columnData="<a id=\"imga_"+itemId+"\" target=\"_blank\" href=\""+img_src+"\">";
-				columnData+="<img src=\""+img_src+"\" width=\"50px\" height=\"50px\" style=\"float: left;padding-left:0px\"></a>";
-				if(colmn.getJSONProps()!=null&&img_src!=null){
+			}else if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_IMAGE){
+				//System.out.print("columnData is"+columnData);
+				String img_src=(columnData=="&nbsp;"?"/html/nds/oto/themes/01/images/upimg.jpg":columnData);
+				columnData="<a id=\"imga_col"+colmn.getId()+"_"+itemId+"\" target=\"_blank\" href=\""+img_src+"\">";
+				columnData+="<img src=\""+img_src+"\"  height=\"50px\" style=\"float: left;padding-left:0px\"></a>";
+				if(colmn.getJSONProps()!=null&&img_src!=null&&!img_src.equals("&nbsp;")){
 				JSONObject jor=colmn.getJSONProps();
 				if(jor.has("imgshowlist")){
 					JSONObject img_opt=null;
@@ -155,24 +260,25 @@ for(int i=0;i< meta.getColumnCount();i++){
 						Column lable_col=manager.getColumn(jo.optInt("rfcolumn"));
 						int pos=meta.findPositionInSelection(lable_col);
 						String rfcolumn_des= result.getString(pos+1,false);
-						columnData+="<span title=\""+rfcolumn_des+"\" style=\"width:150px;float: left; text-align: left; margin-left: 10px\">"+rfcolumn_des+"</span>";
+						columnData+="<span title=\""+rfcolumn_des+"\" style=\"display: inline-block; text-align: left; margin-left: 10px\">"+rfcolumn_des+"</span>";
 						}
 					if(jo.optString("method").equals("jq")&&jo.has("option")){
 						img_opt=jo.getJSONObject("option");
-						columnData+="<script>try{jQuery(\"#imga_"+itemId+"\").jqzoom("+img_opt+");}catch(e){};</script>";
+						columnData+="<script>try{jQuery(\"#imga_col"+colmn.getId()+"_"+itemId+"\").jqzoom("+img_opt+");}catch(e){};</script>";
 					}else if(jo.optString("method").equals("sp")){
-						columnData+="<script>try{jQuery(\"#imga_"+itemId+"\").imgShowPop();}catch(e){};</script>";
+						columnData+="<script>try{jQuery(\"#imga_col"+colmn.getId()+"_"+itemId+"\").imgShowPop();}catch(e){};</script>";
+						}else if(jo.optString("method").equals("box")){
+					columnData+="<script>try{jQuery(\"#imga_col"+colmn.getId()+"_"+itemId+"\").imgbox();}catch(e){};</script>";
 					}
 							//columnData="<img src=\""+columnData+"\" width=\"50px\" height=\"50px\" style=\"float: left;padding-left:5px\">";
+						}
 					}
-				}
-				
-			}else if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK){
+				}else if(colmn.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_CHECK){
             	if("Y".equals(originColumnDataObj)){
 	            	columnData="<span class='ckbox'/>";
 	            	//<input type='checkbox' value='Y' class='cbx' onclick='return false' checked />
             	}else{
-            		columnData="&nbsp;";
+            		columnData="<span class='unckbox'/>";
             	}
             }        
         }
@@ -185,7 +291,7 @@ for(int i=0;i< meta.getColumnCount();i++){
     	if(nds.util.Validator.isNotNull(rowCss ))tableAlertHolder.add(itemId, rowCss);
     }
   %>
-<td nowrap align="<%=columnAligns[i]%>" width="<%= (int)(100* colmn.getLength()/ totalLength) %>%" <%=tdAttributes%>>
+<td nowrap align="<%=columnAligns[i]%>" <%=tdAttributes%> height="40px" <%=!isShow?"style=\"display:none;\"":""%>>
 	<%=columnData%>
 <%
 if( TableManager.getInstance().getColumn(colmn.getTable().getName(),"p_step")!=null ){
@@ -201,6 +307,7 @@ if( TableManager.getInstance().getColumn(colmn.getTable().getName(),"p_step")!=n
 <%
  }// for columns
 %>
+
 </tr>
 <%
    }//end row iteration
