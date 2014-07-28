@@ -159,7 +159,11 @@ function refreshWindow(){
 	}catch(ex){}
 	window.location.reload();	
 }
-function dialog_window(url, theWidth, theHeight, refreshWindowWhenClose){
+
+function btn_nodialog(url){
+ dialog_window(url,null,null,false,true);
+}
+function dialog_window(url, theWidth, theHeight, refreshWindowWhenClose,nodialog){
     /*if(theWidth==null|| theWidth==undefined) theWidth=400;
     if(theHeight==null|| theHeight==undefined) theHeight=200;
     var t="Dialog ";
@@ -171,6 +175,7 @@ function dialog_window(url, theWidth, theHeight, refreshWindowWhenClose){
 	Alerts.popupIframe(url,options);
 	Alerts.resizeIframe(options);
 	Alerts.center();*/
+	if(nodialog==null)nodialog=false;
 	if(theWidth==null|| theWidth==undefined) theWidth=400;
     if(theHeight==null|| theHeight==undefined) theHeight=100;
     var t="Dialog ";
@@ -187,18 +192,20 @@ function dialog_window(url, theWidth, theHeight, refreshWindowWhenClose){
 	var option=$H({width:theWidth,height:theHeight,modal:true,title: t,message:msg,left: 100,top:'top',skin:'chrome'});
 
 	if(refreshWindowWhenClose){
-		option.onClose=refreshWindow;
+		option.close=refreshWindow;
+	}else{
+		option.close=function(){pc.refreshGrid();};
 	}
 	//var popup = Alerts.fireMessageBox(option);
-	var par=art.dialog(option);
+	if(!nodialog){var par=art.dialog(option);}
 	var evt=url.toQueryParams();
 	Controller.handle( Object.toJSON(evt), function(r){
 			try{
 				var result= r.evalJSON();
 				//Alerts.killAlert($(popup));
-				par.close();
+				if(!nodialog){par.close();}
 				if(result.message){
-					art.dialog({icon: 'alert',skin: 'chrome',content:result.message});
+					art.dialog({time:2,icon: 'alert',skin: 'chrome',content:result.message});
 					//alert(result.message);
 					try{
 						// this is for button on object.jsp
@@ -237,6 +244,12 @@ function dialog_window(url, theWidth, theHeight, refreshWindowWhenClose){
 						return;
 					}catch(e){}	
 					window.location.reload();
+				}else if(result.code==5){
+					try{
+						pc.refreshGrid();
+						jQuery('#ifrvtmp').attr('src',jQuery('#ifrvtmp').attr('src'));
+						return;
+					}catch(e){}	
 				}
 			}catch(exnb){
 				//msgbox(exnb.message);
@@ -294,7 +307,7 @@ function noContextMenu() {
 }
 
  function opt_(oid){
- 	window.location="/html/nds/portal/portal.jsp?table="+oid;
+ 	window.location="/html/nds/oto/portal/portal.jsp?table="+oid;
  }
  function opc_(oid){
  	window.location="/html/nds/objext/objects.jsp?category="+encodeURIComponent(oid);
