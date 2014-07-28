@@ -7,7 +7,7 @@
 <link rel="Shortcut Icon" href="/html/nds/images/portal.ico" />
 <%if(GetterUtil.getBoolean(PropsUtil.get(PropsUtil.JAVASCRIPT_FAST_LOAD)) ){ %>
 <script language="javascript" src="/html/nds/oto/js/portal_aio_<%=locale.toString()%>_min.js"></script>
-<link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/portal_aio_min.css">
+<link type="text/css" rel="stylesheet" href="/html/nds/oto/themes/01/css/portal_aio_min.css">
 <%}else{%>
 <script language="javascript" src="/html/nds/oto/js/common.js"></script>
 <script language="javascript" src="/html/nds/oto/js/top_css_ext.js"></script>
@@ -17,7 +17,7 @@
 <!--script language="javascript" src="/html/nds/oto/js/helptip.js"></script-->
 <script language="javascript" src="/html/nds/oto/js/print.js"></script>
 <script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
-<script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script>
+<!--script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script-->
 <script>
    jQuery.noConflict();
 </script>
