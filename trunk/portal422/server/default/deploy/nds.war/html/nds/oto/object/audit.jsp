@@ -121,6 +121,14 @@ NDSServletRequest ndsRequest=new NDSServletRequest(request);
 <%
 
 if(table!=null){
+	int colspan=0;
+	int bigrowspan=0;
+	int endcolumn=-1;
+	int currentrow=-1;
+	int startcolumn=0;
+	Boolean isFind=false;
+	JSONArray rowspans=null;
+	JSONObject currentrowspan=null;
 	String object_page_url=NDS_PATH+"/object/object.jsp?table="+
 		 tableId+ "&id="+ objectId+ "&select_tab="+ selectedTabId+(isInput?"":"&input=false");
 	if(fixedColumns!=null)
