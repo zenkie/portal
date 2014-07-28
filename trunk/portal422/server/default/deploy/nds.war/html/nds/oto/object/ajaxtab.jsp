@@ -151,7 +151,7 @@ for (int i = 0; i < rfts.size(); i++) {
 	}
 }
 %>
-<%@ include file="/html/nds/object/object_tabcontent.jsp" %>
+<%@ include file="/html/nds/oto/object/object_tabcontent.jsp" %>
 <%}catch(Throwable txc){
 	out.print("<pre>");
 	Throwable e = txc;

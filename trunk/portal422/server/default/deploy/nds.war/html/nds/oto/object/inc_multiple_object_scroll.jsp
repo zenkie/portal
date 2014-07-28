@@ -1,10 +1,10 @@
 <table border="0" cellpadding="0" cellspacing="2">
 <tr>
-<td><input type="checkbox" id="chk_select_all" value="1" onclick="gc.selectAll()"> <%= PortletUtils.getMessage(pageContext, "select-all",null)%></td>
-<td id="begin_btn" onclick="gc.scrollPage('begin_btn')"><img src="<%=NDS_PATH%>/images/begin.gif" width="16" height="16"></td>
-<td id="prev_btn" onclick="gc.scrollPage('prev_btn')"><img src="<%=NDS_PATH%>/images/back.gif" width="16" height="16"></td>
-<td id="next_btn" onclick="gc.scrollPage('next_btn')"><img src="<%=NDS_PATH%>/images/next.gif" width="16" height="16"></td>
-<td id="end_btn" onclick="gc.scrollPage('end_btn')"><img src="<%=NDS_PATH%>/images/end.gif" width="16" height="16"></td>
+<td><input type="checkbox" id="chk_select_all" value="1" onclick="gc.selectAll()"><span><%= PortletUtils.getMessage(pageContext, "select-all",null)%></span></td>
+<td id="begin_btn" onclick="gc.scrollPage('begin_btn')"><img src="<%=NDS_PATH%>/oto/themes/01/images/begin.gif" width="16" height="16"></td>
+<td id="prev_btn" onclick="gc.scrollPage('prev_btn')"><img src="<%=NDS_PATH%>/oto/themes/01/images/back.gif" width="16" height="16"></td>
+<td id="next_btn" onclick="gc.scrollPage('next_btn')"><img src="<%=NDS_PATH%>/oto/themes/01/images/next.gif" width="16" height="16"></td>
+<td id="end_btn" onclick="gc.scrollPage('end_btn')"><img src="<%=NDS_PATH%>/oto/themes/01/images/end.gif" width="16" height="16"></td>
 <td>
 <%= PortletUtils.getMessage(pageContext, "show-page-number",null)%>
 <select size="1" id="range_select" onChange="gc.scrollPage('range_select')">

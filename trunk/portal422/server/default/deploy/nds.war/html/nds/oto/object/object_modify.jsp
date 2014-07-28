@@ -13,10 +13,11 @@ if(objectId == -1 || (result!=null && result.getTotalRowCount()>0)){
 	
 %>
 <div id="obj-top">
+<h4 id="table_title" class="table_title"><%=table.getDescription(locale)%></h4>
 <div class="buttons"><span id="buttons"><!--BUTTONS_BEGIN-->
 <%@ include file="inc_single_object_modify_buttons.jsp" %>
 <!--input id="objdropbtn" type="button"  class='cbutton' value="<%=PortletUtils.getMessage(pageContext, "more",null)%>"-->
-<a id="objdropbtn"><img src="/html/nds/images/button_more.png"/><%=PortletUtils.getMessage(pageContext, "more",null)%></a>
+<!--<a id="objdropbtn"><img src="/html/nds/oto/themes/01/images/button_more.png"/><%=PortletUtils.getMessage(pageContext, "more",null)%></a>-->
 <!--BUTTONS_END-->
 </span>
 <%if(objHelp){%>
@@ -27,7 +28,7 @@ if(objectId == -1 || (result!=null && result.getTotalRowCount()>0)){
 	<%=PortletUtils.getMessage(pageContext, "view-workflow", null)%></a>
 <%}%>
 </div>
-<div id="objmenu" class="obj-dock interactive-mode"><!--OBJMENU_BEGIN--><%@ include file="inc_objmenu_modify.jsp" %><!--OBJMENU_END--></div>
+<div id="objmenu" class="obj-dock interactive-mode"><!--OBJMENU_BEGIN--><!--OBJMENU_END--></div>
 <div id="message" class="nt">
 		<%@ include file="inc_message.jsp" %>
 </div>

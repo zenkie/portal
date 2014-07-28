@@ -71,11 +71,11 @@
 	 	if(isInput==true && userWeb.hasObjectPermission(table.getName(),objectId,nds.security.Directory.WRITE)){
 	 		// write form
 	 		request.setAttribute("ismodify", "true");	
-	 		%><jsp:include page="<%=NDS_PATH+ \"/object/inlineobj.jsp\"  %>" flush="true" /><%
+	 		%><jsp:include page="<%=NDS_PATH+ \"/oto/object/inlineobj.jsp\"  %>" flush="true" /><%
 	 	}else if(userWeb.hasObjectPermission(table.getName(),objectId,nds.security.Directory.READ)){
 	 		// view form
 	 		request.setAttribute("ismodify", "false");
-	 		%><jsp:include page="<%=NDS_PATH+ \"/object/inlineobj.jsp\"  %>" flush="true" /><%
+	 		%><jsp:include page="<%=NDS_PATH+ \"/oto/object/inlineobj.jsp\"  %>" flush="true" /><%
 	 	}else{
 	 		// no permission to read
 	 		%>
@@ -94,7 +94,7 @@
 	  		// can write,and the object not exists, so create form
 	  		//write form
 	  		request.setAttribute("ismodify", "true");
-	  		%><jsp:include page="<%=NDS_PATH+ \"/object/inlineobj.jsp\"  %>" flush="true" /><%
+	  		%><jsp:include page="<%=NDS_PATH+ \"/oto/object/inlineobj.jsp\"  %>" flush="true" /><%
 	  	}
 	 }
  
@@ -129,7 +129,7 @@
 	  		}
 	  		
 	  		%>
-	  		<jsp:include page="<%=NDS_PATH+ \"/object/multiple_object.jsp\"  %>" flush="true" />
+	  		<jsp:include page="<%=NDS_PATH+ \"/oto/object/multiple_object.jsp\"  %>" flush="true" />
 	 <%
 	  	}
  	}else{
@@ -141,13 +141,13 @@
  			if((directoryPerm&nds.security.Directory.WRITE)!=0 ){
  				request.setAttribute("ismodify", "true");	
  				%>
- 				<jsp:include page="<%=NDS_PATH+ \"/object/multiple_object.jsp\"  %>" flush="true" />
+ 				<jsp:include page="<%=NDS_PATH+ \"/oto/object/multiple_object.jsp\"  %>" flush="true" />
  		<%
  			}
  		}else if( (directoryPerm&nds.security.Directory.READ)!=0 ){
  			request.setAttribute("ismodify", "false");	
  			%>
- 			<jsp:include page="<%=NDS_PATH+ \"/object/multiple_object.jsp\"  %>" flush="true" />
+ 			<jsp:include page="<%=NDS_PATH+ \"/oto/object/multiple_object.jsp\"  %>" flush="true" />
  		<%
  		}else{
  			// can not read

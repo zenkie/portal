@@ -1,6 +1,6 @@
 <%
 validCommands.clear();
-if((canModify||canDelete||canSubmit)&& isWriteEnabled && hasWritePermission){
+/*if((canModify||canDelete||canSubmit)&& isWriteEnabled && hasWritePermission){
 	if(object_page_url.indexOf("input=false")>0){
 		modifyPageUrl=StringUtils.replace(object_page_url,"input=false","input=true");
 	}else
@@ -40,8 +40,8 @@ if( table.isActionEnabled(Table.AUDIT) && table.isActionEnabled(Table.SUBMIT) &&
 			"oc.doUnsubmit("+shouldWarn+")",null
 		));
 	}
-}
-if(canUnvoid){
+}*/
+/*if(canUnvoid){
 		validCommands.add( commandFactory.newButtonInstance("Unvoid", 
 			PortletUtils.getMessage(pageContext, "object.unvoid",null),
 			"oc.doUnvoid()",null
@@ -49,21 +49,21 @@ if(canUnvoid){
 		if(canDelete){
 			validCommands.add( commandFactory.newButtonInstance("Delete", 
 			PortletUtils.getMessage(pageContext, "object.delete",null),
-			"oc.doDelete()",null,"/html/nds/images/tb_delete.gif"
+			"oc.doDelete()",null,"/html/nds/oto/themes/01/images/tb_delete.gif"
 			));
 		}
 }
 if(objectId!=-1){
     // get extended buttones
     validCommands.addAll(table.getExtendButtons(objectId, userWeb));
-}
+}*/
 validCommands.add( commandFactory.newButtonInstance("Print", 
 		PortletUtils.getMessage(pageContext, "object.print",null),
-		"oc.doPrint("+ tableId+","+ objectId+")",null,"/html/nds/images/tb_print.gif"
+		"oc.doPrint("+ tableId+","+ objectId+")",null,"/html/nds/oto/themes/01/images/tb_print.gif"
 		));		
 validCommands.add( commandFactory.newButtonInstance("Refresh", 
 			PortletUtils.getMessage(pageContext, "object.refresh",null),
-			"oc.doRefresh()",null,"/html/nds/images/tb_refresh.gif"
+			"oc.doRefresh()",null,"/html/nds/oto/themes/01/images/tb_refresh.gif"
 			));	
 
 %>
