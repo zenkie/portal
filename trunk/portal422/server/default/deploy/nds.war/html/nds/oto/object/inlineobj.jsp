@@ -53,6 +53,15 @@ if(nds.util.Validator.isNotNull(fkURLTarget)){
 <div id="inline-obj">
 <%
 if(table!=null){
+	int colspan=0;
+	int bigrowspan=0;
+	int endcolumn=-1;
+	int startcolumn=0;
+	int currentrow=-1;
+	Boolean isFind=false;
+	JSONArray rowspans=null;
+	JSONObject currentrowspan=null;
+	
 	String object_page_url=NDS_PATH+"/object/object.jsp?table="+
 		 tableId+ "&id="+ objectId+ "&select_tab="+ selectedTabId+(isInput?"":"&input=false");
 	if(fixedColumns!=null)
