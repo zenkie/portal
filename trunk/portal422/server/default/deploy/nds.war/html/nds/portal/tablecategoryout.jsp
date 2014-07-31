@@ -56,8 +56,8 @@ if(fa_tab instanceof Table){
 TableManager manager=TableManager.getInstance();
 TableCategory tc= manager.getTableCategory(tablecategoryId);
 //System.out.println(tc.getName());
-//String tabout1 = new String();
-String tabout1 ="<div><h3 class=\"ui-accordion-first\"><a style=\"color:white;\">我的收藏夹</a></h3><div id=\"mu_favorite\">"+famus+"</div></div>";
+String tabout1 = new String();
+//String tabout1 ="<div><h3 class=\"ui-accordion-first\"><a style=\"color:white;\">我的收藏夹</a></h3><div id=\"mu_favorite\">"+famus+"</div></div>";
 for(int j=0;j<categoryChildren.size();j++){
 List als=(List)categoryChildren.get(j);
 String	ACCORDION_name=(String)als.get(0);
