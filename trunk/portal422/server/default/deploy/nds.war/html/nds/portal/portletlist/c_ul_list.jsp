@@ -30,23 +30,23 @@ try{
 		boolean whiteBg= false;
 		
 		int pkValue;
-		boolean showDiv=(meta.getColumnCount()>2);
+		boolean showDiv=false;//(meta.getColumnCount()>2);
 		while(result.next()){
 			//if(serialno%5==0) whiteBg = (whiteBg==false);
 			whiteBg = (whiteBg==false);
 			serialno ++;
 			String itemId = "-1";
 			%>
-			<li id='<%=namespace%>li_<%=serialno%>' class='<%=(whiteBg?"even-row":"odd-row")%>'>
+			<li id='<%=namespace%>li_<%=serialno%>' class='<%=(whiteBg?"even-row":"odd-row")%> not_<%=result.getObject(3)%>'>
 				<%
 				String resPkId = null;
 				String tdAttributes;
 				Column colmn;
 				pkValue= Tools.getInt(result.getObject(1),-1);
 				String columnDataShort;
-				for(int i=1;i< meta.getColumnCount();i++){ // first column should always be PK
+				for(int i=1;i< meta.getColumnCount()-1;i++){ // first column should always be PK
 					tdAttributes="";
-					String columnData=result.getString(i+1, true);
+					String columnData=(String)result.getObject(i+1);
 					String originColumnData= result.getString(i+1, false);
 					colmn=manager.getColumn(meta.getColumnId(i+1));
 					String url=null;
@@ -90,11 +90,14 @@ try{
 						<div class="lidiv_<%=i%>">
 							<%=columnData%>
 						</div>	
-					<%}else{%>
+						<%}else{%>
 						<%=columnData%>
-					<%}
+
+							<%}
+					
 				}// for循环
 				%>
+			
 			</li>
 		<%}//while
 		if(!"NONE".equals(uiConfig.getMoreStyle())  && !"TITLE".equals(uiConfig.getMoreStyle())  ){

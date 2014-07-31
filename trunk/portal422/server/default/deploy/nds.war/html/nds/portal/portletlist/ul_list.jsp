@@ -101,12 +101,15 @@ if(result.getRowCount() == 0){
             	else
             		target=mainTarget;
             }
-            //Tools.isHTMLAnchorTag(columnData)
-            if(uiConfig.getColumnLength()!=null){
+			//Tools.isHTMLAnchorTag(columnData)
+			columnDataShort=columnData;
+			/*
+			if(uiConfig.getColumnLength()!=null){
 				columnDataShort= StringUtils.shortenInBytes(columnData, uiConfig.getColumnLength()[i-1]);
             }else{
             	columnDataShort= StringUtils.shortenInBytes(columnData, MAX_COLUMNLENGTH_WHEN_TOO_LONG);
-            }
+				}
+			*/
             if(url!=null) columnData="<a "+ 
             	(columnDataShort.length()==columnData.length()?"": "title='"+columnData+"' ")
             	+(target==null?"":"target='"+target+"' ") +"href='"+ url+"'>"+ columnDataShort + "</a>";
