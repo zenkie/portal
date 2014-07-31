@@ -23,7 +23,7 @@ PortalControl.prototype = {
 		};
 		try{
 			var tabs=new CategoryTabs(gMenuObjects);
-			$("portal_middle_left_fmenu").innerHTML="<a href='#' style='opacity:0.4' class='icon0-1' title='返回' onclick='pc.menu_toggle(this);'></a>";
+			$("portal_middle_left_fmenu").innerHTML="<a href='#' style='opacity:0.4' class='icon0-1' title='' onclick='pc.menu_toggle(this);'></a>";
 			$("portal_middle_right_menu").innerHTML=tabs.toString();
 			//查询功能按钮
 			//识别IE8 没有查询功能
@@ -2457,6 +2457,22 @@ mufavorite.prototype = {
 		//this._loadInfo();
 		//var brandid=0;
 		//this._brandid="";
+	},
+
+
+	update_mail_nums:function(){
+		var expr={column:"",condition:"exists(select 1 from dual where U_NOTE.ownerid=$USER_ID$ and U_NOTE.DOCSTATUS='INIT')"};
+		var params={table:"U_NOTE", columns:["id"],params:expr, range:100};
+		var trans={id:1, command:"Query",params:params};
+		var a=new Array(1);
+		a[0]=trans;
+		portalClient.sendRequest(a,function(response){
+			if(!mu.checkResponse(response,0))return;
+			var rows=response.data[0].rows.size();
+			jQuery("#mail_nums").html(rows);
+		if(rows>0){jQuery("#mail_nums").css({"min-width":"14px"});}
+		});
+	
 	},
 
 	add_mufavorite:function(tb_name,tb_id,rpt,cx_id){
