@@ -73,13 +73,16 @@ if(ssId==-1 && nds.util.Validator.isNull(directTb)&&defaultboshome){
 */
 
 boolean fav_show=Tools.getYesNo(userWeb.getUserOption("FAV_SHOW",defaultSsviewFirst?"Y":"N"),true);
+nds.util.License.LicenseType ltype=nds.control.web.WebUtils.getLtype();
+String mms=nds.control.web.WebUtils.getMms();
+String cp=nds.control.web.WebUtils.getCompany();
 
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>NewBos</title>
+<title>Bos2.0 <%="<"+cp+">"%></title>
 	<!--meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"-->
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9;" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -139,7 +142,7 @@ jQuery(function(){
 	}; 
 	var options = {
 		serviceUrl: '/html/nds/portal/QueryServices.jsp',//获取数据的后台页面
-		width: 150,//提示框的宽度
+		width: 255,//提示框的宽度
 		delimiter: /(,|;)\s*/,//分隔符
 		onSelect: onAutocompleteSelect,//选中之后的回调函数
 		deferRequestBy: 0, //单位微秒
@@ -149,14 +152,18 @@ jQuery(function(){
 	};
 	a1 = jQuery("#pojam").autocomplete(options);
 	a1.enable();
+	mu.update_mail_nums();
+
 });
 
 
+<%if(msgref_time>0){%>
 jQuery(document).ready(function(){
 
 setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);			
 
 });
+<%}%>
 </script>	
 </head>
 <body>
@@ -289,7 +296,7 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 			<div id="portal_middle_right_search" class="<%=ssId!=-1?"":"title"%>" style="height:38px;">
 				<div id="portal_middle_right_search_title" class="<%=ssId!=-1?"content_right-title":"title-left"%>" style="margin-left: 10px;">子系统</div>
 				
-					<div id="portal_middle_right_search_input" class="<%=ssId!=-1?"search-1":"search"%>" title="<%=directTb%>">		
+					<div id="portal_middle_right_search_input" class="<%=ssId!=-1?"search-1":"search"%>" >
 						<form name="lab" method="post" onsubmit="pc.navigate(\"ad_table\")"><input id="pojam" type="text" class="search-button" autocomplete="off" placeholder="搜索菜单或关键字"/></form>
 					</div>
 					<div style="margin:0;overflow:hidden;" ><%@ include file="../list_menu.jsp" %></div>
