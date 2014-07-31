@@ -48,9 +48,11 @@
 <script language="javascript" src="/html/nds/js/dw_scroller.js"></script>
 <!--script language="javascript" src="/html/nds/js/portletcontrol.js"></script-->
 <script language="javascript" src="/html/nds/js/init_portalcontrol_<%=locale.toString()%>.js"></script>
-<script language="javascript" src="/html/nds/js/portalcontrol.js"></script>
+<script language="javascript" src="/html/nds/js/portalcontrol.js"></script><!--paco delete-->
+<!--script language="javascript" src="/html/nds/js/newjs/portalcontrol.js"></script--><!--paco add-->
 <script language="javascript" src="/html/nds/js/object_query.js"></script>
-<script language="javascript" src="/html/nds/js/categorymenu.js"></script>
+<script language="javascript" src="/html/nds/js/categorymenu.js"></script><!--paco delete-->
+<!--script language="javascript" src="/html/nds/js/newjs/categorymenu.js"></script--><!--paco add-->
 <script language="javascript" src="/html/nds/js/dockmenu.js"></script>
 <script language="javascript" src="/html/nds/js/outline.js"></script>
 <script language="javascript" src="/html/nds/js/jdate/My97DatePicker/WdatePicker.js"></script>
@@ -100,6 +102,23 @@
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/objdropmenu.css">
 <!--link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/drop_menu3.css"-->
 <link type="text/css" rel="stylesheet" href="/html/nds/portal/ssv/css/home.css" />
+<!--paco 2014-6-24 add begin-->
+<link type="text/css" href="<%=userWeb.getThemePath()%>/css/newcss/public.css" rel="stylesheet" />
+<link type="text/css" href="<%=userWeb.getThemePath()%>/css/newcss/index.css" rel="stylesheet" />
+<link type="text/css" href="<%=userWeb.getThemePath()%>/css/newcss/top-js.css" rel="stylesheet" />
+<%if(ssId==-1){%>
+<script type="text/javascript" src="/html/nds/js/newjs/pos.slider.js"></script>
+<script type="text/javascript" src="/html/nds/js/newjs/select.checkbox.js"></script>
+<script type="text/javascript" src="/html/nds/js/newjs/computer.view.size.js"></script>
+<script type="text/javascript" src="/html/nds/js/newjs/sidebar.js"></script>
+<%}else{%>
+<script type="text/javascript" src="/html/nds/js/newjs/select.checkbox.js"></script>
+<script type="text/javascript" src="/html/nds/js/newjs/limits.js"></script>
+<script type="text/javascript" src="/html/nds/js/newjs/drag.js"></script>
+<script type="text/javascript" src="/html/nds/js/newjs/scroll-drag.js"></script>
+<script type="text/javascript" src="/html/nds/js/newjs/sidebar.js"></script>
+<%}%>
+<!--paco 2014-6-24 add end-->
 <%}//end JAVASCRIPT_FAST_LOAD
 %>
 <title><%=userWeb.getClientDomainName()%></title>
