@@ -29,7 +29,7 @@
 					ButtonShadow ButtonHighlight;
 	cursor: pointer;
 */
-    border-left: 1px solid #FFFFFF;
+    border-left: 1px solid #BEBEBE;
     border-right: 1px solid #BEBEBE;
     cursor: pointer;
     margin: 0;
@@ -62,7 +62,7 @@
 /*
 	background:	#fff;
 */
-background-color: #EEEFF0;
+background-color: #f8f8f8;
 
 }
 .row-M {
@@ -128,9 +128,9 @@ background:transparent none repeat scroll 0%;
 color:blue !important;
 }
 
-a {color: #0000ff;text-decoration: none}
+a {/* color: #686868; */color:black;text-decoration: none}
 /*a:visited{text-decoration: none;color: #0000ff;}*/
-a:hover{color: #FF6600; text-decoration: underline}
+a:hover{color: #1f67a2; text-decoration: none}
 a:active {color: #FF0000}
 .object-query-content {
 	background-color: #FFFFFF;
@@ -150,7 +150,7 @@ a:active {color: #FF0000}
 .inputline {
 font: normal 9pt "Verdana", "Arial", "Helvetica", "sans-serif";
 border: solid;
-border-color: #CCCCCC #999999 #000000;
+border-color: #CCCCCC #999999 #999999;
 vertical-align: middle;
 border-width: 0px 0px 1px;
 background-color:transparent;
@@ -294,8 +294,8 @@ TR.odd { background-color: #EEEEEE; color: #000000; font-family: Tahoma, Arial; 
 .portlet-form-field { color: #000000; font-family: Tahoma, Arial; font-size: medium; }
 
 #navBar {
-    /*background: url("/html/nds/themes/classic/01/images/hmenuarrowhover.gif") no-repeat scroll right center #43779F;*/
-	background:url("/html/nds/themes/classic/01/images/leftmenutitle.png") repeat-x scroll 0 0 transparent;
+    /*background: url("/html/nds/themes/classic/01/images/hmenuarrowhover.gif") no-repeat scroll right center #43779F;
+	background:url("/html/nds/themes/classic/01/images/leftmenutitle.png") repeat-x scroll 0 0 transparent;*/
     clear: both;
     color: #FFFFFF;
     display: block;
@@ -341,10 +341,11 @@ text-indent: -9999em;
 _font-size: 0;
 cursor: pointer;
 _line-height: 17px;
-position: absolute;
+/*position: absolute;paco delete*/
 outline: none;
-right: 4px;
+right: 34px;  /*paco modify from 4px to 34px*/
 width: 13px;
+float:right;/*paco add*/
 	}
 
 .fa_mu:hover {

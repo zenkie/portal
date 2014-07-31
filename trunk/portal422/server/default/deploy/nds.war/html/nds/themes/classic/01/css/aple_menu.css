@@ -132,14 +132,14 @@ left: 213px;
     padding: 0 10px;
     overflow: hidden;
     margin-bottom: -1px;
-    height: 2.25em;
+    height: 2em;
 }
 
 #tabs .ui-tabs-nav li {
     float: left;
     list-style: none;
     margin: 0;
-    padding: .25em .25em 0;
+    padding: 0 .2em 0;
     height: 2em;
     overflow: hidden;
     position: relative;
@@ -190,14 +190,14 @@ left: 213px;
     z-index: 2;
 /*     padding: 2em 1em; */
 	padding: 0.8em 1em;
-    border: 1px solid #CCC;
+    border: 1px solid #d3d3d3;
     background: #FFF;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: #CCC 0 0 .25em;
+    /*-webkit-box-shadow: #CCC 0 0 .25em; paco delete*/
     -moz-box-shadow: #CCC 0 0 .25em;
-    box-shadow: #CCC 0 0 .25em;
+    /*box-shadow: #CCC 0 0 .25em;paco delete */
     behavior: url(PIE.htc);
     /*width:902px;*/
     /*width:100%;*/
@@ -216,7 +216,7 @@ left: 213px;
     padding: 0 10px;
     overflow: hidden;
     margin-bottom: -1px;
-    height: 2.25em;
+    /*height: 38px;paco delete*/
 }
 
 #page-table-query-tab .ui-tabs-nav li {
@@ -367,5 +367,6 @@ box-shadow: #CCC 0 0 .25em;
     -webkit-box-shadow: #CCC 0 0 .25em;
     -moz-box-shadow: #CCC 0 0 .25em;
     box-shadow: #CCC 0 0 .25em;
+	overflow: auto;
     behavior: url(PIE.htc);
 }

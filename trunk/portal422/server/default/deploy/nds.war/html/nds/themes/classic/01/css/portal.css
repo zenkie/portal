@@ -1,5 +1,8 @@
 @import url(/html/nds/css/ui.datepicker.css);
-
+.icon-img{
+	width:40px;
+	height:40px;
+}
 a:hover {
 text-decoration:underline;
 }
@@ -47,6 +50,7 @@ padding:0pt;
 textarea {
 	/*font-size:1em;*/
 	font: normal 9pt "Verdana", "Arial", "Helvetica", "sans-serif"; 
+	outline: none;
 }
 .form-button {
 border:1px solid #9FB7D3;
@@ -165,27 +169,31 @@ color:#007F00;
 .gamma-tab {
 /*
 background:url(/html/nds/themes/classic/01/images/from-center-bg.jpg) repeat-x scroll;
-*/
 background:url("/html/nds/themes/classic/01/images/h2bg.gif") no-repeat scroll left center #FFFFFF;
+*/
 margin:0;
-padding-bottom:30px;
+line-height:30px;
+vertical-align:middle;
 padding-left:0px;
-    border-bottom: 1px solid #BACED5;
- 
+border-bottom: 1px solid #BACED5;
+overflow: auto;
+background-color: #0e5f8e; 
 }
+
 .gamma-tab ul, .gamma-tab li {
 float:left;
 padding:2px 10px;
+
 }
 
 .gamma-tab ul.current, .gamma-tab li.current {
 border:0px;
-color:#484848;
+color:#FFFFFF;
 font-size: 12px;
 font-weight:bold;
 /*position:absolute;*//*delete by ken to let the menu hide by animation*/
 padding-top:10px;
-padding: 8px 21px;
+padding: 0 21px;
 }
 
 .gamma-tab li a {
@@ -292,18 +300,31 @@ margin:0px;
 	padding-top: 40px;
 	text-align: left;
 }
-input[type="button"]{
-/* background:transparent url(/html/nds/themes/classic/01/images/button_bg.gif) repeat scroll 0%; */
-background:transparent url(/html/nds/themes/classic/01/images/bos-bt.png) repeat scroll 0%;
-border:1px solid #a7a7a7;
-padding: 4px 4px;
-+padding:0px;/*IE*/
+/* paco 2013-8-22 delete css begin*/
+/*input[type="button"]{*/
+/*original delete*//* background:transparent url(/html/nds/themes/classic/01/images/button_bg.gif) repeat scroll 0%; */
+/*background:transparent url(/html/nds/themes/classic/01/images/bos-bt.png) repeat scroll 0%;*/
+/*border:1px solid #a7a7a7;*/
+/*padding: 4px 4px;*/
+/*+padding:0px;*//*original delete IE*/
+/*}*/
+/* paco 2013-8-16 delete css end*/
+div.desc-txt {
+padding-left: 13px;
 }
-.cbutton{height:22px;
-background:transparent url(/html/nds/themes/classic/01/images/bos-bt.png) repeat scroll 0%;
-border:1px solid #BFA277;
-/* width:69px; */
+.cbutton{
+height:22px;
+/*background:transparent url(/html/nds/themes/classic/01/images/bos-bt.png) repeat scroll 0%;paco delete*/
+/*border:1px solid #BFA277;paco delete*/
+/*width:69px; paco delete */
 color:#484848;
+padding-left: 8px;
+padding-right: 8px;
+border:0px;
+}
+input[type="button"]:hover{
+	color:#fff;
+	background:#1772a7;
 }
 
 .smalltab{
@@ -321,9 +342,10 @@ font-weight:bold;
 text-align:right;
 }
 .sqldesc{
-/*width:450px;*/
-overflow: auto;
-display: inline-block;
-word-break: break-word;
-max-height: 50px;
+width:450px;
+}
+.currentimg{
+background:url(../images/Trash.png) no-repeat;
+padding: 10px 20px 10px 0px!important;
+margin: 5px 0px 0px 35px;
 }

@@ -1,0 +1,201 @@
+@charset "utf-8";
+/*===========top-js-css=========*/
+.change { }
+.menu-open {
+    color: #666!important;
+    outline: none;
+}
+
+#change_warp {
+	/*
+	width: 511px;
+    height: 372px;
+    position: absolute;
+    background: rgba(0,0,0,0.3);
+    border-radius: 15px;
+    top: 10px;
+    right: 7px;
+	*/
+	width: 511px;
+	height: 378px;
+	position: absolute;
+	background: rgba(0,0,0,0.3);
+	border-radius: 15px;
+	top: 10px;
+	right: 7px;
+	background: #383939;
+}
+
+
+#change_menu {
+    display: none;
+    position: relative;
+    width: 527px;
+    height: 390px;
+    z-index: 100;
+    top: -10px;
+    right: 17px;
+    *top: -6px!important;
+    *right: 65px!important;
+    border: none;
+	opacity:.8;
+}
+
+.change_content{
+height: 100%;
+width: 100%;
+position: absolute;
+}
+.menu_num_active{
+background-color: #1770A4;
+}
+
+
+.change_menu-top {
+    /*
+	width: 527px;
+    height: 22px;
+    background: rgba(0,0,0,0.6);
+    filter: alpha(opacity=60);
+    background: url(/images/newimages/change_menu_03.png) no-repeat;
+	*/
+	width: 527px;
+	height: 22px;
+	background: rgba(0,0,0,0.6);
+	filter: alpha(opacity=60);
+	background: url(/images/newimages/change_menu_03.png) no-repeat;
+}
+.change_menu-mid {
+	/*
+    width: 527px;
+    height: 346px;
+    background: rgba(0,0,0,0.6);
+    filter: alpha(opacity=60);
+    background: url(/images/newimages/change_menu_05.png) repeat-y;
+	*/
+	width: 525px;
+	height: 347px;
+	background: rgba(0,0,0,0.6);
+	filter: alpha(opacity=60);
+	background: url(/images/newimages/change_menu_05.png) repeat-y;
+}
+.change_menu-bot {
+    width: 527px;
+    height: 22px;
+    background: rgba(0,0,0,0.6);
+    filter: alpha(opacity=60);
+    background: url(/images/newimages/change_menu_11.png) no-repeat;
+}
+.change_menu-mid_main {
+	/*
+    width: 470px;
+    nowhitespace: afterproperty;
+    height: 310px;
+    overflow: auto;
+    font-size: 12px;*/
+    /* border: 1px #fff solid;*/ color:#fff; position:relative; top:0px; left:28px;;
+    /**left: -20px!important;
+    z-index: 200;*/
+	/*border: 1px #fff solid; */
+	color: #fff;
+	position: relative;
+	top: 0px;
+	left: 28px;
+	width: 505px;
+	nowhitespace: afterproperty;
+	height: 335px;
+	overflow: hidden;
+	font-size: 12px;
+	/* border: 1px #fff solid; */
+	color: #fff;
+	position: relative;
+	top: 0px;
+	left: 18px;
+	z-index: 200;
+}
+.change_menu-mid_main ul { }
+.change_menu-mid_main ul li {
+	/*
+    width: 72px;
+    height: 70px;
+    text-align: center;
+    float: left;
+    margin-left: 6px;
+    margin-top: 20px;
+    display: inline;
+    cursor: pointer;
+	*/
+	width: 72px;
+    height: 60px;
+	text-align: center;
+	float: left;
+	margin-left: 6px;
+	margin-top: 20px;
+	display: inline;
+	cursor: pointer;
+}
+.change_menu-mid_main ul li a {
+    width: 72px;
+    height: 70px;
+    text-align: center;
+    display: block;
+    filter: alpha(opacity=80);
+}
+.change_menu-mid_main ul li:hover {
+    width: 72px;
+    height: 60px;
+    display: block;
+    filter: alpha(opacity=70);
+}
+.change_menu-mid_main ul li a p {
+    text-align: center;
+    padding: 3px;
+}
+.change_menu-mid_main ul li a {
+    color: #FFF;
+    text-decoration: none;
+}
+.change_menu-mid_main ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+.change_menu-mid_main-num {
+	/*
+    width: 113px;
+    height: 30px;
+    margin: 0 auto;
+    background: url(/images/newimages/change_menu_08.png) no-repeat;
+	*/
+	width: 113px;
+	height: 25px;
+	margin: 0 auto;
+	position: relative;
+	/* background: url(/images/newimages/change_menu_08.png) no-repeat; */
+}
+.change_menu-mid_main-num>ul{
+	min-width: 113px;
+	border: 1px solid;
+	height: 20px;
+	border-radius: 15px;
+	text-align: center;
+	overflow: hidden;
+}
+.change_menu-mid_main-num ul { }
+.change_menu-mid_main-num ul li {
+	width: 18px;
+	height: 18px;
+	text-align: center;
+	margin-left: 0px;
+	display: inline-block;
+	/* background-color: #1770A4; */
+	border-radius: 15px;
+	margin: 1px;
+	float: none;
+}
+.change_menu-mid_main-num ul li:hover{
+	cursor:pointer;
+}
+.change_menu-mid_main-num ul li.num1 { background: url(/images/newimages/1-2.png) no-repeat }
+.change_menu-mid_main ul li a p.bghidden {display: none;}
+.change_menu-mid_main ul li:hover a p:first-child {display: none;}
+.change_menu-mid_main ul li:hover a p.bghidden {display: block;}
