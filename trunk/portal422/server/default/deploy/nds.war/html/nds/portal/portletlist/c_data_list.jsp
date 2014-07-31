@@ -42,7 +42,7 @@ if(query ==null){
     query.setMainTable(tableId,true, dataConfig.getFilter());
     String resultHandler= (String)request.getAttribute("resulthandler");
     if(nds.util.Validator.isNull(resultHandler))
-    	resultHandler="/html/nds/portal/portletlist/table_list.jsp";
+    	resultHandler="/html/nds/portal/portletlist/c_table_list.jsp";
     query.setResultHandler(resultHandler);
     		
     query.addSelection(table.getPrimaryKey().getId());
@@ -81,6 +81,8 @@ if(!dataConfig.isPublic()){
 	Expression sexpr= userWeb.getSecurityFilter(table.getName(), 1);// read permission
 	query.addParam(sexpr);
 }
+query.addParam(table.getColumn("DOCSTATUS").getId(),"=INIT");
+query.setRange(0,15);
 result= QueryEngine.getInstance().doQuery(query);
 request.setAttribute("result", result);
 /**
