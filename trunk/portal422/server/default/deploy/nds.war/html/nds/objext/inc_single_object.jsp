@@ -119,6 +119,28 @@
     <td height="18" width="<%=widthPerColumn*2/3%>%" nowrap align="left" valign='top'>
 	<%
 	// if button, or checkbox type(modify mode), will not display desc td
+	// add reflable desc
+	if(column.getJSONProps()!=null){
+	JSONObject jor=column.getJSONProps();
+	if(jor.has("reflable")){
+	JSONObject jo=column.getJSONProps().getJSONObject("reflable");
+   	 int lable_id=jo.optInt("ref_id",0);
+		 int lable_tabid=jo.optInt("tabid",0);
+		 Table reftable= manager.getTable(lable_tabid);
+		 query=QueryEngine.getInstance().createRequest(userWeb.getSession());
+		 query.setMainTable(lable_tabid);
+		 query.addSelection(reftable.getAlternateKey().getId());
+		 query.addParam( reftable.getPrimaryKey().getId(), ""+ lable_id);
+	   QueryResult rs=QueryEngine.getInstance().doQuery(query); 
+	   if(lable_id !=0 || (rs!=null && rs.getTotalRowCount()>0)){
+	    while(rs.next()) {
+	       desc=rs.getObject(1).toString(); 
+	    }
+		}
+		}
+	}
+
+
 	if(!(ds.getObjectType()==DisplaySetting.OBJ_BUTTON ) ){
     %>
     <%=desc%>:
