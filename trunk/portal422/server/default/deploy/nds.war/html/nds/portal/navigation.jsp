@@ -31,7 +31,7 @@ if(ssId==-1&&!defaultboshome){
 		jc=new org.json.JSONObject();
 		jc.put("id", 0);
 		jc.put("desc",PortletUtils.getMessage(pageContext, "navitab",null));
-		jc.put("url", "home.jsp");
+		jc.put("url", "/html/nds/portal/ssv/portal_body.jsp");
 		menuObjs.put(jc);
 	}
 	
@@ -42,7 +42,7 @@ if(ssId==-1&&!defaultboshome){
 	     jc=new org.json.JSONObject();
 	     jc.put("id", subSystemId);
 		 jc.put("desc", subSystemDesc);
-		 jc.put("url","subsystem.jsp?id="+subSystemId); 
+		 jc.put("url","/html/nds/portal/subsystem.jsp?id="+subSystemId); 
 		 menuObjs.put(jc);
 	} 
 	jc=new org.json.JSONObject();
@@ -60,7 +60,7 @@ if(ssId==-1&&!defaultboshome){
 		jc=new org.json.JSONObject();
 		jc.put("id", 0);
 		jc.put("desc",PortletUtils.getMessage(pageContext, "navitab",null));
-		jc.put("url", "/html/nds/portal/ssv/home.jsp");
+		jc.put("url", "/html/nds/portal/ssv/portal_body.jsp");
 		menuObjs.put(jc);
 	}
 	*/
@@ -68,14 +68,14 @@ if(ssId==-1&&!defaultboshome){
 		jc=new org.json.JSONObject();
 		jc.put("id", 0);
 		jc.put("desc",PortletUtils.getMessage(pageContext, "navitab",null));
-		jc.put("url", "/html/nds/portal/ssv/home.jsp?ss=-1");
+		jc.put("url", "/html/nds/portal/ssv/portal_body.jsp?ss=-1");
 		jc.put("ssid",ssId);
 		menuObjs.put(jc);
 	}
 	List cats;
-  if(ssId!=-1){
-	 cats=ssv.getTableCategories(request,ssId);
-	}else{cats=new ArrayList();}
+	if(ssId!=-1){cats=ssv.getTableCategories(request,ssId);}
+	else{cats=new ArrayList();}
+	
 	for (int i=0; i< cats.size(); i++){   
 	     List child=(List)cats.get(i);
 	     Object o =child.get(0);
@@ -84,7 +84,7 @@ if(ssId==-1&&!defaultboshome){
 		     jc=new org.json.JSONObject();
 		     jc.put("id", tc.getId());
 			 jc.put("desc", tc.getName());
-			 jc.put("url","tablecategory.jsp?id="+tc.getId()); 
+			 jc.put("url","/html/nds/portal/tablecategory.jsp?id="+tc.getId()); 
 			 menuObjs.put(jc);
 			 hasOnlyActions=false;
 	     }else if(o instanceof WebAction){
@@ -92,7 +92,7 @@ if(ssId==-1&&!defaultboshome){
 			jc=new org.json.JSONObject();
 		     jc.put("id", "_"+wa.getId());//nerver equals to Tablecategory
 			 jc.put("desc", wa.getDescription());
-			 jc.put("url","webaction.jsp?id="+wa.getId()); 
+			 jc.put("url","/html/nds/portal/webaction.jsp?id="+wa.getId()); 
 			 menuObjs.put(jc);     	
 	     }else{
 	     	throw new Error("Unsupported type in ssv:"+ o.getClass());	
@@ -108,7 +108,7 @@ if(ssId==-1&&!defaultboshome){
 
 }	
 %>
-<ul id="page-nav-container"></ul>
+<ul id="page-nav-container" style="display:none;"></ul>
 <script>
 	var gMenuObjects=<%=menuObjs.toString()%>;
 </script>
