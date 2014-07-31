@@ -154,6 +154,8 @@ function CategoryTabItem(oTableCategory) {
 	categoryTabHandler.all["C"+this.id] = this;
 }
 CategoryTabItem.prototype.select = function() {
+var title=this.oTableCategory.desc;
+	//$("portal_middle_right_search_title").innerText=title;
 	if ((categoryTabHandler.selected) && (categoryTabHandler.selected != this)) { 
 		if(categoryTabHandler.selected.id!=0&&this.oTableCategory.id==0){
 			window.location="/html/nds/portal/portal.jsp";
@@ -161,16 +163,20 @@ CategoryTabItem.prototype.select = function() {
 		categoryTabHandler.selected.deSelect(); 
 	}
 	categoryTabHandler.selected = this;
-	document.getElementById("page-tab-"+this.id).className="page-tab-selected";
+	//document.getElementById("page-tab-"+this.id).className="page-tab-selected";
 	//alert(this.oTableCategory.url);
 	if(dwr.engine._preHook) dwr.engine._preHook();
 	new Ajax.Request(this.oTableCategory.url, {
 	  method: 'get',
 	  onSuccess: function(transport) {
-	  	if(dwr.engine._postHook) dwr.engine._postHook();	
+	  	if(dwr.engine._postHook) dwr.engine._postHook();
+		//$("portal_middle_left_title").innerText=title;		
 	  	var pt=$("portal-content");
 	    pt.innerHTML=transport.responseText;
 	    executeLoadedScript(pt);
+		try{
+			loadIndex();
+		}catch(ex){}
 	  },
 	  onFailure:function(transport){
 	  	//try{
@@ -203,15 +209,19 @@ CategoryTabItem.prototype.toString= function() {
 	//var str = "<div id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\"><div class=\"page-tab-text\">" +
 		//			this.oTableCategory.desc+"</div></div>";
 	//alert(this.id);
+	/*
 	if(this.id==0){
 		var str = "<li id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\"><a class=\"page-tab-text\">" +
 	"<img src=\"/html/nds/themes/classic/01/images/bos-logo.png\" alt=\"BOS Logo\"></a></li>";
 	}else{
 	var str = "<li id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\"><a class=\"page-tab-text\">" +
 	this.oTableCategory.desc+"</a></li>";
-  }
+  }*/
+  
+	if(this.id!=0){
+		var str = "<span id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\"><a class=\"page-tab-text\" title=\""+this.oTableCategory.desc+"\">" + this.oTableCategory.desc+"</a></span>";
+	}
 	return str;			
-		
 };
 function CategoryTabs(oCategories) {
 	var i,c,t,tb;

@@ -1143,12 +1143,6 @@ GridControl.prototype = {
 				if(col.isUploadWhenCreate) v= this._getValue("eo_"+ col.name);
 				else v=null;
 				line.push(v);
-				if(col.defocus){
-				focusInput=document.getElementById("eo_"+col.name);
-				dwr.util.selectRange(focusInput,0,this.MAX_INPUT_LENGTH);
-				this._lastFocusElement= focusInput;
-
-				}
 			}
 		}else{// existing row in grid, can also be a new line
 			line= this._data[this._currentRow];

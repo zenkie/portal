@@ -807,6 +807,19 @@ ObjectQuery.prototype = {
 	  	alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
 	  }
 	},
+	select_all:function(){
+		var check=document.getElementsByName("m_multiple_"+this._queryindex);
+		if(check[0].checked){
+			for(var i = 0;i<check.length;i++){
+				if(check[i].type == "checkbox") check[i].checked = false;
+			}
+		}
+		else{
+			for(var i = 0;i<check.length;i++){
+				if(check[i].type == "checkbox") check[i].checked = true;
+			}
+		}
+	},
 	remove_all:function(){
 		var value=this._queryindex;
 		dwr.util.removeAllRows("content_"+this._queryindex,{filter:function(tr){return (tr.id!="m_multiple_row_"+value);}});
@@ -815,7 +828,6 @@ ObjectQuery.prototype = {
 		this.multi_result[this._queryindex]=new Array();
 		this.condition="IN";
 	},
-
 	return_set:function(){
 		var fm=$("q_form_"+this._queryindex);
 	    var queryObj= Object.clone(this._gridQuery[this._queryindex]);
@@ -1392,12 +1404,12 @@ DynamicQuery.prototype = {
 			var pos, path,queryString,dynqueryDiv;
 			if($("div_dyn")!=null){
 				$("div_dyn").style.display="";
-				$("div_dyn").innerHTML ="<div id='divcontent_dyn' style='z-index: 10;'></div>";
+				$("div_dyn").innerHTML ="<div id='divcontent_dyn' style='z-index: 120;'></div>";
 			}else{
 				var	dynqueryDiv=document.createElement("div");
 				dynqueryDiv.id="div_dyn";
 				dynqueryDiv.style.display="";
-				dynqueryDiv.innerHTML ="<div id='divcontent_dyn' style='z-index:10;'></div>";
+				dynqueryDiv.innerHTML ="<div id='divcontent_dyn' style='z-index:120;'></div>";
 				document.body.appendChild(dynqueryDiv);
 			}
 			$("div_dyn").style.border="1px solid #ffffff";
@@ -1505,7 +1517,7 @@ DynamicQuery.prototype = {
 		$("div_dyn").style.left=offsets.x;
 		$("div_dyn").style.padding=0;
 		$("div_dyn").style.position="absolute";
-		$("div_dyn").style.zIndex=10;
+		$("div_dyn").style.zIndex=120;
 		$("divcontent_dyn").style.width=(Prototype.Browser.IE?$(this._accepter_id).offsetWidth+20:$(this._accepter_id).offsetWidth+20);
 		$("divcontent_dyn").style.top=div_top+"px";
 		$("divcontent_dyn").style.left=offsets.x;

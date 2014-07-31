@@ -5,14 +5,14 @@ var ObjDropMenu = {
 		var dockList = jQuery('#objdropmenu');
 
 		if (dockList!=null && dockList.length>0){
-			var btn=document.getElementById('objdropbtn');
+			/*var btn=document.getElementById('objdropbtn');
 			var offsets = getOffsets(btn);
 			dock.css({
 				top: offsets.y + (btn.offsetHeight ? btn.offsetHeight : 22) + "px",
 				left: (offsets.x -10)+ "px",
 				position:"absolute",
 				zIndex:80
-				});
+				});*/
 			dockList.hide();
 			var clickCheck=function(internalEvent) {
 						var currentEl = jQuery(internalEvent.target);
@@ -47,6 +47,17 @@ var ObjDropMenu = {
 			dock.removeClass('expanded');
 		}
 		else if (state == 'show') {
+			//paco add begin
+			var btn=document.getElementById('objdropbtn');
+			if(btn){
+				dock.css({
+				//top: offsets.y + (btn.offsetHeight ? btn.offsetHeight : 22) + "px",
+				left: btn.offsetLeft + "px",
+				position:"absolute",
+				zIndex:80
+				});
+			}
+			//paco add end
 			dockList.show();
 			dock.addClass('expanded');
 		}

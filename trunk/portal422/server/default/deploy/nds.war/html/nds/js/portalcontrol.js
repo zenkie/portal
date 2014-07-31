@@ -22,32 +22,44 @@ PortalControl.prototype = {
 			if($("list_query_form")!=null)toggleButtons($("list_query_form"),false);
 		};
 		try{
-		var tabs=new CategoryTabs(gMenuObjects);
-		//alert(tabs);
-		//查询功能按钮
-		//识别IE8 没有查询功能
-		if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.match(/8./i)=="8."){
-    $("page-nav-container").innerHTML=tabs.toString();
-  	}else{
-		$("page-nav-container").innerHTML=tabs.toString()+"<li id=\"search_bar\"><form name=\"lab\" method=\"post\" onsubmit=\"pc.navigate(\"ad_table\")\"><input id=\"pojam\" type=\"text\" autocomplete=\"off\"></form></li>";
-		}
-		//menu acction
-		jQuery('#page-nav-container a')
-		.css( {backgroundPosition: "-20px 35px"} )
-		.mouseover(function(){
-			jQuery(this).stop().animate({backgroundPosition:"(-20px 94px)"}, {duration:500})
-		})
-		.mouseout(function(){
-			jQuery(this).stop().animate({backgroundPosition:"(40px 35px)"}, {duration:200, complete:function(){
-				jQuery(this).css({backgroundPosition: "-20px 35px"})
-			}})
-		});
-		if(tabs.childNodes.length>=2&&tabs.childNodes[0].ssid!=-1){
-			tabs.childNodes[1].select();
-			}else{
-			tabs.childNodes[0].select();
+			var tabs=new CategoryTabs(gMenuObjects);
+			$("portal_middle_left_fmenu").innerHTML="<a href='#' style='opacity:0.4' class='icon0-1' title='返回' onclick='pc.menu_toggle(this);'></a>";
+			$("portal_middle_right_menu").innerHTML=tabs.toString();
+			//查询功能按钮
+			//识别IE8 没有查询功能
+			if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.match(/8./i)=="8."){
+				$("portal_middle_right_search_input").attr("display","none");
 			}
-		gMenuObjects=null;
+			if(tabs.childNodes.length>0){tabs.childNodes[0].select();}
+			gMenuObjects=null;
+		
+			/*
+			var tabs=new CategoryTabs(gMenuObjects);
+			//alert(tabs);
+			//查询功能按钮
+			//识别IE8 没有查询功能
+			if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.match(/8./i)=="8."){
+				$("page-nav-container").innerHTML=tabs.toString();
+			}else{
+				$("page-nav-container").innerHTML=tabs.toString()+"<li id=\"search_bar\"><form name=\"lab\" method=\"post\" onsubmit=\"pc.navigate(\"ad_table\")\"><input id=\"pojam\" type=\"text\" autocomplete=\"off\"></form></li>";
+			}
+			//menu acction
+			jQuery('#page-nav-container a')
+			.css( {backgroundPosition: "-20px 35px"} )
+			.mouseover(function(){
+				jQuery(this).stop().animate({backgroundPosition:"(-20px 94px)"}, {duration:500})
+			})
+			.mouseout(function(){
+				jQuery(this).stop().animate({backgroundPosition:"(40px 35px)"}, {duration:200, complete:function(){
+					jQuery(this).css({backgroundPosition: "-20px 35px"})
+				}})
+			});
+			if(tabs.childNodes.length>=2&&tabs.childNodes[0].ssid!=-1){
+				tabs.childNodes[1].select();
+			}else{
+				tabs.childNodes[0].select();
+			}
+			gMenuObjects=null;*/
 		}catch(ex){}
 		this._isButtonDisabled=false;
 		this._isListPageLoaded=false;
@@ -97,7 +109,7 @@ PortalControl.prototype = {
 
 	},
 	ssv:function(sid){
-		window.location="/html/nds/portal/portal.jsp?ss="+sid;
+		window.location="/html/nds/portal/ssv/index.jsp?ss="+sid;
 	},
 	/**
 	 Update last access time
@@ -143,7 +155,8 @@ PortalControl.prototype = {
 		//if(!pc._resizable) limitWidth=15;
 		//else limitWidth=245+15;//15 is added to reflect the addtion a toggle bar div between menu and table
 		//following modified by ken to estimated the client area after hiding of main navigation menu.
-		limitWidth=(jQuery("#portal-menu").css("display")=="block")?jQuery("#portal-menu").width()+jQuery("#portal-separator").width():jQuery("#portal-separator").width();
+		//limitWidth=(jQuery("#portal-menu").css("display")=="block")?jQuery("#portal-menu").width()+jQuery("#portal-separator").width():jQuery("#portal-separator").width();
+		limitWidth=(jQuery("#portal_middle_left").css("display")=="block")?jQuery("#portal_middle_left").width()+jQuery("#portal-separator").width():jQuery("#portal-separator").width();
 		//limitWidth=limitWidth+40;
 
 		//var e=$("embed-lines");
@@ -859,7 +872,15 @@ PortalControl.prototype = {
 	 Add menu items from web action definition
 	*/
 	addListMenuItems:function(html){
+		if(!$("portal-dock-list-"+this._tableObj.id)){
+			var pstr="<div class='portal-dock interactive-mode'><div class='table-buttons btn-more'><a href='#'><img src='/html/nds/images/button_more.png'>"+
+			gMessageHolder.MORE_COMMANDS+"</a></div>"+
+			"<ul class='portal-dock-list' id='portal-dock-list-"+ this._tableObj.id +"'>";
+			pstr+="</ul></div>";
+			new Insertion.Bottom($("page-nav-commands"), pstr);
+		}
 		new Insertion.Bottom($("portal-dock-list-"+this._tableObj.id), html);
+		DockMenu.init();
 	},
 	_onExecuteWebAction:function(e){
 		var r=e.getUserData().data;
@@ -1834,6 +1855,7 @@ PortalControl.prototype = {
 		evt.query=Object.toJSON(this._gridQuery);
 		evt.cxtab= $("rep_templet").value;
 		evt.filetype= filetype;
+		if(jQuery("#fold").val()!=null){evt.folder=jQuery("#fold").val();}
 		this.executeCommandEvent(evt);
     },
     modifyrep:function(){
@@ -1900,6 +1922,7 @@ PortalControl.prototype = {
 		evt.cxtab= cxtabValue;
 		//if(filetype!="xls") filetype="htm";
 		evt.filetype= filetype;
+		if(jQuery("#fold").val()!=null){evt.folder=jQuery("#fold").val();}
 		evt["nds.control.ejb.UserTransaction"]="N";
 		this.executeCommandEvent(evt);
 
@@ -2246,26 +2269,33 @@ PortalControl.prototype = {
 	},
 	menu_toggle:function(e){
    e.blur();
-   if(jQuery("#portal-menu").css("display")=="block" ){
-		jQuery("#leftToggler").height(jQuery("#leftToggler").height()-5);
-		jQuery("#portal-menu").css("display","none");
+   if(jQuery(".nav_right").css("display")=="block" ){
+		//jQuery("#leftToggler").height(jQuery("#leftToggler").height()-5);
+		jQuery(".nav_right").css("display","none");
 		//jQuery("#page-table-query").css("width","99%");
 		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-right.gif");
-		jQuery("#leftToggler").attr("class","leftToggler2");
-		jQuery("#hide_bar").attr("class","show_bar");
+		//jQuery("#leftToggler").attr("class","leftToggler2");
+		jQuery("#portal_middle_left").width(33);
+		jQuery("#portal_middle_left_fmenu :first-child").css({'opacity':0.4,'-webkit-transform':'rotate(180deg)'});
+		//jQuery("#hide_bar").attr("class","show_bar");
 		pc.resize();
 	}else{
-		jQuery("#portal-menu").css("display","block");
-		jQuery("#leftToggler").height("100%");
+		//jQuery("#portal-menu").css("display","block");
+		//jQuery("#leftToggler").height("100%");
+		jQuery(".nav_right").css("display","block");
+
 		//jQuery("#page-table-query").css("width","1151px");
 		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-left.gif");
-		jQuery("#leftToggler").attr("class","leftToggler");
-		jQuery("#hide_bar").attr("class","hide_bar");
+		//jQuery("#leftToggler").attr("class","leftToggler");
+		//jQuery("#hide_bar").attr("class","hide_bar");
 		//var e=$("embed-lines");
 		//var new_high=document.documentElement.clientWidth-209;
 		//jQuery("#embed-lines").css("width",new_high);
 		//alert(new_high)
 		//e.style.width=new_high;
+		jQuery("#portal_middle_left").width(222);
+		jQuery("#portal_middle_left_fmenu :first-child").css({'opacity':0.4,'-webkit-transform':''});
+
 		pc.resize();
 	}
    	$('portal-bottom').focus();
@@ -2465,7 +2495,7 @@ mufavorite.prototype = {
     cancel: true});
 		return;}
 	jQuery("#mu_favorite").append(fa_line);
-	jQuery("#tab_accordion" ).accordion({active:0});
+	//jQuery("#tab_accordion" ).accordion({active:0});
 	/*insert into mu_favorite*/
 	portalClient.createObject("MU_FAVORITE",{AD_TABLE_ID:tb_id,menu_no:1,fa_menu:tb_name,menu_re:muac,IS_REPORT:isreport}, function(response){
 		if(!mu.checkResponse(response,0))return;
@@ -2473,6 +2503,44 @@ mufavorite.prototype = {
 	});
 	});
 	},function(){art.dialog.tips('你取消了操作');});
+	},
+	
+	del_select_mufavorite:function(){
+		var selects=jQuery("#mu_favorite div input:checkbox:checked");
+		if(selects.size()<=0){
+			alert("请选择要删除的收藏项。");
+			return;
+		}
+		var values=jQuery.map(selects,function(ele){
+			return jQuery(ele).attr("value");
+		})
+		var tb_id=values.join(",");
+		art.dialog.confirm('是否从收藏夹中删除?',
+			function(){
+				var expr={column:"",condition:"exists(select 1 from dual where MU_FAVORITE.ownerid=$USER_ID$ and MU_FAVORITE.ad_table_id in("+tb_id+"))"};
+				var params={table:"MU_FAVORITE", columns:["id"],params:expr, range:selects.size()};
+				var trans={id:1, command:"Query",params:params};
+				var a=new Array(1);
+				a[0]=trans;
+				
+				portalClient.sendRequest(a,function(response){
+					if(!mu.checkResponse(response,0)){return;}
+					
+					var p_id;
+					var rows=response.data[0].rows;
+					for(var i=0;i<rows.length;i++){
+						p_id=rows[i][0];
+						portalClient.deleteObject("MU_FAVORITE",p_id,"id",function(response){
+							if(!mu.checkResponse(response,0)){return;}
+							mu.flash_mufavorite(values[i]);
+						});
+					}
+				});
+			},
+			function(){
+				art.dialog.tips('你取消了操作');
+			}
+		);
 	},
 
 	del_mufavorite:function(tb_id){
