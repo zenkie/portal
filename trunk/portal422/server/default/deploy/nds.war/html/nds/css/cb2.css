@@ -9,7 +9,7 @@
 	cursor: 			Default;
 	font: 				Icon;
 	font-weight: 		normal;
-	padding:			2px;
+	/*padding:			2px;*/
 	border:				0px solid ButtonFace;
 	white-space:		nowrap;
 	vertical-align:		middle;
@@ -17,24 +17,40 @@
 
 .coolButton img {
 	/*filter:				gray();*/
+	width: 16px;
+	height: 16px;
 }
-
+.coolButtonHover img {
+	/*filter:				gray();*/
+	width: 19px;
+	height: 18px;
+}
+.coolButtonDisabled  img,.coolButtonActiveDisabled  img,.coolButtonUpDisabled img{
+	/*filter:				gray();*/
+	width: 19px;
+	height: 18px;
+}
+.coolButtonActiveHover img {
+	/*filter:				gray();*/
+	width: 19px;
+	height: 18px;
+}
 .coolButtonHover {
-	border-width:		1px;
+	/*border-width:		1px;
 	border-left-color:	ButtonHighlight;
 	border-right-color:	ButtonShadow;
 	border-top-color:	ButtonHighlight;
 	border-bottom-color:ButtonShadow;
-	padding:			1px;		
+	padding:			1px;*/		
 }
 
 .coolButtonActiveHover {
-	border-width:		1px;
+	/*border-width:		1px;
 	border-left-color:	ButtonShadow;
 	border-right-color:	ButtonHighlight;
 	border-top-color:	ButtonShadow;
 	border-bottom-color:ButtonHighlight;
-	padding:			1px;
+	padding:			1px;*/
 }
 
 .coolButtonActive {
@@ -50,9 +66,13 @@
 .coolButtonUpDisabled,
 .coolButtonActiveDisabled,
 .coolButtonDisabled {
-	padding:			1px;
+	/*padding:			1px;*/
 	color:				GrayText;
-	border-width: 		1px;
+	filter: alpha(opacity=50);
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.3;
+	/*border-width: 		1px;*/
 }
 
 .coolButtonActiveDisabled {
@@ -138,8 +158,9 @@ max-width:668px;
  line-height: 19px;
 }
 #q_result-scroll{
- margin:0px 5px 0px 0px;
- width:600px;
+ margin:5px 0px 5px 2px;
+width: 432px;
+float: left;
 /*  min-width:600px;
  max-width:668px; */
 }
@@ -152,9 +173,18 @@ text-align:right;
 text-align:right;
 }
 #qbtns-multi{
-margin:0 0 0 18px;
+/*margin:12px 0 10px 8px;*/
 +margin:5px 10px 10px 5px;/*IEø…÷¥––*/
 float:left;
+width: 33%;
+text-align: left;
+}
+#qbtns-multi input:last-child {
+/*margin: 5px -6px 0px 5px;*/
+}
+#qbtns-multi input {
+/*float: left;*/
+margin: 0px 1px 0px 5px;
 }
 #multi-buttons{
 margin:0px 0px 0px 0px;
@@ -173,6 +203,8 @@ margin:1px 0px 0px 1px;
 #query-result{
 overflow:auto;
 max-height: 266px;
+width: 99%;
+padding-left: 3px;
 }
 #q_result-filter-desc{
 margin:0px 0px 10px 5px;
@@ -212,7 +244,7 @@ height:20px;
  width:120px;
 }
 #embed-lines{
- overflow-x:hidden;
+ overflow-x:auto;
  overflow-y:hidden;
  _padding-bottom:18px;/*for scrollbar*/
  margin-left:5px;
@@ -418,4 +450,5 @@ white-space:normal;
 }
 #cmdline{
 border:0px;
+z-index:100;
 }	
