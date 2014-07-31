@@ -1,3 +1,5 @@
+<%@ page language="java" pageEncoding="utf-8"%>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <table border="0" cellpadding="0" cellspacing="2" id="scrolltb">
 <tr>
 <td><input type="checkbox" id="chk_select_all" value="1" onclick="pc.selectAll()"> <%= PortletUtils.getMessage(pageContext, "select-all",null)%></td>
@@ -29,9 +31,9 @@ some company does not want to have edit feature here
 */
 if(canModify && listEditable){
 %>
-<a href='javascript:pc.switchView()'>[<span class="link_cn" id="switch-view-txt"><%=(listViewPermissionType==3? PortletUtils.getMessage(pageContext, "read-only-view",null):PortletUtils.getMessage(pageContext, "modify-view",null))%></span>]</a>
+<a href='javascript:pc.switchView()'>【<span class="link_cn" id="switch-view-txt"><%=(listViewPermissionType==3? PortletUtils.getMessage(pageContext, "read-only-view",null):PortletUtils.getMessage(pageContext, "modify-view",null))%></span>】</a>
 <%}%>
-<a href='javascript:pc.refreshGrid()'>[<span class="link_cn"><%= PortletUtils.getMessage(pageContext, "refresh",null)%></span>]</a>
+<a href='javascript:pc.refreshGrid()'>【<span class="link_cn"><%= PortletUtils.getMessage(pageContext, "refresh",null)%></span>】</a>
 <span id="txtRange"></span>
 &nbsp;-&nbsp;<%=table.getDescription(locale)%>
 
