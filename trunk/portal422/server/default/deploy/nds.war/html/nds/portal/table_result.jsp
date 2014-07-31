@@ -186,8 +186,14 @@ for(int i=0;i< meta.getColumnCount();i++){
     }
   %>
 <td nowrap align="<%=columnAligns[i]%>" width="<%= (int)(100* colmn.getLength()/ totalLength) %>%" <%=tdAttributes%>>
-	<%=columnData%>
-<%
+	<%
+	 if(colmn.getJSONProps()!=null){
+				JSONObject jor=colmn.getJSONProps();
+				if(jor.has("ispassword")){ %>
+				<input type="password" readonly="true"  value="<%=columnData%>" style="border: 0px;width: 50px;background:transparent;">
+				<%}}else{%>
+				<%=columnData%>
+	<%}
 if( TableManager.getInstance().getColumn(colmn.getTable().getName(),"p_step")!=null ){
        int p_step=Tools.getInt( QueryEngine.getInstance().doQueryOne("select p_step from  "+colmn.getTable().getName()+"  where id="+itemId),0);
        String iscomplete=(String)QueryEngine.getInstance().doQueryOne("select iscomplete from  "+colmn.getTable().getName()+"  where id="+itemId);
