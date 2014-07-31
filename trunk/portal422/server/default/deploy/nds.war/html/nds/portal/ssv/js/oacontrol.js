@@ -15,7 +15,7 @@ OAControl.prototype = {
 			if (message == null || message == "") msgbox("A server error has occured. More information may be available in the console.");
 	  		else msgbox(message);
 		};*/
-		application.addEventListener( "ExecuteAudit", this._onExecuteAudit,this);
+		application.addEventListener( "ExecuteoaAudit", this._onExecuteAudit,this);
 		application.addEventListener( "GotoERP",this._onGotoERP,this);
 		application.addEventListener( "onClearCache", this._onClearCache,this);
 	},
@@ -184,7 +184,7 @@ OAControl.prototype = {
 		evt.auditSetupAction= act;
 		evt.command="AuditSetup";
 		//evt["next-screen"]= "/oa/index.jsp";
-		evt.callbackEvent="ExecuteAudit";
+		evt.callbackEvent="ExecuteoaAudit";
 		evt["nds.control.ejb.UserTransaction"]="N";
 		evt.parsejson="Y"; // to normal event 
 		this._executeCommandEvent(evt);    	
@@ -212,7 +212,7 @@ OAControl.prototype = {
 		}
 		evt.command=$("command").value;
 		evt["next-screen"]= "/html/nds/portal/portal.jsp";
-		evt.callbackEvent="ExecuteAudit";
+		evt.callbackEvent="ExecuteoaAudit";
 		evt["nds.control.ejb.UserTransaction"]="N";
 		evt.parsejson="Y"; // to normal event 
 		if($("comments")!=null)evt.comments=$("comments").value;
@@ -246,8 +246,8 @@ OAControl.prototype = {
 			evt.auditSetupAction= act;
 		}
 		evt.command=$("command").value;
-		evt["next-screen"]= "/html/nds/portal/ssv/home.jsp";
-		evt.callbackEvent="ExecuteAudit";
+		evt["next-screen"]= "/html/nds/portal/ssv/index.jsp";
+		evt.callbackEvent="ExecuteoaAudit";
 		evt["nds.control.ejb.UserTransaction"]="N";
 		evt.parsejson="Y"; // to normal event 
 		if($("comments")!=null)evt.comments=$("comments").value;
