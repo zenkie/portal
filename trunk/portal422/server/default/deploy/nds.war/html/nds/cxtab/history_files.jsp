@@ -1,6 +1,9 @@
 <%@ include file="/html/nds/common/init.jsp" %>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%!
+	Configurations conf=(Configurations)nds.control.web.WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS);
+    Boolean pathname=nds.util.Tools.getBoolean(conf.getProperty("report_savepathbyuserid","false"),false);
+    
 	private final static int MAX_COL_LENGTH=100;
     /**
     Sort by modifieddate descending
@@ -92,7 +95,8 @@
     	%>
 <%
     ReportUtils ru = new ReportUtils(request);
-    String name = ru.getUserName();
+
+	String name = pathname?String.valueOf(ru.getUser().getUserId()):ru.getUserName();
     long spaceUsed = ru.getSpaceUsed();
     long spaceAvailable = ru.getQuota();
 
@@ -102,7 +106,7 @@
     int fi =1; //line no
     File[] files=null;
     if(dir.exists() && dir.isDirectory()){
-    	TableFilter tf=new TableFilter("CXR_"+cxtabId+"_");
+    	TableFilter tf=new TableFilter("CXR_");//+cxtabId+"_");
         files = dir.listFiles(tf);
         files = sort(files);
         for(int i=0;i<files.length;i++){

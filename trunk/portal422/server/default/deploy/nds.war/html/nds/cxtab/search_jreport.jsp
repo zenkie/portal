@@ -9,6 +9,8 @@
    params:
    	cxtab* - ad_cxtab.id, either ad_table_id is null, or pre_procedure is not null for that cxtab
 */
+	Configurations conf=(Configurations)nds.control.web.WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS);
+    Boolean pathname=nds.util.Tools.getBoolean(conf.getProperty("report_savepathbyuserid","false"),false);	
 	TableManager manager=TableManager.getInstance();
 	int cxtabId= ParamUtils.getIntAttributeOrParameter(request, "cxtab", -1);
 	if(cxtabId ==-1){
@@ -23,6 +25,7 @@
 	int parent_id=Tools.getInt( QueryEngine.getInstance().doQueryOne("select parent_id from ad_cxtab where id="+cxtabId), -1);
 	String cxtabRootId= String.valueOf((parent_id==-1? cxtabId:parent_id));
 	int lastExecCxtabId=Tools.getInt( userWeb.getPreferenceValue("cxtab"+cxtabRootId,cxtabRootId,false),-1);
+	lastExecCxtabId=Tools.getInt( QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where id="+lastExecCxtabId),-1);
 	if(lastExecCxtabId!=-1)cxtabId= lastExecCxtabId;
 
 	List list=QueryEngine.getInstance().doQueryList("select ad_table_id,name, description,attr1,attr2 from ad_cxtab where id="+ cxtabId);
@@ -46,6 +49,9 @@
 	boolean firstDateColumnFound=false;	
 %>
 <div id="page-table-query">
+	<input id="fold" type="hidden" value="<%=pathname==false?"":userWeb.getUserId()%>">
+
+
 	<div id="page-table-query-tab">
 		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span></a></li></ul>
 		<div id="tab1" class="ui-tabs-panel">
