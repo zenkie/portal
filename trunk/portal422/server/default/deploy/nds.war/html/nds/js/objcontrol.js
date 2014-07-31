@@ -980,6 +980,7 @@ ObjectControl.prototype = {
 		var spr=e.getUserData().data.spresult;
 		if(spr){
 			if(this._handleSPResult(spr)){
+				playScan();
 				return;
 			} 
 		}
