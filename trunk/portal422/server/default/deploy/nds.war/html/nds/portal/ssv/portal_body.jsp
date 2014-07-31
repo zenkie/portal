@@ -67,6 +67,7 @@ boolean showAssignment=false;
  int assigneeId=-1;
 FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(TableManager.getInstance().getTable("users"), "assignee",null); 
 fkQueryModel.setQueryindex(-1);
+nds.util.License.LicenseType ltype=nds.control.web.WebUtils.getLtype();
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -85,7 +86,11 @@ fkQueryModel.setQueryindex(-1);
 %>	
 </script>		  
 </head>
+<%if(ltype.toString().equals("Evaluation")){%>
+<body style="background:url('/servlets/binserv/Image?image=apt') !important">
+<%}else{%>
 <body>
+<%}%>
 <!--paco 2013-8-19 add note '收藏夹'
 <script type="text/javascript">
 	//nav
@@ -133,8 +138,8 @@ SubSystem ss;
 				%>
 				<ul class="big_list"><li>
 			<%}%>
-			<span class="span-box">
-				<a href="javascript:pc.ssv(<%=ss.getId()%>)" class="classId_<%=ss.getId()%>">
+			<span class="span-box" onclick="javascript:pc.ssv(<%=ss.getId()%>)">
+				<a href="#" class="classId_<%=ss.getId()%>">
 					<p><img class="icon-img" src="<%=ss.getIconURL()%>" /></p>
 					<p><%=ss.getName()%></p>
 				</a>
@@ -194,7 +199,7 @@ SubSystem ss;
 								<input onclick="javascript:oa.submitAuditForm('accept')" type="button" class="button-blue" value="批准" />
 							</span>
 							<span style="float:left; margin-left:20px;">
-								<input onclick="javascript:pc.submitAuditForm('reject')" type="button" class="button-blue" value="驳回" />
+								<input onclick="javascript:oa.submitAuditForm('reject')" type="button" class="button-blue" value="驳回" />
 							</span>
 						</div>
 						<div style="width:60%; float:left;">
