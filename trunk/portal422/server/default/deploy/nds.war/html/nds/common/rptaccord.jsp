@@ -135,7 +135,7 @@ result= QueryEngine.getInstance().doQuery(query);
 				}
 		icon=Validator.isNull((String)resultData.getObject(3) )? "cxtab.gif":"jrpt.gif";
 %>
-		<div class="accordion_headings" onclick="javascript:<%=action%>(<%=resultData.getObject(1)%>)"><img src="<%=NDS_PATH%>/images/<%=icon%>" style="height:16px;width:20px;"></img><a><%=StringUtils.escapeForXML((String)resultData.getObject(2))%></a></div>
+		<div class="accordion_headings" onclick="javascript:<%=action%>(<%=resultData.getObject(1)%>)"><img src="<%=NDS_PATH%>/images/<%=icon%>" style="height:16px;width:16px;vertical-align:bottom;padding-right: 4px;"></img><a><%=StringUtils.escapeForXML((String)resultData.getObject(2))%></a></div>
 <%	}
 %>
 	</div></div>
