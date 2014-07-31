@@ -20,11 +20,12 @@
 	width: 16px;
 	height: 16px;
 }
-.coolButtonHover img {
-	/*filter:				gray();*/
+/*.coolButtonHover img {
+	/*filter:				gray();
 	width: 19px;
 	height: 18px;
 }
+*/
 .coolButtonDisabled  img,.coolButtonActiveDisabled  img,.coolButtonUpDisabled img{
 	/*filter:				gray();*/
 	width: 19px;
