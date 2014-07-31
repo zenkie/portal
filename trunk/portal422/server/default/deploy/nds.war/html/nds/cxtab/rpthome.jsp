@@ -21,7 +21,13 @@
 %>	
 <div id="page-table-query">
 	<div id="page-table-query-tab">
-		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span></a></li></ul>
+		<ul>
+			<li>
+				<a href="#tab1">
+					<span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span>
+				</a>
+			</li>
+		</ul>
 		<div id="tab1" class="ui-tabs-panel">
 			<div id="rpt-search">
 			<div id="rpt-search-note"><%= PortletUtils.getMessage(pageContext, "pls-select-rpt-template",null)%></div>
@@ -31,22 +37,40 @@
 </div>
 <script type="text/javascript">
 //jQuery('#rpt-search-tab ul').tabs();
-jQuery('#page-table-query-tab ul').tabs();
-jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
-jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
-var istree="<%=istree%>";
- if(istree=="Y"){
-webFXTreeConfig.autoExpandAll=false;
-pc.createTree("<%= PortletUtils.getMessage(pageContext, "report-center",null)%>", "/html/nds/common/tree2.xml.jsp?tbstruct=<%=cxtabCategoryTableId%>&tbdata=<%=cxtabTableId%>&fnc=<%=func%>");
-}else{
-	 jQuery.post("/html/nds/common/rptaccord.jsp?tbstruct=<%=cxtabCategoryTableId%>&tbdata=<%=cxtabTableId%>&fnc=<%=func%>",
-   function(data){
-     var result=data;
-     jQuery("#tree-list").html(result.xml);
-     jQuery("#tree-list").css("padding","0");
-     jQuery("#tab_accordion").accordion({ header: "h3",collapsible:true,autoHeight:false,navigation:true});
-   });
-}
+	jQuery('#page-table-query-tab ul').tabs();
+	jQuery('#page-table-query-tab ul').attr('class','ui-tabs-nav');
+	jQuery('#page-table-query-tab li').attr('class','ui-tabs-selected');
+	var istree="<%=istree%>";
+	if(istree=="Y"){
+		webFXTreeConfig.autoExpandAll=false;
+		pc.createTree("<%= PortletUtils.getMessage(pageContext, "report-center",null)%>", "/html/nds/common/tree2.xml.jsp?tbstruct=<%=cxtabCategoryTableId%>&tbdata=<%=cxtabTableId%>&fnc=<%=func%>");
+	}else{
+		jQuery.post("/html/nds/common/rptaccord.jsp?tbstruct=<%=cxtabCategoryTableId%>&tbdata=<%=cxtabTableId%>&fnc=<%=func%>",
+	    function(data){
+		var result=data;
+		
+		changeClass();
+		jQuery("#portal_middle_left_smenu").html(result.xml);
+		jQuery("#tab_accordion").accordion({ header: "h3",collapsible:true,autoHeight:false,navigation:true});
+		// jQuery("#tree-list").html(result.xml);
+		// jQuery("#tree-list").css("padding","0");
+		// jQuery("#tab_accordion").accordion({ header: "h3",collapsible:true,autoHeight:false,navigation:true});
+	   });
+	}
+	function changeClass(){
+		jQuery("#container").removeAttr("class");
+		jQuery("#portal_top").attr("class","sub_top");
+		jQuery("#portal_top_left").attr("class","sub_top_left");
+
+		jQuery("#portal_middle").attr("class","content cl");
+		jQuery("#portal_middle_left").attr("style","width:222px;");
+		//jQuery("#portal_middle_left").removeAttr("style");
+
+		jQuery("#portal_middle_right").attr("class","content_right");
+		jQuery("#portal_middle_right_search").attr("class","");
+		jQuery("#portal_middle_right_search_title").attr("class","content_right-title");
+		jQuery("#portal_middle_right_search_input").attr("class","search-1");
+	}
 <%
   if(nds.util.Validator.isNotNull(cxtab)){
 %>
