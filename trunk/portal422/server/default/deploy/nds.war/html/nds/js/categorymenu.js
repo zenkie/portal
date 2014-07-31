@@ -155,7 +155,7 @@ function CategoryTabItem(oTableCategory) {
 }
 CategoryTabItem.prototype.select = function() {
 var title=this.oTableCategory.desc;
-	//$("portal_middle_right_search_title").innerText=title;
+	$("portal_middle_right_search_title").innerText="";
 	if ((categoryTabHandler.selected) && (categoryTabHandler.selected != this)) { 
 		if(categoryTabHandler.selected.id!=0&&this.oTableCategory.id==0){
 			window.location="/html/nds/portal/portal.jsp";
