@@ -83,111 +83,135 @@ StringBuffer sb=new StringBuffer();
 TableManager tmgr=TableManager.getInstance();
 for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 	Table tr=tmgr.getTable( Tools.getInt( it.next(),-1));
-	if(tr!=null) sb.append("&nbsp;&#9642; <a href=\"javascript:pc.navigate('").append(tr.getId())
-		.append("')\">").append(tr.getDescription(locale)).append("</a>");
+	if(tr!=null) sb.append("&nbsp;&#9642; <a href=\"javascript:pc.navigate('").append(tr.getId()).append("')\">").append(tr.getDescription(locale)).append("</a>");
 }
 %>
 &nbsp;&nbsp;<%=PortletUtils.getMessage(pageContext, "my-recent-visit",null)%>:&nbsp;<%=sb.toString()%>
 </div-->
-<div id="page-table-query" style="width:99%;">
-	<div id="page-table-query-tab" style="border: 1px solid #CCC;width:99%;overflow: hidden;">
-		<ul id="navBar"><li><a id="hide_bar" class="hide_bar"></a><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "query-setting",null)%>&nbsp;-&nbsp;<%=table.getDescription(locale)%></span></a></li></ul>
+<div id="page-table-query" style="width:99%;" class="con-r1 clear_both" style="margin-bottom:10px; *margin-top:10px!important;">
+	<div id="navBar" class="con-r1-top"><a id="hide_bar"></a><p><img src="/images/newimages/con-r-top.png"></p></div>
+	<div id="page-table-query-tab" style="width:99%;overflow: hidden;">
+		<!--ul id="navBar">
+			<li>
+				<a id="hide_bar" class="hide_bar"></a>
+				<a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "query-setting",null)%>&nbsp;-&nbsp;<%=table.getDescription(locale)%></span></a>
+			</li>
+		</ul-->
+		<script type="text/javascript">
+			try{
+				$("portal_middle_right_search_title").innerHTML="<span class=\"blatit\"><%=PortletUtils.getMessage(pageContext, "query-setting",null)%> </span>- <span class=\"blutit\"><%=table.getDescription(locale)%></span>";
+			}catch(e){}
+		</script>
 		<%
 		if(search_show.equals("Y")){%>
-		<script type="text/javascript">
-		jQuery("#navBar").toggle(function(){
-     jQuery("#tab1").show('blind','',500,'');
-            },function(){ 
-     jQuery("#tab1").hide('blind','',500,'');
-    });
-    </script>
-		<div id="tab1"  class="ui-tabs-panel" style="display:none;">
+			<script type="text/javascript">
+				var height=0;
+				jQuery("#navBar").toggle(function(){
+						jQuery("#tab1").show('blind','',500,'');
+						var maxHeight=jQuery("#embed-lines").css("max-height");
+						maxHeight=maxHeight.replace("px","");
+						maxHeight=parseInt(maxHeight,0);
+						jQuery("#embed-lines").css({"max-height":(maxHeight-height)+"px"});
+					},function(){ 
+						jQuery("#tab1").hide('blind','',500,'');
+						var maxHeight=jQuery("#embed-lines").css("max-height");
+						maxHeight=maxHeight.replace("px","");
+						maxHeight=parseInt(maxHeight,0);
+						jQuery("#embed-lines").css({"max-height":(height+maxHeight)+"px"});
+					}
+				);
+			</script>
+			<div id="tab1"  class="ui-tabs-panel" style="display:none;">
 		<%}else{%>
-		<script type="text/javascript">
-		jQuery("#navBar").toggle(function(){
-     jQuery("#tab1").hide('blind','',500,'');
-            },function(){ 
-     jQuery("#tab1").show('blind','',500,'');
-    });
-    </script>
-		<div id="tab1"  class="ui-tabs-panel">
+			<script type="text/javascript">
+				var height=0;
+				jQuery("#navBar").toggle(function(){
+						jQuery("#tab1").hide('blind','',500,'');
+						var maxHeight=jQuery("#embed-lines").css("max-height");
+						maxHeight=maxHeight.replace("px","");
+						maxHeight=parseInt(maxHeight,0);
+						jQuery("#embed-lines").css({"max-height":(height+maxHeight)+"px"});
+					},function(){ 
+						jQuery("#tab1").show('blind','',500,'');
+						var maxHeight=jQuery("#embed-lines").css("max-height");
+						maxHeight=maxHeight.replace("px","");
+						maxHeight=parseInt(maxHeight,0);
+						jQuery("#embed-lines").css({"max-height":(maxHeight-height)+"px"});
+					}
+				);
+				height=jQuery("#page-table-query-tab").height();
+			</script>
+			<div id="tab1">
 		<%}%>
-			<div id="query-content">
-			<%@ include file="table_query.jsp" %>
-			</div>
+			<div id="query-content"><%@ include file="table_query.jsp" %></div>
+			<div class="table-buttons2">&nbsp;
+				<a href="javascript:pc.queryList()"><!--<img src="/html/nds/images/findpage.png"/>--><%=PortletUtils.getMessage(pageContext, "object.search",null)%></a> 	 
+				<%
+				if(userWeb.isAdmin()){
+				%>
+					<!--input type="button" class="cbutton"  title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "query-list-config",null)%>" onclick="javascript:pc.switchConfig()"/-->
+					<a href="javascript:pc.switchConfig()"><!--<img src="/html/nds/images/cog.png"/>--><%=PortletUtils.getMessage(pageContext, "query-list-config",null)%></a>
+				<%}else{
+					if(nds.web.config.QueryListConfigManager.getInstance().getQueryListConfigs(tableId,false).size()>0){
+					%>
+						<!--input type="button" class="cbutton" title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "switch-config",null)%>" onclick="javascript:pc.switchConfig()"/-->
+						<a href="javascript:pc.switchConfig()"><!--<img src="/html/nds/images/cog.png"/>--><%=PortletUtils.getMessage(pageContext, "switch-config",null)%></a>
+					<%}
+				}
+				int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getDefaultAction()==nds.web.config.ObjectUIConfig.ACTION_EDIT)?3:1);
+				if(!listUiconf)listViewPermissionType=1;
+				//System.out.print(listViewPermissionType);
+				//System.out.println(WebUtils.getTableUIConfig(table).getDefaultAction());
+				//System.out.println(nds.web.config.ObjectUIConfig.ACTION_EDIT);
+				if(listHelp){%>
+					<a href="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"><!--<img src="/html/nds/images/help.png"/>--><%=PortletUtils.getMessage(pageContext, "help",null)%></a>
+				<%}%>	
+				<a href="javascript:mu.add_mufavorite('<%=table.getDescription(locale)%>','<%=tableId%>')"><!--<img src="/html/nds/images/mufa.png"/>--><%=PortletUtils.getMessage(pageContext, "mufavorite",null)%></a>
+				<%
+				// these are list buttons of webaction
+				for(int wasi=0;wasi<waListButtons.size();wasi++){
+					out.println(waListButtons.get(wasi).toHREF(locale,null));
+				}
+				%>	
+				</div>
 		</div>
-  </div>
-</div>  
-<div id="page-nav-commands">
-</div>
- <div class="table-buttons2">
- 		        	
-	 &nbsp;<a href="javascript:pc.queryList()"><img src="/html/nds/images/findpage.png"/><%=PortletUtils.getMessage(pageContext, "object.search",null)%></a> 	 
-<%
-if(userWeb.isAdmin()){
-%>
-<!--input type="button" class="cbutton"  title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "query-list-config",null)%>" onclick="javascript:pc.switchConfig()"/-->
-<a href="javascript:pc.switchConfig()"><img src="/html/nds/images/cog.png"/><%=PortletUtils.getMessage(pageContext, "query-list-config",null)%></a>
-<%
-}else{
-	if(nds.web.config.QueryListConfigManager.getInstance().getQueryListConfigs(tableId,false).size()>0){
-%>
-<!--input type="button" class="cbutton" title="<%=qlc.getName()%>" value="<%=PortletUtils.getMessage(pageContext, "switch-config",null)%>" onclick="javascript:pc.switchConfig()"/-->
-<a href="javascript:pc.switchConfig()"><img src="/html/nds/images/cog.png"/><%=PortletUtils.getMessage(pageContext, "switch-config",null)%></a>
-<%		
-	}
-}
-int listViewPermissionType= (canModify && (WebUtils.getTableUIConfig(table).getDefaultAction()==nds.web.config.ObjectUIConfig.ACTION_EDIT)?3:1);
-if(!listUiconf)listViewPermissionType=1;
-//System.out.print(listViewPermissionType);
-//System.out.println(WebUtils.getTableUIConfig(table).getDefaultAction());
-//System.out.println(nds.web.config.ObjectUIConfig.ACTION_EDIT);
-if(listHelp){%>
-	<a href="javascript:popup_window('/html/nds/help/index.jsp?table=<%=tableId%>')"><img src="/html/nds/images/help.png"/><%=PortletUtils.getMessage(pageContext, "help",null)%></a>
-<%}%>	
-	<a href="javascript:mu.add_mufavorite('<%=table.getDescription(locale)%>','<%=tableId%>')"><img src="/html/nds/images/mufa.png"/><%=PortletUtils.getMessage(pageContext, "mufavorite",null)%></a>
-<%
-// these are list buttons of webaction
-for(int wasi=0;wasi<waListButtons.size();wasi++){
-	out.println(waListButtons.get(wasi).toHREF(locale,null));
-}
-%>	
 	</div>
-<div id="result-scroll" >
- <%@ include file="/html/nds/portal/inc_result_scroll.jsp" %>
-</div>
+</div> 
+<div id="query_buttom" class="con-r2 cl"> 
+	<div id="page-nav-commands"></div>
+	
+	<div id="result-scroll" ><%@ include file="/html/nds/portal/inc_result_scroll.jsp" %></div>
 	
 	<div id="page-table-content">
-	<%@ include file="table_list.js.jsp" %>
-	<%@ include file="table_list.jsp" %>
-  </div>
+		<%@ include file="table_list.js.jsp" %>
+		<%@ include file="table_list.jsp" %>
+	</div>
 <script type="text/javascript">
- 
-jQuery("#hide_bar").mousedown(function(event){
-      pc.menu_toggle(this);
-      event.stopPropagation();
-  });
+	jQuery("#hide_bar").mousedown(function(event){
+		pc.menu_toggle(this);
+		event.stopPropagation();
+	 });
 
-var new_high=document.documentElement.clientWidth;
+	var new_high=document.documentElement.clientWidth;
 
-jQuery("#embed-lines").css("height","100%");
-var param_count=jQuery("#list_query_form :input[name=param_count]").val();
-if(param_count==0){
-    	jQuery("#tab1").hide();
-   }
-<%
-// these are list menuitems of webaction
-StringBuffer waListMenuItemStr=new StringBuffer();
-for(int wasi=0;wasi<waListMenuItems.size();wasi++){
-	waListMenuItemStr.append(waListMenuItems.get(wasi).toHTML(locale,null));
-}
-if(waListMenuItems.size()>0){
-	//System.out.println(StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\""));
-%>
+	jQuery("#embed-lines").css("height","100%");
+	var param_count=jQuery("#list_query_form :input[name=param_count]").val();
+	if(param_count==0){
+			jQuery("#tab1").hide();
+	   }
+	<%
+	// these are list menuitems of webaction
+	StringBuffer waListMenuItemStr=new StringBuffer();
+	for(int wasi=0;wasi<waListMenuItems.size();wasi++){
+		waListMenuItemStr.append(waListMenuItems.get(wasi).toHTML(locale,null));
+	}
+	if(waListMenuItems.size()>0){
+		//System.out.println(StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\""));
+	%>
 
-pc.addListMenuItems("<%=StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\"")%>");
-<%}
-//log visit in the end so this table will not show as last visited one on the breadcrumb
-userWeb.registerVisit(tableId);
-%>
+	pc.addListMenuItems("<%=StringUtils.replace(waListMenuItemStr.toString(), "\"", "\\\"")%>");
+	<%}
+	//log visit in the end so this table will not show as last visited one on the breadcrumb
+	userWeb.registerVisit(tableId);
+	%>
 </script>  

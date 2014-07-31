@@ -38,7 +38,7 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
 			nds.util.PairTable values = column.getValues(locale);
 			if(i%columnsPerRow == 0)out.print("<tr>");
         %>
-          <td height="18" width="<%=widthPerColumn*2/3%>%" nowrap align="left">
+          <td height="25" width="<%=widthPerColumn*2/3%>%" nowrap align="left">
 			<div class="desc-txt"><%=desc%>:</div>
           </td>
           <td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left">
