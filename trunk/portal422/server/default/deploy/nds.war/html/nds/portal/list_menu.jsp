@@ -8,7 +8,7 @@
 </div></tr-->
 <tr><td>
 <%
-String istree=userWeb.getUserOption("ISTREE","Y");
+String istree=userWeb.getUserOption("ISTREE","N");
 //System.out.println(istree);
 if("N".equalsIgnoreCase(istree)){
 //System.out.println("ASDFASDFASDF");
