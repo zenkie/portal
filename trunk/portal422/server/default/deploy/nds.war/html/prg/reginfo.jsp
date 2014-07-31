@@ -56,6 +56,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">
+.body{
+overflow:hidden;
+}
+
 .title{
 width: 939px;
 overflow: hidden;
@@ -65,7 +69,7 @@ position: absolute;
 .main {
 width: 100%;
 height: 344px;
-background: no-repeat left #790000;
+background: no-repeat left #1670a5;
 position: absolute;
 top: 100px;
 background-position: 199px 0px;
@@ -79,13 +83,13 @@ clear: both;
 margin: 0 auto;
 left: 955px;
 top: 438px;
-width: 604px;
+width: 633px;
 }
 .bottom-logo{
 background: url(/images/bottom.gif) no-repeat center;
 /*position: absolute;*/
-width: 87px;
-height: 20px;
+width: 150px;
+height: 22px;
 /*left: 333px;*/
 float: left;
 display: block;
@@ -138,8 +142,8 @@ font-size: 24px;
 }
 
 .bordered th {
-	color: black;
-background-color: #dce9f9;
+color: black;
+background-color: #f7f7f7;
 -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
 -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
 box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
@@ -215,7 +219,7 @@ border-radius: 0 0 6px 0;
 </font>
 </div>
 <div id="bottom">
-<div id="bottom-right"><span class="bottom-logo"></span>&copy;2011-2013上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
+<div id="bottom-right">&copy;2008-2014上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
 </div>
 </div>
 </body>

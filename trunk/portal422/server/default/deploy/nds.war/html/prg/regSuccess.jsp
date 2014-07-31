@@ -20,8 +20,8 @@ position: absolute;
 }
 .main {
 width: 100%;
-height: 344px;
-background: no-repeat left #790000;
+height: 360px;
+background: no-repeat left #1670A5;
 position: absolute;
 top: 100px;
 background-position: 199px 0px;
@@ -40,11 +40,12 @@ width: 604px;
 .bottom-logo{
 background: url(/images/bottom.gif) no-repeat center;
 /*position: absolute;*/
-width: 87px;
+width: 156px;
 height: 20px;
 /*left: 333px;*/
 float: left;
 display: block;
+margin-left: 50px;
 }
 #bottom-right {
 padding-bottom: 0px;
@@ -85,7 +86,7 @@ a:link,a:visited{
 <h1><a href="/"><font color="rgb(60, 155, 192)">登陆</font></a></h1>
 </div>
 <div id="bottom">
-<div id="bottom-right"><span class="bottom-logo"></span>&copy;2011-2013上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
+<div id="bottom-right">&copy;2008-2014上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
 </div>
 </div>
 </body>

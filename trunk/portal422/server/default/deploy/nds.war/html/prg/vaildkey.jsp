@@ -49,7 +49,7 @@ position: absolute;
 .main {
 width: 100%;
 height: 360px;
-background: no-repeat left #790000;
+background: no-repeat left #1670A5;
 position: absolute;
 top: 100px;
 background-position: 199px 0px;
@@ -152,7 +152,7 @@ a.bottom-text {
 <div id="bottom">
   <div id="bottom-right">
   	<span class="bottom-logo"></span>
-  	 &copy;2011-2013上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a>
+  	 &copy;2008-2014上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a>
   	</div>
 </div>
 <fieldset id="output" style="display:none">

@@ -23,7 +23,7 @@ position: absolute;
 .main {
 width: 100%;
 height: 400px;
-background: no-repeat left #790000;
+background: no-repeat left #1670A5;
 position: absolute;
 top: 100px;
 background-position: 199px 0px;
@@ -180,7 +180,7 @@ border-radius: 0 0 6px 0;
 <ul><font color="yellow">当前点数已超过证书授权，系统将于1小时时候自动关闭！</font></ul>
 </div>
 <div id="bottom">
-<div id="bottom-right"><span class="bottom-logo"></span>&copy;2011-2013上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
+<div id="bottom-right">&copy;2008-2014上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
 </div>
 </div>
 </body>
