@@ -184,7 +184,7 @@ function dialog_window(url, theWidth, theHeight, refreshWindowWhenClose){
     var msg='<center><table border="0" cellpadding="0" cellspacing="0" height="80" width="100%"><tr><td align="center" valign="middle"><br>'+
 		working+'</font><br><img src="/html/nds/images/progress.gif"></td></tr></table></center>';
 	//var option={width: theWidth,height:theHeight,modal:true,centerMode:"none",noCenter: true,title: t,message:msg}
-	var option=$H({width:theWidth,height:theHeight,modal:true,title: t,message:msg,left: 100,top:'top',skin:'chrome'});
+	var option=$H({width:theWidth,height:theHeight,modal:true,title: t,message:msg,left: 100});
 
 	if(refreshWindowWhenClose){
 		option.onClose=refreshWindow;
@@ -198,7 +198,7 @@ function dialog_window(url, theWidth, theHeight, refreshWindowWhenClose){
 				//Alerts.killAlert($(popup));
 				par.close();
 				if(result.message){
-					art.dialog({icon: 'alert',skin: 'chrome',content:result.message});
+					art.dialog({icon: 'alert',content:result.message});
 					//alert(result.message);
 					try{
 						// this is for button on object.jsp
