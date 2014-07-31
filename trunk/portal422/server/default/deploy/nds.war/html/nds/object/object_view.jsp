@@ -60,9 +60,20 @@ columns=table.getShowableColumns(actionType);
 	if(result!=null)result.next();
 	columnIndex=0;
 	
-%>	
+%>
+<script>
+	function navBarHidden(){
+		jQuery("#hiddenContext").toggle();
+	}
+</script>
 	<div class="obj" id="obj_inputs_1"><!--OBJ_INPUTS1_BEGIN-->
+		<div id="navBar" class="con-r1-top" onclick="navBarHidden();">
+			<a id="hide_bar"></a>
+			<p><img src="/images/newimages/con-r-top.png" class="hide_bar_img"></p>
+		</div>
+		<div id="hiddenContext">
 		<%@ include file="inc_single_object.jsp" %><!--OBJ_INPUTS1_END-->
+		</div>
 	</div>
 	<% if( !Boolean.FALSE.equals(request.getAttribute("showtabs"))){%>
 		<%@ include file="inc_tabs.jsp" %>
