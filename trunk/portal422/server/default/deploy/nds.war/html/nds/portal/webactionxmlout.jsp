@@ -49,8 +49,8 @@ if(fa_tab instanceof Table){
 	  			}	
 			}	
 }
-
-String tabout1 ="<div><h3 class=\"ui-accordion-first\"><a style=\"color:white;\">我的收藏夹</a></h3><div id=\"mu_favorite\">"+famus+"</div></div>";
+String tabout1 = new String();
+//String tabout1 ="<div><h3 class=\"ui-accordion-first\"><a style=\"color:white;\">我的收藏夹</a></h3><div id=\"mu_favorite\">"+famus+"</div></div>";
  TableManager manager=TableManager.getInstance();
 String Inaction = new String();
 WebAction action=manager.getWebAction(actionid);
