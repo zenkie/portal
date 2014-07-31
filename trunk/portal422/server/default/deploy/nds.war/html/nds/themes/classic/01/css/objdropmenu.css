@@ -47,6 +47,7 @@ display:block;
 	margin-left: 0.3em;
 	padding: 0.5em 1em 0.5em 0.5em;
 	text-decoration: none;
+	color:black;
 }
 
  .obj-dock.interactive-mode ul.obj-dock-list > li:first-child a,  .obj-dock.interactive-mode ul.obj-dock-list > li:first-child ul.show-my-places li:first-child a {

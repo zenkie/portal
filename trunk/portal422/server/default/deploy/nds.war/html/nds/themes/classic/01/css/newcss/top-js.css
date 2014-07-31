@@ -199,3 +199,4 @@ background-color: #1770A4;
 .change_menu-mid_main ul li a p.bghidden {display: none;}
 .change_menu-mid_main ul li:hover a p:first-child {display: none;}
 .change_menu-mid_main ul li:hover a p.bghidden {display: block;}
+.change_menu-mid_main ul li:hover a p:last-child {color: #1670A5;}

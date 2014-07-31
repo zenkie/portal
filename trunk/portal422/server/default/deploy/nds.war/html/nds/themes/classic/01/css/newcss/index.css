@@ -212,7 +212,6 @@ body li { list-style: none }
 #top_alert_box dl dd li {
 	line-height: 20px;
 	position: relative;
-	cursor: pointer;
 	padding: 0 20px 0 32px;
 	height: auto;
 	background: transparent url(/html/nds/images/portlet/dotblue7.png) no-repeat scroll 14px 8px;
@@ -226,8 +225,8 @@ body li { list-style: none }
     height: 6px;
     background-color: #0c76a8;
 }
-#top_alert_box dl dd li:hover { background-color: #999 }
-#top_alert_box dl dd li:hover a { text-decoration: none; }
+/*#top_alert_box dl dd li:hover { background-color: #999 }*/
+#top_alert_box dl dd li:hover a { text-decoration: none;color: #1670A5; }
 #top_alert_box dl dd li input {
     float: right;
     width: 14px;
@@ -848,7 +847,7 @@ body li { list-style: none }
     /*float: left; paco delete*/
 }
 .content_right-title {
-    width: 300px;
+    /*width: 300px;*/
     height: 24px;
     float: left;
     line-height: 24px;
@@ -969,3 +968,13 @@ body li { list-style: none }
 .top-button-wait:hover{
 	cursor:wait;
 }
+
+.not_2 a {
+	color:yellow !important;
+}
+
+.not_1 a {
+	color:red !important;
+}
+
+
