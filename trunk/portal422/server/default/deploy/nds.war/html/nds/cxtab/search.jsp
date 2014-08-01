@@ -12,7 +12,11 @@
 
    will try loading last executed cxtab of the same parent
 */
+	Configurations conf=(Configurations)nds.control.web.WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS);
+    Boolean pathname=nds.util.Tools.getBoolean(conf.getProperty("report_savepathbyuserid","false"),false);	
+
 	int cxtabId= ParamUtils.getIntAttributeOrParameter(request, "cxtab", -1);
+	//System.out.print(request.getParameter("cxtab"));
 	if(cxtabId ==-1){
 		//try loading as name
 		cxtabId=Tools.getInt( QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where ad_client_id="+
@@ -25,10 +29,15 @@
 	int parent_id=Tools.getInt( QueryEngine.getInstance().doQueryOne("select parent_id from ad_cxtab where id="+cxtabId), -1);
 	String cxtabRootId= String.valueOf((parent_id==-1? cxtabId:parent_id));
 	int lastExecCxtabId=Tools.getInt( userWeb.getPreferenceValue("cxtab"+cxtabRootId,cxtabRootId,false),-1);
+	lastExecCxtabId=Tools.getInt( QueryEngine.getInstance().doQueryOne("select id from ad_cxtab where id="+lastExecCxtabId),-1);
+	//System.out.print(lastExecCxtabId);
 	if(lastExecCxtabId!=-1)cxtabId= lastExecCxtabId;
+	//System.out.print(cxtabId);
+
 	
-	List list=QueryEngine.getInstance().doQueryList("select ad_table_id,name, description,attr1,attr2,pre_procedure from ad_cxtab where id="+ cxtabId);
+	List list=QueryEngine.getInstance().doQueryList("select ad_table_id,name, description,attr1,attr2,pre_procedure,attr3 from ad_cxtab where id="+ cxtabId);
  	if(list.size()==0)throw new NDSException("Internal error, cxtab id="+ cxtabId + " does not exist");
+	//System.out.print(cxtabId);
   	int tableId= Tools.getInt( ((List)list.get(0)).get(0),-1);
   	
 	String cxtabName=(String) ((List)list.get(0)).get(1);
@@ -36,7 +45,7 @@
 	String excelPath= (String) ((List)list.get(0)).get(3);
 	String jReportPath= (String) ((List)list.get(0)).get(4);
 	String preProcedure= (String) ((List)list.get(0)).get(5);
-	
+	String fineReportPath= (String) ((List)list.get(0)).get(6);
 	if(tableId==-1 || nds.util.Validator.isNotNull(preProcedure)){
   		// redirect to search_jreport.jsp
   		request.getRequestDispatcher("search_jreport.jsp").forward(request, response);
@@ -64,8 +73,11 @@
     boolean firstDateColumnFound=false;
 	ArrayList qColumns=table.getIndexedColumns();
 	TableQueryModel model= new TableQueryModel(tableId,qColumns,false,false,locale);
+
+
 %>
 <div id="page-table-query">
+	<input id="fold" type="hidden" value="<%=pathname==false?"":userWeb.getUserId()%>">
 	<div id="page-table-query-tab">
 		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span></a></li></ul>
 		<div id="tab1" class="ui-tabs-panel">
@@ -252,6 +264,11 @@
 		<a href="javascript:mu.add_mufavorite('<%=table.getDescription(locale)%>','<%=tableId%>',true,'<%=cxtabId%>')"><img src="/html/nds/images/mufa.png"><%=PortletUtils.getMessage(pageContext, "mufavorite",null)%></a>
 <%
 
+
+if(Validator.isNotNull(fineReportPath)){%>
+<input id="btn_run_fr" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'fr')" value="<%=PortletUtils.getMessage(pageContext, "execute-htm",null)%>">
+      &nbsp;&nbsp;
+<%}
 if(Validator.isNotNull(excelPath)){%>
       <input id="btn_run_rpt2" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'xls')" value="<%=PortletUtils.getMessage(pageContext, "execute-xls",null)%>">
       &nbsp;&nbsp;
