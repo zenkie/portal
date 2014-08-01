@@ -37,18 +37,19 @@ try{
 			serialno ++;
 			String itemId = "-1";
 			%>
-			<li id='<%=namespace%>li_<%=serialno%>' class='<%=(whiteBg?"even-row":"odd-row")%> not_<%=result.getObject(3)%>'>
+			<li id='<%=namespace%>li_<%=serialno%>' class='<%=(whiteBg?"even-row":"odd-row")%> not_<%=result.getObject(2)%>'>
 				<%
 				String resPkId = null;
 				String tdAttributes;
 				Column colmn;
 				pkValue= Tools.getInt(result.getObject(1),-1);
 				String columnDataShort;
-				for(int i=1;i< meta.getColumnCount()-1;i++){ // first column should always be PK
+				for(int i=1;i< meta.getColumnCount();i++){ // first column should always be PK
 					tdAttributes="";
 					String columnData=(String)result.getObject(i+1);
 					String originColumnData= result.getString(i+1, false);
 					colmn=manager.getColumn(meta.getColumnId(i+1));
+					if(colmn.getName().equals("PRIORITYRULE")) continue;
 					String url=null;
 					int objId= result.getObjectID(i+1);
 					String target=null;
@@ -61,7 +62,7 @@ try{
 						}
 						url="javascript:showObject(\""+url+"\")";
 					}
-					if(i==1){
+					if(i==2){
 						// alway set first column to PK url
 						objId=pkValue;
 						url= mainTablePath.replaceAll("@ID@",String.valueOf(pkValue));
