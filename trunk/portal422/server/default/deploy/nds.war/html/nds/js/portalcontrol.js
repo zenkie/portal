@@ -1915,7 +1915,7 @@ PortalControl.prototype = {
 		    this._gridQuery.param_str= fm.serialize();
 
 		var evt={};
-		evt.command="ExecuteCxtab";
+		evt.command=(filetype=="fr")?"ExecuteCxtab4FR":"ExecuteCxtab";
 		evt.callbackEvent="ExecuteCxtab";
 		evt.table=tableValue;
 		evt.query=Object.toJSON(this._gridQuery);
