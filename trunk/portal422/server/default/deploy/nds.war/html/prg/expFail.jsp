@@ -77,7 +77,7 @@ a:link,a:visited{
 <h1><a href="/html/prg/vaildkey.jsp"><font color="yellow">注册</font></a></h1>
 </div>
 <div id="bottom">
-<div id="bottom-right"><span class="bottom-logo"></span>&copy;2008-2014上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
+<div id="bottom-right">&copy;2008-2014上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
 </div>
 </body>
 </html>
