@@ -106,18 +106,9 @@
 <link type="text/css" href="<%=userWeb.getThemePath()%>/css/newcss/public.css" rel="stylesheet" />
 <link type="text/css" href="<%=userWeb.getThemePath()%>/css/newcss/index.css" rel="stylesheet" />
 <link type="text/css" href="<%=userWeb.getThemePath()%>/css/newcss/top-js.css" rel="stylesheet" />
-<!--paco 2014-6-24 add begin !ssid  -->
+<!--paco 2014-6-24 add begin ssid !=-1 -->
 <script type="text/javascript" src="/html/nds/js/newjs/pos.slider.js"></script>
-<script type="text/javascript" src="/html/nds/js/newjs/select.checkbox.js"></script>
-<script type="text/javascript" src="/html/nds/js/newjs/computer.view.size.js"></script>
 <script type="text/javascript" src="/html/nds/js/newjs/sidebar.js"></script>
-<!--paco 2014-6-24 add begin ssid else -->
-<script type="text/javascript" src="/html/nds/js/newjs/select.checkbox.js"></script>
-<script type="text/javascript" src="/html/nds/js/newjs/limits.js"></script>
-<script type="text/javascript" src="/html/nds/js/newjs/drag.js"></script>
-<script type="text/javascript" src="/html/nds/js/newjs/scroll-drag.js"></script>
-<!--script type="text/javascript" src="/html/nds/js/newjs/sidebar.js"></script-->
-<%}%>
 <!--paco 2014-6-24 add end-->
 <%}//end JAVASCRIPT_FAST_LOAD
 %>
