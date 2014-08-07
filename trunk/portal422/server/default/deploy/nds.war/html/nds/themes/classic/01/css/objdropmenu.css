@@ -6,6 +6,7 @@ display:block;
 	/*min-width:165px;
 	margin-right:1.3em;*/
 	float: right;
+	margin-top: -13px;
 }
 
 .obj-dock-list-container {
