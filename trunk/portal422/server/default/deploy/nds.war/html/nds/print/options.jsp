@@ -1,5 +1,6 @@
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/header.jsp" %>
+<%@page import="nds.security.Directory"%>
 <%
  /**
   We have two types of print template: one is from ad_report, the other is from ad_cxtab (reportytpe='S' FOR single object, 'L' for List)
@@ -137,6 +138,9 @@ float:left;
 for(int i=0;i< al.size();i++){
 		List advTemplate=(List) al.get(i);
 		id= advTemplate.get(0);
+		boolean b=false;
+		b=userWeb.hasObjectPermission("ad_cxtab",Tools.getInt(id,-1), Directory.READ);
+		if(!b)continue;
 		name=advTemplate.get(1);
 		description=(String)advTemplate.get(2);
 		String  checkMark= (("cx"+ id).equals(templateFile) || !hasTemplateSet? " checked":"");
