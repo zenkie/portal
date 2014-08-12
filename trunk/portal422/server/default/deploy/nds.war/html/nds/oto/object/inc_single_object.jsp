@@ -404,12 +404,18 @@
 									<input:text name="<%=inputName%>" default="<%=dataWithoutNBSP %>" attributesText="style=display:none;" />
 									<%
 									JSONArray jasss=jor.optJSONArray("cfold");
-									for(int k=0;k<jasss.length();k++){%>
-										<input objid=<%=objectId%> ac="<%=inputName%>" type="button" onclick="<%=jasss.optJSONObject(k).optString("ac")%>" value="<%=jasss.optJSONObject(k).optString("name")%>" disabled="true">
+									if(jasss.length()>0){%>
+										<input objid=<%=objectId%> ac="<%=inputName%>" type="button" onclick="<%=jasss.optJSONObject(0).optString("ac")%>" value="<%=jasss.optJSONObject(0).optString("name")%>" disabled="true">
 									<%}%>
 									</div>
 									<div id="space_<%=inputName%>"></div>
 									<iframe id="iframe_<%=inputName%>" name="iframe_<%=inputName%>" src="/html/nds/oto/product/extendspec.jsp?eid=<%=inputName%>" class="custom_spaceitem" style="min-height:200px;max-height:500px;width:100%;padding: 0.8em 1em;border: 1px solid #CCC;box-shadow: #CCC 0 0 .25em;border-radius: 6px;margin-bottom: 10px;"></iframe>
+									<div id="divs_<%=inputName%>" style=" float: right; ">
+									<%
+									for(int k=1;k<jasss.length();k++){%>
+										<input objid=<%=objectId%> ac="<%=inputName%>" type="button" onclick="<%=jasss.optJSONObject(k).optString("ac")%>" value="<%=jasss.optJSONObject(k).optString("name")%>" disabled="true">
+									<%}%>
+									</div>
 									<!--<script>
 										jQuery(document).ready(
 											function init(){
