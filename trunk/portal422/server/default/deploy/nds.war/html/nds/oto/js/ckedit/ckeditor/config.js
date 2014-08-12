@@ -91,7 +91,7 @@ CKEDITOR.editorConfig = function( config )
 	['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
 	['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
 	['Link','Unlink','Anchor'],
-	['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+	['Image','Flash','Video','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
 	'/',
 	['Styles','Format','Font','FontSize'],
 	['TextColor','BGColor']
@@ -104,5 +104,7 @@ CKEDITOR.editorConfig = function( config )
 	 config.filebrowserFlashUploadUrl = '/html/nds/oto/js/ckedit/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash',
 	 config.filebrowserWindowWidth = '1000',
 	 config.filebrowserWindowHeight = '700'
+	config.extraPlugins = 'video'; 
+
 };
 
