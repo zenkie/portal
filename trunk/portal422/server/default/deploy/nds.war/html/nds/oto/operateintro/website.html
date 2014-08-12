@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>伯俊微官网</title>
+<script src="/html/nds/oto/operateintro/js/operate.js" type="text/javascript"></script>
 <link href="/html/nds/oto/operateintro/css/cstep.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -10,117 +11,59 @@
         <div class="stepL topleft">
             <h2>请点击以下步骤进行操作</h2>
             <ul class="stepDetail">
-                <li><a href="javascript:void(0)" id="step1" onclick="changestep(this)" data-src="/html/nds/oto/object/object.jsp?table=15918" data-ifr="ifr" data-step="1" data-precent="25" class="active">
-                    <div style="cursor:pointer;">
-                        <h3 id="">第一步：设置微官网LOGO</h3>
-                        <p id="">&lt;微官网&gt;-&lt;基本设置&gt;-&lt;微官网名称&gt;-&lt;微官网LOGO&gt;</p>
-                    </div>
-                </a></li>
-                <li><a href="javascript:void(0)" id="step2" onclick="changestep(this)" data-src="15920" data-ifr="null" data-step="2" data-precent="50">
-                    <div style="cursor:pointer;">
-                        <h3>第二步：设置轮播广告</h3>
-                        <p id="">&lt;微官网&gt;-&lt;轮播广告设置&gt;-&lt;添加轮播广告&gt;-&lt;跳转类型&gt;</p>
-                    </div>
-                </a></li>
-                <li><a href="javascript:void(0)" id="step3" onclick="changestep(this)" data-src="/html/nds/oto/sel_temple/index.jsp?ptype=home" data-ifr="ifr" data-step="3" data-precent="75">
-                    <div style="cursor:pointer;">
-                        <h3>第三步：设置模板</h3>
-                        <p>&lt;微官网&gt;-&lt;模板设置&gt;</p>
-                    </div>
-                </a></li>
-                <li><a href="javascript:void(0)" id="step4" onclick="changestep(this)" data-src="16019" data-ifr="null" data-step="4" data-precent="100">
-                    <div style="cursor:pointer;">
-                        <h3>第四步：添加栏目</h3>
-                        <p>&lt;微官网&gt;-&lt;栏目设置&gt;-&lt;添加栏目&gt;-&lt;跳转类型&gt;</p>
-                    </div>
-                </a></li>
-                <li><a href="javascript:void(0)" id="complete" onclick="complete();" data-step="5" data-precent="100"><div><h3>完成设置</h3></div></a></li>
+                <li>
+					<a href="javascript:void(0)" id="step1" onclick="changestep(this)" data-src="/html/nds/oto/object/object.jsp?table=15918" data-ifr="ifr" data-step="1" data-precent="25" class="active">
+						<div style="cursor:pointer;">
+							<h3 id="">第一步：设置微官网LOGO</h3>
+							<p id="">&lt;微官网&gt;-&lt;基本设置&gt;-&lt;微官网名称&gt;-&lt;微官网LOGO&gt;</p>
+						</div>
+					</a>
+				</li>
+                <li>
+					<a href="javascript:void(0)" id="step2" onclick="changestep(this)" data-src="15920" data-ifr="null" data-step="2" data-precent="50">
+						<div style="cursor:pointer;">
+							<h3>第二步：设置轮播广告</h3>
+							<p id="">&lt;微官网&gt;-&lt;轮播广告设置&gt;-&lt;添加轮播广告&gt;-&lt;跳转类型&gt;</p>
+						</div>
+					</a>
+				</li>
+                <li>
+					<a href="javascript:void(0)" id="step3" onclick="changestep(this)" data-src="/html/nds/oto/temple/index.jsp?ptype=home" data-ifr="ifr" data-step="3" data-precent="75">
+						<div style="cursor:pointer;">
+							<h3>第三步：设置模板</h3>
+							<p>&lt;微官网&gt;-&lt;模板设置&gt;</p>
+						</div>
+					</a>
+				</li>
+                <li>
+					<a href="javascript:void(0)" id="step4" onclick="changestep(this)" data-src="16019" data-ifr="null" data-step="4" data-precent="100">
+						<div style="cursor:pointer;">
+							<h3>第四步：添加栏目</h3>
+							<p>&lt;微官网&gt;-&lt;栏目设置&gt;-&lt;添加栏目&gt;-&lt;跳转类型&gt;</p>
+						</div>
+					</a>
+				</li>
+                <li>
+					<a href="javascript:void(0)" id="complete" onclick="complete();" data-step="5" data-precent="100">
+						<div><h3>完成设置</h3></div>
+					</a>
+				</li>
             </ul>
             <div class="stepBot">
-                <div class="stepLine"><cite id="processbar" style="width: 25%;"></cite></div>
+                <div class="stepLine">
+					<cite id="processbar" style="width: 25%;"></cite>
+				</div>
                 <em id="cprecent">25%</em>
             </div>
         </div>		
         <div id="portal-right" style="vertical-align:top;width:100%;align:left;">
 			<div class="stepButton">
-				<a href="javascript:void(0)" onclick="prev()" style="color:#4c4c4c;font-weight:bold;">上一步</a><a style="color:#4c4c4c; font-weight:bold;" href="javascript:void(0)" onclick="next()" class="aR">下一步</a>
+				<a href="javascript:void(0)" style="color:#4c4c4c;font-weight:bold;" class="aL">上一步</a>
+				<a href="javascript:void(0)" style="color:#4c4c4c; font-weight:bold;" class="aR">下一步</a>
 			</div>
 			<div class="StepRDetail" id="portal-content">
 			</div>
 		</div>
-    <script type="text/javascript">
-        Init();
-		jQuery(".aR").click(function(){
-			next();
-		});
-		
-        function Init() {
-            jQuery(".stepDetail").find("a").first().addClass("active");
-            var url = jQuery(".stepDetail").find("a").first().attr("data-src");
-            var precent = jQuery(".stepDetail").find("a").first().attr("data-precent");
-            jQuery("#processbar").css("width", precent + "%");
-            jQuery("#cprecent").html(precent + "%");
-			pc.navigate(url,"ifr","");
-        }
-        
-        function changestep(a) {
-            var jQuerythis = jQuery(a);
-            change(jQuerythis);			
-        }
-
-        function complete() {
-            RemoveAllClass();
-            jQuery("#complete").addClass("active");
-            jQuery("#processbar").css("width", "100%");
-            jQuery("#cprecent").html("100%");
-            if (confirm("配置完成，是否继续浏览其他教程？")) {
-                //location.href = '/html/nds/oto/operateintro/storeoper.html';
-				categoryTabHandler.select(jQuery(".page-tab-selected"));
-            } else {
-                return false;
-            }
-        }
-
-        function change(current) {
-            var url = current.attr("data-src");	
-            var precent = current.attr("data-precent");
-			var ifr = current.attr("data-ifr");
-            jQuery("#processbar").css("width", precent + "%");
-            jQuery("#cprecent").html(precent + "%");
-            RemoveAllClass();
-            current.addClass("active");
-			//右侧界面切换start
-			pc.navigate(url,ifr,current);
-			//右侧界面切换end
-        }
-
-        function RemoveAllClass() {
-            jQuery(".stepDetail").find("a").removeClass("active");
-        }
-
-        function prev() {
-            var current = jQuery(".active");
-            var step = current.attr("data-step");
-            step = parseInt(step);
-            if (step != 1) {
-                step -= 1;
-                var prev = jQuery("#step" + step);
-                change(prev);
-            }
-        }
-        
-        function next() {
-            var current = jQuery(".active");
-            var step = current.attr("data-step");
-            step = parseInt(step);
-            var precent = current.attr("data-precent")
-            if (precent != 100) {
-                step += 1;
-                var next = jQuery("#step" + step);
-                change(next);
-            } else {
-                complete();
-            }
-        }
-    </script>
-</body></html>
+	</div>
+</body>
+</html>
