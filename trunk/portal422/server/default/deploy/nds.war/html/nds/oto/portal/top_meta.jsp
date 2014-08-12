@@ -18,6 +18,7 @@
 <script language="javascript" src="/html/nds/oto/js/print.js"></script>
 <script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
 <!--script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script-->
+<script language="javascript" src="/html/prg/upload/jquery.uploadify.min.js"></script>
 <script>
    jQuery.noConflict();
 </script>
@@ -108,6 +109,7 @@
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/objdropmenu.css">
 <!--link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/drop_menu3.css"-->
 <link type="text/css" rel="stylesheet" href="/html/nds/oto/portal/ssv/css/home.css" />
+<link type="text/css" rel="StyleSheet" href="/html/prg/upload/uploadify.css">
 
 <!--script language="javascript" src="/html/nds/oto/js/resize.js"></script-->
 <!--微商城导航css样式-->
