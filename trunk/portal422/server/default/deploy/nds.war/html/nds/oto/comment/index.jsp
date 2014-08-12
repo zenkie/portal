@@ -17,25 +17,32 @@
 		response.sendRedirect("/login.jsp");
 		return;
 	}
+	//获取商品的ID
 	String id = request.getParameter("id");
+	//获取公司ID
 	int ad_client_id=userWeb.getAdClientId();
-	String searchcount="select count(*) from wx_comment where wx_appendgoods_id = (select wx_appendgoods_id from wx_comment where id = ? ) and ad_client_id = ?";//得到总数量
+	//查询评论记录对应商品的评论总数
+	//String searchcount="select count(*) from wx_comment where wx_appendgoods_id = (select wx_appendgoods_id from wx_comment where id = ? ) and ad_client_id = ?";//得到总数量
+	String searchcount="select count(*) from wx_comment where wx_appendgoods_id = ? and ad_client_id = ?";//得到总数量
 	Object count=QueryEngine.getInstance().doQueryOne(searchcount,new Object[]{id,ad_client_id});	
-	String searchmenu="select id,itemphoto,itemname,itemunitprice,content,goodcomment,vipId,name,photo,commentId from (select goods.id,goods.itemphoto,goods.itemname,goods.itemunitprice,com.content,com.goodcomment,vip.id as vipId,vip.name,vip.photo,com.id as commentId from wx_comment com,wx_vip vip,wx_appendgoods goods where com.wx_appendgoods_id = (select wx_appendgoods_id from wx_comment where id = ?) and com.wx_vip_id = vip.id and com.wx_appendgoods_id = goods.id and com.ad_client_id = ? order by com.id desc) where rownum < 11";
+	//查询评论信息
+	//String searchmenu="select id,itemphoto,itemname,itemunitprice,content,goodcomment,vipId,name,photo,commentId from (select goods.id,goods.itemphoto,goods.itemname,goods.itemunitprice,com.content,com.goodcomment,vip.id as vipId,vip.name,vip.photo,com.id as commentId from wx_comment com,wx_vip vip,wx_appendgoods goods where com.wx_appendgoods_id = (select wx_appendgoods_id from wx_comment where id = ?) and com.wx_vip_id = vip.id and com.wx_appendgoods_id = goods.id and com.ad_client_id = ? order by com.id desc) where rownum < 11";
+	String searchmenu="select id,itemphoto,itemname,itemunitprice,content,goodcomment,vipId,name,photo,commentId from (select goods.id,goods.itemphoto,goods.itemname,goods.itemunitprice,com.content,com.goodcomment,vip.id as vipId,vip.name,vip.photo,com.id as commentId from wx_comment com,wx_vip vip,wx_appendgoods goods where com.wx_appendgoods_id = ? and com.wx_vip_id = vip.id and com.wx_appendgoods_id = goods.id and com.ad_client_id = ? order by com.id desc) where rownum < 11";
 	List commentList=QueryEngine.getInstance().doQueryList(searchmenu,new Object[]{id,ad_client_id});
-	String goodsPhoto=null;
-	String goodsName=null;
-	String goodsPrice=null;
+	String goodsPhoto=null;//商品图片
+	String goodsName=null;//商品名称
+	String goodsPrice=null;//商品价格
 	if(commentList!=null&&commentList.size()>0){
 		List list = (List)commentList.get(0);
+		//商品没有图片时，给个默认图片
 		goodsPhoto = (list.get(1)!=null)?list.get(1).toString():"/html/nds/oto/themes/01/images/upimg.jpg";
 		goodsName = list.get(2).toString();
 		goodsPrice = list.get(3).toString();
 	}
 	
 %>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
 <meta charset="UTF-8">
@@ -57,6 +64,11 @@
 			<li></li>
 		</ul>
 	</header>
+	<%
+	if(commentList==null || commentList.size()<=0){
+		return;
+	}	
+	%>
 	<section class="content">
 		<div class="wrap">
 			<div id="J_rate_plugin">
@@ -66,8 +78,8 @@
 							<img src="<%=goodsPhoto%>" height=40 width=40> 
 						</div> 
 						<div class="oc-info-r"> 
-								<h2 style="font-size: 14px;"><%=goodsName%></h2> 
-								<div> ￥<strong class="red"><%=goodsPrice%></strong></div> 
+							<h2 style="font-size: 14px;"><%=goodsName%></h2> 
+							<div> ￥<strong class="red"><%=goodsPrice%></strong></div> 
 						</div>
 					</div>					
 				</section>
@@ -80,18 +92,18 @@
 		<tbody>
 		<%
 		if(commentList!=null&&commentList.size()>0){
-			String comment=null;
-			String goodComment=null;
-			String vipName=null;
-			String vipPhoto=null;
-			String goodcommentPhoto = "/html/nds/oto/comment/images/b_red_1.gif";
+			String comment=null;//评论内容
+			String goodComment=null;//好评 返回数据为  1好评 0中评 -1差评
+			String vipName=null;//会员昵称
+			String vipPhoto=null;//会员图片
+			String goodcommentPhoto = "/html/nds/oto/comment/images/b_red_1.gif";//根据好评度 显示相应的图片 默认值是 差评图片
 			for(int i=0;i < commentList.size(); i++){
 				List list = (List)commentList.get(i);
 				comment = list.get(4).toString();
 				goodComment = list.get(5).toString();
-				if(goodComment.equals("1")){
+				if(goodComment.equals("1")){//好评显示 图片b_red_5.gif
 					goodcommentPhoto = "/html/nds/oto/comment/images/b_red_5.gif";
-				}else if(goodComment.equals("0")){
+				}else if(goodComment.equals("0")){//中评显示 图片b_red_3.gif
 					goodcommentPhoto = "/html/nds/oto/comment/images/b_red_3.gif";
 				}
 				vipName = list.get(7).toString();
@@ -131,6 +143,6 @@
 	</table>
 </div>
 <input type="hidden" id="total" value="<%=count%>">
-<input type="hidden" id="goodsId" value="<%=id%>">
+<input type="hidden" id="commentID" value="<%=id%>">
 </body>
 </html>

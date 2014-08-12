@@ -1,5 +1,5 @@
 var iDialog = (function() {
-	var c = '<header>'+				
+	var c = '<header>'+	//dialog在html的代码
 				'<dl>'+							
 					'<dd><label>{title}</label></dd>'+
 					'<dd><span onclick="this.parentNode.parentNode.parentNode.parentNode.classList.remove(\'on\');">{close}</span></dd>'+
@@ -7,14 +7,14 @@ var iDialog = (function() {
 			'</header>'+
 			'<article class="dialogContent">{content}</article>'+
 			'<footer></footer>';
-	var b = {
+	var b = {//dialog容器
 		wrapper: null,
 		cover: null,
 		lastIndex: 1000,
 		list: null
 	};
 	var a = function() {
-		this.options = {
+		this.options = {//dialog默认选项值
 			id: "dialogWindow_",
 			classList: "",
 			type: "",
@@ -27,7 +27,7 @@ var iDialog = (function() {
 		};
 	};
 	a.prototype = {
-		init: function() {
+		init: function() {//初始化dialog
 			if (b.list) {
 				return this;
 			} else {
@@ -44,13 +44,13 @@ var iDialog = (function() {
 			document.body.insertBefore(b.container, document.body.childNodes[0]);
 			return this;
 		},
-		open: function(f) {
+		open: function(f) {//创建dialog
 			this.init();
-			this.options = a.merge(this.options, f || {});
+			this.options = a.merge(this.options, f || {});//合并选项值
 			this.options.zIndex = b.lastIndex += 100;
 			this.options.id = "dialogWindow_" + this.options.zIndex;
 			b.list[this.options.id] = this;
-			this.options.wrapper = document.createElement("div");
+			this.options.wrapper = document.createElement("div");//创建元素
 			this.options.wrapper.setAttribute("data-type", this.options.type);
 			this.options.wrapper.setAttribute("id", this.options.id);
 			this.options.wrapper.setAttribute("class", "dialogWindow on " + this.options.classList);
@@ -58,12 +58,12 @@ var iDialog = (function() {
 			this.options.wrapper.innerHTML = iTemplate.makeList(c, [this.options],
 			function(j, i) {});
 			b.container.insertBefore(this.options.wrapper, this.options.cover ? b.cover: null);
-			if (this.options.btns.length) {
+			if (this.options.btns.length) {//添加dialog按钮 这个功能没有用到 btn=[{"name":"确定","fn":function(){}},{"name":"取消","fn":function(){}}]
 				var g = this;
 				var h = document.createElement("div");
 				h.setAttribute("class", "box");
-				for (var e = 0,
-				d; d = this.options.btns[e]; e++) { (function(i) {
+				for (var e = 0,d; d = this.options.btns[e]; e++) { 
+					(function(i) {
 						var j = document.createElement("a");
 						j.setAttribute("href", "javascript:;");
 						j.setAttribute("class", "dialogBtn");
@@ -82,19 +82,18 @@ var iDialog = (function() {
 			}
 			return this;
 		},
-		show: function() {
+		show: function() {//显示dialog
 			var d = this.options.wrapper.classList;
 			d.add("on");
 			return this;
 		},
-		hide: function() {
+		hide: function() {//隐藏dialog
 			var d = this.options.wrapper.classList;
 			d.remove("on");
 			return this;
 		},
-		die: function() {
+		die: function() {//删除dialog
 			var d = this;
-			//this.hide();
 			setTimeout(function() {
 				d.hide();
 				delete b.list[d.options.id];
@@ -104,7 +103,7 @@ var iDialog = (function() {
 			return this;
 		}
 	};
-	a.merge = function(f, e, g) {
+	a.merge = function(f, e, g) {//合并选项值 类似jQuery extend方法
 		for (var d in e) {
 			f[d] = e[d];
 		}
@@ -112,7 +111,7 @@ var iDialog = (function() {
 	};
 	return a;
 })();
-var iTemplate = (function() {
+var iTemplate = (function() {//正则 替换内容 例如：{close} 替换相应的close内容
 	var a = function() {};
 	a.prototype = {
 		makeList: function(e, j, i) {

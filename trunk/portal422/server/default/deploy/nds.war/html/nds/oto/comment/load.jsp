@@ -17,10 +17,11 @@
 		response.sendRedirect("/login.jsp");
 		return;
 	}
-	String id = request.getParameter("id");//评论记录id
+	String id = request.getParameter("id");//商品记录id
 	String comId = request.getParameter("lastId");//评论lastId
 	int ad_client_id=userWeb.getAdClientId();
-	String searchmenu="select id,itemphoto,itemname,itemunitprice,content,goodcomment,vipId,name,photo,commentId from (select goods.id,goods.itemphoto,goods.itemname,goods.itemunitprice,com.content,com.goodcomment,vip.id as vipId,vip.name,vip.photo,com.id as commentId from wx_comment com,wx_vip vip,wx_appendgoods goods where com.wx_appendgoods_id = (select wx_appendgoods_id from wx_comment where id = ?) and com.wx_vip_id = vip.id and com.wx_appendgoods_id = goods.id and com.ad_client_id = ? and com.id < ? order by com.id desc) where rownum < 11";
+	//String searchmenu="select id,itemphoto,itemname,itemunitprice,content,goodcomment,vipId,name,photo,commentId from (select goods.id,goods.itemphoto,goods.itemname,goods.itemunitprice,com.content,com.goodcomment,vip.id as vipId,vip.name,vip.photo,com.id as commentId from wx_comment com,wx_vip vip,wx_appendgoods goods where com.wx_appendgoods_id = (select wx_appendgoods_id from wx_comment where id = ?) and com.wx_vip_id = vip.id and com.wx_appendgoods_id = goods.id and com.ad_client_id = ? and com.id < ? order by com.id desc) where rownum < 11";
+	String searchmenu="select id,itemphoto,itemname,itemunitprice,content,goodcomment,vipId,name,photo,commentId from (select goods.id,goods.itemphoto,goods.itemname,goods.itemunitprice,com.content,com.goodcomment,vip.id as vipId,vip.name,vip.photo,com.id as commentId from wx_comment com,wx_vip vip,wx_appendgoods goods where com.wx_appendgoods_id = ? and com.wx_vip_id = vip.id and com.wx_appendgoods_id = goods.id and com.ad_client_id = ? and com.id < ? order by com.id desc) where rownum < 11";
 	List commentList=QueryEngine.getInstance().doQueryList(searchmenu,new Object[]{id,ad_client_id,comId});
 	String goodsPhoto=null;
 	String goodsName=null;
