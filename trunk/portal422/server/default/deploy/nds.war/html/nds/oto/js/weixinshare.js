@@ -31,6 +31,8 @@ wxs.onBridgeReady:function(){
 		WeixinJSBridge.invoke(
 			'shareTimeline',
 			{
+				"appid":wxs.appId,
+				//"img_url":wxs.MsgImg,
 				"img_url":wxs.TLImg,
 				"img_width":"120",
 				"img_height":"120",
@@ -55,7 +57,8 @@ wxs.onBridgeReady:function(){
 		WeixinJSBridge.invoke(
 			'shareFB',
 			{
-				"img_url":wxs.TLImg,
+				"img_url":wxs.MsgImg,
+				//"img_url":wxs.TLImg,
 				"img_width":"120",
 				"img_height":"120",
 				"link":wxs.url,
