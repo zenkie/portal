@@ -53,15 +53,23 @@ String pid=request.getParameter("id");
 		if (w){
 			//w.document.getElementById(colid);
 			var gps=$("#latlng").val();
+			if(gps=="" || gps.length ==0){//坐标为空时，给出提示信息
+				alert("请选择坐标");
+				return;
+			}
 			if(w.jQuery("#ifr").length > 0){
 				w.jQuery("#ifr").contents().find("#"+colid).prev().val(gps);
-			}else{//这里用来设置门店位置				
+			}else{//这里用来设置门店位置
 				w.jQuery("#popup-iframe-0").attr("id","popup-iframe-1");
 				w.jQuery("#popup-iframe-0").contents().find("#"+colid).prev().val(gps);
 				w.jQuery("#popup-iframe-1").attr("id","popup-iframe-0");
 			}
-			
-      }
+			//关闭dialog
+			var list = w.art.dialog.list;
+			for (var i in list) {
+				list[i].close();
+			};
+		}
 	}
     function getMak()
     {
@@ -91,7 +99,7 @@ String pid=request.getParameter("id");
     }
 
     function getMar(vlng, vlat) {
-        var icon = new BMap.Icon("http://wxres.kun-hong.com/" + "images/markicon.png", new BMap.Size(25, 39), {
+		var icon = new BMap.Icon("/html/nds/oto/themes/01/images/markicon.png", new BMap.Size(25, 39), {
             anchor: new BMap.Size(12, 40),              //图标的定位点相对于图标左上角的偏移值  
             infoWindowAnchor: new BMap.Size(10, 0)      //信息窗口开启位置相对于图标左上角的偏移值  
         });
