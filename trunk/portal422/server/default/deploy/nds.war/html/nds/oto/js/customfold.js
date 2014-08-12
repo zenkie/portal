@@ -151,7 +151,8 @@ cusfold.prototype={
 			}
 			jQuery(eid).prev().val(temjson);
 			jQuery(eid).prev().attr("json",JSON.stringify(json));
-			jQuery(eid).prev().prev().val(jQuery("#result").html());
+			jQuery(eid).prev().prev().html(jQuery("#result").html());
+			jQuery(eid).prev().prev().prev().val(temjson);
 			if(cf.dia){cf.dia.close();}
 		}
 	},
