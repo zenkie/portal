@@ -8,7 +8,7 @@
 <link rel="Shortcut Icon" href="/html/nds/images/portal.ico" />
 <%if(GetterUtil.getBoolean(PropsUtil.get(PropsUtil.JAVASCRIPT_FAST_LOAD)) ){ %>
 <script language="javascript" src="/html/nds/oto/js/object_aio_<%=locale.toString()%>_min.js"></script>
-<link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/object_aio_min.css">
+<link type="text/css" rel="stylesheet" href="/html/nds/oto/themes/01/css/object_aio_min.css">
 <%}else{%>
 <script language="javascript" src="/html/nds/oto/js/top_css_ext.js"></script>
 <script language="javascript" language="javascript1.5" src="/html/nds/js/ieemu.js"></script>
