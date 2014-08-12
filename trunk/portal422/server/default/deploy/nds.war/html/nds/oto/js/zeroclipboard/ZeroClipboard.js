@@ -291,7 +291,7 @@
  * @private
  */
   var _swfPath = function() {
-    var i, jsDir, tmpJsPath, jsPath, swfPath = "ZeroClipboard.swf";
+    var i, jsDir, tmpJsPath, jsPath, swfPath = "zeroclipboard/ZeroClipboard.swf";
     if (!(_document.currentScript && (jsPath = _document.currentScript.src))) {
       var scripts = _document.getElementsByTagName("script");
       if ("readyState" in scripts[0]) {
