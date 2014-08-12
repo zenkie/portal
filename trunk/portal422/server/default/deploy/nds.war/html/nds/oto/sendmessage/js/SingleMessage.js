@@ -1,8 +1,7 @@
 var send;
-var sendMessage = Class.create();
 var dialog;
-//参数
-var jumpBox;
+var sendMessage = Class.create();
+
 var msgtypes={
 	Words:"文本",
 	News:"图片",
@@ -32,9 +31,6 @@ var submitObj={
 
 //多图文
 var tuwen = {};
-//获取到wx_messagesutoone单条数据
-var getnotjsonObjAll;
-var proData;
 			
 //弹出框对象
 var EditKeywordObj;
@@ -178,34 +174,6 @@ sendMessage.prototype={
                 application.dispatchEvent(evt);
             }
         });
-	},
-	AddSubscribeMark:function(){
-		var _params = "{table:'WX_INTERFACESET',columns:['ORIGINALID']}";
-		jQuery.ajax({
-			url: '/html/nds/schema/restajax.jsp',
-            type: 'post',
-			async: false,
-            data:{command:"Query",params:_params},
-			success: function (data) {
-				send.insertText("#txtReplyWords","[@a href=\"weixin://contacts/profile/"+eval("("+data+")")[0].rows+"\"@]点击关注[@/a@]");
-				send.setRemainString();
-			}
-		});
-	},
-	//导航目录
-	AddMenuMark:function(){
-		var _params = "{table:'WX_INTERFACESET',columns:['ORIGINALID']}";
-		jQuery.ajax({
-			url: '/html/nds/schema/restajax.jsp',
-            type: 'post',
-			async: false,
-            data:{command:"Query",params:_params},
-			success: function (data) {
-				var s= '[@a href="@@\\"fromid\\":29,\\"replace\\":\\"\\"@@"@]点此逛逛微商城[@/a@]<br>【新品】[@a href="@@\\"fromid\\":27,\\"replace\\":\\"\\"@@"@]新品上市[@/a@]<br>【微官网】[@a href="@@\\"fromid\\":42,\\"replace\\":\\"\\"@@"@]微官网[@/a@]<br>【微相册】[@a href="@@\\"fromid\\":32,\\"replace\\":\\"\\"@@"@]微相册[@/a@]<br>【会员】[@a href="@@\\"fromid\\":37,\\"replace\\":\\"\\"@@"@]会员中心[@/a@]<br>';
-				send.insertText("#txtReplyWords",s+"[@a href=\"weixin://contacts/profile/"+eval("("+data+")")[0].rows+"\"@]点击关注[@/a@]");
-				send.setRemainString();
-			}
-		});
 	},
 	//设置插入链接
 	setTarget:function(){

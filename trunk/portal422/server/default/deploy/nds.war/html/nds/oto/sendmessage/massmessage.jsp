@@ -120,8 +120,6 @@ width: 50%;padding: 0px;margin: 0px;float: left;border:none;
                                             <p class="left">回复类型：<span id="returnType" rtype="text">文字</span></p>
                                             <span id="spnAddLink" class="addlink">
                                                 <a title="插入指定链接标记" href="javascript:send.setTarget()">插入链接</a>
-                                                <a title="插入导航目录标记" href="javascript:send.AddMenuMark()" style="display:none;">导航目录</a>
-                                                <a title="插入关注公众号标记" href="javascript:send.AddSubscribeMark()" style="display:none">关注公众号</a>
                                             </span>
                                             <div class="clear"></div>
                                         </div>
