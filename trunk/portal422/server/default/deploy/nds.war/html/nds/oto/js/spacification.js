@@ -308,7 +308,7 @@ function addSPECListHtml(tid,objid,val,addName){
 //添加具体规格 tid 规格的id oid arr中的位置
 function addDetails(tid,oid){
 	if(savedata&&savedata.keys.length>0&&!detailsValueList.hasOwnProperty(tid)){
-		art.dialog.tips("请删除引商品的原有规格再添加新的规格。");
+		art.dialog.tips("请删除商品的原有规格再添加新的规格。");
 		return;
 	}
 	var selectnode=jQuery.extend({},specs[tid]["childs"][oid]);
@@ -476,6 +476,7 @@ function submitDetails(){
 	cartesians=null;
 	var spacehtml="<table id=\"table_spaceitem\"><thead id=\"spacehead\"><tr><th width='150'>货号</th>";
 	for(key in detailsValueList){
+		elenode.extendspace.canalias*=parseInt(Object.getOwnPropertyNames(detailsValueList[key]).length);
 		keys.push({id:parseInt(key),name:specs[key].name});
 		spacehtml+="<th id=\"th_"+key+"\">"+specs[key].name+"</th>";
 		if(!cartesians){

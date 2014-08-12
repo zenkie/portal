@@ -17,6 +17,8 @@ customspaces.prototype={
 		this.inventory=null;
 		this.ele=null;
 		this.objid=null;
+		this.w=null;
+		this.canalias=1;
 		
 		application.addEventListener("SAVE_ALIAS", this._onSaveAlias, this);
 		application.addEventListener("DELETE_ALIAS", this._onDeleteAlias, this);
@@ -30,6 +32,7 @@ customspaces.prototype={
 		var w = window.opener;
 		if(w==undefined){w= window.parent;}
 		if(!w){return;}
+		this.w=w;
 		this.skunode=w.jQuery("#div_"+this.eid).attr("sku");
 		this.pricenode=w.jQuery("#div_"+this.eid).attr("price");
 		this.costpricenode=w.jQuery("#div_"+this.eid).attr("costprice");	
@@ -100,11 +103,17 @@ customspaces.prototype={
 				spacehtml+="<td><input type=\"checkbox\""+("Y"==jo.putaway?" checked='checked'":"")+" onchange=\"extendspace.changedata(this,'putaway','boolean');\" /></td>";
 				spacehtml+="<td><a href=\"javascript:void()\" onclick=\"extendspace.deletespaceitem(this);\" class=\"deletesku\">删除</a></td></tr>";
 			}
+			
+			//计算条码可能的组合数
+			for(var space in this.selectspace){
+				this.canalias*=parseInt(Object.getOwnPropertyNames(this.selectspace[space]).length);
+			}
 		}
 		spacehtml+="</tbody></table>";
 		jQuery("#custom_spaceitems").html(spacehtml);
 		//$("#custom_spaceitems").innerHTML=spacehtml;
-		w.jQuery("#div_"+this.eid+" input[type=button][ac="+this.eid+"]").removeAttr("disabled");
+		extendspace.w.jQuery("#div_"+this.eid+" input[type=button][ac="+this.eid+"]").removeAttr("disabled");
+		extendspace.w.jQuery("#divs_"+this.eid+" input[type=button][ac="+this.eid+"]").removeAttr("disabled");
 	},
 	
 	changedata:function(ele,key,cost){
@@ -172,9 +181,10 @@ customspaces.prototype={
 			}
 			if(!extendspace.spaces||index<0){return;}
 			
-			if(this.spaces.child[trindex].id==0){
+			if(extendspace.spaces.child[index].id==0){
 				extendspace.spaces.child.splice(index,1);
 				extendspace.dk.splice(index,1);
+				node.remove();
 				var temjson;
 				try{
 					temjson="{\"keys\":"+JSON.stringify(extendspace.spaces.keys).replace(new RegExp("^\"|\"$","g"),"").replace(new RegExp("(\\\\\")","g"),"\"")+",\"child\":"+JSON.stringify(extendspace.spaces.child).replace(new RegExp("^\"|\"$","g"),"").replace(new RegExp("(\\\\\")","g"),"\"")+"}";
@@ -182,7 +192,7 @@ customspaces.prototype={
 				}catch(e){
 					temjson=extendspace.spaces;
 				}
-				w.jQuery("#div_"+extendspace.eid+" input[type=text][name="+extendspace.eid+"]").val(temjson);
+				extendspace.w.jQuery("#div_"+extendspace.eid+" input[type=text][name="+extendspace.eid+"]").val(temjson);
 				alert("保存成功！");
 				return;
 			}
@@ -207,8 +217,11 @@ customspaces.prototype={
 		if(!w){return;}
 		
 		var resultjo;
-		try{resultjo=eval('(' + result.getUserData().jsonResult + ')');}
-		catch(e){resultjo=null;}
+		try{
+			resultjo=eval('(' + result.getUserData().jsonResult + ')');
+			resultjo=eval('('+resultjo.data+')');
+		}
+		catch(e){}
 		if(!resultjo){
 			alert("保存失败！");
 			return;
@@ -226,7 +239,7 @@ customspaces.prototype={
 			index=trs.index(jQuery(ele).parent().closest("tr"));
 		}
 		if(!extendspace.spaces||index<0){return;}
-		jQuery(node).remove();
+		node.remove();
 		//delete spaces.child[index];
 		extendspace.spaces.child.splice(index,1);
 		extendspace.dk.splice(index,1);
@@ -246,6 +259,12 @@ customspaces.prototype={
 			art.dialog.tips('请先选择规格！');
 			return;
 		}
+		
+		//判断是否能添加规格
+		if(this.canalias<=this.spaces.child.length){
+			art.dialog.tips('已无规格可以组合，请添加规格后再新增！');
+			return;
+		}
 		var sk=[];
 		var w = window.opener;
 		if(w==undefined){w= window.parent;}
@@ -258,6 +277,7 @@ customspaces.prototype={
 				tr+="<td id=\"th_"+jo.id+"\" ><span class=\"customsku\" onclick=\"extendspace.selectsku(this,"+jo.id+","+k+")\" id=\"item_"+jo.id+"\" value=\"\">请选择</span></td>";
 			}
 		}
+		
 		tr+="<td><input type=\"text\" value="+this.inventory+" onchange=\"extendspace.changedata(this,'inventory','int');\" class=\"spacenum\" /></td>";
 		tr+="<td><input type=\"text\" value=0 onchange=\"extendspace.changedata(this,'lockinventory','int');\" class=\"spacenum\" /></td>";
 		tr+="<td><input type=\"text\" value="+this.price+" onchange=\"extendspace.changedata(this,'sellprice','float');\" class=\"spacenum\" /></td>";
@@ -298,14 +318,17 @@ customspaces.prototype={
 	
 	_onDeleteAllAlias:function(result){
 		var resultjo;
-		try{resultjo=eval('(' + result.getUserData().jsonResult + ')');}
-		catch(e){resultjo=null;}
+		try{
+			resultjo=eval('(' + result.getUserData().jsonResult + ')');
+			resultjo=eval('('+resultjo.data+')');
+		}
+		catch(e){}
 		if(!resultjo){
-			alert("保存失败！");
+			alert("清空失败！");
 			return;
 		}else if(resultjo.code!=0){
 			if(resultjo.message){alert(resultjo.message);}
-			else{alert("保存失败！");}
+			else{alert("清空失败！");}
 			return;
 		}
 		
@@ -317,7 +340,7 @@ customspaces.prototype={
 		this.dk=[];
 		jQuery("#custom_spaceitems tbody tr").remove();
 		w.jQuery("#div_"+this.eid+" input[type=text][name="+this.eid+"]").val("");
-		alert("保存成功！");
+		alert("清空成功！");
 	},
 	
 	selectsku:function(ele,tid,cindex){
@@ -341,7 +364,7 @@ customspaces.prototype={
 				selectcount++;
 				sss[skus[i].pid]=skus[i].id;
 			}
-			if(i>0){regstring+="\s*,";}
+			if(i>0){regstring+="\\\s*,";}
 			regstring+="\\\s*\\\{\\\s*\\\\\\\"pid\\\\\\\"\\\s*:\\\s*"+skus[i].pid;	
 			if(tid==skus[i].pid){regstring+="\\\s*,\\\s*\\\\\\\"id\\\\\\\"\\\s*:\\\s*@id@";}
 			else if(skus[i].id){regstring+="\\\s*,\\\s*\\\\\\\"id\\\\\\\"\\\s*:\\\s*"+skus[i].id;}
@@ -352,7 +375,7 @@ customspaces.prototype={
 		var sele;
 		for(key in this.selectspace){
 			sele=this.selectspace[key];
-			if(!sss.hasOwnProperty(sele.tid)&&parseInt(tid)!=parseInt(key)){size*=Object.getOwnPropertyNames(sele).length;}
+			if(!sss.hasOwnProperty(key)&&parseInt(tid)!=parseInt(key)){size*=Object.getOwnPropertyNames(sele).length;}
 		}
 		var cid;
 		var reg;
@@ -452,6 +475,24 @@ customspaces.prototype={
 		if(!this.spaces||this.spaces.keys.length<=0){
 			alert("请选择规格后再保存！");
 			return;
+		}
+		
+		//判断所有规格都选择了值
+		var sku;
+		var alias;
+		var isFinishe=true;
+		for(var i=0;i<this.spaces.child.length;i++){
+			alias=this.spaces.child[i];
+			if(alias.operate=="create"){
+				for(var j=0;j<alias.space.length;j++){
+					sku=alias.space[j];
+					if(!sku.id){
+						isFinishe=false;
+						alert("请把规格维护完全！");
+						return;
+					}
+				}
+			}
 		}
 		
 		var evt={};
