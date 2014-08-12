@@ -23,9 +23,9 @@ String eid=request.getParameter("eid");
 
 <head>
 <link rel="stylesheet" type="text/css" href="/html/nds/oto/themes/01/css/spacification.css">
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
 <script language="javascript" src="/html/nds/oto/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/oto/js/application.js"></script>
-<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/plugins/iframeTools.js"></script>
 <script language="javascript" src="/html/nds/oto/js/customspace.js"></script>
@@ -37,11 +37,8 @@ String eid=request.getParameter("eid");
 	<div id="custom_spaceitems"></div>
 </body>
 
-<script>
-	var w = window.opener;
-	if(w==undefined){w= window.parent;}
-	if(!w){return;}
-	w.jQuery(document).ready(function(){
+<script type="text/javascript">
+	jQuery(document).ready(function(){	
 		if(!extendspace){customspaces.main();}
 		extendspace.eid="<%=eid%>";
 		extendspace.init();
