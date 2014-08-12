@@ -1,13 +1,13 @@
-<%@ include file="/html/nds/common/init.jsp" %>
-<%@ page import="org.json.*" %>
+<%@ include file="/html/nds/common/init.jsp"%>
+<%@ page import="org.json.*" pageEncoding="UTF-8"%>
 <%@ page import="nds.control.util.*" %>
 <%! 
     /**
-      ÁÐ³ö table Ö¸Ã÷µÄ±íµÄ¶àÌõ¼ÇÂ¼£¬Âú×ãÌõ¼þ fixedcolumns
-      Ö®Ç°ÒÑ¾­¼ì²éÁËÓÃ»§µÄÐ´È¨ÏÞ£¬ÓÉÓÚstatus ×Ö¶ÎµÄ´æÔÚ£¬µ¼ÖÂÁÐ±íÖÐµÄ
-      ²¿·ÖÊý¾Ý¿ÉÄÜÊÇ²»ÔÊÐíÐÞ¸ÄµÄ£¬±ØÐë½øÐÐ¹ýÂË¡£·½·¨£º
-	   Ê×ÏÈ²éÑ¯Ìõ¼þÐèÒªÂú×ã  fixedcolumns£¬ Æä´ÎÐèÒªÔÚÓÃ»§¿ÉÐÞ¸ÄµÄÌõ¼þÏÂ£¬
-	   ÔÙ´ÎÐèÒªÂú×ãstatus ×Ö¶Î(=1¿ÉÐÞ¸Ä), 
+      åˆ—å‡º table æŒ‡æ˜Žçš„è¡¨çš„å¤šæ¡è®°å½•ï¼Œæ»¡è¶³æ¡ä»¶ fixedcolumns
+      ä¹‹å‰å·²ç»æ£€æŸ¥äº†ç”¨æˆ·çš„å†™æƒé™ï¼Œç”±äºŽstatus å­—æ®µçš„å­˜åœ¨ï¼Œå¯¼è‡´åˆ—è¡¨ä¸­çš„
+      éƒ¨åˆ†æ•°æ®å¯èƒ½æ˜¯ä¸å…è®¸ä¿®æ”¹çš„ï¼Œå¿…é¡»è¿›è¡Œè¿‡æ»¤ã€‚æ–¹æ³•ï¼š
+	   é¦–å…ˆæŸ¥è¯¢æ¡ä»¶éœ€è¦æ»¡è¶³  fixedcolumnsï¼Œ å…¶æ¬¡éœ€è¦åœ¨ç”¨æˆ·å¯ä¿®æ”¹çš„æ¡ä»¶ä¸‹ï¼Œ
+	   å†æ¬¡éœ€è¦æ»¡è¶³status å­—æ®µ(=1å¯ä¿®æ”¹), 
       
      * Things needed in this page (attributes) :
      *  1.  itemtable     String|id of table that queried on, 
