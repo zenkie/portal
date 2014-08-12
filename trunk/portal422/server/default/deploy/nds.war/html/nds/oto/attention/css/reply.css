@@ -32,9 +32,14 @@ table {
             color: #4E7FD7;
 }
 
+#listTable>table>thead>tr>td{
+color:white;
+}
+
 /**************顶部 按钮修改 start***********/
 .uploadify-button-text{
 font-size:12px;
+color:white;
 }
 h4 {
 height: 36px;

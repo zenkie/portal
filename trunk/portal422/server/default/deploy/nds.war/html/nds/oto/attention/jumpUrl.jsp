@@ -135,9 +135,9 @@ function changeOp(){
 	var arra=<%=menuArr%>;
 	//var sid=0;
 	var select=arra[se];
-	if(arra[se].SHOW_DC==null && arra[se].FIFTLE_CONDITION=="text"){
+	if(arra[se].SHOW_DC==null && arra[se].FIFTLE_CONDITION==null){
 		jQuery("#goodsTable").html("");
-	}else if(arra[se].SHOW_DC==null && arra[se].FIFTLE_CONDITION!="text"){
+	}else if(arra[se].SHOW_DC==null && arra[se].FIFTLE_CONDITION!=null){
 		jQuery("#goodsTable").html("<label for=\"writeUrl\">输入连接:</label><input id=\"writeUrl\" type=\"text\" name=\"writeUrl\" value=\"http://\">");
 	}else{
 		

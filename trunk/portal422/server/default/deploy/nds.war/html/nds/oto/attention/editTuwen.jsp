@@ -120,7 +120,6 @@
 <link href="/html/nds/oto/attention/css/reply.css" rel="stylesheet" type="text/css">
 
 <link type="text/css" rel="StyleSheet" href="/html/prg/upload/uploadify.css">
- 
 <script type="text/javascript">
 //每次初始清0
 art.dialog.data('flagFunc',0);
@@ -282,30 +281,27 @@ function cancelMessage(){
 	for (var i in list) {
 		list[i].close();
 	};*/
-	
 }
-
 var upinit={
-            'sizeLimit':1024*1024 *1,
-            'buttonText'	: '上传图片',
-            'fileDesc'      : '上传文件(dat)',
-            'fileExt'		: '*.dat;'
-        };
-        var para={
-            "next-screen":"/html/prg/msgjson.jsp",
-            "formRequest":"/html/nds/msg.jsp",
-           // "JSESSIONID":"<%=session.getId()%>",
-			"isThum":true,
-			"width":<%=imagewidth%>,
-			"hight":<%=imageheight%>,
-			"onsuccess":"jQuery(\"#grouponimage\").attr(\"src\",\"$filepath$\");",
-			"onfail":"alert(\"上传图片失败，请重新选择上传\");"	,
-			"modname":"menuAdd"
-        };
-        
-             
-      
-        
+	'sizeLimit':1024*1024 *1,
+	'buttonText'	: '上传图片',
+	'fileDesc'      : '上传文件(dat)',
+	'fileExt'		: '*.dat;'
+};
+var para={
+	"next-screen":"/html/prg/msgjson.jsp",
+	"formRequest":"/html/nds/msg.jsp",
+   // "JSESSIONID":"<%=session.getId()%>",
+	"isThum":true,
+	"width":<%=imagewidth%>,
+	"hight":<%=imageheight%>,
+	"onsuccess":"jQuery(\"#grouponimage\").attr(\"src\",\"$filepath$\");",
+	"onfail":"alert(\"上传图片失败，请重新选择上传\");"	,
+	"modname":"menuAdd"
+};
+jQuery(document).ready(function(){
+	  fup.initForm(upinit,para);
+});
 </script>
     <div id="mainContent" style="height: 460px;">
     <div id="contentWrap">
@@ -346,7 +342,7 @@ var upinit={
 							}else{
 						%>		
 							建议大小：200*200
-								<%}%>
+						<%}%>
 						</font>
                 </td>
             </tr>
@@ -380,6 +376,3 @@ var upinit={
         </form>
     </div>
 	<p id="whole"></p>
-	<script>
-			  fup.initForm(upinit,para);
-	</script>
