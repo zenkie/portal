@@ -1858,6 +1858,7 @@ GridControl.prototype = {
 			this._data.push(a.concat(qr.rows[i]));
 			this._insertGridLine(i,false);
 		}
+		this._updateSubtotal(qr);
 		this._syncGridControl(qr);
 		if(this._currentRow!=-1)this.newLine(false);
 		this._isDirty=false;
@@ -1927,11 +1928,23 @@ GridControl.prototype = {
 				//AddScrollTableHeader(this);
 				
 				this.style.overflowY="hidden";
-		ScrollableTable.set('modify_table','100%',260,false);
+				ScrollableTable.set('modify_table','100%',260,false);
 			}
 			return true;
 		}
-		
+	},
+	_updateSubtotal:function(qr){
+		var sr=qr.subtotalRow;
+
+		if($("tr_pagesum")==null || sr==null) return;
+		var i;
+		$("tr_pagesum").show();
+		var cols=this._gridMetadata.columns;
+		for(i=0;i< cols.length;i++){
+			if(cols[i].summethod!=null){
+				dwr.util.setValue($("psum_"+cols[i].name), sr[i-4]);// first 4 column is not from query
+			}
+		}
 	},
 	/**
 	* Setup line template for input
