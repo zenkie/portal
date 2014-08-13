@@ -65,14 +65,7 @@ function loading(type){
 }
 
 function showTuwen(groupid){
-		//jQuery("#dialog").attr("src","/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=simple");
-		var w = window.opener;
-		if(w==undefined || w == null)w= window.parent;
-		if (w){//动态改变css
-			w.jQuery("#dialog").attr("src","/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=simple");
-			jQuery(w.jQuery("link")[0]).attr("href","http://172.18.34.81/html/nds/oto/js/artDialog4/skins/simple.css?4.1.6");
-			jQuery(window.parent.parent.jQuery("link")[2]).attr("href","http://172.18.34.81/html/nds/oto/js/artDialog4/skins/simple.css?4.1.6");
-		}		
+		replacejscssfile("/html/nds/oto/js/artDialog4/skins/default.css","/html/nds/oto/js/artDialog4/skins/simple.css","css");
 		var url = "/html/nds/oto/sendmessage/getTuwenData.jsp?groupid="+groupid;
 		var options={
 			width:"auto",
@@ -85,10 +78,20 @@ function showTuwen(groupid){
 			ispop:false,
 			title:"",
 			close:function(){
-				w.jQuery("#dialog").attr("src","/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=default");
-				jQuery(w.jQuery("link")[0]).attr("href","http://172.18.34.81/html/nds/oto/js/artDialog4/skins/default.css?4.1.6");
-				jQuery(window.parent.parent.jQuery("link")[2]).attr("href","http://172.18.34.81/html/nds/oto/js/artDialog4/skins/default.css?4.1.6");
+				replacejscssfile("/html/nds/oto/js/artDialog4/skins/simple.css","/html/nds/oto/js/artDialog4/skins/default.css?4.1.6","css");
 			}
 		};		 
 		art.dialog.open(url,options);
 }
+
+function replacejscssfile(oldfilename, newfilename, filetype){
+	var w = window.opener;
+	if(w==undefined){w= window.parent;}
+	var wParent = w.opener;
+	if(wParent==undefined){wParent= w.parent;}
+	var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none"
+	var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none"
+	var allsuspects=wParent.document.getElementsByTagName(targetelement)
+	for (var i=allsuspects.length; i>=0; i--){
+		if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(oldfilename)!=-1){
+		   var newelement=createjscssfile(newfilename, fi
