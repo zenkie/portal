@@ -105,7 +105,7 @@ result= QueryEngine.getInstance().doQuery(query);
 	queryData.addSelection(dataTable.getColumn("attr2").getId());
 		//add realtable
 	queryData.addSelection(dataTable.getColumn("AD_TABLE_ID").getId());
-	queryData.setOrderBy( new int[]{ dataTable.getAlternateKey().getId()}, true);
+	//queryData.setOrderBy( new int[]{ dataTable.getAlternateKey().getId()}, true);
 	queryData.setRange(0, Integer.MAX_VALUE);
 	Expression expr= new Expression(categoryIdLink,"="+pkid ,null);
 	//set reporttype to "S"
