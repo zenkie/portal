@@ -32,6 +32,26 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
 			ColumnLink clink=qColumns.get(i);
 			Column column=clink.getLastColumn();
 			String desc= clink.getDescription(locale);
+			// add reflable desc
+			if(column.getJSONProps()!=null){
+			JSONObject jor=column.getJSONProps();
+			if(jor.has("reflable")){
+			JSONObject jo=column.getJSONProps().getJSONObject("reflable");
+			 int lable_id=jo.optInt("ref_id",0);
+				 int lable_tabid=jo.optInt("tabid",0);
+				 Table reftable= TableManager.getInstance().getTable(lable_tabid);
+				 QueryRequestImpl query=QueryEngine.getInstance().createRequest(userWeb.getSession());
+				 query.setMainTable(lable_tabid);
+				 query.addSelection(reftable.getAlternateKey().getId());
+				 query.addParam( reftable.getPrimaryKey().getId(), ""+ lable_id);
+			   QueryResult rs=QueryEngine.getInstance().doQuery(query); 
+			   if(lable_id !=0 || (rs!=null && rs.getTotalRowCount()>0)){
+				while(rs.next()) {
+				   desc=rs.getObject(1).toString(); 
+				}
+				}
+				}
+			}
 			String inputName=clink.toHTMLString();
 			int inputSize= (column.getReferenceTable()!=null? column.getReferenceTable().getAlternateKey().getLength():column.getLength());
       String type=TableQueryModel.toTypeDesc(column,locale);
