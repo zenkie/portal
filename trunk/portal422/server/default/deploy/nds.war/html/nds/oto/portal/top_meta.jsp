@@ -8,6 +8,7 @@
 <%if(GetterUtil.getBoolean(PropsUtil.get(PropsUtil.JAVASCRIPT_FAST_LOAD)) ){ %>
 <script language="javascript" src="/html/nds/oto/js/portal_aio_<%=locale.toString()%>_min.js"></script>
 <link type="text/css" rel="stylesheet" href="/html/nds/oto/themes/01/css/portal_aio_min.css">
+<link type="text/css" href="/html/nds/oto/js/artDialog4/skins/default.css" rel="Stylesheet">
 <%}else{%>
 <script language="javascript" src="/html/nds/oto/js/common.js"></script>
 <script language="javascript" src="/html/nds/oto/js/top_css_ext.js"></script>
