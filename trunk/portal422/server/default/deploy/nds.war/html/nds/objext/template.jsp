@@ -1,6 +1,7 @@
 <%@ include file="/html/nds/common/init.jsp" %>
 <%@ include file="/html/nds/portal/top_meta.jsp" %>
 <%@page errorPage="/html/nds/error.jsp"%>
+<%@ page import="org.json.JSONObject" %>
 <%
 TableManager manager=TableManager.getInstance();
 int tableId= Tools.getInt(request.getParameter("table"), -1);
@@ -59,8 +60,10 @@ if(!isInput){
 request.setAttribute("action", isInput?"input":"view");
 
 QueryResult result=null;
+QueryRequestImpl query;
+
 if( objectId != -1){
-	QueryRequestImpl query=QueryEngine.getInstance().createRequest(userWeb.getSession());
+	query=QueryEngine.getInstance().createRequest(userWeb.getSession());
     query.setMainTable(tableId);
 	query.addAllShowableColumnsToSelection(Column.MODIFY);
     query.addParam( table.getPrimaryKey().getId(), ""+ objectId );
