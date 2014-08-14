@@ -191,6 +191,8 @@ for(int i=0;i< meta.getColumnCount();i++){
 				JSONObject jor=colmn.getJSONProps();
 				if(jor.has("ispassword")){ %>
 				<input type="password" readonly="true"  value="<%=columnData%>" style="border: 0px;width: 50px;background:transparent;">
+				<%}else{%>
+				<%=columnData%>
 				<%}}else{%>
 				<%=columnData%>
 	<%}
