@@ -108,6 +108,7 @@ AlipayConfig aliconfig=new AlipayConfig();
 		//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 		
 		ArrayList paramsvip=new ArrayList();
+		paramsvip.add(wu.getAd_client_id());
 		paramsvip.add(out_trade_no);
 		try{
 			QueryEngine.getInstance().executeStoredProcedure("wx_order_destocking",paramsvip,false);
