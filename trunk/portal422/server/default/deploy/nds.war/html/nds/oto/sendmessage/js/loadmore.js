@@ -94,4 +94,25 @@ function replacejscssfile(oldfilename, newfilename, filetype){
 	var allsuspects=wParent.document.getElementsByTagName(targetelement)
 	for (var i=allsuspects.length; i>=0; i--){
 		if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(oldfilename)!=-1){
-		   var newelement=createjscssfile(newfilename, fi
+		   var newelement=createjscssfile(newfilename, filetype);
+		   allsuspects[i].parentNode.replaceChild(newelement, allsuspects[i]);
+		}
+	}
+}
+function createjscssfile(filename, filetype){
+	var w = window.opener;
+	if(w==undefined){w= window.parent;}
+	var wParent = w.opener;
+	if(wParent==undefined){wParent= w.parent;}
+	if (filetype=="js"){
+		var fileref=wParent.document.createElement('script')
+		fileref.setAttribute("type","text/javascript")
+		fileref.setAttribute("src", filename)
+	}else if (filetype=="css"){
+		var fileref=wParent.document.createElement("link")
+		fileref.setAttribute("rel", "stylesheet")
+		fileref.setAttribute("type", "text/css")
+		fileref.setAttribute("href", filename)
+	}
+	return fileref
+}
