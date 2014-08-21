@@ -166,7 +166,11 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 <%}%>
 </script>	
 </head>
+<%if(ltype.toString().equals("Evaluation")){%>
+<body style="background:url('/servlets/binserv/Image?image=apt') !important">
+<%}else{%>
 <body>
+<%}%>
 <%@ include file="../body_meta.jsp"%>
 
 <div id="container" class="<%=ssId!=-1?"cl":""%>">
