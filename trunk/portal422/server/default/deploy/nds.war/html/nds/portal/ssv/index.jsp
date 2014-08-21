@@ -117,6 +117,7 @@ jQuery(document).ready(function(){
 /*
 横动调跟随变化标题坐标
 */
+	<%if(mms != null && mms.length() != 0) {out.print(mms);}%>
 	jQuery('#roll').hide();
 	jQuery("#portal-content").scroll(function() {
 		if(jQuery("#portal-content").scrollTop() >= 200){
