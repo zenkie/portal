@@ -6,7 +6,8 @@
 	/*tableObj.put("actionMODIFY", canModify);*/
 	tableObj.put("actionDELETE", canDelete);
 	tableObj.put("actionSUBMIT", canSubmit);
-	/*tableObj.put("actionEXPORT", canExport);*/
+	if(jopro.has("showimport")&&jopro.optBoolean("showimport",false)){tableObj.put("actionIMPORT", true);}
+	if(jopro.has("showexport")&&jopro.optBoolean("showexport",false)){tableObj.put("actionEXPORT", canExport);}
 	tableObj.put("actionGROUPSUBMIT", canSubmit &&  table.isActionEnabled(Table.GROUPSUBMIT));
 	tableObj.put("actionVOID", canVoid);
 	
