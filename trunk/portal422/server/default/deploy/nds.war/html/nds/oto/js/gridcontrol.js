@@ -798,7 +798,7 @@ GridControl.prototype = {
 		var chkProductAttribute=$("check_product_attribute");
 		var chkMaterialAttribute=$("check_material_attribute");
 		
-		//add by robin 20121009 物料 判断
+		//add by robin 20121009 鐗╂枡 鍒ゆ柇
 		if(chkMaterialAttribute&&-1!=this._getPositionInData("Y_MATERIALALIAS_ID__NO")){
 			
 			var mtlValue=String($("eo_"+chkMaterialAttribute.value).value);
@@ -1508,7 +1508,7 @@ GridControl.prototype = {
 				var row= chkResult.tag;// @see showJsonObj
 				this.editLine(row);
 				/*
-				界面错误showerro
+				鐣岄潰閿欒showerro
 				var ele = Alerts.fireMessageBox(
 				{
 					width: 800,
@@ -1715,9 +1715,19 @@ GridControl.prototype = {
 					if(col.isVisible && $("eo_"+ col.name)!=null){
 						//check fixed columns
 						if( this._fixedColumns[col.columnId]!=undefined){
-							dwr.util.setValue("eo_"+ col.name,gMessageHolder.MAINTAIN_BY_SYS);				
+							dwr.util.setValue("eo_"+ col.name,gMessageHolder.MAINTAIN_BY_SYS);	
+							if(col.dsptype==12){
+								dwr.util.setValue("eo_"+ col.name+"_fd",gMessageHolder.MAINTAIN_BY_SYS);
+								$("eo_"+ col.name+ "_link").title="popup"; // reset to popup
+								$("eo_"+ col.name+ "_img").src="/html/nds/oto/themes/01/images/filterobj.gif";
+							}
 						}else{
 							this._setValue("eo_"+ col.name,col.defaultValue);
+							if(col.dsptype==12){
+								dwr.util.setValue("eo_"+ col.name+"_fd",gMessageHolder.MAINTAIN_BY_SYS);	
+								$("eo_"+ col.name+ "_link").title="popup"; // reset to popup
+								$("eo_"+ col.name+ "_img").src="/html/nds/oto/themes/01/images/filterobj.gif";
+							}
 						}
 					}
 				}
@@ -1972,7 +1982,7 @@ GridControl.prototype = {
 			}
 			dwr.util.setValue("chk_select_all", false); 
 			cyl 10 16
-			更新SelectableTableRows to  selectable
+			鏇存柊SelectableTableRows to  selectable
 		};	
 		*/
 		var tb=jQuery('#modify_table').selectable({filter:'tr',tolerance:"fit",cancel:"input,:input,a,.ui-selected"});
@@ -2391,11 +2401,11 @@ function doQuickSearch(){
 	
 		
 		if (tableHeader.rows.length > 0) {
-			//获取每一行TR数据
+			//鑾峰彇姣忎竴琛孴R鏁版嵁
 			  for (v = 0; v < tableHeader.rows.length; v++) {
 			  	var  trbody=tableHeader.rows[v];
 			    if (colsWidths.size() > 0) {
-			    	  //更新每行TD宽度
+			    	  //鏇存柊姣忚TD瀹藉害
 			    	
 			        for (i = 0; i < trbody.children.length; i++) {
 			        	//alert(colsWidths[i]);
@@ -2443,11 +2453,11 @@ function doQuickSearch(){
 		
 		
 		if (masterTable.rows.length > 0) {
-			//获取每一行TR数据
+			//鑾峰彇姣忎竴琛孴R鏁版嵁
 			  for (v = 0; v < masterTable.rows.length; v++) {
 			  	var  trbody=masterTable.rows[v];
 			    if (colsWidths.size() > 0) {
-			    	  //更新每行TD宽度
+			    	  //鏇存柊姣忚TD瀹藉害
 			    	
 			        for (i = 0; i < trbody.children.length; i++) {
 			        	//alert(colsWidths[i]);
@@ -2559,7 +2569,7 @@ function doQuickSearch(){
 
      //alert(theadTD[0].offsetWidth);
      //alert(tbodyTD[0].offsetWidth);
-     //修复明细刷新不能宽度放大问题
+     //淇鏄庣粏鍒锋柊涓嶈兘瀹藉害鏀惧ぇ闂
 	 
 	 
       //if(theadTD[0].offsetWidth!=tbodyTD[0].offsetWidth&&tbodyTD[0].offsetWidth!=0){
