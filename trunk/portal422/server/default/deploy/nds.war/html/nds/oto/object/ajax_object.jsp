@@ -59,6 +59,12 @@ if(nds.util.Validator.isNotNull(fkURLTarget)){
 }
 
 if(table!=null){
+	int couurntrc=0;
+	String currentEvent="";
+	org.json.JSONObject tjo=table.getJSONProps();
+	Boolean isFold=false;
+	if(tjo!=null&&tjo.has("isFold")){isFold="Y".equalsIgnoreCase(tjo.optString("isFold","N"));}
+
 	int colspan=0;
 	int bigrowspan=0;
 	int endcolumn=-1;
@@ -68,7 +74,7 @@ if(table!=null){
 	JSONArray rowspans=null;
 	JSONObject currentrowspan=null;
 	
-	String object_page_url=NDS_PATH+"/object/object.jsp?table="+
+	String object_page_url=NDS_PATH+"/oto/object/object.jsp?table="+
 		 tableId+ "&id="+ objectId+ "&select_tab="+ selectedTabId+(isInput?"":"&input=false");
 	if(fixedColumns!=null)
 		 object_page_url +="&fixedcolumns="+ fixedColumns.toURLQueryString("");

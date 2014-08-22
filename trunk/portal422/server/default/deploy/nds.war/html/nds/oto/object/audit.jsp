@@ -121,6 +121,12 @@ NDSServletRequest ndsRequest=new NDSServletRequest(request);
 <%
 
 if(table!=null){
+	int couurntrc=0;
+	String currentEvent="";
+	org.json.JSONObject tjo=table.getJSONProps();
+	Boolean isFold=false;
+	if(tjo!=null&&tjo.has("isFold")){isFold="Y".equalsIgnoreCase(tjo.optString("isFold","N"));}
+
 	int colspan=0;
 	int bigrowspan=0;
 	int endcolumn=-1;
