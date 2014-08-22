@@ -40,7 +40,7 @@ TableCommand.prototype.makeTemplate=function(){
 (new TableCommand("UpdateSelection", gMessageHolder.CMD_UPDATE_SELECTION,"tb_update_selection.gif",null)).makeTemplate();
 (new TableCommand("UpdateResultSet", gMessageHolder.CMD_UPDATE_RESULTSET,"tb_update_resultset",null)).makeTemplate();
 /*
-废弃列表打印按钮
+搴熷純鍒楄〃鎵撳嵃鎸夐挳
 (new TableCommand("PrintList", gMessageHolder.CMD_PRINT_LIST,"tb_print.gif",null)).makeTemplate();
 */
 (new TableCommand("ExportList", gMessageHolder.CMD_EXPORT_LIST,"tb_export.gif",null)).makeTemplate();
@@ -57,13 +57,13 @@ function TableCommands(oTable) {
 	this._menuItems=[];
 	var a1=[],a2=[];
 	//a2[a2.length]="Refresh";
-	if(oTable.actionEXPORT){
+	/*if(oTable.actionEXPORT){
 		//a2[a2.length]="Report";
 		a2[a2.length]="ExportList";
 		a2[a2.length]="PrintList";
 		a2[a2.length]="PrintSelect";
 		
-	}
+	}*/
 	if(oTable.actionADD){
 		a1[a1.length]="Add";
 		//a2[a2.length]="Import";
@@ -83,10 +83,16 @@ function TableCommands(oTable) {
 	if(oTable.actionSUBMIT){
 		a1[a1.length]="Submit";
 	}
+	if(oTable.actionIMPORT){
+		a1[a1.length]="Import";
+		//a2[a2.length]="Import";
+		//a2[a2.length]="ListAdd";
+	}
 	//a2[a2.length]="ListCopyTo";
-	/*if(oTable.actionEXPORT){
-		a2[a2.length]="SmsList";
-	}*/
+	if(oTable.actionEXPORT){
+		//a2[a1.length]="SmsList";
+		a1[a1.length]="ExportList";
+	}
 	
 	for(i=0;i<a1.length &&i<4;i++){
 		this._buttons[this._buttons.length]=a1[i];
@@ -139,12 +145,12 @@ var categoryTabHandler = {
 	all       : {},
 	selected  : null,
 	select    : function (oItem) {
-		//移除微商城导航start
+		//绉婚櫎寰晢鍩庡鑸猻tart
 			if(jQuery("div .site").length > 0){
 				jQuery("div").remove(".site");
 				jQuery("#page-table").show();
 			}
-		//移除微商城导航end
+		//绉婚櫎寰晢鍩庡鑸猠nd
 		this.all["C"+oItem.id.replace("page-tab-","")].select();
 	 },
 	init:function(){
@@ -154,7 +160,7 @@ var categoryTabHandler = {
 };
 function CategoryTabItem(oTableCategory) {
 	this.id=oTableCategory.id;
-	//增加当前是否存在子系统ID
+	//澧炲姞褰撳墠鏄惁瀛樺湪瀛愮郴缁烮D
 	this.ssid=oTableCategory.ssid;
 	this.oTableCategory=oTableCategory;
 	categoryTabHandler.all["C"+this.id] = this;
