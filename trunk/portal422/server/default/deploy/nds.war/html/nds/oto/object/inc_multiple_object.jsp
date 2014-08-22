@@ -95,7 +95,7 @@ else divEmbedItemId="embed-items-short";
 					}
 					
 					%>
-					<td nowrap align='center' onClick="javascript:gc.orderGrid2('<%=ordName%>',event)">
+					<td nowrap align='center' onClick="javascript:gc.orderGrid2('<%=ordName%>',event)" <%=col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_XML?"style='display:none;'":""%>>
 						<span>
 							<span id="title_<%=ordName%>" class="odr"></span>
 							<%=col.getDescription(locale)%><%= typeIndicator%>
@@ -133,7 +133,7 @@ else divEmbedItemId="embed-items-short";
 					}
 					isFixedColumn= (fixedColumns.get(new Integer(col.getId())) ==null)?false:true;
 					%>
-					<td <%=(alignRight[i]?"align='right'":"")%>>
+					<td <%=(alignRight[i]?"align='right'":"")%> <%=col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_XML?"style='display:none;'":""%>>
 						<%if(refTable!=null && !isFixedColumn){
 							// hold img link, if column is fk, and not fixed, and can popup(menuItem)
 							%>
@@ -216,7 +216,7 @@ else divEmbedItemId="embed-items-short";
 					<%		
 					for(int i=1;i< columns.size();i++){
 						col=(Column)columns.get(i);%>
-						<td align="right">
+						<td align="right" <%=col.getDisplaySetting().getObjectType()==DisplaySetting.OBJ_XML?"style='display:none;'":""%>>
 							<%if(col.getSubTotalMethod()!=null){%>
 								<span id="psum_<%=col.getName()%>"></span>
 							<%}%>
