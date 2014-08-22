@@ -2,9 +2,6 @@
 <table class="<%=uiConfig.getCssClass()%>" cellspacing="0" cellpadding="0" align="center">
 	<%
     colIdx=-1;
-    //lable_des="<a>&nbsp;</a>";
-    //String lable_des;
-    //String rms;
 	rowspans=new JSONArray();
 	currentrow=-1;
     for(int i=columnIndex;i< columns.size();i++){
@@ -13,30 +10,33 @@
 		isFind=false;
         column=(Column)columns.get(i);
         String showcomment=column.getShowcomment();
-        //out.print("showcomment "+showcomment);
         ds= column.getDisplaySetting();
         String attributesText="";//Validator.isNull(column.getRegExpression())? " ": column.getRegExpression()+" ";
 		colspan=ds.getColumns()>columnsPerRow?columnsPerRow:ds.getColumns();
+		currentEvent="";
         if(colIdx%columnsPerRow == 0){
         	colIdx=0;
         	if(ds.getObjectType()==DisplaySetting.OBJ_BLANK&& seperateObjectByBlank){
         		break;
         	}
+			if(isFold){currentEvent=ds.getObjectType()==DisplaySetting.OBJ_HR &&colIdx==0?"id='"+tableName+"_"+couurntrc+"' onclick='oc.fold(\"#"+tableName+"_"+couurntrc+"\",\"#"+tableName+"_"+(couurntrc+1)+"\")'":"";}
 			currentrow++;
 			%>
-			<tr <%=(ds.getObjectType()==DisplaySetting.OBJ_BLANK?" class='blankrow'":"")%>>
+			<tr <%=(ds.getObjectType()==DisplaySetting.OBJ_BLANK?" class='blankrow'":"")%> <%=currentEvent%>>
 		<%}
         if(ds.isUIController()){
         	if (ds.getObjectType()==DisplaySetting.OBJ_HR){
         		// occupy whole row
         		if(colIdx !=0){
+					if(isFold){currentEvent="id='"+tableName+"_"+couurntrc+"' onclick='oc.fold(\"#"+tableName+"_"+couurntrc+"\",\"#"+tableName+"_"+(couurntrc+1)+"\")'";}
         			for(int ri=0;ri< columnsPerRow-colIdx;ri++) out.print("<td>&nbsp;</td><td>&nbsp;</td>");
-        			out.print("</tr><tr c='c'>");
+					out.print("</tr><tr "+currentEvent+">");
         		}
         		//out.print("<td colspan='"+(columnsPerRow*2)+"'><font class='beta'><b>"+column.getDescription(locale)+"</b></font><div class='hrRule'><span/></div></td>");
         		out.print("<td colspan='"+(columnsPerRow*2)+"'><div class='tabnav-"+columnsPerRow+"'><span>"+column.getDescription(locale)+"</span></div></td>");
         		out.print("</tr>");
         		colIdx=-1;
+				couurntrc++;
         	}else{
         		// blank
         		if(seperateObjectByBlank){
@@ -168,9 +168,6 @@
 		}
 		
 		if(colspan+colIdx> columnsPerRow){
-			// start from first column  
-		 	// occupy previous whole row
-			
         	if(colIdx !=0){
         		for(int ri=0;ri< columnsPerRow-colIdx;ri++) out.print("<td></td><td></td>");
         		out.print("</tr><tr cccc='x'>");
@@ -223,10 +220,6 @@
 							lable_des= objprefs.getProperty(lable_col.getName(),
 							userWeb.getUserOption(lable_col.getName(),lable_col.getDefaultValue(bReplaceVariable)));
 						}
-						//System.out.println(lable_col.getDefaultValue(bReplaceVariable));
-						//System.out.println(dataWithoutNBSP1);
-						//System.out.println(desc);
-						//System.out.println(tableId);
 						//支持lable_id change write
 						%>
 						<div id="tdc_<%=lable_id%>" onclick="oc.lable_change(<%=lable_id%>);"><%=lable_des%><span class="desc-txt<%=column.isNullable()?"":" nn"%>">:</span></div>
@@ -347,9 +340,6 @@
 							h.put("class", TableQueryModel.getTextInputCssClass(columnsPerRow,column));
 							h.put("onkeydown", "oc.moveTableFocus(event)");
 							if(fkQueryModel!=null){
-								//add key catcher 
-								//h.put("onkeydown",fkQueryModel.getKeyEventScript());
-								//column.getRegExpression() may be a javascript function 
 								if(column.isFilteredByWildcard() && Validator.isNotNull(column.getRegExpression())){
 									h.put("readonly","readonly");
 								}
@@ -392,7 +382,6 @@
 							}
 							h.put("title", model.getInputBoxIndicator(column,column_acc_Id,locale));
 							String attributeText2= (column.getJSONProps()!=null?column.getJSONProps().optString("input_attr",""):"");
-							//System.out.println(column.getName()+"~~~"+attributeText2+"!!!!!!!!!!!!!!!!!");
 							%>
 							<%
 							if(column.getJSONProps()!=null){
@@ -417,26 +406,10 @@
 									<%}%>
 									</div>
 									<!--<script>
-										jQuery(document).ready(
-											function init(){
-												var spc=jQuery("#div_<%=inputName%> input[type=text][name=<%=inputName%>]").val();
-												var url="/html/nds/oto/product/extendspec.jsp";
-												cf.showSpaceItem(url,spc);
-												jQuery.ajax({
-													url:url,
-													type:"post",
-													data:{"specification":spc},
-													success:function(data){
-														alert(data);
-													},
-													error:function(data){
-														alert(data);
-													}
-												});
-											}
-										);
 									</script>-->
-								<%}else if(jor.has("fold")&&jor.optBoolean("fold",false)){%>
+								<%}else if(jor.has("fold")&&jor.optBoolean("fold",false)){
+									h.put("objid",""+objectId+"");
+									%>
 									<input:text name="<%=inputName%>" isFold="true" attributes="<%= h %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributeText2+" "+attributesText+fixedColumnMark)%>"/><%= type%>
 								<%}else{%>
 									<input:text name="<%=inputName%>" attributes="<%= h %>" default="<%=dataWithoutNBSP %>" attributesText="<%=(attributeText2+" "+attributesText+fixedColumnMark)%>"/><%= type%>
@@ -561,7 +534,7 @@
 								JSONObject jo=column.getJSONProps().getJSONObject("qlink");
 								String on_ac=jo.optString("ac","");
 								%>
-									<span id="<%=namespace%>cbt_<%=column.getId()%>" tab="<%=column.getJSONProps().optString("tab")%>" onclick="<%=on_ac%>"><img border=0 width=16 height=16 align=absmiddle src='/html/nds/oto/themes/01/images/find.gif' title='Find'></span>
+									<span id="<%=namespace%>cbt_<%=column.getId()%>" objid=<%=objectId%> tab="<%=column.getJSONProps().optString("tab")%>" onclick="<%=on_ac%>"><img border=0 width=16 height=16 align=absmiddle src='/html/nds/oto/themes/01/images/find.gif' title='Find'></span>
 								 <%
 							}
 						}
@@ -599,7 +572,7 @@
 								</script>
 								<%}%>
 								<%}}else{%>
-							<span id="<%=namespace%>att_<%=column.getId()%>" onclick="javascript:showDialog('<%=NDS_PATH+"/objext/upload.jsp?table="+tableId+"&column="+column.getId()+"&objectid="+objectId+"&input="+column_acc_Id%>',940, 400,false)"><img border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/attach.gif' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-config" ,null)%>'>
+							<span id="<%=namespace%>att_<%=column.getId()%>" onclick="javascript:showDialog('<%=NDS_PATH+"/oto/objext/upload.jsp?table="+tableId+"&column="+column.getId()+"&objectid="+objectId+"&input="+column_acc_Id%>',940, 400,false)"><img border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/oto/images/attach.gif' title='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-config" ,null)%>'>
 							</span>
 							<script>
 								createButton(document.getElementById("<%=namespace%>att_<%=column.getId()%>"));
@@ -613,15 +586,6 @@
 							String rms=TableManager.getInstance().getComments(column);
 							%>
 							<div id="rms_<%=column.getId()%>" class="obj-rms_v"><%=rms==null?"":rms%></div>
-							<!--script type="text/javascript">  
-								jQuery(function(){  
-									jQuery("#column_"+<%=column.getId()%>).focus(function () {  
-												jQuery("#rms_"+<%=column.getId()%>).css('display','block'); 
-									}).blur(function () {  
-										jQuery("#rms_"+<%=column.getId()%>).css('display','none');
-									});  
-								});  
-							</script-->
 						<%}
 				   
 					}// end if column isModifiable()
