@@ -37,6 +37,18 @@ ObjectControl.prototype = {
 		this._closeWindow=false;// if true, will close window immdiately
 		ObjDropMenu.init();
 	},
+	fold:function(currentrow,nextrow){
+		var rowstate=jQuery(currentrow).attr("currentrowstate");
+		if(!rowstate||rowstate=="show"){
+			//jQuery(currentrow).nextUntil(nextrow).hide();
+			jQuery(currentrow).nextUntil(nextrow).attr("style","display:none");
+			jQuery(currentrow).attr({"currentrowstate":"hide"});
+		}else{
+			//jQuery(currentrow).nextUntil(nextrow).show();
+			jQuery(currentrow).nextUntil(nextrow).removeAttr("style");
+			jQuery(currentrow).attr({"currentrowstate":"show"});
+		}
+	},
 	/**
 	hide or show or fix some columns when on column value changed
 	@param idx index in _masterObj.table.props.display_condition
