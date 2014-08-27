@@ -3,6 +3,7 @@
 <%!
 	private final static int MAX_REPORT_LINES= 65535; //最大导出行数
 	private final static nds.log.Logger logger=nds.log.LoggerManager.getInstance().getLogger("ReportGenerator");
+	Boolean pathname=nds.util.Tools.getBoolean(conf.getProperty("report_savepathbyuserid","false"),false);
 %>
 <%
 //try{
@@ -27,8 +28,7 @@
 		logger.debug("User:"+ userWeb.getUserDescription()+"(id="+ userWeb.getUserId()+"), Query:"+ sql);
 	}
     ReportUtils ru = new ReportUtils(request);
-    String name = ru.getUserName();
-
+    String name = pathname?String.valueOf(ru.getUser().getUserId()):ru.getUserName();
     String svrPath = ru.getExportRootPath() + File.separator +  ru.getUser().getClientDomain()+File.separator+ name;
 
     boolean pk = (request.getParameter("pk") != null && request.getParameter("pk").equals("yes"))?true:false;
