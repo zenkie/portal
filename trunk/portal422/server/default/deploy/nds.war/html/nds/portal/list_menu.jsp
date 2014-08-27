@@ -56,7 +56,7 @@ if("N".equalsIgnoreCase(istree)){
 	<%
 	request.setAttribute("nds.portal.listconfig", "mynotice");
 	%>
-	<jsp:include page="/html/nds/portal/portletlist/view.jsp" flush="true"/>
+	<jsp:include page="/html/nds/portal/portletlist/view_list.jsp" flush="true"/>
 
 <!--/liferay-ui:tabs-->	
 </div>
