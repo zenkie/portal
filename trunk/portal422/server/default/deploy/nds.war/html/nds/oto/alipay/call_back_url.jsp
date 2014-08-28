@@ -24,6 +24,7 @@
 <%@ page import="com.alipay.util.*"%>
 <%@ page import="com.alipay.config.*"%>
 <%@ page import="nds.weixin.ext.*"%>
+<%@ page import="nds.control.web.ClientControllerWebImpl,nds.control.event.DefaultWebEvent"%>
 <%
 WeUtils wu=null;
 AlipayConfig aliconfig=new AlipayConfig();
@@ -107,14 +108,34 @@ AlipayConfig aliconfig=new AlipayConfig();
 		//out.println("验证成功<br />");
 		//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 		
+		/*
 		ArrayList paramsvip=new ArrayList();
 		paramsvip.add(wu.getAd_client_id());
 		paramsvip.add(out_trade_no);
+		try{QueryEngine.getInstance().executeStoredProcedure("wx_order_destocking",paramsvip,false);}
+		catch(Exception e){}
+		*/
+		
 		try{
-			QueryEngine.getInstance().executeStoredProcedure("wx_order_destocking",paramsvip,false);
-		}catch(Exception e){}
-		//QueryEngine.getInstance().executeUpdate("update wx_order t set t.sale_status=3 where t.docno='"+out_trade_no+"'");
-
+			System.out.println("modify order["+out_trade_no+"||"+wu.getAd_client_id()+"]");
+			QueryEngine.getInstance().executeUpdate("update wx_order t set t.sale_status=3,t.paytime=sysdate where t.docno='"+out_trade_no+"' and t.ad_client_id="+wu.getAd_client_id());
+		}catch(Exception e){
+			System.out.println("modify order["+out_trade_no+"||"+wu.getAd_client_id()+"]error->"+e.getMessage());
+		}
+		///*
+		try{
+			System.out.println("call nds.weixin.ext.DeductstockCommand deductstock order["+out_trade_no+"||"+wu.getAd_client_id()+"]");
+			ClientControllerWebImpl controller=(ClientControllerWebImpl)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.WEB_CONTROLLER);
+			DefaultWebEvent event=new DefaultWebEvent("CommandEvent");
+			event.setParameter("orderno", out_trade_no);
+			event.setParameter("adclientid", String.valueOf(wu.getAd_client_id()));
+			event.setParameter("command", "nds.weixin.ext.DeductstockCommand");
+			controller.handleEventBackground(event);
+		}catch(Exception e){
+			System.out.println("call nds.weixin.ext.DeductstockCommand deductstock order["+out_trade_no+"||"+wu.getAd_client_id()+"] error->"+e.getMessage());
+		}
+		//*/
+		
 		String purl="http://"+wu.getDoMain()+"/html/nds/oto/webapp/order/index.vml?status=3&docno="+out_trade_no;
 		//System.out.print(purl);
 		response.sendRedirect(purl);
