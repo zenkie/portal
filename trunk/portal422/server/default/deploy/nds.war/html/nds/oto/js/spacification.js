@@ -464,10 +464,15 @@ function submitDetails(){
 	costprice=costprice?parseFloat(costprice):0;
 	inventory=inventory?parseFloat(inventory):0;
 	
-	
+	var countalias=1;
 	if(!elenode){return;}
 	if(savedata&&savedata.keys.length>0){
 		elenode.extendspace.selectspace=detailsValueList;
+		//计算条码可能的组合数
+		for(var space in detailsValueList){
+			countalias*=parseInt(Object.getOwnPropertyNames(detailsValueList[space]).length);
+		}
+		elenode.extendspace.canalias=countalias;
 		if(cf.dis){cf.dis.close();}
 		return;
 	}
@@ -485,8 +490,7 @@ function submitDetails(){
 			for(nkey in node){
 				cartesians.push([jQuery.extend({pid:parseInt(key)},node[nkey])]);
 			}
-		}
-		else{
+		}else{
 			node=jQuery.extend({},detailsValueList[key]);
 			cartesians=createCartesian(cartesians,node,parseInt(key));
 		}
