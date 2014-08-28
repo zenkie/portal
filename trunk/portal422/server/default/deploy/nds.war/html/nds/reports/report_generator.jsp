@@ -3,6 +3,7 @@
 <%!
 	private final static int MAX_REPORT_LINES= 65535; //最大导出行数
 	private final static nds.log.Logger logger=nds.log.LoggerManager.getInstance().getLogger("ReportGenerator");
+	Configurations conf=(Configurations)nds.control.web.WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS);
 	Boolean pathname=nds.util.Tools.getBoolean(conf.getProperty("report_savepathbyuserid","false"),false);
 %>
 <%
