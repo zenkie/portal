@@ -21,7 +21,7 @@ TableCommand.prototype.toButtonString= function() {
 	/*var str="<input type='button' class='cbutton' "+((this.shortkey==null|| this.shortkey==undefined)?"":"accesskey='"+this.shortkey+"'")+
 		" onclick='"+this.act+"()' value='"+ this.desc+"'>";*/
 	var str="<a "+((this.shortkey==null|| this.shortkey==undefined)?"":"accesskey='"+this.shortkey+"'")+" href='javascript:"+this.act+"()'>";
-	if(this.img!=null) str+="<img src='/html/nds/oto/themes/01/images/"+ this.img+"'>";
+	//if(this.img!=null) str+="<img src='/html/nds/oto/themes/01/images/"+ this.img+"'>";
 	str+=this.desc+"</a>";
 	return str;
 };
