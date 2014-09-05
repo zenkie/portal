@@ -1,30 +1,32 @@
 #parse('/html/nds/oto/website/init.vml')
 #parse('/html/nds/oto/website/initList.vml')
-<html><head>
+<html>
+<head>
 	#parse("/html/nds/oto/website/topmeta.vml")
     <link href="/html/nds/oto/website/201/css/fifteen-2.css" rel="stylesheet">
     <title>$web.name</title>
 </head>
 <body>
-	#parse("/html/nds/oto/website/rightColumn.vml")
+#parse("/html/nds/oto/website/rightColumn.vml")
 <div class="wrapperToTitle">
     <ul class="mThirC clearfix">
 	#if($cate.categoryname!="none" || $cate.categoryname=="&nbsp;")
-	<div id="title">&nbsp;&nbsp;$cate.categoryname</div>
+		<div id="title">&nbsp;&nbsp;$cate.categoryname</div>
 	#end
 		#foreach($list in $allList)
             <li class="mThirCli">
                 <a href="$list.get(0)" title="" class="mThirCell">
 					<img src="$list.get(2)">
-						<p>$stringutil.shorten($list.get(1),12)
-							#if($ptype=="pdt")
-							<br><em>￥$list.get(3)</em>
-							#end
-						</p>
+					<p>$stringutil.shorten($list.get(1),12)
+					#if($ptype=="pdt")
+						<br><em>￥$list.get(3)</em>
+					#end
+					</p>
 				</a>
             </li>
 		#end
     </ul>
 </div>
 #parse("/html/nds/oto/website/footer.vml")
-</body></html>
+</body>
+</html>
