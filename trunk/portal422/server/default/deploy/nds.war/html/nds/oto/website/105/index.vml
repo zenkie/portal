@@ -1,6 +1,7 @@
 #parse('/html/nds/oto/website/init.vml')
 #parse('/html/nds/oto/website/initIndex.vml')
-<html><head>
+<html>
+<head>
 	#parse("/html/nds/oto/website/topmeta.vml")
 	<title>$web.name</title>
 	<link href="/html/nds/oto/website/105/css/homeBox.css" rel="stylesheet" type="text/css">
@@ -51,8 +52,9 @@
 #parse("/html/nds/oto/website/footer.vml")
 <!--轮播广告js放在最后面，避免没有广告条时js执行错误-->
 <div id="mySwipe" class="swipe" style="display:none">
-      <ul id="position">
-        <li></li>
-      </ul>
+	<ul id="position">
+		<li></li>
+	</ul>
 </div>
-</body></html>
+</body>
+</html>
