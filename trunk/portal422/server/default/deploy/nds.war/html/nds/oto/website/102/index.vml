@@ -1,0 +1,95 @@
+#parse('/html/nds/oto/website/init.vml')
+#parse('/html/nds/oto/website/initIndex.vml')
+<!DOCTYPE html>
+<html><head>
+#parse("/html/nds/oto/website/topmeta.vml")
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/website/102/css/reset.css" media="all">
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/website/102/css/snower.css" media="all">
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/website/102/css/common.css" media="all">
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/website/102/css/font-awesome.css" media="all">
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/website/102/css/home-69.css" media="all">
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/website/102/css/ZoomPic.css" media="all">
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/website/102/css/home-menu-12.css" media="all">
+<script type="text/javascript" src="/html/nds/oto/website/102/js/jQuery.js"></script>
+<script type="text/javascript" src="/html/nds/oto/website/102/js/zepto.js"></script>
+<script type="text/javascript" src="/html/nds/oto/website/102/js/swipe.js"></script>
+<script type="text/javascript" src="/html/nds/oto/website/102/js/ZoomPic.js"></script>
+<style>
+	@media screen and (max-width: 320px){
+		.list{
+			padding: 0!important;
+		}
+	}
+</style>
+<title>$web.name</title>
+<body ondragstart="return false;">
+<div class="body" id="body">
+	<div class="bg">
+		#if("$!web.imageback"=="")
+		<img src="/html/nds/oto/website/102/images/v84_bg.png" width="100%" height="100%;">
+		#else
+		<img src="$web.imageback" width="100%" height="100%;">
+		#end
+	</div>
+	<div class="bg_black"></div>
+<header style="overflow:hidden;">
+	<div class="clearfix">
+		<div id="focus_Box">
+			<span class="prev" style="left: 26px;">&nbsp;</span>
+			<span class="next" style="left: 565px;">&nbsp;</span>
+			<ul>
+				#foreach($img in $allImg)
+				<li>
+					<a onclick="return false;">
+					<img src="$img.get(2)" style="opacity: 1;"></a>			
+				</li>
+				#end
+				</ul>
+		</div>
+	</div>
+</header>
+	<section class="section_body">
+		<div class="list">
+			<ul>
+				#foreach($column in $allColumn)
+				<li>
+					<div>
+						<span class="transparent-layer"></span>
+							<a href="$column.get(5)" class="tbox">
+							<img src="$column.get(3)" class="icon">
+							<span class="title">$stringutil.shorten($column.get(1),8)</span>
+						</a>	
+					</div>  
+				</li>
+				
+				#end
+			</ul>
+		</div>
+		
+	</section>
+</div>
+#parse("/html/nds/oto/website/rightColumnNew.vml")
+<footer style="overflow:visible;">
+	<div class="weimob-copyright">
+		#parse("/html/nds/oto/website/footer.vml")
+	</div>
+</footer>
+<script type="text/javascript">			
+			var nav= $("#nav");
+			var showlist =$("#showlist");		
+			showlist.css("right","0px");			
+			showlist.click(function(){
+				right=showlist.css("right");
+				if(right=="0px")
+				{
+					showlist.css("right","60px");
+					nav.css("display","block");
+				}
+				else
+				{
+					showlist.css("right","0px");
+					nav.css("display","none");					
+				}});			
+</script>
+</body>
+</html>
