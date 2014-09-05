@@ -1,0 +1,86 @@
+#position li
+{
+    display: inline-block;
+    width: 8px;
+    height: 8px; 
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:4px;
+	background:#6d7a86;
+        
+}
+    
+#position li.on
+{
+    background:#fff;
+}
+
+body{ background:#fff;}
+.homeBox{max-width:640px;}
+.tpbn{ height:150px;}
+.homeBox nav{
+	padding:10px;
+}
+.homeBox nav li{
+	display:block;
+	margin-bottom:10px;
+	-webkit-ox-shadow:0 1px 1px rgba(0,0,0,0.2);
+	-moz-box-shadow:0 1px 1px rgba(0,0,0,0.2);
+	box-shadow:0 1px 1px rgba(0,0,0,0.2);
+}
+.homeBox nav li a{
+	display:block;
+	height:100px;
+	position:relative;
+	text-decoration:none;
+	color:#333;
+	font-size:16px;
+	background:#fff;
+}
+.homeBox nav li a img{
+	width:60%;
+	height:100px;
+}
+.homeBox nav li a span{
+	display:block;
+	width:40%;
+	height:100px;
+	line-height:100px;
+	text-align:center;
+	position:absolute;
+	top:0;
+	color:rgba(255,255,255,0.8);
+	text-shadow:1px 1px 1px rgba(0,0,0,0.3);
+}
+.homeBox nav li:nth-child(6n+1) a{
+	background:#406fdb;
+}
+.homeBox nav li:nth-child(6n+2) a{
+	background:#81b320;
+}
+.homeBox nav li:nth-child(6n+3) a{
+	background:#f9ab15;
+}
+.homeBox nav li:nth-child(6n+4) a{
+	background:#5f52a1;
+}
+.homeBox nav li:nth-child(6n+5) a{
+	background:#eb3d00;
+}
+.homeBox nav li:nth-child(6n) a{
+	background:#019950;
+}
+.homeBox nav li:nth-child(2n+1) a img{
+	float:right;
+	border-left:1px solid rgba(255,255,255,0.6);
+}
+.homeBox nav li:nth-child(2n) a img{
+	float:left;
+	border-right:1px solid rgba(255,255,255,0.6);
+}
+.homeBox nav li:nth-child(2n+1) a span{
+	left:0;
+}
+.homeBox nav li:nth-child(2n) a span{
+	right:0;
+}

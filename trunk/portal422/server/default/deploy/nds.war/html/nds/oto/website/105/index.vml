@@ -1,0 +1,58 @@
+#parse('/html/nds/oto/website/init.vml')
+#parse('/html/nds/oto/website/initIndex.vml')
+<html><head>
+	#parse("/html/nds/oto/website/topmeta.vml")
+	<title>$web.name</title>
+	<link href="/html/nds/oto/website/105/css/homeBox.css" rel="stylesheet" type="text/css">
+	<script src="/html/nds/oto/website/js/banner.js" type="text/javascript"></script>
+</head>
+<body style="">
+<div class="homeBox">
+	<header>
+		<div id="mySwipe" class="swipe" style="visibility: visible;">
+			<div class="swipe-wrap" style="width: 1244px;">
+			#foreach($img in $allImg)
+				<div class="img" data-index="0" style="width: 311px; left: 0px; transition: 300ms; -webkit-transition: 300ms; -webkit-transform: translate(0px, 0px) translateZ(0px);">
+					<a href="#"><img src="$img.get(2)" width="100%" alt="" class="tpbn"></a>
+				</div>
+			#end
+			</div>
+			<ul id="position">
+			#foreach($img in $allImg)
+				<li class=""></li>
+			#end
+			</ul>
+		</div>
+	</header>
+	<nav>
+		<ul class="clearfix">
+	#set ($i=0)
+	#foreach($column in $allColumn)
+		#if ($i%2 == 0)
+			<li>
+				<a href="$column.get(5)" style="background:#;">
+					<img src="$column.get(3)">
+					<span style="color:#;">$stringutil.shorten($column.get(1),8)</span>
+				</a>
+			</li>
+		#else
+			<li>
+				<a href="$column.get(5)" style="background:#;">
+					<img src="$column.get(3)">
+					<span style="color:#;">$stringutil.shorten($column.get(1),8)</span>
+				</a>
+			</li>
+		#end
+	#set($i=$i+1)
+	#end
+		</ul>
+	</nav>
+</div>
+#parse("/html/nds/oto/website/footer.vml")
+<!--轮播广告js放在最后面，避免没有广告条时js执行错误-->
+<div id="mySwipe" class="swipe" style="display:none">
+      <ul id="position">
+        <li></li>
+      </ul>
+</div>
+</body></html>
