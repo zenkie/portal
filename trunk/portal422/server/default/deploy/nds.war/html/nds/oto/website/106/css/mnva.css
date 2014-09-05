@@ -1,0 +1,120 @@
+#position li
+{
+    display: inline-block;
+    width: 8px;
+    height: 8px; 
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:4px;
+	background:#6d7a86;
+        
+}
+    
+#position li.on
+{
+    background:#fff;
+}
+
+#mySwipe div b
+{
+    position: absolute;
+    width: 98%;
+	padding-left:2%;
+	height:26px;
+	line-height:26px;
+	background:#242e38;
+	opacity:0.6;
+    bottom: 0;
+    display: block;
+	color:#fff;
+}
+
+.mnav{
+	width:100%;
+	margin:5px 0;
+}
+.mnav li{
+	display:block;
+	width:33.3%;
+	float:left;
+	margin:5px 0;
+}
+.mnav li a{
+	display:block;
+	width:94%;
+	margin:0 auto;
+	text-align:center;
+	color:#359ae7;
+	text-decoration:none;
+	font-size:14px;
+	overflow:hidden;
+}
+.mnav li:nth-child(2n+1) a{
+	color:#fff;
+}
+.mnav li a span{
+	display:block;
+}
+.mnav li a span.m1{
+	margin-top:25%;
+}
+.mnav li a img{
+	width:30%;
+}
+.mnav2{
+	width:98%;
+	margin:0 1%;
+	height:60px;
+	overflow:hidden;
+	position:relative;
+}
+.mnav2 img.mnavbg2{
+	width:100%;
+}
+.mnav2 ul{
+	width:100%;
+	position:absolute;
+	top:10px;
+	left:0;
+}
+.mnav2 ul li{
+	display:block;
+	width:50%;
+	float:left;
+	text-align:center;
+}
+.mnav2 ul li a{
+	display:block;
+	width:100%;
+	text-decoration:none;
+	color:#359ae7;
+	margin-top:5px;
+	font-size:14px;
+}
+.mnav2 ul li a img{
+	width:30px;
+	height:30px;
+	margin:0 5px;
+	vertical-align:middle;
+}
+.mnav2 ul li:last-child a{
+	color:#fff;
+}
+.mnav li a
+{
+	background: url(/html/nds/oto/website/106/images/whitebg.png) repeat;
+}
+.mnav li:nth-child(2n+1) a
+{
+	background: url(/html/nds/oto/website/106/images/bluebg.png) repeat;
+}
+#position
+{
+    position: absolute;
+    bottom: 4px;
+    right: 5%;
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
