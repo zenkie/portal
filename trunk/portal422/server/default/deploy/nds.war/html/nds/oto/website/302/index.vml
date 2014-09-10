@@ -1,0 +1,37 @@
+#parse('/html/nds/oto/website/init.vml')
+#parse('/html/nds/oto/website/initCate.vml')
+<html><head>
+	#parse("/html/nds/oto/website/topmeta.vml")
+	<title>$web.name</title>
+
+    <link href="/html/nds/oto/website/302/css/module.css" rel="stylesheet" type="text/css">
+    <link href="/html/nds/oto/website/302/css/twentytwo.css" rel="stylesheet" type="text/css">
+</head>
+<body data-role="none" style="background-color:#000;">
+#parse("/html/nds/oto/website/rightColumn.vml")
+<div class="wrapper" style="float: left; margin-top: 28px;">
+    <ul class="mTwt-itml">
+		<li class="clearfix">
+		#set ($i=1)
+		#foreach($list in $allList)
+		#if(${allList.size()}!=$i)
+			<a href="$stringutil.replace($list.get(0),'@class_tmp@',$tempmode.class_tmp)" class="latc blat latcr latcmw">
+                <div class="iws mb5">
+					<img src="$list.get(3)" alt="$list.get(1)" class="mTt-lwh">
+                </div>
+                <h1 class="latct c5latct">$stringutil.shorten($list.get(1),15)</h1>
+            </a>
+		#else
+			<a href="$stringutil.replace($list.get(0),'@class_tmp@',$tempmode.class_tmp)" class="latc blat latcr latcmw" style="border-right: 1px solid #323439!important;">
+                <div class="iws mb5">
+					<img src="$list.get(3)" alt="$list.get(1)" class="mTt-lwh">
+                </div>
+                <h1 class="latct c5latct">$stringutil.shorten($list.get(1),15)</h1>
+            </a>
+		#end
+		#set ($i=$i+1)
+		#end
+        </li>
+    </ul>
+</div>
+</body></html>
