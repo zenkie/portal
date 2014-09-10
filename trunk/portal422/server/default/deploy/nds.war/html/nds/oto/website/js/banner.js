@@ -17,7 +17,5 @@ $(function () {
             }
             bullets[pos].className = 'on';
         }
-        // transitionEnd: function(index, element) {}
     });
-
 });
