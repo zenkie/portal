@@ -1,0 +1,28 @@
+#parse('/html/nds/oto/website/init.vml')
+#parse('/html/nds/oto/website/initList.vml')
+<html><head>
+	#parse("/html/nds/oto/website/topmeta.vml")
+	<link href="/html/nds/oto/website/203/css/products.css" rel="Stylesheet" type="text/css" media="all">
+    <title>$web.name</title>
+</head>
+<body> 
+	#parse("/html/nds/oto/website/rightColumn.vml")
+<div class="wrapper">
+<ul class="products" style="margin-top:20px; background-color:#fff;">
+	#foreach($list in $allList)
+		<li class="proItem">
+			<a href="$list.get(0)">
+				<img src="$list.get(2)" alt="$list.get(1)">
+				<h3 class="proItemName">$stringutil.shorten($list.get(1),20)
+					#if($ptype=="pdt")
+						<span>￥$list.get(3)</span>
+					#end
+				</h3>
+			</a>
+		</li>
+	#end
+</ul>
+</div>
+	#parse("/html/nds/oto/website/footer.vml")
+</body>
+</html>
