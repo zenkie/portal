@@ -1,0 +1,14 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webmall/js/zepto.min.js"></script>
+<script src="/html/nds/oto/webmall/js/underscore.min.js"></script>
+<script src="/html/nds/oto/webmall/js/backbone.js"></script>
+<script src="/html/nds/oto/webmall/js/main.js"></script>
+<script src="/html/nds/oto/webmall/js/weixinshare.js"></script>
+<link href="/html/nds/oto/webmall/css/style.css" rel="stylesheet">
+<link href="/html/nds/oto/webmall/css/detail.css" rel="stylesheet">
