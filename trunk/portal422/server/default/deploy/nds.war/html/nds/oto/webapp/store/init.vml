@@ -1,0 +1,1 @@
+#set ($storeCity =$myweb.getList("WX_STORE","WX_SETAD",null,"/@ID@",1))
