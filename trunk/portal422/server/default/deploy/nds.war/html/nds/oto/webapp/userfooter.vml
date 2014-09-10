@@ -1,0 +1,52 @@
+<footer>
+	<nav class="nav">
+		<ul class="box">
+			<li>
+				<a href="javascript:history.go(-1);" class="on">
+					<p class="back"></p>
+					<span>返回&nbsp;&nbsp;</span>
+				</a>
+			</li>
+			#if("$mall.ismall"!="是")
+			<li>
+				<a href="">
+					<p class="mall"></p>
+					<span>微商城&nbsp;&nbsp;</span>
+				</a>
+			</li>
+			#else
+			<li>
+				<a href="/mall.jsp">
+					<p class="mall"></p>
+					<span>微商城&nbsp;&nbsp;</span>
+				</a>
+			</li>
+			#end
+
+			<li style="display:none;">
+				<a href="/html/nds/oto/webapp/checkin/index.vml" class="on">
+					<p class="check"></p>
+					<span>签到</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/html/nds/oto/webapp/usercenter/index.vml" class="my">
+				#if("$!vipid"=="")
+					<p class="my"></p>
+					<span>我的</span>
+				#else
+					#set ($vip = $myweb.getObject("WX_VIP","WX_VIP.ID=$vipid"))
+					#if($vip.photo=="&nbsp;")
+						<p class="my"></p>
+						<span>我的</span>
+					#else
+						<p class="imgclass"><img src="$vip.photo" class="userface"></p>
+						<span>我的</span>
+					#end
+				#end
+				</a>
+			</li>
+		</ul>
+	</nav>
+</footer>
