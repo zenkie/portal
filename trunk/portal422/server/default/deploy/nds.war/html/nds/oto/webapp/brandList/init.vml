@@ -1,0 +1,8 @@
+#set ($bid = $getutil.getInteger($request.getParameter("id") ,-1))
+#set ($brand = $myweb.getObject("WX_PDTBRAND","WX_PDTBRAND.ID=$bid"))
+#set ($tempmode = $myweb.getObject("WEB_MAIL_TMP","WEB_MAIL_TMP.AD_CLIENT_ID=$myweb.getClientId()"))
+#set ($cateList = $myweb.getList("WX_V_PRODUCTCATEGORY","WX_SETAD","WX_V_PRODUCTCATEGORY.WX_APPENDGOODS_ID;WX_PDTBRAND_ID==$bid&WX_V_PRODUCTCATEGORY.WX_ITEMCATEGORYSET_ID;WX_ITEMCATEGORYSET_ID=is null"))
+#set ($allProduct = $myweb.getList("WX_APPENDGOODS","WX_SETAD","WX_APPENDGOODS.ISHOT==N&WX_APPENDGOODS.WX_PDTBRAND_ID==$bid"))
+#set ($allList = $myweb.getList("WX_APPENDGOODS","WX_SETAD","WX_APPENDGOODS.ISHOT==Y&WX_APPENDGOODS.WX_PDTBRAND_ID==$bid"))
+#set ($allBrand = $myweb.getList("WX_PDTBRAND","WX_SETAD"))
+#set ($allAD = $myweb.getList("WX_ADVERT","WX_SETAD"))
