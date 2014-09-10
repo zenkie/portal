@@ -1,0 +1,53 @@
+*{
+	font-size: 12px!important;
+	font-family:微软雅黑!important;
+}
+.product-list{
+	width:92%;
+	margin:0px auto 10px auto;
+	box-shadow: 0px 1px 3px #c9c9c9;
+	background-color:#fff;
+}
+.product-list .flex_box{
+	font-size:100%;
+	word-break:break-word;
+	white-space: nowrap;
+}
+.orderplist{
+	font-size:100%;
+	padding: 0 0;
+	margin: 0 5px;
+}
+.pic{
+	width:70px;
+	height:70px;
+	display: inline-block;
+	vertical-align: middle;
+	border: 1px solid #eaeaea;
+}
+.productTitle{
+	font-size:100%;
+	overflow: hidden;
+}
+.product{
+	padding:2%;
+}
+.productInfo{
+	padding-left:2%;
+	display: inline-block;
+	font-size:100%;
+}
+.shoplist-total{
+	font-size:100%;
+}
+.product-price{
+	font-family:arial;
+	font-size:100%;
+	color:#ff5501;
+}
+.total{
+	font-size:100%;
+}
+.allfont{
+	font-size:100%;
+}
