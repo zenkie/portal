@@ -1,5 +1,4 @@
 var Wmp = {};
-
 Wmp.Detail = {
 	isLimitStock:true,		//是否限制库存
 	isOpenCard:"未启用",	//是否已开卡，1未开卡，2已开卡
