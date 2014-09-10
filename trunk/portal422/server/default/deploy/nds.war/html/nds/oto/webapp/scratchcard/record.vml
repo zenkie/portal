@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>中奖记录</title>
+<script src="./js/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery.noConflict();
+</script>
+<script type="text/javascript" src="./js/iscroll.js"></script>
+<script type="text/javascript">
+	var myscroll;
+	function loaded(){
+		myscroll=new iScroll("wrapper");
+	}
+	window.addEventListener("DOMContentLoaded",loaded,false);
+</script>
+<link rel="stylesheet" type="text/css" href="./css/record.css" media="all">
+</head>
+<body>
+<div id="header">
+	<a href="javascript:void(0);">中奖记录</a>
+</div>
+<div id="scrollerTop">
+	<ul>
+		<li>
+			<div><span>中奖记录数</span></div>
+			<div><span>刮刮劵</span></div>
+			<div><span>奖品图像</span></div>
+			<div style="display:none;"><span>奖品类别</span></div>
+			<div><span>奖品名称</span></div>
+		</li>
+	</ul>
+</div>
+<div id="wrapper" style="overflow: hidden; left: 0px;">
+	<div id="scroller">
+		<ul id="thelist">
+		##获取中奖记录开始
+		#set ($vipid=$fromvipid)
+		#if("$!vipid"=="")
+		#set($url="/html/nds/oto/webapp/error/index.vml")
+			$myweb.forwardTourl($url,$request,$response);
+		#end
+		#set ($scratchcardID= $getutil.getInteger($request.getParameter("scratchcardID"),-1))
+		##set ($recordList =$myweb.getList("WX_SCRATCHCARD_RECORD","WX_SETAD","WX_SCRATCHCARD_RECORD.WX_VIP_ID=$vipid&WX_SCRATCHCARD_RECORD.WX_SCRATCHCARD_COUPON_ID;WX_SCRATCHCARD_ID=$scratchcardID&WX_SCRATCHCARD_RECORD.ADDRESS=is not null","/@ID@",1))
+		#set ($recordList =$myweb.getList("WX_SCRATCHCARD_RECORD","WX_SETAD","WX_SCRATCHCARD_RECORD.WX_VIP_ID=$vipid&WX_SCRATCHCARD_RECORD.WX_SCRATCHCARD_COUPON_ID;WX_SCRATCHCARD_ID=$scratchcardID","/@ID@",1))
+		#set ($count=1)
+		#foreach($list in $recordList)
+			#set ($coupon=$myweb.getObject("WX_SCRATCHCARD_COUPON","WX_SCRATCHCARD_COUPON.ID=$list.get(8)&WX_SCRATCHCARD_COUPON.WX_SCRATCHCARD_ID=$scratchcardID"))
+			<li data-coupon="$coupon.get("name")">
+				<div><span class="icon_rank rank1">$count</span></div>
+				<div><span>$coupon.get("name")</span></div>
+				<div><span class="icon-img-bg"><img src="$coupon.get("wx_scratchcard_award_id;photo")" class="icon-img"></span></div>
+				<div style="display:none;"><span>$coupon.get("wx_scratchcard_award_id;category")</span></div>
+				<div><span>$coupon.get("wx_scratchcard_award_id;name")</span></div>
+			</li>
+			#set ($coupon="")
+			#set ($count=$count+1)
+		#end
+		##获取中奖记录结束
+		</ul>
+	</div>
+</div>
+</div>
+<div id="footer">
+	由<span style="text-decoration:underline;">伯俊软件星云团队</span>提供技术支持
+</div>
+<script type="text/javascript">
+jQuery("#thelist").find("li").click(function(){
+	var _coupon = jQuery(this).attr("data-coupon");
+	location.href = "/html/nds/oto/webapp/scratchcard/scratchcard.vml?coupon="+_coupon+"&scratchcardID=$!scratchcardID";
+});
+</script>
+</body></html>

@@ -1,0 +1,168 @@
+﻿body,div,input,p{
+margin: 0;
+padding: 0;
+font: 14px/1.5 Microsoft YaHei, Helvitica, Verdana, Arial, san-serif;
+}
+body{
+background: url(../images/index_bg.jpg);
+overflow-x:hidden;
+}
+input{
+outline:none;
+}
+hr{
+border:1px dashed gray;
+width:98%;
+}
+.clear{
+clear:both;
+}
+.cover{
+width: 320px;
+max-width: 480px;
+margin: 0 auto;
+position: relative;
+}
+.cover img {
+width: 320px;
+}
+#scratchpad, #prize {
+position: absolute;
+width: 150px;
+height: 40px;
+top: 140px;
+left: 105px;
+text-align: center;
+font-size: 20px;
+line-height: 40px;
+color: #333;
+}
+.scratchContent{
+margin: 0px 0 15px 0;
+}
+.scratchContent .boxContent{
+margin: 15px 15px 0;
+border-radius: 5px;
+padding: 2px;
+background-color: #FEF8B2;
+-webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+-moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+-o-box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
+.scratchContent .boxContent .box{
+border-radius: 5px;
+font-size: 14px;
+border: 1px dashed rgba(0, 0, 0, 0.3);
+}
+.scratchContent .boxContent .box .titleRed{
+padding: 0 5px 0px 10px;
+background: url(../images/title-bg-red.png) no-repeat 0 0;
+border-radius: 3px 3px 3px 0;
+color: #ffffff;
+height: 22px;
+margin: -1px;
+}
+.scratchContent .boxContent .box .detail{
+padding:15px;
+}
+.scratchContent .prize .box{
+border:none;
+margin-bottom:30px;
+}
+.scratchContent .prize .box:nth-child(1){
+background-image: url(../images/bg_prize.png);
+background-size:100%;
+}
+.scratchContent .prize .box:nth-child(2){
+background: #fffdd6;
+}
+.scratchContent .prize .box:nth-child(1) p{
+text-align: center;
+font-weight: bold;
+margin-bottom: 4px;
+}
+.scratchContent .prize .box:nth-child(2) p{
+padding-left:4px;
+}
+.scratchContent .prize .box div{
+text-align:center;
+margin:20px 0;
+}
+.px{
+box-sizing: border-box;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+background-color: #FFFFFF;
+border:1px solid rgba(0, 0, 0, 0.3);
+color: #333333;
+text-shadow: 0 1px 0 #FFFFFF;
+font-size: 15px;
+padding: 3px 10px;
+width:68%;
+}
+.pxNoBorder{
+border: none;
+background: none;
+}
+.pxBtn{
+background: #facb01;
+border: 0px solid #facb01;
+cursor: pointer;
+color: #ffffff;
+display: block;
+text-align: center;
+font-weight: bold;
+font-size: 18px;
+padding: 4px 4px;
+margin: 35px 10px;
+width: 40%;
+white-space: nowrap;
+margin:auto;
+}
+.selectContent:after,.selectContent:before{
+content:"";
+clear:both;
+}
+.selectContent div{
+padding-right: 10px;
+-webkit-box-sizing: border-box;
+width: 33.3%;
+float:left;
+}
+.select {
+word-break:break-word;
+outline:none;
+width: 100%;
+margin: auto;
+color: #606366;
+padding: 11px 25px 11px 5px;
+-webkit-appearance: none;
+border: 1px solid #dddddd;
+border-radius: 3px;
+background: url(../images/icons2.png) no-repeat right -121px;
+-webkit-background-size: 40px auto;
+background-color: white;
+-webkit-box-sizing: border-box;
+}
+.red{
+color:red !important;
+font-weight:bold;
+}
+.gray{color:gray;}
+.img{
+width: 80%;
+border: 9px solid white;
+}
+.winPrize{
+/* -webkit-text-stroke:1px gold; */
+color:red;
+font-size:25px !important;
+padding-top:20px;
+}
+.prizeCategory{
+/* -webkit-text-stroke:1px gold; */
+color:white;
+font-size:20px !important;
+color: #993300;
+}

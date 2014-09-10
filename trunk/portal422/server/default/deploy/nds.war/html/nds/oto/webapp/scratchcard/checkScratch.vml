@@ -1,0 +1,32 @@
+#set ($vipid=$fromvipid)
+#set ($couponName=$request.getParameter("coupon"))
+#set ($scratchcardID=$request.getParameter("scratchcardID"))
+#set ($coupon=$myweb.getObject("WX_SCRATCHCARD_COUPON","WX_SCRATCHCARD_COUPON.NAME==$couponName&WX_SCRATCHCARD_COUPON.WX_SCRATCHCARD_ID=$scratchcardID"))
+#if($!coupon.receive_state)
+	#if($!coupon.receive_state=="否")
+		{"code":0,"message":"正确的劵号",id:$!coupon.id}
+	#else
+		#set ($record=$myweb.getObject("WX_SCRATCHCARD_RECORD","WX_SCRATCHCARD_RECORD.WX_SCRATCHCARD_COUPON_ID=$!coupon.id&WX_SCRATCHCARD_RECORD.WX_VIP_ID=$vipid"))
+		#if(!$!record.id)
+			{"code":-1,"message":"该劵号已经被其他会员领取"}
+		#elseif($!coupon.use_state=="是")
+			#if($!record.address!="&nbsp;")
+				{"code":2,"message":"该劵号已经被您使用过，请查询中奖记录。"} ##该劵号已经被当前会员使用
+			#else
+				{"code":3,"message":"该劵号已经被您使用过，但未提交个人信息。"} ##该劵号已经被当前会员使用
+			#end			
+		#else
+			{"code":1,"message":"该劵号已经被当前会员领取"}
+		#end
+	#end
+#else
+{"code":-1,"message":"不存在该劵"}
+#end
+
+#*
+code:-1 刮刮劵被其他会员领取 或者 不存在该劵
+code:0 刮刮劵可以领取，并可以进入刮卡页面
+code:1 刮刮劵被当前会员领取还未使用，并可以进入刮卡页面
+code:2 刮刮劵被当前会员领取并使用，给出提示，已经刮过
+code:3 刮刮劵被当前会员领取并使用，但没有提交地址
+*#
