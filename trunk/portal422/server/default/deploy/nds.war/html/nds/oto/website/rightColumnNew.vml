@@ -1,0 +1,25 @@
+	<div class="showlist" id="showlist" style="right: 0px;">
+		<div class="icon"></div>
+	</div>
+		<div class="nav" id="nav">			
+			<ul>
+				<li>
+					<a href="tel:$web.phone">
+						<div class="icon icon-phone"></div>
+						<div class="title">电话</div>
+					</a>
+				</li>
+				<li>
+					<a href="http://api.map.baidu.com/marker?location=$web.gps&title=$web.name&content=$web.address&output=html">
+						<div class="icon icon-addr"></div>
+						<div class="title">地址</div>
+					</a>
+				</li>
+				<li>
+					<a target=blank href=http://wpa.qq.com/msgrd?v=1&uin=$web.qq>
+						<div class="icon icon-qq"></div>
+						<div class="title">在线QQ</div>
+					</a>
+				</li>
+			</ul>
+		</div>
