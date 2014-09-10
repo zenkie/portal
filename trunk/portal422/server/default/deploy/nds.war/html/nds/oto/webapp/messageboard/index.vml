@@ -1,0 +1,132 @@
+#parse('/html/nds/oto/webapp/messageboard/init.vml')
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<script type="text/javascript" src="/html/nds/oto/website/js/jquery.js" ></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/messageboard/js/messageboard.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/messageboard/js/dialog_min.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/messageboard/js/loadmore.js"></script>
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/messageboard/css/message.css">
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/messageboard/css/dialog.css">
+<link rel="Shortcut Icon" href="/html/nds/images/portal.ico">
+<title>留言板</title>
+<script>
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+WeixinJSBridge.call('hideToolbar');
+});
+</script>
+</head>
+<body id="message" onselectstart="return true;" ondragstart="return false;"> 
+	<div class="container">
+		#if($messageTopPhoto.size() == 0)
+		<div class="qiandaobanner">
+		  	<a href="javascript:history.go(-1);">
+		  		<img src="/html/nds/oto/webapp/messageboard/images/mpic.jpg" style="width:100%;">
+		  	</a>
+	  	</div>
+		#else
+		<div class="qiandaobanner">
+		  	<a href="javascript:history.go(-1);">
+		  		<img src="$!messageTopPhoto.get(0).get(1)" style="width:100%;">
+		  	</a>
+	  	</div>		
+		#end
+		<div class="cardexplain">
+			<div class="window" id="windowcenter" style="bottom:70px;">
+				<div id="title" class="wtitle">操作提示<span class="close" id="alertclose"></span></div>
+				<div class="content">
+					<div id="txt"></div>
+				</div>
+			</div> 
+			<div class="history">
+				<div class="history-date">
+					<ul>
+						<a><h2 class="first first1" style="position: relative;">请点击留言</h2></a>
+						<li class="green bounceInDown nob ly1" style="display: none;">
+							<dl>
+								<dt>
+									<input name="wxname" type="text" class="px" id="wxname1" value="$!vip.name" placeholder="请输入您的昵称" readonly>
+								</dt>
+								
+								<dt>
+									<textarea name="info" class="pxtextarea" style=" height:60px;" id="info1" placeholder="请输入留言"></textarea>
+								</dt>
+								<dt><a id="showcard1" class="submit" href="javascript:void(0)">提交留言</a></dt>
+							</dl>
+						</li>
+						#foreach($list in $messageList)
+						<li class="green bounceInDown">
+							#if($!list.get(2) == "&nbsp;")
+								<img src="/html/nds/oto/webapp/messageboard/images/upimg.jpg" style="width:100%;float:left;width:45px;height:45px;">
+							#else
+								<img src="$!list.get(2)" style="width:100%;float:left;width:45px;height:45px;">
+							#end
+							<h3>
+								$!list.get(1)<span>$v.fmt($list.get(6),"yyyy-MM-dd hh:mm:ss") </span>
+								<div class="clr"></div>
+							</h3>
+							<dl>
+								<dt class="hfinfo" date="$!list.get(0)">$!list.get(3)</dt>
+							</dl>
+							<dl class="huifu">
+								<dt>
+									<span>
+										<a class="hhbt czan" date="$!list.get(0)" href="javascript:void(0)">请点击回复</a>
+										<p style="display: none;" class="hhly$!list.get(0)">
+										<textarea name="info" class="pxtextarea hly$!list.get(0)"></textarea> 
+										<a class="hhsubmit submit" date="$!list.get(0)" href="javascript:void(0)">确定</a>
+										</p>
+									</span>
+								</dt>
+							</dl>
+							#set ($commentList =$myweb.getList("WX_MESSAGEBORADLIST","WX_SETAD","WX_MESSAGEBORADLIST.ISOPEN==Y&WX_MESSAGEBORADLIST.COMMENTID=$!list.get(0)"))
+							#foreach($comment in $commentList)
+							<dl class="huifu">
+								<dt><span>$comment.get(1)回复：$comment.get(3) </span></dt>
+							</dl>
+							#end
+						</li>
+						#end						
+						<li class="green bounceInDown nob ly2" style="display: none;">
+							<dl>
+								<dt>
+									<input name="wxname" type="text" class="px" id="wxname2" value="$!vip.name" placeholder="请输入您的昵称" readonly>
+								</dt>
+								<dt>
+									<textarea name="info" class="pxtextarea" style=" height:60px;" id="info2" placeholder="请输入留言"></textarea>
+								</dt>
+								<dt>
+									<a id="showcard2" class="submit" href="javascript:void(0)">提交留言</a>
+								</dt>
+							</dl>
+						</li>
+						<a><h2 class="first first2" style="position: relative;">请点击留言</h2></a>
+					</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" value="$vipid" id="vip"/>
+		
+		#if($messageTopPhoto.size()==0)
+		<input type="hidden" value="Y" id="isopen">
+		#elseif($messageTopPhoto.get(0).get(2) == '是')
+		<input type="hidden" value="Y" id="isopen">
+		#else
+		<input type="hidden" value="N" id="isopen">
+		#end
+<footer style="text-align:center; color:#ffd800;margin-right:20px">
+<a href="#">© $company.company</a>
+<br>
+<a href="#">由<span style="text-decoration:underline;">伯俊软件星云团队</span>提供技术支持</a>
+</footer>
+</body>
+</html>
