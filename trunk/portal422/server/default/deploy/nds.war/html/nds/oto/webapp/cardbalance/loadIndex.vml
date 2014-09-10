@@ -1,0 +1,15 @@
+#if("$!vipid"=="")
+    #set($url="/html/nds/oto/webapp/error/index.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
+#set ($lastid= $getutil.getInteger($request.getParameter("lastid")))
+##set ($vipid=33)
+#set ($cardTradeList =$myweb.getList("WX_DEAL","WX_INTEGRAL","WX_DEAL.WX_VIP_ID=$vipid&WX_DEAL.ID=<$lastid","/html/nds/oto/webapp/membercardtrade/index.vml?id=@ID@",1))
+#foreach($list in $cardTradeList)
+	<tr data-id="$list.get(0)">
+		<td>$list.get(2)</td>
+		<td>$list.get(1)</td>
+		<td>$list.get(3)</td>
+		<td>$list.get(5)</td>
+	</tr>
+#end
