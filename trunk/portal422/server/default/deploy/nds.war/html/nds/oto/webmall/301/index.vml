@@ -1,0 +1,27 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webmall/initCate.vml')
+<html>
+<head>
+#parse("/html/nds/oto/webmall/topmeta.vml")
+<title>全部分类</title>
+</head>
+<body>    
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+    <div class="lay_page ">
+        <div class="lay_page_wrap">
+            <div class="fn_ad ad_bigpic">
+				#foreach($list in $cateList)
+                    <a class="ui_clearfix" href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">
+                             <img src="$list.get(3)" class="ad_img ui_fluid">
+                            <div class="ad_detail">
+                                <p class="qb_fs_l"><strong>$stringutil.shorten($list.get(1),15)</strong></p>
+                                <p class="qb_fs_s">$list.get(7)</p>
+                            </div>
+                    </a>
+				#end
+            </div>
+	#parse("/html/nds/oto/webmall/footer.vml")
+    </div>
+</div>
+</body></html>
+</body></html>
