@@ -1,0 +1,27 @@
+<div class="lay_footer qb_tac qb_fs_s mod_mb15">
+    <div class="fn_quicklinks">
+        <a class="mod_color_weak" href="/mall.jsp">商户首页</a>
+        <span class="mod_color_comment">|</span>
+		#if("$!vipid"=="")
+			#if($client == "pc")
+				<a class="mod_color_weak" href="/html/nds/oto/webapp/error/pcerror.vml">会员中心</a>
+			#else
+				<a class="mod_color_weak" href="javascript:;">会员中心</a>
+			#end
+		#else
+        <a class="mod_color_weak" href="/html/nds/oto/webapp/usercenter/index.vml">会员中心</a>
+		#end
+        <span class="mod_color_comment">|</span>
+        <a class="mod_color_weak" href="/html/nds/oto/webapp/brand/index.vml">品牌介绍</a>
+    </div>
+	#if($!company.company != "&nbsp;")
+    <div class="fn_copyright qb_bfc">
+        <div class="mod_color_comment bfc_c">©$company.company</div>
+    </div>
+	#end
+	<div class="fn_copyright qb_bfc">
+        <div class="mod_color_comment bfc_c">
+			由<span style="text-decoration:underline;">伯俊软件星云团队</span>提供技术支持
+		</div>
+    </div>
+</div>
