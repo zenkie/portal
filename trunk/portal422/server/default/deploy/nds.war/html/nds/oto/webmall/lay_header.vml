@@ -1,0 +1,37 @@
+<div class="lay_header">
+    <div class="lay_toptab mod_tab" id="lay_head">
+        <a class="tab_item" href="/html/nds/oto/webmall/301/index.vml?ptype=pdt"><i class="qb_icon icon_goback"></i></a>
+        <a class="tab_item tab_item_logo" href="/mall.jsp">
+            <img src="$mall.image">
+        </a>
+		#if("$!vipid"=="")
+			#if($client == "pc")
+				<a class="tab_item" href="/html/nds/oto/webapp/error/pcerror.vml"><i class="qb_icon icon_icenter"></i></a>
+				<a class="tab_item" href="/html/nds/oto/webapp/error/pcerror.vml"><i class="qb_icon icon_cart"></i></a>
+			#else
+				<a class="tab_item" href="javascript:;"><i class="qb_icon icon_icenter"></i></a>
+				<a class="tab_item" href="javascript:;"><i class="qb_icon icon_cart"></i></a>
+			#end
+		#else
+			<a class="tab_item" href="/html/nds/oto/webapp/usercenterMall/index.vml"><i class="qb_icon icon_icenter"></i></a>
+			#set ($cartsize=$myweb.getList("WX_SHOPPING","WX_SETAD","WX_SHOPPING.ISSALE==N&WX_SHOPPING.WX_VIP_ID=$vipid").size())
+			#if($cartsize!=0)
+				<a class="tab_item" href="/html/nds/oto/webapp/cart/index.vml"><i class="qb_icon icon_cart"><span class="qb_icon icon_size"><span class="cartsize">$cartsize</span></span></i></a>
+			#else
+				<a class="tab_item" href="/html/nds/oto/webapp/cart/index.vml"><i class="qb_icon icon_cart"></i></a>
+			#end
+		#end
+    </div>
+</div>
+<script>
+	wxs.appId="$weutils.getAppId()";
+	#set ($url="$request.getRequestURL()")
+	#if($request.getQueryString())
+		#set ($url="$url?$request.getQueryString()")
+	#end
+	#if("4"==$weutils.getWXType())
+		#set ($url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$weutils.getAppId()&redirect_uri=$url&response_type=code&scope=snsapi_base&state=$!vipid#wechat_redirect")
+	#end
+	wxs.url="$url";
+	//wxs.url="$weutils.getDoMain()$request.getRequestURI()?$!request.getQueryString()";
+</script>
