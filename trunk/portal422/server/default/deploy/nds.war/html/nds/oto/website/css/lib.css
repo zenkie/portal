@@ -705,10 +705,9 @@ color: #444340;
         background-image: linear-gradient(top, #ffffff, #ffffff);
     }
     
-    .img img
-    {
-        display: block; /*height: 174px;*/
-    }
+.img img{
+	display: block; /*height: 174px;*/
+}
 /* 轮播css end */
 
 /* 底部css start */
