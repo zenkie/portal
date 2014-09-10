@@ -1,0 +1,62 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webmall/initIndex.vml')
+<html><head>
+#parse("/html/nds/oto/webmall/topmeta.vml")
+<title>微商城</title>
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/webmall/103/css/main.css">
+
+<script type="text/javascript" src="/html/nds/oto/webmall/103/js/snapBox_min.js"></script>
+
+<script type="text/javascript">
+	$(function(){
+		var mySnapBox = new snapBox("slide_wrap", {
+			width:250,
+			snapStart:function(){
+			var that = this;
+			$("#slide_wrap li, #nav_ul li, #list_ul li").removeClass("on");
+			$("#slide_wrap ol li:nth-of-type("+Math.abs(that.curIndex-1)+")").addClass("on");
+			$("#nav_ul li:nth-of-type("+Math.abs(that.curIndex-1)+")").addClass("on");
+			$("#list_ul li:nth-of-type("+Math.abs(that.curIndex-1)+")").addClass("on");
+			return that;
+			}
+		}).init();
+		mySnapBox.go(Math.floor((mySnapBox.length-1)/2)).snapStart();
+	});
+</script>
+
+<body onselectstart="return true;" ondragstart="return false;">
+#if("$!mall.backimage"=="")
+	<div data-role="container" class="container index">
+#else
+	<div data-role="container" class="container index" style="background:url($mall.backimage) no-repeat;background-size:100% 100%;">
+#end
+		<header data-role="header">
+			<div style="overflow:hidden;padding-top:25%;">
+				<div id="slide_wrap" class="slide_wrap">
+					<ul class="slide_ul" style="-webkit-transition:-webkit-transform 0s ease-in;-webkit-transform:translate3d(-1250px,0,0);">
+						<ol class="slide_ol">
+						#foreach($column in $allColumn)
+							<li class="">
+								<a href="$column.get(5)">
+									<img src="$column.get(3)">
+								</a>
+								<label>$column.get(1)</label>
+							</li>
+						#end
+						</ol>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<section data-role="body">
+			<div>
+				<ul id="nav_ul" class="nav_ul">
+				#foreach($column in $allColumn)
+					<li><span>&nbsp;</span></li>
+				#end
+				</ul>
+			</div>
+		</section>
+	</div>
+#parse("/html/nds/oto/webmall/footer.vml")
+</body></html>
