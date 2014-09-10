@@ -1,0 +1,295 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webapp/product/init.vml')
+<!DOCTYPE html>
+<html>
+<head>
+<title>商品详情</title>
+#parse("/html/nds/oto/webmall/topmeta.vml")
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.event.drag-1.5.min.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.touchSlider.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.touchSliderCopy.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/productDeatil.js"></script>
+<link href="/html/nds/oto/webapp/product/css/choose.css" rel="stylesheet" type="text/css" media="all">
+<link href="/html/nds/oto/webapp/product/css/touchstyle.css" rel="stylesheet" type="text/css" media="all">
+
+<script type="text/javascript">
+var spacepqy=$myweb.getAlias($pdtid);
+var productqty=$product.remainnum;
+</script>
+</head>
+
+<body class="body-fixed-bottom">
+#parse("/html/nds/oto/webmall/lay_header.vml")
+<div class="container wap-page-goods internal-purchase"> 
+    <div class="content js-mini-height">
+		<div class="content-body">
+			<div class="main_visual">
+				<div class="flicking_con">
+				<a href="#"></a>
+				#foreach($img in $imgList)
+					<a href="#"></a>
+				#end
+				</div>
+				<div class="main_image">
+					<ul>
+					<li><img src="$product.itemphoto"></li>
+				#if($imgList)
+					#foreach($img in $imgList)
+						<li><img src="$img.get(2)"></li>
+					#end
+				#end
+					</ul>
+					<a href="javascript:;" id="btn_prev"></a>
+					<a href="javascript:;" id="btn_next"></a>
+				</div>
+			</div>
+			<div class="custom-go-tao">
+				<div class="goods-base-info">
+					<h2 class="title">$product.itemname</h2>
+					<div class="goods-price">
+					#if("$!vipid"!="" && $viptypeid.opencard_status =="已启用")
+					#set ($vipprice=$math.max("$math.roundTo(2,$math.mul($product.priceactual,$viptypeinfo.discount))","0.01"))
+						<div class="current-price">
+							<span style="font-size:14px!important;">¥&nbsp;</span>
+								<i id="spaceprice" class="js-goods-price price"  style="font-size:20px!important;">
+									$vipprice
+								</i>
+							<del style="color: #999;vertical-align: middle;">￥$product.itemunitprice</del>
+							<span class="vipprice"></span>
+						</div>
+					#else
+						<div class="current-price">
+							<span style="font-size:14px!important;">¥&nbsp;</span><i id="spaceprice" class="js-goods-price price"  style="font-size:20px!important;">$product.priceactual</i>
+							<del style="color: #999;vertical-align: middle;">￥$product.itemunitprice</del>
+						</div>
+					#end
+					</div>
+				</div>
+			</div>
+			<div class="sku-detail adv-opts white-bg">
+			<hr class="with-margin">
+				<div id="prop-list" style="padding-left: 10px;">
+					<div id="spacesdesc" style="display:none;">$product.spec_description</div>
+					<input type="hidden" id="pdtid" value="$pdtid"/>
+					<input type="hidden" id="vipid" value="$vipid"/>
+					<div id="spacesInner" style="display:none;"></div>
+					
+					<dl id="spacesdisplay" class="mod_dl qb_mb10 mod_lh_l qb_clearfix">
+
+					</dl>
+				</div>
+				<div id="J_buy" style="padding-left: 10px;">
+					<dl class="mod_dl mod_lh_l qb_mb10 qb_clearfix">
+						<dt>数量：</dt>
+						<dd>
+							<span class="quantum">
+							<span class="minus" tag="sub">
+								<i class="qb_icon icon_minus"></i>
+							</span>
+							<input type="tel" id="buyNum" value="1"/>
+							<span tag="add" class="plus">
+								<i class="qb_icon icon_plus"></i>
+							</span>
+								</span>
+							<span class="qb_fs_s mod_color_comment">&nbsp;
+								<span id="stock-num-prev">&nbsp;库存：</span>
+								<span id ="stock-num">$product.remainnum</span>
+							</span>
+						</dd>
+					</dl>
+				</div>
+				<div id="J_buydisable" style="display:none;">
+                    <div class="btn_empty qb_tac mod_color_weak" id="J_nogoods">已经售完</div>
+                </div>
+			</div>
+    		<div class="custom-store custom-store-link clearfix">
+				<a class="custom-store-name showthis" href="javascript:;" onclick="showcontent();">商品详情</a>
+				<a class="comment-content" href="javascript:;" onclick="showcontent();">商品评价($commentList.size())</a>
+				<a class="product-hot" href="javascript:;" onclick="showcontent();">热卖商品</a>
+			</div>
+			<div id="productContext" class="js-components-container components-container">
+
+				<div class="custom-richtext" id="detail-info">
+					#if("$!product.description"=="")
+						<p style="margin:15px 25px;">暂无商品详情</p>
+					#else
+					$!product.description
+					#end
+				</div>
+				<div class="custom-richtext hide" id="comment-info">
+					<ul>
+					#if("$!commentList" == "" || "$!commentList" == "[]")
+						<p style="margin:15px 25px;">暂无商品评价</p>
+					#else
+						#foreach($comment in $commentList)
+						<li class="evaluatelist">
+							<h2>$comment.get(5)</h2>
+							
+							#if($comment.get(8) == "1")
+							<h3>
+								非常满意
+								<span class="start05"></span>
+							</h3>
+							#elseif($comment.get(8) == "0")
+							<h3>
+								满意
+								<span class="start03"></span>
+							</h3>
+							#elseif($comment.get(8) == "-1")
+							<h3>
+								不满意
+								<span class="start01"></span>
+							</h3>
+							#end
+							
+							
+							<div>$comment.get(10)
+							<span>$comment.get(9)</span>
+							</div>
+						</li>
+						#end
+					#end
+					</ul>
+				</div>
+				<div class="custom-richtext hide" id="hot-info">
+					<ul class="good_list">
+					#foreach($list in $allProduct)
+					<li>
+						<a href="$list.get(0)">
+							<img alt="$list.get(2)" src="$list.get(1)">
+							<div class="good_tag">
+								$stringutil.shorten($list.get(2),17,false)
+								<strong class="good_price">¥$list.get(4)</strong>
+							</div>
+						</a>
+					</li>
+					#end
+					</ul>
+				</div>
+			</div>
+			<div class="bottom-opts">
+				<div class="bottom-opts-inner">
+					<div class="opt-wrapper">
+						<div class="opt-wrapper-inner">
+							<div class="opt-actions">
+								<a href="javascript:;" data-out-buy="" class="js-buy-it butn butn-large butn-primary butn-buy" id="buy-now">&nbsp;&nbsp;立即购买&nbsp;&nbsp;</a>
+								<a href="javascript:;" data-out-buy="" class="js-add-cart butn butn-large butn-yellow" id="add-cart">加入购物车</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div style="display: none;" id="goTopBtn"></div> 
+
+	<div class="fold_arrow qb_tac qb_mb10" id="info-arrow">
+        <div class="handle arrow"></div>
+    </div>
+	<div class="mod_dialog qb_none" id="message-notice">
+        <div class="dialog_mask"></div>
+        <div class="dialog_main qb_br qb_tac">
+            <div class="dialog_bd" id="notice-content"></div>
+            <div class="dialog_ft qb_flex"><a href="javascript:void(0);" class="flex_box" id="notice-cancel">取消</a><a href="javascript:void(0);" class="flex_box" id="notice-sure">确定</a></div>
+        </div>
+    </div>
+    <div class="qb_quick_tip qb_none" id="bubble"></div>
+    <script type="text/template" id="prop-tpl">
+        <dl class="mod_dl qb_mb10 mod_lh_l qb_clearfix">
+            <dt>{#pName#}：</dt>
+            <dd class="qb_color_weak mod_property" skuname="{#pName#}" index="{#index#}">{#pList#}</dd>
+        </dl>
+    </script>
+	
+</div>
+#parse("/html/nds/oto/webmall/footer.vml")
+<script>
+	wxs.MsgImg="http://$weutils.getDoMain()$product.itemphoto";
+	wxs.TLImg="http://$weutils.getDoMain()$product.itemphoto";
+	#set ($url="$request.getRequestURL()?id=$pdtid")
+	#if("4"==$weutils.getWXType())
+		#set ($url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$weutils.getAppId()&redirect_uri=$url&response_type=code&scope=snsapi_base&state=$!vipid#wechat_redirect")
+	#end
+	#if($!vipid)
+		#set ($url="$url&fromid=$vipid")
+	#end
+	
+	wxs.url="$url";
+	wxs.title="$stringutil.shorten($product.itemname,10,false)";
+	wxs.desc="$stringutil.shorten($product.itemname,27,true)";
+	//wxs.MsgImg="http://www.toopop.net/servlets/userfolder/WX_APPENDGOODS/20140807065441083.jpg";
+	//wxs.TLImg="http://www.toopop.net/servlets/userfolder/WX_APPENDGOODS/20140807065441083.jpg";
+	
+	Wmp.Detail.spaceactualprice=$product.priceactual;
+	//Wmp.Detail.isLimitStock=("Y".equalsIgnoreCase($product.isenabled)?true:false);
+	Wmp.Detail.isLimitStock="$product.isenabled"=="是"?true:false;
+	#if($!vipid && $viptypeid.opencard_status =="已启用")
+		//Wmp.Detail.spaceactualprice=$math.roundTo(2,$math.mul($product.priceactual,$viptypeinfo.discount));
+		Wmp.Detail.spaceactualprice=$vipprice;
+		Wmp.Detail.vipDiscount=$viptypeinfo.discount;
+		Wmp.Detail.isOpenCard="$viptypeid.opencard_status";
+	#end
+		
+	$(function(){
+		
+		function getDetail(ev){
+			if($('.spacestr').length != $('.bcf90').length){
+				showBubble("请选择规格！！");
+				//setTimeout(function () {
+				//	location.reload();
+				//},1000);
+				return false;
+			}
+			else{
+				if($('#buyNum').val() == 0){
+					showBubble("请输入数量！！");
+					//setTimeout(function () {
+					//	location.reload();
+					//},1000);
+					return false;
+				}
+				
+				if(ev.toElement.id == 'add-cart'){
+					//购物车						
+					//addCart(selectNow.attr('data-value'),$('#buyNum').val());
+					addCart(null,$('#buyNum').val());
+				}
+				else{
+					//购买
+					//toPay(selectNow.attr('data-value'),$('#buyNum').val());
+					toPay(null,$('#buyNum').val());
+				}
+			}
+		}
+		Wmp.Detail.addCart('click', '#add-cart', getDetail);
+		Wmp.Detail.addCart('click', '#buy-now', getDetail);
+		
+		var photoUrl="$product.itemphoto";
+		/*
+		#foreach($album in $imgList)
+			photoUrl = photoUrl+","+"$album.get(2)";
+		#end
+		*/
+		initDetil(photoUrl);
+		initspaces();
+		window.selectNow = [];
+		//Wmp.Detail.selectSize('click', '#spacesdisplay>dd>span', 'span', function(now){
+		Wmp.Detail.selectSize('click', '#spacesdisplay>dd>span', '', function(now){
+			selectNow = now;
+		});
+	}
+);
+
+$(document).ready(function(){
+	if($!imgList.size()>0){
+	sliderimg();
+	}
+	goTopEx();
+	slidercom();
+});
+
+</script>
+</body>
+</html>
