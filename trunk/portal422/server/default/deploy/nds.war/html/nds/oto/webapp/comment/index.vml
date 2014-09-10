@@ -1,0 +1,124 @@
+#parse('/html/nds/oto/webapp/comment/init.vml')
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no" />
+<script type="text/javascript" src="/html/nds/oto/webapp/comment/js/jquery.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/comment/js/comment.js"></script>
+<link href="/html/nds/oto/webapp/comment/css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="viewport">
+	<header class="navbar">
+		<ul>
+			<li>我要评价</li>
+			<li>
+				<a href="javascript:history.go(-1);" class="c-btn c-btn-aw">返回</a>
+			</li>
+			<li></li>
+		</ul>
+	</header>
+	<section class="content">
+		<div class="wrap">
+			<div id="J_rate_plugin">
+				#foreach($list in $productdetail)
+				<section class="oc-m">
+					<div class="oc-info"> 
+						<div class="oc-info-l"> 
+							<img src="$!list.get(5)" height=40 width=40> 
+						</div> 
+						<div class="oc-info-r"> 
+								<h2 style="font-size: 14px;">$!list.get(3)</h2> 
+								<div> ￥<strong class="red">$!list.get(8)</strong></div> 
+						</div>
+						<input type="hidden" id="goodsId" value="$!list.get(9)"/>
+					</div>
+					<div class="oc-comm"> 
+						<ul class="oc-comm-ul"> 
+							<li class="c-f-sku ocm-h" val="1"> 好评<span></span></li>
+							<li class="c-f-sku ocm-z" val="0"> 中评<span></span></li>
+							<li class="c-f-sku ocm-c" val="-1"> 差评<span></span> </li> 
+						</ul>
+						<input type="hidden" id="J_rateResult0">
+					</div>
+					<div class="oc-star-fc" style="display:none;"> 
+						<label> 描述相符： </label> 
+						<div class="oc-star-n"> 
+							<ul>  
+								<li val="1"> star1 </li>  
+								<li val="2"> star2 </li>  
+								<li val="3"> star3 </li>  
+								<li val="4"> star4 </li>  
+								<li val="5"> star5 </li>  
+							</ul> 
+						</div>
+						<input type="hidden" id="describe">
+					</div>
+					<div class="oc-text"> 
+						<span class="c-f-textarea"> 
+							<textarea maxlength="500" id="J_rateContent0" placeholder="请输入评论内容"></textarea> 
+						</span> 
+					</div>
+				</section>
+				#end
+				<section class="oc-star">
+					<div class="oc-star-f" id="J_star" style="display:none;">
+						<div class="oc-star-fc"> 
+							<label> 服务态度： </label> 
+							<div class="oc-star-n"> 
+								<ul>  
+									<li val="1"> star1 </li>  
+									<li val="2"> star2 </li>  
+									<li val="3"> star3 </li>  
+									<li val="4"> star4 </li>  
+									<li val="5"> star5 </li>  
+								</ul> 
+							</div>
+							<input type="hidden" id="service">
+						</div>
+						<div class="oc-star-fc"> 
+							<label> 发货速度： </label> 
+							<div class="oc-star-n"> 
+								<ul>  
+									<li val="1"> star1 </li>  
+									<li val="2"> star2 </li>  
+									<li val="3"> star3 </li>  
+									<li val="4"> star4 </li>  
+									<li val="5"> star5 </li>  
+								</ul> 
+							</div> 
+							<input type="hidden" id="deliver">
+						</div> 
+					</div>
+					<div class="oc-star-b">
+						<input type="submit" id="J_comment" class="c-btn-orange" value="发表评价">
+					</div>
+				</section>				
+				<input type="hidden" id="orderId" value="$orderId"/>
+				<input type="hidden" id="vipId" value="$vipid"/>
+				<div style="padding:20px 0 10px 0;">
+					<footer class="footer c-footer " style="padding-top: 64px;">
+						<p class="copyright c-copyright">©  $company.company</p>
+						<p class="copyright c-copyright">由<span style="text-decoration:underline;">伯俊软件星云团队</span>提供技术支持</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</section>	
+</div>
+<div class="c-float-popWrap msgMode hide">
+	<div class="c-float-modePop">
+		<div class="warnMsg"></div>
+		<div class="content"></div>
+		<div class="doBtn">
+			<button class="ok">确定</button>
+			<button class="cancel">取消</button>
+		</div>
+	</div>
+</div>
+</body>
+</html>

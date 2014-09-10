@@ -1,0 +1,8 @@
+#set ($vipid=$fromvipid)
+#if("$!vipid"=="")
+    #set($url="/html/nds/oto/webapp/error/index.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
+#set ($company = $myweb.getObject("WEB_CLIENT",$myweb.getTableId()))
+#set ($orderId= $getutil.getInteger($request.getParameter("orderId") ,-1))
+#set ($productdetail =$myweb.getList("WX_ORDERITEM","WX_SETAD","WX_ORDERITEM.WX_ORDER_ID=$orderId"))
