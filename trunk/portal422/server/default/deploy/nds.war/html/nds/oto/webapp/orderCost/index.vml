@@ -30,7 +30,7 @@ color: #21c413;
 </style>
 </head>
 <body>
-	#parse("/html/nds/oto/webmall/lay_header.vml")
+#parse("/html/nds/oto/webmall/lay_header.vml")
 	<input id="orderid" type="hidden" value="$detail.id"/>
     <div class="lay_page page_order current" id="page_order">
 	#if($detail.get("wx_order.sale_status") == "2")
