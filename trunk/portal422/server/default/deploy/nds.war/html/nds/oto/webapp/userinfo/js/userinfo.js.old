@@ -1,0 +1,122 @@
+
+        function chkSave() {
+            if (!$("#RealName").val()) {
+                alert("真实姓名未填写！");
+                return false;
+            }
+            if (!$("#Mobile").val()) {
+                alert("手机号码未填写！");
+                return false;
+            }
+        }
+        //设置性别
+        function setSex(strsex) {
+            $("#Sex").val(strsex);
+        }
+        //判断手机号码格式
+        /*function chkMobile() {
+            if (!chkT($("#Mobile").val())) {
+                alert('手机号码格式不正确！');
+                $("#Mobile").focus();
+                return false;
+            }
+        }*/
+        //判断年龄
+        function chkBlur() {
+            if ($("#Age").val()) {
+                if (parseInt($("#Age").val()) > 100) {
+                    alert('年龄格式不正确！');
+                    $("#Age").focus();
+                    return false;
+                }
+            }
+        }
+
+        String.prototype.Trim = function () {
+            var m = this.match(/^\s*(\S+(\s+\S+)*)\s*$/);
+            return (m == null) ? "" : m[1];
+        }
+
+        String.prototype.isMobile = function () {
+            return (/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/.test($("#Mobile").val().Trim()));
+        }
+        function chkT(tel) {
+            if (tel.isMobile()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+
+	
+	
+
+        $(function () {
+            $(".ui-loader").remove();
+            var currYear = (new Date()).getFullYear();
+            var opt = {};
+            opt.date = { preset: 'date' };
+            //opt.datetime = { preset : 'datetime', minDate: new Date(2012,3,10,9,22), maxDate: new Date(2014,7,30,15,44), stepMinute: 5  };
+            opt.datetime = { preset: 'datetime' };
+            opt.time = { preset: 'time' };
+            opt.default = {
+                theme: 'sense-ui', //皮肤样式
+                display: 'modal', //显示方式 
+                mode: 'scroller', //日期选择模式
+                lang: 'zh',
+                dayText: "日",
+                monthText: "月",
+                yearText: "年",
+                startYear: currYear - 100, //开始年份
+                endYear: currYear - 1 //结束年份
+            };
+            var birthday = "1990-01-01";
+            $(".date").val(birthday).scroller('destroy').scroller($.extend(opt['date'], opt['default']));
+        });
+
+function Modify() {
+		var id = $("#oid").val();
+		var name = $("#RealName").val();
+		var sex = $("#Sex").val();
+		var phone = $("#Mobile").val();
+		var birthday = $("#scoller1395026256449").val();
+		var address = $("#Address").val();
+		var qq= $("#QQ").val();
+		var email = $("#Email").val();
+		var _params ="{\"table\":16003,\"ID\":"+id+",\"NAME\":\""+name+"\",\"GENDER\":\""+sex+"\",\"PHONENUM\":\""+phone+"\",\"IDCARD\":\""+idcard+"\",\"BIRTHDAY\":\""+birthday+"\",\"CONTACTADDRESS\":\""+address+"\",\"QQNUM\":\""+qq+"\",\"EMAIL\":\""+email+"\",\"ISOPENCARD\":2,\"partial_update\":true}";
+		$("#params").text(_params);
+        $.ajax({
+            url: '/html/nds/schema/restajax.jsp',
+            type: 'post',
+            data:{command:"ObjectModify",params:_params},
+			success: function (data) {
+			var _data = eval("("+data+")");
+				if (_data[0].code == 0) {
+            	showBubble("个人信息修改成功！");
+					setTimeout(function () {
+				    location.reload();
+					},1000)
+            }else{
+				showBubble("个人信息修改失败！");
+					setTimeout(function () {
+				    location.reload();
+					},1000)
+			}
+        });
+	}
+}
+	function showBubble(a, b) {
+        if (a) {
+            b = b || 2500;
+            var c = $("#bubble");
+            c.css("opacity", 1), c.hasClass("qb_none") || c.html(a), c.html(a).removeClass("qb_none"), setTimeout(function () {
+                c.animate({
+                    opacity: 0
+                }, 1500, "ease", function () {
+                   $(this).addClass("qb_none").removeAttr("style")
+                })
+            }, b)
+        }
+}
