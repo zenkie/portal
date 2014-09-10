@@ -1,0 +1,377 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webapp/order/init.vml')
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+#parse("/html/nds/oto/webmall/topmeta.vml")
+<script type="text/javascript" src="/html/nds/oto/webapp/order/js/orderModify.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/order/js/coupon.js"></script>
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/order/css/coupon.css">
+<title>我的订单</title>
+<style>
+.modify{
+border: 1px solid #7E7E77;
+border-radius: 5px;
+box-shadow: none;
+color: #7E7E77;
+padding: 2px 12px;
+}
+.change{
+border: 1px solid #f8bb8f;
+border-radius: 5px;
+box-shadow: none;
+color: #f8bb8f;
+padding: 2px 12px;
+}
+#canle-order{
+background: white;
+border: 1px solid #21c413;
+color: #21c413;
+}
+</style>
+</head>
+<body>
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+	<input id="orderid" type="hidden" value="$detail.id"/>
+    <div class="lay_page page_order current" id="page_order">
+	##if($status == "2")
+	#if($detail.get("wx_order.sale_status") == "2")
+        <div class="lay_page_wrap">
+            <div class="mod_cell">
+                <div class="mod_celltitle">订单编号：$detail.docno</div>
+                <div class="ui_color_weak qb_mb10"><span>商品详情:</span></div>
+                <ul class="mod_list">  
+					#foreach($list in $productdetail)
+                            <li class="list_item qb_mb10 qb_bfc">
+                                <a href="/html/nds/oto/webapp/product/index.vml?id=$list.get(9)" class="bfc_f">
+                                    <img src="$list.get(5)" width="100" height="100" alt=""></a>
+                                <div>
+                                    <p class="allfont" style="padding-bottom: 5px;">$stringutil.shorten($list.get(3),15,false)</p>
+                                    <p class="allfont" style="padding-bottom: 5px;"><span class="ui_color_strong">¥$list.get(10)</span>&nbsp;x&nbsp$list.get(6)</p>
+									<span>规格：$list.get(7)</span>
+                                </div>
+                            </li>
+					#end
+                </ul>
+                <div class="qb_flex qb_mb10" id="coupon-node" index="0"></div>
+                <div class="qb_flex qb_mb10" id="promote-node" index="0"></div>
+                <div class="mod_cell_hr"></div>
+                <div class="ui_mb10">
+                    <p class="ui_align_right qb_none" id="free-div"></p>
+                    <p class="ui_align_right qb_none" >优惠金额：<strong class="mod_color_strong"><span id="dealoff-price"></span></strong></p>
+                    <p class="ui_align_right">应付金额：<span><span id="total-price" class="ui_color_strong" style="font-size:14px!important;">¥$detail.tot_amt</span></span></p>
+                </div>
+            </div>
+			
+            <ul id="allAddress" class="mod_addresslist ui_mt15 ui_mb15">
+                <li class="address_item default" id="toAddrList_$!add.id">
+                    <div class="address_detail $!add.isaddress" style="padding-right: 0px;">
+					#if("$!add.isaddress"=="")
+						#if($addList.size()==0)
+							<div class="qb_flex ui_gap ui_mt15">
+								<a href="/html/nds/oto/webapp/address/orderAddress.vml?objectid=$objectid&docno=$docno&cartid=$cartid&status=$detail.get("wx_order.sale_status")" class="mod_btn btn_block btn_em flex_box" id="add">新增收货地址</a>
+							</div>
+						#else
+							<div class="qb_flex ui_gap ui_mt15">
+								<a href="/html/nds/oto/webapp/address/addressMangageSelect.vml?objectid=$objectid&docno=$docno&cartid=$cartid&status=$detail.get("wx_order.sale_status")" class="mod_btn btn_block btn_em flex_box" id="add">请选择默认收货地址</a>
+							</div>
+						#end
+					#else
+                        <p>
+                            收件人：$add.name<br/>
+							联系电话：$add.phonenum
+                        </p>
+                        <p class="address qb_fs_m">收件地址：$add.address</p>
+						<div class="ui_gap" style="position: absolute;right: 25%;top: 10px;">
+							<a href="javascript:void(0);" class="modify change">更换</a>
+						</div>
+						<div class="ui_gap" style="position: absolute;right: 10px;top: 10px;">
+							<a href="/html/nds/oto/webapp/address/orderAddress.vml?objectid=$objectid&docno=$docno&cartid=$cartid&editId=$add.id&status=$detail.get("wx_order.sale_status")" class="modify">修改</a>
+						</div>
+					#end
+                    </div>
+                </li>
+			#if("$!add.isaddress"!="")
+			<div class="qb_none" id="addrList">
+			#foreach($list in $addList)
+				<li class="address_item" id="toAddrList_$list.get(0)">
+					<div class="address_detail" style="padding-right:0px;">
+						<p>
+							收件人：$list.get(6)<br>
+							联系电话：$list.get(7)
+						</p>
+						<p class="address qb_fs_m">收件地址：$list.get(4)</p>
+						<div class="ui_gap qb_none" style="position: absolute;right: 25%;top: 10px;">
+							<a href="javascript:void(0);" class="modify change">更换</a>
+						</div>
+						<div class="ui_gap qb_none" style="position: absolute;right: 10px;top: 10px;">
+							<a href="/html/nds/oto/webapp/address/orderAddress.vml?objectid=$objectid&docno=$docno&cartid=$cartid&editId=$list.get(0)&status=$detail.get("wx_order.sale_status")" class="modify">修改</a>
+						</div>
+					</div>
+				</li>				
+			#end
+				<div class="qb_flex ui_gap ui_mt15">
+						<a href="/html/nds/oto/webapp/address/orderAddress.vml?objectid=$objectid&docno=$docno&cartid=$cartid&&editId=-1&status=$detail.get("wx_order.sale_status")" class="mod_btn btn_block btn_em flex_box" id="add">新增收货地址</a>
+				</div>
+			</div>
+			#end
+            </ul>			
+			##优惠券开始
+			##set ($coupon = $myweb.getList("WX_COUPONEMPLOY","WX_SETAD","WX_COUPONEMPLOY.WX_VIP_ID=$vipid&WX_COUPONEMPLOY.ISRECEIVE==Y&WX_COUPONEMPLOY.STATE==N&WX_COUPONEMPLOY.WX_COUPON_ID;MINIMUMCHARGE=<=$detail.tot_amt_actual&WX_COUPONEMPLOY.ROUND(TO_NUMBER(SYSDATE-A1.STARTTIME)*24*60)=>0&WX_COUPONEMPLOY.ROUND(TO_NUMBER(A1.ENDTIME-SYSDATE)*24*60)=>0","/@ID@",1))
+			#set ($coupon = $myweb.getList("WX_COUPONEMPLOY","WX_SETAD","WX_COUPONEMPLOY.WX_VIP_ID=$vipid&WX_COUPONEMPLOY.ISRECEIVE==Y&WX_COUPONEMPLOY.WX_COUPON_ID=is not null&WX_COUPONEMPLOY.WX_COUPON_ID;MINIMUMCHARGE=<=$detail.tot_amt&WX_COUPONEMPLOY.STATE==N&WX_COUPONEMPLOY.DECODE(A1.VALIDAY,NULL, A1.ENDTIME,WX_COUPONEMPLOY.CREATIONDATE+A1.VALIDAY)=>SYSDATE","/@ID@",1))
+			#if($coupon.size() > 0)
+			<div class="mod_cell ui_p10">
+				<div class="mod_celltitle">优惠券：</div>
+                <div class="qb_flex">
+                    <div class="mod_select select_block flex_box">
+                        <div id="select_coupon"><span>请选择优惠券</span></div>
+						<input type="hidden" id="couponId" value="-1"/>
+                    </div>					
+				</div>
+				<div class="coupon-content" style="display:none;">
+					<div id="searchResult"> 
+						<div class="searchResultBg">
+							<div class="searchResultCon">
+								<ul class="resourcesCon">
+								<li data-id="-1" data="请选择优惠券" data-money="0">
+									<a href="javascript:void(0)">										
+											<em>&nbsp;</em><em>&nbsp;</em>&nbsp;&nbsp;&nbsp;请选择优惠券&nbsp;
+									</a>
+								</li>
+								#foreach($list in $coupon)
+									#if($list.get(0) == $detail.wx_couponemploy_id)
+								  <li data-id="$list.get(0)" data="￥$list.get(4)&nbsp;&nbsp;&nbsp;$list.get(13)" data-money="$list.get(4)" class="couponDefault">
+									#else
+								  <li data-id="$list.get(0)" data="￥$list.get(4)&nbsp;&nbsp;&nbsp;$list.get(13)" data-money="$list.get(4)">
+									#end
+									<a href="javascript:void(0)">
+										<img src="/html/nds/oto/webapp/order/images/couponNo.png"/>
+											<em>￥</em><em>$list.get(4)</em>&nbsp;&nbsp;&nbsp;$list.get(13)&nbsp;
+									</a>
+								</li>
+								#end
+								</ul>
+								<div class="clear"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+            <div class="mod_cell_hr"></div>
+			#end
+			##优惠券结束			
+            <div class="mod_cell ui_p10">
+				<div class="mod_celltitle">支付方式：</div>
+                <div class="qb_flex">
+                    <div class="mod_select select_block flex_box">
+                        <select id="select_pay">
+							<option value="-1" code="">请选择支付方式</option>
+							#foreach($pay in $payList)
+								#if($detail.payment==$pay.get(2))
+								<option value="$pay.get(0)" code="$pay.get(1)" selected>$pay.get(2)</option>
+								#else
+								<option value="$pay.get(0)" code="$pay.get(1)">$pay.get(2)</option>
+								#end
+                            #end
+				
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+           <div class="mod_cell ui_p10">
+				<div class="mod_celltitle">备注：</div>
+                <div class="qb_flex">
+                    <div class="select_block flex_box">
+					#if($!detail.remarks == "&nbsp;")
+						<textarea id="orderRemarks" title="选填：对本次交易的说明" placeholder="选填：对本次交易的说明"></textarea>
+					#else
+						<textarea id="orderRemarks" title="选填：对本次交易的说明" placeholder="选填：对本次交易的说明">$!detail.remarks</textarea>
+					#end
+                    </div>
+                </div>
+            </div>
+			
+			<form name="alipayment" action="/html/nds/oto/alipay/alipayapi.jsp" method="post" target="_blank">
+				<div class="mod_cell ui_p10" style="text-align:center;">
+					<span id="buy_qty" style="display:none;" qty="$detail.tot_qty"></span>
+					<span id="all_total-price_detail">¥$detail.tot_amt_actual&nbsp;+&nbsp;¥$detail.logistics_free&nbsp;运费</span><br>
+					<span>实付：<span id="all_total-price" class="ui_color_strong" style="font-size:16px!important;line-height: 25px;">¥$detail.tot_amt</span></span>
+				</div>
+				<div style="display:none;">
+					<input type="text" name="WIDout_trade_no" value="$detail.docno" />
+					<input type="text" name="WIDsubject" value="$stringutil.shorten($productdetail.get(0).get(3),20,false)" />
+					<input type="text" id="WIDtotal_fee" name="WIDtotal_fee" value="$detail.tot_amt" />
+				</div>
+				<div class="ui_gap">
+					<a id="submit-order" evttag="submitOrder" class="mod_btn btn_strong btn_block toPayOrder" style="background:#21c413;"  href="javascript:;" onclick="commitOrder()">订单支付</a>
+				</div>
+				<div class="ui_gap">
+					<a id="canle-order" class="mod_btn btn_strong btn_block toPayOrder" href="javascript:;" onclick="canleOrder($detail.id)">取消订单</a>
+				</div>
+			</form>
+        </div>
+
+	#else
+		#if($detail.get("wx_order.sale_status") == "3")
+			<div id="paidImg"></div>
+		#elseif($detail.get("wx_order.sale_status") == "4")
+			<div id=""></div>
+		#elseif($detail.get("wx_order.sale_status") == "5")
+			<div id="finishImg"></div>
+		#elseif($detail.get("wx_order.sale_status") == "7")
+			<div id="returnedImg"></div>
+		#elseif($detail.get("wx_order.sale_status") == "8")
+			<div id="paidImg"></div>
+		#end
+		
+		#if($detail.get("wx_order.sale_status") == "5" && $detail.iscomment == "是")
+			<div id="commentimg"></div>
+		#end
+            <div class="mod_cell">
+                <div class="mod_celltitle">商品详情</div>
+                <div class="ui_color_weak qb_mb10"></div>
+                <ul class="mod_list">  
+					#foreach($list in $productdetail)
+                            <li class="list_item qb_mb10 qb_bfc">
+                                <a href="/html/nds/oto/webapp/product/index.vml?id=$list.get(9)" class="bfc_f">
+                                    <img src="$list.get(5)" width="100" height="100" alt=""></a>
+                                <div>
+                                    <p class="allfont" style="padding-bottom: 5px;">$stringutil.shorten($list.get(3),15,false)</p>
+                                    <p class="allfont" style="padding-bottom: 5px;"><span class="ui_color_strong">¥$list.get(10)</span>&nbsp;x&nbsp$list.get(6)</p>
+									<span>规格：$list.get(7)</span>
+                                </div>
+                            </li>
+					#end
+                </ul>
+                <div class="qb_flex qb_mb10" id="coupon-node" index="0"></div>
+                <div class="qb_flex qb_mb10" id="promote-node" index="0"></div>
+                <div class="mod_cell_hr"></div>
+				<ul class="mod_list">
+					#set ($youraddress=$myweb.getObject("WX_ADDRESS","WX_ADDRESS.ID=$detail.get('wx_address_id;id')"))
+					<li class="address_item default" id="toAddrList_$add.id" style="padding-bottom:5px;">
+						<p style="padding-bottom: 5px;">收件人：$youraddress.name</p>
+						<p style="padding-bottom: 5px;">联系电话：$youraddress.phonenum</p>
+						<p style="padding-bottom: 5px;">收件地址：$youraddress.address</p>
+				</ul>
+                <div class="mod_cell_hr"></div>
+				<ul class="mod_list">
+						<p style="padding-bottom: 5px;">配送方式：$detail.distribution</p>
+						<p style="padding-bottom: 5px;">支付方式：$detail.payment</p>
+					##优惠劵start
+						#if($detail.wx_couponemploy_id!="&nbsp;" && ($detail.wx_couponemploy_id!="-1"))
+						##set($couponObject = $myweb.getObject("WX_COUPONEMPLOY","WX_COUPONEMPLOY.ID=$detail.wx_couponemploy_id"))
+						#set($couponObject = $myweb.getObject("WX_COUPONEMPLOY","WX_COUPONEMPLOY.ID=$detail.wx_couponemploy_id"))
+						<p style="padding-bottom: 5px;">优惠劵金额：<span class="ui_color_strong">¥$couponObject.get('wx_coupon_id;value')</span></p>
+						#end						
+					##优惠劵end						
+					#if("$!detail.logistics_code"=="" || $detail.logistics_code=="&nbsp;")
+						<p style="padding-bottom: 5px;">物流单号：
+							<span style="color:red;">$detail.sale_status</span>
+						</p>
+					#elseif($detail.get("wx_order.sale_status") == "7")
+						<p>已成功退款，请查收。</p>
+					#else
+						<p style="padding-bottom: 5px;">物流单号：$detail.logistics_code
+							<a href="/html/nds/oto/webapp/indent/indent.jsp?com=$detail.get("distribution;code")&nu=$detail.logistics_code&id=$detail.id" class="mylogistics">&nbsp;</a>
+						</p>
+					#end
+					</li>
+				</ul>
+				<div class="mod_cell_hr"></div>
+				<ul class="mod_list">
+					<li style="padding-bottom:5px;">
+						<p style="padding-bottom: 5px;">备注：$!detail.remarks</p>
+					</li>
+				</ul>
+            </div>
+
+			<div class="mod_cell ui_p10">
+				<a href="tel:$mall.phone" class="myphone">　　&nbsp;客服电话：$mall.phone</a>
+            </div>
+			<div class="mod_cell ui_p10" style="text-align:center;">
+				##优惠劵金额start
+				#if($!detail.wx_couponemploy_id!="&nbsp;" && ($!detail.wx_couponemploy_id!="-1"))				
+                <span id="total-price_detail">¥$detail.tot_amt_actual&nbsp;+&nbsp;¥$detail.logistics_free&nbsp;运费&nbsp;-&nbsp;¥$couponObject.get('wx_coupon_id;value')&nbsp;优惠劵</span><br>
+				<span>实付：<span id="total-price" class="ui_color_strong" style="font-size:16px!important;line-height: 25px;">¥$detail.tot_amt </span></span>
+				#else
+				<span id="total-price_detail">¥$detail.tot_amt_actual&nbsp;+&nbsp;¥$detail.logistics_free&nbsp;运费</span><br>
+				<span>实付：<span id="total-price" class="ui_color_strong" style="font-size:16px!important;line-height: 25px;">¥$detail.tot_amt</span></span>
+				#end
+				##优惠劵金额end
+			</div>
+			#if($detail.get("wx_order.sale_status") == "已付款3")
+			<div class="ui_gap">
+				<a id="submit-order" evttag="submitOrder" class="mod_btn btn_strong btn_block toPayOrder" href="javascript:;" onclick="commitOrder()">申请退款</a>
+			</div>
+			#end
+			#if($detail.get("wx_order.sale_status") == "8")
+			<div class="ui_gap">
+				<a id="submit-order" evttag="submitOrder" class="mod_btn btn_strong btn_block toPayOrder" href="javascript:;" onclick="confirmReceipt($detail.id)">确认收货</a>
+			</div>
+			#end
+			#if($detail.get("wx_order.sale_status") == "5" && $detail.iscomment == "否")
+			<div class="ui_gap">
+				<a id="submit-order" evttag="submitOrder" class="mod_btn btn_strong btn_block toPayOrder" style="background:#0fa1c8;" href="/html/nds/oto/webapp/comment/index.vml?orderId=$detail.id">我要评价</a>
+			</div>
+			#end
+        </div>
+	#end
+    </div>
+<div class="mod_dialog qb_none" id="message-notice">
+	<div class="dialog_mask"></div>
+	<div class="dialog_main qb_br qb_tac">
+		<div class="dialog_bd" id="notice-content"></div>
+		<div class="dialog_ft qb_flex"><a href="javascript:void(0);" class="flex_box" id="notice-cancel">取消</a><a href="javascript:void(0);" class="flex_box" id="notice-sure">确定</a></div>
+	</div>
+</div>
+#parse("/html/nds/oto/webmall/footer.vml")
+<script type="text/javascript">
+$(function(){
+	oct.orderId=$detail.id;
+	oct.orderCode="$detail.docno";
+	oct.totalFree=$detail.tot_amt;
+	oct.shipmentFree=$detail.logistics_free;
+	oct.productFree=$detail.tot_amt_actual;
+	var s="$detail.tot_amt_actual";
+	$(".change").each(function(){
+		$(this).click(function(){
+		var _this = $(this).closest(".address_item");
+		var _div = $("#addrList");		
+			if(_this.hasClass("default")){
+				if(_div.hasClass("qb_none")){
+					_div.removeClass("qb_none");
+				}else{
+					_div.addClass("qb_none");
+				}							
+			}
+		});
+	});
+	$(".address_item").each(function(){
+		$(this).click(function(){
+		var _this = $(this);
+		var _div = $("#addrList");		
+			if(_this.hasClass("default")){				
+				return;						
+			}else{
+				var list = $(".address_item");
+				$(list[0]).removeClass("default");
+				$(list[0]).find(".ui_gap").addClass("qb_none");
+				_div.prepend($(list[0]));
+				_this.closest("ul").prepend(_this);
+				_this.addClass("default");
+				_this.find(".ui_gap").removeClass("qb_none");
+				_div.addClass("qb_none");
+				oct.changeLogistics();
+			}
+		});
+	});
+	
+	#if($detail.get("wx_order.sale_status") == "2")		
+		init();
+		oct.changeLogistics();
+	#end
+});
+</script>
+  <div class="qb_quick_tip qb_none" id="bubble"></div>
+</body></html>
