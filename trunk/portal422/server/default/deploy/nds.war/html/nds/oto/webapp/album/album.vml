@@ -1,0 +1,21 @@
+#parse('/html/nds/oto/webapp/album/init.vml')
+<html>
+<head>
+	#parse("/html/nds/oto/website/topmeta.vml")
+    <link href="./css/fourteen.css" rel="stylesheet" media="all" type="text/css">
+    <title>相册</title>
+</head>
+<body>
+#parse("/html/nds/oto/website/rightColumn.vml")
+<div id="wrap" style="margin-top:46px;">
+     <img src="$albumset.get(0).get(1)" class="tpbn">
+         <ul class="mThirC">
+		 #foreach($album in $allAlbum)
+			<li class="mThirCli">
+				<a href="$album.get(0)" title="$album.get(1)" class="mThirCell"><img src="$album.get(2)"></a>
+			</li>
+		#end
+		</ul>
+    </div>
+#parse("/html/nds/oto/website/footer.vml")
+</body></html>

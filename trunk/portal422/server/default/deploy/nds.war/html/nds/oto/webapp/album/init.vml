@@ -1,0 +1,2 @@
+#set ($albumset =$myweb.getList("WX_ALBUMSET","WX_SETAD"))
+#set ($allAlbum =$myweb.getList("WX_ALBUMMANAGE","WX_SETAD"))

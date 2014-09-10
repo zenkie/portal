@@ -1,0 +1,43 @@
+#parse('/html/nds/oto/webapp/album/photoinit.vml')
+<html>
+<head>
+	#parse("/html/nds/oto/website/topmeta.vml")
+	<script type="text/javascript" src="./js/klass.min.js"></script>
+	<script type="text/javascript" src="./js/code.photoswipe-3.0.5.min.js"></script>
+	<link href="./css/wxshop.css" rel="stylesheet" type="text/css" media="all">
+	<link href="./css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="./css/photoswipe.css" type="text/css" rel="stylesheet" />
+	<script language="javascript">
+     (function (window, PhotoSwipe) {
+         document.addEventListener('DOMContentLoaded', function () {
+             var 
+                    options = {captionAndToolbarAutoHideDelay:0},
+                    instance = PhotoSwipe.attach(window.document.querySelectorAll('#dlist a'), options);
+         }, false);
+     } (window, window.Code.PhotoSwipe));
+</script>
+    <title>相册名称</title>
+</head>
+<body>
+#parse("/html/nds/oto/website/rightColumn.vml")
+<div id="wrap" style="padding-top: 0px;float: left;margin-top: 46px; ">	
+    <img src="$albumset.get(0).get(1)" class="tpbn">
+    <div class="gcT clearfix" id="dlist">
+#set ($i=0)
+#foreach($album in $allAlbum)
+#if ($i%2 == 0) 
+			<div class="gcTbO">
+#else
+			 <div class="gcTbT">
+#end
+                <div class="gctp" style="margin-bottom: 5px;border: 0px;">
+                <a href="$album.get(2)" class="picholder">
+                <img src="$album.get(2)" alt="$album.get(1)" class="gipT article-match-pic"> </a>
+                </div>
+            </div>
+#set($i=$i+1)
+#end			
+	</div>    
+</div>
+#parse("/html/nds/oto/website/footer.vml")
+</body></html>
