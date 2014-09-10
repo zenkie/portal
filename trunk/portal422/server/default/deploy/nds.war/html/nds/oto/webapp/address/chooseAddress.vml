@@ -1,0 +1,64 @@
+#parse("/html/nds/oto/webmall/init.vml")
+#parse('/html/nds/oto/webapp/address/manageInit.vml')
+<!DOCTYPE html>
+<html>
+<head>
+<title>选择收货地址</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+<meta charset="UTF-8">
+<meta name="viewport" content=" initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/jquery.js"></script>
+<link href="/html/nds/oto/webmall/css/style.css" rel="stylesheet">
+</head>
+<body>    
+#parse("/html/nds/oto/webmall/lay_header.vml")
+    <div class="lay_page" id="page_order_address">
+        <div class="lay_page_wrap">
+            <div class="qb_flex ui_gap ui_mt15">
+				<a href="./addAddress.vml" class="mod_btn btn_block btn_em flex_box" id="add">新增收货地址</a>
+            </div>
+					#foreach($address in $addressList)
+					#set ($moreAddress= "$address.get(2)$address.get(3)$address.get(4)$address.get(1)")
+                    <ul class="list_address mod_addresslist ui_mb15" id="address_$address.get(0)">
+					#if ($!address.get(8) == 2) 
+                        <li class="address_item active ">
+					#else
+						<li class="address_item ">
+					#end
+                            <div class="address_detail">
+                                <p>$address.get(6)<span class="ui_color_weak"> $address.get(8)</span></p>
+                                <p>$moreAddress</p>
+                            </div>
+                        </li>
+                    </ul>
+					#end
+        </div>
+    </div>   
+#parse("/html/nds/oto/webmall/footer.vml")
+<script type="text/javascript">	
+	$(".list_address").each(function(){
+		$(this).click(function(_id){
+			var _id = $(this).attr("id");
+			_id = _id.replace("address_","");			
+			var _command = "ObjectModify";			
+			var _params = "{\"table\":16009,\"partial_update\":true,\"id\":"+_id+",\"ISADDRESS\":\"是\"}";
+			jQuery.ajax({
+					url: '/html/nds/schema/restajax.jsp',
+					type: 'post',
+					data:{command:_command,params:_params},
+					success: function (data) {			
+					var _data = eval("("+data+")");
+						if (_data[0].code == 0) {						
+						location.href = "/html/nds/oto/webapp/address/chooseAddress.vml";						
+						} else {
+							alert("添加数据失败");
+						}
+					}
+				});
+	});
+	});	
+</script>
+</body></html>

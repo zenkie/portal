@@ -1,0 +1,64 @@
+#parse("/html/nds/oto/webmall/init.vml")
+#parse('/html/nds/oto/webapp/address/manageInitSelect.vml')
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+<meta charset="UTF-8">
+<meta name="viewport" content=" initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/jquery.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/changeAddressDef.js"></script>
+<link href="/html/nds/oto/webmall/css/style.css" rel="stylesheet">
+<title>订单地址修改</title>
+</head>
+<body>
+#parse("/html/nds/oto/webmall/lay_header.vml")
+    <div class="lay_page page_address_manage current" id="page_address_manage">
+        <div class="lay_page_wrap">           
+			<div id="addressList">
+			#foreach($address in $addressList)			
+            <div class="qb_gap fn_address">
+			<div class="mod_celltitle qb_fs_s ui_plr10">
+                <h3 class="qb_fl">
+					#if ($!address.get(8) == "是") 
+					<i price="100" class="qb_icon icon_checkbox icon_checkbox_checked" name="cart_checkbox"></i>
+					#else
+					<i price="100" class="qb_icon icon_checkbox" name="cart_checkbox"></i>
+					#end
+				</h3>
+            </div>
+                <div class="qb_mb10 qb_none" id="tips"></div>
+                <ul class="list_address">                    
+                            <li class="qb_mb20">
+                            <div class="address" id="address_$address.get(0)">
+                                    <span class="qb_mr10">$address.get(6)</span>( $address.get(7))
+						    <div>$address.get(1)</div>
+                            </div>
+                                <div class="qb_flex qb_tac">
+                                   
+                                </div>
+                            </li>                       
+                </ul>
+            </div>
+			#end
+			</div>
+            <div class="qb_gap mod_color_comment qb_tac qb_none" id="no-address">您还没有收货地址，赶快去“新增收货地址”吧！</div>
+        </div>
+    </div>
+    <div class="mod_dialog qb_none" id="message-notice">
+        <div class="dialog_mask"></div>
+        <div class="dialog_main qb_br qb_tac">
+            <div class="dialog_bd" id="notice-content"></div>
+            <div class="dialog_ft qb_flex"><a href="javascript:void(0);" class="flex_box" id="notice-cancel">取消</a><a href="javascript:void(0);" class="flex_box" id="notice-sure">确定</a></div>
+        </div>
+    </div>
+	<input type="hidden" id="docno" value="$docno"/>
+	<input type="hidden" id="objectid" value="$objectid"/>
+	<input type="hidden" id="cartid" value="$cartid"/>
+	<input type="hidden" id="status" value="$status"/>
+	<input type="hidden" id="cost" value="$cost"/>	
+#parse("/html/nds/oto/webmall/footer.vml")
+</body></html>

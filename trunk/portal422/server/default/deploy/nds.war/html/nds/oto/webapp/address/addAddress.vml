@@ -1,0 +1,81 @@
+#parse("/html/nds/oto/webmall/init.vml")
+<!DOCTYPE html>
+<html>
+<head>
+<title>新增收货地址</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+<meta charset="UTF-8">
+<meta name="viewport" content=" initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/jsAddress.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/jquery.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/editAddress.js"></script>
+<link href="/html/nds/oto/webmall/css/style.css" rel="stylesheet">
+</head>
+<body>
+#parse("/html/nds/oto/webmall/lay_header.vml")
+        <div class="lay_page page_address_add" id="page_address_add">
+            <div class="lay_page_wrap">
+                <div class="qb_gap qb_pt10">
+                    <div class="qb_mb10 qb_flex">
+                        <input name="name" type="text" id="name" class="mod_input flex_box" placeholder="收件人姓名"/>
+						<input name="vipid" type="hidden" id="vipid" value="$vipid">
+                    </div>
+                    <div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="name_msg"></div>
+                    <div>                      
+                        <span class="mod_select qb_mr10 qb_mb10" id="sprovince">
+                            <select name="pvid" id="province">                                                          
+                            </select>
+						</span>
+                        <span class="mod_select qb_mr10" id="scity">
+                            <select name="ctid" id="city">
+							 </select>
+						</span>
+                        <span class="mod_select qb_mb10">
+                            <select name="regionId" id="regionId">
+							</select>
+						</span>
+                    </div>
+                    <div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="region_msg"></div>
+                    <div class="qb_mb10 qb_flex">
+                        <input name="address" type="text" id="address" class="mod_input flex_box" placeholder="详细地址"/>
+						<input name="addressDetail" id="addressDetail" type="hidden"/>
+                    </div>
+                    <div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="address_msg"></div>
+                    <div class="qb_mb10 qb_flex">
+                        <input name="mobile" type="tel" id="mobile" placeholder="联系电话" class="mod_input flex_box"/>
+                    </div>
+                    <div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="mobile_msg"></div>
+                    <div class="qb_mb10">
+                         <a id="save_addr" class="mod_btn btn_em btn_block" href="javascript:void(0)">保存收货地址</a>                      
+                    </div>
+                </div>
+            </div>
+        </div>  
+#parse("/html/nds/oto/webmall/footer.vml")
+<script type="text/javascript">	
+	$(function () {
+		//初始化级联
+		addressInit("province", "city", "regionId");	
+		}
+	);
+	
+	$("#save_addr").click(function(){
+		var province = $("#province").children().filter(":checked").val();
+        var city = $("#city").children().filter(":checked").val();
+        var regionId = $("#regionId").children().filter(":checked").val();
+		var address = $("#address").val();
+		address = province+city+regionId+address;
+		var name = $("#name").val();
+		var phone = $("#mobile").val();
+		var vipid = $("#vipid").val();
+		var command = "ObjectCreate";		
+		var _params = "{\"table\":16009,\"unionfk\":true,\"PROVINCE\":"+province+",\"CITY\":"+city+",\"REGIONID\":"+regionId+",\"ADDRESS\":"+address+",\"NAME\":"+name+",\"WX_VIP_ID__VIPCARDNO\":"+vipid+",\"PHONENUM\":"+phone+",\"ISADDRESS\":1}";
+		
+		editAddress(command,_params);
+	});
+</script>
+</body>
+</html>

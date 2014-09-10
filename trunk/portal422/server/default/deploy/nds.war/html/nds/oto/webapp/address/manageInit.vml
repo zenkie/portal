@@ -1,0 +1,6 @@
+#if("$!vipid"=="")
+    #set($url="/html/nds/oto/webapp/error/index.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
+
+#set ($addressList =$myweb.getList("WX_ADDRESS","WX_SETAD","WX_ADDRESS.WX_VIP_ID=$vipid","/@ID@",1))
