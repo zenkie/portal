@@ -1,0 +1,5 @@
+#if("$!vipid"=="")
+    #set($url="/html/nds/oto/webapp/error/index.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
+#set ($coupon = $myweb.getList("WX_COUPONEMPLOY","WX_SETAD","WX_COUPONEMPLOY.WX_VIP_ID=$vipid&WX_COUPONEMPLOY.WX_COUPON_ID=is not null","/@ID@",1))
