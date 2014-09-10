@@ -1,0 +1,7 @@
+#set ($allColumn =$myweb.getList("WX_V1_SETCOLUMN","WX_SETAD","WX_V1_SETCOLUMN.AD_CLIENT_ID=$myweb.getClientId()"))
+#set ($mall =$myweb.getObject("WX_MALL","WX_MALL.AD_CLIENT_ID=$myweb.getClientId()"))
+
+#if(!$mall.ismall || "$!mall.ismall"=="" || $mall.ismall=="否")
+    #set($url="/html/nds/oto/webapp/error/mallerror.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
