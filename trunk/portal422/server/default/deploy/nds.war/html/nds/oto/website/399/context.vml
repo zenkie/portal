@@ -1,0 +1,38 @@
+#parse('/html/nds/oto/website/init.vml')
+#parse('/html/nds/oto/website/399/contextInit.vml')
+<html>
+<head>
+	#parse("/html/nds/oto/website/topmeta.vml")
+	<link href="/html/nds/oto/website/399/css/mycss.css" rel="stylesheet" type="text/css">
+	<script src="/html/nds/oto/webmall/js/weixinshare.js"></script>
+	<title>$web.name</title>
+	<script>
+		wxs.weixinno="$company.wxnum";
+		wxs.weixinno="symancloud";
+	</script>
+</head>
+<body>
+	<div class="catetop">
+		<a class="gohist" href="javascript:history.go(-1);"></a>
+		<span class="catetitle">$!article.get("wx_articlecategory_id")</span>
+		<a class="gohome" href="/"></a>
+		<div class="subcate">
+			<span class="articletitle">$!stringutil.shorten($!article.articletitle,20)</span><br>
+			<span class="articledate">
+				<span>日期：$v.fmt($!article.creationdate,"yyyy-MM-dd")　</span>
+				<span class="contentnum">阅读数：$!article.browsenum　</span>
+				##set ($wxinfo = $myweb.getObject("WX_INTERFACESET","WX_INTERFACESET.AD_CLIENT_ID=$myweb.getClientId()"))
+				<!--<a class="wxnum" href="weixin://contacts/profile/$wxinfo.originalid">$company.wxnum</a>-->
+				<a class="wxnum" href="javascript:wxs.attention()">$company.wxnum</a>
+			</span>
+		</div>
+	</div>
+	<div class="pagetext">
+		#if($!article.isshowimage == "是")
+		<div class="contentimg"><img src="$!article.articlephoto"></div>
+		#end
+		<div class="pagetext">$!article.content</div>
+		#parse("/html/nds/oto/website/footer.vml")
+	</div>
+</body>
+</html>

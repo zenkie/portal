@@ -1,0 +1,14 @@
+#set ($cateid= $getutil.getInteger($request.getParameter("id") ,-1))
+#set ($ptype= $getutil.getString($request.getParameter("ptype"),"all"))
+
+#if($ptype == "text" )
+	#if($cateid==-1)
+		#set ($allList=$myweb.getList("WX_ITEMARTICLECATEGORY","WX_SETAD","WX_ITEMARTICLECATEGORY.WX_ARTICLECATEGORY_ID=$cateid"))
+	#else
+		#set ($allList=$myweb.getList("WX_ITEMARTICLECATEGORY","WX_SETAD","WX_ITEMARTICLECATEGORY.WX_ARTICLECATEGORY_ID=$cateid"))
+	#end
+#end
+
+#if($cateid!=-1)
+	#set ($listfold =$myweb.getListbyCategory($cateid,$ptype))
+#end

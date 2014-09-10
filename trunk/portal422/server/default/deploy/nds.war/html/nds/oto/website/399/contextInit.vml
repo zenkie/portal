@@ -1,0 +1,3 @@
+#set ($ctxid= $getutil.getString($request.getParameter("id"),"none"))
+$myweb.updateNewsCounter($math.toInteger($ctxid))
+#set ($article = $myweb.getObject("WX_ISSUEARTICLE","WX_ISSUEARTICLE.ID=$ctxid"))
