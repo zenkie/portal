@@ -1,0 +1,37 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webmall/initList.vml')
+<html><head>
+	#parse("/html/nds/oto/webmall/topmeta.vml")
+    <link href="/html/nds/oto/webmall/203/css/category4.css" rel="stylesheet" type="text/css">
+	<title>$cate.categoryname</title>
+</head>
+<body style="">
+#parse("/html/nds/oto/webmall/lay_header.vml")
+<div class="content" style="margin-top:0px">
+    <ul>
+		<li>
+			#foreach($list in $allList)
+                <div class="img">
+					<a href="$list.get(0)"><img src="$list.get(2)"></a>
+				</div>
+				<div class="title">
+					<p>$list.get(1)</p>
+                    <p class="price">
+					#if($iscost =='Y')
+						<span>$math.toInteger($list.get(5))积分
+							<del style="padding-left:5px;color: #999;text-shadow: none;">$math.toInteger($list.get(3))积分</del>
+						</span>
+						<em></em>
+					#else
+						<span>¥ $list.get(5)
+							<del style="padding-left:5px;color: #999;text-shadow: none;">¥$list.get(3)</del>
+						</span>
+						<em></em>
+					#end
+					</p>
+				</div>
+			#end
+		</li>
+    </ul>
+</div>
+</body></html>
