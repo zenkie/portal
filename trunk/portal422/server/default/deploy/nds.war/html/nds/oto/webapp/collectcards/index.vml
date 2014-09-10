@@ -1,0 +1,93 @@
+#parse('/html/nds/oto/website/init.vml')
+#parse('/html/nds/oto/webapp/collectcards/init.vml')
+<html><head>
+#parse("/html/nds/oto/webapp/usercentertopmeta.vml")
+<title>领取会员卡</title>
+</head>
+<body>
+<div class="container get card">
+	<header>
+		<div class="header card">
+			<div id="card" data-role="card" onclick="this.classList.toggle(&#39;on&#39;);">
+				<div class="front" style="background-image:url($vipCard.vipphoto)">
+					<!--span class="no" style="font-size:16px;font-weight:bold;color:#FFFFFF;">会员卡:$vip.vipcardno</span-->
+				</div>
+				<div class="back" style="background-image:url(/html/nds/oto/webapp/images/1.jpg);">
+					<span style="color:#000000;">
+						<h3>使用说明：</h3>
+						#if("$!vipCard.vipexplain"=="")
+						<pre style="white-space:pre-line;height: 84px;overflow:hidden;">商家暂未添加内容！</pre>
+						#else
+						<pre style="white-space:pre-line;height: 84px;overflow:hidden;">$vipCard.vipexplain</pre>
+						#end
+					</span>
+				</div>
+			</div>
+		</div>
+			<div>
+			<ul class="tbox group_btn3">
+				<li></li>
+				<li><a href="/html/nds/oto/webapp/userinfo/index.vml?isopen=Y">点击领取</a></li>
+			</ul>
+		</div>
+	</header>
+	<div class="body my">
+		<ul class="list_ul">
+			<div>
+				<li class="li_a">
+					<label class="label" onclick="this.parentNode.classList.toggle(&#39;on&#39;);"><i>&nbsp;</i>会员特权 <span>&nbsp;</span></label>
+					<ol>
+						<h6>特权说明：</h6>
+						#if("$!vipCard.vipprivilegedes"=="")
+						<p>商家暂未添加内容！</p>
+						#else
+						<p>$vipCard.vipprivilegedes</p>
+						#end
+					</ol>
+				</li>
+				<li class="li_d">
+					<label class="label" onclick="this.parentNode.classList.toggle(&#39;on&#39;);"><i>&nbsp;</i>开卡即送 <span>&nbsp;</span></label>
+					<ol>
+						<h6>开卡送大礼：</h6>
+						#if("$!vipCard.opencarddes"=="")
+						<p>商家暂未添加内容！</p>
+						#else
+						<p>$vipCard.opencarddes</p>
+						#end
+					</ol>
+				</li>
+				<li class="li_e">
+					<label class="label" onclick="this.parentNode.classList.toggle(&#39;on&#39;);"><i>&nbsp;</i>权益说明 <span>&nbsp;</span></label>
+					<ol>
+						<h6>详细说明：</h6>
+						#if("$!vipCard.vipexplain"=="")
+						<p>商家暂未添加内容！</p>
+						#else
+						<p>$vipCard.vipexplain</p>
+						#end
+					</ol>
+				</li>
+				<li class="li_i">
+					#if("$!web.phone"=="")
+					<label class="label"><i>&nbsp;</i>公司电话：商家暂未添加内容！</label>
+					#else
+					<a href="tel:$web.phone"><label class="label"><i>&nbsp;</i>公司电话：$web.phone</label></a>
+					#end
+				</li>
+				<li class="li_j">
+					#if("$!web.address"=="")
+					<label class="label"><i>&nbsp;</i>联系地址：商家暂未添加内容！</label>
+					#else
+					<a href="http://api.map.baidu.com/marker?location=$web.gps&title=$web.name&content=$web.address&output=html"><label class="label"><i>&nbsp;</i>联系地址：$web.address</label></a>
+					#end
+				</li>
+				<!-- 门店-->
+				<li class="li_k">
+					<a href="/html/nds/oto/webapp/store/index.vml"><label class="label"><i>&nbsp;</i>适用门店<span>&nbsp;</span></label></a>
+				</li>
+			</div>
+		</ul>
+	</div>
+</div>
+#parse("/html/nds/oto/webapp/userfooter.vml")
+</body></html>
