@@ -2,8 +2,7 @@
 #set ($product = $myweb.getObject("WX_APPENDGOODS",$pdtid))
 #set ($imgList = $myweb.getList("WX_PDT_IMAGE","WX_SETAD","WX_PDT_IMAGE.WX_APPENDGOODS_ID=$pdtid"))
 #set ($commentList = $myweb.getList("WX_COMMENT","WX_SETAD","WX_COMMENT.WX_APPENDGOODS_ID=$pdtid"))
-#set ($vipid=10404)
-#if("$!vipid"!="")
+#if("$!vipid" == "")
 	#set ($viptypeid=$myweb.getObject("WX_VIP","WX_VIP.ID=$vipid"))
 	#set ($viptypeinfo=$myweb.getObject("WX_VIPBASESET","WX_VIPBASESET.ID=$viptypeid.get('viptype;id')"))
 #end
