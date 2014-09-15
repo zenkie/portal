@@ -42,7 +42,7 @@
 			#if($i % 3 == 0)
 				<div class="pull_left">
 					<a href="$column.get(5)">
-						<img src="$column.get(3)" alt="$column.get(1)">
+						<img src="$column.get(3)" alt="$column.get(1)" style="height:75px;width:154px;">
 					</a>
 				</div>
 			#else
@@ -79,7 +79,7 @@
 			#else
 				<div class="pull_right">
 					<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">
-						<img src="$list.get(3)" alt="$list.get(1)">
+						<img src="$list.get(3)" alt="$list.get(1)" style="width:154px;height:103px;">
 					</a>
 				</div>
 			#end
@@ -124,7 +124,7 @@
 			#else
 				<div class="pull_right">
 					<a href="$list.get(0)">
-						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:66px;">
+						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:68px;">
 					</a>
 				</div>
 			#end
