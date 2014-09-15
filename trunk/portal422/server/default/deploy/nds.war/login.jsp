@@ -12,8 +12,7 @@ com.liferay.portal.util.CookieKeys.addSupportCookie(response);
 <title>伯俊微信</title> 
 <script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
 <script language="javascript">jQuery.noConflict(); </script>
-<link href="/reset.css" rel="stylesheet" type="text/css" />
-<link href="/chat.css" rel="stylesheet" type="text/css" />
+<link href="/public.css" rel="stylesheet" type="text/css" />
 <script type=text/javascript>
 function onReturn(event){
   if (!event) event = window.event;
@@ -41,9 +40,38 @@ function submitForm(){
 </script>
 </head>
 <body class="wh100p">
-    <div id="container" class="wh100p">
-    	<div id="content" class="pa w100p">
-    		<div id="login-box" class="pa flex flex-column justify-cen plr20 vm">
+	<div class="login_header">
+	  <div class="warpper">
+		<div class="topbar clearfix">
+		  <h1><a href="javascript:;"><img src="/images/otoimages/logo318x90color.png" alt="星云微信移动平台"/></a></h1>
+		  <div class="right_bar"> <a href="#"><span>第一次使用星云？</span></a><a href="/html/nds/oto/register/index.html">立即注册</a> </div>
+		</div>
+	  </div>
+	</div>
+    <div id="container" class="login_box clearfix">
+    	<div id="content" class="login_main clearfix">
+		    <div class="login_font"><img src="/images/otoimages/login_font.png"/></div>
+			<div class="login_left"><img src="/images/otoimages/loginPhone.png"/></div>
+<c:choose>
+	<c:when test="<%= (userWeb!=null&&!userWeb.isGuest()) %>">
+			<div id="login-box" class="login_right_in">
+				<form action="/c/portal/login" method="post" name="fm1">
+					<input type="hidden" value="already-registered" name="cmd"/>
+					<input type="hidden" value="already-registered" name="tabs1"/>
+					<li>
+						<span class="login_text"><%= LanguageUtil.get(pageContext, "current-user")%>&nbsp;:&nbsp;</span>
+						<a class="login_bold_text usernow" href="javascript:;"><%=userWeb.getUserDescription() %></a><br>
+						<span class="login_text"><%= LanguageUtil.get(pageContext, "enter-view") %>&nbsp;:&nbsp;</span>
+						<a class="login_bold_text userto" href="/html/nds/portal/index.jsp"><%= LanguageUtil.get(pageContext, "backmanager") %></a>
+						<span class="login_text">&nbsp;,&nbsp;<%= LanguageUtil.get(pageContext, "or") %>&nbsp;:&nbsp;</span>
+						<a class="login_bold_text userto" href="/c/portal/logout"><%= LanguageUtil.get(pageContext, "logout") %></a>
+					</li>
+				</form>
+			</div>
+		</div>
+			</c:when>
+	<c:otherwise>
+			<div id="login-box" class="login_right">
 			<c:if test="<%=true %>">
 				<c:if test='<%= SessionMessages.contains(request, "user_added") %>'>
 					<%
@@ -96,113 +124,40 @@ function submitForm(){
 					<br />
 				</c:if>                
 			</c:if>
-					<form action="/loginproc.jsp" method="post" name="fm1">
-					<input type="hidden" value="already-registered" name="cmd"/>
-					<input type="hidden" value="already-registered" name="tabs1"/> 
-			<c:choose>
-			<c:when test="<%= (userWeb!=null&&!userWeb.isGuest()) %>">
-					<li><div class="l"><%= LanguageUtil.get(pageContext, "current-user")%>:</div><div class="right_text"><%=userWeb.getUserDescription() %></div>
-					</li>
-					<li><div class="lx"><%= LanguageUtil.get(pageContext, "enter-view") %>:<a href="/html/nds/portal/index.jsp"><%= LanguageUtil.get(pageContext, "backmanager") %></a>
-					,<%= LanguageUtil.get(pageContext, "or") %>:<a href="/c/portal/logout"><%= LanguageUtil.get(pageContext, "logout") %></a></div></li>
-					</form>
-				</div>
-			</div>
-			</c:when>
-			<c:otherwise>
+				<form action="/c/portal/login" method="post" name="fm1">
+				<input type="hidden" value="already-registered" name="cmd"/>
+				<input type="hidden" value="already-registered" name="tabs1"/>
 			 <%
 			 String  login ="";
 			 if(company==null){
 				  company = com.liferay.portal.service.CompanyLocalServiceUtil.getCompany("liferay.com");
 			 }
-			 login =LoginAction.getLogin(request, "login", company);
-			%> 
-
-    				<div class="head tc"><img src="/images/wm-login-p.png"></div>
-    				<div class="inputs">
-    					<input id="login" name="login" class="w100p bdn mt10" type="text" value="<%=login%>" placeholder="用户名">
-    					<input id="password1" class="w100p bdn mt10" type="password" name="<%=SessionParameters.get(request,"password")%>" value="" placeholder="密码">
-    				</div>
-    				<div class="verifi mtb10 cl">
-							<input id="verifyCode" name="verifyCode"  type="text" onKeyPress="onReturn(event)" class="verifi-l fl bdn"  size="7" />    			
-    					<div class="verifi-r fr">
-							<img src="/servlets/vms" width="64" height="30" align="absmiddle" id="chkimg" onclick="javascript:document.getElementById('chkimg').src='/servlets/vms?'+Math.random()" /> 
-						</div>
-    				</div>
-    				<div class="links cl">
-    					<a href="/control/register" class="fl">现在注册>></a>
-    					<a href="" class="fr">忘记密码？</a>
-    				</div>
-    				<div class="login"><div class="login-a" href="#" onclick="javascript:submitForm()"></div></div>
-    				<div class="rwm">
-    					<img height="90" width="90" src="/images/ewm.jpg" class="vm">
-    					<span class="inline-b ti8">扫描二维码关注我们</span>
-    				</div>				
+			 //login =LoginAction.getLogin(request, "login", company);
+			%>
+    			<input id="login" name="login" class="text_name" type="text" value="<%=login%>" placeholder="手机或邮箱">
+    			<input id="password1" class="text_pwd" type="password" name="<%=SessionParameters.get(request,"password")%>" value="" placeholder="密码">
+				<input id="verifyCode" name="verifyCode"  type="text" onKeyPress="onReturn(event)" class="text_code"  size="7"  placeholder="验证码"/>
+    			<div class="code">
+					<img src="/servlets/vms" width="95" height="35" align="absmiddle" id="chkimg" onclick="javascript:document.getElementById('chkimg').src='/servlets/vms?'+Math.random()" />
+					<a href="javascript:;" id="change_code">换一张</a>
+    			</div>
+    			<div class="forgt">
+					<a href="/html/nds/oto/findpwd/index.html">忘记密码？</a>
+    			</div>
+				<input type="submit" class="btn_login" value="" onclick="submitForm()">
     		</div>
     	</div>
 		</form>
-		</c:otherwise>
+	</c:otherwise>
 </c:choose>
-    	<footer id="footer" class="pa b0 w100p">
-    		<span class="links font-color">
-    			<a href="#">地址：上海市闵行区新源路1356弄汇力得电子商务产业园A栋3层</a>
-    			<a href="#">咨询热线：400-620-9800</a>
-    			<a href="#">E-mail：Marketing@burgeon.cn</a>
-    		</span>
-    		<a href="javascript:;" class="statement">Copyright (©) 2012-2013 上海伯俊软件科技有限公司 版权所有</a>
-    	</footer>
+		<div id="footer" class="login_footer clearfix">
+			<div class="logo"><a href="#"><img src="/images/otoimages/logo137x56.png"/></a></div>
+			<div class="cen">
+				<p><a style="padding-left:0;" href="#">返回首页</a>|<a href="#">客户案例</a>|<a href="#">联系我们</a></p>
+				<p>公司地址：上海闵行区新源路1356弄汇力得电子商务产业园A栋3层<br/>公司官网：www.burgeon.cn<br/>热线咨询：400-620-9800</p>
+			</div>
+			<div class="codetwo"><img src="/images/otoimages/code.jpg"/></div>
+		</div>
     </div>
-	
-	<div class="chatEWMContainer">
-		<div>
-			<span>微信咨询请关注星云小贴士或者扫码</span>
-			<img src="./images/xingyun.jpg" height="100" width="100" />
-		</div>
-		<div style="margin-top: 20px;">
-			<span>手机端展示效果请关注伯俊软件或者扫码</span>
-			<img src="./images/burgeon.jpg" height="100" width="100" />
-		</div>
-	</div>
-	<!-- WPA Button Begin -->
-		<script charset="utf-8" type="text/javascript" src="http://wpa.b.qq.com/cgi/wpa.php?key=XzgwMDA2ODE0MV8xNjQ4MTFfODAwMDY4MTQxXw"></script>
-	<!-- WPA Button End -->
-	<script type="text/javascript">
-	jQuery(document).ready(function(){
-		jQuery.fn.wait = function (func, times, interval) {
-		var _times = times || -1, //100次 
-		_interval = interval || 20, //20毫秒每次 
-		_self = this, 
-		_selector = this.selector, //选择器 
-		_iIntervalID; //定时器id 
-		if( this.length ){ //如果已经获取到了，就直接执行函数 
-		func && func.call(this); 
-		} else { 
-		_iIntervalID = setInterval(function() { 
-		if(!_times) { //是0就退出 
-		clearInterval(_iIntervalID); 
-		} 
-		_times <= 0 || _times--; //如果是正数就 -- 
-
-		_self = jQuery(_selector); //再次选择 
-		if( _self.length ) { //判断是否取到 
-		func && func.call(_self); 
-		clearInterval(_iIntervalID); 
-		} 
-		}, _interval); 
-		} 
-		return this; 
-		}
-		
-		jQuery("iframe:last").wait(function() {
-			jQuery("iframe:last").css("height","184px");
-			jQuery("iframe:last").contents().find(".main").css("background-image","url(./images/service.jpg)");
-			jQuery("iframe:last").contents().find(".main").css("width","135px");
-			jQuery("iframe:last").contents().find(".main").css("height","184px");
-			jQuery("iframe:last").contents().find(".content").css("background","none");
-			jQuery("iframe:last").css("top","36%");
-			jQuery("iframe:last").css("right","140px");
-		});
-	});
-	</script>
 </body>
 </html>

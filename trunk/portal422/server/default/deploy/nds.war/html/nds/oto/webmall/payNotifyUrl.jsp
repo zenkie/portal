@@ -5,7 +5,7 @@
 <%@ page import="com.wxap.RequestHandler"%>
 <%@ page import="com.wxap.ResponseHandler"%>
 <%@ page import="com.wxap.client.TenpayHttpClient"%>
-<%@ include file="config.jsp"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	//---------------------------------------------------------
