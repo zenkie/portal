@@ -115,10 +115,10 @@
 			#set ($allBrand =$myweb.getList("WX_PDTBRAND","WX_SETAD"))
 			#set ($a = 0)
 			#foreach($list in $allBrand)
-			#if($a % 3 != 0)
+			#if($a % 2 == 0)
 				<div class="pull_left">
 					<a href="$list.get(0)">
-						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:43px;">
+						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:68px;">
 					</a>
 				</div>
 			#else
