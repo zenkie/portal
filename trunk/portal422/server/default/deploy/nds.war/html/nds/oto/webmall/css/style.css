@@ -552,7 +552,7 @@ h2 input[type=checkbox] {
 }
 
 .lay_header {
-	height: 44px
+	height: 45px
 }
 
 .lay_toptab {
@@ -3780,4 +3780,12 @@ font-size: 19px!important;
 	width:98%;
 	height:100%;
 	border: 1px solid #eaeaea;
+}
+.hotpdt{
+	width:40px;
+	height:40px;
+	float:left;
+	background:url(/html/nds/oto/webmall/images/hotpdt.png) no-repeat;
+	background-size:40px;
+	position: absolute;
 }
