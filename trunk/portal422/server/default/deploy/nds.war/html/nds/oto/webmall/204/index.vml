@@ -18,6 +18,9 @@
 					<div class="best-seller-item">
 						<h2 class="best-seller-title">$list.get(1)</h2>
 						<input type="hidden" value="-34430">
+						#if($list.get(6) == '是')
+							<div class="hotpdt"></div>
+						#end
 						<div class="best-seller">
 							<img class="article-match-pic" src="$list.get(2)">
 								<div class="priceTag">
@@ -41,6 +44,9 @@
 				#end
 					<a href="$list.get(0)">
 						<div class="goods-item">
+						#if($list.get(6) == '是')
+							<div class="hotpdt" style="width:25px;height:25px;background-size:25px;"></div>
+						#end
 							<img class="goods-item-pic" src="$list.get(2)" alt="">
 							<div class="title-price-container">
 								<h3 class="goods-item-title">
