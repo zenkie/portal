@@ -12,6 +12,9 @@
 		#foreach($list in $allList)
             <li class="mThirCli">
 				<a href="$list.get(0)" title="" class="mThirCell">
+				#if($list.get(6) == '是')
+					<div class="hotpdt"></div>
+				#end
 					<img src="$list.get(2)" alt="$list.get(1)">
 					<p>$list.get(1)</p>
 				#if($iscost =='Y')
