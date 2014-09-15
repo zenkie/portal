@@ -15,23 +15,26 @@
             <div class="fn_titles">
                 <h1>$cate.categoryname</h1> 
             </div>
-		
             <div class="fn_goods qb_clearfix">
             <ul id="show_container">
 			#foreach($list in $allList)
-				<li><a href="$list.get(0)">
-				<img src="$list.get(2)" width="140" height="140" class="default">
-				<div class="goods_name qb_fs_s mod_color_weak">$list.get(1)</div>
-				<div class="price qb_fs_s mod_color_strong">
-				#if($iscost =='Y')
-					<span>$math.toInteger($list.get(5))积分</span>
-					<del style="color: #999;text-shadow: none;">$math.toInteger($list.get(3))积分</del>
-				#else
-					<span>¥$list.get(5)</span>
-					<del style="color: #999;text-shadow: none;">¥$list.get(3)</del>
+				<li>
+				#if($list.get(6) == '是')
+					<div class="hotpdt"></div>
 				#end
-				</div>
-				</a>
+					<a href="$list.get(0)">
+						<img src="$list.get(2)" width="140" height="140" class="default">
+						<div class="goods_name qb_fs_s mod_color_weak">$list.get(1)</div>
+						<div class="price qb_fs_s mod_color_strong">
+						#if($iscost =='Y')
+							<span>$math.toInteger($list.get(5))积分</span>
+							<del style="color: #999;text-shadow: none;">$math.toInteger($list.get(3))积分</del>
+						#else
+							<span>¥$list.get(5)</span>
+							<del style="color: #999;text-shadow: none;">¥$list.get(3)</del>
+						#end
+						</div>
+					</a>
 				</li>
 			#end
 			</ul>
