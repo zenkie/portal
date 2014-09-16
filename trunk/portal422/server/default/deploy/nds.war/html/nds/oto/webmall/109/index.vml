@@ -2,10 +2,7 @@
 #parse('/html/nds/oto/webmall/initIndex.vml')
 <html><head>
 #parse("/html/nds/oto/webmall/topmeta.vml")
-<title>微商城</title>
-<!--script type="text/javascript" async="" src="/html/nds/oto/webmall/109/js/mv.js"></script>
-<script type="text/javascript" async="" src="/html/nds/oto/webmall/109/js/mba.js"></script>
-<script type="text/javascript" async="" src="/html/nds/oto/webmall/109/js/mvl.js"></script-->
+<title>$mall.name</title>
 <script type="text/javascript" src="/html/nds/oto/webmall/109/js/resource.js"></script>
 <link rel="stylesheet" type="text/css" href="/html/nds/oto/webmall/109/css/resource.css">
 </head>
@@ -19,7 +16,7 @@
 			#foreach($img in $allImg)
 				<li ad="" data-index="0" style="width: 320px; left: 0px; transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate(-320px, 0px) translateZ(0px);">
 					<a title="" href="" target="_blank">
-						<img border="0" alt="$img.get(1)" src="$img.get(2)" style="width:320px;height:150px;">
+						<img border="0" alt="$img.get(1)" src="$img.get(2)" style="width:320px;height:175px;">
 					</a>
 				</li>
 			#end
@@ -73,13 +70,13 @@
 			#if($j % 2 == 0)
 				<div class="pull_left">
 					<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">
-						<img src="$list.get(3)" alt="$list.get(1)" style="width:154px;height:103px;">
+						<img src="$list.get(3)" alt="$list.get(1)" style="width:154px;height:45px;">
 					</a>
 				</div>
 			#else
 				<div class="pull_right">
 					<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">
-						<img src="$list.get(3)" alt="$list.get(1)" style="width:154px;height:103px;">
+						<img src="$list.get(3)" alt="$list.get(1)" style="width:154px;height:45px;">
 					</a>
 				</div>
 			#end
@@ -99,9 +96,9 @@
 				<a href="$list.get(0)" title="$list.get(2)">
 					<img src="$list.get(1)">
                 </a>
-                <h4>$stringutil.shorten($list.get(2),20,false)</h4>                    
-                <strong>￥$list.get(4)</strong>        
-                <del>¥$list.get(3)</del>                       
+                <h4>$stringutil.shorten($list.get(2),20,false)</h4>
+                <strong>￥$list.get(4)</strong>
+                <del>¥$list.get(3)</del>
             </li>
 		#end
 		</ul>
@@ -118,13 +115,13 @@
 			#if($a % 2 == 0)
 				<div class="pull_left">
 					<a href="$list.get(0)">
-						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:68px;">
+						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:45px;">
 					</a>
 				</div>
 			#else
 				<div class="pull_right">
 					<a href="$list.get(0)">
-						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:68px;">
+						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:45px;">
 					</a>
 				</div>
 			#end
