@@ -127,32 +127,29 @@
 		  <div class="picLI" id="j-focusPic">
 			<div class="picbox j-slider">
 				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
+				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_002.jpg" /></a></span>
+				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_003.jpg" /></a></span>
+				  <!--span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_004.jpg" /></a></span-->
+				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_005.jpg" /></a></span>
+				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_006.jpg" /></a></span>
+				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_007.jpg" /></a></span>
+				  <!--span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_008.jpg" /></a></span>
+				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_009.jpg" /></a></span-->
 			</div>
 		  </div>
 	  <div class="infobtn" id="j-focusBtns">
 			<div class="prev on-1"><a href="javascript:void(0)"></a></div>
 			<div class="smalpic j-container">
-			  <div class="smallbox j-slider" style="left: 0px;"> 
-				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_01.png"/></div></a>
+			  <div class="smallbox j-slider" style="left: 0px;">
+				  <a class="j-item on" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_01.png"/></div></a>
 				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_02.png"/></div></a>
-				  <a class="j-item on" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_03.png"/></div></a>
-				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_04.png"/></div></a>
+				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_03.png"/></div></a>
+				  <!--a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_04.png"/></div></a-->
 				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_05.png"/></div></a>
 				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_06.png"/></div></a>
 				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_07.png"/></div></a>
-				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_08.png"/></div></a>
-				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_09.png"/></div></a>
+				  <!--a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_08.png"/></div></a>
+				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_09.png"/></div></a-->
 			  </div>
 			</div>
 			<div class="next"><a href="javascript:void(0)"></a></div>
