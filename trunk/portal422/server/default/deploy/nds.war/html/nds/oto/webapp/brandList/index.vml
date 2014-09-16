@@ -9,7 +9,7 @@
 <div id="wrap"> 
     <!--品牌大图-->
     <div id="brandimg">
-		<img alt="$!brand.name" src="$!brand.photo" style="width:320px;height:150px;">
+		<img alt="$!brand.name" src="$!brand.photo" style="width:320px;height:175px;">
 	</div>
 
 	<!-- 热销商品列表 -->
@@ -19,7 +19,7 @@
 		#foreach($list in $allList)
             <li>
 				<a href="$list.get(0)" title="$list.get(2)">
-					<img src="$list.get(1)" style="width:158px;height:158px;">
+					<img src="$list.get(1)" style="width:154px;height:154px;">
                 </a>
                 <h4>$stringutil.shorten($list.get(2),20,false)</h4>                    
                 <strong>￥$list.get(4)</strong>        
@@ -36,7 +36,7 @@
 		#foreach($list in $allProduct)
             <li>
 				<a href="$list.get(0)" title="$list.get(2)">
-					<img src="$list.get(1)" style="width:158px;height:105px;">
+					<img src="$list.get(1)" style="width:154px;height:154px;">
                 </a>
                 <h4>$stringutil.shorten($list.get(2),20,false)</h4>                    
                 <strong>￥$list.get(4)</strong>        
@@ -56,13 +56,13 @@
 			#if($j % 2 == 0)
 				<div class="pull_left">
 					<a href="/html/nds/oto/webmall/$tempmode.mclass_tmp/index.vml?ptype=pdt&id=$list.get(1)">
-						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:100px;">
+						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:45px;">
 					</a>
 				</div>
 			#else
 				<div class="pull_right">
 					<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">
-						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:100px;">
+						<img src="$list.get(3)" alt="$list.get(2)" style="width:154px;height:45px;">
 					</a>
 				</div>
 			#end
