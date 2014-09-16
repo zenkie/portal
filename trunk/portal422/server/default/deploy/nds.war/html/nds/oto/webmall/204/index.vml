@@ -1,0 +1,78 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webmall/initList.vml')
+<html><head>
+	#parse("/html/nds/oto/webmall/topmeta.vml")
+	<title>$cate.categoryname</title>
+    <link href="/html/nds/oto/webmall/204/css/wxshop.css" rel="stylesheet" type="text/css" media="all">
+</head>
+<body data-role="none" style="">
+#parse("/html/nds/oto/webmall/lay_header.vml")
+
+<div id="wrap">
+    <ul class="goodslist">
+		#set ($i=1)
+		#foreach($list in $allList)
+			#if($i==1)
+            <li class="first-item J_goodsItem">
+				<a href="$list.get(0)">
+					<div class="best-seller-item">
+						<h2 class="best-seller-title">$list.get(1)</h2>
+						<input type="hidden" value="-34430">
+						#if($list.get(6) == '是')
+							<div class="hotpdt"></div>
+						#end
+						<div class="best-seller">
+							<img class="article-match-pic" src="$list.get(2)">
+								<div class="priceTag">
+								#if($iscost =='Y')
+									<span class="discount-price"><em class="special-discount">$math.toInteger($list.get(5))</em>积分</span>
+								#else
+									<span class="discount-price">¥<em class="special-discount">$list.get(3)</em></span>
+								#end
+								</div>
+						</div>
+					</div>
+				</a>
+            </li>
+			#else
+				#if(${allList.size()}<3)
+					<li class="J_goodsItem last-item">
+				#elseif(${allList.size()}== $i)
+					<li class="J_goodsItem last-item">
+				#else
+					<li class="J_goodsItem">
+				#end
+					<a href="$list.get(0)">
+						<div class="goods-item">
+						#if($list.get(6) == '是')
+							<div class="hotpdt" style="width:25px;height:25px;background-size:25px;"></div>
+						#end
+							<img class="goods-item-pic" src="$list.get(2)" alt="">
+							<div class="title-price-container">
+								<h3 class="goods-item-title">
+									$list.get(1)
+								</h3>
+								<input type="hidden" value="-34427">
+								<div class="goods-price">
+								#if($iscost =='Y')
+									<span class="discount-price">
+										$math.toInteger($list.get(5))积分
+										<del style="padding-left:5px;color: #999;text-shadow: none;">$math.toInteger($list.get(3))积分</del>
+									</span>
+								#else
+									<span class="discount-price">
+										¥$list.get(5)
+										<del style="padding-left:5px;color: #999;text-shadow: none;">¥$list.get(3)</del>##商品单价 
+									</span>
+								#end
+								</div>
+							</div>
+						</div>
+					</a>
+				</li>
+			#end
+		#set ($i=$i+1)
+		#end
+    </ul>
+</div>
+</body></html>

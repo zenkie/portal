@@ -1,0 +1,252 @@
+#parse('/html/nds/oto/webapp/scratchcard/init.vml')
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content=" initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<script src="./js/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery.noConflict();
+</script>
+<script src="./js/wScratchPad.js"></script>
+<script src="./js/jsAddress.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/scratchcard.css" media="all">
+<title>刮刮乐</title>
+</head>
+<body>
+<div class="mainContent">
+	#if($v.compareTo($v.fmt($$scratchcard.starttime,"yyyyMMdd HHmmss"),$v.today()) == 1)##开始时间大于今天，活动还未开始
+	<div class="scratchContent">
+		<div class="boxContent">
+			<div class="box">
+				<div class="titleRed"><span>活动说明：</span></div>
+				<div class="detail"><p>此活动暂未开始，敬请关注</p></div>
+			</div>
+		</div>
+	</div>
+	#elseif($v.compareTo($v.fmt($$scratchcard.endtime,"yyyyMMdd HHmmss"),$v.today()) == 2)
+	<div class="scratchContent">
+		<div class="boxContent">
+			<div class="box">
+				<div class="titleRed"><span>活动说明：</span></div>
+				<div class="detail"><p>亲，活动已经结束，请继续关注我们的后续活动哦。</p></div>
+			</div>
+		</div>
+	</div>
+	#else
+		#set ($noBorder="")
+		#set ($readonly = "") ## 如果用户没有提交地址，可以再次提交地址，否则只能查看
+		#set ($display = "")
+		#set ($address="")
+		#set ($info="请填写您的信息，稍后礼品我们立马寄出")
+		#set ($noBorder="")
+	#if($!record.address=="&nbsp;" && $!coupon.use_state=="否")##刮刮劵使用了，但没有提交信息
+		#set ($record.name="")
+		#set ($record.phone="")
+	<div class="cover">
+		<img src="./images/activity-scratch-card-bannerbg.png">
+		<div id="prize" class="red" style="background: #ffffff;">$!coupon.get("wx_scratchcard_award_id;category")</div>
+		<div id="scratchpad"></div>
+	</div>
+	<div class="scratchContent">
+		<div id="zjl" style="display:none;position:relative;background: #fffdd6;" class="boxContent prize">
+	#else		
+		#if($!record.address!="&nbsp;")
+			#set ($readonly = "readonly")
+			#set ($display = "style='display:none;'")
+			#set ($address=$!record.get("address"))
+			#*
+			#set ($addresstemp="$!record.province$!record.province$!record.regionid")
+			#set ($count=$addresstemp.length()+1)
+			#set ($address=$address.substring($count,$address.length()))
+			*#
+			#set ($info="礼品我们会尽快寄出，请注意查收")
+			#set ($noBorder="pxNoBorder")
+		#else
+			#set ($record.name="")
+			#set ($record.phone="")
+		#end
+	<div class="scratchContent">
+		<div id="zjl" style="display:block;position:relative;background: #fffdd6;" class="boxContent prize">
+	#end
+			<div class="box">
+				<p class="winPrize">$!scratchcard.name</p>
+				<p class="prizeCategory" style="display:none;">【$!coupon.get("wx_scratchcard_award_id;category")】</p>
+				<p class="prizeCategory">$!coupon.get("wx_scratchcard_award_id;name")</p>
+				<p><img class="img" src="$!coupon.get("wx_scratchcard_award_id;photo")"></p>
+				<p class="gray">【兑奖SN码】$!coupon.name</p>
+			</div>
+			<div class="box">
+				<p class="gray">$!info</p><hr/>
+				<div>
+					<span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
+					<input class="px $!noBorder" id="name" type="text" value="$!record.name" $!readonly>
+				</div>
+				<div>
+					<span>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</span>
+					<input class="px $!noBorder" id="tel" type="text" value="$!record.phone" $!readonly>
+				</div>
+				<div class="selectContent" $display>
+					<div><select name="pvid" id="province" class="select" $!readonly></select></div>
+					<div><select name="ctid" id="city" class="select" $!readonly></select></div>
+					<div><select name="regionId" id="regionId" class="select" $!readonly></select></div>
+				</div>
+				<div>
+					<span>联系地址：</span>										
+					<input class="px $!noBorder" id="address" type="text" value="$!address" $!readonly>
+				</div>
+				<div>
+					<input class="pxBtn" id="save-btn" type="button" value="提交" $!display>
+				</div>
+			</div>
+			<!--提示框开始-->
+				<script src="./js/alert.js"></script>
+			<!--提示框结束-->
+		</div>
+		<div class="boxContent" style="display:block;">
+			<div class="box">
+				<div class="titleRed"><span>奖项设置：</span></div>
+				##获取当前活动所有奖品开始
+				#set ($recordList =$myweb.getList("WX_SCRATCHCARDITEM","WX_SETAD","WX_SCRATCHCARDITEM.WX_SCRATCHCARD_ID=$scratchcardID","/@ID@",1))
+				#foreach($list in $recordList)
+				<div class="detail"><p>$list.get(2)：$list.get(3)。</p></div>
+				#end
+				##获取当前活动所有奖品结束
+			</div>
+		</div>
+		<div class="boxContent">
+			<div class="box">
+				<div class="titleRed"><span>兑奖信息：</span></div>
+				<div class="detail"><p>$scratchcard.information</p></div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+	var zjl =true;//没中奖为false中奖为true 
+	var num = 0;
+	var goon = true;
+	jQuery(function(){
+	//地址初始化级联
+	#if($!record.address=="&nbsp;")
+	addressInit("province", "city", "regionId");
+	#else
+	addressInit("province", "city", "regionId","$!record.province","$!record.city","$!record.regionid");
+	#end
+	
+	var useragent = window.navigator.userAgent.toLowerCase();
+	jQuery("#scratchpad").wScratchPad({
+		width: 150,
+		height: 40,
+		color: "#a9a9a7",
+		scratchMove: function () {
+			num++;
+			if (zjl && num > 100 && goon) {
+				goon = false; 
+				jQuery("#zjl").slideToggle(500);
+				this.clear();
+				submitUse();
+			}
+			if (useragent.indexOf("android 4") > 0) {
+				if (jQuery("#scratchpad").css("color").indexOf("51") > 0) {
+					jQuery("#scratchpad").css("color", "rgb(50,50,50)");
+				} else if (jQuery("#scratchpad").css("color").indexOf("50") > 0) {
+					jQuery("#scratchpad").css("color", "rgb(51,51,51)");
+				}
+			}
+
+		}
+	});
+	
+	jQuery("#save-btn").bind("click",function () {
+		var btn = jQuery(this);
+		var tel = jQuery("#tel").val();
+		var name = jQuery("#name").val();
+		if (name.trim()=="" || name.trim().length==0) {
+			alert("请输入真实姓名");
+			return;
+		}
+		if (tel.trim()=="" || tel.trim().length==0) {
+			alert("请输入手机号");
+			return;
+		}
+		if(!checkMobilePhone(tel)){
+			alert("请输入正确的手机号");
+			return;
+		}
+		if(!chkProCitDis()){
+			return;
+		}
+		
+		var _command = "ObjectModify";
+		var _params = "{\"table\":\"WX_SCRATCHCARD_RECORD\",\"partial_update\":true,\"id\":"+$!record.id+",\"NAME\":\""+name+"\",\"PHONE\":\""+tel+"\",\"PROVINCE\":"+province+",\"CITY\":"+city+",\"REGIONID\":"+regionId+",\"ADDRESS\":\""+address+"\"}";
+		jQuery.ajax({
+			url: '/html/nds/schema/restajax.jsp',
+			type: 'post',
+			data:{command:_command,params:_params},
+			success: function (data) {			
+				var _data = eval("("+data+")");
+				if (_data[0].code == 0) {
+					alert("信息提交成功！",1500,function(){
+						location.href = "/html/nds/oto/webapp/scratchcard/record.vml?scratchcardID=$!scratchcardID"
+					});
+				}else{
+				
+				}
+			}					
+		});
+});
+});
+
+	//验证省市区联动
+	function chkProCitDis() {
+		province = jQuery("#province").children().filter(":checked").val();
+		city = jQuery("#city").children().filter(":checked").val();
+		regionId = jQuery("#regionId").children().filter(":checked").val();
+		province = province == "省份" ? "" : province;		
+		regionId = regionId == "城市" ? "" : regionId;
+		regionId = regionId == "区县" ? "" : regionId;
+		if (province == "" || regionId == "") {
+			alert("请完整通讯地址！");
+			return false;
+		}
+		var add = jQuery("#address").val();
+		if(add.trim().length==0 || add.trim()==""){
+			alert("请填写详细地址！");
+			return false;
+		}
+		address=province+city+regionId+add;
+		return true;
+	}
+
+	function checkMobilePhone(str){
+	   return /^((\(\d{2,3}\))|(\d{3}\-))?1[3,8,5]{1}\d{9}$/.test(str);
+	}
+	function submitUse(){
+		var _command = "ObjectModify";
+		var _params = "{\"table\":\"WX_SCRATCHCARD_COUPON\",\"partial_update\":true,\"id\":"+$!coupon.id+",\"USE_STATE\":Y}";
+		jQuery.ajax({
+			url: '/html/nds/schema/restajax.jsp',
+			type: 'post',
+			data:{command:_command,params:_params},
+			success: function (data) {			
+				var _data = eval("("+data+")");
+				if (_data[0].code == 0) {
+					
+				}else{
+					
+				}
+			}					
+		});
+	}
+</script>
+	#end
+</div>
+<footer style="text-align:center;color:#C0C0C0;margin:10px 20px 0 0">
+	<a href="#" style="color:#C0C0C0;">由<span style="text-decoration:underline;">伯俊软件星云团队</span>提供技术支持</a>
+</footer>
+</body>
+</html>

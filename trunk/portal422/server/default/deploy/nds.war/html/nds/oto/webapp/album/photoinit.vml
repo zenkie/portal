@@ -1,0 +1,3 @@
+#set ($oid= $getutil.getInteger($request.getParameter("album_id") ,-1))
+#set ($allAlbum =$myweb.getList("WX_ALBUM","WX_SETAD","42493=$oid"))
+#set ($albumset =$myweb.getList("WX_ALBUMSET","WX_SETAD"))

@@ -1,0 +1,113 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webapp/coupon/init.vml')
+<!DOCTYPE html>
+<html><head>
+#parse("/html/nds/oto/webapp/usercentertopmeta.vml")
+<script src="/html/nds/oto/webmall/js/main.js"></script>
+<script src="/html/nds/oto/webapp/coupon/js/coupon.js" ></script>
+<link href="/html/nds/oto/webmall/css/style.css" rel="stylesheet" type="text/css" media="all">
+<link href="/html/nds/oto/webapp/coupon/css/cpcss.css" rel="stylesheet" type="text/css" media="all">
+<title>我的优惠券</title>
+</head>
+<body style="background:#d1e5e9;">
+	<div class="container coupon">
+		<header>
+			<nav id="nav_1" class="p_10">
+				<ul class="box" style="width:100px;">
+					<li><a href="javascript:;" class="on" style="font-size: 15px!important;">优惠券</a></li>
+				</ul>
+			</nav>
+		</header>
+		<div class="body">
+			<ul class="list_coupon_ul">
+			#foreach($list in $coupon)
+			#if($v.compareTo($v.fmt($list.get(6),"yyyyMMdd"),$v.today()) == 2)
+				<li>
+					<a class="couponUsed">
+						<p><span>$list.get(4)</span>元</p>
+						<p>★此优惠券已过期</p>
+						<p>有效期$v.fmt($list.get(6),"yyyy-MM-dd")</p>
+						#if("$!list.get(14)" == "" || "$!list.get(14)" == "&nbsp;")
+						<p style="font-size: 14px!important;top: 45px;">本券的最终解释权归商家所有</p>
+						#else
+						<p>$stringutil.shorten($!list.get(14),31,false)</p>
+						#end
+						<p style="top:20px;color:#ee5375;">已过期</p>
+					</a>
+				</li>
+			#elseif($list.get(10)=="是")
+				<li>
+					<a class="couponUsed">
+						<p><span>$list.get(4)</span>元</p>
+						<p>★此优惠券已使用</p>
+						<p>有效期$v.fmt($list.get(6),"yyyy-MM-dd")</p>
+						#if("$!list.get(14)" == "" || "$!list.get(14)" == "&nbsp;")
+						<p style="font-size: 14px!important;top: 45px;">本券的最终解释权归商家所有</p>
+						#else
+						<p>$stringutil.shorten($!list.get(14),31,false)</p>
+						#end
+						<p style="top:20px;color:#ee5375;">已使用</p>
+					</a>
+				</li>
+			#else
+				#if("$!list.get(9)"=="" || $list.get(9)=="是")
+				<li class="header card">
+					<div class="card" data-role="card" onclick="this.classList.toggle(&#39;on&#39;);">
+						<a class="front on">
+							<p><span>$list.get(4)</span>元</p>
+							#if($list.get(5)=="0")
+							<p>★请在有效期内使用</p>
+							#else
+							<p>★订单满$list.get(5)元可使用</p>
+							#end
+							<p>有效期$v.fmt($list.get(6),"yyyy-MM-dd")</p>
+							#if("$!list.get(14)" == "" || "$!list.get(14)" == "&nbsp;")
+							<p style="font-size: 14px!important;top: 45px;">本券的最终解释权归商家所有</p>
+							#else
+							<p>$stringutil.shorten($!list.get(14),31,false)</p>
+							#end
+							<p style="top:20px;color:#2f9abe;">已领取</p>
+						</a>
+						<div class="back couponCode">
+							<img src="/barcode?data=$list.get(1)&type=Code128&width=1&height=80"><br>
+							$list.get(1)
+						</div>
+					</div>
+				</li>
+				#else
+				<li>
+					<input id="thisid" value="$list.get(0)" type="hidden"/>
+					<input id="user" value="$vipid" type="hidden"/>
+					<input id="coupid" value="$list.get(7)" type="hidden"/>
+					<a href="javascript:;">
+						<p><span>$list.get(4)</span>元</p>
+						#if($list.get(5)=="0")
+						<p>★请在有效期内使用</p>
+						#else
+						<p>★订单满$list.get(5)元可使用</p>
+						#end
+						<p>有效期$v.fmt($list.get(6),"yyyy-MM-dd")</p>
+						#if("$!list.get(14)" == "" || "$!list.get(14)" == "&nbsp;")
+						<p style="font-size: 14px!important;top: 45px;">本券的最终解释权归商家所有</p>
+						#else
+						<p>$stringutil.shorten($!list.get(14),31,false)</p>
+						#end
+						<p onclick="getCoupon(this)">领取</p>
+					</a>
+				</li>
+				#end
+			#end
+			#end
+			</ul>
+		</div>
+    <div class="qb_quick_tip qb_none" id="bubble"></div>
+    <div class="mod_dialog qb_none" id="message-notice">
+        <div class="dialog_mask"></div>
+        <div class="dialog_main qb_br qb_tac">
+            <div class="dialog_bd" id="notice-content"></div>
+            <div class="dialog_ft qb_flex"><a href="javascript:void(0);" class="flex_box" id="notice-cancel">取消</a><a href="javascript:void(0);" class="flex_box" id="notice-sure">确定</a></div>
+        </div>
+    </div>
+#parse("/html/nds/oto/webapp/userfooter.vml")
+</div>
+</body></html>

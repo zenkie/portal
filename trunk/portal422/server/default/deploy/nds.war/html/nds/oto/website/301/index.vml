@@ -1,0 +1,28 @@
+#parse('/html/nds/oto/website/init.vml')
+#parse('/html/nds/oto/website/initCate.vml')
+<html><head>
+	#parse("/html/nds/oto/website/topmeta.vml")
+	<title>$web.name</title>
+    <link href="/html/nds/oto/website/301/css/module.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	#parse("/html/nds/oto/website/rightColumn.vml")
+<div class="wrapper" style="float: left; margin-top: 48px;">
+    <ul class="itml">
+		#foreach($list in $allList)
+	
+            <li class="itm mb15 clearfix">
+                <a href="$stringutil.replace($list.get(0),'@class_tmp@',$tempmode.class_tmp)">
+                    <div class="mT-lwh rbs mr10 fl">
+					    <img src="$list.get(3)" alt="$list.get(1)" class="mT-lwh">
+				    </div>
+                    <div class="itmd itmdpr" style="margin-top:15px;">
+						<h1 class="itmdt">$stringutil.shorten($list.get(1),15)</h1>
+                    </div>
+                </a>
+            </li>
+		#end
+    </ul>
+</div>
+#parse("/html/nds/oto/website/footer.vml")
+</body></html>

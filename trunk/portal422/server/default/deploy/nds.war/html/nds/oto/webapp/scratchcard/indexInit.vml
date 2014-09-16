@@ -1,0 +1,7 @@
+#set ($vipid=$fromvipid)
+#if("$!vipid"=="")
+    #set($url="/html/nds/oto/webapp/error/index.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
+#set ($scratchcardID= $getutil.getInteger($request.getParameter("id"),-1))
+#set ($scratchcard=$myweb.getObject("WX_SCRATCHCARD","WX_SCRATCHCARD.ID=$scratchcardID"))

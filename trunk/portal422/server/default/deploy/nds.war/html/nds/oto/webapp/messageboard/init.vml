@@ -1,0 +1,13 @@
+#set ($vipid=$fromvipid)
+#if("$!vipid"=="")
+    #set($url="/html/nds/oto/webapp/messageboard/indexPreview.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
+#set ($company = $myweb.getObject("WEB_CLIENT",$myweb.getTableId()))
+#set ($messageTopPhoto =$myweb.getList("WX_MESSAGEBOARDSET","WX_MESSAGELIST"))
+#if($messageTopPhoto.size() == 0)
+#set ($messageList =$myweb.getList("WX_MESSAGEBORADLIST","WX_MESSAGELIST","WX_MESSAGEBORADLIST.COMMENTID=is null&WX_MESSAGEBORADLIST.ISOPEN==Y&WX_MESSAGEBORADLIST.ROUND(TO_NUMBER(SYSDATE-WX_MESSAGEBORADLIST.CREATIONDATE))=<7","/@ID@",1))
+#else
+#set ($messageList =$myweb.getList("WX_MESSAGEBORADLIST","WX_MESSAGELIST","WX_MESSAGEBORADLIST.COMMENTID=is null&WX_MESSAGEBORADLIST.ISOPEN==Y&WX_MESSAGEBORADLIST.ROUND(TO_NUMBER(SYSDATE-WX_MESSAGEBORADLIST.CREATIONDATE))=<=$getutil.getInteger($messageTopPhoto.get(0).get(3) ,-1)","/@ID@",1))
+#end
+#set ($vip = $myweb.getObject("WX_VIP","WX_VIP.ID=$vipid")) 

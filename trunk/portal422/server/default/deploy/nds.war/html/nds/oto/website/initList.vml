@@ -1,0 +1,17 @@
+#set ($cateid= $getutil.getInteger($request.getParameter("id") ,-1))
+#set ($ptype= $getutil.getString($request.getParameter("ptype"),"all"))
+
+#if($ptype=="pdt")
+	#if($cateid==-1)
+		#set ($allList =$myweb.getList("WX_PRODUCTCATEGORY","WX_SETAD","WX_PRODUCTCATEGORY.WX_APPENDGOODS_ID;ITEMSTATUS=Y","@pdtid@",5))
+	#else
+		#set ($allList =$myweb.getList("WX_PRODUCTCATEGORY","WX_SETAD","WX_PRODUCTCATEGORY.WX_APPENDGOODS_ID;ITEMSTATUS=Y&WX_PRODUCTCATEGORY.WX_ITEMCATEGORYSET_ID=$cateid","@pdtid@",5))
+	#end
+#elseif($ptype=="text")
+	#if($cateid==-1)
+		#set ($allList =$myweb.getList("WX_ITEMARTICLECATEGORY","WX_SETAD",null,"@cxtid@",4))
+	#else
+		#set ($allList =$myweb.getList("WX_ITEMARTICLECATEGORY","WX_SETAD","WX_ITEMARTICLECATEGORY.WX_ARTICLECATEGORY_ID=$cateid","@cxtid@",4))
+		#set ($cate = $myweb.getObject("WX_ARTICLECATEGORY","WX_ARTICLECATEGORY.ID=$cateid"))
+	#end
+#end

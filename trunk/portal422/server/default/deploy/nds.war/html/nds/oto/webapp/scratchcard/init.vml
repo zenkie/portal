@@ -1,0 +1,15 @@
+#set ($vipid=$fromvipid)
+#if("$!vipid"=="")
+    #set($url="/html/nds/oto/webapp/error/index.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
+
+#set ($couponName=$request.getParameter("coupon"))
+#set ($scratchcardID=$getutil.getInteger($request.getParameter("scratchcardID"),-1))
+#set ($coupon=$myweb.getObject("WX_SCRATCHCARD_COUPON","WX_SCRATCHCARD_COUPON.RECEIVE_STATE==Y&WX_SCRATCHCARD_COUPON.NAME==$couponName&WX_SCRATCHCARD_COUPON.WX_SCRATCHCARD_ID=$scratchcardID"))
+#if(!$coupon.id)
+	#set($url="/html/nds/oto/webapp/error/index.vml");##没有获取到刮刮劵，跳转错误页面
+	$myweb.forwardTourl($url,$request,$response);
+#end
+#set ($scratchcard=$myweb.getObject("WX_SCRATCHCARD","WX_SCRATCHCARD.ID=$scratchcardID"))
+#set ($record=$myweb.getObject("WX_SCRATCHCARD_RECORD","WX_SCRATCHCARD_RECORD.WX_SCRATCHCARD_COUPON_ID=$coupon.id"))

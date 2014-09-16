@@ -1,0 +1,59 @@
+#parse('/html/nds/oto/website/init.vml')
+#parse('/html/nds/oto/webapp/cardbalance/init.vml')
+<html>
+<head>
+#parse("/html/nds/oto/webapp/usercentertopmeta.vml")
+<script type="text/javascript" src="/html/nds/oto/website/js/jquery.js" ></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/cardbalance/js/dialog_min.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/cardbalance/js/loadmore.js"></script>
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/cardbalance/css/dialog.css">
+<title>交易明细</title>
+</head>
+<body style="background:#d1e5e9;">
+   <div class="container integral integral_record integral_my coupon">
+	<header style="display:none;">
+		<div class="bill_header">
+			<ul class="bill_detail box">
+				<li>
+					<label>总收入:<span>0.00</span></label>
+				</li>
+				<li>
+					<label>总支出:<span>0.00</span></label>
+				</li>
+				<li style="display:none;">
+					<div>
+						<select name="date" id="monthSelectElement">
+							<option selected="selected" value="201404">14年04月</option>
+							<option value="201403">14年03月</option>
+						</select>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<div class="body">
+		
+			<table class="table_record">
+				<thead>
+				<tr>
+					<th width="25%;">交易详情</th>
+					<th width="25%;">日期</th>
+					<th width="20%;">交易明细</th>
+					<th width="30%;">备注信息</th>
+				</tr>
+				</thead>
+				<tbody>
+				#foreach($list in $cardTradeList)
+					<tr data-id="$list.get(0)">
+						<td>$list.get(2)</td>
+						<td>$list.get(1)</td>
+						<td>$list.get(3)</td>
+						<td>$list.get(5)</td>
+					</tr>
+				#end
+				</tbody>
+			</table>
+		
+	</div>
+#parse("/html/nds/oto/webapp/userfooter.vml")
+</body></html>

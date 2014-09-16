@@ -1,0 +1,2 @@
+#set ($grouponid= $getutil.getString($request.getParameter("id"),"none"))
+#set ($groupon = $myweb.getObject("WX_GROUPON","WX_GROUPON.ID=$grouponid"))

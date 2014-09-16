@@ -1,0 +1,6 @@
+#if("$!vipid"=="")
+    #set($url="/html/nds/oto/webapp/error/index.vml")
+	#$myweb.forwardTourl($url,$request,$response);
+#end
+##set($vipid=33)
+#set ($scoreList =$myweb.getList("WX_INTEGRAL","WX_INTEGRAL","WX_INTEGRAL.WX_VIP_ID=$vipid","/html/nds/oto/webapp/membercardscoretrade/index.vml?id=@ID@",1))

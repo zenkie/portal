@@ -1,0 +1,16 @@
+#parse('/html/nds/oto/website/399/contentInit.vml')
+	<ul>
+		#foreach($list in $allList)
+			<li class="artlist">
+				<img src="$!list.get(2)" class="listimg">
+				<div class="contenttitle">$stringutil.shorten($!list.get(1),11,false)</div>
+				<div class="contentdesc" onclick="window.location.href ='/html/nds/oto/website/399/context.vml?ptype=pdt&id=$!list.get(3)'">
+					$stringutil.shorten($!list.get(4),27,false)
+				</div>
+				<div class="contentdate">日期：$v.fmt($!list.get(5),"yyyy-MM-dd")</div>
+				<div class="contentread">
+				<a href="/html/nds/oto/website/399/context.vml?ptype=pdt&id=$!list.get(3)">阅读全文</a>
+				</div>
+			</li>
+		#end
+	</ul>

@@ -1,0 +1,114 @@
+div, h1, h2, h3, p, ul, ol, li, dl, dt, dd, form, input {
+margin: 0;
+padding: 0;
+list-style: none;
+}
+a {
+color: #333;
+text-decoration: none;
+}
+img, object, input, select, textarea {
+border: none;
+color: #333;
+font-size: 12px;
+font-family: "Verdana";
+vertical-align: middle;
+}
+#select_coupon{
+width:100%;
+border-radius: 0;
+-webkit-appearance: none;
+display: inline-block;
+/* padding-left: 10px;
+padding-right: 23px; */
+padding-top: 5px;
+height: 29px;
+line-height: 28px;
+font-size: 14px;
+border: 1px solid #eaeaea;
+background: #fff;
+margin: 0;
+}
+#select_coupon span{
+padding-left:10px;
+}
+.coupon-content{
+width:100%;
+float: left;
+/* width: 484px; */
+position: relative;
+z-index: 999;
+}
+#searchResult {
+width:100%;
+position: absolute;
+top: 2px;
+left: 0;
+/* width: 385px; */
+z-index: 1;
+}
+.searchResultBg {
+position: relative;
+z-index: 1;
+/* width: 385px; */
+border: 1px #eaeaea solid;
+border-top: none;
+}
+.searchResultCon {
+position: relative;
+z-index: 1;
+/* width: 385px; */
+border-top: 1px solid #eaeaea;
+background-color: #fff;
+}
+#searchResult ul {
+position: relative;
+/* width: 385px; */
+/* float: left; */
+padding: 3px 0;
+background-color: #fff;
+}
+.resourcesCon li {
+height: 38px;
+font-size: 13px;
+}
+.resourcesCon li a {
+display: block;
+/* width: 365px; */
+height: 35px;
+overflow: hidden;
+padding: 1px 10px 2px;
+padding: 2px 10px 1px\9;
+line-height: 35px;
+color: #47494a;
+}
+.resourcesCon li a:hover, .searchTitleHoverLi {
+color: #47494a;
+font-weight: bold;
+text-decoration: none;
+background-color: #f4f4f4;
+}
+.resourcesCon li a img {
+width: 60px;
+height: 35px;
+overflow: hidden;
+margin-right: 10px;
+}
+#searchResult em {
+color: #CC3333;
+font-style: normal;
+font-weight: normal;
+}
+.resourcesCon li img.searchicon {
+width: 19px;
+height: 19px;
+overflow: hidden;
+margin: -3px 0 0 2px;
+}
+.clear {
+clear: both;
+display: block;
+font-size: 0;
+height: 0;
+line-height: 0;
+}

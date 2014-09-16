@@ -1,0 +1,6 @@
+#if("$!vipid"=="")
+    #set($url="/html/nds/oto/webapp/error/index.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
+
+#set ($card = $myweb.getObject("WX_BINDCARD","WX_BINDCARD.WX_VIP_ID=$vipid"))

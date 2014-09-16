@@ -1,0 +1,22 @@
+#if("$!vipid"=="")
+    #set($url="/html/nds/oto/webapp/error/index.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
+#set ($vip=$myweb.getObject("WX_VIP","WX_VIP.ID=$vipid"))
+#set ($docno= $getutil.getString($request.getParameter("docno"),"none"))
+#set ($objectid= $getutil.getInteger($request.getParameter("objectid") ,-1))
+
+#if($objectid!=-1)
+	#set ($order=$myweb.getObject("WX_ORDER_INTEGRAL","WX_ORDER_INTEGRAL.ID=$objectid"))
+	#set ($detail =$myweb.getObject("WX_ORDER","WX_ORDER.DOCNO=$order.wx_order_id"))
+	#set ($productdetail =$myweb.getList("WX_ORDERITEM","WX_SETAD","WX_ORDERITEM.WX_ORDER_ID;DOCNO=$order.wx_order_id"))
+	#set ($add =$myweb.getObject("WX_ADDRESS","WX_ADDRESS.WX_VIP_ID=$vipid&WX_ADDRESS.ISADDRESS=2"))
+	#set ($addList =$myweb.getList("WX_ADDRESS","WX_SETAD","WX_ADDRESS.WX_VIP_ID=$vipid&WX_ADDRESS.ISADDRESS=1","/@ID@",1))
+	#set ($shipFee =$myweb.getList("WX_DISTRIBUTION","WX_SETAD","WX_DISTRIBUTION.AD_CLIENT_ID=$myweb.getClientId()","/@ID@",1))
+#elseif($docno!="none")
+	#set ($detail =$myweb.getObject("WX_ORDER","WX_ORDER.DOCNO=$docno"))
+	#set ($productdetail =$myweb.getList("WX_ORDERITEM","WX_SETAD","WX_ORDERITEM.WX_ORDER_ID;DOCNO=$docno"))
+	#set ($add =$myweb.getObject("WX_ADDRESS","WX_ADDRESS.WX_VIP_ID=$vipid&WX_ADDRESS.ISADDRESS=2"))
+	#set ($addList =$myweb.getList("WX_ADDRESS","WX_SETAD","WX_ADDRESS.WX_VIP_ID=$vipid&WX_ADDRESS.ISADDRESS=1","/@ID@",1))
+	#set ($shipFee =$myweb.getList("WX_DISTRIBUTION","WX_SETAD","WX_DISTRIBUTION.AD_CLIENT_ID=$myweb.getClientId()","/@ID@",1))
+#end

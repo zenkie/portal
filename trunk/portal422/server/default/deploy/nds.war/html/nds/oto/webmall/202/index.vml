@@ -1,0 +1,36 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webmall/initList.vml')
+<html><head>
+	#parse("/html/nds/oto/webmall/topmeta.vml")
+	<title>$cate.categoryname</title>
+	<link href="/html/nds/oto/webmall/202/css/fifteen-2.css" rel="stylesheet">
+</head>
+<body data-role="none" style="">
+#parse("/html/nds/oto/webmall/lay_header.vml")
+<div class="wrapper">
+    <ul class="mThirC clearfix">
+		#foreach($list in $allList)
+            <li class="mThirCli">
+				<a href="$list.get(0)" title="" class="mThirCell">
+				#if($list.get(6) == '是')
+					<div class="hotpdt"></div>
+				#end
+					<img src="$list.get(2)" alt="$list.get(1)">
+					<p>$list.get(1)</p>
+				#if($iscost =='Y')
+                    <em>
+						$math.toInteger($list.get(5))积分
+						<del style="color: #999;text-shadow: none;">$math.toInteger($list.get(3))积分</del>
+					</em>
+				#else
+                    <em>
+						¥$list.get(5)
+						<del style="color: #999;text-shadow: none;">¥$list.get(3)</del>
+					</em>
+				#end
+                </a>
+			</li>
+		#end
+    </ul>
+</div>
+</body></html>

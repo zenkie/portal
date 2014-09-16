@@ -1,0 +1,39 @@
+#set ($cateid= $getutil.getInteger($request.getParameter("id") ,-1))
+#set ($ptype= $getutil.getString($request.getParameter("ptype"),"all"))
+#set ($iscost= $getutil.getString($request.getParameter("iscost"),"none"))
+#if($ptype=="pdt")
+	#set ($tempmode=$myweb.getObject("WEB_MAIL_TMP","WEB_MAIL_TMP.AD_CLIENT_ID=$myweb.getClientId()"))
+	#if($cateid==-1)
+		#if($iscost == "Y")
+			#set ($cateList =$myweb.getList("WX_COST_ITEMCATEGORYSET","WX_SETAD","WX_ITEMCATEGORYSET.WX_ITEMCATEGORYSET_ID=is null"))
+		#else
+			#set ($cateList =$myweb.getList("WX_ITEMCATEGORYSET","WX_SETAD","WX_ITEMCATEGORYSET.WX_ITEMCATEGORYSET_ID=is null"))
+		#end
+	#else
+		#if($iscost == "Y")
+			#set ($cateList =$myweb.getList("WX_COST_ITEMCATEGORYSET","WX_SETAD","WX_ITEMCATEGORYSET.WX_ITEMCATEGORYSET_ID=$cateid"))
+		#else
+			#set ($cateList =$myweb.getList("WX_ITEMCATEGORYSET","WX_SETAD","WX_ITEMCATEGORYSET.WX_ITEMCATEGORYSET_ID=$cateid"))
+		#end
+	#end
+#elseif($ptype == "text" ) 
+	#set ($tempmode=$myweb.getObject("WEB_CLIENT_TMP","WEB_CLIENT_TMP.AD_CLIENT_ID=$myweb.getClientId()"))
+	#if($cateid==-1)
+		#set ($cateList =$myweb.getList("WX_ARTICLECATEGORY","WX_SETAD","WX_ARTICLECATEGORY.WX_ARTICLECATEGORY_ID=is null"))
+	#else
+		#set ($cateList =$myweb.getList("WX_ARTICLECATEGORY","WX_SETAD","WX_ARTICLECATEGORY.WX_ARTICLECATEGORY_ID=$cateid"))
+	#end
+#end
+
+#if($cateid!=-1)
+	#set ($listfold =$myweb.getListbyCategory($cateid,$ptype))
+	#if($listfold!="cate")
+		#if($iscost == "Y")
+			#set($url="/html/nds/oto/webmall/$listfold/index.vml?ptype=$ptype&id=$cateid&iscost=Y")
+			$myweb.forwardTourl($url,$request,$response);
+		#else
+			#set($url="/html/nds/oto/webmall/$listfold/index.vml?ptype=$ptype&id=$cateid")
+			$myweb.forwardTourl($url,$request,$response);
+		#end
+	#end
+#end

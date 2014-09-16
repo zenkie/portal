@@ -1,0 +1,106 @@
+#parse('/html/nds/oto/webapp/scratchcard/indexInit.vml')
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content=" initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<script src="./js/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery.noConflict();
+</script>
+<link rel="stylesheet" type="text/css" href="./css/index.css" media="all">
+<title>刮刮乐</title>
+</head>
+<body>
+<!--提示框开始-->
+<script src="./js/alert.js"></script>
+<!--提示框结束-->
+<div class="mainContent">
+	<div class="cover">
+		<img src="$!scratchcard.photo">
+	</div>
+	<div class="scratchContent">
+		<div class="boxContent">
+			<div>
+				<input class="px" id="coupon" type="text" placeholder="用户请输入您刮刮劵">
+			</div>
+			<div>
+				<input class="pxBtn" id="scratch-btn" type="button" value="刮一刮">
+				<a href="/html/nds/oto/webapp/scratchcard/record.vml?scratchcardID=$!scratchcardID" style="text-decoration:none;"><input class="pxBtn" id="prize-btn" type="button" value="中奖记录"></a>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="scratchContent">
+		<div class="boxContent1">
+			<div class="box">
+				<div class="titleRed"><span>活动说明：</span></div>
+				<div class="detail"><p>$scratchcard.explain</p>
+			</div>
+		</div>
+	</div>
+</div>
+<input type="hidden" id="scratchcardID" value="$!scratchcardID">
+<footer style="text-align:center;color:#c0c0c0;margin:10px 20px 0 0">
+	<a href="#" style="color:#c0c0c0">由<span style="text-decoration:underline;">伯俊软件星云团队</span>提供技术支持</a>
+</footer>
+<script type="text/javascript">
+jQuery(function(){
+jQuery("#scratch-btn").click(function(){
+	var coupon = jQuery("#coupon").val();
+	if(coupon.trim()=="" || coupon.length == 0){
+		alert("请输入入场劵");
+	}else{
+		scratch(coupon);
+	}	
+});
+});
+function scratch(_coupon){
+	jQuery.ajax({
+		url: '/html/nds/oto/webapp/scratchcard/checkScratch.vml',
+		type: 'post',
+		data:{coupon:_coupon,scratchcardID:jQuery("#scratchcardID").val()},
+		success: function (data) {
+			var _data = eval("("+data+")");
+			switch (_data.code) {
+				case -1:
+					alert(_data.message);
+					break;				
+				case 0:
+					submit(_data.id,_coupon);					
+					break;
+				case 1:
+					location.href = "/html/nds/oto/webapp/scratchcard/scratchcard.vml?coupon="+_coupon+"&scratchcardID="+jQuery("#scratchcardID").val();
+					break;				
+				case 2:
+					alert(_data.message);
+					break;
+				case 3:
+					location.href = "/html/nds/oto/webapp/scratchcard/scratchcard.vml?coupon="+_coupon+"&scratchcardID="+jQuery("#scratchcardID").val();
+					break;
+			}
+		}
+	});
+}
+function submit(_couponId,_coupon){
+	var _command = "ObjectCreate";
+	var _params = "{\"table\":\"WX_SCRATCHCARD_RECORD\",\"unionfk\":true,\"WX_SCRATCHCARD_COUPON_ID__NAME\":"+_couponId+",\"WX_VIP_ID__VIPCARDNO\":"+$!vipid+"}";
+	jQuery.ajax({
+		url: '/html/nds/schema/restajax.jsp',
+		type: 'post',
+		data:{command:_command,params:_params},
+		success: function (data) {			
+			var _data = eval("("+data+")");
+			if (_data[0].code == 0) {
+				location.href = "/html/nds/oto/webapp/scratchcard/scratchcard.vml?coupon="+_coupon+"&scratchcardID="+jQuery("#scratchcardID").val();
+			}
+		}					
+	});
+}
+</script>
+</body>
+</html>

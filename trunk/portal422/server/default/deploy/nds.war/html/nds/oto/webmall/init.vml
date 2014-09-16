@@ -1,0 +1,5 @@
+## ---------- Common variables ---------- ##
+#set ($company = $myweb.getObject("WEB_CLIENT",$myweb.getTableId()))
+#set ($mall =$myweb.getObject("WX_MALL","WX_MALL.AD_CLIENT_ID=$myweb.getClientId()"))
+#set ($vipid=$fromvipid)
+#set ($client= $getutil.getString($request.getParameter("client"),"none"))

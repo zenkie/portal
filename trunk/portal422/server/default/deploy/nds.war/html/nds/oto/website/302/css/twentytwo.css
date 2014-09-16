@@ -1,0 +1,50 @@
+/*
+iws---image wrapper style
+*/
+.latct{
+  font-size:18px;
+  font-weight:normal;
+  color:#fff;
+  text-shadow: 0 1px 1px #000;
+}
+.mTt-lwh{
+  width:80px;
+  height:80px;
+}
+.iws{
+   width:80px;
+   height:80px;
+   margin:0 auto;
+   overflow:hidden;
+   -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	background-color: #0e0e0f;
+	-webkit-box-shadow: 0 1px 3px #000, inset 0 2px rgba(241,241,241,.08), inset 0 0 1px 1px rgba(255,255,255,.1);
+	-moz-box-shadow: 0 1px 3px #000, inset 0 2px rgba(241,241,241,.08), inset 0 0 1px 1px rgba(255,255,255,.1);
+	box-shadow: 0 1px 3px #000, inset 0 2px rgba(241,241,241,.08), inset 0 0 1px 1px rgba(255,255,255,.1);
+	border: solid 1px #000;
+}
+.selected{
+    -webkit-box-shadow: inset 0 3px 6px rgba(0,0,0,.5);
+    -moz-box-shadow: inset 0 3px 6px rgba(0,0,0,.5);
+	box-shadow: inset 0 3px 6px rgba(0,0,0,.5);
+}
+.mTwt-itml{
+  width:100%;
+  background-color:#000000;
+}
+.blat{
+    display:block;
+	text-decoration:none;
+	border-top:1px solid #000000;
+	border-right:1px solid #323439;
+	border-bottom:1px solid #1b1c1e;
+}
+.latcm{
+	border-left:1px solid #1b1c1e;
+}
+.latcr{
+	border-right:none;
+	border-left:1px solid #1b1c1e;
+}

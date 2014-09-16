@@ -1,0 +1,14 @@
+#parse('/html/nds/oto/webmall/init.vml')
+<html>
+<head>
+#parse("/html/nds/oto/webmall/topmeta.vml")
+<link href="/html/nds/oto/webapp/brand/css/brand.css" rel="stylesheet" type="text/css" media="all">
+<title>品牌介绍</title>
+</head>
+<body>
+#parse("/html/nds/oto/webmall/lay_header.vml")
+<div class="brand">
+$mall.mallnote
+</div>
+#parse("/html/nds/oto/webmall/footer.vml")
+</body></html>

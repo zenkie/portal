@@ -1,0 +1,58 @@
+#parse('/html/nds/oto/website/init.vml')
+#parse('/html/nds/oto/website/399/init.vml')
+<html>
+<head>
+	#parse("/html/nds/oto/website/topmeta.vml")
+	<link href="/html/nds/oto/website/399/css/mycss.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="/html/nds/oto/website/399/js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="/html/nds/oto/website/399/js/jquery.event.drag-1.5.min.js"></script>
+	<script type="text/javascript" src="/html/nds/oto/website/399/js/jquery.touchSlider.js"></script>
+	<script type="text/javascript" src="/html/nds/oto/website/399/js/tab.js"></script>
+	<title>$web.name</title>
+	<script type="text/javascript">
+	$(function(){
+		var opt={
+			cateid:"$!cateid",
+			listfold:"$!listfold"
+		};
+        var tab = new Tab('.catetop',opt);
+		sliderCategory();
+	});
+	</script>
+</head>
+<body>
+	<div class="catetop">
+		<a class="gohist" href="javascript:history.go(-1);"></a>
+		<!-- 返回上一步 -->
+		#if($cate.categoryname!="none" || $cate.categoryname=="&nbsp;")
+			<!-- 分类名称 -->
+			<span class="catetitle">$cate.categoryname</span>
+		#else
+			<!-- 若无分类名称，显示为所有分类 -->
+			<span class="catetitle">所有分类</span>
+		#end
+		<!-- 返回首页 -->
+		<a class="gohome" href="/"></a>
+		<div class="subcate">
+		#if($listfold !="cate")
+		#set ($article = $myweb.getObject("WX_ISSUEARTICLE","WX_ISSUEARTICLE.ID=$cateid"))
+			<span class="articletitle">$!stringutil.shorten($!article.articletitle,15)</span>
+		#else
+			<!-- 子分类列表 -->
+			#set ($i=0)
+			#foreach($list in $allListArticle)
+			<a class="subcatelink" id="#pay_$i" href="$stringutil.replace($list.get(0),'@class_tmp@','399')">
+				<span class="subcatetitle" data_id="$list.get(0)">$stringutil.shorten($list.get(1),5)</span>
+			</a>
+			#set ($i=$i+1)
+			#end
+		#end
+		</div>
+	</div>
+	<div class="pton" style="position: absolute;width: 100%;">
+		<a id="btn_prev" class="clickimg prev" href="#"></a>
+		<a id="btn_next" class="clickimg next" href="#"></a>
+		<div id="page_icenter" class="content"></div>
+		#parse("/html/nds/oto/website/footer.vml")
+	</div>
+</body></html>

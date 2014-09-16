@@ -1,0 +1,2 @@
+#set ($editId= $getutil.getInteger($request.getParameter("editId") ,5))
+#set ($address = $myweb.getObject("WX_ADDRESS",$editId))

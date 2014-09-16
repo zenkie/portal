@@ -1,0 +1,122 @@
+@charset "utf-8";
+/* CSS Document */
+button{
+	padding:0;
+	margin:0;}
+
+body{
+	background:#f0f0f0;}
+	
+a{
+	text-decoration:none;}
+
+	
+
+	
+
+
+/*top搜索*/
+	
+.topheader{
+	width:100%;
+	position:fixed;
+	top:0;
+	z-index:1000;
+	}
+	
+.topheader .shadow{
+	position:absolute;
+	width:1.5em;
+	height:100%;
+	top:0;
+	}
+	
+.topheader .shadow_left{
+	left:0;
+	background:-webkit-linear-gradient(left,rgba(255,255,255,1),rgba(255,255,255,0));
+	background:-moz-linear-gradient(left,rgba(255,255,255,1),rgba(255,255,255,0));
+	background:linear-gradient(left,rgba(255,255,255,1),rgba(255,255,255,0));
+	}
+	
+.topheader .shadow_right{
+	right:0;
+	background:-webkit-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
+	background:-moz-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
+	background:linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
+	}
+	
+.topheader .top_nav{
+	width:100%;
+	display:-moz-box;
+    display:-webkit-box;
+    display:box;
+	background:#f7f7f7;
+	border-bottom: 1px solid #d9d9d9;
+	overflow-x:auto;}
+	
+.topheader .top_nav li{
+	
+	}
+	
+.topheader .top_nav li a{
+	color:#171717;
+	font-size:120%;
+	line-height:2.6em;
+	padding:0 0.5em;
+	margin:0 0.4em;
+	border-bottom:2px solid rgba(186,36,46,0);
+	display:inline-block;}
+	
+.topheader .top_nav li.active a{
+	color:rgba(186,36,46,1);
+	border-bottom:2px solid rgba(186,36,46,1);}
+
+
+	
+
+/*搜索分类*/
+
+img { border:none; }
+
+/* content */
+.content {
+	margin:4em auto;
+	padding:0.3em;
+	overflow:hidden;}
+
+/* case-list */
+/*
+.content ul { 
+	width:50%;
+	float:left; }
+*/
+
+.content ul li { 
+	display:block; 
+	border:1px solid #e5e5e5; 
+	background-color:#fff;
+	margin:0.6em 0.3em;
+	overflow:hidden; }
+	
+.content ul li img { 
+	display:block; 
+	width:100%; }
+	
+.content ul li .title{
+	padding:0.5em;}
+	
+.content ul li .price{
+	overflow:hidden;
+	line-height:20px;
+	}
+
+.content ul li .price span{
+	color:#ba242e;
+	float:right;
+	font-size:120%;
+	}
+	
+.content ul li .price em{
+	color:#a7a7a7;
+	text-decoration: line-through;
+	float:right;}

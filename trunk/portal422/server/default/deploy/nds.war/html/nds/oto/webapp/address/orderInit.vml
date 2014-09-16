@@ -1,0 +1,12 @@
+#set ($docno= $getutil.getString($request.getParameter("docno"),"none"))
+#set ($objectid= $getutil.getInteger($request.getParameter("objectid") ,-1))
+#set ($cartid= $getutil.getInteger($request.getParameter("cartid") ,-1))
+#set ($editId= $getutil.getInteger($request.getParameter("editId") ,-1))
+#set ($status= $getutil.getInteger($request.getParameter("status") ,-1))
+#set ($cost= $getutil.getInteger($request.getParameter("cost") ,-1)) ##是否是积分商城 如果是积分商城 回调地址为积分页面
+#if($!editId!=-1)
+#set ($address = $myweb.getObject("WX_ADDRESS",$editId))
+#else
+#set ($address = "")
+#end
+

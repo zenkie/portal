@@ -1,0 +1,104 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webapp/cart/init.vml')
+<html>
+<head>
+<script src="/html/nds/oto/webapp/cart/js/toPay.js" ></script>
+<script src="/html/nds/oto/webapp/cart/js/json2.js" ></script>
+<script src="/html/nds/oto/webapp/cart/js/delCart.js" ></script>
+#parse("/html/nds/oto/webmall/topmeta.vml")
+<title>购物车</title>
+</head>
+<body>
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+    <div class="lay_page current">
+        <div class="lay_page_wrap">           
+            <section id="content">  
+                <section id="item-sec">
+					#foreach($list in $shop)
+                            <div class="mod_cell ui_plr0 ui_mt15 qb_mb15 item" id="$list.get(0)">
+                                <div class="ui_plr10">
+                                    <ul class="mod_list mod_list_hr qb_fs_s">
+                                        <li class="list_item qb_mb10 qb_bfc">
+                                            <a href="/html/nds/oto/webapp/product/index.vml?id=$list.get(3)" class="bfc_f">
+                                                <img src="$list.get(5)"></a>
+                                            <div class="bfc_c">
+                                                <p style="padding-bottom: 5px;">$stringutil.shorten($list.get(4),20,false)</p>												
+                                                <p style="padding-bottom: 5px;">单价：
+													<span class="ui_color_strong">￥
+												##会员折扣start
+													#if($!viptypeinfo.discount && ($!viptypeid.opencard_status=="已启用"))
+													#set ($vipprice=$math.max("$math.roundTo(2,$math.mul($list.get(6),$viptypeinfo.discount))","0.01"))
+														<span name="price">$vipprice</span>元
+													#else
+														<span name="price">$list.get(6)</span>元
+													#end
+												##会员折扣end														
+													</span>
+												</p>
+												<span>$list.get(10)</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="qb_tar ui_p10 qb_fs_s ui_bg_color_weak ui-bt">
+                                    <i class="qb_icon icon_trash ui_mr30 icon_delete"></i>数量：
+									<input name="num" type="tel" class="ui_textinput ui_textinput_tiny count" value="$list.get(8)">
+                                    <span class="qb_tof">共计：
+										<span class="ui_color_strong single-total">
+											￥
+											##会员折扣start
+												#if($!viptypeinfo.discount && ($!viptypeid.opencard_status=="已启用"))
+													#set ($vipprice=$math.max("$math.roundTo(2,$math.mul($list.get(7),$viptypeinfo.discount))","0.01"))
+														<span name="sum">$vipprice</span>&nbsp;
+												#else
+													<span name="sum">$list.get(7)</span>&nbsp;
+												#end
+											##会员折扣end												
+										</span>
+									</span>
+                                </div>
+                                <input type="hidden" class="cmdy-data">
+                            </div>
+                        #end
+                    <div class="mod_cell ui_mt15 qb_mb15 ui_pt10">                       
+                        <div class="ui_pb10 ui_clearfix qb_fs_s">
+                            <div class="qb_fl" id="choose-all">
+                                <span class="ui_mr30 ui_pt10"><i class="qb_icon icon_checkbox" id="choose-all-btn"></i>全选</span>
+                                总价：<span class="ui_color_strong">￥<span name="total">0</span></span>
+                            </div>
+                            <span class="mod_btn btn_strong qb_fr confirm_order">去结算</span>
+                        </div>
+                    </div>
+                </section> 
+            </section>
+        </div>
+    </div>
+	<input type="hidden" value="$vipid" id="vipid">
+    <div class="qb_quick_tip qb_none" id="bubble"></div>
+    <div class="mod_dialog qb_none" id="message-notice">
+        <div class="dialog_mask"></div>
+        <div class="dialog_main qb_br qb_tac">
+            <div class="dialog_bd" id="notice-content"></div>
+            <div class="dialog_ft qb_flex"><a href="javascript:void(0);" class="flex_box" id="notice-cancel">取消</a><a href="javascript:void(0);" class="flex_box" id="notice-sure">确定</a></div>
+        </div>
+    </div>
+#parse("/html/nds/oto/webmall/footer.vml")
+</div>
+    <script type="text/javascript">
+        Wmp.Shopping.settlement();  
+		$(".icon_delete").each(function(){
+			var _this = $(this);
+			_this.click(function(){
+				var id = _this.closest(".mod_cell").attr("id");
+				showConfirm({
+					describeText: "确定要删除该商品吗？",
+					sureText: "确定",
+					cancelText: "取消",
+					sureFn: function () {
+						delCart(id);
+					}
+					});
+			});
+		});
+    </script>
+</body></html>

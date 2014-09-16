@@ -1,0 +1,72 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webapp/groupon/init.vml')
+<html>
+<head>
+	#parse("/html/nds/oto/webmall/topmeta.vml")
+	<link href="./css/wxshop.css" rel="stylesheet" type="text/css" media="all">  
+    <title>限时团购</title>
+</head>
+<body>
+#parse("/html/nds/oto/webmall/lay_header.vml")
+<div class="groupBuy" style="float:left">
+<input type="hidden" id="endTime" value="$groupon.endtime">
+        <div class="leadactor">
+            <h2 class="detail-title">$groupon.name</h2>
+            <div class="detail-brief">
+                <img class="goods-detail-pic article-match-pic" src="$groupon.photo" alt="$groupon.name">
+                <div class="priceTag clearfix">
+				#if($!groupon.isenabled == "是")
+                    <span class="countdown"><em class="emphsd">倒计时</em></span>
+				#else
+					<span class="countdown"><em class="emphsd">已过期</em></span>	
+				#end
+					
+                </div>
+                <div class="groupBuy-price clearfix">
+                    <span class="groupBuy-discp">¥$groupon.price</span>
+					#if($!groupon.isenabled == "是")
+						<button class="gBuyBtn" onclick="ToDetail($groupon.wx_appendgoods_id)">
+                            参团
+						</button>  
+<script type="text/javascript">
+		$(function () {
+			setInterval(calculateRemainTime, 1000);
+		});
+		function calculateRemainTime() {
+		var time = $("#endTime").val();		
+        var endtime = new Date(time);
+        var now = new Date();
+        var remain = endtime.getTime() - now.getTime();
+		var html = "<em class=\"emphsd\">已过期</em>";
+        if (remain > 0) {
+            var d = Math.floor(remain / (1000 * 60 * 60 * 24));
+            var h = Math.floor(remain / (1000 * 60 * 60)) % 24;
+            var m = Math.floor(remain / (1000 * 60)) % 60;
+            var s = Math.floor(remain / 1000) % 60;            
+            if (d != 0) {
+                html = "<em class='emphsd'>倒计时</em><em class='emphsd'>" + d + "</em>天<em class='emphsd'>" + h + "</em>时<em class='emphsd'>" + m + "</em>分<em class='emphsd'>" + s + "</em>秒";
+            } else {
+                html = "<em class='emphsd'>倒计时</em><em class='emphsd'>" + h + "</em>时<em class='emphsd'>" + m + "</em>分<em class='emphsd'>" + s + "</em>秒";
+            }
+            $(".countdown").html(html);
+        }else{
+			html = "<em class=\"emphsd\">已过期</em>";
+			$(".gBuyBtn").hide();
+			$(".countdown").html(html);
+		}
+    }
+
+    function ToDetail(goodsid) {
+        window.location.href = "/html/nds/oto/webapp/product/index.vml?id=" + goodsid;    //明细
+    }
+</script>
+					
+					#else
+					<span class="groupBuy-discp">已过期</span>
+					#end                                             
+                </div>
+            </div>
+        </div>
+    </div>
+#parse("/html/nds/oto/webmall/footer.vml")
+</body></html>

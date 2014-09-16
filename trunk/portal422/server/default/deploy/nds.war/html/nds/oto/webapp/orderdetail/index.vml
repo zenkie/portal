@@ -1,0 +1,144 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webapp/orderdetail/init.vml')
+<html>
+<head>
+	<script src="/html/nds/oto/webapp/orderdetail/js/canleOrder.js"></script>
+    <title>我的订单</title>
+    <style>
+        .mod_btn{
+            background: #f90!important;
+            border-radius:10px;
+        }
+        .mod_btn2{
+            background: green!important;
+        }
+    </style>
+</head>
+<body id="goods-detail-info">
+<div class="mod_dialog qb_none" id="message-notice">
+	<div class="dialog_mask"></div>
+	<div class="dialog_main qb_br qb_tac">
+		<div class="dialog_bd" id="notice-content"></div>
+		<div class="dialog_ft qb_flex"><a href="javascript:void(0);" class="flex_box" id="notice-cancel">取消</a><a href="javascript:void(0);" class="flex_box" id="notice-sure">确定</a></div>
+	</div>
+</div>
+<div>
+	#if("$orderList"=="[]")
+		<div class="mod_color_weak mod_nocontent qb_fs_s" style="height: 511px;">
+			<p>没有订单</p>
+			<p><a href="/mall.jsp">返回首页</a></p>
+		</div>
+	#else
+	#foreach($list in $orderList)
+		#if($tabstatus=="tab1")
+			<ul class="product-list">
+		#else
+			#if($list.get(10) == "积分换购")
+			<ul class="product-list" onclick="window.location.href ='../orderCost/index.vml?vipid=$vipid&docno=$list.get(1)'">
+			#else
+			<ul class="product-list" onclick="window.location.href ='../order/index.vml?vipid=$vipid&docno=$list.get(1)'">
+			#end
+		#end
+				<li style="border-bottom: 1px solid #eaeaea;height:35px;line-height: 35px;">
+				    <div>
+						#if($tabstatus=="tab1")
+							#if($list.get(10) == "积分换购")
+								<span class="orderplist" onclick="window.location.href ='../orderCost/index.vml?vipid=$vipid&docno=$list.get(1)'">订单编号:$list.get(1)</span>
+							#else
+								<span class="orderplist" onclick="window.location.href ='../order/index.vml?vipid=$vipid&docno=$list.get(1)'">订单编号:$list.get(1)</span>
+							#end
+							<a id="$list.get(0)" href="javascript:;" class="canleorder" onclick="canleOrder(this);"></a>
+						#else
+							<span class="orderplist">订单编号:$list.get(1)</span>
+							<span style="color:red;float:right;padding-right:10px;">$list.get(11)</span>
+						#end
+                    </div>
+				</li>
+				#set ($orderDetailList =$myweb.getList("WX_ORDERITEM","WX_SETAD","43436=$list.get(1)"))
+				#foreach($detailList in $orderDetailList)
+				#if($tabstatus=="tab1")
+					#if($list.get(10) == "积分换购")
+					<li style="border-bottom: 1px solid #eaeaea;" onclick="window.location.href ='../orderCost/index.vml?vipid=$vipid&docno=$list.get(1)'">
+					#else
+					<li style="border-bottom: 1px solid #eaeaea;" onclick="window.location.href ='../order/index.vml?vipid=$vipid&docno=$list.get(1)'">
+					#end
+				#else
+                <li style="border-bottom: 1px solid #eaeaea;">
+				#end
+					<div class="product">
+						<h1 class="productTitle">
+						#if($list.get(10) == "积分换购")
+						<a href="/html/nds/oto/webapp/productCost/index.vml?id=$detailList.get(9)" class="bfc_f">
+						#else
+						<a href="/html/nds/oto/webapp/product/index.vml?id=$detailList.get(9)" class="bfc_f">
+						#end
+                        <img class="pic" src="$detailList.get(5)" alt="$detailList.get(3)"></a>
+						<div class="productInfo">
+						<ul>
+							<li style="padding-bottom: 5px;">
+                            $stringutil.shorten($detailList.get(3),15,false)
+							</li>
+							<li style="padding-bottom: 5px;">
+								<span class="shoplist-total">
+								#if($list.get(10) == "积分换购")
+									<span class="ui_color_strong">$math.toInteger($detailList.get(10))</span>
+								#else
+									<span class="ui_color_strong">¥$detailList.get(10)</span>
+								#end
+								&nbsp;x&nbsp;$detailList.get(6)件</span>
+							</li>
+							<li>
+								<span>规格：$detailList.get(7)</span>
+							</li>
+						</ul>
+						</div>
+
+						</h3>
+                    </div>
+                </li>
+				#end
+				<li class="ui_p10_1 qb_fs_s ui_bg_color_weak ui-bt">
+					<p class="total">
+					<div class="qb_flex_1">
+						<div class="order_qty">
+							共计<span class="product-price">$list.get(7)</span>件商品
+							#if($tabstatus=="tab1")
+								#if($list.get(10) == "积分换购")
+								<br>积分：<span class="product-price">$math.toInteger($list.get(9))</span>
+								#else
+								<br>总价：<span class="product-price">¥$list.get(9)</span>
+								#end
+							#end
+						</div>
+						
+						#if($tabstatus!="tab1")
+							#if($list.get(10) == "积分换购")
+							<div style="float:right;padding-top: 8px;">积分：<span class="product-price">$math.toInteger($list.get(9))</span></div>
+							#else
+							<div style="float:right;padding-top: 8px;">总价：<span class="product-price">¥$list.get(9)</span></div>
+							#end
+						#end
+					#if($tabstatus=="tab1")
+						<div class="order_dispos">
+							<input type="hidden" value="$vipid" id="vipid">
+						#if($list.get(10) == "积分换购")
+							<span class="mod_btn btn_block btn_em qb_mr10 flex_box" style="width:85px;border-radius: 5px;background:#ff4400!important;margin-top: 5px;" onclick="window.location.href ='../orderCost/index.vml?vipid=$vipid&docno=$list.get(1)'">兑换</span>
+						#else
+							<span class="mod_btn btn_block btn_em qb_mr10 flex_box" style="width:85px;border-radius: 5px;background:#ff4400!important;margin-top: 5px;" onclick="window.location.href ='../order/index.vml?vipid=$vipid&docno=$list.get(1)'">付款</span>
+						#end
+						</div>
+					#end
+                    </div>
+					</p>
+				</li>
+				#if($tabstatus != "tab1")
+				<li class="ui_p10_1 qb_fs_s ui_bg_color_weak ui-bt">
+					<span style="line-height: 30px;">物流单号：$!list.get(8)</span>
+				</li>
+				#end
+            </ul>
+		#end
+	#end
+</div>
+  <div class="qb_quick_tip qb_none" id="bubble"></div>
+</body></html>

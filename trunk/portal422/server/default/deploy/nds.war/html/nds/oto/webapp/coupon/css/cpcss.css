@@ -1,0 +1,68 @@
+.header.card {
+height: 109px;
+padding: 0px;
+-webkit-box-sizing: border-box;
+}
+
+.header.card div[data-role="card"] {
+	margin: auto;
+	-webkit-transition: all .5s ease-in;
+	position: relative;
+	height:109px;
+}
+
+.header.card div[data-role="card"]>div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	border-radius: 0px;
+}
+
+.header.card div[data-role="card"]>div.front {
+	-webkit-background-size: 281px 109px;
+}
+
+.header.card div[data-role="card"]>div.front .no {
+	bottom: 6px;
+	right: 10px;
+	text-align: right;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width: 200px;
+	font-size: 14px;
+	color: #ffffff;
+	text-overflow: ellipsis;
+}
+
+.header.card div[data-role="card"]>div.front>* {
+	position: absolute;
+	display: block;
+}
+
+.header.card div[data-role="card"]>div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+.header.card div[data-role="card"]>div.back {
+	-webkit-transform: rotateY(180deg);
+	display: none;
+	-webkit-box-sizing: border-box;
+	white-space: normal;
+	overflow: hidden;
+	line-height: 20px;
+	width: 281px;
+	height: 109px;
+	background:#fff;
+}
+.header.card div[data-role="card"].on{
+	-webkit-transform: rotateY(180deg);
+}
+.header.card div[data-role="card"].on>div.back img{
+	padding: 5px;
+	height: 80px;
+	width: 95%;
+}

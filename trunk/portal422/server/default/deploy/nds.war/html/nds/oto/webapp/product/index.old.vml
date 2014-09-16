@@ -1,0 +1,217 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webapp/product/init.vml')
+<html>
+<head>
+#parse("/html/nds/oto/webmall/topmeta.vml")
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/productDeatilTwo.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/zepto.scroll.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/zepto.extend.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/zepto.ui.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/touch.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/slider.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.js"></script>
+<link href="/html/nds/oto/webapp/product/css/backtop.css" rel="stylesheet" type="text/css" media="all">
+<link href="/html/nds/oto/webapp/product/css/product.css" rel="stylesheet" type="text/css" media="all">
+<link href="/html/nds/oto/webapp/product/css/slider.css" rel="stylesheet" type="text/css" media="all">
+<link href="/html/nds/oto/webapp/product/css/slider.default.css" rel="stylesheet" type="text/css" media="all">
+<style type="text/css">
+	.mod_fold .fold_detail img {
+		display: block;
+		width: 100%;
+	}
+</style>
+	<title>商品详情</title>
+</head>
+<body>
+	<a href="javascript:;" class="dib backtotop" id="backtop" style="">↕</a>
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+    <div class="lay_page page_detail current" id="page_detail">
+        <div class="lay_page_wrap">
+            <div class="mod_bg_lace"></div>
+            <div class="mod_slider" id="slider">
+                
+            </div>
+            <div class="fn_detail qb_gap qb_fs_l">
+                <h1 id="share-itemName">$product.itemname</h1>
+                <div class="price">
+                    现价： <strong class="mod_color_strong" id="price">￥$product.priceactual</strong>
+                    
+                    <del class="mod_color_weak qb_fs_s" id="maketPrice">￥$product.itemunitprice</del>
+                    
+                    <br>
+                </div>
+                <hr class="qb_hr">
+                <div id="prop-list">
+			<div id="spacesdesc" style="display:none;">$product.spec_description</div>
+			<input type="hidden" id="pdtid" value="$pdtid"/>
+			<input type="hidden" id="vipid" value="$vipid"/>
+			<div id="spacesInner" style="display:none;"></div>
+        <dl id="spacesdisplay" class="mod_dl qb_mb10 mod_lh_l qb_clearfix">
+
+        </dl>
+    </div>               
+                <div id="J_buy">
+                    <dl class="mod_dl mod_lh_l qb_mb10 qb_clearfix">
+                        <dt>数量：</dt>
+                        <dd>
+							<span class="quantity">
+							<span class="minus" tag="sub">
+							<i class="qb_icon icon_minus"></i>
+							</span>
+                            <input type="tel" id="buyNum" value="1"/>
+							<span tag="add" class="plus">
+							<i class="qb_icon icon_plus"></i>
+							</span>
+							</span>
+							<span class="qb_fs_s mod_color_comment">&nbsp;
+							<span id="stock-num-prev">剩余数量：</span>
+							<span id ="stock-num">$product.remainnum</span>
+							</span>
+							</dd>
+                    </dl>
+                    <hr class="qb_hr">
+                    <div class="qb_flex">
+                        <span class="mod_btn btn_block btn_em qb_mr10 flex_box" id="add-cart">加入购物车</span>
+                        <span class="mod_btn btn_block btn_strong  flex_box" id="buy-now">立即购买</span>
+                    </div>
+                </div>
+                <div id="J_buydisable" style="display:none;">
+                    <div class="btn_empty qb_tac mod_color_weak" id="J_nogoods">已经售完</div>
+                </div>
+                <hr class="qb_hr">
+                <h2>商品详情</h2>
+                <div class="mod_fold fold">
+                    <div class="fold_detail qb_fs_m qb_mb10 mod_color_weak maxheight qb_none" id="detail-info">
+					#if("$!product.description"=="")
+                        <div id="pdtcontent" style="color:#404040;font-family:tahoma, arial, 宋体;background-color:#FFFFFF;">暂无信息</div>
+					#else
+						<div id="pdtcontent" style="color:#404040;font-family:tahoma, arial, 宋体;background-color:#FFFFFF;">
+						$product.description
+						</div>
+					#end
+					</div>
+                    <div class="fold_arrow qb_tac qb_mb10" id="info-arrow">
+                        <div class="handle arrow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mod_dialog qb_none" id="message-notice">
+        <div class="dialog_mask"></div>
+        <div class="dialog_main qb_br qb_tac">
+            <div class="dialog_bd" id="notice-content"></div>
+            <div class="dialog_ft qb_flex"><a href="javascript:void(0);" class="flex_box" id="notice-cancel">取消</a><a href="javascript:void(0);" class="flex_box" id="notice-sure">确定</a></div>
+        </div>
+    </div>
+    <div class="qb_quick_tip qb_none" id="bubble"></div>
+    <script type="text/template" id="prop-tpl">
+        <dl class="mod_dl qb_mb10 mod_lh_l qb_clearfix">
+            <dt>{#pName#}：</dt>
+            <dd class="qb_color_weak mod_property" skuname="{#pName#}" index="{#index#}">{#pList#}</dd>
+        </dl>
+    </script>
+
+#parse("/html/nds/oto/webmall/footer.vml")
+<script>
+       $(function(){
+			window.selectNow = [];			
+				Wmp.Detail.selectSize('click', '#prop-list', 'span', function(now){
+                selectNow = now;
+            });
+            function getDetail(ev){
+                if($('.spacestr').length != $('.bcf90').length){
+					showBubble("请选择规格！！");
+					setTimeout(function () {
+						location.reload();
+					},1000);
+					return;
+				}
+                else{
+					if($('#buyNum').val() == 0){
+						showBubble("请输入数量！！");
+						setTimeout(function () {
+							location.reload();
+						},1000);
+						return;
+					}
+					
+                    if(ev.toElement.id == 'add-cart'){
+						//购物车						
+						addCart(selectNow.attr('data-value'),$('#buyNum').val());
+                    }
+                    else{
+                        //购买
+						toPay(selectNow.attr('data-value'),$('#buyNum').val());
+                    }
+                }
+            }
+            Wmp.Detail.addCart('click', '#add-cart', getDetail);
+            Wmp.Detail.addCart('click', '#buy-now', getDetail);
+			
+			var photoUrl="$product.itemphoto";
+			#foreach($album in $imgList)
+				photoUrl = photoUrl+","+"$album.get(2)";
+			#end
+			initDetil(photoUrl);
+});
+	var spaces=$("#spacesdesc").text();
+	var obj = JSON.parse(spaces);
+	var product = [];
+	var properties = [];
+	$(document).ready(function(){
+		var spaces=$("#spacesdesc").text();
+		var obj = JSON.parse(spaces);
+		if(obj&&obj.child){
+			var tempspace;
+			var tempspaces;
+			var spacehtml="";
+			var selectspace={};
+			var dk=[];
+			for(var l=0;l<obj.keys.length;l++){
+				keys=obj.keys[l];
+				spacehtml+="<dt value=\""+keys.id+"\" class=\"spacestr\">"+keys.name+":</dt><br><dd class=\"qb_color_weak mod_property\"index=\"0\" value=\""+keys.id+"\">";
+				var property ={
+									pid:keys.id,
+									ids:[]
+								}
+				for(var i=0;i<obj.child.length;i++){
+					jo=obj.child[i];
+					tempspaces=jo.space;
+					if(tempspaces){
+						dk.push(tempspaces);
+						var productStr="";
+						var spanid;
+						for(var j=0;j<tempspaces.length;j++){
+							tempspace=tempspaces[j];
+							productStr +=tempspace.id+"_";
+							if(tempspace.pid!=keys.id){continue;}
+							if(!selectspace.hasOwnProperty(tempspace.pid)){selectspace[tempspace.pid]={};}
+							if(!selectspace[tempspace.pid].hasOwnProperty(tempspace.id)){
+								selectspace[tempspace.pid][tempspace.id]={pid:tempspace.pid,id:tempspace.id,name:tempspace.name,value:tempspace.value};
+
+								spanid=keys.id+"-"+tempspace.id;
+								spacehtml+="<span skuname=\""+jo.sku+"\" spanid=\""+spanid+"\" tpid=\""+tempspace.pid+"\" tid=\""+tempspace.id+"\"  data-value=\"item_"+tempspace.pid+"_"+tempspace.id+"\" value=\""+tempspace.value+"\" class=\"property\">"+tempspace.name+"</span>";
+								property.ids.push(tempspace.id);
+							}
+						}
+						if(l==0){
+							
+							if(productStr){
+								productStr = productStr.substring(0,productStr.length-1);
+								product.push(productStr);
+							}
+							
+						}
+						
+					}
+				}
+				properties.push(property);
+				spacehtml+= "</dd>";
+				$("#spacesdisplay").html(spacehtml);
+			}
+		}
+	});
+</script>
+</body></html>

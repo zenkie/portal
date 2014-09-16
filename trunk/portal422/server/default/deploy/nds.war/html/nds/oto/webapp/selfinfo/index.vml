@@ -1,0 +1,44 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webapp/selfinfo/init.vml')
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+#parse("/html/nds/oto/webmall/topmeta.vml")
+<script language="javascript" src="/html/nds/oto/webapp/selfinfo/js/selfinfo.js"></script>
+<title>个人资料</title>
+</head>
+<body>    
+#parse("/html/nds/oto/webmall/lay_header.vml")
+    <form method="post" action="" id="ctl00">
+        <div class="lay_page">
+            <div class="lay_page_wrap">                 
+                <div class="qb_gap qb_pt10">
+                     <div class="qb_mb10 qb_none" id="tips"></div>
+                    <div class="qb_mb10 qb_flex">
+					#if("$!selfinfo.name"=="")
+					<input id="vipid" type="hidden" value="$!selfinfo.id">
+                        姓名：<input name="username" type="text" id="RealName" class="mod_input flex_box" placeholder="用户呢称">
+					#else
+						<input id="vipid" type="hidden" value="$!selfinfo.id">
+                        姓名：<input name="username" type="text" id="RealName" class="mod_input flex_box" placeholder="用户呢称" value="$selfinfo.name">
+					#end
+					</div>
+                    <div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="username_msg"></div> 
+                     
+                    <div class="qb_mb10 qb_flex">
+					#if("$!selfinfo.phonenum"=="")
+					电话：<input name="mobile" type="tel" id="Mobile" placeholder="联系电话" class="mod_input flex_box"></div>
+					#else
+                        电话：<input name="mobile" type="tel" id="Mobile" placeholder="联系电话" class="mod_input flex_box" value="$selfinfo.phonenum">
+					#end</div>
+                    <div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="mobile_msg"></div>
+					<input id="params" type="hidden"/>
+                    <div class="qb_mb10">
+                        <a id="save_user_info" class="mod_btn btn_em btn_block" onclick="Modify()">保存</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>    
+#parse("/html/nds/oto/webmall/footer.vml")
+</body></html>

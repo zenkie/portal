@@ -1,0 +1,33 @@
+#parse('/html/nds/oto/website/init.vml')
+#parse('/html/nds/oto/website/initList.vml')
+<html>
+<head>
+	#parse("/html/nds/oto/website/topmeta.vml")
+	<link href="/html/nds/oto/website/202/css/common.css" rel="Stylesheet" type="text/css" media="all">
+	<link href="/html/nds/oto/website/202/css/liebiao.css" rel="Stylesheet" type="text/css" media="all">	
+    <title>$web.name</title>
+</head>
+<body>
+	#parse("/html/nds/oto/website/rightColumn.vml")
+	<div class="wrapper" style="margin-top:20px;">
+        <ul class="mTh-itml">
+			#foreach($list in $allList)
+             <a href="$list.get(0)">
+            <li class="itm-th itm-fir clearfix">
+				<div class="avatar">
+					<img src="$list.get(2)" alt="$list.get(1)">
+				</div>
+                <dl class="itmd itmdpr">
+                    <dt class="itmdt">$stringutil.shorten($list.get(1),20)</dt>
+					#if($ptype=="pdt")
+                    <br><dd class="itmdc">￥$list.get(3)</dd>
+					#end
+                </dl>
+            </li>
+            </a>
+			#end
+        </ul>
+    </div>
+	#parse("/html/nds/oto/website/footer.vml")
+</body>
+</html>

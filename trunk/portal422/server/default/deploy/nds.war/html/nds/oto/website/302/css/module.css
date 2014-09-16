@@ -1,0 +1,346 @@
+/*-------
+mO-->module one
+mT-->module two
+mTh-->module three
+mFo-->module four
+mFi-->module five
+mSi-->module six
+mSe-->module seven
+mEi-->module eight
+mNi-->module nine
+mTe-->module ten
+
+
+ipb-->img box shadow
+lwh-->limit width height
+rbs-->round box shadow
+-------*/
+
+/*module one*/
+.mO-lwh
+{
+    width: 52px;
+    height: 52px;
+}
+
+.ibs
+{
+    display: inline-block;
+    position: relative;
+    padding: 3px 3px 0 3px;
+    background-color: #fff;
+}
+
+.ibs::before, .ibs::after
+{
+    position: absolute;
+    content: "";
+    width: 50%;
+    top: 15px;
+    bottom: 10px;
+    -webkit-box-shadow: 0 10px 3px rgba(0,0,0,0.4);
+    z-index: -1;
+}
+.ibs::before
+{
+    left: 4px;
+    -webkit-transform: rotate(-5.5deg);
+}
+
+.ibs::after
+{
+    right: 4px;
+    -webkit-transform: rotate(5.5deg);
+}
+.mO-ibs:before
+{
+    left: 1px;
+    -webkit-transform: rotate(-7.5deg);
+}
+.mO-ibs:after
+{
+    right: 1px;
+    -webkit-transform: rotate(7.5deg);
+}
+/*module six*/
+.mSi-lwh
+{
+    width: 65px;
+    height: 65px;
+}
+
+/*module eight*/
+.mEi-lwh
+{
+    width: 92px;
+    height: 92px;
+}
+
+/*round box*/
+.rbs
+{
+    padding: 3px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 3px 0px rgba(0,0,0,0.3);
+}
+
+.mT-lwh
+{
+    width: 55px;
+    height: 55px;
+    -webkit-border-radius: 29px;
+}
+
+.mFi-lwh
+{
+    width: 65px;
+    height: 65px;
+    overflow: hidden;
+    -webkit-border-radius: 34px;
+}
+
+.mFipic
+{
+}
+
+.mSe-lwh
+{
+    width: 81px;
+    height: 81px;
+    overflow: hidden;
+    -webkit-border-radius: 42px;
+}
+.mSepic
+{
+}
+/*
+tpbn-->topbanner
+itml-->item list
+itmd-->item list description
+itmdpr-->padding right
+itmdt-->item list description title
+itmdc-->item list desc content
+*/
+.wrapper
+{
+    width: 100%;
+}
+.tpbn
+{
+    width: 100%;
+}
+
+.itml
+{
+    width: 94%;
+    padding: 15px 3%;
+}
+.itm
+{
+    background: url(../images/ltrbg.png) no-repeat center right;
+    background-size: 8px;
+    background-orgin: border-box;
+}
+
+.itm.c1itm
+{
+    padding:10px 0;
+    border-bottom:1px solid #ccc;
+    -webkit-box-shadow:0 1px 0 rgba(255,255,255,1);
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,1);
+    box-shadow:0 1px 0 rgba(255,255,255,1);
+}
+.itm.c1itm h1.itmdt
+{
+    padding-top:15px;
+}
+
+.itm.c2itm
+{
+    padding:10px 0;
+    border-bottom:1px solid #ccc;
+    -webkit-box-shadow:0 1px 0 rgba(255,255,255,1);
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,1);
+    box-shadow:0 1px 0 rgba(255,255,255,1);
+}
+.itm.c2itm h1.itmdt
+{
+    padding-top:15px;
+}
+.itm.c2itm .mT-lwh
+{
+    -webkit-border-radius:55px;
+    -moz-border-radius:55px;
+    border-radius:55px;
+}
+
+.itmd
+{
+    overflow: hidden;
+}
+
+.itmdpr
+{
+    padding-right: 3%;
+}
+.itmdt
+{
+    font-size: 16px;
+    color: #333;
+}
+
+.itmdth1
+{
+    font-size: 14px;
+    color: #171819;
+}
+
+.itmdc
+{
+    font-size: 14px;
+    font-weight: normal;
+    color: #8e8e8e;
+}
+
+/* module three*/
+.mTh-itml
+{
+    width: 100%;
+}
+
+.itm-th
+{
+    width: 92%;
+    padding: 10px 4%;
+    background: #ebebeb;
+    background-image: url(../images/ltrbg.png),-webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#e6e6e6));
+    background-image: url(../images/ltrbg.png),-webkit-linear-gradient(top,#f1f1f1,#e6e6e6);
+    background-repeat: no-repeat;
+    background-position: 96% 50%;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid rgba(205,205,205,0.75);
+    -webkit-box-shadow:0 1px 0 rgba(255,255,255,1);
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,1);
+    box-shadow:0 1px 0 rgba(255,255,255,1);
+    margin-top:1px;
+}
+.itm-fir
+{
+    border-top: none;
+}
+
+.mTh-itml .itmdt
+{
+    font-size: 16px;
+}
+.mTh-itml .itmdc
+{
+    font-size: 14px;
+}
+
+/* module four*/
+.mFo-itml
+{
+    width: 100%;
+}
+
+.mFo-itml .itmdt
+{
+    font-size: 18px;
+    font-weight: normal;
+}
+
+/*module five
+latcl-->lattice left
+latcm-->lattice middle
+latcr-->lattice right
+blat-->base lattice
+latct--> lattice title
+latclw-->lattice left width
+latcmw
+latcrw
+*/
+.latc
+{
+    float: left;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.latc .rbs
+{
+    margin: 0 auto;
+}
+
+.blat
+{
+    border-top: 1px solid #fff;
+    border-right: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+}
+
+.latcl
+{
+    border-left: none;
+}
+.latclw
+{
+    width: 32.5%;
+}
+
+.latcm
+{
+    border-left: 1px solid #fff;
+}
+.latcmw
+{
+    width: 33%;
+}
+
+.latcr
+{
+    border-right: none;
+    border-left: 1px solid #fff;
+}
+.latcrw
+{
+    width: 32.5%;
+}
+
+.latct
+{
+    font-size: 12px;
+    color: #333;
+}
+.latct.c5latct
+{
+    color:#fff;
+}
+
+.firstli .blat
+{
+    border-top: none;
+}
+
+/*module seven*/
+.latclw-se
+{
+    width: 49.5%;
+}
+
+.place
+{
+    background: #ececec;
+    overflow: hidden;
+    padding: 3% 0;
+    width: 100%;
+}
+.place a
+{
+    float: left;
+    width: 33.3%;
+    text-align: center;
+    color: #aaaaaa;
+    font-size: 16px;
+    text-decoration: none;
+}

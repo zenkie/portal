@@ -1,0 +1,55 @@
+#parse('/html/nds/oto/website/init.vml')
+#parse('/html/nds/oto/webapp/context/init.vml')
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" id="V" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="x-rim-auto-match" content="none">
+<script src="/html/nds/oto/website/js/jquery.js" type="text/javascript"></script>
+<script src="/html/nds/oto/website/js/dropdownmenu.js" type="text/javascript"></script>
+<script src="/html/nds/oto/webapp/js/backtop.js" type="text/javascript"></script>
+<link href="/html/nds/oto/webapp/context/css/wxshop.css" rel="stylesheet" type="text/css" media="all">
+<title>$web.name</title>
+<script>
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+WeixinJSBridge.call('hideToolbar');
+});
+</script>
+</head>
+<body>
+#parse("/html/nds/oto/website/rightColumn.vml")
+<a href="javascript:;" class="dib backtotop" id="backtop" style="display: none;">↕</a>
+<div id="wrap" style="margin-top: 10px;">
+    <ul class="similar-goods" style=" margin-bottom:5px;">
+            <li class="similar-common similar-first">
+				<h1 class="article-title f16bold" style="padding: 5px 0;font-size:18px!important;">$!article.articletitle</h1>
+				<h2 class="article-title" style="padding: 5px 0;color: #9a9b96;">
+					日期：$v.fmt($!article.creationdate,"yyyy-MM-dd")　浏览次数：$!article.browsenum　
+					<a href="javascript:;">$company.wxnum</a>
+				</h2>
+				#if($!article.isshowimage == "是")
+                <img class="article-match-pic" src="$!article.articlephoto" alt="$!article.articletitle">
+				#end
+                <p class="article-overview">
+				<div id="content">$!article.content</div>
+                </p>
+            </li>
+    </ul>
+	<!--返回顶部-->
+	<div id="backlayer" onclick="$(this).hide()" style="background:none repeat scroll 0 0 rgba(0,0,0,0.7);display:none;width:100%;height:100%;position:fixed;left:0;top:0;z-index:10000">
+		<img style="width:260px !important;height:180px !important;position:fixed;right:10px;top:5px;z-index:10001;" src="/html/nds/oto/webapp/images/guide.png">
+	</div>
+	<!--分享公共界面-->
+		<div style="background-color:#E8E8E8;background-image:linear-gradient(to top,#DBDBDB,#F4F4F4);border:1px solid #ADAdAB;border-radius:3px;box-shadow:0 1px 1px rgba(0,0,0,0.45),0 1px 1px #EFEFEF inset;color:#000;font-size:12px;text-align:center;text-shadow:0.5px 0.5px 1px #FFF;background:url(/html/nds/oto/webapp/images/icon_msg.png) no-repeat;background-size:20px 20px;width:20px;height:20px;float: right;margin: 5px 35px 5px 5px;" onclick="$(&#39;#backlayer&#39;).show()">
+		</div>
+		<div style="background-color:#E8E8E8;background-image:linear-gradient(to top,#DBDBDB,#F4F4F4);border:1px solid #ADAdAB;border-radius:3px;box-shadow:0 1px 1px rgba(0,0,0,0.45),0 1px 1px #EFEFEF inset;color:#000;font-size:12px;text-align:center;text-shadow:0.5px 0.5px 1px #FFF;background:url(/html/nds/oto/webapp/images/icon_timeline.png)no-repeat;background-size:20px 20px;width:20px;height:20px;float: right;margin: 5px 5px 5px 5px;" onclick="$(&#39;#backlayer&#39;).show()">
+		</div>
+</div>
+#parse("/html/nds/oto/website/footer.vml")
+<script type="text/javascript">
+$("#content").find("img").each(function(){$(this).css("height","")});
+</script>
+</body></html>

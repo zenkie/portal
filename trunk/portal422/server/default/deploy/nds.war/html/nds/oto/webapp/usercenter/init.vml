@@ -1,0 +1,13 @@
+#if("$!vipid"=="")
+	#set($url="/html/nds/oto/webapp/error/index.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#else
+	#set ($erp=$myweb.getObject("WX_INTERFACESET","WX_INTERFACESET.AD_CLIENT_ID=$myweb.getClientId()"))
+	#set ($vip = $myweb.getObject("WX_VIP","WX_VIP.ID=$vipid"))
+	#if($vip.opencard_status=='未启用')
+		#set($url="/html/nds/oto/webapp/collectcards/index.vml")
+		#$myweb.forwardTourl($url,$request,$response);
+	#end
+	#set ($vipCard =$myweb.getObject("WX_VIPBASESET",$getutil.getInteger($vip.get("viptype;id"))))
+	#set ($bindcard =$myweb.getObject("WX_BINDCARD","WX_BINDCARD.WX_VIP_ID=$vipid"))
+#end

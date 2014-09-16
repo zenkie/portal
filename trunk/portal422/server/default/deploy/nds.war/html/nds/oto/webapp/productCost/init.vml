@@ -1,0 +1,9 @@
+#if("$!vipid"=="")
+    #set($url="/html/nds/oto/webapp/error/index.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
+#set ($vip = $myweb.getObject("WX_VIP","WX_VIP.ID=$vipid"))
+#set ($pdtid= $getutil.getInteger($request.getParameter("id") ,-1))
+#set ($product = $myweb.getObject("WX_COST_APPENDGOODS","WX_COST_APPENDGOODS.ID=$pdtid"))
+#set ($imgList = $myweb.getList("WX_PDT_IMAGE","WX_SETAD","WX_PDT_IMAGE.WX_APPENDGOODS_ID=$pdtid"))
+#set ($commentList = $myweb.getList("WX_COMMENT","WX_SETAD","WX_COMMENT.WX_APPENDGOODS_ID=$pdtid"))
