@@ -68,11 +68,7 @@
 	</section>
 </div>
 #parse("/html/nds/oto/website/rightColumnNew.vml")
-<footer style="overflow:visible;">
-	<div class="weimob-copyright">
-		#parse("/html/nds/oto/website/footer.vml")
-	</div>
-</footer>
+#parse("/html/nds/oto/website/footer.vml")
 <script type="text/javascript">			
 	var nav= $("#nav");
 	var showlist =$("#showlist");		
