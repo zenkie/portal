@@ -814,7 +814,7 @@ del {
 .FocusPic {
   width: 320px;
   overflow: hidden;
-  height: 150px;
+  height: 175px;
   position: relative;
   margin: 0 auto;
 }
