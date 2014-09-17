@@ -162,8 +162,8 @@ PortalControl.prototype = {
 		//var e=$("embed-lines");
 		//识别IE8 列表宽度问题
 		if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.match(/8./i)=="8."){
-    limitWidth=(jQuery("#portal-menu").css("display")=="block")?jQuery("#portal-menu").width():jQuery("#portal-separator").width();
-  	}
+			limitWidth=(jQuery(".nav_right").css("display")=="block")?jQuery(".nav_right").width()+jQuery("#portal_middle_left_fmenu").width():jQuery("#portal_middle_left_fmenu").width();
+		}
 		var e=$("portal-content");
 		if(e==null)return;
 		if (!is_safari) {
