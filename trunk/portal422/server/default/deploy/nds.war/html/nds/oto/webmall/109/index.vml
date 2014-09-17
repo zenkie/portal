@@ -110,7 +110,7 @@
 		<section class="index_wap">        
 			<h2>品牌</h2>   
 			<div class="index_pics">
-			#set ($allBrand =$myweb.getList("WX_PDTBRAND","WX_SETAD"))
+			#set ($allBrand =$myweb.getList("WX_PDTBRAND","WX_GETLIST"))
 			#set ($a = 0)
 			#foreach($list in $allBrand)
 			#if($a % 2 == 0)
