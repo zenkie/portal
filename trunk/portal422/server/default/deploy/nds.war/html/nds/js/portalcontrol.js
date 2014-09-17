@@ -28,7 +28,7 @@ PortalControl.prototype = {
 			//查询功能按钮
 			//识别IE8 没有查询功能
 			if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.match(/8./i)=="8."){
-				$("portal_middle_right_search_input").attr("display","none");
+				jQuery("portal_middle_right_search_input").attr("display","none");
 			}
 			if(tabs.childNodes.length>0){tabs.childNodes[0].select();}
 			gMenuObjects=null;

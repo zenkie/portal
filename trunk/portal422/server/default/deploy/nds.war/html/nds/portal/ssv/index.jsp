@@ -302,7 +302,7 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 				<div id="portal_middle_right_search_title" class="<%=ssId!=-1?"content_right-title":"title-left"%>" style="margin-left: 10px;">子系统</div>
 				
 					<div id="portal_middle_right_search_input" class="<%=ssId!=-1?"search-1":"search"%>" >
-						<form name="lab" method="post" onsubmit="pc.navigate(\"ad_table\")"><input id="pojam" type="text" class="search-button" autocomplete="off" placeholder="搜索菜单或关键字"/></form>
+						<form name="lab" method="post" onsubmit="pc.navigate('ad_table')"><input id="pojam" type="text" class="search-button" autocomplete="off" placeholder="搜索菜单或关键字"/></form>
 					</div>
 					<div style="margin:0;overflow:hidden;" ><%@ include file="../list_menu.jsp" %></div>
 			</div>
