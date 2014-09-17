@@ -10,6 +10,7 @@
 </head>
 <body>
 	#parse("/html/nds/oto/webmall/lay_header.vml")
+	#if($shop.size() != 0)
     <div class="lay_page current">
         <div class="lay_page_wrap">           
             <section id="content">  
@@ -73,6 +74,11 @@
             </section>
         </div>
     </div>
+	#else
+		<div onclick="window.open('/mall.jsp');">
+			<img src="/html/nds/oto/webmall/images/empty_cart.png" style="width:100%;">
+		</div>
+	#end
 	<input type="hidden" value="$vipid" id="vipid">
     <div class="qb_quick_tip qb_none" id="bubble"></div>
     <div class="mod_dialog qb_none" id="message-notice">
