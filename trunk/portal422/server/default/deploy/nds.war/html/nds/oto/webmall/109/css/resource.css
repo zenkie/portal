@@ -1208,12 +1208,11 @@ div.order_paypage table td {
 }
 .index_wap .index_list li strong {
   color: #c00;
-  font-size: 15px;
   float: left;
   margin-left: 8px;
 }
 .index_wap .index_list li del {
-  margin-right: 8px;
+  margin: 0 5px;
   vertical-align: middle;
 }
 #slider li img {

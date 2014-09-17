@@ -93,6 +93,7 @@
 		#set ($allList =$myweb.getList("WX_APPENDGOODS","WX_SETAD","WX_APPENDGOODS.ISHOT==Y"))
 		#foreach($list in $allList)
             <li>
+				<div class="hotpdt"></div>
 				<a href="$list.get(0)" title="$list.get(2)">
 					<img src="$list.get(1)">
                 </a>
