@@ -102,6 +102,12 @@ var productqty=$product.remainnum;
                     <div class="btn_empty qb_tac mod_color_weak" id="J_nogoods">已经售完</div>
                 </div>
 			</div>
+			
+			<div class="to_index" onclick="window.open('/mall.jsp');">
+				<span class="to_mall">$mall.name</span>
+				<span class="to_link">进入店铺</span>
+			</div>
+			
     		<div class="custom-store custom-store-link clearfix">
 				<a class="custom-store-name showthis" href="javascript:;" onclick="showcontent();">商品详情</a>
 				<a class="comment-content" href="javascript:;" onclick="showcontent();">商品评价($commentList.size())</a>
