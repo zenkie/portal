@@ -165,6 +165,7 @@ PortalControl.prototype = {
 			limitWidth=(jQuery(".nav_right").css("display")=="block")?jQuery(".nav_right").width()+jQuery("#portal_middle_left_fmenu").width():jQuery("#portal_middle_left_fmenu").width();
 		}
 		var e=$("portal-content");
+		if(limitWidth==null)limitWidth=200;
 		if(e==null)return;
 		if (!is_safari) {
 			e.style.width= (document.body.clientWidth - limitWidth)+"px";
