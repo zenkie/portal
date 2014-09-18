@@ -4,7 +4,11 @@
 <html>
 <head>
 	#parse("/html/nds/oto/webmall/topmeta.vml")
-    <title>全部商品</title>
+	#if($cateid!=-1)
+		<title>$cate.categoryname</title>
+	#else
+		<title>全部分类</title>
+	#end
 </head>
 <body>
 #parse("/html/nds/oto/webmall/lay_header.vml")
