@@ -60,7 +60,7 @@ utils.isExistWxappid = function(obj){
 };
 utils.checkPhone = function(obj,hint){
 	jQuery("#WXAPPID").attr("disabled",true);
-	var reg=/^((\(\d{2,3}\))|(\d{3}\-))?1[3,8,5]{1}\d{9}$/;
+	var reg=/^((\(\d{2,3}\))|(\d{3}\-))?1[3,4,5,7,8]{1}\d{9}$/;
 	if(!this.isEmpty(obj) && reg.test(obj)){		
 		if(!this.isExistPhone(obj)){
 			this.displayHint(hint,"该手机还未注册");
