@@ -99,10 +99,12 @@ var productqty=$product.remainnum;
 						</dd>
 					</dl>
 				</div>
+				#if($mall.discount != "")
 				<div class="discount">
 					<span class="discount_icon">优惠信息</span>
 					<div class="discount_info">$mall.discount</div>
 				</div>
+				#end
 				<div id="J_buydisable" style="display:none;">
                     <div class="btn_empty qb_tac mod_color_weak" id="J_nogoods">已经售完</div>
                 </div>
