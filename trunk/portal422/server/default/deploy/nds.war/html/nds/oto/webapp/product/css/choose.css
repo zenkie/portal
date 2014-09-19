@@ -485,3 +485,20 @@ margin-left: 8px;
 	right: 0;
 	margin-right: 20px;
 }
+.discount{
+	padding-bottom: 10px;
+}
+.discount_icon{
+	background:url(/html/nds/oto/webapp/product/images/discount_icon.png) left no-repeat;
+	background-size: 40px;
+	padding: 0 35px;
+	line-height:35px;
+	color:#666;
+}
+.discount_info{
+	color:#fff;
+	border-radius:10px;
+	background:#827c92;
+	margin: 0 10px;
+	padding: 5px;
+}
