@@ -26,6 +26,7 @@ utils.checkWxappid = function(obj,hint){
 		this.hiddenHint(hint);
 		return true;
 	}else{
+		this.displayHint(hint);
 		return false;
 	}
 };
@@ -54,7 +55,7 @@ utils.checkPswdSe = function(newObj,hint){
 	}
 };
 utils.checkPhoneSMS = function(obj,hint){//验证手机唯一，是否已经注册过，注册过不需要发送短信
-	var reg=/^((\(\d{2,3}\))|(\d{3}\-))?1[3,8,5]{1}\d{9}$/;
+	var reg=/^((\(\d{2,3}\))|(\d{3}\-))?1[3,4,5,7,8]{1}\d{9}$/;
 	if(!this.isEmpty(obj) && reg.test(obj)){
 		var _data;
 		var existObj = "PHONENUMBER";
@@ -81,7 +82,7 @@ utils.checkPhoneSMS = function(obj,hint){//验证手机唯一，是否已经注�
 	}
 };
 utils.checkPhone = function(obj,hint){
-	var reg=/^((\(\d{2,3}\))|(\d{3}\-))?1[3,8,5]{1}\d{9}$/;
+	var reg=/^((\(\d{2,3}\))|(\d{3}\-))?1[3,4,5,7,8]{1}\d{9}$/;
 	if(!this.isEmpty(obj) && reg.test(obj)){
 		if(this.isExistPhone(obj,hint,"该手机号码已被绑定，请<a class='link_blue' href='/login.jsp' target='_blank'>直接登录</a>或<a class='link_forget'  href='/html/nds/oto/findpwd/index.html' target='_blank'>忘记星云密码？</a>")){
 			return false;
@@ -89,6 +90,7 @@ utils.checkPhone = function(obj,hint){
 		this.hiddenHint(hint);
 		return true;
 	}else{
+		this.displayHint(hint);
 		return false;
 	}
 };
@@ -106,6 +108,7 @@ utils.checkMail = function(obj,hint){
 		this.hiddenHint(hint);
 		return true;
 	}else{
+		this.displayHint(hint);
 		return false;
 	}
 };

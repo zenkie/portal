@@ -72,7 +72,7 @@
 <div class="header_top">
 	<div class="warpper header">
 		<div class="topbar clearfix">
-			<h1><a href="index.html"><img src="/html/nds/oto/register/images/logo318x90white.png" alt="星云微信移动平台" /></a></h1>
+			<h1><a href="/"><img src="/html/nds/oto/register/images/logo318x90white.png" alt="星云微信移动平台" /></a></h1>
 		</div>
 	</div>
 </div>
@@ -120,8 +120,30 @@
 					<td>
 						<select name="BUSINESS" id="BUSINESS" class="selectW1" verify="Business">
 							<option value="-1">请选择主营业务</option>
-							<option value="互联网商城">互联网商城</option>
-							<option value="互联网商城">互联网商城</option>
+							<option value="女装">女装</option>
+							<option value="男装">男装</option>
+							<option value="美妆护肤">美妆护肤</option>
+							<option value="男鞋">男鞋</option>
+							<option value="箱包">箱包</option>
+							<option value="母婴玩具">母婴玩具</option>
+							<option value="食品特产">食品特产</option>
+							<option value="家居家纺">家居家纺</option>
+							<option value="创意礼品">创意礼品</option>
+							<option value="3C数码">3C数码</option>
+							<option value="女鞋">女鞋</option>
+							<option value="男女内衣">男女内衣</option>
+							<option value="运动户外">运动户外</option>
+							<option value="童装童鞋">童装童鞋</option>
+							<option value="珠宝首饰">珠宝首饰</option>
+							<option value="日用百货">日用百货</option>
+							<option value="汽车配件">汽车配件</option>
+							<option value="医药保健">医药保健</option>
+							<option value="生活服务">生活服务</option>
+							<option value="媒体服务">媒体服务</option>
+							<option value="装修建材">装修建材</option>
+							<option value="服装配饰">服装配饰</option>
+							<option value="家用电器">家用电器</option>
+							<option value="综合其他">综合其他</option>
 						</select>
 						<span class="notice red">*</span>
 						<span class="notice hint" hintInfo="请选择主营业务!" notiInfo=""></span>
