@@ -16,7 +16,9 @@
 <title>收货地址管理</title>
 </head>
 <body>
-#parse("/html/nds/oto/webmall/lay_header.vml")
+#if($mall.showmenu == '否')
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+#end
     <div class="lay_page page_address_manage current" id="page_address_manage">
         <div class="lay_page_wrap">           
 			<div id="addressList">
@@ -62,4 +64,7 @@
 	<input type="hidden" id="status" value="$status"/>
 	<input type="hidden" id="cost" value="$cost"/>	
 #parse("/html/nds/oto/webmall/footer.vml")
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
 </body></html>
