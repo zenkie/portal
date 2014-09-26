@@ -57,6 +57,7 @@ var oct;
 var ordercontroll=function(){};
 ordercontroll.prototype.initialize=function(){
 	this.orderId=0;				//订单ID
+	this.ad_client_id=0;		//公司编号
 	this.orderCode="";			//订单编号
 	this.shipmentFree=0;		//动费
 	this.totalFree=0;			//应付金额=商品金额+动费
@@ -76,7 +77,7 @@ ordercontroll.prototype.changeLogistics=function(){
 		return false;
 	}	
 	if(addressId&&!isNaN(addressId)){addressId=parseInt(addressId);}	
-	var _params = "{\"webaction\":\"wx_logistics_free\",\"id\":0,\"query\":{\"addressid\":"+addressId+"}}";
+	var _params = "{\"webaction\":\"wx_logistics_free\",\"id\":0,\"query\":{\"addressid\":"+addressId+",\"companyid\":"+oct.ad_client_id+"}}";
 	$.ajax({
 		url: '/html/nds/schema/restajax.jsp',
 		type: 'post',
@@ -127,6 +128,8 @@ ordercontroll.prototype.callpay=function(){
 		}else{
 			document.alipayment.submit();
 		}
+	}else if(paycode&&/weixin/.test(paycode)){
+		wxs.weixinpay();
 	}else{
 		showBubble("暂时只支付支付宝支付！",1500);
 		return false;

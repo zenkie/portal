@@ -112,3 +112,23 @@ font-size: 0;
 height: 0;
 line-height: 0;
 }
+.mylogistics,.call_cust{
+	float:right;
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	right: 30px;
+	border: 1px solid #82878a;
+	border-width: 1px 1px 0 0;
+	-webkit-transform: rotate(45deg);
+	margin: 3px;
+}
+.to_callcust{
+	background:url(/html/nds/oto/webapp/images/conn_cust.png) no-repeat;
+	background-size: 25px;
+	padding: 5px 35px;
+	display:block;
+	font-size: 14px!important;
+	line-height: 14px;
+}
