@@ -3,12 +3,15 @@
 <html">
 <head>
 #parse("/html/nds/oto/webmall/topmeta.vml")
+<script type="text/javascript" src="/html/nds/oto/webmall/js/jquery.image.delay.js"></script>
+<link href="/html/nds/oto/webmall/201/css/touchstyle.css" rel="stylesheet" type="text/css" media="all">
 <title>$cate.categoryname</title>
 </head>
 <body>
 #if($mall.showmenu == '否')
 	#parse("/html/nds/oto/webmall/lay_header.vml")
 #end
+<div id="lay_head"></div>
     <div class="lay_page page_cat_1">
         <div class="lay_page_wrap">
             <div>
@@ -25,7 +28,7 @@
 					<div class="hotpdt"></div>
 				#end
 					<a href="$list.get(0)">
-						<img src="$list.get(2)" width="140" height="140" class="default">
+						<img data-src="$list.get(2)" width="140" height="140" class="default">
 						<div class="goods_name qb_fs_s mod_color_weak">$list.get(1)</div>
 						<div class="price qb_fs_s mod_color_strong">
 						#if($iscost =='Y')
