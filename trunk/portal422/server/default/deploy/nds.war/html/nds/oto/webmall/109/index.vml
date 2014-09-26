@@ -88,7 +88,7 @@
 	
 	<!-- 热销商品列表 -->
 	<section class="index_wap">        
-        <h2>热销商品</h2>     
+        <h2>热销商品</h2>
         <ul class="index_list">
 		#set ($allList =$myweb.getList("WX_APPENDGOODS","WX_SETAD","WX_APPENDGOODS.ISHOT==Y"))
 		#foreach($list in $allList)
@@ -139,6 +139,9 @@
 	#end
 </div>
 #parse("/html/nds/oto/webmall/footer.vml")
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
 </body>
 <!--首页的js效果--> 
 <script>

@@ -7,6 +7,7 @@ var wxs={
 	desc:"测试分享测试分享测试分享",
 	fakeid:"",
 	weixinno:"",
+	orderinfo:{},
 	callback:function(res){WeixinJSBridge.log(res.err_msg);}
 };
 var weixinshareing=new function(){};
@@ -67,6 +68,7 @@ wxs.onBridgeReady=function(){
 		);
 	});
 };
+
 wxs.attention=function(){
 	if(typeof WeixinJSBridge != "undefined" && WeixinJSBridge.invoke){
 		/*WeixinJSBridge.invoke(
@@ -86,6 +88,22 @@ wxs.attention=function(){
 		);
 	}
 };
+
+wxs.weixinpay=function(){
+	WeixinJSBridge.invoke(
+		'getBrandWCPayRequest',
+		wxs.orderinfo,
+		function(res){
+			if(res.err_msg=="ok"){
+				showBubble("支付成功！");
+			}else{
+				WeixinJSBridge.log(res.err_msg);
+				alert(res.err_code+"<=>"+res.err_msg+"<=>"+res.err_desc)
+			}
+		}
+	);
+}
+
 wxs.main=function(){
 	/*wxs=new weixinshareing();
 	wxs.initialize();*/

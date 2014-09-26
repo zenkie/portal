@@ -1,0 +1,79 @@
+.navigation{
+	width: 100%;
+	height:45px;
+	background-color: #333;
+	display: -webkit-box;
+	position:fixed;
+	bottom: 0;
+	left: 0;
+}
+.gohome{
+	width: 25%;
+	display:block;
+	background:url(/html/nds/oto/webmall/images/gohome.png) center no-repeat;
+	background-size: 90px 35px;
+}
+.tohot{
+	width: 25%;
+	display:block;
+	background:url(/html/nds/oto/webmall/images/tohot.png) center no-repeat;
+	background-size: 90px 35px;
+}
+.tocust{
+	width: 25%;
+	display:block;
+	background:url(/html/nds/oto/webmall/images/tocust.png) center no-repeat;
+	background-size: 90px 35px;
+}
+.mine{
+	width: 25%;
+	display:block;
+	background:url(/html/nds/oto/webmall/images/mine.png) center no-repeat;
+	background-size: 90px 35px;
+}
+.subnav{
+	width:100px;
+	position:absolute;
+	border:1px solid #333;
+	background:#333;
+	border-radius:4px;
+	margin: 10px;
+	text-align:center;
+	bottom: 45px;
+	right: 0;
+	display:none;
+}
+.subnav a{
+	width:100px;
+	line-height:38px;
+	color:#fff;
+}
+.cart_num{
+	border-radius: 20px;
+	background: #ff0000;
+	color: #fff;
+	padding: 0px 5px;
+}
+.angle_left,.angle_right{
+	display:block;
+	height:0px;
+	width:0px;
+	position:absolute;
+	font-size:0;
+	line-height:0;
+}
+.angle_left{
+	bottom:-8px;/* 它的绝对值加上span的边框宽度等于div边框宽度的5倍 */
+	left:45px;/* 它来确定尖角的位置 */
+	border-bottom:0px;
+	border-right:5px solid #333;
+	border-left:5px solid #333;
+}
+.angle_right{
+	bottom:2px;  /* 是自身边框宽度的2倍 */
+	left:-5px; /* 是自身边框宽度的-1倍  */
+	border-bottom:0px;
+	border-top:5px solid #333;
+	border-right:5px solid #fff;
+	border-left:5px solid #fff;
+}

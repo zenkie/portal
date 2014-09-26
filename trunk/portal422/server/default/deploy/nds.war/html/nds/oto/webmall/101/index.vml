@@ -2,7 +2,7 @@
 #parse('/html/nds/oto/webmall/initIndex.vml')
 <html><head>
 #parse("/html/nds/oto/webmall/topmeta.vml")
-<title>微商城</title>
+<title>$mall.name</title>
 <script>
 	var iphone = /iphone/.test(navigator.platform.toLowerCase());
 	if(!iphone){
@@ -12,8 +12,10 @@
 	}
 </script>
 </head>
-<body>    
+<body>
+#if($mall.showmenu == '否')
 	#parse("/html/nds/oto/webmall/lay_header.vml")
+#end
     <div class="lay_page ">
         <div class="lay_page_wrap">
             <div class="fn_indexad">                
@@ -31,4 +33,7 @@
 	#parse("/html/nds/oto/webmall/footer.vml")
     </div>
 </div>
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
 </body></html>

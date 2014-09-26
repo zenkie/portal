@@ -1,6 +1,7 @@
 <div class="lay_header">
+#set ($tempmode=$myweb.getObject("WEB_MAIL_TMP","WEB_MAIL_TMP.AD_CLIENT_ID=$myweb.getClientId()"))
     <div class="lay_toptab mod_tab" id="lay_head">
-        <a class="tab_item" href="/html/nds/oto/webmall/301/index.vml?ptype=pdt"><i class="qb_icon icon_goback"></i></a>
+        <a class="tab_item" href="/html/nds/oto/webmall/$tempmode.mclass_tmp/index.vml?ptype=pdt"><i class="qb_icon icon_goback"></i></a>
         <a class="tab_item tab_item_logo" href="/mall.jsp">
             <img src="$mall.image">
         </a>

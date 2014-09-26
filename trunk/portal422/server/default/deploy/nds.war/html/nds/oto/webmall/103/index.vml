@@ -2,7 +2,7 @@
 #parse('/html/nds/oto/webmall/initIndex.vml')
 <html><head>
 #parse("/html/nds/oto/webmall/topmeta.vml")
-<title>微商城</title>
+<title>$mall.name</title>
 <link rel="stylesheet" type="text/css" href="/html/nds/oto/webmall/103/css/main.css">
 
 <script type="text/javascript" src="/html/nds/oto/webmall/103/js/snapBox_min.js"></script>
@@ -59,4 +59,7 @@
 		</section>
 	</div>
 #parse("/html/nds/oto/webmall/footer.vml")
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
 </body></html>
