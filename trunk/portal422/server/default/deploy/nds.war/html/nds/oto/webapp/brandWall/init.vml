@@ -1,0 +1,1 @@
+#set ($allBrand = $myweb.getList("WX_PDTBRAND","WX_SETAD"))
