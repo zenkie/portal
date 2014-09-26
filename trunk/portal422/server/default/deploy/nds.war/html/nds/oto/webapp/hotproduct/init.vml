@@ -1,0 +1,2 @@
+#set ($allColumn =$myweb.getList("WX_V1_SETCOLUMN","WX_SETAD","WX_V1_SETCOLUMN.AD_CLIENT_ID=$myweb.getClientId()"))
+#set ($allList =$myweb.getList("WX_APPENDGOODS","WX_SETAD","WX_APPENDGOODS.ISHOT==Y"))
