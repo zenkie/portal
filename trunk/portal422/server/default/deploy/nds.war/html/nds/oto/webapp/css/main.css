@@ -341,7 +341,10 @@ footer .nav li>a>p{
 footer .nav li>a>p.back{
 	width: 40px!important;
 	height: 31px!important;
-	background:url(/html/nds/oto/webapp/images/backto.png) no-repeat !important;
+	background:url(/html/nds/oto/webapp/images/backto.png) no-repeat;
+	background-size:40px 31px;
+	background-position-y: 0px;
+	background-position-x: -5px;
 }
 footer .nav li>a>p.my{
 	width: 63px;
@@ -354,18 +357,16 @@ footer .nav li>a>p.my{
 footer .nav li>a>p.mall{
 	width: 40px;
 	height: 31px;
-	background:url(/html/nds/oto/webapp/images/mall.png) no-repeat !important;
+	background:url(/html/nds/oto/webapp/images/mall.png) no-repeat;
+	background-size:40px 31px;
+	background-position-y: 0px;
+	background-position-x: -5px;
 }
 footer .nav li>a>p.check{
 	width: 40px;
 	height: 31px;
 	background:url(/html/nds/oto/webapp/images/check.png) no-repeat !important;
 }
-
-footer .nav li>a.on>p, footer .nav li>a.active>p{
-	background-position-y:-45px;
-}
-
 footer .nav li>a.home{
 	height:70px;
 	width:70px;
@@ -565,7 +566,7 @@ footer .nav li>a.home{
 .list_ul li .label>i{
 	display:inline-block;
 	width:33px;
-	height:20px;
+	height:25px;
 	background:url(/html/nds/oto/webapp/images/icons1.png) no-repeat -5px -10px;
 	-webkit-background-size:40px auto;
 	float: left;

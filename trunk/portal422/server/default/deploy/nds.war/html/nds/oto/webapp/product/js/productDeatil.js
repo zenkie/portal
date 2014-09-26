@@ -355,59 +355,166 @@ function goTopEx() {
         }
     }
 }
+(function (ev) {
+    if (ev.TouchUtil) { return; }
+
+    var util = ev.TouchUtil = {};
+
+    function touch() { }
+    touch.prototype.Call = function (handle) {
+        var paras = [];
+        paras.push.apply(paras, arguments);
+        paras.shift();
+        if (typeof handle == 'function') {
+            return handle.apply(this, paras);
+        }
+    }
+    touch.prototype.Directions = { none: 0, left: 1, right: 2, top: 3, bottom: 4 };
+    touch.prototype.TouchParams = { OriX: 0, OriY: 0, EndX: 0, EndY: 0, Direction: '', osY: 0, osX: 0, esY: 0, esX: 0 };
+    touch.prototype.TouchStart = function (ev) {
+        var _params = this.TouchParams;
+        ev = this.GetTouchEvent(ev);
+        _params.OriX = ev._X;
+        _params.OriY = ev._Y;
+        _params.osY = document.body.scrollTop || document.documentElement.scrollTop;
+        _params.osX = document.body.scrollLeft || document.documentElement.scrollLeft
+        this.Call(this.OnTouchStart, _params, ev);
+    }
+    touch.prototype.TouchEnd = function (ev) {
+        var _params = this.TouchParams;
+        ev = this.GetTouchEvent(ev);
+        _params.EndX = ev._X;
+        _params.EndY = ev._Y;
+        _params.esY = document.body.scrollTop || document.documentElement.scrollTop;
+        _params.esX = document.body.scrollLeft || document.documentElement.scrollLeft
+        var direction = this.GetTouchDirection();
+        var directions = this.Directions;
+        switch (direction) {
+            case directions.left:
+            case directions.right:
+                this.Call(this.OnHorizontalTouchEnd, _params);
+                break;
+            default:
+                break;
+        }
+        this.Call(this.OnTouchEnd, _params, ev);
+    }
+    touch.prototype.GetTouchDirection = function () {
+        var _params = this.TouchParams;
+        var diffX = _params.EndX - _params.OriX;
+        var diffY = _params.EndY - _params.OriY;
+        var diffsX = _params.osX - _params.esX;
+        var diffsY = _params.osY - _params.esY;
+        var directions = this.Directions;
+        if (Math.abs(diffX) < 2 && Math.abs(diffY) < 2) {
+            _params.Direction = directions.none;
+        } else {
+            var maybeHorize = Math.abs(diffsY) < 1;
+            var angle = Math.atan2(diffY, diffX) * 180 / Math.PI;
+            var absAngel = Math.abs(angle);
+            if (absAngel < 10 && maybeHorize) {
+                _params.Direction = directions.right;
+            } else if (angle >= 10 && angle <= 170) {
+                _params.Direction = directions.top;
+            } else if ((absAngel > 170 && absAngel <= 180) && maybeHorize) {
+                _params.Direction = directions.left;
+            } else {
+                _params.Direction = directions.bottom;
+            }
+        }
+        return _params.Direction;
+    }
+    touch.prototype.GetTouchEvent = function (e) {
+        if (e.type == "dragestart" || (e.type == "touchstart" && e.originalEvent.touches.length <= 1)) {
+            e._X = e.pageX || e.originalEvent.touches[0].pageX;
+            e._Y = e.pageY || e.originalEvent.touches[0].pageY;
+        } else if (e.type == "dragend" || (e.type == "touchend" && e.originalEvent.changedTouches.length <= 1)) {
+            e._X = e.pageX || e.originalEvent.changedTouches[0].pageX;
+            e._Y = e.pageY || e.originalEvent.changedTouches[0].pageY;
+        }
+        return e;
+    }
+    touch.prototype.OnTouchStart = function (ev) { }
+    touch.prototype.OnTouchEnd = function (ev) { }
+    touch.prototype.OnHorizontalTouchEnd = function () { }
+
+    util.touch = function (selector) {
+        var container = $(selector);
+        var toucher = new touch();
+        container.bind('touchstart', function (ev) { toucher.Call(toucher.TouchStart, ev); });
+        container.bind('touchend', function (ev) { toucher.Call(toucher.TouchEnd, ev) });
+        //$(document.body).append("<div id='mymm' style='position:fixed;top:0px;width:100%;height:50px;background-color:black;'></div>");
+        return toucher;
+    }
+
+}(window));
 
 function slidercom() {
     $dragShow = false;
-
-    //$("#productContext").touchSliderCopy({
-    //    flexible: false,
-    //    counter: function (e) {
-    //        $(".custom-richtext").addClass("hide").eq(e.current - 1).removeClass("hide"),
-	//		$(".custom-store a").removeClass("showthis").eq(e.current - 1).addClass("showthis");
-    //    }
-    //});
-
-    //$("#productContext").bind("mousedown", function () {
-    //    $dragShow = false;
-    //});
-
-    //$("#productContext").bind("dragstart", function () {
-    //    $dragShow = true;
-    //});
+    var slider = $(".custom-store");
+    var selector = "#productContext";
+    var toucher = TouchUtil.touch(selector);
+    toucher.Total = slider.find("a").length - 1;
+    toucher.Current = slider.find(".showthis").index();
+    toucher.OnTouchStart = function () {
+        toucher.Current = slider.find(".showthis").index();
+    }
+    toucher.OnHorizontalTouchEnd = function () {
+        _params = this.TouchParams;
+        var current = this.Current;
+        var total = this.Total;
+        if (_params.Direction == this.Directions.right) {
+            if (current >= total) {
+                current = 0;
+            } else {
+                current++;
+            }
+        } else {
+            if (current <= 0) {
+                current = this.Total;
+            } else {
+                current--;
+            }
+        }
+        this.Current = current;
+        $(".custom-richtext").addClass("hide").eq(current).removeClass("hide");
+        $(".custom-store a").removeClass("showthis").eq(current).addClass("showthis");
+    }
 }
+
 function showcontent() {
     //商品详情
     $(".custom-store-name").click(function () {
         //商品信息
         $("#detail-info").removeClass("hide"),
         //评论内容
-		$("#comment-info").addClass("hide"),
+        $("#comment-info").addClass("hide"),
         //热卖商品
-		$("#hot-info").addClass("hide"),
+        $("#hot-info").addClass("hide"),
         //商品a标签
-		$(".custom-store-name").addClass("showthis"),
+        $(".custom-store-name").addClass("showthis"),
         //评价a标签
-		$(".comment-content").removeClass("showthis"),
+        $(".comment-content").removeClass("showthis"),
         //热卖a标签
-		$(".product-hot").removeClass("showthis");
+        $(".product-hot").removeClass("showthis");
     });
     //商品评价
     $(".comment-content").click(function () {
         $("#detail-info").addClass("hide"),
-		$("#comment-info").removeClass("hide"),
-		$("#hot-info").addClass("hide"),
-		$(".custom-store-name").removeClass("showthis"),
-		$(".comment-content").addClass("showthis"),
-		$(".product-hot").removeClass("showthis");
+        $("#comment-info").removeClass("hide"),
+        $("#hot-info").addClass("hide"),
+        $(".custom-store-name").removeClass("showthis"),
+        $(".comment-content").addClass("showthis"),
+        $(".product-hot").removeClass("showthis");
     });
     //热卖商品
     $(".product-hot").click(function () {
         $("#detail-info").addClass("hide"),
-		$("#comment-info").addClass("hide"),
-		$("#hot-info").removeClass("hide"),
-		$(".custom-store-name").removeClass("showthis"),
-		$(".comment-content").removeClass("showthis"),
-		$(".product-hot").addClass("showthis");
+        $("#comment-info").addClass("hide"),
+        $("#hot-info").removeClass("hide"),
+        $(".custom-store-name").removeClass("showthis"),
+        $(".comment-content").removeClass("showthis"),
+        $(".product-hot").addClass("showthis");
     });
 }
 $(function () { showcontent(); });

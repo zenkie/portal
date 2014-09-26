@@ -7,7 +7,9 @@
     <title>限时团购</title>
 </head>
 <body>
-#parse("/html/nds/oto/webmall/lay_header.vml")
+#if($mall.showmenu == '否')
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+#end
 <div class="groupBuy" style="float:left">
 <input type="hidden" id="endTime" value="$groupon.endtime">
         <div class="leadactor">
@@ -69,4 +71,7 @@
         </div>
     </div>
 #parse("/html/nds/oto/webmall/footer.vml")
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
 </body></html>

@@ -10,8 +10,7 @@
     P.Pictures = null;
     //延迟加载渲染
     P.Render = function (selector) {
-
-        var cfg = this.Config;
+		var cfg = this.Config;
         this.Search(selector);
         if (cfg.scroll == true) {
             this.DynamicRender();
@@ -104,7 +103,7 @@
         } else {
             this.Pictures = jQuery.merge(this.Pictures, contaienr.find("img[" + cfg.uRL + "]"));
         }
-        jQuery(this.Pictures).addClass(cfg.loadCls).attr("src", "/html/nds/oto/webapp/product/images/loading.gif");
+        jQuery(this.Pictures).addClass(cfg.loadCls).attr("src", "/html/nds/oto/webapp/product/images/background.png");
     }
     //加载多张图片
     P.ImageRealURLRender = function (images) {
@@ -145,3 +144,4 @@
     jQuery(function () { ImageUtil.Render(); });
 
 }(window));
+$(function(){$("#lay_head")[0].scrollIntoView();});

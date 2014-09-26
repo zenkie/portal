@@ -8,7 +8,9 @@
 <title>个人资料</title>
 </head>
 <body>    
-#parse("/html/nds/oto/webmall/lay_header.vml")
+#if($mall.showmenu == '否')
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+#end
     <form method="post" action="" id="ctl00">
         <div class="lay_page">
             <div class="lay_page_wrap">                 
@@ -41,4 +43,7 @@
         </div>
     </form>    
 #parse("/html/nds/oto/webmall/footer.vml")
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
 </body></html>

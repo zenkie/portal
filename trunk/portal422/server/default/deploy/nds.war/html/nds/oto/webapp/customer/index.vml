@@ -1,0 +1,33 @@
+#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webapp/customer/init.vml')
+<html><head>
+#parse("/html/nds/oto/webmall/topmeta.vml")
+<title>客服中心</title>
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/customer/css/cust.css">
+</head>
+<body>
+#if($mall.showmenu == '否')
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+#end
+	<ul class="cust_list">
+	#foreach($list in $allcust)
+		<li class="cust_info">
+			<img src="$list.get(2)" class="cust_photo">
+			<span class="cust_name">$list.get(3)</span>
+			<span class="cust_position">职务：$list.get(4)</span>
+			<span class="cust_wxnum">微信号：$list.get(5)</span>
+			<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=$list.get(6)&amp;site=qq&amp;menu=yes" class="cust_to_qq">
+				<img src="/html/nds/oto/webapp/customer/images/qq_icon.png" class="cust_qq">
+			</a>
+			<a href="tel:$list.get(7)" class="cust_to_phone">
+				<img src="/html/nds/oto/webapp/customer/images/phone_icon.png" class="cust_phone">
+			</a>
+		</li>
+	#end
+	</ul>
+#parse("/html/nds/oto/webmall/footer.vml")
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
+</body>
+</html>

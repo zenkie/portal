@@ -1,0 +1,1 @@
+#set ($allcust = $myweb.getList("WX_CUSTOMSERVICE","WX_SETAD"))

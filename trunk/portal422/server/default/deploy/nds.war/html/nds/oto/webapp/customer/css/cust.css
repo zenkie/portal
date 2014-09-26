@@ -1,0 +1,58 @@
+.column_list{
+	width:100%;
+}
+.cust_info{
+	height:70px;
+	padding:10px;
+	border-bottom:1px solid #ddd;
+	position:relative;
+}
+.cust_photo {
+	width:70px;
+	height:70px;
+	border-radius: 50px;
+}
+.cust_name{
+	color:#666;
+	position:absolute;
+	font-size:16px!important;
+	font-weight:bold;
+	padding:10px;
+}
+.cust_position{
+	color:#999;
+	position: absolute;
+	padding: 0 10px;
+	bottom: 30px
+}
+.cust_wxnum{
+	color:#999;
+	position: absolute;
+	padding: 0 10px;
+	bottom: 10px
+}
+.cust_to_qq{
+	width: 40px;
+	height: 40px;
+	display: block;
+	background:#6f6f87;
+	border-radius: 50px;
+	position: absolute;
+	right: 60px;
+	bottom: 10px;
+}
+.cust_to_phone{
+	width: 40px;
+	height: 40px;
+	display: block;
+	background:#6f6f87;
+	border-radius: 50px;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+.cust_phone,.cust_qq{
+	width: 20px;
+	height: 20px;
+	padding: 10px;
+}

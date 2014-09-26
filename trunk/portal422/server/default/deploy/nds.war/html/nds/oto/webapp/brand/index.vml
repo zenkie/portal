@@ -6,9 +6,14 @@
 <title>品牌介绍</title>
 </head>
 <body>
-#parse("/html/nds/oto/webmall/lay_header.vml")
+#if($mall.showmenu == '否')
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+#end
 <div class="brand">
 $mall.mallnote
 </div>
 #parse("/html/nds/oto/webmall/footer.vml")
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
 </body></html>

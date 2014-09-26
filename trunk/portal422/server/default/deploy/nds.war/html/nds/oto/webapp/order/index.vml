@@ -31,7 +31,9 @@ color: #21c413;
 </style>
 </head>
 <body>
+#if($mall.showmenu == '否')
 	#parse("/html/nds/oto/webmall/lay_header.vml")
+#end
 	<input id="orderid" type="hidden" value="$detail.id"/>
     <div class="lay_page page_order current" id="page_order">
 	##if($status == "2")
@@ -287,7 +289,10 @@ color: #21c413;
             </div>
 
 			<div class="mod_cell ui_p10">
-				<a href="tel:$mall.phone" class="myphone">　　&nbsp;客服电话：$mall.phone</a>
+				<a href="/html/nds/oto/webapp/customer/index.vml" class="to_callcust">
+					联系客服
+					<span class="call_cust">&nbsp;</span>
+				</a>
             </div>
 			<div class="mod_cell ui_p10" style="text-align:center;">
 				##优惠劵金额start
@@ -326,8 +331,12 @@ color: #21c413;
 	</div>
 </div>
 #parse("/html/nds/oto/webmall/footer.vml")
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
 <script type="text/javascript">
 $(function(){
+	oct.ad_client_id=$myweb.getClientId();
 	oct.orderId=$detail.id;
 	oct.orderCode="$detail.docno";
 	oct.totalFree=$detail.tot_amt;
@@ -370,6 +379,7 @@ $(function(){
 	#if($detail.get("wx_order.sale_status") == "2")		
 		init();
 		oct.changeLogistics();
+		wxs.orderinfo=$pay;
 	#end
 });
 </script>

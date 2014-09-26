@@ -58,9 +58,9 @@
 	
 	////验证省市区联动
 	function chkProCitDis() {
-        var province = $("#province").children().filter(":checked").val();
-        var city = $("#city").children().filter(":checked").val();
-        var regionId = $("#regionId").children().filter(":checked").val();
+        var province = $("#province").children().filter(":selected").val();
+        var city = $("#city").children().filter(":selected").val();
+        var regionId = $("#regionId").children().filter(":selected").val();
         // var more = $("#address").val();
         province = province == "请选择省" ? "" : province;
         city = city == "请选择市" ? "" : city;
@@ -71,7 +71,7 @@
         regionId = regionId == "市辖区" ? "" : regionId;
         if (province == "" || regionId == "") {
 			$("#region_msg").removeClass("qb_none");
-			$("#region_msg").text("请完整通讯地址！");
+			$("#region_msg").text("请选择省份或者某个城市下的具体区域！");
             return false;
         }
         var address = province + city + regionId;
