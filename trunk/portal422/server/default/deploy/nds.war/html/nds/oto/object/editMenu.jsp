@@ -400,7 +400,8 @@ function cancelMessage(){
 <div id="Layer1" style="display: none; position: absolute; z-index: 100;">
     </div>
     <div id="mainContent">
-    <h4> 微官网&nbsp;&gt;&nbsp;栏目添加</h4>
+    <!--<h4> 微官网&nbsp;&gt;&nbsp;添加栏目</h4>-->
+	<h4>&nbsp;&gt;&nbsp;栏目设置</h4>
     <div id="contentWrap">
         <table class="fieldTable">
             <tbody>
