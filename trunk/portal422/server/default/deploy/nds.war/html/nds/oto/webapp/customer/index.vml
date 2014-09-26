@@ -1,6 +1,7 @@
 #parse('/html/nds/oto/webmall/init.vml')
 #parse('/html/nds/oto/webapp/customer/init.vml')
-<html><head>
+<html>
+<head>
 #parse("/html/nds/oto/webmall/topmeta.vml")
 <title>客服中心</title>
 <link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/customer/css/cust.css">
