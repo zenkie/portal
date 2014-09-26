@@ -60,7 +60,7 @@ function submitForm(){
 					<input type="hidden" value="already-registered" name="tabs1"/>
 					<li>
 						<span class="login_text"><%= LanguageUtil.get(pageContext, "current-user")%>&nbsp;:&nbsp;</span>
-						<a class="login_bold_text usernow" href="javascript:;"><%=userWeb.getUserDescription() %></a><br>
+						<span class="login_bold_text usernow"><%=userWeb.getUserDescription() %></span><br>
 						<span class="login_text"><%= LanguageUtil.get(pageContext, "enter-view") %>&nbsp;:&nbsp;</span>
 						<a class="login_bold_text userto" href="/html/nds/portal/index.jsp"><%= LanguageUtil.get(pageContext, "backmanager") %></a>
 						<span class="login_text">&nbsp;,&nbsp;<%= LanguageUtil.get(pageContext, "or") %>&nbsp;:&nbsp;</span>
