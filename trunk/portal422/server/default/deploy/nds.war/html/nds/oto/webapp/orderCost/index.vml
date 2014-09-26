@@ -30,7 +30,9 @@ color: #21c413;
 </style>
 </head>
 <body>
-#parse("/html/nds/oto/webmall/lay_header.vml")
+#if($mall.showmenu == '否')
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+#end
 	<input id="orderid" type="hidden" value="$detail.id"/>
     <div class="lay_page page_order current" id="page_order">
 	#if($detail.get("wx_order.sale_status") == "2")
@@ -242,6 +244,9 @@ color: #21c413;
 	</div>
 </div>
 #parse("/html/nds/oto/webmall/footer.vml")
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
 <script type="text/javascript">
 $(function(){
 	oct.orderId=$detail.id;
