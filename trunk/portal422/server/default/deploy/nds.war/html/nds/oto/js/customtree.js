@@ -1,17 +1,46 @@
-﻿function createtree(trees){
+﻿var oct;
+var productcategorytree=function(){};
+productcategorytree.prototype.init=function(){
+	this.eid;
+	this.trees;
+	this.objid;
+	this.hastrees;
+	this.pcategorys=[];
+};
+productcategorytree.prototype.getproductcategory=function(){
+	var _params = "{\"webaction\":\"wx_order_accept\",\"id\":"+orderid+"}";
+	$.ajax({
+		url: '/html/nds/schema/restajax.jsp',
+		type: 'post',
+		data:{command:"ExecuteWebAction",params:_params},
+		success: function (data) {		
+			var _data = eval("("+data+")");
+			if (_data[0].code == 0) {
+				showBubble("确认收货成功！");
+				setTimeout(function () {
+					location.reload();
+				},500)
+			}else{
+				alert(data);
+			}
+		}
+	});
+};
+productcategorytree.prototype.createtree=function(){
 	var node;
-	for(var i=0;i<trees.length;i++){
-		node=new treenode(trees[i]);
+	for(var i=0;i<oct.trees.length;i++){
+		node=new treenode(oct.trees[i]);
 		ctree.nodes[node.id]=node;
 		//ctree.arraynodes[ctree.arraynodes.length]=node;
 	}
+	return this.toCTreeString(oct.trees);
 };
-function toCTreeString(trees,spaceing){
+productcategorytree.prototype.toCTreeString=function(tree,spaceing){
 	var node;
 	var nodestring="";
 	var space=spaceing?spaceing:"";
-	for(var i=0;i<trees.length;i++){
-		node=trees[i];
+	for(var i=0;i<tree.length;i++){
+		node=tree[i];
 		nodestring+="<div"+((node.parentid==""||node.parentid==undefined)?"":" style=\"display:none;\"")+" id='";
 		if(node.isparent){
 			nodestring+="pfold_"+node.nodeid+"' ondblclick=\"ctree.imgClick('"+node.id+"');\">"+space+
@@ -22,7 +51,7 @@ function toCTreeString(trees,spaceing){
 			
 			if(node.childs.length>0){
 				nodestring+="<div id='cfold_"+node.nodeid+"'>";
-				nodestring+=toCTreeString(node.childs,space+"<span style=\"width:32px;display: inline-block;\"></span>");
+				nodestring+=oct.toCTreeString(node.childs,space+"<span style=\"width:32px;display: inline-block;\"></span>");
 				nodestring+="</div>";
 			}
 		}else{
@@ -34,6 +63,13 @@ function toCTreeString(trees,spaceing){
 	}
 	return nodestring;
 };
+
+productcategorytree.main=function(){
+	oct= new productcategorytree();
+	oct.init();
+}
+
+jQuery(document).ready(productcategorytree.main);
 
 var ctree={
 	nodes:{},
@@ -148,6 +184,7 @@ treenode.prototype.getChilds=function(){
 	}
 	return nodestring;
 };*/
+
 treenode.prototype.imgClick=function(){
 	var divid="#cfold_"+this.nodeid;
 	var rowstate=jQuery(divid).attr("currentrowstate");

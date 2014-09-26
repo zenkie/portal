@@ -157,6 +157,19 @@ JSONArray ja=null;
 JSONArray jas=null;
 StringBuffer rs=new StringBuffer();
 String source=request.getParameter("category");
+String objid=request.getParameter("id");
+
+QueryEngine engine=QueryEngine.getInstance();
+ArrayList params=new ArrayList();
+params.add(objid);
+ArrayList para=new ArrayList();
+para.add(java.sql.Clob.class);
+try {
+	Collection list=QueryEngine.getInstance().executeFunction("wx_productcategory_$r_getjson",params,para);
+	source=(String)list.iterator().next();
+} catch (Exception e1) {
+	e1.printStackTrace();
+}
 
 jos=null;
 if(nds.util.Validator.isNotNull(source)){
@@ -171,7 +184,7 @@ if(nds.util.Validator.isNotNull(source)){
 	for(int i=0;i<jas.length();i++){
 		tjo=jas.optJSONObject(i);
 		val=tjo.optString("name");
-		jos.put(tjo.optString("id"),val);
+		jos.put(tjo.optString("categoryid"),tjo);
 		rs.append(val).append("<br>");
 	}
 }
@@ -197,7 +210,7 @@ System.out.print(tabName);
 QueryRequestImpl query;
 QueryResult result=null;
 
-QueryEngine engine=QueryEngine.getInstance();
+
 query=engine.createRequest(userWeb.getSession());
 query.setMainTable(table.getId());
 query.addSelection(table.getPrimaryKey().getId());
@@ -221,9 +234,9 @@ query.setOrderBy(orderKey, true);
 
 query.setRange(0, Integer.MAX_VALUE);
 
-result= QueryEngine.getInstance().doQuery(query);
+result= engine.doQuery(query);
 System.out.println("query->"+query.toSQL());
-all=QueryEngine.getInstance().doQueryList(query.toSQL());
+all=engine.doQueryList(query.toSQL());
 List temp=getSub(all,"",2);
 
 StringBuffer ss=new StringBuffer();
@@ -258,6 +271,16 @@ JSONArray jaaa=getTree(temp,"");
 	var pjson=<%=jas==null?null:jas.toString()%>;
 	var tree=<%=jaaa.toString()%>;
 	//$("cstree").innerHTML=createtree(tree).toString();
-	createtree(tree);
-	$("cstree").innerHTML=toCTreeString(tree);
+	oct.id=<%=objid%>;
+	oct.eid="#<%=eid%>";
+	oct.trees=<%=jaaa.toString()%>;
+	oct.hastrees=<%=jos==null?null:jos.toString()%>;
+	$("cstree").innerHTML=oct.createtree();
+	//$("cstree").innerHTML=toCTreeString(tree);
+	
+	var pcategory=jQuery(eid).prev().prev().html();
+	if(pcategory){
+		var pcagetorys=pcategory.split("<br>");
+		oct.pcategorys=pcagetorys;
+	}
 </script>

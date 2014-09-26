@@ -24,30 +24,36 @@
 <%@ page import="com.alipay.util.*"%>
 <%@ page import="com.alipay.config.*"%>
 <%@ page import="nds.weixin.ext.*"%>
-<%@ page import="nds.control.web.ClientControllerWebImpl,nds.control.event.DefaultWebEvent"%>
 <%
 WeUtils wu=null;
 AlipayConfig aliconfig=new AlipayConfig();
 	try{
-	java.net.URL url = new java.net.URL(request.getRequestURL().toString());
-	//System.out.print(url);
+		java.net.URL url = new java.net.URL(request.getRequestURL().toString());
+		//System.out.print(url);
 
 		WeUtilsManager Wemanage =WeUtilsManager.getInstance();
-
-		 wu =Wemanage.getByDomain(url.getHost());
+		wu =Wemanage.getByDomain(url.getHost());
 	}catch(Exception t){
 		System.out.print("get path error->"+t.getMessage());
 		t.printStackTrace();
 	}
+	if(wu==null){
+		System.out.println("not found WeUtils");
+		return;
+	}
 	List al=QueryEngine.getInstance().doQueryList("select t.paymail,t.partner,t.alikey from WX_PAY t where t.ad_client_id="+wu.getAd_client_id()+" and t.pcode='alipay'");
-	if (al.size() > 0) {
-	String paymail = (String) ((List) al.get(0)).get(0);
-	String partner = (String) ((List) al.get(0)).get(1);
-	String alikey = (String) ((List) al.get(0)).get(2);
-	aliconfig=new AlipayConfig();
-	aliconfig.setKey(alikey);
-	aliconfig.setPaymail(paymail);
-	aliconfig.setPartner(partner);}
+	if(al==null){
+		System.out.println("get pay info error");
+		return;
+	}else if (al.size() > 0) {
+		String paymail = (String) ((List) al.get(0)).get(0);
+		String partner = (String) ((List) al.get(0)).get(1);
+		String alikey = (String) ((List) al.get(0)).get(2);
+		aliconfig=new AlipayConfig();
+		aliconfig.setKey(alikey);
+		aliconfig.setPaymail(paymail);
+		aliconfig.setPartner(partner);
+	}
 
 	//System.out.print(aliconfig.getKey());
 %>
@@ -66,11 +72,10 @@ AlipayConfig aliconfig=new AlipayConfig();
 		String[] values = (String[]) requestParams.get(name);
 		String valueStr = "";
 		for (int i = 0; i < values.length; i++) {
-			valueStr = (i == values.length - 1) ? valueStr + values[i]
-					: valueStr + values[i] + ",";
+			valueStr = (i == values.length - 1) ? valueStr + values[i]: valueStr + values[i] + ",";
 		}
 		//乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
-		valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
+		//valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
 		params.put(name, valueStr);
 	}
 
@@ -93,51 +98,22 @@ AlipayConfig aliconfig=new AlipayConfig();
 	boolean verify_result = alinotify.verifyReturn(params);
 	
 	//System.out.print(verify_result);
+	
 	if(verify_result){//验证成功
 		//////////////////////////////////////////////////////////////////////////////////////////
 		//请在这里加上商户的业务逻辑程序代码
 
 		//——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
+		//判断该笔订单是否在商户网站中已经做过处理
+		//如果有做过处理，不执行商户的业务程序
 		
-			//判断该笔订单是否在商户网站中已经做过处理
-				//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
-				//如果有做过处理，不执行商户的业务程序
+		//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 
 		
 		//该页面可做页面美工编辑
 		//out.println("验证成功<br />");
 		//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
-		
-		/*
-		ArrayList paramsvip=new ArrayList();
-		paramsvip.add(wu.getAd_client_id());
-		paramsvip.add(out_trade_no);
-		try{QueryEngine.getInstance().executeStoredProcedure("wx_order_destocking",paramsvip,false);}
-		catch(Exception e){}
-		*/
-		
-		try{
-			System.out.println("modify order["+out_trade_no+"||"+wu.getAd_client_id()+"]");
-			QueryEngine.getInstance().executeUpdate("update wx_order t set t.sale_status=3,t.paytime=sysdate where t.docno='"+out_trade_no+"' and t.ad_client_id="+wu.getAd_client_id());
-		}catch(Exception e){
-			System.out.println("modify order["+out_trade_no+"||"+wu.getAd_client_id()+"]error->"+e.getMessage());
-		}
-		///*
-		try{
-			System.out.println("call nds.weixin.ext.DeductstockCommand deductstock order["+out_trade_no+"||"+wu.getAd_client_id()+"]");
-			ClientControllerWebImpl controller=(ClientControllerWebImpl)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.WEB_CONTROLLER);
-			DefaultWebEvent event=new DefaultWebEvent("CommandEvent");
-			event.setParameter("orderno", out_trade_no);
-			event.setParameter("adclientid", String.valueOf(wu.getAd_client_id()));
-			event.setParameter("command", "nds.weixin.ext.DeductstockCommand");
-			controller.handleEventBackground(event);
-		}catch(Exception e){
-			System.out.println("call nds.weixin.ext.DeductstockCommand deductstock order["+out_trade_no+"||"+wu.getAd_client_id()+"] error->"+e.getMessage());
-		}
-		//*/
-		
-		String purl="http://"+wu.getDoMain()+"/html/nds/oto/webapp/order/index.vml?status=3&docno="+out_trade_no;
-		//System.out.print(purl);
+		String purl=purl="http://"+wu.getDoMain()+"/html/nds/oto/webapp/order/index.vml?status=3&docno="+out_trade_no;
 		response.sendRedirect(purl);
 		//////////////////////////////////////////////////////////////////////////////////////////
 	}else{

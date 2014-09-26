@@ -103,13 +103,14 @@ cusfold.prototype={
 		jQuery("#result").html(result);
 	},
 	showFold:function (ele){
-		var val=jQuery(ele).prev().val();
+		//var val=jQuery(ele).prev().val();
+		var id=jQuery(ele).attr("objid");
 		var table=jQuery(ele).attr("tab");
 		/*try{
 			val=jQuery.parseJSON(val);
 			val=JSON.stringify(val);
 		}catch(e){}*/
-		var url="/html/nds/oto/product/category.jsp?table="+table+"&eid="+ele.id;
+		var url="/html/nds/oto/product/category.jsp?table="+table+"&eid="+ele.id+"&id="+id;
 		var options=$H({padding: 0,width:'700px',height:'370px',top:'7%',title:'商品分类',skin:'chrome',drag:true,lock:true,esc:true,effect:false});
 		//val="{\"table\":\"WX_APPENDGOODS\",\"id\":\"101\",\"name\":\"服装.女装\"}";
 		/*new Ajax.Request(url, {
@@ -126,7 +127,7 @@ cusfold.prototype={
 		jQuery.ajax({
 			url:url,
 			type:"post",
-			data:{"category":val},
+			//data:{"category":val},
 			success:function(data){
 				options.content=data;
 				cf.dia=art.dialog(options);

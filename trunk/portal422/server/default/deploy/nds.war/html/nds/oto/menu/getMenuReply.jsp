@@ -28,7 +28,7 @@ int ad_client_id=userWeb.getAdClientId();
 if(ad_client_id<=0){return;}
 List tuwen;
 QueryEngine engine=QueryEngine.getInstance();
-String sql="select mai.id,mai.sort,mai.title,mai.url,mai.fromid,mai.objid,maq.keyword,maq.title,maq.content,maq.msgtype,maq.nytype,maq.url,maq.gourl,maq.hurl,1,maq.wx_media_id,maq.count,maq.ad_client_id,maq.groupid,maq.urlcontent,mai.content"+
+String sql="select mai.id,mai.sort,mai.title,mai.url,mai.fromid,mai.objid,maq.keyword,maq.title,maq.content,maq.msgtype,maq.nytype,maq.url,maq.gourl,maq.hurl,1,maq.wx_media_id,maq.count,maq.ad_client_id,maq.groupid,maq.urlcontent,mai.content,maq.id"+
 		   " from wx_messageautoq maq LEFT JOIN wx_messageautoitem mai ON maq.groupid=mai.groupid  AND maq.ad_client_id=mai.ad_client_id"+
 		   " WHERE maq.ad_client_id=? ORDER BY maq.keyword ASC,mai.sort";
 List allMenuKeyword=engine.doQueryList(sql,new Object[]{ad_client_id});
@@ -51,6 +51,8 @@ if(allMenuKeyword!=null&&allMenuKeyword.size()>0){
 		if(!allMenuKeywordjo.has(keyword)){
 			menujo=new JSONObject();
 			
+			menujo.put("id",String.valueOf(tuwen.get(21)));
+			menujo.put("operate","original");
 			menujo.put("keyword",keyword);
 			menujo.put("title",String.valueOf(tuwen.get(7)));
 			clob=(java.sql.Clob)tuwen.get(8);
@@ -92,6 +94,8 @@ if(allMenuKeyword!=null&&allMenuKeyword.size()>0){
 		if("6".equalsIgnoreCase(String.valueOf(tuwen.get(9)))){
 			twjo=new JSONObject();
 			colbvalue="";
+			twjo.put("id",String.valueOf(tuwen.get(0)));
+			twjo.put("operate","original");
 			twjo.put("objid",String.valueOf(tuwen.get(5)));
 			twjo.put("fromid",String.valueOf(tuwen.get(4)));
 			twjo.put("url1",String.valueOf(tuwen.get(3)));
