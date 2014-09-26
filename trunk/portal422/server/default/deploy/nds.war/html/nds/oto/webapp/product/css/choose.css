@@ -297,6 +297,7 @@ padding: 5px 10px;
 }
 .wap-page-goods .bottom-opts .opt-actions {
 display: inline-block;
+padding-left: 85px;
 }
 a {
 color: #333;
@@ -306,7 +307,6 @@ text-decoration: none;
 .butn {
 display: inline-block;
 background-color: #eee;
-border: 1px solid #ebebeb;
 -webkit-border-radius: 4px;
 -webkit-background-clip: padding-box;
 -moz-border-radius: 4px;
@@ -330,7 +330,8 @@ background-color: #f09000;
 border-color: #f09000;
 }
 .bottom-opts .butn+.butn {
-margin-left: 8px;
+	margin: 0 10px;
+	vertical-align: middle;
 }
 .vipprice{
 	margin: 5px;
@@ -460,30 +461,28 @@ margin-left: 8px;
 }
 .to_index{
 	width:100%;
-	height:50px;
-	line-height: 50px;
+	height:65px;
+	line-height: 65px;
 	color:#666;
 	margin: 5px 0;
 	background-color: #fff;
 	border:1px solid #f0f0f0;
 	border-style:solid none;
+	position: relative;
 }
 .to_mall{
-	height:50px;
-	background:url(/html/nds/oto/webapp/product/images/mall_icon.png) left no-repeat;
-	background-size: 40px;
-	padding: 15px 47px;
-	margin-left: 10px;
+	border-radius: 30px;
+	padding: 17px 26px;
+	margin: 0 15px;
 }
 .to_link{
 	float:right;
-	height:50px;
+	height: 65px;
 	background:url(/html/nds/oto/webapp/product/images/to_mall_icon.png) right no-repeat;
-	background-size: 30px;
-	padding: 0px 25px;
+	background-size: 40px;
+	padding: 0px 35px 0px 25px;
 	position: absolute;
 	right: 0;
-	margin-right: 20px;
 }
 .discount{
 	padding-bottom: 10px;
@@ -501,4 +500,27 @@ margin-left: 8px;
 	background:#827c92;
 	margin: 0 10px;
 	padding: 5px;
+}
+.mall_name{
+	font-size: 14px!important;
+	position: absolute;
+	top: 0;
+	line-height: 45px;
+}
+.wx_logo{
+	padding: 10px 0px 10px 30px;
+	background:url(/html/nds/oto/webapp/product/images/wx_logo.png) left no-repeat;
+	background-size: 25px 20px;
+	position: absolute;
+}
+.conn_cust{
+	color: #666;
+	position: absolute;
+	left: 35px;
+	line-height: 26px;
+	background: url(/html/nds/oto/webapp/images/conn_cust.png) no-repeat;
+	padding-left: 25px;
+	width: 30px;
+	height: 30px;
+	background-size: 25px;
 }

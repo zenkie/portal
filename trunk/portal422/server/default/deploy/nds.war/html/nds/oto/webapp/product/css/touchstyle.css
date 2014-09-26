@@ -129,6 +129,8 @@ div.flicking_con {
     height: 200px !important;
     width: 100% !important;
     border:none;
+	background-color:rgba(238, 236, 236, 0.84);
+	background:url(../images/loading2.gif) no-repeat center center;
 }
 
 @-webkit-keyframes rotateplane {

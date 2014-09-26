@@ -5,22 +5,21 @@
 <head>
 <title>商品详情</title>
 #parse("/html/nds/oto/webmall/topmeta.vml")
+#set($version="20140807065441083")
 <script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.event.drag-1.5.min.js"></script>
 <script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.touchSlider.js"></script>
-<script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.touchSliderCopy.js"></script>
-<script type="text/javascript" src="/html/nds/oto/webapp/product/js/productDeatil.js?v=22333453"></script>
-<script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.image.delay.js"></script>
-<link href="/html/nds/oto/webapp/product/css/choose.css" rel="stylesheet" type="text/css" media="all">
-<link href="/html/nds/oto/webapp/product/css/touchstyle.css" rel="stylesheet" type="text/css" media="all">
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/productDeatil.js?v=$version"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.image.delay.js?v=$version"></script>
+<link href="/html/nds/oto/webapp/product/css/choose.css?v=$version" rel="stylesheet" type="text/css" media="all">
+<link href="/html/nds/oto/webapp/product/css/touchstyle.css?v=$version" rel="stylesheet" type="text/css" media="all">
 
 <script type="text/javascript">
 var spacepqy=$myweb.getAlias($pdtid);
 var productqty=$product.remainnum;
 </script>
 </head>
-
 <body class="body-fixed-bottom">
-#parse("/html/nds/oto/webmall/lay_header.vml")
+<div id="lay_head"></div>
 <div class="container wap-page-goods internal-purchase"> 
     <div class="content js-mini-height">
 		<div class="content-body">
@@ -110,9 +109,11 @@ var productqty=$product.remainnum;
                 </div>
 			</div>
 			
-			<div class="to_index" onclick="window.open('/mall.jsp');">
-				<span class="to_mall">$mall.name</span>
-				<span class="to_link">进入店铺</span>
+			<div class="to_index">
+				<span class="to_mall" style="background:url($mall.image) center no-repeat;background-size:65px 65px;"></span>
+				<span class="mall_name">$mall.name</span>
+				<span class="wx_logo">$company.wxnum</span>
+				<a class="to_link" href="/mall.jsp">进入店铺</a>
 			</div>
 			
     		<div class="custom-store custom-store-link clearfix">
@@ -186,6 +187,7 @@ var productqty=$product.remainnum;
 					<div class="opt-wrapper">
 						<div class="opt-wrapper-inner">
 							<div class="opt-actions">
+								<a href="/html/nds/oto/webapp/customer/index.vml" class="conn_cust">客服</a>
 								<a href="javascript:;" data-out-buy="" class="js-buy-it butn butn-large butn-primary butn-buy" id="buy-now">&nbsp;&nbsp;立即购买&nbsp;&nbsp;</a>
 								<a href="javascript:;" data-out-buy="" class="js-add-cart butn butn-large butn-yellow" id="add-cart">加入购物车</a>
 							</div>
