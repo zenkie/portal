@@ -1148,7 +1148,7 @@ wemenu.prototype={
 			alert("请先保存菜单，再预览！");
 			return false;
 		}
-		this.replacejscssfile("/html/nds/oto/js/artDialog4/skins/default.css?4.1.6","/html/nds/oto/js/artDialog4/skins/simple.css","css");
+		this.replacejscssfile("/html/nds/oto/js/artDialog4/skins/default.css","/html/nds/oto/js/artDialog4/skins/simple.css","css");
 		var url="/html/nds/oto/menu/previewMenu.jsp";
 		var titleName="菜单预览";
 		var options={
