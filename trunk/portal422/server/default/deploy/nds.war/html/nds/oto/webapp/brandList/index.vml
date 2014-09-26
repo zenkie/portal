@@ -80,20 +80,8 @@
 	#end
 </div>
 #parse("/html/nds/oto/webmall/footer.vml")
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
 </body>
-<!--首页的js效果--> 
-<script>
-$(document).ready(function(e) {
-	/*创建图标*/
-	creaticon("adCarousel_202");
-	/*首页轮播图*/
-	window.mySwipe = Swipe(document.getElementById("adCarousel_202"), {
-		auto: 2000,
-		continuous: true,
-		callback: function(index, element) {
-			$("#adCarousel_202").find("p").eq(index).addClass("curt").siblings().removeClass("curt");
-		}
-	});
-});
-</script>
 </html>
