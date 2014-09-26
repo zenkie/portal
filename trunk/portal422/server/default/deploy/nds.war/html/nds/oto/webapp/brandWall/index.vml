@@ -2,11 +2,11 @@
 #parse('/html/nds/oto/webapp/brandWall/init.vml')
 <html><head>
 #parse("/html/nds/oto/webmall/topmeta.vml")
-<title>$mall.name</title>
+<title>å“ç‰Œå¢™</title>
 <link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/brandWall/css/wall.css">
 </head>
 <body>
-#if($mall.showmenu == '·ñ')
+#if($mall.showmenu == 'å¦')
 	#parse("/html/nds/oto/webmall/lay_header.vml")
 #end
 <table width="320px" border = "0" style="margin: 0 auto;">
@@ -100,7 +100,7 @@
 	</tr>
 </table>
 #parse("/html/nds/oto/webmall/footer.vml")
-#if($mall.showmenu == 'ÊÇ')
+#if($mall.showmenu == 'æ˜¯')
 	#parse("/html/nds/oto/webmall/bottom_menu.vml")
 #end
 </body>
