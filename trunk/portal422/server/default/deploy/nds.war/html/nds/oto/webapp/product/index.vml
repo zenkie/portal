@@ -8,7 +8,8 @@
 <script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.event.drag-1.5.min.js"></script>
 <script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.touchSlider.js"></script>
 <script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.touchSliderCopy.js"></script>
-<script type="text/javascript" src="/html/nds/oto/webapp/product/js/productDeatil.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/productDeatil.js?v=22333453"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/product/js/jquery.image.delay.js"></script>
 <link href="/html/nds/oto/webapp/product/css/choose.css" rel="stylesheet" type="text/css" media="all">
 <link href="/html/nds/oto/webapp/product/css/touchstyle.css" rel="stylesheet" type="text/css" media="all">
 
@@ -98,14 +99,26 @@ var productqty=$product.remainnum;
 						</dd>
 					</dl>
 				</div>
+				#if($mall.discount != "")
+				<div class="discount">
+					<span class="discount_icon">优惠信息</span>
+					<div class="discount_info">$mall.discount</div>
+				</div>
+				#end
 				<div id="J_buydisable" style="display:none;">
                     <div class="btn_empty qb_tac mod_color_weak" id="J_nogoods">已经售完</div>
                 </div>
 			</div>
+			
+			<div class="to_index" onclick="window.open('/mall.jsp');">
+				<span class="to_mall">$mall.name</span>
+				<span class="to_link">进入店铺</span>
+			</div>
+			
     		<div class="custom-store custom-store-link clearfix">
-				<a class="custom-store-name showthis" href="javascript:;" onclick="showcontent();">商品详情</a>
-				<a class="comment-content" href="javascript:;" onclick="showcontent();">商品评价($commentList.size())</a>
-				<a class="product-hot" href="javascript:;" onclick="showcontent();">热卖商品</a>
+				<a class="custom-store-name showthis" href="javascript:;">商品详情</a>
+				<a class="comment-content" href="javascript:;">商品评价($commentList.size())</a>
+				<a class="product-hot" href="javascript:;">热卖商品</a>
 			</div>
 			<div id="productContext" class="js-components-container components-container">
 
@@ -113,6 +126,7 @@ var productqty=$product.remainnum;
 					#if("$!product.description"=="")
 						<p style="margin:15px 25px;">暂无商品详情</p>
 					#else
+					#set($product.description = $product.description.replace("src=","data-src="))
 					$!product.description
 					#end
 				</div>

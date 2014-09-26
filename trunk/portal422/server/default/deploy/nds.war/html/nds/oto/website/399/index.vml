@@ -9,16 +9,6 @@
 	<script type="text/javascript" src="/html/nds/oto/website/399/js/jquery.touchSlider.js"></script>
 	<script type="text/javascript" src="/html/nds/oto/website/399/js/tab.js"></script>
 	<title>$web.name</title>
-	<script type="text/javascript">
-	$(function(){
-		var opt={
-			cateid:"$!cateid",
-			listfold:"$!listfold"
-		};
-        var tab = new Tab('.catetop',opt);
-		sliderCategory();
-	});
-	</script>
 </head>
 <body>
 	<div class="catetop">
@@ -35,8 +25,18 @@
 		<a class="gohome" href="/"></a>
 		<div class="subcate">
 		#if($listfold !="cate")
-		#set ($article = $myweb.getObject("WX_ISSUEARTICLE","WX_ISSUEARTICLE.ID=$cateid"))
-			<span class="articletitle">$!stringutil.shorten($!article.articletitle,15)</span>
+		<script>
+			$(function(){
+			jQuery.ajax({
+			url: '/html/nds/oto/website/399/content.vml?ptype=text&id=$!cateid',
+			type: 'post',
+			data:{},
+			success: function (data) {
+				$("#page_icenter").html(data);
+					}
+			});
+			});
+		</script>
 		#else
 			<!-- 子分类列表 -->
 			#set ($i=0)
@@ -46,6 +46,16 @@
 			</a>
 			#set ($i=$i+1)
 			#end
+			<script type="text/javascript">
+			$(function(){
+				var opt={
+					cateid:"$!cateid",
+					listfold:"$!listfold"
+				};
+				var tab = new Tab('.catetop',opt);
+				sliderCategory();
+			});
+			</script>
 		#end
 		</div>
 	</div>

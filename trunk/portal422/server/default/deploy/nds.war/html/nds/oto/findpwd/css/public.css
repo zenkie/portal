@@ -3,8 +3,7 @@
 body, p, h1, h2, h3, h4, h5, h6, ul, li,dl,dt,dd {
 	margin: 0;
 	padding: 0;
-	/*font-family: "Arial Black", Gadget, sans-serif;*/
-	font-family: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;
+	font-family: 微软雅黑;
 	font-size: 12px;
 	color: fff;
 }
@@ -434,7 +433,7 @@ ul, li {
 	font-weight: normal;
 	padding:10px 0 40px 0;
 }
-.register_box h2 span{ font-size: 18px; color:#000; font-weight:normal;}
+.register_box h2 span{ font-size: 14px; color:#000; font-weight:normal;}
 .payStep {
 	height: 59px;
 	overflow: hidden;
@@ -625,7 +624,7 @@ ul, li {
 .reg_footer{ height:47px; background:#b8b9b9; margin:18px 0 0 0; padding:0 20px; line-height:47px; color:#fff;}
 .reg_footer .fl a{ padding:0 10px;}
 .forget-note{ padding:80px 0 0 0;}
-.forget-note p{ font-family: "微软雅黑"; font-size:18px; line-height:28px;}
+.forget-note p{ font-family: "微软雅黑"; font-size:14px; line-height:28px;}
 .forget-note p a{ color:#a939b0;}
 /*footer*/
 

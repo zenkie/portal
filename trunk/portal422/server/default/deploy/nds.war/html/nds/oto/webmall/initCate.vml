@@ -1,6 +1,7 @@
 #set ($cateid= $getutil.getInteger($request.getParameter("id") ,-1))
 #set ($ptype= $getutil.getString($request.getParameter("ptype"),"all"))
 #set ($iscost= $getutil.getString($request.getParameter("iscost"),"none"))
+#set ($cate =$myweb.getObject("WX_ITEMCATEGORYSET","WX_ITEMCATEGORYSET.ID=$cateid"))
 #if($ptype=="pdt")
 	#set ($tempmode=$myweb.getObject("WEB_MAIL_TMP","WEB_MAIL_TMP.AD_CLIENT_ID=$myweb.getClientId()"))
 	#if($cateid==-1)
@@ -15,13 +16,6 @@
 		#else
 			#set ($cateList =$myweb.getList("WX_ITEMCATEGORYSET","WX_SETAD","WX_ITEMCATEGORYSET.WX_ITEMCATEGORYSET_ID=$cateid"))
 		#end
-	#end
-#elseif($ptype == "text" ) 
-	#set ($tempmode=$myweb.getObject("WEB_CLIENT_TMP","WEB_CLIENT_TMP.AD_CLIENT_ID=$myweb.getClientId()"))
-	#if($cateid==-1)
-		#set ($cateList =$myweb.getList("WX_ARTICLECATEGORY","WX_SETAD","WX_ARTICLECATEGORY.WX_ARTICLECATEGORY_ID=is null"))
-	#else
-		#set ($cateList =$myweb.getList("WX_ARTICLECATEGORY","WX_SETAD","WX_ARTICLECATEGORY.WX_ARTICLECATEGORY_ID=$cateid"))
 	#end
 #end
 

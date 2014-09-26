@@ -5,10 +5,8 @@
 #set ($tempmode=$myweb.getObject("WEB_CLIENT_TMP","WEB_CLIENT_TMP.AD_CLIENT_ID=$myweb.getClientId()"))
 	#if($cateid==-1)
 		#set ($allListArticle =$myweb.getList("WX_ARTICLECATEGORY","WX_SETAD","WX_ARTICLECATEGORY.WX_ARTICLECATEGORY_ID=is null"))
-		#set ($allListItem =$myweb.getList("WX_ITEMARTICLECATEGORY","WX_SETAD",null,"@cxtid@",4))
 	#else
 		#set ($allListArticle  =$myweb.getList("WX_ARTICLECATEGORY","WX_SETAD","WX_ARTICLECATEGORY.WX_ARTICLECATEGORY_ID=$cateid"))
-		#set ($allListItem =$myweb.getList("WX_ITEMARTICLECATEGORY","WX_SETAD","WX_ITEMARTICLECATEGORY.WX_ARTICLECATEGORY_ID=$cateid","@cxtid@",4))
 		#set ($cate = $myweb.getObject("WX_ARTICLECATEGORY","WX_ARTICLECATEGORY.ID=$cateid"))
 	#end
 #end

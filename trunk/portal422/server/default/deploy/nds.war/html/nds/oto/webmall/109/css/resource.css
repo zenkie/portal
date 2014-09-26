@@ -16,18 +16,7 @@ body {
   width: 100%;
   min-width: 320px;
 }
-ul,
-li,
-ol,
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-dl,
-dt,
-dd {
+ul,li,ol,p,h1,h2,h3,h4,h5,dl,dt,dd {
   margin: 0;
   padding: 0;
   font-weight: normal;
@@ -48,6 +37,10 @@ a {
 }
 del {
   color: #999;
+}
+h2{
+	font-size:14px!important;
+	font-weight: bold;
 }
 .gray {
   color: #666;
@@ -814,7 +807,7 @@ del {
 .FocusPic {
   width: 320px;
   overflow: hidden;
-  height: 150px;
+  height: 175px;
   position: relative;
   margin: 0 auto;
 }
@@ -1185,8 +1178,8 @@ div.order_paypage table td {
   display: block;
 }
 .index_wap .index_list li a img {
-  width: 154px;
-  height:154px;
+  width: 158px;
+  height:158px;
   vertical-align: top;
 }
 .index_wap .index_list li h4 {
@@ -1208,12 +1201,11 @@ div.order_paypage table td {
 }
 .index_wap .index_list li strong {
   color: #c00;
-  font-size: 15px;
   float: left;
   margin-left: 8px;
 }
 .index_wap .index_list li del {
-  margin-right: 8px;
+  margin: 0 5px;
   vertical-align: middle;
 }
 #slider li img {

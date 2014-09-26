@@ -15,7 +15,7 @@
 			#set ($allImg =$myweb.getList("WX_V_SETAD","WX_SETAD","WX_V_SETAD.AD_CLIENT_ID=$myweb.getClientId()"))
 			#foreach($img in $allImg)
 				<li ad="" data-index="0" style="width: 320px; left: 0px; transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate(-320px, 0px) translateZ(0px);">
-					<a title="" href="" target="_blank">
+					<a title="$img.get(1)" href="$img.get(3)" target="_blank">
 						<img border="0" alt="$img.get(1)" src="$img.get(2)" style="width:320px;height:175px;">
 					</a>
 				</li>
@@ -39,13 +39,13 @@
 			#if($i % 3 == 0)
 				<div class="pull_left">
 					<a href="$column.get(5)">
-						<img src="$column.get(3)" alt="$column.get(1)" style="height:75px;width:154px;">
+						<img src="$column.get(3)" alt="$column.get(1)" style="height:159px;width:154px;">
 					</a>
 				</div>
 			#else
 				<div class="pull_right">
 					<a href="$column.get(5)">
-						<img src="$column.get(3)" alt="$column.get(1)" style="height:75px;width:154px;">
+						<img src="$column.get(3)" alt="$column.get(1)" style="height:77px;width:154px;">
 					</a>
 				</div>
 			#end
@@ -93,6 +93,7 @@
 		#set ($allList =$myweb.getList("WX_APPENDGOODS","WX_SETAD","WX_APPENDGOODS.ISHOT==Y"))
 		#foreach($list in $allList)
             <li>
+				<div class="hotpdt"></div>
 				<a href="$list.get(0)" title="$list.get(2)">
 					<img src="$list.get(1)">
                 </a>
@@ -109,7 +110,7 @@
 		<section class="index_wap">        
 			<h2>品牌</h2>   
 			<div class="index_pics">
-			#set ($allBrand =$myweb.getList("WX_PDTBRAND","WX_SETAD"))
+			#set ($allBrand =$myweb.getList("WX_PDTBRAND","WX_GETLIST"))
 			#set ($a = 0)
 			#foreach($list in $allBrand)
 			#if($a % 2 == 0)

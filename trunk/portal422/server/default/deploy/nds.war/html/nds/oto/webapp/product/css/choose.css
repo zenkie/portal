@@ -149,7 +149,7 @@ border: 1px solid #f2f2f2;
 border-left-style: none;
 border-right-style: none;
  background: #fff url('../image/wap/store.png') no-repeat 10px center; 
-margin: 10px 0;
+margin: 5px 0;
 overflow: hidden;
 }
 .custom-store-link{
@@ -457,4 +457,48 @@ margin-left: 8px;
 	background: #fff;*/
 	border-top: 3px solid #c00;
 	line-height: 44px;
+}
+.to_index{
+	width:100%;
+	height:50px;
+	line-height: 50px;
+	color:#666;
+	margin: 5px 0;
+	background-color: #fff;
+	border:1px solid #f0f0f0;
+	border-style:solid none;
+}
+.to_mall{
+	height:50px;
+	background:url(/html/nds/oto/webapp/product/images/mall_icon.png) left no-repeat;
+	background-size: 40px;
+	padding: 15px 47px;
+	margin-left: 10px;
+}
+.to_link{
+	float:right;
+	height:50px;
+	background:url(/html/nds/oto/webapp/product/images/to_mall_icon.png) right no-repeat;
+	background-size: 30px;
+	padding: 0px 25px;
+	position: absolute;
+	right: 0;
+	margin-right: 20px;
+}
+.discount{
+	padding-bottom: 10px;
+}
+.discount_icon{
+	background:url(/html/nds/oto/webapp/product/images/discount_icon.png) left no-repeat;
+	background-size: 40px;
+	padding: 0 35px;
+	line-height:35px;
+	color:#666;
+}
+.discount_info{
+	color:#fff;
+	border-radius:10px;
+	background:#827c92;
+	margin: 0 10px;
+	padding: 5px;
 }
