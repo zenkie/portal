@@ -243,7 +243,7 @@
     <div class="inner_btn"></div>
     <div class="inner_info">
 		<div class="inner_list">
-			<a href="#" target="_blank">
+			<a href="http://wpa.qq.com/msgrd?v=3&uin=800068141&site=qq&menu=yes" onclick="window.open('http://b.qq.com/webc.htm?new=0&sid=800068141&o=www.next99.cn&q=7&ref='+document.location, '_blank', 'height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no')" target="_blank">
 				<span><img src="/images/otoimages/qq-175x175.jpg"/></span>
 				<span class="span_t">QQ在线咨询</span>
 				<span class="qq_num">400-620-9800</span>
