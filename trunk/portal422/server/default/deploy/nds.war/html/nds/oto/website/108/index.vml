@@ -1,44 +1,37 @@
 #parse('/html/nds/oto/website/init.vml')
 #parse('/html/nds/oto/website/initIndex.vml')
-<html>
-<head>
+<html><head>
 	#parse("/html/nds/oto/website/topmeta.vml")
 	<title>$web.name</title>
     <link href="/html/nds/oto/website/108/css/section.css" rel="Stylesheet" type="text/css" media="all">
 	<script src="/html/nds/oto/website/js/banner.js" type="text/javascript"></script>
 </head>
-<body>
+<body style="">
 <ul class="sectionWrap">
 #set ($i=1)
 #foreach($column in $allColumn)
 	#if ($i%2 == 0)
-        <li class="section">
-			<a href="$column.get(5)" class="clearfix">
-				<div class="trapezoidLeft bgColor$i">
-					<dl class="trapezoid">
-						<dt>$stringutil.shorten($column.get(1),8)</dt>
-						<dd>$stringutil.shorten($column.get(2),8)</dd>
-					</dl>
-				</div>
-				<div class="beBlocked fr">
-					<img src="$column.get(3)" alt="">
-				</div>
-			</a>
-		</li>
+        <li class="section"><a href="$column.get(5)" class="clearfix">
+            <div class="trapezoidLeft bgColor$i">
+                <dl class="trapezoid">
+                    <dt>$stringutil.shorten($column.get(1),8)</dt>
+                    <dd>$stringutil.shorten($column.get(2),8)</dd>
+                </dl>
+            </div>
+            <div class="beBlocked fr">
+                <img src="$column.get(3)" alt=""></div>
+        </a></li>
 	#else
-        <li class="section">
-			<a href="$column.get(5)" class="clearfix">
-				<div class="beBlocked fl">
-					<img src="$column.get(3)" alt="">
-				</div>
-				<div class="trapezoidRight bgColor$i">
-					<dl class="trapezoid">
-						<dt>$stringutil.shorten($column.get(1),8)</dt>
-						<dd>$stringutil.shorten($column.get(2),8)</dd>
-					</dl>
-				</div>
-			</a>
-		</li>
+        <li class="section"><a href="$column.get(5)" class="clearfix">
+            <div class="beBlocked fl">
+                <img src="$column.get(3)" alt=""></div>
+            <div class="trapezoidRight bgColor$i">
+                <dl class="trapezoid">
+                    <dt>$stringutil.shorten($column.get(1),8)</dt>
+                    <dd>$stringutil.shorten($column.get(2),8)</dd>
+                </dl>
+            </div>
+        </a></li>
 	#end
 #set($i=$i+1)
 #if($i==6)
@@ -47,5 +40,4 @@
 #end
 </ul>
 #parse("/html/nds/oto/website/footer.vml")
-</body>
-</html>
+</body></html>

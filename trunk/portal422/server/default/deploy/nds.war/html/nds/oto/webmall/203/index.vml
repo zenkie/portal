@@ -6,7 +6,9 @@
 	<title>$cate.categoryname</title>
 </head>
 <body style="">
-#parse("/html/nds/oto/webmall/lay_header.vml")
+#if($mall.showmenu == '否')
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+#end
 <div class="content" style="margin-top:0px">
     <ul>
 		<li>
@@ -37,4 +39,7 @@
 		</li>
     </ul>
 </div>
+#if($mall.showmenu == '是')
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#end
 </body></html>

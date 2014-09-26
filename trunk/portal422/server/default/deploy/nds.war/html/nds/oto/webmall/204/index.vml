@@ -6,8 +6,9 @@
     <link href="/html/nds/oto/webmall/204/css/wxshop.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body data-role="none" style="">
-#parse("/html/nds/oto/webmall/lay_header.vml")
-
+#if($mall.showmenu == '否')
+	#parse("/html/nds/oto/webmall/lay_header.vml")
+#end
 <div id="wrap">
     <ul class="goodslist">
 		#set ($i=1)
@@ -75,4 +76,9 @@
 		#end
     </ul>
 </div>
+#if($mall.showmenu == '是')
+	<div style="padding-top:40px;">
+	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+	</div>
+#end
 </body></html>

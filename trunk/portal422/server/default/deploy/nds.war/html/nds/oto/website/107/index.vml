@@ -42,21 +42,21 @@
 </div>
 #parse("/html/nds/oto/website/footer.vml")
 <script type="text/javascript">
-	//轮播start
-	var elem = document.getElementById('mySwipe');
-	var bullets = document.getElementById('position').getElementsByTagName('li');
-	window.mySwipe = Swipe(elem, {startSlide: 0,
-		auto: 3000,
-		continuous: true,
-		callback: function (pos) {
-			var i = bullets.length;
-			while (i--) {
-				bullets[i].className = ' ';
-			}
-			bullets[pos].className = 'on';
-		}
-	});
-	//轮播end
+//轮播start
+        var elem = document.getElementById('mySwipe');
+        var bullets = document.getElementById('position').getElementsByTagName('li');
+        window.mySwipe = Swipe(elem, {
+            startSlide: 0,
+            auto: 3000,
+            continuous: true,
+            callback: function (pos) {
+                var i = bullets.length;
+                while (i--) {
+                    bullets[i].className = ' ';
+                }
+                bullets[pos].className = 'on';
+            }
+        });
+//轮播end
 </script>
-</body>
-</html>
+</body></html>

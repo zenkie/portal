@@ -1,0 +1,37 @@
+<link href="/html/nds/oto/webmall/css/navigation.css" rel="stylesheet">
+<script>
+$(document).ready(function(){
+  $(".mine").click(function(){
+	$(".subnav").toggle(300);
+  });
+});
+</script>
+<div class="navigation">
+	<a class="gohome" href="/mall.jsp"></a>
+	<a class="tohot" href="/html/nds/oto/webapp/hotproduct/index.vml"></a>
+	<a class="tocust" href="/html/nds/oto/webapp/customer/index.vml"></a>
+	<a class="mine" href="javascript:void(0);">
+		<ul class="subnav">
+			#if("$!vipid" == "")
+				<li><a href="javasrcipt:;">购物车</a></li>
+				<li><a href="javasrcipt:;">我的订单</a></li>
+				<li><a href="javasrcipt:;">会员中心</a></li>
+			#else
+				<li><a href="/html/nds/oto/webapp/cart/index.vml">
+					<span>购物车</span>
+				#set ($cartsize=$myweb.getList("WX_SHOPPING","WX_SETAD","WX_SHOPPING.ISSALE==N&WX_SHOPPING.WX_VIP_ID=$vipid").size())
+				#if($cartsize != 0)
+					<span class="cart_num">$cartsize</span>
+				#else
+					<span class="cart_num">0</span>
+				#end
+				</a></li>
+				<li><a href="/html/nds/oto/webapp/usercenterMall/index.vml">我的订单</a></li>
+				<li><a href="/html/nds/oto/webapp/usercenter/index.vml">会员中心</a></li>
+			#end
+			<span class="angle_left">  
+				<span class="angle_right"></span>  
+			</span>  
+		</ul>
+	</a>
+</div>
