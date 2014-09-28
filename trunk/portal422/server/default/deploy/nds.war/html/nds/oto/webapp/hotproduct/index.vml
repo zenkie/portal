@@ -32,7 +32,7 @@
 						<strong class="price_hotpdt">￥$list.get(4)</strong>
 						<del class="del_price_hotpdt">¥$list.get(3)</del>
 					</span>
-					<span class="count_buy">100人购买</span>
+					<span class="count_buy">已售$list.get(12)件</span>
 				</a>
 			</li>
 		#end
