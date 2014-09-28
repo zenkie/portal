@@ -88,7 +88,7 @@
 	
 	<!-- 热销商品列表 -->
 	<section class="index_wap">        
-        <h2>热销商品</h2>
+        <h2>热销商品<a href="/html/nds/oto/webapp/hotproduct/index.vml" class="to_more">More>></a></h2>
         <ul class="index_list">
 		#set ($allList =$myweb.getList("WX_APPENDGOODS","WX_SETAD","WX_APPENDGOODS.ISHOT==Y"))
 		#foreach($list in $allList)
@@ -108,7 +108,7 @@
 	<!-- 品牌 -->
 	<div sl="b_sp_325_526">
 		<section class="index_wap">        
-			<h2>品牌</h2>   
+			<h2>品牌<a href="/html/nds/oto/webapp/brandWall/index.vml" class="to_more">More>></a></h2>
 			<div class="index_pics">
 			#set ($allBrand =$myweb.getList("WX_PDTBRAND","WX_GETLIST"))
 			#set ($a = 0)

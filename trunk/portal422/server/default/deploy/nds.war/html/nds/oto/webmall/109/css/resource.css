@@ -1284,3 +1284,7 @@ div.order_paypage table td {
   z-index: 10;
   border-radius: 0 0 30px 0;
 }
+.to_more{
+	float:right;
+	color:#999;
+}
