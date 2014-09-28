@@ -23,7 +23,7 @@
 							<div class="hotpdt"></div>
 						#end
 						#if($list.get(7) == '是')
-							<div class="newpdt"></div>
+							<div class="newpdt" style="right: 30;"></div>
 						#end
 						<div class="best-seller">
 							<img class="article-match-pic" src="$list.get(2)">
@@ -52,7 +52,7 @@
 							<div class="hotpdt" style="width:25px;height:25px;background-size:25px;"></div>
 						#end
 						#if($list.get(7) == '是')
-							<div class="newpdt" style="width:25px;height:25px;background-size:25px;"></div>
+							<div class="newpdt" style="width:25px;height:25px;background-size:25px;left: 43;"></div>
 						#end
 							<img class="goods-item-pic" src="$list.get(2)" alt="">
 							<div class="title-price-container">
