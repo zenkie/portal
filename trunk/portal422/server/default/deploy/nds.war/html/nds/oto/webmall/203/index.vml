@@ -16,6 +16,9 @@
 				#if($list.get(6) == '是')
 					<div class="hotpdt"></div>
 				#end
+				#if($list.get(7) == '是')
+					<div class="newpdt"></div>
+				#end
                 <div class="img">
 					<a href="$list.get(0)"><img src="$list.get(2)"></a>
 				</div>
