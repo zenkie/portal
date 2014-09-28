@@ -3769,3 +3769,11 @@ font-size: 19px!important;
 	background-size:40px;
 	position: absolute;
 }
+.newpdt{
+	width:40px;
+	height:40px;
+	float:left;
+	background:url(/html/nds/oto/webmall/images/newpdt.png) no-repeat;
+	background-size:40px;
+	position: absolute;
+}
