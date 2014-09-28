@@ -50,6 +50,12 @@
 	height: 30px;
 	background-size: 30px;
 }
+.newpdt {
+	width: 30px;
+	height: 30px;
+	background-size: 30px;
+	left: 85;
+}
 /*refresh*/
 #wrapper {
 	position:absolute;
