@@ -22,6 +22,9 @@
 						#if($list.get(6) == '是')
 							<div class="hotpdt"></div>
 						#end
+						#if($list.get(7) == '是')
+							<div class="newpdt"></div>
+						#end
 						<div class="best-seller">
 							<img class="article-match-pic" src="$list.get(2)">
 								<div class="priceTag">
@@ -47,6 +50,9 @@
 						<div class="goods-item">
 						#if($list.get(6) == '是')
 							<div class="hotpdt" style="width:25px;height:25px;background-size:25px;"></div>
+						#end
+						#if($list.get(7) == '是')
+							<div class="newpdt" style="width:25px;height:25px;background-size:25px;"></div>
 						#end
 							<img class="goods-item-pic" src="$list.get(2)" alt="">
 							<div class="title-price-container">
