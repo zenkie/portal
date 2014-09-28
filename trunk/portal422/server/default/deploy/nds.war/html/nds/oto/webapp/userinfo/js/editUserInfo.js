@@ -23,7 +23,7 @@ function Modify() {
 		var link="";
 		var iserp=$("#iserp").val();
 		address = selectProvince+selectCity+selectArea+address;
-		if(isopen=='Y'&&iserp=='Y'){
+		if(isopen=='2'&&iserp=='Y'){
 		link=",\"vipid\":"+vipid+",\"method\":\"opencard\",\"ad_client_id\":"+clientid;
 		}else if(iserp=='Y'){
 		link=",\"vipid\":"+vipid+",\"method\":\"updatecard\",\"ad_client_id\":"+clientid;
