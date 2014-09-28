@@ -275,7 +275,7 @@ var upinit={
             "next-screen":"/html/prg/msgjson.jsp",
             "formRequest":"/html/nds/msg.jsp",
            // "JSESSIONID":"<%=session.getId()%>",
-			"isThum":true,
+			"isThum":false,
 			"width":600,
 			"hight":600,
 			"onsuccess":"jQuery(\"#grouponimage\").attr(\"src\",\"$filepath$\");",
