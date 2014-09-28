@@ -27,7 +27,7 @@
 			<div>
 			<ul class="tbox group_btn3">
 				<li></li>
-				<li><a href="/html/nds/oto/webapp/userinfo/index.vml?isopen=Y">点击领取</a></li>
+				<li><a href="/html/nds/oto/webapp/userinfo/index.vml?isopen=1">点击领取</a></li>
 			</ul>
 		</div>
 	</header>
