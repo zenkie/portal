@@ -17,7 +17,7 @@
 					<div class="hotpdt"></div>
 				#end
 				#if($list.get(7) == '是')
-					<div class="newpdt"></div>
+					<div class="newpdt" style="right: 15;"></div>
 				#end
                 <div class="img">
 					<a href="$list.get(0)"><img src="$list.get(2)"></a>
