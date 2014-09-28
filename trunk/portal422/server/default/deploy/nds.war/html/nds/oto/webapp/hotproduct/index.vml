@@ -25,9 +25,6 @@
 		#foreach($list in $allList)
 			<li class="hotpdt_pdt">
 				<div class="hotpdt"></div>
-				#if($list.get(13) == '是')
-					<div class="newpdt"></div>
-				#end
 				<a href="$list.get(0)" title="$list.get(2)">
 					<img src="$list.get(1)" class="hotpdt_img">
 					<h4>$stringutil.shorten($list.get(2),40,false)</h4>
