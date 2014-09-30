@@ -171,6 +171,8 @@ color: #21c413;
 							#foreach($pay in $payList)
 								#if($detail.payment==$pay.get(2))
 								<option value="$pay.get(0)" code="$pay.get(1)" selected>$pay.get(2)</option>
+								#elseif($pay.get(8) == "是")
+								<option value="$pay.get(0)" code="$pay.get(1)" selected>$pay.get(2)</option>
 								#else
 								<option value="$pay.get(0)" code="$pay.get(1)">$pay.get(2)</option>
 								#end
@@ -321,6 +323,9 @@ color: #21c413;
 			</div>
 			#end
         </div>
+		#if($mall.showmenu == '是')
+			#parse("/html/nds/oto/webmall/bottom_menu.vml")
+		#end
 	#end
     </div>
 <div class="mod_dialog qb_none" id="message-notice">
@@ -331,9 +336,6 @@ color: #21c413;
 	</div>
 </div>
 #parse("/html/nds/oto/webmall/footer.vml")
-#if($mall.showmenu == '是')
-	#parse("/html/nds/oto/webmall/bottom_menu.vml")
-#end
 <script type="text/javascript">
 $(function(){
 	oct.ad_client_id=$myweb.getClientId();
