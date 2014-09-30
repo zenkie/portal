@@ -186,11 +186,9 @@ var productqty=$product.remainnum;
 				<div class="bottom-opts-inner">
 					<div class="opt-wrapper">
 						<div class="opt-wrapper-inner">
-							<div class="opt-actions">
-								<a href="/html/nds/oto/webapp/customer/index.vml" class="conn_cust">客服</a>
-								<a href="javascript:;" data-out-buy="" class="js-buy-it butn butn-large butn-primary butn-buy" id="buy-now">&nbsp;&nbsp;立即购买&nbsp;&nbsp;</a>
-								<a href="javascript:;" data-out-buy="" class="js-add-cart butn butn-large butn-yellow" id="add-cart">加入购物车</a>
-							</div>
+							<a href="javascript:;" class="butn butn-buy"><span class="to_pay" id="buy-now">立即购买　</span></a>
+							<a href="javascript:;" class="butn butn-yellow"><span class="to_cart" id="add-cart">加入购物车</span></a>
+							<a href="/html/nds/oto/webapp/customer/index.vml" class="conn_cust"></a>
 						</div>
 					</div>
 				</div>
@@ -267,12 +265,12 @@ var productqty=$product.remainnum;
 				if(ev.toElement.id == 'add-cart'){
 					//购物车						
 					//addCart(selectNow.attr('data-value'),$('#buyNum').val());
-					addCart(null,$('#buyNum').val());
+					  addCart(null,$('#buyNum').val());
 				}
 				else{
 					//购买
 					//toPay(selectNow.attr('data-value'),$('#buyNum').val());
-					toPay(null,$('#buyNum').val());
+					  toPay(null,$('#buyNum').val());
 				}
 			}
 		}
