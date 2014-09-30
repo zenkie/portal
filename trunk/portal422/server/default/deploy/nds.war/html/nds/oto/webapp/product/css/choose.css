@@ -74,8 +74,8 @@ margin: 15px 0 0 -11px;
 .custom-go-tao .title {
 font-weight: normal;
 margin: 0;
-padding: 0 10px;
-font-size: 16px;
+padding: 5px 10px 0 10px;
+font-size: 16px!important;
 line-height: 22px;
 text-align: left;
 }
@@ -84,7 +84,7 @@ font-size: 18px;
 line-height: 22px;
 }
 .wap-page-goods .goods-price {
-padding: 5px 10px 0;
+padding: 0 10px;
 text-align: left;
 }
 .wap-page-goods .current-price {
@@ -313,11 +313,10 @@ background-color: #eee;
 -moz-background-clip: padding;
 border-radius: 4px;
 background-clip: padding-box;
-padding: 4px 10px;
+padding: 4px 5px;
 margin: 0;
 color: #999;
-font-size: 12px;
-line-height: 14px;
+line-height: 20px;
 cursor: pointer;
 }
 .wap-page-goods .bottom-opts .butn-buy {
@@ -330,7 +329,7 @@ background-color: #f09000;
 border-color: #f09000;
 }
 .bottom-opts .butn+.butn {
-	margin: 0 10px;
+	margin: 0 5px;
 	vertical-align: middle;
 }
 .vipprice{
@@ -386,7 +385,7 @@ border-color: #f09000;
 	width:130px;
 	height:20px;
 	line-height: 20px;
-	margin-left: 55px;
+	margin-left: 65px;
 	margin-top: -20px;
 	background-image: url(/html/nds/oto/webapp/product/images/goodcomment.png);
 }
@@ -516,11 +515,12 @@ border-color: #f09000;
 .conn_cust{
 	color: #666;
 	position: absolute;
-	left: 35px;
-	line-height: 26px;
+	left: 25px;
+	line-height: 28px;
 	background: url(/html/nds/oto/webapp/images/conn_cust.png) no-repeat;
-	padding-left: 25px;
-	width: 30px;
-	height: 30px;
-	background-size: 25px;
+	padding-left: 30px;
+	width: 35px;
+	height: 28px;
+	background-size: 28px;
+	bottom: 5px;
 }
