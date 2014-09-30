@@ -3,7 +3,7 @@
 	$myweb.forwardTourl($url,$request,$response);
 #end
 
-#set ($isopen=$getutil.getString($request.getParameter("isopen"),"1"))
+#set ($isopen=$getutil.getString($request.getParameter("isopen"),"2"))
 #set ($selfinfo =$myweb.getObject("WX_VIPINFO","WX_VIPINFO.WX_VIP_ID=$vipid"))
 
 #if($selfinfo.birthday&&$selfinfo.birthday.length()==8)
