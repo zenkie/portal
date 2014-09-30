@@ -24,12 +24,15 @@
 				#if($list.get(6) == '是')
 					<div class="hotpdt"></div>
 				#end
-				#if($list.get(7) == '是')
-					<div class="newpdt"></div>
-				#end
 					<a href="$list.get(0)">
 						<img src="$list.get(2)" width="140" height="140" class="default">
-						<div class="goods_name qb_fs_s mod_color_weak">$list.get(1)</div>
+						<div class="goods_name qb_fs_s mod_color_weak">
+						#if($list.get(7) == '是')
+							【新品】$list.get(1)
+						#else
+						$list.get(1)
+						#end
+						</div>
 						<div class="price qb_fs_s mod_color_strong">
 						#if($iscost =='Y')
 							<span>$math.toInteger($list.get(5))积分</span>
