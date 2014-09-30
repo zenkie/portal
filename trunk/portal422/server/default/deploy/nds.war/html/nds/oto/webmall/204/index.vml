@@ -17,13 +17,16 @@
             <li class="first-item J_goodsItem">
 				<a href="$list.get(0)">
 					<div class="best-seller-item">
-						<h2 class="best-seller-title">$list.get(1)</h2>
+						<h2 class="best-seller-title">
+							#if($list.get(7) == '是')
+								【新品】$list.get(1)
+							#else
+							$list.get(1)
+							#end
+						</h2>
 						<input type="hidden" value="-34430">
 						#if($list.get(6) == '是')
 							<div class="hotpdt"></div>
-						#end
-						#if($list.get(7) == '是')
-							<div class="newpdt" style="right: 30;"></div>
 						#end
 						<div class="best-seller">
 							<img class="article-match-pic" src="$list.get(2)">
@@ -51,13 +54,14 @@
 						#if($list.get(6) == '是')
 							<div class="hotpdt" style="width:25px;height:25px;background-size:25px;"></div>
 						#end
-						#if($list.get(7) == '是')
-							<div class="newpdt" style="width:25px;height:25px;background-size:25px;left: 43;"></div>
-						#end
 							<img class="goods-item-pic" src="$list.get(2)" alt="">
 							<div class="title-price-container">
 								<h3 class="goods-item-title">
+									#if($list.get(7) == '是')
+										【新品】$list.get(1)
+									#else
 									$list.get(1)
+									#end
 								</h3>
 								<input type="hidden" value="-34427">
 								<div class="goods-price">
