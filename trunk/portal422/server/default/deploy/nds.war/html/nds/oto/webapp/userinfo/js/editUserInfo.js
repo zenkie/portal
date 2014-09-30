@@ -23,9 +23,9 @@ function Modify() {
 		var link="";
 		var iserp=$("#iserp").val();
 		address = selectProvince+selectCity+selectArea+address;
-		if(isopen=='2'&&iserp=='Y'){
+		if(isopen=='1'){
 		link=",\"vipid\":"+vipid+",\"method\":\"opencard\",\"ad_client_id\":"+clientid;
-		}else if(iserp=='Y'){
+		}else{
 		link=",\"vipid\":"+vipid+",\"method\":\"updatecard\",\"ad_client_id\":"+clientid;
 		}
 		var _params ="{\"table\":16003,\"ID\":"+id+",\"RELNAME\":\""+name+"\",\"GENDER\":\""+sex+"\",\"PHONENUM\":\""+phone+"\",\"PROVINCE\":\""+selectProvince+"\",\"CITY\":\""+selectCity+"\",\"REGIONID\":\""+selectArea+"\",\"BIRTHDAY\":\""+birthday+"\",\"CONTACTADDRESS\":\""+address+"\",\"partial_update\":true"+link+"}";
