@@ -17,11 +17,14 @@
 				#if($list.get(6) == '是')
 					<div class="hotpdt"></div>
 				#end
-				#if($list.get(7) == '是')
-					<div class="newpdt"></div>
-				#end
 					<img src="$list.get(2)" alt="$list.get(1)">
-					<p>$list.get(1)</p>
+					<p>
+						#if($list.get(7) == '是')
+							【新品】$list.get(1)
+						#else
+						$list.get(1)
+						#end
+					</p>
 				#if($iscost =='Y')
                     <em>
 						$math.toInteger($list.get(5))积分
