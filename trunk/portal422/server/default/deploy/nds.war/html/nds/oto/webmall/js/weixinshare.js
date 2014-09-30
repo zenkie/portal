@@ -94,11 +94,15 @@ wxs.weixinpay=function(){
 		'getBrandWCPayRequest',
 		wxs.orderinfo,
 		function(res){
-			if(res.err_msg=="ok"){
+			if(res.err_code=="ok"||res.err_code=="OK"){
 				showBubble("支付成功！");
+				setTimeout(function () {
+					location.reload();
+				},1000)
 			}else{
 				WeixinJSBridge.log(res.err_msg);
-				alert(res.err_code+"<=>"+res.err_msg+"<=>"+res.err_desc)
+				showBubble("支付异常，请重新支付！");
+				//alert(res.err_code+"<=>"+res.err_msg+"<=>"+res.err_desc)
 			}
 		}
 	);
@@ -119,4 +123,14 @@ wxs.main=function(){
 		wxs.onBridgeReady();
 	}
 };
-$(document).ready(wxs.main);
+$(document).ready(
+	function(){
+		wxs.main();
+		wxs.appId=jQuery("#weixinshare #appid").val();
+		wxs.MsgImg=jQuery("#weixinshare #msgimg").val();
+		wxs.TLImg=jQuery("#weixinshare #tlimg").val();
+		wxs.url=jQuery("#weixinshare #shareurl").val();
+		wxs.title=jQuery("#weixinshare #sharetitle").val();
+		wxs.desc=jQuery("#weixinshare #sharedesc").val();
+	}
+);
