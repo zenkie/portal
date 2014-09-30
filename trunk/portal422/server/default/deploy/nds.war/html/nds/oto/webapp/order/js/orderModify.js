@@ -129,6 +129,29 @@ ordercontroll.prototype.callpay=function(){
 			document.alipayment.submit();
 		}
 	}else if(paycode&&/weixin/.test(paycode)){
+		//判断微信浏览器版本
+		try{
+			var ua = navigator.userAgent;
+			var reg=new RegExp("(?!micromessenger\/)\\d+","i");
+			if(reg.test(ua)){
+				var verison=reg.exec(ua);
+				if(isNaN(verison)){
+					showBubble("请用微信中支付！",1500);
+					return;
+				}
+				verison=parseInt(verison);
+				if(verison<5){
+					showBubble("微信版本大于等于5才支付微支付！",1500);
+					return;
+				}
+			}else{
+				showBubble("请用微信中支付！",1500);
+				return;
+			}
+		}catch(e){
+			showBubble("请用微信中支付！",1500);
+			return;
+		}
 		wxs.weixinpay();
 	}else{
 		showBubble("暂时只支付支付宝支付！",1500);
