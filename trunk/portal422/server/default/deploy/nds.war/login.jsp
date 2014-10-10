@@ -139,7 +139,7 @@ function submitForm(){
 				<input id="verifyCode" name="verifyCode"  type="text" onKeyPress="onReturn(event)" class="text_code"  size="7"  placeholder="验证码"/>
     			<div class="code">
 					<img src="/servlets/vms" width="95" height="35" align="absmiddle" id="chkimg" onclick="javascript:document.getElementById('chkimg').src='/servlets/vms?'+Math.random()" />
-					<a href="javascript:;" id="change_code">换一张</a>
+					<a href="javascript:;" onclick="javascript:document.getElementById('chkimg').src='/servlets/vms?'+Math.random()" id="change_code">换一张</a>
     			</div>
     			<div class="forgt">
 					<a href="/html/nds/oto/findpwd/index.html">忘记密码？</a>
