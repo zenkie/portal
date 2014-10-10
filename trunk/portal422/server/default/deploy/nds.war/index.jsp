@@ -94,7 +94,7 @@
         <li><a href="javascript:void(0)" title="1">微应用</a><span class="line"></span></li>
         <li><a href="javascript:void(0)" title="2">成功案例</a><span class="line"></span></li>
         <li><a href="javascript:void(0)" title="3">联系我们</a></li>
-        <li class="right_favorite"><a href="#"></a></li>
+        <li class="right_favorite"><a href="javascript:void(0)"></a></li>
       </ul>
     </div>
   </div>
@@ -126,13 +126,13 @@
 	<div class="slider_box">
 		  <div class="picLI" id="j-focusPic">
 			<div class="picbox j-slider">
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_002.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_003.jpg" /></a></span>
+				  <span class="j-item"><a href="javascript:void(0)"><img width="1150" height="500" src="/images/otoimages/sider_001.jpg" /></a></span>
+				  <span class="j-item"><a href="javascript:void(0)"><img width="1150" height="500" src="/images/otoimages/sider_002.jpg" /></a></span>
+				  <span class="j-item"><a href="javascript:void(0)"><img width="1150" height="500" src="/images/otoimages/sider_003.jpg" /></a></span>
 				  <!--span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_004.jpg" /></a></span-->
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_005.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_006.jpg" /></a></span>
-				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_007.jpg" /></a></span>
+				  <span class="j-item"><a href="javascript:void(0)"><img width="1150" height="500" src="/images/otoimages/sider_005.jpg" /></a></span>
+				  <span class="j-item"><a href="javascript:void(0)"><img width="1150" height="500" src="/images/otoimages/sider_006.jpg" /></a></span>
+				  <span class="j-item"><a href="javascript:void(0)"><img width="1150" height="500" src="/images/otoimages/sider_007.jpg" /></a></span>
 				  <!--span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_008.jpg" /></a></span>
 				  <span class="j-item"><a href="#"><img width="1150" height="500" src="/images/otoimages/sider_009.jpg" /></a></span-->
 			</div>
@@ -141,13 +141,13 @@
 			<div class="prev on-1"><a href="javascript:void(0)"></a></div>
 			<div class="smalpic j-container">
 			  <div class="smallbox j-slider" style="left: 0px;">
-				  <a class="j-item on" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_01.png"/></div></a>
-				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_02.png"/></div></a>
-				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_03.png"/></div></a>
+				  <a class="j-item Aflash on" href="javascript:void(0)"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_01.png"/></div></a>
+				  <a class="j-item Aflash href="javascript:void(0)"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_02.png"/></div></a>
+				  <a class="j-item Aflash" href="javascript:void(0)"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_03.png"/></div></a>
 				  <!--a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_04.png"/></div></a-->
-				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_05.png"/></div></a>
-				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_06.png"/></div></a>
-				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_07.png"/></div></a>
+				  <a class="j-item Aflash" href="javascript:void(0)"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_05.png"/></div></a>
+				  <a class="j-item Aflash" href="javascript:void(0)"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_06.png"/></div></a>
+				  <a class="j-item Aflash" href="javascript:void(0)"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_07.png"/></div></a>
 				  <!--a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_08.png"/></div></a>
 				  <a class="j-item" href="#"><div class="imgsmall"><img src="/images/otoimages/icons/sider_icon_09.png"/></div></a-->
 			  </div>
