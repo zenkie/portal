@@ -25,7 +25,12 @@ function delMenu(tableid,colid){
 					});
 					pc.refreshGrid();
                 } else {
-					art.dialog.tips("删除失败！");
+					var message = "删除失败！";
+					if(_data[0].message && _data[0].message!=""){
+						message = _data[0].message;
+					}						
+					art.dialog.tips(message);
+										
                 }
 		},
 		error:function (XMLHttpRequest, textStatus, errorThrown) {
