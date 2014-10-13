@@ -63,6 +63,6 @@
 		<a id="btn_prev" class="clickimg prev" href="#"></a>
 		<a id="btn_next" class="clickimg next" href="#"></a>
 		<div id="page_icenter" class="content"></div>
-		#parse("/html/nds/oto/website/footer.vml")
 	</div>
+	#parse("/html/nds/oto/website/footer.vml")
 </body></html>

@@ -32,7 +32,7 @@
 		<div class="contentimg"><img src="$!article.articlephoto"></div>
 		#end
 		<div class="pagetext">$!article.content</div>
-		#parse("/html/nds/oto/website/footer.vml")
 	</div>
+	#parse("/html/nds/oto/website/footer.vml")
 </body>
 </html>
