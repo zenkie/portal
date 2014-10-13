@@ -30,6 +30,8 @@ time, mark, audio, video {
 	font-size: 12px;
 	clear: both;
 	text-shadow: 1px 1px 0 rgba(255,255,255,1);
+	position: absolute;
+	bottom: 0;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, /*css reset */
