@@ -8,12 +8,12 @@
 </head>
 <body>
 <div class="wrapper">
-    <div id="mySwipe" class="swipe" style="height:144px;">
+    <div id="mySwipe" class="swipe" style="height:180px;">
         <div class="swipe-wrap">
 			#foreach($img in $allImg)
 				<div class="img">
 					<a href="#">
-						<img src="$img.get(2)" style="height:144px;" class="tpbn">
+						<img src="$img.get(2)" style="height:180px;" class="tpbn">
 					<b>&nbsp; </b>
 					</a>
 				</div>
