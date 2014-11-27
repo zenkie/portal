@@ -130,13 +130,18 @@ function sendopencrdverifycode(o){
 		type: 'post',
 		data:{command:"ExecuteWebAction",params:_params},
 		success: function (data) {
-		var _data = eval("("+data+")");
-		   if(_data[0].code == 0){
-				showBubble("验证码发送成功！");
-				get_code_time(o);
-		   }else{					
+			var _data = eval("("+data+")");
+			var userdate=_data[0].result_data;
+			if(_data[0].code == 0){
+				if(userdate&&userdate.code==0){
+					showBubble("验证码发送成功！");
+					get_code_time(o);
+				}else{
+					showBubble(userdate.message);
+				}
+			}else{					
 				showBubble("验证码发送失败！");
-		   }
+			}
 		}
 	});
 }
