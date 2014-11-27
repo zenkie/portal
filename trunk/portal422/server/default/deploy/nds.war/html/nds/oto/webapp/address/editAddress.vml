@@ -1,90 +1,92 @@
-#parse("/html/nds/oto/webmall/init.vml")
-#parse('/html/nds/oto/webapp/address/editInit.vml')
-<!DOCTYPE html>
-<html>
+#parse("/html/nds/oto/webapp/address/editInit.vml")
+<html lang="zh-CN">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
-<meta charset="UTF-8">
-<meta name="viewport" content=" initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
-<script type="text/javascript" src="/html/nds/oto/webapp/address/js/jsAddress.js"></script>
+<meta http-equiv="x-dns-prefetch-control" content="on">
 <script type="text/javascript" src="/html/nds/oto/webapp/address/js/jquery.js"></script>
-<script type="text/javascript" src="/html/nds/oto/webapp/address/js/editAddress.js"></script>
-<link href="/html/nds/oto/webmall/css/style.css" rel="stylesheet">
-<title>修改收货地址</title>
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/json2.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/jsAddress.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/index.js"></script>
+<!-- dialog引入 skin皮肤 -->
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/dialog.js?skin=default"></script>
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/address/css/style.css" />
+<title>收货地址</title>
 </head>
 <body>
-#if($mall.showmenu == '否')
-	#parse("/html/nds/oto/webmall/lay_header.vml")
+<div class="wx_wrap">
+	<div class="address_new">
+		<p>
+			<label for="NAME">
+				<span class="tit">收货人</span>
+				<input type="text" id="NAME" name="NAME" placeholder="名字" value="$!address.name">
+			</label>
+		</p> 
+		<p>
+			<label for="PHONENUM">
+				<span class="tit">联系方式</span>
+				<input type="number" id="PHONENUM" name="PHONENUM" placeholder="手机号码" value="$!address.phonenum">
+			</label>
+		</p> 
+		<p class="area">
+			<label for="PROVINCE">
+				<span class="tit">省份</span>
+				<select id="PROVINCE" name="PROVINCE"></select>
+			</label>
+			<label for="CITY">
+				<span class="tit">市</span>
+				<select name="CITY" id="CITY"></select>						
+			</label>
+			<label for="REGIONID">
+				<span class="tit">区/县</span>
+				<select name="REGIONID" id="REGIONID"></select>
+			</label>
+		</p>
+		<p>
+			<label for="ADDRESS">
+				<span class="tit">详细地址</span>
+				<input id="ADDRESS" name="ADDRESS" type="text" placeholder="详细地址" value="$!tempAddress">
+			</label>
+		</p> 
+		<p class="action"><button class="submit" id="add">确认</button></p>
+	</div>
+</div>
+#if($!type == "pagePay")
+	##如果是订单管理，就设置这个地址为默认地址
+	<input type="hidden" id="ISADDRESS" name="ISADDRESS" value="2"/>
 #end
-        <div class="lay_page page_address_add" id="page_address_add">
-            <div class="lay_page_wrap">
-                <div class="qb_gap qb_pt10">
-                    <div class="qb_mb10 qb_flex">
-                        <input name="name" type="text" id="name" class="mod_input flex_box" value="$address.name" placeholder="收件人姓名"/>
-                    </div>
-                    <div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="name_msg"></div>
-                    <div>                      
-                        <span class="mod_select qb_mr10 qb_mb10" id="sprovince">
-                            <select name="pvid" id="province">                                                          
-                            </select>
-						</span>
-                        <span class="mod_select qb_mr10" id="scity">
-                            <select name="ctid" id="city">
-							 </select>
-						</span>
-                        <span class="mod_select qb_mb10">
-                            <select name="regionId" id="regionId">
-							</select>
-						</span>
-                    </div>
-                    <div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="region_msg"></div>
-                    <div class="qb_mb10 qb_flex">
-                        <input name="address" type="text" id="address" value="$address.address" class="mod_input flex_box" placeholder="详细地址"/>
-						<input name="addressDetail" id="addressDetail" type="hidden"/>
-                    </div>
-                    <div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="address_msg"></div>
-                    <div class="qb_mb10 qb_flex">
-                        <input name="mobile" type="tel" id="mobile" placeholder="联系电话" value="$address.phonenum" class="mod_input flex_box"/>
-                    </div>
-                    <div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="mobile_msg"></div>
-                    <div class="qb_mb10">
-                         <a id="save_addr" class="mod_btn btn_em btn_block" href="javascript:void(0)">保存收货地址</a>                      
-                    </div>
-                </div>
-            </div>
-        </div>  
-#parse("/html/nds/oto/webmall/footer.vml")
-#if($mall.showmenu == '是')
-	#parse("/html/nds/oto/webmall/bottom_menu.vml")
+#if($!adId == -1)
+	<input type="hidden" id="WX_VIP_ID__VIPCARDNO" name="WX_VIP_ID__VIPCARDNO" value="$!fromvipid"/>
+	<script type="text/javascript">
+		jQuery(function(){
+			addressInit("PROVINCE", "CITY", "REGIONID");//初始化级联地址
+			var opt = {
+				params: {
+					"unionfk":true
+				},
+				type: "$!type"
+			}
+			new Address("Edit",opt);
+		});
+	</script>
+#else
+	<input type="hidden" id="id" name="id" value="$!adId"/>
+	<script type="text/javascript">
+		jQuery(function(){
+			addressInit("PROVINCE", "CITY", "REGIONID","$address.province","$address.city","$address.regionid");//初始化级联地址
+			var opt = {
+				command: "ObjectModify",
+				params: {
+					"partial_update":true
+				},
+				type: "$!type"
+			};
+			new Address("Edit",opt);
+		});		
+	</script>
 #end
-<script type="text/javascript">	
-	$(function () {
-		//初始化级联
-		addressInit("province", "city", "regionId","$address.province","$address.city","$address.regionid");	
-		
-		var address = "$address.address";
-		var replaceStr = "$address.province$address.city$address.regionid";
-		var _address = $("#address");
-		_address.val(address.replace(replaceStr,""));
-		}
-	);
-	
-	$("#save_addr").click(function(){
-		var province = $("#province").children().filter(":selected").val();
-        var city = $("#city").children().filter(":selected").val();
-        var regionId = $("#regionId").children().filter(":selected").val();
-		var address = $("#address").val();
-		address = province+city+regionId+address;
-		var name = $("#name").val();
-		var phone = $("#mobile").val();
-		var command = "ObjectModify";
-		var _params = "{\"table\":16009,\"partial_update\":true,\"id\":$editId,\"PROVINCE\":"+province+",\"CITY\":"+city+",\"REGIONID\":"+regionId+",\"ADDRESS\":"+address+",\"NAME\":"+name+",\"PHONENUM\":"+phone+"}";
-		
-		editAddress(command,_params);
-	});
-</script>
 </body>
 </html>
