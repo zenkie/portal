@@ -101,8 +101,8 @@ wxs.weixinpay=function(){
 				},1000)
 			}else{
 				WeixinJSBridge.log(res.err_msg);
-				showBubble("支付异常，请重新支付！");
-				//alert(res.err_code+"<=>"+res.err_msg+"<=>"+res.err_desc)
+				//showBubble("支付异常，请重新支付！");
+				alert(res.err_code+"<=>"+res.err_msg+"<=>"+res.err_desc)
 			}
 		}
 	);
