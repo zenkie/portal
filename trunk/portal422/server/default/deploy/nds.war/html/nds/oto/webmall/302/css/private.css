@@ -1,0 +1,24 @@
+.table_one{
+	background:#953734;
+	width:100%;
+}
+.table_two{
+	background:#205867;
+	width:100%;
+}
+.table_one td, .table_two td {
+	width: 50%;
+}
+.table_one img, .table_two img{ 
+	display: block;
+	width: 100%;
+}
+.table_one p, .table_two p{
+	text-align: center;
+	color: #fff;
+}
+.table_one .arrow, .table_two .arrow{
+	margin: 5px 90px;
+	border-color: #fff;
+	border-width: 2px 2px;
+}
