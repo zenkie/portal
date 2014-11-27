@@ -1,0 +1,56 @@
+.mod_dialog {
+	z-index: 1000;
+}
+.mod_dialog .dialog_mask {
+	background-color: rgba(0,0,0,.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 300;
+}
+.mod_dialog .dialog_main {
+	position: fixed;
+	width: 230px;
+	height: 180px;
+	color: #9590a3;
+	top: 30%;
+	left: 60%;
+	z-index: 301;
+	border-radius: 5px;
+	text-align: center;
+	margin-left: -145px;
+	background: #e5e5e5;
+}
+.mod_dialog .dialog_main .dialog_bd {
+	min-height: 45px;
+	max-height: 60px;
+	padding: 30px 20px 0 20px;
+}
+.mod_dialog .dialog_main .dialog_ft {
+	padding: 10px;
+}
+.mod_dialog .dialog_main .dialog_ft a {
+	color: #fff;
+	padding: 5px 5px;
+	-webkit-box-flex: 1;
+	display: block;
+	margin: 10px 40px;
+	border-radius: 5px;
+	text-align: center;
+	background: #9590a3;
+}
+.qb_quick_tip {
+	color: #FFF;
+	z-index: 202;
+	padding: 5px 5px;
+	line-height: 20px;
+	text-align: center;
+	border-radius: 5px;
+	background: rgba(107,106,108,.9);
+	position: fixed;
+	top: 50%;
+	left: 10px;
+	right: 10px;
+}

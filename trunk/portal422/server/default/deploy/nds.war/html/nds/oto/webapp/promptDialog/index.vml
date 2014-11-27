@@ -1,0 +1,13 @@
+<script type="text/javascript" src="/html/nds/oto/webapp/promptDialog/js/dialog.js"></script>
+<link href="/html/nds/oto/webapp/promptDialog/css/dialog.css" rel="stylesheet" type="text/css">
+<div class="mod_dialog display_none" id="message-notice">
+	<div class="dialog_mask"></div>
+	<div class="dialog_main">
+		<div class="dialog_bd" id="notice-content"></div>
+		<div class="dialog_ft">
+			<a href="javascript:void(0);" class="flex_box" id="notice-cancel">取消</a>
+			<a href="javascript:void(0);" class="flex_box" id="notice-sure">确定</a>
+		</div>
+	</div>
+</div>
+<div class="qb_quick_tip display_none" id="bubble"></div>
