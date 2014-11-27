@@ -33,7 +33,7 @@
 			<span>扫描二维码关注我们</span>
 		</div>
 		<div class="buttondiv">
-		   <button type="button" id="button">一键设置</button>
+		   <button type="button" id="button"></button>
 		</div>
 	</div>
 	<script type="text/javascript">
