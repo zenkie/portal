@@ -223,10 +223,13 @@ CategoryTabItem.prototype.toString= function() {
 	//"<img src=\"/html/nds/themes/classic/01/images/bos-logo.png\" alt=\"BOS Logo\"></a></li>";
 	}else{
 		if(this.oTableCategory.icoURL!=undefined){
-			var str = "<li id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\">"+
+			/*var str = "<li id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\">"+
 								"<span  class=\"bgshow\"><a class=\"page-tab-text"+spanid+"\"><img src=\""+this.oTableCategory.icoURL+"\"\/></a></span>"
-								+"<span  class=\"bghidden\"><a class=\"page-tab-text"+spanid+"\"><img src=\""+this.oTableCategory.icoURLback+"\"\/></a></span>"
-								+"<a class=\"page-tab-text\">" +this.oTableCategory.desc+"</a></li>";
+								+"<span  class=\"bghidden\"><a class=\"page-tab-text"+spanid+"\"><img src=\""+this.oTableCategory.icoURLback+"\"\/></a></span></li>";*/
+			var str = "<li id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\">"
+								+"<span class=\"bghover\"><a class=\"page-tab-text"+spanid+"\"><img src=\""+this.oTableCategory.icoURL+"_hover.png\"\/></a></span>"
+								+"<span class=\"bgshow\"><a class=\"page-tab-text"+spanid+"\"><img src=\""+this.oTableCategory.icoURL+"\"\/></a></span>"
+								+"<span class=\"bghidden\"><a class=\"page-tab-text"+spanid+"\"><img src=\""+this.oTableCategory.icoURLback+"\"\/></a></span></li>";
 		}else{
 			var str = "<li id=\"page-tab-" + this.id + "\" onclick=\"categoryTabHandler.select(this);\" class=\"page-tab\">"+
 									"<span  class=\"bgshow\"><a class=\"page-tab-text"+spanid+"\"><img src=\"/html/nds/oto/themes/01/images/nav_sjzx.png\"\/></a></span>"
@@ -283,4 +286,22 @@ function subsystem(u) {
 	  	
 	  }
 	});
+};*/
+
+/*function resset(oTableCategory) {
+		alert(oTableCategory.id);
+		this.id=oTableCategory.id;
+		//增加当前是否存在子系统ID
+		this.ssid=oTableCategory.ssid;
+		this.oTableCategory=oTableCategory;
+		categoryTabHandler.all["C"+this.id] = this;
+}
+	resset.prototype.select = function(var a) {
+		alert("aaa");
+		
+	
+};
+resset.prototype.deSelect = function() {
+	document.getElementById("page-tab-"+this.id).className = 'page-tab';
+	categoryTabHandler.selected = null;
 };*/
