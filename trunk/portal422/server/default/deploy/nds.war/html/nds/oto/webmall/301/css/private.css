@@ -1,0 +1,23 @@
+.cate_info img {
+	width: 100%;
+}
+.cate_info .cate_detail {
+	padding: 10px 15px;
+	position: relative;
+	background-color: #fff;
+}
+.cate_info .cate_detail .cate_arrow{
+	border-width: 0 13px 15px 13px;
+	border-color: #fff;
+	border-style: solid;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	position: absolute;
+	top: -15px;
+	left: 30px;
+}
+.cate_info .cate_detail .to_arrow{
+	right: 15px;
+	bottom: 12px;
+	border-width: 5px 5px;
+}
