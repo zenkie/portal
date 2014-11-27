@@ -108,18 +108,19 @@
 %>
 <style type="text/css">
 .aui_main{overflow: auto;}
+.uploadifive-button{
+margin-top:130px!important;
+}
 </style>
+<!--<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>-->
 
-<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>
-
+<script language="javascript" src="/html/nds/oto/js/prg/upload/jquery.uploadifive.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/webrootupload.js"></script>
 <script language="javascript" src="/html/nds/oto/js/menuoperation.js"></script>
-
-
-
 <link type="text/css" href="/html/nds/oto/attention/css/wxreplay.css" rel="Stylesheet">
 <link href="/html/nds/oto/attention/css/reply.css" rel="stylesheet" type="text/css">
-
-<link type="text/css" rel="StyleSheet" href="/html/prg/upload/uploadify.css">
+<link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/prg/upload/uploadifive.css">
+<!--<link type="text/css" rel="StyleSheet" href="/html/prg/upload/uploadify.css">-->
 <script type="text/javascript">
 //每次初始清0
 art.dialog.data('flagFunc',0);
@@ -289,8 +290,8 @@ var upinit={
 	'fileExt'		: '*.dat;'
 };
 var para={
-	"next-screen":"/html/prg/msgjson.jsp",
-	"formRequest":"/html/nds/msg.jsp",
+	//"next-screen":"/html/prg/msgjson.jsp",
+	//"formRequest":"/html/nds/msg.jsp",
    // "JSESSIONID":"<%=session.getId()%>",
 	"isThum":true,
 	"width":<%=imagewidth%>,
@@ -300,7 +301,7 @@ var para={
 	"modname":"menuAdd"
 };
 jQuery(document).ready(function(){
-	  fup.initForm(upinit,para);
+	  fup.initForm(upinit,para,"fileInput1");
 });
 </script>
     <div id="mainContent" style="height: 460px;">
