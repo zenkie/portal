@@ -7,6 +7,7 @@ var wxs={
 	title="测试分享";
 	desc="测试分享测试分享测试分享";
 	fakeid="";
+	weixinno="";
 	callback=function(){};
 };
 var weixinshareing=new function(){};
@@ -68,6 +69,19 @@ wxs.onBridgeReady:function(){
 			function(res){(wxs.callback)();}
 		);
 	});
+};
+
+wxs.attention:function(){
+	alert(wxs.weixinno);
+	if(ypeof WeixinJSBridge != "undefined" && WeixinJSBridge.invoke){
+		WeixinJSBridge.invoke(
+			"profile", 
+			{
+				username: wxs.weixinno,
+				scene: "57"
+			}
+		);
+	}
 };
 wxs.main:function(){
 	/*wxs=new weixinshareing();
