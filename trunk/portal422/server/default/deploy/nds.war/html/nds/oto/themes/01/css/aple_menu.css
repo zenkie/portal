@@ -12,11 +12,12 @@
 border-radius: 4px 0 0 4px;
 border-left: none;
 }
-*/
+
 body * {
 font-size:12px;
 font-family:微软雅黑;
 }
+*/
 /* APPLE STYLE NAVIGATION MENU */
 #page-nav-container { margin:0; list-style:none;
 
@@ -29,7 +30,7 @@ font-family:微软雅黑;
     /* We want to add the shadow to the complete navigation menu. In order to do that, we'll need to set
     the correct width and height, and also the correct borders, in order to create the perfect drop shadow */
     /*width:766px; */
-    height:32px;
+    height:50px;
     
     /*-moz-border-radius:4px;
     -webkit-border-radius:4px;
@@ -40,7 +41,7 @@ font-family:微软雅黑;
     box-shadow: 0 3px 4px #8b8b8b;*/
 }
 
-#page-nav-container li { display:block; float:left;width:98px;height: 51px;  /*-bottom:1px solid #575757; border-top:1px solid #797979;*/
+#page-nav-container li { display:block; float:left;width:100px;height: 50px;  /*-bottom:1px solid #575757; border-top:1px solid #797979;*/
 
     /* Gradient backgrounds for the buttons. Generated using http://gradients.glrzad.com/ */
    /* background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #787878), color-stop(0.5, #5E5E5E), color-stop(0.51, #707070), color-stop(1, #838383));
@@ -51,12 +52,12 @@ font-family:微软雅黑;
 	/*background: url(../images/nhhead.png) no-repeat;
 	background-repeat: no-repeat;*/
 }
-
+/*
 #page-nav-container  li:hover, ul.newFunction li.active 
 {
-/*background:#222538 url(/html/nds/oto/themes/01/images/nhli.png) no-repeat bottom center;*/
+background:#222538 url(/html/nds/oto/themes/01/images/nhli.png) no-repeat bottom center;
 
-}
+}*/
 /*
 #page-nav-container  li:hover span a.page-tab-text1, ul.newFunction li.active span a.page-tab-text1{
             background-position: -45px 2px;
@@ -75,13 +76,14 @@ font-family:微软雅黑;
         }*/
 #page-nav-container  li span a{
 
-height: 30px;
+height: 50px;
 display: block;
 background-repeat: no-repeat;
 }
 #page-nav-container  li span.bgshow{
 	display:none;
 }
+/*
 #page-nav-container  li.page-tab {
 background:url(/html/nds/oto/themes/01/images/nhli-default.png) no-repeat bottom center;
 background-position-y: 3px;
@@ -91,20 +93,26 @@ background-size:49%;
 background:url(/html/nds/oto/themes/01/images/nhli.png) no-repeat bottom center;
 background-position-y: 3px;
 background-size:49%;
-}
+}*/
 #page-nav-container  li.page-tab-selected a{color:#003366;}
-#page-nav-container  li.page-tab-selected>a{ background: url(/html/nds/oto/themes/01/images/nhlibg.jpg) no-repeat bottom;}
+/*#page-nav-container  li.page-tab-selected>a{ background: url(/html/nds/oto/themes/01/images/nhlibg.jpg) no-repeat bottom;}*/
 #page-nav-container  li.page-tab-selected  span.bgshow{
 	display:block;
 }
-#page-nav-container  li:hover{background:url(/html/nds/oto/themes/01/images/nhli.png) no-repeat bottom center;background-position-y: 6px;background-position-y: 3px;background-size:49%;}
+#page-nav-container li span.bghover{
+	display:none;
+}
+#page-nav-container li:hover span.bghover{
+	display:block;
+}
+/*#page-nav-container  li:hover{background:url(/html/nds/oto/themes/01/images/nhli.png) no-repeat bottom center;background-position-y: 6px;background-position-y: 3px;background-size:49%;}
 #page-nav-container  li:hover a{color:#003366;}
-/*#page-nav-container  li:hover  >a{background: url(/html/nds/oto/themes/01/images/nhlibg.jpg) no-repeat bottom;}*/
+#page-nav-container  li:hover  >a{background: url(/html/nds/oto/themes/01/images/nhlibg.jpg) no-repeat bottom;}*/
 #page-nav-container  li.page-tab-selected  span.bghidden{
 	display:none;
 }
 #page-nav-container  li a{cursor:pointer;}
-#page-nav-container  li:hover span.bghidden{
+/*#page-nav-container  li:hover span.bghidden{
 		display:none;
 }
 #page-nav-container  li:active span.bgshow{
@@ -117,7 +125,7 @@ background-size:49%;
 
 #page-nav-container  li:hover span.bgshow{
 		display:block;
-}
+}*/
 /*
 #page-nav-container  li span a.page-tab-text1 {
 background-position: 21px 2px;
@@ -137,10 +145,9 @@ background-position: 21px 2px;
 #page-nav-container li span{
 /*background: url(/html/nds/oto/themes/01/images/nhlibg.jpg) no-repeat bottom right;*/
 width: 100%;
-padding-top: 6px;
 text-align: center;
 display: block;
-height: 30px;
+height: 50px;
 }
 #page-nav-container li cite a{
 color: #a7aaba;
@@ -230,9 +237,9 @@ We also remove the borders, since they don't need them. */
 }
 
 #page-nav-container {
-     -webkit-animation: showMenu 1s; position:absolute;
-     top: 0px;
-left: 188px;
+    -webkit-animation: showMenu 1s; position:absolute;
+    top: 0px;
+	left: 250px;
 }
 /* 标签页样式   */
 #tabs ul{
@@ -480,11 +487,15 @@ box-shadow: #CCC 0 0 .25em;
 }
 
 .bgshow img{
-	height:40px;
-	width:40px;
+	height:50px;
+	width:50px;
 }
 
 .bghidden img{
-	height:40px;
-	width:40px;
+	height:50px;
+	width:50px;
+}
+.bghover img{
+	height:50px;
+	width:50px;
 }

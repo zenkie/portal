@@ -22,7 +22,7 @@ table a{color:#2559A6; text-decoration:none;}
 
 input,textarea,select {font: 12px tahoma, arial, verdana, geneva, sans-serif;}
 input.txt_focus {border: 1px solid #c00;}
-input.btn {border: 1px solid #ccc;cursor: pointer;}
+input.btn {/*border: 1px solid #ccc;*/border: 0;cursor: pointer;}
 textarea.txt {padding: 2px 0 2px 3px;vertical-align: middle;border: 1px solid #ccc;background:#fff;color:#777;}
 textarea.txt_focus {border: 1px solid #c00;}
 
@@ -187,11 +187,35 @@ input{ color:#666;}
 .searchUp{background: url(../images/new_icon.png) -4px -41px no-repeat;}
 /*弹出框中按钮*/
 .button{ border:#CCCCCC 1px solid;cursor: pointer;padding:0 5px;height:24px;}
-.search .button,.btn_submit{padding:0 20px;*padding:0 8px;height:28px;display: inline-block;*flaot:left;line-height:28px;text-align: center;color:#fff!important;border:1px solid #c0c0c0;
-    position:relative;z-index:1000;	float:right;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;*zoom:1;margin:0;background-color: #67b959;background-image: -webkit-linear-gradient(top,#67b959 3%,#56a548 97%);color: #fff;border: 1px solid #c3c3c3;border-color: #3d810c;}
+.search .button,.btn_submit{
+padding:0 20px;
+height:28px;
+display: inline-block;
+line-height:24px;
+text-align: center;
+position:relative;
+z-index:1000;
+float:right;
+border-radius:3px;
+-moz-border-radius:3px;
+-webkit-border-radius:3px;
+margin:0;
+background-color: #acc136;
+color: #fff;
+}
 .search .button{float:left;}
-	.btn_submit:hover,.search .button:hover{text-decoration: none;background-color: #56a548;background-image: linear-gradient(top,#56a548 3%,#56a548 97%);background-image: -moz-linear-gradient(top,#56a548 3%,#56a548 97%);background-image: -webkit-linear-gradient(top,#56a548 3%,#56a548 97%);background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #56a548),color-stop(1, #56a548));background-position: center bottom;}
-
+.btn_submit:hover,.search .button:hover{
+	text-decoration: none;
+	background-color: #bed349;
+/*background-image: linear-gradient(top,#56a548 3%,#56a548 97%);
+background-image: -moz-linear-gradient(top,#56a548 3%,#56a548 97%);
+background-image: -webkit-linear-gradient(top,#56a548 3%,#56a548 97%);
+background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #56a548),color-stop(1, #56a548));
+background-position: center bottom;*/
+}
+.btn_submit:active,.search .button:active{
+background-color: #9aaf26;
+}
 .btn_cannel,.btn_normal{padding:0 20px;*padding:0 8px;height:28px;background: #f0f0f0;display: inline-block;*flaot:left;line-height: 28px;text-align: center;color:#464646!important;border:1px solid #c0c0c0;position:relative;z-index:1000;}
 .btn_cannel:hover,.btn_normal:hover{text-decoration: none;opacity: .9;filter:alpha(opacity=90)}
 

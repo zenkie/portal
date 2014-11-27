@@ -309,19 +309,20 @@ overflow: visible;
 border-radius: 3px;
 -moz-border-radius: 3px;
 -webkit-border-radius: 3px;
-background-color: #67b959;
-background-image: linear-gradient(top,#67b959 3%,#56a548 97%);
+background-color: #acc136;
+/*background-image: linear-gradient(top,#67b959 3%,#56a548 97%);
 background-image: -moz-linear-gradient(top,#67b959 3%,#56a548 97%);
-background-image: -webkit-linear-gradient(top,#67b959 3%,#56a548 97%);
+background-image: -webkit-linear-gradient(top,#67b959 3%,#56a548 97%);*/
 color: #fff;
-border: 1px solid #c3c3c3;
-margin: 0;
-padding: 3px 5px;
-border-color: #3d810c;
+margin: 5px 5px 5px 0;
+padding: 5px 5px;
+border: 0;
+/*border: 1px solid #c3c3c3;
+border-color: #3d810c;*/
 }
 input[type="button"]:hover{
-background-color: #56a548;
-background-image: linear-gradient(top,#56a548 3%,#56a548 97%);
+background-color: #bed349;
+/*background-image: linear-gradient(top,#56a548 3%,#56a548 97%);
 background-image: -moz-linear-gradient(top,#56a548 3%,#56a548 97%);
 background-image: -webkit-linear-gradient(top,#56a548 3%,#56a548 97%);
 background-image: -webkit-gradient(
@@ -331,14 +332,18 @@ left top,
 color-stop(0, #56a548),
 color-stop(1, #56a548)
 );
-background-position: center bottom;
+background-position: center bottom;*/
 }
-
-.cbutton{height:22px;
-border:1px solid #BFA277;
-/* width:69px; 
-background:transparent url(/html/nds/themes/classic/01/images/bos-bt.png) repeat scroll 0%;*/
-color:#484848;
+input[type="button"]:active{
+	background-color: #9aaf26;
+}
+td input.cbutton{height:24px;
+padding: 0;
+margin: 0 0 0 5px;
+/*border:1px solid #BFA277;
+ width:69px; 
+background:transparent url(/html/nds/themes/classic/01/images/bos-bt.png) repeat scroll 0%;
+color:#484848;*/
 }
 
 .smalltab{

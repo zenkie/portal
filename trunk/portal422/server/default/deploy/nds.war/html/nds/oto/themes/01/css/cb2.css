@@ -155,6 +155,7 @@ text-align:right;
 margin:0 0 0 18px;
 +margin:5px 10px 10px 5px;/*IEø…÷¥––*/
 float:left;
+z-index:1000;
 }
 #multi-buttons{
 margin:0px 0px 0px 0px;

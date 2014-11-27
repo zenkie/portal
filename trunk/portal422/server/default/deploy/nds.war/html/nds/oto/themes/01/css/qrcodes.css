@@ -1,0 +1,159 @@
+span em{
+	color: #f00;
+}
+.replyList{
+	float: left;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	width: 603px;
+	background: #fff;
+	border: 0px;
+	overflow: hidden;
+	position: relative;
+}
+.replyList .cLine{
+	background:#fff;
+	padding: 5px 14px 5px 20px;
+	border-bottom: 1px dashed #dbdbdb;
+	-webkit-border-radius: 0px;
+}
+.replyList .btnArea{
+	background: #eeeded;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	padding: 9px 7px 8px 7px;
+	overflow: hidden;
+	border-top: 1px dashed #dbdbdb;
+}
+.float-p{
+	-webkit-border-radius: 0px;
+}
+.float-main{
+	-webkit-border-radius: 6px;
+	border: 1px solid #dbdbdb;
+}
+.float-left{
+	float: left;
+	border-right:1px solid #dbdbdb;
+}
+.float-right{
+	float: left;
+	background: #fff;
+	overflow: hidden;
+	position: relative;
+}
+.left_text{
+	padding-left:10px;
+	line-height:39px;
+}
+.left_status{
+	vertical-align: middle;
+	padding-left:1px;
+}
+.left_img{
+	width:30px;
+	height:30px;
+	padding: 5px 0;
+}
+.imgbtn{
+	margin-right: 20px;
+}
+.radioinfo{
+	padding-left:10px;
+	line-height:40px;
+}
+.radioinfo span{
+	line-height:40px;
+}
+.radioinfo input{
+	vertical-align: middle;
+}
+.logo_code{
+	vertical-align: middle;
+	text-align: center;
+	padding: 20px;
+}
+.logo_img{
+	width:200px;
+	height:200px;
+}
+.left_btn{
+	width:110px;
+	margin:10px 0;
+}
+.types{
+	text-align: left;
+	border-bottom: 1px dashed #dbdbdb;
+}
+.types a:hover{
+	color: #07d;
+	text-decoration: none;
+}
+.actionTypes{
+	height:40px;
+	line-height: 40px;
+	padding-left: 20px;
+}
+.selectTypes{
+	width:170px;
+}
+.scriptDiv{
+	padding:20px 15px 20px 10px;
+}
+.scriptContent{
+	width:100%;
+	height:323px;
+	-webkit-border-radius: 6px;
+	border: 1px solid #dbdbdb;
+	resize: none;
+}
+.btns{
+	margin-right:20px;
+	float:right;
+}
+.addDispose{
+	font-family: "Microsoft YaHei",Helvetica,Verdana,Arial,Tahoma;
+	line-height: 1.5;
+	font-size: 14px;
+	padding-left: 28px;
+	border: 0;
+	cursor: pointer;
+	background:url(/html/nds/oto/themes/01/images/icon_action.png) no-repeat;
+	margin-left: -3px;
+}
+input[type="text"],select {
+	margin: 0;
+	border: 1px solid #EEE;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+input[type="text"]:focus,select:focus{
+	border-color: rgba(82,168,236,.8);
+	outline: 0;
+	outline: thin dotted \9;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(82,168,236,.6);
+	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(82,168,236,.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(82,168,236,.6);
+}
+.uploadify,.uploadifive-button{
+	color:#07d;
+	width:35px!important;
+	line-height:39px;
+	float:right;
+	padding-top: 5px;
+	margin-right: 5px;
+}
+#SWFUpload_0{
+	width:35px;
+}
+.uploadify-button,.left_status{
+	width:35px!important;
+}
+.uploadify-queue,.uploadifive-queue{
+	display:none;
+	max-width:200px;
+	padding: 0 20px 5px 10px;
+	overflow:hidden;
+}

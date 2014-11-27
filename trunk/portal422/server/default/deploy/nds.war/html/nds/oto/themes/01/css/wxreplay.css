@@ -15,7 +15,7 @@
 .float-p label {cursor: pointer;}
 
 .float-p li {text-align: -webkit-match-parent;}
-.float-p .header {background: #eeeded;border-radius: 5px 5px 0 0;-moz-border-radius: 5px 5px 0 0;-webkit-border-radius: 5px 5px 0 0;line-height: 30px;}
+.float-p .header {background: #f8f8f8;border-radius: 5px 5px 0 0;-moz-border-radius: 5px 5px 0 0;-webkit-border-radius: 5px 5px 0 0;line-height: 30px;}
 .float-p .cntBox {text-align:left;}
 .keywordsList {float:left;margin-right: 10px;width: 236px;border-radius: 6px;-moz-border-radius: 6px;-webkit-border-radius: 6px;border: 1px solid #dbdbdb;background: #fff;}
 .keywordsList .cLine {padding: 5px 12px 5px 12px;border-bottom: 1px solid #dbdbdb;line-height: 30px;}
@@ -43,7 +43,7 @@
 .replyList .cntBox {padding: 5px 12px 5px 12px;border-bottom: 1px solid #dbdbdb;}
 .replyList .replyItems {padding: 0px 0 0px 0;overflow: hidden;overflow-y: auto;position: relative;height: 350px;}
 .replyList .replyItems .item {position: relative;overflow: hidden;padding: 0 8px 10px 8px;margin-bottom: 10px;border-bottom: 1px solid #dbdbdb;}
-.replyList .btnArea {background: #eeeded;border-radius: 0 0 5px 5px;-moz-border-radius: 0 0 5px 5px;-webkit-border-radius: 0 0 5px 5px;/*height: 30px;*/padding: 7px 7px 7px 7px;overflow: hidden;}
+.replyList .btnArea {background: #f8f8f8;border-radius: 0 0 5px 5px;-moz-border-radius: 0 0 5px 5px;-webkit-border-radius: 0 0 5px 5px;/*height: 30px;*/padding: 7px 7px 7px 7px;overflow: hidden;}
 
 .replyList .btnArea .btnAdd {font-family: "Microsoft YaHei",Helvetica,Verdana,Arial,Tahoma;line-height: 1.5;font-size: 14px;padding-left: 28px;background: url('../images/icon28.png') no-repeat scroll 0 0 transparent;border: 0;cursor: pointer;}
 .replyList .btnArea a {min-width: 78px;display: block;margin-top: 3px;float: right;}
