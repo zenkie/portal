@@ -157,15 +157,33 @@ sendMessage.prototype={
 			}
 		}		
 		if(a.length>0){submitObj["urlcontent"]=JSON.stringify(a.slice()).replace(new RegExp("^\"|\"$","g"),"").replace(new RegExp("(\\\\\")","g"),"\"").replace(/\\\\\\\\\\/g,"\\\\");}
-		var evt={};
-		evt.command="DBJSON";
-		evt.callbackEvent="COMMIT_DATA";
-		evt.param=Object.toJSON(submitObj);
-		evt.table="WX_NOTIFY";
-		evt.action = "aud";
-		evt.permission="r";
 		dialog = art.dialog({lock:true,cancel: false,content: '正在发送，请稍后.....'});
-		send._executeCommandEvent(evt);		
+		var _command = "ObjectCreate";
+		var opendIdList = submitObj.opendIdList;
+		var _params = "{\"table\":\"WX_NOTIFYTEMP\",\"unionfk\":true,\"MASSOPENID\":\""+opendIdList+"\"}";		
+		jQuery.ajax({
+			url: '/html/nds/schema/restajax.jsp',
+			type: 'post',
+			//dataType:'json',//返回的数据是json
+			data:{command:_command,params:_params},
+			success: function (data) {			
+				var _data = eval("("+data+")");
+				if (_data[0].code == 0) {				
+					submitObj.opendIdList = _data[0].objectid;
+					var evt={};
+					evt.command="DBJSON";
+					evt.callbackEvent="COMMIT_DATA";
+					evt.param=Object.toJSON(submitObj);
+					evt.table="WX_NOTIFY";
+					evt.action = "aud";
+					evt.permission="r";		
+					send._executeCommandEvent(evt);	
+				} else {
+					dialog.close();
+					sendCommand._showDialog({content:"数据提交失败，请重新提交！"});
+				}
+			}					
+		});	
 	},
 	_commitSave:function(e){		
 		//var memberid = e.getUserData()jsonResult.evalJSON().memberid;
