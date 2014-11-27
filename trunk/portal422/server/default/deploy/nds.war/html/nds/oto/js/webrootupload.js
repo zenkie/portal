@@ -8,42 +8,28 @@ FileUpload.prototype = {
 	initForm:function(upinit,para,colid){
 		this._upinit=upinit;
 		this._para=para;
-		jQuery("#"+colid).uploadify({
-			'swf'           : '/html/prg/upload/uploadify.swf',
-			'uploader'      : '/servlets/binserv/UploadforWebroot',
-			//'cancelImg'   : '/html/prg/upload/uploadify-cancel.png',
+		jQuery("#"+colid).uploadifive({
+			'removeCompleted' : true,
+			'uploadScript'      : '/servlets/binserv/UploadforWebroot',
 			'folder'        : '/html/nds',
 			'multi'         : false,
-			//'auto'			:false,
-			'sizeLimit'     : this._upinit.sizeLimit,
 			'buttonText'	: this._upinit.buttonText,
-			'fileDesc'      : this._upinit.fileDesc,
-			'fileExt'       : this._upinit.fileExt,
 			'formData'	: this._para,
 			'method'   : 'post',
-			onUploadError: function (evt, b, c, s) {
-			//alert(123);
-	         if (b== 404)
-	            alert('Could not find upload script.');
-	         else
-	            alert('error '+b+": "+c);
+			onError: function (evt) {
+	            alert('error :'+evt);
 			},
-			onUploadSuccess: function(a,b,response){
-				// you can handle response here
-				/*$("#output").css("display","block");
-				 */
+			onUploadComplete: function(a,b){
 				jQuery("#whole").html(b);
-				//alert(response);
-				//window.location.href="/html/prg/regSuccess.jsp";
 				return true;
 			}
-		});			
+		});
 	},
 	
 	beginUpload:function(){
 		var para=this._para;
 		//jQuery('#fileInput1').Settings("scriptData",para,true);	
-		jQuery('#fileInput1').uploadify('upload','*'); }
+		jQuery('#fileInput1').uploadifive('upload'); }
 };
 FileUpload.main = function () {
 	fup=new FileUpload();
