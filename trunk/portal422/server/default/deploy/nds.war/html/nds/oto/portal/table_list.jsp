@@ -7,7 +7,7 @@ boolean isShow=true;
 %>
 <form id="fm_list">
 <div id="embed-lines"> 
-	<div id="div_head" style="overflow:hidden;">
+	<div id="div_head" style="overflow:auto;">
 		<table id="table_head" class="flow-head" style="width:100%" cellspacing=1 border=0>
 			<thead>
 				<tr id="titletr" style="height:40px;">
