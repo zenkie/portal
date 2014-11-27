@@ -1,2 +1,19 @@
-#set ($editId= $getutil.getInteger($request.getParameter("editId") ,5))
-#set ($address = $myweb.getObject("WX_ADDRESS",$editId))
+##收货地址管理，如果没有VIP此页面不可以访问 $fromvipid就是wx_vip_id(会员id)
+#if("$!fromvipid"=="")
+	#set($url="/html/nds/oto/webapp/error/index.vml")
+	$myweb.forwardTourl($url,$request,$response);
+#end
+## type的类型 pageAddress收货地址管理，不涉及订单管理； pagePay表示订单收货地址管理
+#set ($type = $getutil.getString($request.getParameter("type"),"pageAddress"))
+#set ($adId = $getutil.getInteger($request.getParameter("adId") ,-1))
+
+##根据vipid与记录id获取收货地址信息
+#set ($address = $myweb.getObject("WX_ADDRESS","WX_ADDRESS.ID=$adId&WX_ADDRESS.WX_VIP_ID=$fromvipid"))
+
+##详细地址
+#set ($tempAddress = "")
+
+#if(!$address.isEmpty())
+#set ($tempAddress = $stringutil.add($stringutil.add($!address.get("province"),$!address.get("city"),""),$!address.get("regionid"),""))
+#set ($tempAddress = $stringutil.replace($!address.get("address"),$!tempAddress,""))
+#end
