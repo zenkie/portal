@@ -29,8 +29,9 @@
 
 .btnGreen{border:1px solid #3d810c;box-shadow:0 1px 1px #aaa;-moz-box-shadow:0 1px 1px #aaa;-webkit-box-shadow:0 1px 1px #aaa;padding:5px 20px;cursor:pointer;display:inline-block;text-align:center;overflow:visible;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;*zoom:1;background-color:#5ba607;background-image:linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%);color:#fff;border:1px solid #3d810c}
 .btnGreen:hover{background-color:#5ba607;background-image:linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%);color:#fff}
-.btnGreenS{border:1px solid #3d810c;box-shadow:0 1px 1px #aaa;-moz-box-shadow:0 1px 1px #aaa;-webkit-box-shadow:0 1px 1px #aaa;padding:5px 20px;cursor:pointer;display:inline-block;text-align:center;overflow:visible;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;*zoom:1;background-color:#5ba607;background-image:linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%);color:#fff;border:1px solid #3d810c;margin:0;padding:3px 5px;min-width:65px;}
-.btnGreenS:hover{background-color:#5ba607;background-image:linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%);color:#fff}
+.btnGreenS{border:0;/*box-shadow:0 1px 1px #aaa;-moz-box-shadow:0 1px 1px #aaa;-webkit-box-shadow:0 1px 1px #aaa;*/padding:5px 20px;cursor:pointer;display:inline-block;text-align:center;overflow:visible;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;*zoom:1;background-color:#acc136;/*background-image:linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%);*/color:#fff;margin:0;padding:3px 5px;min-width:65px;outline:none;}
+.btnGreenS:hover{background-color:#bed349;/*background-image:linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%);color:#fff*/}
+.btnGreenS:active {background-color: #9aaf26;}
 .btnGray{border:1px solid #3d810c;box-shadow:0 1px 1px #aaa;-moz-box-shadow:0 1px 1px #aaa;-webkit-box-shadow:0 1px 1px #aaa;padding:5px 20px;cursor:pointer;display:inline-block;text-align:center;overflow:visible;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;*zoom:1;background-color:#f1f1f1;background-image:linear-gradient(bottom,#f0f0f0 3%,#f9f9f9 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#f0f0f0 3%,#f9f9f9 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#f0f0f0 3%,#f9f9f9 97%,#fff 100%);color:#000;border:1px solid #AAA}
 .btnGray:hover{background-color:#f9f9f9;background-image:linear-gradient(bottom,#f8f8f8 3%,#f9f9f9 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#f8f8f8 3%,#f9f9f9 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#f8f8f8 3%,#f9f9f9 97%,#fff 100%);color:#000}
 .btnGrayS{border:1px solid #3d810c;box-shadow:0 1px 1px #aaa;-moz-box-shadow:0 1px 1px #aaa;-webkit-box-shadow:0 1px 1px #aaa;padding:5px 20px;cursor:pointer;display:inline-block;text-align:center;overflow:visible;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;*zoom:1;background-color:#f1f1f1;background-image:linear-gradient(bottom,#f0f0f0 3%,#f9f9f9 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#f0f0f0 3%,#f9f9f9 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#f0f0f0 3%,#f9f9f9 97%,#fff 100%);color:#000;border:1px solid #AAA;box-shadow:0 1px 1px #d0d0d0;-moz-box-shadow:0 1px 1px #d0d0d0;-webkit-box-shadow:0 1px 1px #d0d0d0;margin:0;padding:3px 5px;*padding-top:0;*padding-bottom:0;*height:26px;*line-height:22px}
@@ -41,7 +42,7 @@
 .replyList .cLine {padding: 5px 12px 5px 12px;border-bottom: 1px solid #dbdbdb;}
 .replyList .cLine p {float: left;line-height: 30px;}
 /*.replyList .cntBox {padding: 5px 12px 5px 12px;border-bottom: 1px solid #dbdbdb;}*/
-.replyList .replyItems {padding: 0px 0 0px 0;overflow: hidden;overflow-y: auto;position: relative;}
+.replyList .replyItems {padding: 0px 0 0px 0;overflow: hidden;overflow-y: auto;}
 .replyList .replyItems .item {position: relative;overflow: hidden;padding: 0 8px 10px 8px;margin-bottom: 10px;border-bottom: 1px solid #dbdbdb;}
 .replyList .btnArea {background: #eeeded;border-radius: 0 0 5px 5px;-moz-border-radius: 0 0 5px 5px;-webkit-border-radius: 0 0 5px 5px;/*height: 30px;*/padding: 7px 7px 7px 7px;overflow: hidden;}
 
@@ -70,7 +71,7 @@
 .cover .i-title {display: block;padding-left: 4px;padding-right: 4px;}
 .sub-msg-opr {top: 0;left: 100%;height: 100%;width: 100%;background-color: #e5e5e5;background: rgba(229,229,229,0.85);filter: progid:dximagetransform.microsoft.gradient(GradientType=0,startColorstr='#85E5E5E5',endColorstr='#85E5E5E5') alpha(opacity=85);}
 .tc {text-align: center;}
-.abs {position: absolute;left:0px;}
+.abs {position: absolute;}
 img {border: 0;text-decoration: none;display: inline-block;}
 .cover img {width: 100%;}
 .cover li {text-align: -webkit-match-parent;list-style-type: none;}
@@ -130,7 +131,7 @@ img {border: 0;text-decoration: none;display: inline-block;}
 .win-news-operate{ margin-top:10px; padding-left:65px;}
 
 .addlink { float:right; }
-.addlink a { text-decoration: none;color: #2559A6;padding-left:3px;font-size:12px; }
+.addlink a { text-decoration: none;color: #2559A6;padding-left:3px;font-size:12px;margin-right:15px;}
 #tdMenu .tarea {float:left;}
 #tdMenu .tarea  textarea {width:570px;height:372px;font-size: 14px;line-height: 1.5;padding:3px; resize:none;}
 #tdMenu .tarea .botton { border: 1px solid #CCC; margin:3px 0;padding: 0 10px; }
