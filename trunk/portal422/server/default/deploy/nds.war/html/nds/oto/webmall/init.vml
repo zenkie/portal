@@ -3,3 +3,7 @@
 #set ($mall =$myweb.getObject("WX_MALL","WX_MALL.AD_CLIENT_ID=$myweb.getClientId()"))
 #set ($vipid=$fromvipid)
 #set ($client= $getutil.getString($request.getParameter("client"),"none"))
+
+#set ($parastr=$getutil.getString($engine.doQueryOne("select ap.value from AD_PARAM ap where ap.ad_client_id=$myweb.getClientId() and ap.name='isusesign'")))
+#set ($parastrs=$stringutil.split($parastr))
+#set ($isShowSign=$stringutil.contains($getutil.getString($myweb.getClientId()),$parastrs,true))
