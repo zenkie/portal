@@ -1,0 +1,129 @@
+body {
+	background: #fff;
+	color: #9590a3;
+}
+header{
+	height:50px;
+	text-align:center;
+	background:#f4f4f4;
+}
+header span {
+	width: 30px;
+	height: 40px;
+	display: inline-block;
+	background: url(/html/nds/oto/webapp/coupon/images/coupon_icon.png) no-repeat center;
+	-webkit-background-size: 30px auto;
+}
+header label {
+	display: inline-block;
+	line-height: 40px;
+	font-size: 16px;
+	margin-top: 5px;
+	color: #A8AAAC;
+	overflow: hidden;
+}
+ul li{
+	padding: 10px 0;
+}
+ul li .coupon_left{
+	color: #fff;
+	margin: auto;
+	width: 351px;
+	height: 130px;
+	display: block;
+	position:relative;
+	background: url(/html/nds/oto/webapp/coupon/images/coupon_info.png) no-repeat;
+}
+ul li .coupon_price{
+	font-size:30px;
+	position:absolute;
+	top:5px;
+	left:10px;
+}
+ul li .coupon_conditions{
+	width: 225px;
+	position:absolute;
+	top:50px;
+	left:10px;
+}
+ul li .coupon_explain{
+	top: 55px;
+	font-size: 16px;
+}
+ul li .coupon_date{
+	position:absolute;
+	left:10px;
+	bottom:25px;
+}
+ul li .coupon_require{
+	position:absolute;
+	left:10px;
+	bottom:5;
+}
+ul li .coupon_right{
+	width: 96px;
+	float: right;
+	height: 130px;
+	display: block;
+	background: url(/html/nds/oto/webapp/coupon/images/coupon_receive.png) no-repeat;
+}
+ul li .coupon_overdue{
+	background: url(/html/nds/oto/webapp/coupon/images/coupon_overdue.png) no-repeat;
+}
+ul li .coupon_receive{
+	background: url(/html/nds/oto/webapp/coupon/images/coupon_receive.png) no-repeat;
+}
+ul li .coupon_received{
+	background: url(/html/nds/oto/webapp/coupon/images/coupon_received.png) no-repeat;
+}
+ul li .coupon_used{
+	background: url(/html/nds/oto/webapp/coupon/images/coupon_used.png) no-repeat;
+}
+ul li[id="coupon_turn"]{
+	width: 350px;
+	height: 130px;
+	margin: auto;
+	position: relative;
+	-webkit-transition: all .5s ease-in;
+}
+ul li[id="coupon_turn"]>a {
+	position: absolute;
+}
+ul li[id="coupon_turn"] .on{
+	-webkit-transform: rotateY(180deg);
+}
+ul li[id="coupon_turn"]a.front {
+	width: 350px;
+	height: 130px;
+	-webkit-background-size: 350px 130px;
+}
+ul li[id="coupon_turn"]a.front>* {
+	position: absolute;
+	display: block;
+}
+ul li[id="coupon_turn"]a.front .no {
+	color: #fff;
+	right: 10px;
+	bottom: 10px;
+	font-weight:bold;
+}
+ul li[id="coupon_turn"]>div.back {
+	width: 350px;
+	height: 130px;
+	display: none;
+	background:#fff;
+	-webkit-transform: rotateY(360deg);
+}
+ul li[id="coupon_turn"].on>div.back {
+	color: #000;
+	display: block;
+	text-align: center;
+	-webkit-background-size: 350px 130px;
+}
+ul li[id="coupon_turn"] .back img{
+	width: 100%;
+	height: 105px;
+}
+ul li[id="coupon_turn"] .back p{
+	font-size:18px;
+}
