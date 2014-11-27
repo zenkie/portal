@@ -1,0 +1,53 @@
+.list_addr ol{
+	border-top: 3px solid #999;
+	padding-bottom: 10px;
+	-webkit-background-size: 100% 0px;
+}
+.list_addr .header {
+	padding: 5px 0;
+	border-bottom: 1px solid #aaa;
+}
+.list_addr li.header i {
+	border: 1px solid #999;
+}
+.list_addr .header label {
+	color: #666;
+	font-weight: bold;
+}
+.list_addr li i {
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 40px;
+	margin: 4px 0 0 15px;
+	-webkit-box-sizing: border-box;
+	background: url(/html/nds/oto/webmall/images/icons.png) no-repeat center 0;
+	-webkit-background-size: 40px auto;
+	background-position: center -565px;
+}
+.store_info > *{
+	display: table-cell;
+	vertical-align: top;
+}
+.list_addr li {
+	background: rgba(200,200,200,0.1);
+}
+.list_addr li label{
+	bottom: 0;
+}
+.list_addr li label span.arrow{
+	top: 15px;
+}
+.list_ul li.on label span.arrow{
+	top: 10px;
+}
+.list_addr li.li_add i {
+	background-position: center -646px;
+}
+.list_addr li.li_tel i {
+	background-position: center -606px;
+}
+.list_addr li.li_tel dd a {
+	padding: 10px;
+	line-height: 34px;
+}
