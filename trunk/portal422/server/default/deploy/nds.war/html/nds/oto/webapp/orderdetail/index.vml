@@ -16,7 +16,7 @@
 			<a href="javascript:;">配送中</a>
 		</header>
 		#if("$orderList"=="[]")
-			<div class="mod_color_weak mod_nocontent qb_fs_s" style="height: 511px;">
+			<div class="order_none">
 				<p>没有订单</p>
 				<p><a href="/mall.jsp">返回首页</a></p>
 			</div>

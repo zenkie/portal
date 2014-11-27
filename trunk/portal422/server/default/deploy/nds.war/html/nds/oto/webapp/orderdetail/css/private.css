@@ -1,0 +1,120 @@
+header{
+	height: 50px;
+	display: -webkit-box;
+	background-color: #b1b2c1;
+}
+header a{
+	color: #fff;
+	display: block;
+	line-height: 50px;
+	text-align: center;
+	-webkit-box-flex: 1;
+}
+header a:hover{
+	background:#9f9baa;
+}
+header .on{
+	background-color:#9f9baa;
+}
+.order_none{
+	padding: 20px;
+	text-align: center;
+}
+.order_none p{
+	line-height: 25px;
+}
+.order_none a{
+	text-decoration: underline;
+}
+.orders_info{
+	height:40px;
+	background-color:#f4f4f4;
+	position:relative;
+	top:0px;
+	border-bottom: 1px solid #eaeaea;
+	padding:15px 20px 15px 10px;
+}
+.orders_info .cancle_orders{
+	position: absolute;
+	color: #B8B4B4;
+	line-height: 15px;
+	margin-top: -18px;
+	right: 130px;
+	text-decoration:underline;
+}
+.orders_info p {
+	color: #939393;
+}
+.orders_info p label{
+	color:#d88248;
+	margin-left:5px;
+}
+.orders_info .button{
+	float:right;
+	height: 30px;
+	line-height: 30px;
+	background: #827c92;
+	color: #F8F4F4;
+	border-radius: 3px;
+	position:absolute;
+	top:20px;
+	right:40px;
+	min-width: 80px;
+	text-align: -webkit-center;
+}
+.orders_info .order_arrow{
+	top: 28px;
+	right: 20px;
+}
+.product_list{
+	margin-bottom:10px;
+	/*border-bottom: 1px solid #eaeaea;*/
+	background:#eeecf1;
+}
+.product_list .product_li{
+	height:80px;
+	display: block;
+	position:relative;
+}
+.product_list ul a img{
+ 	width: 60px;
+	height: 60px;
+	margin: 10px 10px 10px 10px;
+	border: 1px solid #e5e5e5;
+	display: block;
+	position: absolute;
+	overflow: hidden;
+}
+.product_list .product_num,.product_list .product_standard,.product_list .info{
+	display:block;
+	position:absolute;
+	color: #898989;
+}
+.product_list .info{
+	margin-top: 8px;
+	margin-left: 90px;
+	font-size: 13px;
+}
+.product_list .product_num{
+	margin-top: 50px;
+	margin-left: 80px;
+}
+.product_list .product_standard{
+	margin-top: 28px;
+	margin-left: 90px;
+}
+.product_list .more_orders{
+	height: 50px;
+	text-align: -webkit-center;
+	display:none;
+	background:#FFF;
+}
+.product_list .more_orders p{
+	margin-top: -10px;
+	color: #898989;
+	font-size: 13px;
+	
+}
+.product_list .more_orders  .order_picflip {
+	-webkit-transform: rotate(180deg);
+}
