@@ -54,12 +54,26 @@ if(!userWeb.isActive()){
 			<tr>
 				<td class="ftd"><span class="createmenucss" style="width:200px;" >domin:</span></td>
 				<td class="std"><input id="domin" type="text" value style="width:250px;" /></td>
+				<td id="aaa"><a href="{'fromid'='dad','test'='dsa'd'}" >test</a><td>
 			</tr>
 			<tr>
 				<td class="ftd"><span class="createmenucss">body:</span></td>
 				<td class="std"><textarea id="menus" name="props" rows="26" cols="100"></textarea></td>
+				<td><img id="codess" src="" />
 			</tr>
-			<tr><td colspan=2 style="text-align:center;"><input type="button" onclick="cm.cratemenu();" value="创建菜单" /></td></tr>
+			<tr>
+				<td colspan="3" style="text-align:center;">
+					<input type="button" onclick="cm.cratemenu();" value="创建菜单" />
+					<input type="button" onclick="cm.createTwoDimensionalCode();" value="创建二维码" />
+					<input type="button" onclick="cm.createweixinbesweptorder();" value="测试微信被扫" />
+					<input type="button" onclick="cm.queryweixinbesweptorder();" value="微信被扫订单查询" />
+					<input type="button" onclick="cm.reverseWeixinbesweptorder();" value="微信被扫冲正" />
+					<input type="button" onclick="cm.refundWeixinbesweptorder();" value="微信被扫退款" />
+					<input type="button" onclick="cm.queryRefundWeixinbesweptorder();" value="微信被扫退款查询" />
+					<input type="button" onclick="cm.getOpenid();" value="获取主商户号OPENID" />
+					<input type="button" onclick="cm.getOpenidAu();" value="获取主商户号" />
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </body>
