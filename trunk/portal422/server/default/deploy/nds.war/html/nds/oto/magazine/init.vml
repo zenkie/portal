@@ -1,0 +1,17 @@
+##获取当前微杂志设置编号
+#set($id= $getutil.getInteger($request.getParameter("id") ,-1))
+#set($anchors=0)
+#set($custompages=0)
+##如果是修改则获取数据
+#if($id>0)
+	##获取当前微杂志信息
+	#set($magazine=$myweb.getObject("WX_MAGAZINE","WX_MAGAZINE.ID=$id"))
+
+	##获取当前微杂志对应的过长图片信息
+	#set($custompages=$myweb.getList("WX_MAGAZINEIMAGE","WX_SETAD","WX_MAGAZINEIMAGE.WX_MAGAZINE_ID=$id","/@ID@",1))
+
+	##获取当前微杂志对应的锚点信息
+	#set($anchors=$myweb.getList("WX_MAGAZINEANCHOR","WX_SETAD","WX_MAGAZINEANCHOR.WX_MAGAZINE_ID=$id","/@ID@",1))
+#else
+	#set($magazine=1)
+#end

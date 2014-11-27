@@ -1,0 +1,309 @@
+﻿#parse('/html/nds/oto/magazine/init.vml')
+<!DOCTYPE html>
+<html class="no-js ui-viewport-640" lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="cleartype" content="on">
+    <title>微杂志设置</title>
+    <link rel="stylesheet" href="/html/nds/oto/magazine/css/jquery-ui-1.9.2.custom.min.css" type="text/css" />
+    <link rel="StyleSheet" href="css/setting.css?v=20140924" rel="stylesheet" type="text/css" />
+	<link rel="StyleSheet" href="/html/nds/oto/themes/01/css/object.css" type="text/css" />
+    <link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/prg/upload/uploadifive.css">
+</head>
+<body>
+	<div class="app-init-container">
+        <div class="app__content js-app-main">
+            <div class="app-design clearfix without-add-region">
+                <div class="app-design-left">
+                    <div class="app-preview">
+					   <div class="buttons" style="margin-left: 10px">
+							<span id="buttons" >
+								<a class="table-buttons2 " href="javascript:MicroDesigner.Submit()">保存</a>
+								#if($id>0)
+									<a class="table-buttons2 " target="_blank" href="/html/nds/oto/webapp/magazine/index.vml?id=$!id">预览</a>
+								#end
+							</span>
+							<span id="myMessage" class="tip-message"></span>
+					</div>
+                        <div class="app-header"></div>
+                        <div class="app-entry">
+                            <div class="app-config js-config-region">
+                                <div class="app-field clearfix editing">
+                                    <h1><span>微杂志页面标题</span></h1>
+                                    <style>
+                                        .app-preview .app-field {
+                                            background-color: #f9f9f9 !important;
+                                        }
+                                    </style>
+                                </div>
+                            </div>
+                            <div class="app-fields js-fields-region">
+                                <div class="app-fields ui-sortable">
+                                    <div class="app-field clearfix">
+                                        <div class="control-group">
+                                            <div class="tpl-scroll">
+                                                <div class="ui-left-btns">
+                                                    <i class="ui-homepage-btn"></i>
+                                                </div>
+                                                <div class="ui-right-btns">
+                                                    <i class="ui-music-btn"></i>
+                                                </div>
+                                                <div class="app-container" style="background-color:$!magazine.color;background-image:url($!magazine.bgphoto);">
+                                                   <img id="app_img_container" src="" style="width:100%;height:100%;display:none" />
+												    #if($anchors)
+                                                        #foreach($anchor in $anchors)
+                                                        <div class="map-link" data-target="jsPageRegion$anchor.get(3)" style="display:none">
+                                                            <div class="actions">
+																<input type="hidden" name="fromid" value="$anchor.get(4)"/>
+																<input type="hidden" name="objectid" value="$anchor.get(5)"/>
+																<input type="hidden" name="id" value="$anchor.get(0)"/>
+                                                                <input type="hidden" name="anchor" value="$anchor.get(2)" />
+																 <input type="hidden" name="page" value="$anchor.get(3)" />
+                                                                <span class="action delete close-modal" title="删除">×</span>
+                                                            </div>
+                                                        </div>
+                                                    #end
+                                                    #end
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-sidebar app-config-sidebar" style="margin-top: 71px;">
+                    <div class="arrow"></div>
+                    <div class="app-sidebar-inner js-sidebar-region">
+                        <div>
+                            <form class="form-horizontal" id="appConfigForm" novalidate="">
+                                <div class="control-group">
+                                    <label class="control-label"><em class="required">*</em>页面名称：</label>
+                                    <div class="controls">
+										<input type="hidden" name="id" value="$!id">
+                                        <input class="input-xxlarge" type="text" name="name" value="$!magazine.name">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">页面描述：</label>
+                                    <div class="controls">
+                                        <input class="input-xxlarge" type="text" value="$!magazine.describe" name="describe" value="" placeholder="用户通过微信分享给朋友时，会自动显示页面描述">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">背景颜色：</label>
+                                    <div class="controls">
+                                        <input type="color" value="$!magazine.color" name="color">
+                                        <!--<button class="btn js-reset-bg" type="button">重置</button>-->
+                                        <p class="help-desc">背景颜色只在手机端显示。</p>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">背景图片：</label>
+                                    <div class="controls">
+										#if($magazine.bgphoto)
+											<div class="image-box">
+												<img src="$!magazine.bgphoto" class="image">
+											</div>
+									   #end
+                                        <a class="control-action js-trigger-image" href="javascript: void(0);">选择图片</a>
+                                        <input type="hidden" name="bgphoto" value="$!magazine.bgphoto" />
+                                        <p class="help-desc">建议尺寸：640 x 1080 像素，背景图片是满屏大图且只在PC端显示</p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-sidebar app-field-sidebar" style=" display: none">
+                    <div class="arrow"></div>
+                    <div class="app-sidebar-inner js-sidebar-region">
+                        <div>
+                            <form class="form-horizontal custom-scroll" id="appFieldForm" novalidate="">
+                                <div class="js-meta-region" id="myForm2">
+                                    <div class="ui-box">
+                                        <div class="control-group">
+                                            <label class="control-label">主页图标：</label>
+                                            <div class="controls">
+                                                <label class="checkbox inline">
+													<input type="checkbox" name="homestate" value="$!magazine.homestate">
+                                                    显示店铺主页图标，用户点击后进入店铺主页
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">背景音乐：</label>
+                                            <div class="controls">
+                                                <label class="checkbox inline">
+                                                    <input type="checkbox" name="musicstate" value="$!magazine.musicstate"/>
+													<input type="hidden" name="bgmusic" value="$!magazine.bgmusic"/>
+                                                    启用背景音乐：&nbsp;文件：
+                                                </label>
+												<label class="checkbox inline" id="myBGMusic" title="$!magazine.bgmusic" style="display:inline-block;width:105px;overflow:hidden;">$!magazine.bgmusic</label>
+                                                <a href="javascript:void(0);" isFile="true" class="choose-music js-music">选择音乐</a>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">循环滚动：</label>
+                                            <div class="controls">
+                                                <label class="checkbox inline">
+                                                    <input type="checkbox" name="loop" value="$!magazine.loop">
+                                                    封底页可继续滑动切换到封面
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="custom-scroll-pages">
+                                    <p class="">图片尺寸要求：640*1010 像素；建议每张图不超过200KB</p>
+                                    <div class="js-first-page-region" id="myForm">
+                                        <div class="custom-scroll-page">
+                                            <h4>封面页</h4>
+                                            <div class="ui-box clearfix nopagewipe">
+												#if($magazine.homephoto)
+													<div class="image-box">
+														<img src="$!magazine.homephoto" class="image">
+												    </div>
+												#end
+												<a href="javascript:;" id="firstUploadify" class="js-first-page-image"><i class="icon-add"></i>添加图片</a>
+                                                <div class="control-group error">
+                                                    <div class="controls" style="margin: 2px;">
+                                                        <input type="hidden" name="first_page_image_url">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ui-box clearfix pagewipe" style="display: none">
+                                                <div class="pull-left before-wipe">
+                                                    <div class="pull-left">擦拭前：</div>
+                                                    <div class="pull-left margin-no">
+												#if($magazine.homephoto)
+													<div class="image-box">
+														<img src="$!magazine.cleanphoto" class="image">
+												    </div>
+												#end
+                                                        <a href="javascript:;" class="js-first-page-wipe-image"><i class="icon-add"></i>添加图片</a>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left after-wipe">
+                                                    <div class="pull-left">擦拭后：</div>
+                                                    <div class="pull-left margin-no">
+													#if($magazine.cleanphoto)
+														<div class="image-box">
+															<img src="$!magazine.homephoto" class="image">
+														</div>
+													#end
+                                                        <a href="javascript:;" class="js-first-page-image"><i class="icon-add"></i>添加图片</a>
+                                                        <div class="control-group">
+                                                            <div class="controls" style="margin: 2px;">
+                                                                <input type="hidden" name="first_page_image_url">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+											<input type="hidden" name="cleanphoto" value="$!magazine.cleanphoto"/>
+											<input type="hidden" name="homephoto" value="$!magazine.homephoto"/>
+                                            <label class="checkbox inline">
+                                                <input type="checkbox" name="cleanstate" value="$!magazine.cleanstate">
+                                                启用擦拭屏幕后显示的交互效果
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="custom-scroll-page">
+                                        <h4>过场页面</h4>
+									 #set($maxPageId=0)
+									 #set($ind =0)
+									 #if($id>0)
+                                        #foreach($page in $custompages)
+											#set($maxPageId=$getutil.getInteger($page.get(3) ,1))
+											#set($ind=$ind +1)
+                                            <div class="js-pages-region" id="jsPageRegion$page.get(3)">
+                                                <ul class="choices ui-sortable">
+                                                    <li class="choice">
+                                                        <div class="choice-image-box">
+														#if($page.get(2))
+															<div class="image-box">
+																<img src="$!page.get(2)" class="image">
+															</div>
+														#end
+                                                            <a href="javascript:;" class="add-image js-page-image"><i class="icon-add"></i>添加图片</a>
+                                                            <div class="control-group error">
+                                                                <div class="controls">
+																	<input type="hidden" name="page" value="$!page.get(3)"/>
+																	<input type="hidden" name="id" value="$!page.get(0)"/>
+                                                                    <input type="hidden" name="photo" value="$!page.get(2)">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="choice-content">
+                                                            <div class="control-group">
+                                                                <a href="javascript:;" class=" add-link"><i class="icon-add"></i>添加连接</a>
+                                                                <div class="controls">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="actions">
+                                                            <span class="action delete close-modal" title="删除">×</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                    #end
+									#set($maxPageId=$ind + $maxPageId)
+                                    #end
+                                        <div class="js-options options" style="display: block;">
+                                            <a href="javascript:;" class="add-option js-add-page"><i class="icon-add"></i>添加一页</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<input type="hidden" id="maxPageId" value="$!maxPageId"/>
+    <!--新增一页模板-->
+    <script type="text/html" id="tempAddPage">
+        <div class="js-pages-region">
+            <ul class="choices ui-sortable">
+                <li class="choice">
+                    <div class="choice-image-box">
+                        <a href="javascript:;" class="add-image js-page-image"><i class="icon-add"></i>添加图片</a>
+                        <div class="control-group error">
+                            <div class="controls">
+								<input type="hidden" name="page" value=""/>
+								<input type="hidden" name="id" value=""/>
+                                <input type="hidden" name="photo" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="choice-content">
+                        <div class="control-group">
+                            <a href="javascript:;" class="js-first-page-wipe-image add-link"><i class="icon-add"></i>添加连接</a>
+                            <div class="controls">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <span class="action delete close-modal" title="删除">×</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </script>
+    <script type="text/javascript" src="/html/nds/oto/magazine/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="/html/nds/oto/magazine/js/json2.js"></script>
+    <script type="text/javascript" src="/html/nds/oto/magazine/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/html/nds/oto/magazine/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script language="javascript" src="/html/prg/upload/jquery.uploadifive.min.js"></script>
+    <script type="text/javascript" src="/html/nds/oto/magazine/js/setting.js?v=20140924"></script>
+</body>
+</html>
