@@ -67,7 +67,7 @@ function tabChange(tabid){
 			if(detailsValueList&&detailsValueList.hasOwnProperty(tabid)&&detailsValueList[tabid].hasOwnProperty(specValueList[tabid][key].id)){
 				ids.push(specValueList[tabid][key].id);
 			}
-			valueList+="<li id=\"details_"+tabid+"_"+specValueList[tabid][key].id+"\" onclick=\"addDetails("+tabid+","+specValueList[tabid][key].id+")\"><span><span id=\"span_"+tabid+"_"+specValueList[tabid][key].id+"\">"+specValueList[tabid][key].name+"</span><label onclick=\"si.delValueId("+tabid+","+specValueList[tabid][key].id+",'"+specValueList[tabid][key].value+"');event.cancelBubble=true\" class=\"tabdel\" title=\"删除\"></label></span></li>";
+			valueList+="<li id=\"details_"+tabid+"_"+specValueList[tabid][key].id+"\" onclick=\"addDetails("+tabid+","+specValueList[tabid][key].id+")\"><span><span id=\"span_"+tabid+"_"+specValueList[tabid][key].id+"\">"+specValueList[tabid][key].name+"</span><label onclick=\"si.delValueId("+tabid+","+specValueList[tabid][key].id+");event.cancelBubble=true\" class=\"tabdel\" title=\"删除\"></label></span></li>";
 			
 		}
 		valueList+="<input type=\"button\" onclick=\"addSpecList("+tabid+")\" value=\"+\" class=\"BtnAdd\">";
@@ -299,9 +299,10 @@ function addSpecList(tid){
 	},'');*/
 }
 function addSPECListHtml(tid,objid,val,addName){
-	jQuery("#specValueList_"+tid+" ul input").before("<li id=\"details_"+tid+"_"+objid+"\" onclick=\"addDetails("+tid+","+objid+")\" valueid=\"41\" valtext=\""+objid+"\" specimg=\"\"><span id=\"span_"+tid+"_"+objid+"\">"+addName+"<label onclick=\"si.delValueId("+tid+","+objid+",'"+val+"');event.cancelBubble=true\" class=\"tabdel\" title=\"删除\">X</label></span></li>");
+	jQuery("#specValueList_"+tid+" ul input").before("<li id=\"details_"+tid+"_"+objid+"\" onclick=\"addDetails("+tid+","+objid+")\" valueid=\"41\" valtext=\""+objid+"\" specimg=\"\"><span id=\"span_"+tid+"_"+objid+"\">"+addName+"<label onclick=\"si.delValueId("+tid+","+objid+");event.cancelBubble=true\" class=\"tabdel\" title=\"删除\">X</label></span></li>");
 	jQuery("#specValueList_"+tid+" ul input").attr('onclick','addSpecList('+tid+')');
 	//把添加的具体内容添加到specValueList中
+	if(!specs[tid].hasOwnProperty("childs")){specs[tid]["childs"]={};}
 	if(!specs[tid]["childs"].hasOwnProperty(objid)){specs[tid]["childs"][objid]={id:objid,name:addName,value:val};}
 }
 
@@ -739,8 +740,8 @@ spe.prototype={
 		//移除掉删除的内容
 		jQuery("#details_"+tid+"_"+valueId).remove();
 		//将数据从数组中删除
+		delete specValueList[tid][specs[tid]["childs"][valueId].value];
 		delete specs[tid]["childs"][valueId];
-		delete specValueList[tid][value];
 	},
 	
 	_executeCommandEvent:function(evt){
