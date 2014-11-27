@@ -1,0 +1,71 @@
+#parse("/html/nds/oto/webapp/address/init.vml")
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/jquery.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/json2.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/index.js"></script>
+<!-- dialog引入 skin皮肤 -->
+<script type="text/javascript" src="/html/nds/oto/webapp/address/js/dialog.js?skin=default"></script>
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/address/css/style.css" />
+<title>收货地址</title>
+##如果管理收货地址 不需要出现默认地址样式
+#if($!type == "pageAddress")
+<style>
+.address_list ul:before{
+display:none;
+}
+</style>
+#end
+</head>
+<body>
+<div id="content">
+	<div id="c_wg.myAddress_list">
+		<div class="wx_bar">
+			<div class="wx_bar_back">
+				<a id="listPageback" href="javascript:void(0);"></a> 
+			</div> 
+			<div class="wx_bar_tit">收货地址</div>
+			<div class="wx_bar_act">
+				<a href="javascript:void(0);" class="wx_bar_new" id="_new"></a> 
+			</div>
+		</div>
+		<div class="wx_wrap"> 
+			<div class="address_list" id="addressList">
+				#foreach($address in $addressList)
+				<div class="address">
+					#if($!address.get(8) == "是")
+					<ul adId="$!address.get(0)" class="selected">
+					#else
+					<ul adId="$!address.get(0)">
+					#end
+						<li>$!address.get(3)</li>
+						<li><strong>$!address.get(6)</strong> $!address.get(7)</li>
+						<li class="edit" adId="$!address.get(0)"><a href="javascript:void(0);">编辑</a></li> 
+					</ul> 
+					<p class="act" delId="$!address.get(0)" type="1"><span class="del">删除</span></p> 
+				</div>
+				#end
+				<div class="address_list_link">
+					<a href="javascript:void(0);" class="item item_new" id="new">新增收货地址</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input type="hidden" id="addList" value="$!addressList.size()"/>
+<script type="text/javascript">
+jQuery(function(){
+	var opt = {
+		type: "$!type"
+	}
+	new Address("List",opt);
+});
+</script>
+</body>
+</html>
