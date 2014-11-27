@@ -7,7 +7,8 @@
 </head>
 <body>
 #parse("/html/nds/oto/website/rightColumn.vml")
-<div id="wrap" style="margin-top:46px;">
+<!--9，30孙静妹修改<div id="wrap" style="margin-top:46px;">-->
+<div id="wrap">
      <img src="$albumset.get(0).get(1)" class="tpbn">
          <ul class="mThirC">
 		 #foreach($album in $allAlbum)
