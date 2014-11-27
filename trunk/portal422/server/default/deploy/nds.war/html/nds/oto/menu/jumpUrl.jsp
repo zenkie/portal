@@ -102,12 +102,12 @@ if(!userWeb.isActive()){
 <link href="/html/nds/oto/themes/01/css/reply.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
 <link rel="stylesheet" type="text/css" href="../themes/01/css/uploadify.css">
-<script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
-<script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/hover_intent.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/prg/upload/jquery.uploadifive.min.js"></script>
 <script>
 	jQuery.noConflict();
 </script>
-<script language="javascript" src="/html/nds/js/prototype.js"></script>
+<script language="javascript" src="/html/nds/oto/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/plugins/iframeTools.js"></script>
