@@ -1,8 +1,8 @@
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/common/init.jsp" %>
-<%@ page import="org.json.*" %>
+<%@ page import="org.json.*"  contentType="text/html; charset=UTF-8"%>
 <%@ page import="nds.control.util.*" %>
-<%@ page import="nds.web.config.*" %>
+<%@ page import="nds.web.IShowColumnDisposeFactory,nds.io.PluginController,nds.web.config.*" %>
 
 
 <%! 
@@ -10,7 +10,7 @@
      * Things needed in this page:
      *  1.  table     main table that queried on(can be id or name)
      *  2.  id        id of object to be displayed, -1 means not found
-     *  4.  fixedcolumns 在列表（关联对象）界面中创建单对象的时候，会有此参数
+     *  4.  fixedcolumns 脭脷脕脨卤铆拢篓鹿脴脕陋露脭脧贸拢漏陆莽脙忙脰脨麓麓陆篓碌楼露脭脧贸碌脛脢卤潞貌拢卢禄谩脫脨麓脣虏脦脢媒
      *  5.  input	  if false, must be view page, else will determined by user permission
      */
     String urlOfThisPage;
@@ -230,6 +230,12 @@ if(table!=null){
   	}catch(Throwable ace){}
   }
   /** -- end support for webaction of listbutton --**/
+  
+  /** --paco add --**/
+	nds.io.PluginController pc=(nds.io.PluginController) WebUtils.getServletContextManager().getActor(nds.util.WebKeys.PLUGIN_CONTROLLER);
+	IShowColumnDisposeFactory iaz=pc.findPluginShessColumnDispose("nds.web.ext.showcolumndispose.ShowColumnDisposeImpl");
+	iaz.setTableIndex(tabIndex);
+	iaz.setNamespace(namespace);
 	
 	String includePage=null;
 	String msgError=null;
@@ -305,13 +311,11 @@ var masterObject={
 };
 </script>	
 	<%
-		boolean bDoModify="object_modify.jsp".equals(includePage);
-		if(bDoModify){
-
-	%>
-<%@ include file="object_modify.jsp"%>
+	boolean bDoModify="object_modify.jsp".equals(includePage);
+	if(bDoModify){%>
+			<%@ include file="object_modify.jsp"%>
 		<%}else{%>
-<%@include file="object_view.jsp"%>
+			<%@ include file="object_view.jsp"%>
 		<%
 		}
 	}
@@ -372,7 +376,7 @@ jQuery("#jpsId").jPlayer({
 	ready: function () {
 			jQuery(this).jPlayer("setMedia",<%=sc_soundfile%>);
 		},
-		swfPath: "/html/nds/js/jplay",
+		swfPath: "/html/nds/oto/js/jplay",
 		supplied: "mp3,mp4,flv,oga,wav"
   });	
 });

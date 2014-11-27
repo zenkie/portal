@@ -1,7 +1,7 @@
 <%@ include file="/html/nds/common/init.jsp" %>
 <%@ page import="org.json.*" %>
 <%@ page import="nds.control.util.*" %>
-<%@ page import="nds.web.config.*" %>
+<%@ page import="nds.web.IShowColumnDisposeFactory,nds.io.PluginController,nds.web.config.*" %>
 <%! 
     /**
      * This page will create html segments only for single object modify content updating, including:
@@ -152,6 +152,12 @@ if(table!=null){
 	boolean canEdit= canModify || canAdd;
 	
 	/**------check permission end---**/
+	
+	/** --paco add --**/
+	nds.io.PluginController pc=(nds.io.PluginController) WebUtils.getServletContextManager().getActor(nds.util.WebKeys.PLUGIN_CONTROLLER);
+	IShowColumnDisposeFactory iaz=pc.findPluginShessColumnDispose("nds.web.ext.showcolumndispose.ShowColumnDisposeImpl");
+	iaz.setTableIndex(tabIndex);
+	iaz.setNamespace(namespace);
 
 	/** -- add support for webaction of listbutton --**/
   Connection actionEnvConnection=null;

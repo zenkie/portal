@@ -1,7 +1,7 @@
 <%@ include file="/html/nds/common/init.jsp" %>
 <%@ page import="org.json.*" %>
 <%@ page import="nds.control.util.*" %>
-<%@ page import="nds.web.config.*" %>
+<%@ page import="nds.web.IShowColumnDisposeFactory,nds.io.PluginController,nds.web.config.*" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%! 
@@ -140,6 +140,12 @@ if(table!=null){
 	boolean canSubmit= table.isActionEnabled(Table.SUBMIT) && isSubmitEnabled && status ==1;
 	boolean canEdit= canModify || canAdd;
 	/**------check permission end---**/
+	
+	/** --paco add --**/
+	nds.io.PluginController pc=(nds.io.PluginController) WebUtils.getServletContextManager().getActor(nds.util.WebKeys.PLUGIN_CONTROLLER);
+	IShowColumnDisposeFactory iaz=pc.findPluginShessColumnDispose("nds.web.ext.showcolumndispose.ShowColumnDisposeImpl");
+	iaz.setTableIndex(tabIndex);
+	iaz.setNamespace(namespace);
 	
 	String includePage=null;
 	String msgError=null;
