@@ -1,0 +1,86 @@
+﻿#parse('/html/nds/oto/webmall/init.vml')
+#parse('/html/nds/oto/webapp/order/init.vml')
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+#parse("/html/nds/oto/webmall/topmeta.vml")
+<script type="text/javascript" src="/html/nds/oto/webapp/order/js/orderModify.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/order/js/coupon.js"></script>
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/order/css/coupon.css">
+<title>我的订单</title>
+</head>
+<body>
+	#parse("html/nds/oto/webapp/promptDialog/index.vml")
+	<input id="sale_status" type="hidden" value="$detail.get("wx_order.sale_status")"/>
+	<input id="iscomment" type="hidden" value="$detail.iscomment"/>
+	<input id="orderid" type="hidden" value="$detail.id"/>
+	<input id="goodssize" type="hidden" value="$productdetail.size()"/>
+    <div id="page_order" class="order_wrap">
+                <div class="order_header"><div>订单编号：$!detail.docno</div></div>
+                <h1 class="order_detail_title">商品详情:</h1>
+				#foreach($list in $productdetail)
+					<ul class="order_detail">
+					 <li>
+                        <a href="/html/nds/oto/webapp/product/index.vml?id=$list.get(9)" >
+                            <img src="$list.get(5)" width="70" height="70" alt=""></a>
+                            <div>
+                                <p style="padding-bottom: 5px;padding-top: 9px;">$stringutil.shorten($list.get(3),15,false)</p>
+                                <p style="padding-bottom: 5px;"><span class="order_p">¥$list.get(10)</span>&nbsp;&nbsp;&nbsp;&nbsp;x$list.get(6)</p>
+								<span>规格：$list.get(7)</span>
+                            </div>
+                     </li>					
+					</ul>
+				#end
+				<div style="display:none;" class="order_more" id="order_more">
+					<a href="javascript:void(0)" style="outline: none;" id="order_mpic"><img src="images/couponMore.png"/><br/></a>
+					<a href="javascript:void(0)" id="order_morea" style="color: #898989;outline: none;" index="1">点击查看更多</a>
+				</div>
+			
+            <ul id="allAddress" class="order_alladdress">                
+			#if("$!add.isaddress"!="")
+			<div class="qb_none" id="addrList">
+			#foreach($list in $addList)
+				<li class="address_item" id="toAddrList_$list.get(0)">
+					<div class="address_detail" style="padding-right:0px;">
+						<p>
+							收件人：$list.get(6)<br>
+							联系电话：$list.get(7)
+						</p>
+						<p class="address qb_fs_m">收件地址：$list.get(4)</p>
+						<div class="ui_gap qb_none" style="position: absolute;right: 25%;top: 7px;">
+							<a href="javascript:void(0);" class="modify change">更换</a>
+						</div>
+						<div class="ui_gap qb_none" style="position: absolute;right: 10px;top: 7px;">
+							<a href="/html/nds/oto/webapp/address/orderAddress.vml?objectid=$objectid&docno=$docno&cartid=$cartid&editId=$list.get(0)&status=$detail.get("wx_order.sale_status")" class="modify">修改</a>
+						</div>
+					</div>
+				</li>				
+			#end
+			#end
+            </ul>		
+				<div class="order_pay">支付方式：</div>
+                <div class="order_paymentselect">                    
+					$!detail.payment
+                </div>
+            
+				<div class="order_note">备注：</div>
+				<div class="order_remarks">$!detail.remarks</div>
+			
+			<form name="alipayment" method="post" target="_blank">
+				<div class="order_total">
+					<div id="buy_qty" style="display:none;" qty="$!detail.tot_qty"></div>
+					<div class="order_actual" id="all_total-price_detail">合计：¥$!detail.tot_amt_actual</div>			
+					<div class="order_ship" id="order_freight">运费：¥$!detail.logistics_free</div>					
+					<div class="order_totamt">实付：<span class="order_totprice" id="all_total-price">¥$!detail.tot_amt</span></div>
+					<div class="order_logistics" style="display:none;">
+						<a href="/html/nds/oto/webapp/indent/indent.jsp?com=$detail.get("distribution;code")&nu=$!detail.logistics_code&id=$!detail.id">查看物流</a>
+					</div>
+					<div class="order_evaluation" style="display:none;">
+							<a href="/html/nds/oto/webapp/comment/index.vml?orderId=$detail.id">去评价</a>
+					</div>
+				</div>			
+			</form>
+        </div>
+#parse("/html/nds/oto/webmall/footer.vml")
+</div>
+</body></html>

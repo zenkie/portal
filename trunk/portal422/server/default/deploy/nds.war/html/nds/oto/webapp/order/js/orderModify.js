@@ -8,7 +8,8 @@ function commitOrder(){
 	para.remarks=$("#orderRemarks").val();
     para.orderid=$("#orderid").val();
 	para.pay = $("#select_pay").children().filter(":selected").val();//支付
-	para.address = $("#allAddress .default").attr("id").replace("toAddrList_","");
+	//para.address = $("#allAddress .default").attr("id").replace("toAddrList_","");
+	para.address = $("#addressDefault").attr("addId");
 	if(!para.address){
 		showBubble("请新增收货地址！");
 		return false;
@@ -67,12 +68,13 @@ ordercontroll.prototype.initialize=function(){
 	this.ip="";
 };
 ordercontroll.prototype.changeLogistics=function(){
-	var addresses=$("#allAddress>li[class*=default]");
+	/*var addresses=$("#allAddress>li[class*=default]");
 	if(!addresses||addresses.size()<=0){
 		showBubble("请新增收货地址！");
 		return false;
-	}
-	var addressId=addresses.attr("id").replace("toAddrList_","");
+	}*/
+	//var addressId=addresses.attr("id").replace("toAddrList_","");
+	var addressId = $("#addressDefault").attr("addId");
 	if(!addressId){
 		showBubble("请新增收货地址！");
 		return false;

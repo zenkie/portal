@@ -5,7 +5,7 @@
 <head>
 #parse("/html/nds/oto/webmall/topmeta.vml")
 <script type="text/javascript" src="/html/nds/oto/webapp/order/js/orderModify.js"></script>
-<script type="text/javascript" src="/html/nds/oto/webapp/order/js/coupon.js"></script>
+<script type="text/javascript" src="/html/nds/oto/webapp/order/js/order.js"></script>
 <link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/order/css/coupon.css">
 <title>我的订单</title>
 </head>
@@ -15,7 +15,7 @@
 	<input id="goodssize" type="hidden" value="$productdetail.size()"/>
     <div id="page_order" class="order_wrap">
         <div class="order_header"><div>订单编号：$detail.docno</div></div>
-                <h1 class="order_detail_title">商品详情:</h1>
+                <h1 class="order_detail_title">商品详情：</h1>
 				#foreach($list in $productdetail)
 					<ul class="order_detail">
 					 <li>
@@ -37,21 +37,16 @@
                 <div style="display:none;" class="qb_flex qb_mb10" id="promote-node" index="0"></div>
                 <div class="mod_cell_hr"></div>
 			
-            <ul id="allAddress" class="order_alladdress">
-                <li class="default" id="toAddrList_$!add.id">
-                    <div class="address_detail $!add.isaddress" style="padding-right: 0px;height: 120px;">				
-                        <div class="order_revice">收件人：$add.name<br/></div>
-						<div class="order_phone">联系电话：$add.phonenum</div>
-                        <p class="order_ad">收件地址：$add.address</p>
-						<div class="order_btnmodify">
-							<a href="javascript:void(0);" class="order_change">更&nbsp;&nbsp;换</a>
-						</div>
-						<div class="order_btnchange">
-							<a href="/html/nds/oto/webapp/address/orderAddress.vml?objectid=$objectid&docno=$docno&cartid=$cartid&editId=$add.id&status=$detail.get("wx_order.sale_status")" class="order_modeify">修&nbsp;&nbsp;改</a>
-						</div>
-                    </div>
-                </li>
-            </ul>			
+			##收货地址start
+			<div id="addressDefault" class="address_defalut">
+				<h3 class="tips">请填写收货地址</h3>
+				<h1 style="float:left;">送至：</h1>
+				<ul>
+					<li class="address"></li>
+					<li class="userinfo"></li>
+				</ul>
+			</div>
+			##收货地址end	
 			##优惠券开始
 			##set ($coupon = $myweb.getList("WX_COUPONEMPLOY","WX_SETAD","WX_COUPONEMPLOY.WX_VIP_ID=$vipid&WX_COUPONEMPLOY.ISRECEIVE==Y&WX_COUPONEMPLOY.STATE==N&WX_COUPONEMPLOY.WX_COUPON_ID;MINIMUMCHARGE=<=$detail.tot_amt_actual&WX_COUPONEMPLOY.ROUND(TO_NUMBER(SYSDATE-A1.STARTTIME)*24*60)=>0&WX_COUPONEMPLOY.ROUND(TO_NUMBER(A1.ENDTIME-SYSDATE)*24*60)=>0","/@ID@",1))
 			#set ($coupon = $myweb.getList("WX_COUPONEMPLOY","WX_SETAD","WX_COUPONEMPLOY.WX_VIP_ID=$vipid&WX_COUPONEMPLOY.ISRECEIVE==Y&WX_COUPONEMPLOY.WX_COUPON_ID=is not null&WX_COUPONEMPLOY.WX_COUPON_ID;MINIMUMCHARGE=<=$detail.tot_amt&WX_COUPONEMPLOY.STATE==N&WX_COUPONEMPLOY.DECODE(A1.VALIDAY,NULL, A1.ENDTIME,WX_COUPONEMPLOY.CREATIONDATE+A1.VALIDAY)=>SYSDATE","/@ID@",1))
@@ -146,51 +141,20 @@
 #parse("/html/nds/oto/webmall/footer.vml")
 <script type="text/javascript">
 $(function(){
-	oct.ip="$request.getRemoteAddr()";
-	oct.ad_client_id=$myweb.getClientId();
-	oct.orderId=$detail.id;
-	oct.orderCode="$detail.docno";
-	oct.totalFree=$detail.tot_amt;
-	oct.shipmentFree=$detail.logistics_free;
-	oct.productFree=$detail.tot_amt_actual;
-	var s="$detail.tot_amt_actual";
-	$(".change").each(function(){
-		$(this).click(function(){
-		var _this = $(this).closest(".address_item");
-		var _div = $("#addrList");		
-			if(_this.hasClass("default")){
-				if(_div.hasClass("qb_none")){
-					_div.removeClass("qb_none");
-				}else{
-					_div.addClass("qb_none");
-				}							
-			}
-		});
-	});
-	$(".address_item").each(function(){
-		$(this).click(function(){
-		var _this = $(this);
-		var _div = $("#addrList");		
-			if(_this.hasClass("default")){				
-				return;						
-			}else{
-				var list = $(".address_item");
-				$(list[0]).removeClass("default");
-				$(list[0]).find(".ui_gap").addClass("qb_none");
-				_div.prepend($(list[0]));
-				_this.closest("ul").prepend(_this);
-				_this.addClass("default");
-				_this.find(".ui_gap").removeClass("qb_none");
-				_div.addClass("qb_none");
-				oct.changeLogistics();
-			}
-		});
-	});
-	
-	#if($detail.get("wx_order.sale_status") == "2")		
-		init();
-		oct.changeLogistics();
-	#end
+new Order({
+	orderId: $!detail.id,
+	vipid: $!vipid,
+	ad_client_id:$myweb.getClientId()
+});
+
+oct.ip="$request.getRemoteAddr()";
+oct.ad_client_id=$myweb.getClientId();
+oct.orderId=$detail.id;
+oct.orderCode="$detail.docno";
+oct.totalFree=$detail.tot_amt;
+oct.shipmentFree=$detail.logistics_free;
+oct.productFree=$detail.tot_amt_actual;
+var s="$detail.tot_amt_actual";	
 });
 </script></div>
 </body></html>

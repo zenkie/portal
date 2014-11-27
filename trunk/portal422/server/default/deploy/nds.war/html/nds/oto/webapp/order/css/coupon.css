@@ -158,12 +158,13 @@ line-height: 0;
 	height: 90px;
 }
 .order_detail img{ 
-	padding-left: 10px;
-	padding-top: 10px;
+	border: 1px solid #cccccc;
 }
 .order_detail a{ 
 	float: left;
 	margin-right: 20px;
+	padding-left: 10px;
+	padding-top: 10px;
 }
 .order_p{
 	color: #d88248;	
@@ -216,7 +217,7 @@ margin-left: 10px;
 }
 .order_pay_select{
 display: block;
-margin-top: 12px;
+margin-top: 9px;
 margin-left: 10px;
 margin-right: 10px;
 }
@@ -232,6 +233,7 @@ border: 1px solid #eaeaea;
 font-size: 14px;
 font-family: 微软雅黑;
 color:#898989;
+height: 28px;
 -webkit-appearance: none;
 background: url(/html/nds/oto/webapp/order/images/arrow.png) 98% no-repeat;
 }
@@ -256,6 +258,7 @@ resize: none;
 border: 0px solid #eaeaea !important;
 outline:none;
 color:#898989;
+padding:0 5px;
 }
  /*textarea placeholder 属性设置*/
  ::-webkit-input-placeholder { /* WebKit browsers */
@@ -306,7 +309,6 @@ color: #898989;
 }
 .order_totamt{
 padding-left: 10px;
-padding-top: 7px;
 }
 .order_actual{
 padding-left: 10px;
@@ -360,3 +362,71 @@ border: none;
 margin: auto;
 font-family: 微软雅黑;
 }
+
+/* 收货地址 */
+.address_defalut {
+padding: 14px 10px 16px 10px;
+position: relative;
+}
+.address_defalut h3 {
+padding: 17px 10px;
+position: absolute;
+top: 0;
+left: 0;
+color: #333;
+font-size: 16px;
+line-height: 16px;
+}
+.address_defalut ul {
+padding-left: 28px;
+position: relative;
+}
+.address_defalut li {
+word-wrap: break-word;
+word-break: break-all;
+}
+.address_defalut h3, .address_null .tips {
+color: #333;
+font-size: 16px;
+padding: 15px 0;
+line-height: 16px;
+}
+.address_defalut ul:after, .address_null .tips:after {
+margin-top: -6px;
+-webkit-transform: rotate(135deg);
+-ms-transform: rotate(135deg);
+transform: rotate(135deg);
+display: block;
+content: '\20';
+position: absolute;
+top: 50%;
+width: 9px;
+height: 9px;
+border-top: 1px solid #7d7d7d;
+border-left: 1px solid #7d7d7d;
+background: none;
+}
+.address_defalut ul:after, .address_null .tips:after {
+right: 10px;
+}
+.address_defalut ul.icon_hide:after{
+display:none;
+}
+.address_null {
+padding: 0 10px;
+border-bottom: 1px solid #E7E7E7;
+}
+.address_null .tips {
+position: relative;
+padding: 24px 0;
+}
+.address_null h3,.address_null ul{
+display:none;
+}
+.address_defalut .tips{
+display:none;
+}
+.address_null .tips{
+display:block;
+}
+/* 收货地址end */
