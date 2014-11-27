@@ -1,0 +1,16 @@
+.table_record{
+	text-align: center;
+}
+.table_record thead{
+	background: #827c92;
+}
+.table_record thead th {
+	color: #fff;
+	height: 40px;
+	line-height: 35px;
+}
+.table_record tbody td {
+	color:#999;
+	height:50px;
+	border-bottom: 1px dotted #ccc;
+}
