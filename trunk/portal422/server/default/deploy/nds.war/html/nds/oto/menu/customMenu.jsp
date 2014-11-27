@@ -27,28 +27,29 @@ int ad_client_id=userWeb.getAdClientId();
 <!--link rel="stylesheet" type="text/css" href="/html/nds/oto/themes/01/css/wxreplay.css"-->
 <link rel="stylesheet" type="text/css" href="/html/nds/oto/themes/01/css/style.css">
 <!--link rel="stylesheet" type="text/css" href="/html/nds/oto/themes/01/css/asyncbox.css"-->
-<link type="text/css" rel="stylesheet" href="/html/nds/oto/js/xloadtree222/xtree.css" />
+<link type="text/css" rel="stylesheet" href="/html/nds/oto/menu/js/xloadtree222/xtree.css" />
 <link type="text/css" href="/html/nds/oto/themes/01/css/wemenu.css" rel="Stylesheet">
 
-<script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
-<script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/hover_intent.min.js"></script>
+<!--<script language="javascript" src="/html/nds/oto/js/upload/jquery.uploadify.min.js"></script>-->
+<script language="javascript" src="/html/nds/oto/js/prg/upload/jquery.uploadifive.min.js"></script>
 <script>
 	jQuery.noConflict();
 </script>
 <script language="javascript" src="/html/nds/oto/js/prototype.js"></script>
-<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>
+<!--<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>-->
 <script language="javascript" src="/html/nds/oto/js/artDialog4/jquery.artDialog.js"></script>
 <link type="text/css" href="/html/nds/oto/js/artDialog4/skins/default.css" rel="Stylesheet">
 <script language="javascript" src="/html/nds/oto/js/artDialog4/plugins/iframeTools.js"></script>
-<script language="javascript" src="/html/nds/oto/js/xloadtree222/xtree.js"></script>
-<script language="javascript" src="/html/nds/oto/js/xloadtree222/xmlextras.js"></script>
-<script language="javascript" src="/html/nds/oto/js/xloadtree222/xloadtree.js"></script>
+<script language="javascript" src="/html/nds/oto/menu/js/xloadtree222/xtree.js"></script>
+<script language="javascript" src="/html/nds/oto/menu/js/xloadtree222/xmlextras.js"></script>
+<script language="javascript" src="/html/nds/oto/menu/js/xloadtree222/xloadtree.js"></script>
 <script type="text/javascript" src="/html/nds/oto/js/dwr.Controller.js"></script>
 <script type="text/javascript" src="/html/nds/oto/js/dwr.engine.js"></script>
 <script type="text/javascript" src="/html/nds/oto/js/dwr.util.js"></script>
 <script language="javascript" src="/html/nds/oto/js/application.js"></script>
 <script language="javascript" src="/html/nds/oto/js/dw_scroller.js"></script>
-<script language="javascript" src="/html/nds/oto/js/wemenu.js"></script>
+<script language="javascript" src="/html/nds/oto/menu/js/wemenu.js"></script>
 <!--script language="javascript" src="/html/nds/oto/js/customMenu.js"></script>
 <script type="text/javascript" src="/html/nds/oto/js/cxtabdef.js"></script-->
 <script type="text/javascript">
