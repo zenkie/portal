@@ -38,16 +38,16 @@
 		String goodComment=null;
 		String vipName=null;
 		String vipPhoto=null;
-		String goodcommentPhoto = "/html/nds/oto/comment/images/b_red_1.gif";
+		//String goodcommentPhoto = "/html/nds/oto/comment/images/starnew.png";
 		for(int i=0;i < commentList.size(); i++){
 			List list = (List)commentList.get(i);
 			comment = list.get(4).toString();
 			goodComment = list.get(5).toString();
-			if(goodComment.equals("1")){
+			/*if(goodComment.equals("1")){
 				goodcommentPhoto = "/html/nds/oto/comment/images/b_red_5.gif";
 			}else if(goodComment.equals("0")){
 				goodcommentPhoto = "/html/nds/oto/comment/images/b_red_3.gif";
-			}
+			}*/
 			vipName = list.get(7).toString();
 			vipPhoto = (list.get(8)!=null)?list.get(8).toString():"/html/nds/oto/themes/01/images/upimg.jpg";
 		%>
@@ -61,10 +61,15 @@
 					</td>
 					<td class="col-meta">
 						<div class="rate-sku">
-							<p>
-								<span>满意度：</span>
-								<img src="<%=goodcommentPhoto%>">
-							</p>
+							满意度：
+						<div class="commstar">
+							<a href="javascript:;" class="star1" _val="1"></a>
+								<a href="javascript:;" class="star2" _val="2"></a>
+								<a href="javascript:;" class="star3" _val="3"></a>
+								<a href="javascript:;" class="star4" _val="4"></a>
+								<a href="javascript:;" class="star5" _val="5"></a>
+						</div>						
+						<input type="hidden" class="goodcommentPhoto" value="<%=goodComment%>">
 						</div>
 					</td>
 					<td class="col-author">						
