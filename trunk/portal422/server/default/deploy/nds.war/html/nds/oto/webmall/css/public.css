@@ -1,0 +1,308 @@
+*{
+	margin: 0;
+	padding: 0;
+	color: #666;
+	font-size: 14px;
+	font-family: Microsoft Yahei;
+	overflow: hidden;
+}
+a {
+	text-decoration: none;
+}
+li {
+	list-style: none;
+}
+em {
+	font-style: normal;
+}
+del {
+	color: #999;
+}
+table{
+	border: 0;
+	width: 100%;
+	border-spacing: 0;
+}
+input{
+	outline: none;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+.display_none {
+	display: none!important;
+}
+/* 头部、底部菜单，待整合 */
+/* lay_header */
+.lay_header {
+	width: 100%;
+	height: 44px;
+	display: -webkit-box;
+	border-bottom: 1px solid #000;
+	background-image: linear-gradient(to bottom,#212121,#161616);
+}
+.tab_item{
+	display: block;
+	cursor: pointer;
+	text-align: center;
+	position: relative;
+	-webkit-box-flex: 1;
+}
+.tab_item:after {
+	content: "";
+	width: 1px;
+	height: 44px;
+	border-left: 1px solid #000;
+	background-color: #262626;
+	position: absolute;
+	left: 0;
+}
+.lay_icon{
+	display: inline-block;
+	background-repeat: no-repeat;
+}
+.icon_cate {
+	background-image: url(/html/nds/oto/webmall/images/menu.png);
+	width: 44px;
+	height: 44px;
+	background-size: 44px;
+}
+.icon_logo img{
+	max-height: 44px;
+}
+.icon_user {
+	background-image: url(/html/nds/oto/webmall/images/user.png);
+	width: 44px;
+	height: 44px;
+	background-size: 44px;
+}
+.icon_cart {
+	background-image: url(/html/nds/oto/webmall/images/cart.png);
+	width: 44px;
+	height: 44px;
+	background-size: 44px;
+}
+.cartsize {
+	color: #fff;
+	padding: 0 6px;
+	margin: 5px 0;
+	background: #f00;
+	border-radius: 20px;
+	font-size: 12px;
+	position: absolute;
+	right: 4;
+}
+/* navigation */
+.navigation{
+	width: 100%;
+	height:45px;
+	background-color: #333;
+	display: -webkit-box;
+	position:fixed;
+	bottom: 0;
+	left: 0;
+}
+.gohome{
+	width: 25%;
+	display:block;
+	background:url(/html/nds/oto/webmall/images/gohome.png) center no-repeat;
+	background-size: 90px 35px;
+}
+.tohot{
+	width: 25%;
+	display:block;
+	background:url(/html/nds/oto/webmall/images/tohot.png) center no-repeat;
+	background-size: 90px 35px;
+}
+.tocust{
+	width: 25%;
+	display:block;
+	background:url(/html/nds/oto/webmall/images/tocust.png) center no-repeat;
+	background-size: 90px 35px;
+}
+.mine{
+	width: 25%;
+	display:block;
+	background:url(/html/nds/oto/webmall/images/mine.png) center no-repeat;
+	background-size: 90px 35px;
+}
+.subnav{
+	width:100px;
+	position:absolute;
+	border:1px solid #333;
+	background:#333;
+	border-radius:4px;
+	margin: 10px;
+	text-align:center;
+	bottom: 45px;
+	right: 0;
+	display:none;
+}
+.subnav a{
+	width:100px;
+	line-height:38px;
+	color:#fff;
+}
+.cart_num{
+	border-radius: 20px;
+	background: #ff0000;
+	color: #fff;
+	padding: 0px 5px;
+}
+.angle_left,.angle_right{
+	display:block;
+	height:0px;
+	width:0px;
+	position:absolute;
+	font-size:0;
+	line-height:0;
+}
+.angle_left{
+	bottom:-8px;/* 它的绝对值加上span的边框宽度等于div边框宽度的5倍 */
+	left:45px;/* 它来确定尖角的位置 */
+	border-bottom:0px;
+	border-right:5px solid #333;
+	border-left:5px solid #333;
+}
+.angle_right{
+	bottom:2px;  /* 是自身边框宽度的2倍 */
+	left:-5px; /* 是自身边框宽度的-1倍  */
+	border-bottom:0px;
+	border-top:5px solid #333;
+	border-right:5px solid #fff;
+	border-left:5px solid #fff;
+}
+/* 菜单样式end */
+
+/* footer */
+.lay_footer{
+	color: #999;
+	padding-top: 8px;
+	text-align: center;
+	padding-bottom: 30px;
+	border-top: 1px solid #eaeaea;
+}
+.lay_footer a{
+	color: #999;
+	width: 75px;
+	display: inline-block;
+}
+.footer_links{
+	display: -webkit-box;
+	width: 260px;
+	margin: 0 auto 8px;
+	line-height: 16px;
+}
+.footer_company{
+	width: 270px;
+	margin: 0 auto;
+	line-height: 22px;
+}
+
+/* body */
+/* menu list */
+.list_ul{
+	background:#fff;
+}
+.list_ul li {
+	padding: 5px 0;
+	background: #ececec;
+	border-bottom: 1px solid #ddd;
+}
+.list_ul li label{
+	padding: 10px;
+	color: #606366;
+	display: block;
+	position: relative;
+	overflow: hidden;
+	bottom: 5px;
+}
+.list_ul li.on label span {
+	top: 20px;
+	-webkit-transform: rotate(46deg);
+}
+.list_ul li.on ol {
+	display: block;
+}
+.list_ul li ol {
+	display: none;
+	padding: 10px;
+	margin: 0 20px;
+	color: #606366;
+	border-top: 1px dotted #aaa;
+	-webkit-box-sizing: border-box;
+}
+.list_ul li ol h6 {
+	color:#666;
+	overflow: hidden;
+	line-height: 25px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.list_ul li ol p {
+	line-height: 20px;
+	white-space: normal;
+}
+/* icon position */
+.list_ul li .label>i {
+	display: inline-block;
+	width: 35px;
+	height: 25px;
+	background: url(/html/nds/oto/webmall/images/icons.png) no-repeat;
+	-webkit-background-size: 40px auto;
+	position: relative;
+	top: 9px;
+}
+.list_ul li.li_a .label>i{background-position: -5px -10px;}
+.list_ul li.li_b .label>i{background-position: -5px -50px;}
+.list_ul li.li_c .label>i{background-position: -5px -90px;}
+.list_ul li.li_d .label>i{background-position: -5px -130px;}
+.list_ul li.li_e .label>i{background-position: -5px -170px;}
+.list_ul li.li_f .label>i{background-position: -5px -210px;}
+.list_ul li.li_g .label>i{background-position: -5px -250px;}
+.list_ul li.li_h .label>i{background-position: -5px -290px;}
+.list_ul li.li_i .label>i{background-position: -5px -330px;}
+.list_ul li.li_j .label>i{background-position: -5px -370px;}
+.list_ul li.li_k .label>i{background-position: -5px -410px;}
+.list_ul li.li_l .label>i{background-position: -5px -450px;}
+.list_ul li.li_m .label>i{background-position: -5px -490px;}
+.list_ul li.li_n .label>i{background-position: -5px -530px;}
+.list_ul li.li_o .label>i{background-position: -5px -570px;}
+.list_ul li.li_p .label>i{background-position: -5px -610px;}
+.list_ul li.li_q .label>i{background-position: -5px -650px;}
+.list_ul li.li_r .label>i{background-position: -5px -690px;}
+.list_ul li.li_s .label>i{background-position: -5px -730px;}
+.list_ul li.li_t .label>i{background-position: -5px -770px;}
+.list_ul li.li_u .label>i{background-position: -5px -810px;}
+.list_ul li.li_v .label>i{background-position: -5px -850px;}
+.list_ul li.li_w .label>i{background-position: -5px -890px;}
+.list_ul li.li_x .label>i{background-position: -5px -929px;}
+.list_ul li.li_y .label>i{background-position: -5px -970px;}
+.list_ul li.li_z .label>i{background-position: -5px -1010px;}
+
+/* arrow */
+.arrow{
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	top: 25px;
+	right: 20px;
+	border-width: 1px 1px;
+	border-right: 1px solid #82878a;
+	border-bottom: 1px solid #82878a;
+	-webkit-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+/* hot product */
+.hotpdt {
+	width: 40px;
+	height: 40px;
+	float: left;
+	background: url(/html/nds/oto/webmall/images/hotpdt.png) no-repeat;
+	background-size: 40px;
+	position: absolute;
+}
