@@ -1,0 +1,160 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+margin: 0;
+padding: 0;
+vertical-align: baseline;
+}
+body {
+position: relative;
+margin: 0 auto;
+width: 640px;
+color: #333;
+background-color: #fff;
+font: normal 24px/1.5 "Helvetica Neue", Helvetica, "STHeiti STXihei", "Microsoft JhengHei", "Microsoft Yahei", Arial, sans-serif;
+-webkit-text-size-adjust: 100% !important;
+-webkit-touch-callout: none;
+-webkit-tap-highlight-color: transparent;
+-webkit-user-select: none;
+user-select: none;
+}
+a {
+text-decoration: none;
+color: #333;
+}
+a, button, input {
+-webkit-tap-highlight-color: transparent;
+outline: 0;
+}
+ol, ul {
+list-style: none;
+}
+img {
+border: 0 none;
+-webkit-tap-highlight-color: rgba(0,0,0,0.2);
+vertical-align: top;
+}
+.link_layer {
+position: absolute;
+left: 440px;
+top: 0;
+width: 85px;
+height: 40px;
+font-size: 0;
+overflow: hidden;
+text-indent: -9999em;
+}
+.list {
+padding: 30px 15px;
+}
+.list ul {
+overflow: hidden;
+}
+.list li {
+position: relative;
+float: left;
+margin: 0 8px 10px 0;
+border: 1px solid #ddd;
+background: #fff;
+/*width: 195px;*/
+width: 193px;
+height: 195px;
+overflow: hidden;
+}
+a, button, input {
+-webkit-tap-highlight-color: transparent;
+outline: 0;
+}
+.list li a {
+display: block;
+padding: 20px;
+}
+.list li img {
+display: block;
+width: 100%;
+}
+.body_game:after, 
+.btn, .btns .btn, 
+.home_banner:after, 
+.home_footer h2, 
+.layer h2, .layer 
+.layer_close, 
+.feeback_coupon, 
+.feeback_form .row:before, 
+.list p, .game_bar {
+background: url(../images/sprite_v3.png?v2) no-repeat 0 0;
+}
+.list p {
+position: absolute;
+bottom: 0;
+left: 0;
+width: 175px;
+height: 44px;
+line-height: 44px;
+font-size: 16px;
+text-align:center;
+color: #fff;
+padding: 0 10px;
+background-position: -380px -710px;
+}
+.wx_loading2 {
+text-align: center;
+padding: 5px;
+height: 56px;
+position: relative;
+}
+.wx_loading_icon {
+position: absolute;
+top: 15px;
+left: 50%;
+margin-left: -28px;
+width: 48px;
+height: 48px;
+border: 4px solid #fff;
+border-radius: 48px;
+-webkit-animation: gif 1s infinite linear;
+animation: gif 1s infinite linear;
+clip: rect(0 auto 28px 0);
+}
+.wx_loading2 .wx_loading_icon {
+border-color: #237FE5;
+top: 7px;
+}
+.btn_link {
+display: block;
+margin-top: 30px;
+background: #e4393c;
+width: 100%;
+height: 80px;
+line-height: 80px;
+text-align: center;
+font-size: 28px;
+color: #fff;
+border-radius: 5px;
+-webkit-border-radius: 5px;
+}
+.hr {
+height: 20px;
+background: #efefef;
+border-top: 1px solid #ddd;
+border-bottom: 1px solid #ddd;
+}
+@keyframes gif {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes gif {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}

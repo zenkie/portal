@@ -1,104 +1,36 @@
 #parse('/html/nds/oto/webmall/init.vml')
 #parse('/html/nds/oto/webapp/brandWall/init.vml')
-<html><head>
+<!DOCTYPE html>
+<html>
+<head>
 #parse("/html/nds/oto/webmall/topmeta.vml")
+<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/brandWall/css/style.css">
 <title>品牌墙</title>
-<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/brandWall/css/wall.css">
 </head>
 <body>
-#if($mall.showmenu == '否')
-	#parse("/html/nds/oto/webmall/lay_header.vml")
-#end
-<table width="320px" border = "0" style="margin: 0 auto;">
-	<tr height = "125px">
-		<td class="img1">
-			<div>
-				<div style='float:left'><a href="/html/nds/oto/webapp/brandList/index.vml?id=11"><img src="/html/nds/oto/webapp/brandWall/images/01.jpg" width="110" height="110" ></img></a></div>
-				<div style='float:right'><a href="/html/nds/oto/webapp/brandList/index.vml?id=61"><img src="/html/nds/oto/webapp/brandWall/images/02.jpg" width="180" height="110"></img></a></div>
-			</div>    	 	
-		</td>
-	</tr>
-	<tr height = "120px">
-		<td class="img2">
-			<div>
-				<div style='float:left'><a href="/html/nds/oto/webapp/brandList/index.vml?id=53"><img src="/html/nds/oto/webapp/brandWall/images/03.jpg" width="190" height="110"></img></a></div>
-				<div style='float:right'><a href="/html/nds/oto/webapp/brandList/index.vml?id=51"><img src="/html/nds/oto/webapp/brandWall/images/04.jpg" width="100" height="110"></img></a></div>
-			</div>    	 	
-		</td>
-	</tr>
-	<tr height = "120px"><td class="img3"><a href="/html/nds/oto/webapp/brandList/index.vml?id=60"><img src="/html/nds/oto/webapp/brandWall/images/05.jpg" width="300" height="110"></img></a></td></tr>
-	<tr height = "160px">
-		<td class="img4">
-			<div style='float:left'>
-				<div style='height: 70px'>
-					<div style='float:left'><a href="/html/nds/oto/webapp/brandList/index.vml?id=34"><img src="/html/nds/oto/webapp/brandWall/images/06.jpg" width="70" height="70" style='padding-bottom: 5px;'></img></a></div>
-					<div style='float:right'><a href="/html/nds/oto/webapp/brandList/index.vml?id=56"><img src="/html/nds/oto/webapp/brandWall/images/07.jpg" width="70" height="70"></img></a></div>
-				</div>
-				<div style='height: 70px'>
-					<div style='float:left;margin:5px 0'><a href="/html/nds/oto/webapp/brandList/index.vml?id=58"><img src="/html/nds/oto/webapp/brandWall/images/08.jpg" width="150" height="70"></img></a></div>
-				</div>
-			</div>
-			<div>
-				<div ><a href="/html/nds/oto/webapp/brandList/index.vml?id=47"><img src="/html/nds/oto/webapp/brandWall/images/09.jpg" width="140" height="150" style='padding-left: 10px;'></img></a></div>
-			</div>
-		</td>
-	</tr>
-	<tr height = "80px" >
-		<td class="img5">
-			<div>
-				<div style='float:left'><a href="/html/nds/oto/webapp/brandList/index.vml?id=49"><img src="/html/nds/oto/webapp/brandWall/images/10.jpg" width="190" height="70"></img></a></div>
-				<div style='float:right'><a href="/html/nds/oto/webapp/brandList/index.vml?id=45"><img src="/html/nds/oto/webapp/brandWall/images/11.jpg" width="100" height="70"></img></a></div>
-			</div> 
-		</td>
-	</tr>
-	<tr height = "120px">
-		<td class="img5">
-			<div>
-				<div style='float:left'><a href="/html/nds/oto/webapp/brandList/index.vml?id=36"><img src="/html/nds/oto/webapp/brandWall/images/12.jpg" width="150" height="110"></img></a></div>
-				<div style='float:right'><a href="/html/nds/oto/webapp/brandList/index.vml?id=43"><img src="/html/nds/oto/webapp/brandWall/images/13.jpg" width="140" height="110"></img></a></div>
-			</div> 
-		</td>
-	</tr>
-	<tr height = "200px">
-	 <td class="img6">	
-	 <div>
-		  <div style='float:left;height: 190px'>
-			<div><a href="/html/nds/oto/webapp/brandList/index.vml?id=44"><img src="/html/nds/oto/webapp/brandWall/images/14.jpg" width="110" height="110" style='padding-bottom: 10px;'></img></a></div>
-			<div><a href="/html/nds/oto/webapp/brandList/index.vml?id=57"><img src="/html/nds/oto/webapp/brandWall/images/15.jpg" width="110" height="70"></img></a></div>
+<div id="container">
+	<header class="banner">
+		<img src="./images/wall.jpg" class="image">
+		##<a id="shareRule" href="javascript:void(0)" class="link_layer">详细规则</a>
+	</header>
+	<div class="list">
+		<ul id="list_products">
+			#foreach($brand in $allBrand)
+			<li>
+				<a href="$!brand.get(0)">
+					<img src="$!brand.get(3)">
+					<p>$!brand.get(2)</p>
+				</a>
+			</li>
+			#end
+		</ul>
+		<div class="wx_loading2" style="display: none">
+			<i class="wx_loading_icon"></i>
 		</div>
-		<div style='float:right;height: 190px'>
-			  <div><a href="/html/nds/oto/webapp/brandList/index.vml?id=48"><img src="/html/nds/oto/webapp/brandWall/images/16.jpg" width="180" height="70" style='padding-bottom: 10px;'></img></a></div>
-			  <div><a href="/html/nds/oto/webapp/brandList/index.vml?id=59"><img src="/html/nds/oto/webapp/brandWall/images/17.jpg" width="180" height="110"></img></a></div>
-		 </div>
-	 </div>
-	</td>
-	</tr>
-	<tr height = "80px">
-		<td class="img7">
-			<div>
-				<div style='float:left'><a href="/html/nds/oto/webapp/brandList/index.vml?id=37"><img src="/html/nds/oto/webapp/brandWall/images/18.jpg" width="70" height="70" style='padding-right:5px'></img></a></div>
-				<div style='float:left'><a href="/html/nds/oto/webapp/brandList/index.vml?id=38"><img src="/html/nds/oto/webapp/brandWall/images/19.jpg" width="140" height="70" style='padding-left: 5px;padding-right:5px'></img></a></div>
-				<div style='float:left'><a href="/html/nds/oto/webapp/brandList/index.vml?id=54"><img src="/html/nds/oto/webapp/brandWall/images/20.jpg" width="70" height="70" style='padding-left: 5px;'></img></a></div>
-			</div>
-		</td>
-	</tr>
-	<tr height = "80px">
-		<td class="img8">
-			<div>
-				<div style='float:left'><a href="/html/nds/oto/webapp/brandList/index.vml?id=46"><img src="/html/nds/oto/webapp/brandWall/images/21.jpg" width="140" height="70"></img></a></div>
-				<div style='float:right'><a href="/html/nds/oto/webapp/brandList/index.vml?id=52"><img src="/html/nds/oto/webapp/brandWall/images/22.jpg" width="150" height="70"></img></a></div>
-			</div>
-		</td>
-	</tr>
-	<tr height = "85px" >
-		<td class="img9">
-			<div>
-				<div style='float:left'><a href="/html/nds/oto/webapp/brandList/index.vml?id=55"><img src="/html/nds/oto/webapp/brandWall/images/23.jpg" width="70" height="70"></img></a></div>
-				<div style='float:right'><a href="/html/nds/oto/webapp/brandList/index.vml?id=50"><img src="/html/nds/oto/webapp/brandWall/images/24.jpg" width="220" height="70"></img></a></div>
-			</div>
-		</td>
-	</tr>
-</table>
+		##<a id="to11" href="javascript:void(0)" class="btn_link">返回京东11.11大促</a>
+	</div>
+	##<div class="hr"></div>
+</div>
 #parse("/html/nds/oto/webmall/footer.vml")
 #if($mall.showmenu == '是')
 	#parse("/html/nds/oto/webmall/bottom_menu.vml")
