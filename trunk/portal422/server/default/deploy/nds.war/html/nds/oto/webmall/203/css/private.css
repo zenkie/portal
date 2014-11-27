@@ -1,0 +1,23 @@
+.content li {
+	margin: 5px;
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+}
+.content  li img { 
+	display:block; 
+	width:100%;
+}
+.content  li .goods_title{
+	padding:0.5em;
+}
+.content li .price{
+	overflow:hidden;
+	line-height:20px;
+}
+.content li .price span{
+	color:#ba242e;
+	float:right;
+}
+.content li .price span del{
+	padding-left: 5px;
+}
