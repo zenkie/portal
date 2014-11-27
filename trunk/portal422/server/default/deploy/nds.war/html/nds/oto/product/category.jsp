@@ -28,7 +28,6 @@ public List getSub(List inputlist,String parentId,int index){
 
 	final String tparentid=parentId;
 	final int tindex=index;
-	System.out.print("parentId->"+tparentid+",asize->"+inputlist.size());
 	List al= (ArrayList) CollectionUtils.select(
 		inputlist,
 		new Predicate(){
@@ -234,7 +233,7 @@ query.setOrderBy(orderKey, true);
 
 query.setRange(0, Integer.MAX_VALUE);
 
-result= engine.doQuery(query);
+//result= engine.doQuery(query);
 System.out.println("query->"+query.toSQL());
 all=engine.doQueryList(query.toSQL());
 List temp=getSub(all,"",2);
@@ -264,7 +263,7 @@ JSONArray jaaa=getTree(temp,"");
 		</td>
 	</tr>
 </table>
-<!--script language="javascript" src="/html/nds/oto/js/customtree.js"></script-->
+<script language="javascript" src="/html/nds/oto/js/customtree.js"></script>
 <script>
 	var eid="#<%=eid%>";
 	var pjs=<%=jos==null?null:jos.toString()%>;

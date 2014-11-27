@@ -28,7 +28,7 @@ String eid=request.getParameter("eid");
 <script language="javascript" src="/html/nds/oto/js/application.js"></script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/plugins/iframeTools.js"></script>
-<script language="javascript" src="/html/nds/oto/js/customspace.js"></script>
+<script language="javascript" src="/html/nds/oto/product/js/customspace.js"></script>
 <script type="text/javascript" src="/html/nds/oto/js/dwr.Controller.js"></script>
 <script type="text/javascript" src="/html/nds/oto/js/dwr.engine.js"></script>
 <script type="text/javascript" src="/html/nds/oto/js/dwr.util.js"></script>
