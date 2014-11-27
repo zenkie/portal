@@ -24,20 +24,26 @@ if(userWeb==null || userWeb.isGuest()){
 <%	}%>
 <table><tr><td>
 <script type="text/javascript">
- var istree="<%=istree%>";
- if(istree=="Y"){
- webFXTreeConfig.autoExpandAll=false;
- var tree=pc.createTree("<%=desc%>","/html/nds/portal/tablecategory.xml.jsp?id=<%=catId%>", <%=(url==null?"null":"\"javascript:pc.navigate('"+url+"')\"")%>,false);
- }else{
-
- jQuery.post("/html/nds/oto/portal/tablecategoryout.jsp?id=<%=catId%>",
-   function(data){
-     var result=data;
-     jQuery("#tree-list").html(result.xml);
-     jQuery("#tree-list").css("padding","0");
-	 jQuery("#tab_accordion").accordion({ header: "h3",collapsible:true,autoHeight:false,navigation:true});//,active:act});
-   });
-  <%=(url==null?"null":"javascript:pc.navigate('"+url+"');")%>
-	}
+var istree="<%=istree%>";
+if(istree=="Y"){
+	webFXTreeConfig.autoExpandAll=false;
+	var tree=pc.createTree("<%=desc%>","/html/nds/portal/tablecategory.xml.jsp?id=<%=catId%>", <%=(url==null?"null":"\"javascript:pc.navigate('"+url+"')\"")%>,false);
+}else{
+	jQuery.post("/html/nds/oto/portal/tablecategoryout.jsp?id=<%=catId%>",function(data){
+		var result=data;
+		jQuery("#tree-list").html(result.xml);
+		jQuery("#tree-list").css("padding","0");
+		jQuery(".aside-md").height(jQuery(".topleft").height());
+		var accordion = jQuery("#nav").accordion();
+		window.accordion = accordion;
+		if(!pc.menu_switch_model){//根据菜单模式切换菜单样式
+			window.accordion.setAccordion();
+			jQuery(".aside-md").toggleClass("nav-xs");
+			jQuery("footer>a").toggleClass("active");
+			pc.resize();
+		}
+	});
+	<%=(url==null?"null":"javascript:pc.navigate('"+url+"');")%>
+}
 </script>    
 </td></tr></table>
