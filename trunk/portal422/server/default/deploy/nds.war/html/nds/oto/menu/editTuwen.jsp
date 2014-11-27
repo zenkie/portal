@@ -124,6 +124,9 @@ if(!userWeb.isActive()){
 
 <style type="text/css">
 .aui_main{overflow: auto;}
+.uploadifive-button{
+margin-top:130px!important;
+}
 </style>
 
 <!--<link rel="stylesheet" type="text/css" href="../themes/01/css/uploadify.css">-->
@@ -150,7 +153,9 @@ if(!userWeb.isActive()){
 <script language="javascript" src="/html/nds/oto/js/dw_scroller.js"></script>
 -->
 
-<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>
+<!--<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>-->
+
+<script language="javascript" src="/html/nds/oto/js/webrootupload.js"></script>
 
 <script language="javascript" src="/html/nds/oto/js/menuoperation.js"></script>
 
@@ -159,7 +164,7 @@ if(!userWeb.isActive()){
 <link type="text/css" href="/html/nds/oto/attention/css/wxreplay.css" rel="Stylesheet">
 <link href="/html/nds/oto/attention/css/reply.css" rel="stylesheet" type="text/css">
 
-<link type="text/css" rel="StyleSheet" href="/html/prg/upload/uploadify.css">
+<link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/prg/upload/uploadify.css">
  
 <script type="text/javascript">
 	var tuWen=<%=objectTuwen==null?null:objectTuwen.toString()%>;
@@ -330,8 +335,8 @@ if(!userWeb.isActive()){
 		'fileExt'		: '*.dat;'
 	};
 	var para={
-		"next-screen":"/html/prg/msgjson.jsp",
-		"formRequest":"/html/nds/msg.jsp",
+		//"next-screen":"/html/prg/msgjson.jsp",
+		//"formRequest":"/html/nds/msg.jsp",
 		//"JSESSIONID":"<%=session.getId()%>",
 		"isThum":true,
 		"width":<%=imagewidth%>,
@@ -412,5 +417,5 @@ if(!userWeb.isActive()){
 	<p id="whole"></p>
 
 <script>
-			  fup.initForm(upinit,para);
+			  fup.initForm(upinit,para,"fileInput1");
 </script>
