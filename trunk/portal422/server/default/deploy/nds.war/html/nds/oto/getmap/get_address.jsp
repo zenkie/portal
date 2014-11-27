@@ -15,7 +15,7 @@ String pid=request.getParameter("id");
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>选择地点</title>
-<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.2&amp;ak=&amp;services=&amp;t=20130716024057"></script>
 	<link rel="stylesheet" type="text/css" href="http://api.map.baidu.com/res/12/bmap.css">
