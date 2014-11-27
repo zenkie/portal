@@ -65,24 +65,32 @@ margin: 0px 0px 20px 0px;
     color: #fff;
     margin: 0;
     padding: 3px 5px;
-	min-width:55px;
+	min-width: 55px;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
+	border: 0!important;
+	outline: none;
+	background-color: #acc136;
+	/*
 	background: #67b959 !important;
 	background-image: -webkit-linear-gradient(top,#67b959 3%,#56a548 97%);
-	color: #fff;
 	border: 1px solid #c3c3c3;
 	border-color: #3d810c;
+	*/
 }
-.btnGreenS: hover {
-	background-color: #56a548;
+.btnGreenS :hover {
+	background-color: #bed349;
+	/*
 	background-image: linear-gradient(top,#56a548 3%,#56a548 97%);
 	background-image: -moz-linear-gradient(top,#56a548 3%,#56a548 97%);
 	background-image: -webkit-linear-gradient(top,#56a548 3%,#56a548 97%);
 	background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #56a548),color-stop(1, #56a548));
 	background-position: center bottom;
-    color: #fff;
+    color: #fff;*/
+}
+.btnGreenS :active{
+	background-color: #9aaf26;
 }
 
 #fileInput1{
