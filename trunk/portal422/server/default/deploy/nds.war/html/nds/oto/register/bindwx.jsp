@@ -40,6 +40,8 @@
 		} 
 	}
 	
+	String step = request.getParameter("step")!=null ? request.getParameter("step") : "";
+	
 	String search="select t.loginuser from WEB_CLIENT t where t.ad_client_id = ?";//查找用户名称
 	int ad_client_id=userWeb.getAdClientId();
 	Object name=QueryEngine.getInstance().doQueryOne(search,new Object[]{ad_client_id});
@@ -51,21 +53,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
 <script language="javascript">
    jQuery.noConflict();
 </script>
-<script language="javascript" src="/html/nds/js/prototype.js"></script>
-<script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
-<script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
-<script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
-<script language="javascript" src="/html/nds/js/application.js"></script>
+<script language="javascript" src="/html/nds/oto/js/prototype.js"></script>
+<script type="text/javascript" src="/html/nds/oto/js/dwr.Controller.js"></script>
+<script type="text/javascript" src="/html/nds/oto/js/dwr.engine.js"></script>
+<script type="text/javascript" src="/html/nds/oto/js/dwr.util.js"></script>
+<script language="javascript" src="/html/nds/oto/js/application.js"></script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=default"></script>
 <script type="text/javascript" src="/html/nds/oto/register/js/editDevInteface.js"></script>
 <script src="/html/nds/oto/register/js/register.js" type="text/javascript"></script>
 <script src="/html/nds/oto/register/js/jsAddress.js" type="text/javascript"></script>
 <link href="/html/nds/oto/register/css/public.css" type="text/css" rel="stylesheet"/>
-<link rel="Shortcut Icon" href="/html/nds/images/portal.ico"/>
+<link rel="Shortcut Icon" href="/html/nds/oto/images/portal.ico"/>
 <title>注册</title>
 </head>
 <body>
@@ -90,6 +92,7 @@
 		<div class="register_main clearfix" id="companyInfo">
 			<input type="hidden" id="inputNum" value="5">
 			<input type="hidden" id="inputName" value="subRegister">
+			<input type="hidden" id="step" value="<%=step%>">
 			<table width="100%" border="0">
 				<tr>
 					<th>昵称：</th>
