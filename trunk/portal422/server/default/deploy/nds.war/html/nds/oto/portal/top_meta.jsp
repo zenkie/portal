@@ -4,7 +4,7 @@
 %>
 <%@ include file="/html/common/themes/top_meta.jsp" %>
 <%@ include file="/html/common/themes/top_meta-ext.jsp" %>
-<link rel="Shortcut Icon" href="/html/nds/images/portal.ico" />
+<link rel="Shortcut Icon" href="/html/nds/oto/themes/01/images/portal.ico" />
 <%if(GetterUtil.getBoolean(PropsUtil.get(PropsUtil.JAVASCRIPT_FAST_LOAD)) ){ %>
 <script language="javascript" src="/html/nds/oto/js/portal_aio_<%=locale.toString()%>_min.js"></script>
 <link type="text/css" rel="stylesheet" href="/html/nds/oto/themes/01/css/portal_aio_min.css">
@@ -18,8 +18,8 @@
 <!--script language="javascript" src="/html/nds/oto/js/helptip.js"></script-->
 <script language="javascript" src="/html/nds/oto/js/print.js"></script>
 <script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
-<!--script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script-->
-<script language="javascript" src="/html/prg/upload/jquery.uploadify.min.js"></script>
+<!--script language="javascript" src="/html/nds/oto/js/upload/jquery.uploadify.min.js"></script-->
+<script language="javascript" src="/html/nds/oto/js/prg/upload/jquery.uploadifive.min.js"></script>
 <script>
    jQuery.noConflict();
 </script>
@@ -29,10 +29,10 @@
 <script language="javascript" src="/html/nds/oto/js/jquery1.3.2/hover_intent.min.js"></script>
 <script language="javascript" src="/html/nds/oto/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/oto/js/CloneTableHeader.js"></script>		
-<script language="javascript" src="/html/js/sniffer.js"></script>
-<script language="javascript" src="/html/js/ajax.js"></script>
-<script language="javascript" src="/html/js/util.js"></script>
-<!--script language="javascript" src="/html/js/portal.js"></script-->
+<script language="javascript" src="/html/nds/oto/js/sniffer.js"></script>
+<script language="javascript" src="/html/nds/oto/js/ajax.js"></script>
+<script language="javascript" src="/html/nds/oto/js/util.js"></script>
+<!--script language="javascript" src="/html/nds/oto/js/portal.js"></script-->
 <script language="javascript" src="/html/nds/oto/js/xloadtree111/xtree.js"></script>
 <script language="javascript" src="/html/nds/oto/js/xloadtree111/xmlextras.js"></script>
 <script language="javascript" src="/html/nds/oto/js/xloadtree111/xloadtree.js"></script>
@@ -40,8 +40,8 @@
 <script language="javascript" src="/html/nds/oto/js/rest.js"></script>
 <!--script language="javascript" src="/html/nds/oto/js/selectableelements.js"></script>
 <script language="javascript" src="/html/nds/oto/js/selectabletablerows.js"></script->
-<!--script language="javascript" src="/html/js/dragdrop/coordinates.js"></script>
-<script language="javascript" src="/html/js/dragdrop/drag.js"></script-->
+<!--script language="javascript" src="/html/oto/js/dragdrop/coordinates.js"></script>
+<script language="javascript" src="/html/nds/oto/js/dragdrop/drag.js"></script-->
 <!--script language="javascript" src="/html/nds/oto/js/calendar.js"></script-->
 <script type="text/javascript" src="/html/nds/oto/js/dwr.Controller.js"></script>
 <script type="text/javascript" src="/html/nds/oto/js/dwr.engine.js"></script>
@@ -72,6 +72,7 @@
 <script language="javascript" src="/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=default"></script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/plugins/iframeTools.js"></script>
 <script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-ui-1.8.21.custom.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/accordion.js"></script>
 <!--script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery.bgpos.js"></script-->
 <script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery.autocomplete-min.js"></script>
 <script type="text/javascript" src="/html/nds/oto/js/jplay/jquery.jplayer.min.js"></script>
@@ -96,7 +97,7 @@
 <link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/autocomplete.css" />
 <link type="text/css" rel="StyleSheet" href="/html/nds/oto/themes/01/css/aple_menu.css" />
 <!--link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/pag-tab.css" /-->
-<link type="text/css" href="/html/nds/oto/js/jquery1.3.2/css/smoothness/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
+<!--link type="text/css" href="/html/nds/oto/js/jquery1.3.2/css/smoothness/jquery-ui-1.8.21.custom.css" rel="stylesheet" /-->
 <link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/jdate/My97DatePicker/skin/WdatePicker.css"/>
 <link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/potips/tip-yellowsimple/tip-yellowsimple.css">
 <link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/potips/tip-green/tip-green.css">
@@ -110,7 +111,7 @@
 <link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/objdropmenu.css">
 <!--link type="text/css" rel="stylesheet" href="<%=userWeb.getThemePath()%>/css/drop_menu3.css"-->
 <link type="text/css" rel="stylesheet" href="/html/nds/oto/portal/ssv/css/home.css" />
-<link type="text/css" rel="StyleSheet" href="/html/prg/upload/uploadify.css">
+<link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/prg/upload/uploadifive.css">
 
 <!--script language="javascript" src="/html/nds/oto/js/resize.js"></script-->
 <!--微商城导航css样式-->
