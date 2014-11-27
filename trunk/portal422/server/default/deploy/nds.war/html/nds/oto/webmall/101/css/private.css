@@ -1,0 +1,23 @@
+.fn_indexad{
+	position: relative;
+}
+.mod_clipimg img {
+	width: 100%;
+}
+.indexad_banner {
+	position: absolute;
+	width: 235px;
+	left: 50%;
+	margin-left: -115px;
+	bottom: 50px;
+}
+.list_item {
+	float: left;
+	width: 115px;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	margin-left: 2px;
+	margin-bottom: 2px;
+	background-color: rgba(255,255,255,.6);
+}
