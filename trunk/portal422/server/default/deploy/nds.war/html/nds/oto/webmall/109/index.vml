@@ -1,39 +1,38 @@
 #parse('/html/nds/oto/webmall/init.vml')
 #parse('/html/nds/oto/webmall/initIndex.vml')
-<html><head>
-#parse("/html/nds/oto/webmall/topmeta.vml")
-<title>$mall.name</title>
-<script type="text/javascript" src="/html/nds/oto/webmall/109/js/resource.js"></script>
-<link rel="stylesheet" type="text/css" href="/html/nds/oto/webmall/109/css/resource.css">
-</head>
-<body>
-<div id="wrap"> 
-    <!--首页轮播图-->
-    <section class="FocusPic">
-		<div ap="ad_202" id="adCarousel_202" style="visibility: visible;">
-			<ul id="slider" style="width: 1600px;">
-			#set ($allImg =$myweb.getList("WX_V_SETAD","WX_SETAD","WX_V_SETAD.AD_CLIENT_ID=$myweb.getClientId()"))
-			#foreach($img in $allImg)
-				<li ad="" data-index="0" style="width: 320px; left: 0px; transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate(-320px, 0px) translateZ(0px);">
-					<a title="$img.get(1)" href="$img.get(3)" target="_blank">
-						<img border="0" alt="$img.get(1)" src="$img.get(2)" style="width:320px;height:175px;">
-					</a>
-				</li>
-			#end
-			</ul>
-			<div class="iconDot">
-			#foreach($img in $allImg)
-				<p class="" style="width: 20%;">0</p>
-			#end
+<html>
+	<head>
+		#parse("/html/nds/oto/webmall/topmeta.vml")
+		<link href="/html/nds/oto/webmall/109/css/private.css" rel="stylesheet">
+		<title>$mall.name</title>
+		<script type="text/javascript" src="/html/nds/oto/webmall/109/js/resource.js"></script>
+	</head>
+	<body>
+	<div id="wrap">
+		<!--首页轮播图-->
+		<section class="focus_pic">
+			<div id="ad_pic">
+				<ul>
+				#set ($allImg =$myweb.getList("WX_V_SETAD","WX_SETAD","WX_V_SETAD.AD_CLIENT_ID=$myweb.getClientId()"))
+				#foreach($img in $allImg)
+					<li data-index="0" style="left: 0px; transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate(-320px, 0px) translateZ(0px);">
+						<a title="$img.get(1)" href="$img.get(3)" target="_blank">
+							<img alt="$img.get(1)" src="$img.get(2)" style="width:320px;height:175px;">
+						</a>
+					</li>
+				#end
+				</ul>
+				<div class="icon_dot">
+				#foreach($img in $allImg)
+					<p>0</p>
+				#end
+				</div>
 			</div>
-		</div>
-    </section>
-
-	<!-- 商城栏目 -->
-    <div sl="b_sp_322_533">
-        <section class="index_wap">        
-            <h2>精选活动</h2>
-            <div class="index_pics">
+		</section>
+		<!-- 商城栏目 -->
+		<section class="index_wap">
+			<h2>精选活动</h2>
+			<div class="index_pics">
 			#set ($i = 0)
 			#foreach($column in $allColumn)
 			#if($i % 3 == 0)
@@ -55,11 +54,8 @@
 			#end
 			#end
 			</div>
-		</section>
-    </div>        
-
-	<!-- 商品分类 -->
-	<div sl="b_sp_323_525">
+		</section>    
+		<!-- 商品分类 -->
 		<section class="index_wap">
 			<h2>商品分类</h2>
 			<div class="index_pics">
@@ -84,31 +80,27 @@
 			#end
 			</div>
 		</section>
-	</div>
-	
-	<!-- 热销商品列表 -->
-	<section class="index_wap">        
-        <h2>热销商品<a href="/html/nds/oto/webapp/hotproduct/index.vml" class="to_more">More>></a></h2>
-        <ul class="index_list">
-		#set ($allList =$myweb.getList("WX_APPENDGOODS","WX_SETAD","WX_APPENDGOODS.ISHOT==Y"))
-		#foreach($list in $allList)
-            <li>
-				<div class="hotpdt"></div>
-				<a href="$list.get(0)" title="$list.get(2)">
-					<img src="$list.get(1)">
-                </a>
-                <h4>$stringutil.shorten($list.get(2),20,false)</h4>
-                <strong>￥$list.get(4)</strong>
-                <del>¥$list.get(3)</del>
-            </li>
-		#end
-		</ul>
-    </section>
-
-	<!-- 品牌 -->
-	<div sl="b_sp_325_526">
-		<section class="index_wap">        
-			<h2>品牌<a href="/html/nds/oto/webapp/brandWall/index.vml" class="to_more">More>></a></h2>
+		<!-- 热销商品列表 -->
+		<section class="index_wap">
+			<h2>热销商品<a href="/html/nds/oto/webapp/hotproduct/index.vml" class="to_more">More>></a></h2>
+			<ul class="index_list">
+			#set ($allList =$myweb.getList("WX_APPENDGOODS","WX_SETAD","WX_APPENDGOODS.ISHOT==Y"))
+			#foreach($list in $allList)
+				<li>
+					<div class="hotpdt"></div>
+					<a href="$list.get(0)" title="$list.get(2)">
+						<img src="$list.get(1)">
+					</a>
+					<h4>$stringutil.shorten($list.get(2),20,false)</h4>
+					<strong>￥$list.get(4)</strong>
+					<del>¥$list.get(3)</del>
+				</li>
+			#end
+			</ul>
+		</section>
+		<!-- 品牌 -->
+		<section class="index_wap">
+			<h2>品牌<a href="/html/nds/oto/webapp/brandWall/index.vml" class="to_more">More>></a></h2>   
 			<div class="index_pics">
 			#set ($allBrand =$myweb.getList("WX_PDTBRAND","WX_GETLIST"))
 			#set ($a = 0)
@@ -130,32 +122,41 @@
 			#end
 			</div>
 		</section>
-    </div>
-	#set ($allAD =$myweb.getList("WX_ADVERT","WX_SETAD"))
-	#foreach($list in $allAD)
-	<div class="down_app">
-		<img class="" alt="$list.get(1)" src="$list.get(2)" style="width:320px;height:50px;"></a>
+		#set ($allAD =$myweb.getList("WX_ADVERT","WX_SETAD"))
+		#foreach($list in $allAD)
+		<div class="down_app">
+			<img alt="$list.get(1)" src="$list.get(2)" style="width:320px;height:50px;"></a>
+		</div>
+		#end
 	</div>
+	#parse("/html/nds/oto/webmall/footer.vml")
+	#if($mall.showmenu == '是')
+		#parse("/html/nds/oto/webmall/bottom_menu.vml")
 	#end
-</div>
-#parse("/html/nds/oto/webmall/footer.vml")
-#if($mall.showmenu == '是')
-	#parse("/html/nds/oto/webmall/bottom_menu.vml")
-#end
-</body>
-<!--首页的js效果--> 
-<script>
-$(document).ready(function(e) {
-	/*创建图标*/
-	creaticon("adCarousel_202");
-	/*首页轮播图*/
-	window.mySwipe = Swipe(document.getElementById("adCarousel_202"), {
-		auto: 2000,
-		continuous: true,
-		callback: function(index, element) {
-			$("#adCarousel_202").find("p").eq(index).addClass("curt").siblings().removeClass("curt");
-		}
+	<div id="weixinshare" style="display:none;">
+		#set ($url="$request.getRequestURL()?id=0&amp;state=${vipid}z16020z0")
+		#if("4"==$weutils.getWXType())
+			#set ($url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$weutils.getAppId()&redirect_uri=$url&response_type=code&scope=snsapi_base&state=${vipid}z16020z0#wechat_redirect")
+		#end
+		<input type="text" id="appid" value="$weutils.getAppId()" />
+		<input type="text" id="msgimg" value="http://$weutils.getDoMain()$!mall.image" />
+		<input type="text" id="tlimg" value="http://$weutils.getDoMain()$!mall.image" />
+		<input type="text" id="shareurl" value="$url" />
+		<input type="text" id="sharetitle" value="$!mall.name" />
+		<input type="text" id="sharedesc" value="快到碗里来!" />
+	</div>
+	</body>
+	<!--首页的js效果--> 
+	<script>
+	$(document).ready(function(e) {
+		/*首页轮播图*/
+		window.mySwipe = Swipe(document.getElementById("ad_pic"), {
+			auto: 2000,
+			continuous: true,
+			callback: function(index, element) {
+				$("#ad_pic").find("p").eq(index).addClass("curt").siblings().removeClass("curt");
+			}
+		});
 	});
-});
-</script>
+	</script>
 </html>
