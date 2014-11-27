@@ -1,0 +1,133 @@
+<html lang="cn" class="app fadeInUp animated js no-touch no-android chrome no-firefox no-iemobile no-ie no-ie10 no-ie11 no-ios">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>微商城</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<script language="javascript" src="/html/nds/js/prototype.js"></script>
+	<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
+	<script src="js/shopOrderview.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">    
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+	
+	<script>
+		jQuery.noConflict();
+	</script>
+	<script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
+	<script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
+	<script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
+	<script language="javascript" src="/html/nds/js/application.js"></script>
+	<script language="javascript" src="/html/nds/js/alerts.js"></script>	
+	<script src="js/highcharts.js"></script>
+</head>
+<body>
+    <section class="vbox">
+        <section class="scrollable padder">
+            <ul style="background:#f7f7f7;" class="breadcrumb no-border no-radius b-b b-light pull-in">
+                <li>
+				<a href="javascript:;">
+				<div style="float:left;padding-top:2px;">
+					<img src="image/shophome.png">
+				</div>
+				<div style="float:left;padding-left:5px;">旺铺概况</div>
+				</a></li>
+            </ul> 
+			
+			<section class="panel panel-default m-t">
+
+                <div class="row m-l-none m-r-none bg-light lter">
+                    <div class="col-sm-6 col-md-3 padder-v b-r b-light">
+                        <span class="fa-stack fa-2x pull-left m-r-sm">
+                            <img src="image/sales.png">
+                        </span>
+                        <a class="clear">
+                            <span class="h3 block m-t-xs" id="issales"><strong>0</strong></span>
+                            <small class="text-muted text-uc">待发货订单</small>
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-3 padder-v b-r b-light lt">
+                        <span class="fa-stack fa-2x pull-left m-r-sm">
+                            <img src="image/rights.png">
+                        </span>
+                        <a class="clear">
+                            <span class="h3 block m-t-xs" id="ispaying"><strong id="bugs">0</strong></span>
+                            <small class="text-muted text-uc">待付款订单</small>
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-3 padder-v b-r b-light">
+                        <span class="fa-stack fa-2x pull-left m-r-sm">
+                            <img src="image/yesamt.png">                            
+                        </span>
+                        <a class="clear">
+                            <span class="h3 block m-t-xs" id="yescount"><strong id="firers">0</strong></span>
+                            <small class="text-muted text-uc">昨日下单数</small>
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-3 padder-v b-r b-light lt">
+                        <span class="fa-stack fa-2x pull-left m-r-sm">
+                            <img src="image/yestot.png">
+                        </span>
+                        <a class="clear">
+                            <span class="h3 block m-t-xs" id="yestotamt"><strong>0.00</strong></span>
+                            <small class="text-muted text-uc">昨日成交金额</small>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <div class="row">
+                <div class="col-md-8">
+                    <section class="panel panel-default">
+                        <header class="panel-heading font-bold">7天订单数据</header>
+						 <div class="panel-body">
+							<div id="container" style="height: 300px;"></div>
+                         </div>
+                        
+                        <footer class="panel-footer bg-white no-padder">
+                            <div class="row text-center no-gutter">
+                                
+                                <div class="col-xs-3 b-r b-light">
+                                    <span class="h4 font-bold m-t block" id="order_amt">0</span>
+                                    <small class="text-muted m-b block">下单数</small>
+                                </div>
+                                <div class="col-xs-3 b-r b-light">
+                                    <span class="h4 font-bold m-t block" id="deal_amt">0</span>
+                                    <small class="text-muted m-b block">成交数</small>
+                                </div>
+                                <div class="col-xs-3">
+                                    <span class="h4 font-bold m-t block" id="backorder_amt">0</span>
+                                    <small class="text-muted m-b block">退单数</small>
+                                </div>
+                            </div>
+                        </footer>
+                    </section>
+                </div>
+                <div class="col-md-4">
+                    <section class="panel panel-default">
+                        <header class="panel-heading font-bold">7天交易数据</header>
+                            <div id="container2" class="js_turnover" style="height: 264px;padding-top: 17px;">
+								
+							</div>                                
+                        <div class="panel-body">
+                            <div>
+                                <span class="text-muted">总金额</span>
+                                <span class="h3 block money" id="TOT_AMT_PRICELIST">0.00</span>
+                            </div>
+                            <div class="line pull-in"></div>
+                            <div class="row m-t-sm">
+                                <div class="col-xs-6">
+                                    <small class="text-muted block">成交额</small>
+                                    <span class="money" id="TOT_AMT_ACTUAL">0.00</span>
+                                </div>
+                                <div class="col-xs-6">
+                                    <small class="text-muted block">退款</small>
+                                    <span class="money"id="TOT_AMT_BACK">0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </section>
+</body></html>
