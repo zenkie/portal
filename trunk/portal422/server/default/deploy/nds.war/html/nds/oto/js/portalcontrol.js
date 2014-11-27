@@ -54,6 +54,7 @@ PortalControl.prototype = {
 			}
 			gMenuObjects=null;
 		}catch(ex){}
+		this._callquery=true;
 		this._isButtonDisabled=false;
 		this._isListPageLoaded=false;
 		this._listPageLoadTime=0;
@@ -521,14 +522,16 @@ PortalControl.prototype = {
 			}
 		}
 		if($("txtRange")!=null){
-			jQuery(".customscroll").html((qr.start+1)+"-"+ (qr.start+qr.rowCount)+"/"+ qr.totalRowCount);
+			
 			//debug("_syncGridControl: qr:start="+ qr.start+",qr.rowCount:"+ qr.rowCount+",qr.totalRowCount"+qr.totalRowCount);
 			if(qr.start>0){
 				 $("begin_btn").setEnabled(true);
 				 $("prev_btn").setEnabled(true);
+				 jQuery(".customscroll").html((qr.start+2)+"-"+ (qr.start+qr.rowCount+1)+"/"+ qr.totalRowCount);
 			}else{
 				 $("begin_btn").setEnabled(false);
 				 $("prev_btn").setEnabled(false);
+				 jQuery(".customscroll").html((qr.start+1)+"-"+ (qr.start+qr.rowCount)+"/"+ qr.totalRowCount);
 			}
 			if((qr.start+qr.rowCount)< qr.totalRowCount){
 				 $("next_btn").setEnabled(true);
@@ -538,6 +541,19 @@ PortalControl.prototype = {
 				 $("end_btn").setEnabled(false);
 			}
 		}
+		
+		//初始化共有多少页
+		var currentpage=Math.floor((qr.start+1)/this._gridQuery.range)+1;
+		var pageHtml="<option value=0>请选择</option>";
+		var pagecount=Math.ceil(qr.totalRowCount/this._gridQuery.range);
+		if(pagecount){
+			for(var i=1;i<=pagecount;i++){
+				pageHtml+="<option value="+i+" "+(i==currentpage?"selected":"")+">"+i+"</option>";
+			}
+		}
+		
+		jQuery(".currentpage").html(pageHtml);
+		jQuery("#range_select option[value="+this._gridQuery.range+"]").attr("selected","selected")
 	},
 /**
 	*Reload grid data according to query result
@@ -1084,6 +1100,86 @@ PortalControl.prototype = {
 		  }
 		});
 	},
+	objectReback:function(tn,tgt,target){
+		/*var node=jQuery(this).closest(".accordion_headings");*/
+		jQuery(target).siblings().removeClass("divbg");
+		jQuery(target).addClass("divbg");
+		if(tn.indexOf('@')>0){
+		tgt=tn.split('@')[1];
+		tn=tn.split('@')[0];
+		}
+		//alert(tn.split('@'))
+		//alert(tgt);
+		if(tgt==undefined || tgt==null || tgt=='null') tgt="portal-content";
+		//recover scrollLeft to 0
+		jQuery("#portal-content").scrollLeft(0);
+		//support iframe, create one if not exists
+		if(tgt=="ifr"){
+			var ifr=$("ifr");
+			if(ifr==null){
+				//src='/html/js/common/null.html'
+				$("portal-content").innerHTML="<iframe id='ifr' name='ifr' width='100%' height='100%' FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING='auto'>";
+				ifr=$("ifr");
+				if(ifr!=null){
+				//pc._resizeIfr();
+				$("ifr").style.width=this._getContentWidth();
+				}
+			}
+			jQuery(ifr).load(function()
+				{
+					//alert("loaded iframe");
+					// Set inline style to equal the body height of the iframed content.
+					this.style.height = '100%';//this.contentWindow.document.body.offsetHeight + 'px';
+				}
+			);
+			ifr.src=tn;
+			return;
+		}
+		if($(tgt)==null){
+			alert( "div id="+ tgt+" not found");
+			return;
+		}
+
+		this._lastAccessTime= (new Date()).getTime();
+		var url;
+		if(tn.indexOf(".")<0){
+			url= "/html/nds/oto/portal/table.jsp?table="+tn;
+		}else{
+			url= tn;
+		}
+		new Ajax.Request(url, {
+		  method: 'get',
+		  onSuccess: function(transport) {
+		  	var pt=$(tgt);
+		    pt.innerHTML=transport.responseText;
+			pc._callquery=false;
+			var range=pc._gridQuery.range;
+			var start=pc._gridQuery.start;
+		    executeLoadedScript(pt);
+			pc._gridQuery.range=range;
+			pc._gridQuery.start=start;
+			pc.queryList();
+			pc._callquery=true;
+		  },
+		  onFailure:function(transport){
+		  	//try{
+		  	  	if(transport.getResponseHeader("nds.code")=="1"){
+		  	  		window.location="/c/portal/login";
+		  	  		return;
+		  	  	}
+		  	  	var exc=transport.getResponseHeader("nds.exception");
+		  	  	if(exc!=null && exc.length>0){
+		  	  		alert(decodeURIComponent(exc));
+		  	  	}else{
+		  	  		var pt=$(tgt);
+		    		pt.innerHTML=transport.responseText;
+					pc.queryList();
+		    		//executeLoadedScript(pt);
+		  	  	}
+		  	//}catch(e){}
+		  }
+		});
+	},
 	/**
 	 * @param t
 	 * 	mainobjurl - record url,
@@ -1158,7 +1254,7 @@ PortalControl.prototype = {
 		/*var q=Object.clone(this._gridQuery);
 		q.callbackEvent="RefreshGrid";
 		this._executeQuery(q);*/
-		this.queryList();
+		if(this._callquery){this.queryList();}
 
 	},
 	getTableObj:function(){
@@ -1492,7 +1588,7 @@ PortalControl.prototype = {
 	* Invoke by buttons, include btn_begin,btn_next,btn_prev,btn_end
 	@param t id of the button
 	*/
-	scrollPage: function (ele,t) {
+	scrollPage: function (ele,t,topage) {
 		//var t=event.target.id;
 		var s;
 		var qr=Object.clone(this._gridQuery);
@@ -1503,7 +1599,21 @@ PortalControl.prototype = {
 		else if(t=="prev_btn"){ if (qs-qrange<0){s=0;}else{s=qs-qrange;}}
 		else if(t=="next_btn") { if (qs+qrange>qtot){return;}else{s=qs+qrange;}}
 		else if(t=="end_btn") s= qtot-qrange;
-		else s= qs;
+		else if(t=="topage"){
+			var currentpage=parseInt(jQuery(topage).find("option:selected").val());
+			if(isNaN(currentpage)){currentpage=1;}
+			s=(currentpage-1)*qrange-1;
+			if(s<0){s=0;}
+			jQuery(".currentpage option[value=\""+currentpage+"\"]").attr("selected",true);
+		}else if(t=="range_select"){
+			var cpage=jQuery(".currentpage option:selected").val();
+			if(!isNaN(cpage)){
+				cpage=parseInt(cpage);
+				s=(cpage-1)*qrange-1;
+				if(s<0){s=0;}
+			}
+		}
+		else{ s= qs;}
 
 		jQuery(".customrange option[value=\""+qrange+"\"]").attr("selected",true);
 		qr.start=s;
@@ -1919,7 +2029,8 @@ PortalControl.prototype = {
 		this.executeCommandEvent(evt);
     },
 	doAdd:function(){
-    	showObject2(gridInitObject.mainobjurl+"-1",this._dialogOption);
+    	//showObject2(gridInitObject.mainobjurl+"-1",this._dialogOption);
+		pc.navigate(gridInitObject.mainobjurl+"-1",'ifr');
     },
     doDelete:function(){
 		var evt={};
@@ -2068,7 +2179,7 @@ PortalControl.prototype = {
 	    	this._gridQuery.param_str2= fm.serialize();
 	    else
 	    	this._gridQuery.param_str2= "";
-	    this._gridQuery.start=0;
+	    if(this._callquery){this._gridQuery.start=0;}
 		this._executeQuery(this._gridQuery);
 	},
 	/**
@@ -2375,32 +2486,39 @@ PortalControl.prototype = {
 			});
 	},
 	menu_toggle:function(e){
-   //e.blur();
-   if(jQuery("#portal-menu").css("display")=="none" ){
-		//jQuery("#leftToggler").height(jQuery("#leftToggler").height()-5);
-		jQuery("#portal-menu").css("display","block");
-		jQuery("#leftToggler").height("100%");
-		//jQuery("#page-table-query").css("width","99%");
-		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-right.gif");
-		jQuery("#leftToggler").attr("class","leftToggler");
-		jQuery("#hide_bar").attr("class","show_bar");
-		pc.resize();
-	}else{
-		jQuery("#portal-menu").css("display","none");
-		jQuery("#leftToggler").height("100%");
-		//jQuery("#page-table-query").css("width","1151px");
-		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-left.gif");
-		jQuery("#leftToggler").attr("class","leftToggler2");
-		jQuery("#hide_bar").attr("class","hide_bar");
-		//var e=$("embed-lines");
-		//var new_high=document.documentElement.clientWidth-209;
-		//jQuery("#embed-lines").css("width",new_high);
-		//alert(new_high)
-		//e.style.width=new_high;
+	   //e.blur();
+	   if(jQuery("#portal-menu").css("display")=="none" ){
+			//jQuery("#leftToggler").height(jQuery("#leftToggler").height()-5);
+			jQuery("#portal-menu").css("display","block");
+			jQuery("#leftToggler").height("100%");
+			//jQuery("#page-table-query").css("width","99%");
+			//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-right.gif");
+			jQuery("#leftToggler").attr("class","leftToggler");
+			jQuery("#hide_bar").attr("class","show_bar");
+			pc.resize();
+		}else{
+			jQuery("#portal-menu").css("display","none");
+			jQuery("#leftToggler").height("100%");
+			//jQuery("#page-table-query").css("width","1151px");
+			//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-left.gif");
+			jQuery("#leftToggler").attr("class","leftToggler2");
+			jQuery("#hide_bar").attr("class","hide_bar");
+			//var e=$("embed-lines");
+			//var new_high=document.documentElement.clientWidth-209;
+			//jQuery("#embed-lines").css("width",new_high);
+			//alert(new_high)
+			//e.style.width=new_high;
+			pc.resize();
+		}
+		//$('portal-bottom').focus();
+	},
+	menu_switch_model:true,//后台菜单模式 true 风琴 false模式2
+	menu_switch:function(e){
+		this.menu_switch_model = window.accordion.setAccordion();
+		jQuery(".aside-md").toggleClass("nav-xs");
+		jQuery("footer>a").toggleClass("active");
 		pc.resize();
 	}
-   	//$('portal-bottom').focus();
- }
 };
 // define static main method
 PortalControl.main = function () {
@@ -2661,3 +2779,43 @@ mufavorite.prototype = {
 	mu=new mufavorite();
 	};
 jQuery(document).ready(mufavorite.main);
+
+//微信维权处理
+var wxr=null;
+var weixinrights=function(){};
+weixinrights.prototype.initialize=function(){
+	application.addEventListener("DetermineWeRights", this._onDetermineWeRights, this);
+};
+
+weixinrights.prototype.determineWeRights=function(objid){
+	var evt={};
+	
+	var param={id:objid};
+	evt.command="nds.weixin.ext.WeixinRightsCommand";
+	evt.params=Object.toJSON(param);
+	evt.callbackEvent="DetermineWeRights";
+	this.executeCommandEvent(evt);
+};
+
+weixinrights.prototype._onDetermineWeRights=function(e){
+	var data=e.getUserData();
+};
+
+weixinrights.prototype.executeCommandEvent=function (evt) {
+	Controller.handle(Object.toJSON(evt), function(r){
+		var result= r.evalJSON();
+		if (result.code !=0 ){
+			alert(result.message);
+		}else {
+			var evt=new BiEvent(result.callbackEvent);
+			evt.setUserData(result.data);
+			application.dispatchEvent(evt);
+		}
+	});
+};
+
+weixinrights.main = function(){
+	wxr=new weixinrights();
+	wxr.initialize();
+};
+jQuery(document).ready(weixinrights.main);
