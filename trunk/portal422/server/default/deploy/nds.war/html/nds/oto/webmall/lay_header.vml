@@ -1,28 +1,26 @@
 <div class="lay_header">
-#set ($tempmode=$myweb.getObject("WEB_MAIL_TMP","WEB_MAIL_TMP.AD_CLIENT_ID=$myweb.getClientId()"))
-    <div class="lay_toptab mod_tab" id="lay_head">
-        <a class="tab_item" href="/html/nds/oto/webmall/$tempmode.mclass_tmp/index.vml?ptype=pdt"><i class="qb_icon icon_goback"></i></a>
-        <a class="tab_item tab_item_logo" href="/mall.jsp">
-            <img src="$mall.image">
-        </a>
-		#if("$!vipid"=="")
-			#if($client == "pc")
-				<a class="tab_item" href="/html/nds/oto/webapp/error/pcerror.vml"><i class="qb_icon icon_icenter"></i></a>
-				<a class="tab_item" href="/html/nds/oto/webapp/error/pcerror.vml"><i class="qb_icon icon_cart"></i></a>
-			#else
-				<a class="tab_item" href="javascript:;"><i class="qb_icon icon_icenter"></i></a>
-				<a class="tab_item" href="javascript:;"><i class="qb_icon icon_cart"></i></a>
-			#end
+	#set ($tempmode=$myweb.getObject("WEB_MAIL_TMP","WEB_MAIL_TMP.AD_CLIENT_ID=$myweb.getClientId()"))
+	<a class="tab_item" href="/html/nds/oto/webmall/$tempmode.mclass_tmp/index.vml?ptype=pdt"><i class="lay_icon icon_cate"></i></a>
+	<a class="tab_item icon_logo" href="/mall.jsp">
+		<img src="$mall.image">
+	</a>
+	#if("$!vipid"=="")
+		#if($client == "pc")
+			<a class="tab_item" href="/html/nds/oto/webapp/error/pcerror.vml"><i class="lay_icon icon_user"></i></a>
+			<a class="tab_item" href="/html/nds/oto/webapp/error/pcerror.vml"><i class="lay_icon icon_cart"></i></a>
 		#else
-			<a class="tab_item" href="/html/nds/oto/webapp/usercenterMall/index.vml"><i class="qb_icon icon_icenter"></i></a>
-			#set ($cartsize=$myweb.getList("WX_SHOPPING","WX_SETAD","WX_SHOPPING.ISSALE==N&WX_SHOPPING.WX_VIP_ID=$vipid").size())
-			#if($cartsize!=0)
-				<a class="tab_item" href="/html/nds/oto/webapp/cart/index.vml"><i class="qb_icon icon_cart"><span class="qb_icon icon_size"><span class="cartsize">$cartsize</span></span></i></a>
-			#else
-				<a class="tab_item" href="/html/nds/oto/webapp/cart/index.vml"><i class="qb_icon icon_cart"></i></a>
-			#end
+			<a class="tab_item" href="javascript:;"><i class="lay_icon icon_user"></i></a>
+			<a class="tab_item" href="javascript:;"><i class="lay_icon icon_cart"></i></a>
 		#end
-    </div>
+	#else
+		<a class="tab_item" href="/html/nds/oto/webapp/usercenterMall/index.vml"><i class="lay_icon icon_user"></i></a>
+		#set ($cartsize=$myweb.getList("WX_SHOPPING","WX_SETAD","WX_SHOPPING.ISSALE==N&WX_SHOPPING.WX_VIP_ID=$vipid").size())
+		#if($cartsize!=0)
+			<a class="tab_item" href="/html/nds/oto/webapp/cart/index.vml"><i class="lay_icon icon_cart"><span class="cart_size">$cartsize</span></i></a>
+		#else
+			<a class="tab_item" href="/html/nds/oto/webapp/cart/index.vml"><i class="lay_icon icon_cart"></i></a>
+		#end
+	#end
 </div>
 <script>
 	wxs.appId="$weutils.getAppId()";
@@ -34,5 +32,4 @@
 		#set ($url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$weutils.getAppId()&redirect_uri=$url&response_type=code&scope=snsapi_base&state=$!vipid#wechat_redirect")
 	#end
 	wxs.url="$url";
-	//wxs.url="$weutils.getDoMain()$request.getRequestURI()?$!request.getQueryString()";
 </script>
