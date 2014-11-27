@@ -56,15 +56,15 @@ function Modify() {
 
 //校验
 function valite() {
-	$("#name_msg").addClass("qb_none");
-	$("#mobile_msg").addClass("qb_none");
-	$("#captcha_msg").addClass("qb_none");
-	$("#address_msg").addClass("qb_none");
-	$("#addressList_msg").addClass("qb_none");
-	$("#birthdayList_msg").addClass("qb_none");
+	$("#name_msg").addClass("display_none");
+	$("#mobile_msg").addClass("display_none");
+	$("#captcha_msg").addClass("display_none");
+	$("#address_msg").addClass("display_none");
+	$("#addressList_msg").addClass("display_none");
+	$("#birthdayList_msg").addClass("display_none");
 	
 	if (!$("#name").val() || $("#name").val().trim() == "" || $("#name").val().trim() == undefined) {
-		$("#name_msg").removeClass("qb_none");
+		$("#name_msg").removeClass("display_none");
 		$("#name_msg").text("姓名不能为空");
 		return false;
 	}
@@ -76,7 +76,7 @@ function valite() {
 	var issendmessage=$("#issendmessage").val();
 	if(issendmessage=="是"){
 		if (!$("#verifycode").val() || !($("#verifycode").val().trim())) {
-			$("#captcha_msg").removeClass("qb_none");
+			$("#captcha_msg").removeClass("display_none");
 			$("#captcha_msg").text("验证码不能为空！");
 			return false;
 		}
@@ -84,12 +84,12 @@ function valite() {
 
 	if ($("#address").length > 0) {
 		if ($("#address").val().trim() == "" || $("#address").val().trim() == undefined) {
-			$("#address_msg").removeClass("qb_none");
+			$("#address_msg").removeClass("display_none");
 			$("#address_msg").text("详细地址不能为空！");           
 			return false;
 		}
 		if ($("#address").val().length > 64) {
-			$("#address_msg").removeClass("qb_none");
+			$("#address_msg").removeClass("display_none");
 			$("#address_msg").text("详细地址过长，请重新输入！");
 			return false;
 		}
@@ -123,7 +123,7 @@ function sendopencrdverifycode(o){
 	var vipid=$("#vipid").val();
 	var phone = $("#mobile").val().trim();
 	if (!phone){
-		$("#mobile_msg").removeClass("qb_none");
+		$("#mobile_msg").removeClass("display_none");
 		$("#mobile_msg").text("手机号码不能为空！");
 		return false;
 	}
@@ -134,13 +134,18 @@ function sendopencrdverifycode(o){
 		type: 'post',
 		data:{command:"ExecuteWebAction",params:_params},
 		success: function (data) {
-		var _data = eval("("+data+")");
-		   if(_data[0].code == 0){
-				showBubble("验证码发送成功！");		
-				get_code_time(o);
-		   }else{					
+			var _data = eval("("+data+")");
+			var userdate=_data[0].result_data;
+			if(_data[0].code == 0){
+				if(userdate&&userdate.code==0){
+					showBubble("验证码发送成功！");
+					get_code_time(o);
+				}else{
+					showBubble(userdate.message);
+				}
+			}else{				
 				showBubble("验证码发送失败！");
-		   }
+			}
 		}
 	});
 }
@@ -151,7 +156,7 @@ function chkBirthday(){
 	var selectMonth = $("#selectMonth").val();
 	var selectDate = $("#selectDate").val();
 	if((selectYear==-1) || (selectMonth==-1) || (selectDate==-1)){
-		$("#birthdayList_msg").removeClass("qb_none");
+		$("#birthdayList_msg").removeClass("display_none");
 		$("#birthdayList_msg").text("请选择生日日期！");
 		return false;
 	}
@@ -171,7 +176,7 @@ function chkProCitDis() {
 	regionId = regionId == "区" ? "" : regionId;
 	regionId = regionId == "市辖区" ? "" : regionId;
 	if (province == "" || regionId == "") {
-		$("#addressList_msg").removeClass("qb_none");
+		$("#addressList_msg").removeClass("display_none");
 		$("#addressList_msg").text("请完整通讯地址！");
 		return false;
 	}
@@ -180,11 +185,11 @@ function chkProCitDis() {
 //验证电话
 function check_phone(obj) {
 	if (obj.value == "" || obj.value == null) {
-		$("#mobile_msg").removeClass("qb_none");
+		$("#mobile_msg").removeClass("display_none");
 		$("#mobile_msg").text("电话号码不能为空！");
 		return false;
 	} else if (!checkPhone(obj.value)) {
-		$("#mobile_msg").removeClass("qb_none");
+		$("#mobile_msg").removeClass("display_none");
 		$("#mobile_msg").text("电话号码格式不正确！");
 		obj.value = "";
 		return false;
