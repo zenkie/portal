@@ -1,7 +1,7 @@
-<%@page errorPage="/html/nds/error.jsp"%>
+﻿<%@page errorPage="/html/nds/error.jsp"%>
 <%@ taglib uri='/WEB-INF/tld/filecache.tld' prefix='filecache' %>
 <%@ include file="/html/nds/common/init.jsp" %>
-<%@ page import="org.json.*"%>
+<%@ page import="org.json.*" pageEncoding="utf-8"%>
 <%!
 /**
  Allow switch view in list scroll page
