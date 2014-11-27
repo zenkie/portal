@@ -1,0 +1,117 @@
+/* header */
+header{
+	background:url(/html/nds/oto/webapp/usercenter/images/top_bg.jpg) no-repeat;
+	background-size: 100% 70px;
+}
+header span{
+	color:#fff;
+}
+header img.vip_photo{
+	width: 50px;
+	height: 50px;
+	margin: 10px 20px 10px 15px;
+	border-radius: 50px;
+}
+header .vip_name{
+	position: absolute;
+	top: 15px;
+}
+header .vip_no{
+	position: absolute;
+	top: 35px;
+}
+header span.vip_arrow{
+	border-color:#f8f8f8;
+}
+header.on span.vip_arrow{
+	top: 20px;
+	-webkit-transform: rotate(46deg);
+}
+header div.vip_barcode{
+	display: none;
+	height: 160px;
+	text-align:center;
+	padding: 10px 20px;
+	vertical-align:middle;
+	background-color: #fff;
+	border-top: 1px dotted #aaa;
+	border-bottom: 1px dotted #aaa;
+	-webkit-box-sizing: border-box;
+}
+header div.vip_barcode p{
+	width: 100%;
+	color: #606366;
+	font-size: 16px;
+	line-height: 30px;
+}
+header div.vip_barcode img{
+	width:100%;
+	height: 120px;
+}
+header.on div.vip_barcode{
+	display:block;
+}
+/* score and tamt */
+.score_tamt{
+	display: -webkit-box;
+}
+.score_tamt li{
+	width:50%;
+	padding: 6px 0;
+	text-align: center;
+}
+.score_tamt li label{
+	font-size: 16px;
+	padding: 10px 30px 0px 30px;
+}
+/* list order*/
+.list_order{
+	margin-bottom: 10px;
+	display: -webkit-box;
+}
+.list_order li{
+	text-align: center;
+	-webkit-box-flex: 1;
+}
+.list_order li a{
+	text-align: center;
+}
+.list_order li .label{
+	padding: 0 0 8px 0;
+}
+.list_order li .label>i{
+	float: none;
+}
+.list_order li a p{
+	color: #606366;
+}
+/* li.space */
+ul .space{
+	margin-bottom: 10px;
+}
+/* center.button */
+.list_ul .button{
+	display: inline-block;
+	width:100px;
+	text-align: center;
+	white-space: pre-line;
+	height:33px;
+	line-height:33px;
+	border-radius:1px;
+	background:#827c92;
+	color:#fff;
+	position: absolute;
+	right: 10px;
+	top: 13px;
+}
+/* coupon number */
+.list_ul li label b.coupon_num {
+	color: #fff;
+	padding: 0 10px;
+	line-height: 24px;
+	border-radius: 40px;
+	background: #f66f6f;
+	position: absolute;
+	top: 18px;
+	right: 30px;
+}

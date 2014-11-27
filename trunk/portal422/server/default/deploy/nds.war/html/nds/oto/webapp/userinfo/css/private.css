@@ -1,0 +1,77 @@
+body{
+	color: #9590a3;
+	background: #f4f4f4;
+}
+header {
+	height: 50px;
+	text-align: center;
+}
+header span {
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	background: url(/html/nds/oto/webapp/userinfo/images/modify_icon.png) no-repeat;
+}
+header label {
+	display: inline-block;
+	line-height: 40px;
+	font-size: 16px;
+	margin-top: 5px;
+}
+.forms {
+	padding: 0 20px;
+	background: #fff;
+}
+.forms dt,dd {
+	padding: 5px;
+}
+.forms dl .msg_prompt{
+	color: #f34;
+	float: right;
+}
+.forms dd input,select{
+	width:100%;
+	height:30px;
+	color: #9590a3;
+	padding: 0 5px;
+	border-radius: 3px;
+	background: #FCFCFC;
+	border: 1px solid #ddd;
+}
+.forms dd select{
+	-webkit-appearance: none;
+	background:url(/html/nds/oto/webapp/userinfo/images/arrow.png) 98% no-repeat;
+}
+.forms dl dd .level_select{
+	width: 100%;
+	display: -webkit-box;
+}
+.forms dl dd .level_select>div{
+	width: 33.3%;
+}
+.forms .level_select>div:not(:last-of-type) {
+	padding-right: 10px;
+	-webkit-box-sizing: border-box;
+}
+.forms dl dd .captcha{
+	width: 68%;
+}
+.forms dl dd .captcha_btn{
+	width: 28%;
+	float: right;
+	outline: none;
+	border: 0;
+}
+.forms .button{
+	height: 30px;
+	color: #F8F4F4;
+	display: block;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 3px;
+	background: #BEB9B9;
+}
+.forms .submit{
+	width: 30%;
+	margin: 30px auto;
+}
