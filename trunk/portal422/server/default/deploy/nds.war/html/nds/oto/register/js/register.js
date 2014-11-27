@@ -374,6 +374,12 @@ var init = function(){
 	inputNum = jQuery("#inputNum").val();
 	displayInput = jQuery("#inputName").val();
 	jQuery(":text,:password").val("");
+	
+	var step = jQuery("#step").val();
+	engine["display"+step]&&engine["display"+step]();
+	// if(step && step != ""){
+		// engine["display"+step]&&engine["display"+step]();
+	// }
 };
 var obj = {};
 obj.utils = utils;
