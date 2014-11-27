@@ -1,47 +1,47 @@
 #parse('/html/nds/oto/webmall/init.vml')
 #parse('/html/nds/oto/webmall/initList.vml')
-<html><head>
-	#parse("/html/nds/oto/webmall/topmeta.vml")
-	<title>$cate.categoryname</title>
-	<link href="/html/nds/oto/webmall/202/css/fifteen-2.css" rel="stylesheet">
-</head>
-<body data-role="none" style="">
-#if($mall.showmenu == '否')
-	#parse("/html/nds/oto/webmall/lay_header.vml")
-#end
-<div class="wrapper">
-    <ul class="mThirC clearfix">
-		#foreach($list in $allList)
-            <li class="mThirCli">
-				<a href="$list.get(0)" title="" class="mThirCell">
-				#if($list.get(6) == '是')
-					<div class="hotpdt"></div>
-				#end
-					<img src="$list.get(2)" alt="$list.get(1)">
-					<p>
-						#if($list.get(7) == '是')
-							【新品】$list.get(1)
-						#else
-						$list.get(1)
-						#end
-					</p>
-				#if($iscost =='Y')
-                    <em>
-						$math.toInteger($list.get(5))积分
-						<del style="color: #999;text-shadow: none;">$math.toInteger($list.get(3))积分</del>
-					</em>
-				#else
-                    <em>
-						¥$list.get(5)
-						<del style="color: #999;text-shadow: none;">¥$list.get(3)</del>
-					</em>
-				#end
-                </a>
-			</li>
+<html>
+	<head>
+		#parse("/html/nds/oto/webmall/topmeta.vml")
+		<link href="/html/nds/oto/webmall/202/css/private.css" rel="stylesheet">
+		<title>$cate.categoryname</title>
+	</head>
+	<body>
+		#if($mall.showmenu == '否')
+			#parse("/html/nds/oto/webmall/lay_header.vml")
 		#end
-    </ul>
-</div>
-#if($mall.showmenu == '是')
-	#parse("/html/nds/oto/webmall/bottom_menu.vml")
-#end
-</body></html>
+		<ul class="goods_list">
+			#foreach($list in $allList)
+				<li>
+					<a href="$list.get(0)" title="$list.get(1)" class="goods_show">
+					#if($list.get(6) == '是')
+						<div class="hotpdt"></div>
+					#end
+						<img src="$list.get(2)" alt="$list.get(1)">
+						<p>
+							#if($list.get(7) == '是')
+								【新品】$list.get(1)
+							#else
+							$list.get(1)
+							#end
+						</p>
+					#if($iscost =='Y')
+						<em>
+							$math.toInteger($list.get(5))积分
+							<del>$math.toInteger($list.get(3))积分</del>
+						</em>
+					#else
+						<em>
+							¥$list.get(5)
+							<del>¥$list.get(3)</del>
+						</em>
+					#end
+					</a>
+				</li>
+			#end
+		</ul>
+		#if($mall.showmenu == '是')
+			#parse("/html/nds/oto/webmall/bottom_menu.vml")
+		#end
+	</body>
+</html>
