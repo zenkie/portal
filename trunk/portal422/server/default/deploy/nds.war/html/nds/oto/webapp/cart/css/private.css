@@ -1,0 +1,163 @@
+p{color: #C5C3C3;}
+body{
+	background:#f4f4f4;
+	-webkit-box-orient: vertical;
+	position: relative;
+}
+.deal{height:40px;}
+.deal input[type="checkbox"],.cart_goods input[type="checkbox"]{
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	background:url(/html/nds/oto/webapp/cart/images/circle.png)no-repeat center;
+	border: 1px solid #BEB8B8;
+	border-radius: 1em;
+	margin: 10px;
+	display: inline-block;
+	-webkit-appearance: none;
+}
+.deal input[type="checkbox"]:checked,.cart_goods input[type="checkbox"]:checked{
+	background-size: 20px 20px;
+	background:url(/html/nds/oto/webapp/cart/images/sel.png)no-repeat center;
+}
+.deal .cart_selectall{
+	position: absolute;
+	top: 12px;
+	left: 40px;
+	color: #a1a1a1;
+	font-size: 13px;
+}
+.deal .delbtn{
+	right: 20px;
+	color:#a1a1a1;
+	position:absolute;
+	top: 11px;
+}
+.deal .delbtn:hover {
+	color: #f40;
+}
+/*π∫ŒÔ≥µ body*/
+.cart_goods{
+	margin-top:0px;
+	background:#fff; 
+	font-size:16px;
+	height:100px;
+	vertical-align:middle;
+	display:block;
+	margin-bottom: 10px;
+	position:relative;
+}
+.cart_goods .goods_sel{
+	display:block;
+	position: absolute;
+	margin: 40px 0 40px 10px!important;
+}
+.cart_goods img{
+ 	width: 80px;
+	height: 80px;
+	margin: 10px 0 10px 40px;
+	border: 1px solid #e5e5e5;
+	display: block;
+	position: absolute;
+}
+.cart_goods .title {
+	font-size: 12px;
+	line-height: 20px;
+	text-align: left;
+	color: #898989;
+	margin-top: 10px;
+	margin-left: 140px;
+}
+.cart_goods span{
+	color:#d88248;
+	font-style:normal;
+	margin-left: 140px;
+}
+.cart_goods .price{margin-left: 0px;}
+.cart_goods .number{
+	height:30px;
+	position:absolute;
+	margin-left: 140px;
+	bottom:8px;
+}
+.cart_goods  dt {
+	float: left;
+	color: #999;
+	margin-top: 15px;
+	position: relative;
+	font-size: 13px;
+}
+.cart_goods dd {
+	margin-left: 50px;
+	display: block;
+	height: 30px;
+	line-height: 40px;
+	position: relative;
+}
+.cart_goods .minus {
+	width: 20px;
+	height: 20px;
+	margin-top: 10px;
+	text-align: center;
+	display: inline-block;
+	background:url(/html/nds/oto/webapp/cart/images/minus.png)no-repeat;
+	position: absolute;
+}
+.cart_goods .buyNum{
+	width:30%;
+	height: 20px;
+	text-align: center;
+	border: 1px solid #eaeaea;
+	color: #999;
+	display: inline-block;
+	margin: 10px 8px 0 30px;
+	font-size:13px;
+}
+.cart_goods .plus {
+	width: 20px;
+	height: 20px;
+	margin-top: 10px;
+	text-align: center;
+	display: inline-block;
+	background:url(/html/nds/oto/webapp/cart/images/plus.png)no-repeat;
+	margin-left: 3px;
+	position: absolute;
+}
+.cart_goods .cart-arrow{
+	top: 45px;
+	right: 20px;
+}
+/*Ω·À„*/
+.account{
+	height:60px;
+	position:relative;	
+}
+ .account .hj {
+	font-size:13px;
+	color:#d88248;
+	margin-left:10px;
+	margin-top: 0px;
+}
+ .account label{
+	color: #d88248;
+	margin-top: -18px;
+	font-size: 16px;
+	margin-left: 40px;
+	display: block;
+	height: 30px;
+}
+.account p{
+	margin-top: -5px;
+	margin-left:10px;
+}
+.account .button {
+	float:right;
+	height: 30px;
+	line-height: 30px;
+	background: #827c92;
+	color: #F8F4F4;
+	border-radius: 3px;
+	padding:0px 10px 0px 10px;
+	margin: -33px 10px 0 0;
+}
+
