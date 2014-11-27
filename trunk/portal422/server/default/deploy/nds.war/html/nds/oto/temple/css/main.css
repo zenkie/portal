@@ -52,15 +52,15 @@ clear: both;
 visibility: hidden;
 }
 .ui-nav-tabs {
-border: 1px solid #c6c8cc;
-border-bottom: 1px solid #ddd;
-background-color: #f4f4f5;
-background-image: -moz-linear-gradient(top,#f5f5f6,#f1f2f3);
+/*border: 1px solid #c6c8cc;
+border-bottom: 1px solid #ddd;*/
+background-color: #f8f8f8;
+/*background-image: -moz-linear-gradient(top,#f5f5f6,#f1f2f3);
 background-image: -webkit-gradient(linear,0 0,0 100%,from(#f5f5f6),to(#f1f2f3));
 background-image: -webkit-linear-gradient(top,#f5f5f6,#f1f2f3);
 background-image: -o-linear-gradient(top,#f5f5f6,#f1f2f3);
 background-image: linear-gradient(to bottom,#f5f5f6,#f1f2f3);
-background-repeat: repeat-x;
+background-repeat: repeat-x;*/
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
 }
 .ui-nav-tabs>li {
@@ -68,21 +68,22 @@ float: left;
 margin-bottom: -1px;
 }
 .ui-nav-tabs>.active>a, .ui-nav-tabs>.active>a:focus, .ui-nav-tabs>.active>a:hover {
-border-top: 2px solid #70b213;
+border-top: 2px solid #acc136;
 margin-top: -1px;
-color: #222;
+color: #8b8b8b;
 background-color: #fff;
 cursor: default;
 }
 .ui-nav-tabs>li>a:focus, .ui-nav-tabs>li>a:hover {
 text-decoration: none;
-background-color: #eee;
+/*background-color: #eee;*/
+color: #acc136;
 }
 .ui-nav-tabs>li>a {
 display: block;
-color: #666;
+color: #8b8b8b;
 padding: 8px 12px;
-border-right: 1px solid #ddd;
+/*border-right: 1px solid #ddd;*/
 line-height: 20px;
 }
 .tag-panel-content {
@@ -93,18 +94,18 @@ display: none;
 }
 .stylelist {
 width: 100%;
-background: #f5f5f5;
+background: #f8f8f8;
 height: 35px;
 margin: 3px 0;
 line-height: 35px;
 }
 .stylelist a.selected {
-color: #56a54b;
+color: #acc136;
 font-weight: bold;
 background: url(../images/templatedot.gif) center bottom no-repeat;
 }
 .stylelist a:hover {
-color: #56a54b;
+color: #acc136;
 }
 .stylelist a {
 display: inline-block;
@@ -125,19 +126,19 @@ margin: 0px 10px 30px 10px;
 float: left;
 }
 .templatelist li a.zz.selected {
-background: url(../images/radio_iphone_blackzz.png) left top no-repeat;
+background: url(../images/radio_iphone_selected.png) left top no-repeat;
 }
 .templatelist li a.zz:hover {
-background: url(../images/radio_iphone_blackzz.png) left top no-repeat;
+background: url(../images/radio_iphone_selected.png) left top no-repeat;
 }
 .templatelist li a.zz {
-background: url(../images/radio_iphone_whitezz.png) left top no-repeat;
+background: url(../images/radio_iphone.png) left top no-repeat;
 }
 .templatelist li a {
 display: inline-block;
 width: 173px;
 height: 380px;
-background: url(../images/radio_iphone0.png) left top no-repeat;
+background: url(../images/radio_iphone.png) left top no-repeat;
 position: relative;
 }
 .templatelist li a img.templateimg {
@@ -148,7 +149,7 @@ width: 143px;
 height: 229px;
 }
 .templatelist li a.selected .templatechoose {
-background: url(../images/checkboximg2.png) no-repeat;
+background: url(../images/checked_icon.png) no-repeat;
 }
 .templatechoose {
 display: inline-block;
@@ -161,5 +162,5 @@ bottom: 5px;
 left: 50%;
 margin-left: -35px;
 text-align: center;
-background: url(../images/checkboximg.jpg) no-repeat;
+background: url(../images/check_icon.png) no-repeat;
 }
