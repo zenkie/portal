@@ -22,33 +22,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script language="javascript" src="/html/nds/js/top_css_ext.js"></script>
-<script language="javascript" language="javascript1.5" src="/html/nds/js/ieemu.js"></script>
-<script language="javascript" src="/html/nds/js/cb2.js"></script>
-<script language="javascript" src="/html/nds/js/common.js"></script>
-<script language="javascript" src="/html/nds/js/print.js"></script>
-<script language="javascript" src="/html/nds/js/prototype.js"></script>
-<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
-<script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
-<script language="javascript" src="/html/nds/js/jquery1.2.3/ui.tabs.js"></script>
+<script language="javascript" src="/html/nds/oto/js/top_css_ext.js"></script>
+<script language="javascript" language="javascript1.5" src="/html/nds/oto/js/ieemu.js"></script>
+<script language="javascript" src="/html/nds/oto/js/cb2.js"></script>
+<script language="javascript" src="/html/nds/oto/js/common.js"></script>
+<script language="javascript" src="/html/nds/oto/js/print.js"></script>
+<script language="javascript" src="/html/nds/oto/js/prototype.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/hover_intent.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jquery1.2.3/ui.tabs.js"></script>
 <script>
 	jQuery.noConflict();
 </script>
-<script language="javascript" src="/html/js/sniffer.js"></script>
-<script language="javascript" src="/html/js/ajax.js"></script>
+<script language="javascript" src="/html/nds/oto/js/sniffer.js"></script>
+<script language="javascript" src="/html/nds/oto/js/ajax.js"></script>
 
-<script type="text/javascript" src="/html/nds/js/selectableelements.js"></script>
-<script type="text/javascript" src="/html/nds/js/selectabletablerows.js"></script>
-<script language="javascript" src="/html/nds/js/calendar.js"></script>
-<script language="javascript" src="/html/nds/js/jdate/My97DatePicker/WdatePicker_dp.js"></script>
-<script type="text/javascript" src="/html/nds/js/dwr.Controller.js"></script>
-<script type="text/javascript" src="/html/nds/js/dwr.engine.js"></script>
-<script type="text/javascript" src="/html/nds/js/dwr.util.js"></script>
-<script language="javascript" src="/html/nds/js/application.js"></script>
-<script language="javascript" src="/html/nds/js/alerts.js"></script>
-<script language="javascript" src="/html/nds/js/init_objcontrol_zh_CN.js"></script>
-<script type="text/javascript" src="/html/nds/js/object_query.js"></script>
-<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-ui-1.8.21.custom.min.js"></script>
+<script type="text/javascript" src="/html/nds/oto/js/selectableelements.js"></script>
+<script type="text/javascript" src="/html/nds/oto/js/selectabletablerows.js"></script>
+<script language="javascript" src="/html/nds/oto/js/calendar.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jdate/My97DatePicker/WdatePicker_dp.js"></script>
+<script type="text/javascript" src="/html/nds/oto/js/dwr.Controller.js"></script>
+<script type="text/javascript" src="/html/nds/oto/js/dwr.engine.js"></script>
+<script type="text/javascript" src="/html/nds/oto/js/dwr.util.js"></script>
+<script language="javascript" src="/html/nds/oto/js/application.js"></script>
+<script language="javascript" src="/html/nds/oto/js/alerts.js"></script>
+<script language="javascript" src="/html/nds/oto/js/init_objcontrol_zh_CN.js"></script>
+<script type="text/javascript" src="/html/nds/oto/js/object_query.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-ui-1.8.21.custom.min.js"></script>
 
 <script language="javascript" src="/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=default"></script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/plugins/iframeTools.js"></script>
@@ -73,7 +73,7 @@
 <style>
 .btn_submit
 {
-background:#56a548 !important;
+background:#acc136;
 height:33px;
 }
 .body{
