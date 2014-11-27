@@ -46,7 +46,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
 <meta charset="UTF-8">
-<script language="javascript" src="/html/nds/js/jquery1.3.2/jquery-1.7.2.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
+<script language="javascript">
+jQuery(function(){
+	var goodcommentPhoto=jQuery("body").find("input[class=goodcommentPhoto]");
+	for(var i=0;i<goodcommentPhoto.length;i++){
+		//console.log(jQuery(goodcommentPhoto[i]).val());
+		if(jQuery(goodcommentPhoto[i]).val()=='1'){
+			jQuery(jQuery(goodcommentPhoto[i]).prev().children()[0]).addClass("active");
+		}else if(jQuery(goodcommentPhoto[i]).val()=='2'){
+			jQuery(jQuery(goodcommentPhoto[i]).prev().children()[1]).addClass("active");
+		}else if(jQuery(goodcommentPhoto[i]).val()=='3'){
+			jQuery(jQuery(goodcommentPhoto[i]).prev().children()[2]).addClass("active");
+		}else if(jQuery(goodcommentPhoto[i]).val()=='4'){
+			jQuery(jQuery(goodcommentPhoto[i]).prev().children()[3]).addClass("active");
+		}else if(jQuery(goodcommentPhoto[i]).val()=='5'){
+			jQuery(jQuery(goodcommentPhoto[i]).prev().children()[4]).addClass("active");
+		}
+	}	
+})
+</script>
 <script language="javascript">jQuery.noConflict(); </script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=default"></script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/plugins/iframeTools.js"></script>
@@ -93,19 +112,19 @@
 		<%
 		if(commentList!=null&&commentList.size()>0){
 			String comment=null;//评论内容
-			String goodComment=null;//好评 返回数据为  1好评 0中评 -1差评
+			String goodComment=null;//好评 返回数据为  分1,2,3,4,5每个等级
 			String vipName=null;//会员昵称
 			String vipPhoto=null;//会员图片
-			String goodcommentPhoto = "/html/nds/oto/comment/images/b_red_1.gif";//根据好评度 显示相应的图片 默认值是 差评图片
+			//String goodcommentPhoto = "/html/nds/oto/comment/images/starnew.png";//根据好评度 显示相应的图片 默认值是 差评图片
 			for(int i=0;i < commentList.size(); i++){
 				List list = (List)commentList.get(i);
 				comment = list.get(4).toString();
 				goodComment = list.get(5).toString();
-				if(goodComment.equals("1")){//好评显示 图片b_red_5.gif
+				/*if(goodComment.equals("1")){//好评显示 图片b_red_5.gif
 					goodcommentPhoto = "/html/nds/oto/comment/images/b_red_5.gif";
 				}else if(goodComment.equals("0")){//中评显示 图片b_red_3.gif
 					goodcommentPhoto = "/html/nds/oto/comment/images/b_red_3.gif";
-				}
+				}*/
 				vipName = list.get(7).toString();
 				vipPhoto = (list.get(8)!=null)?list.get(8).toString():"/html/nds/oto/themes/01/images/upimg.jpg";
 		%>
@@ -119,10 +138,15 @@
 				</td>
 				<td class="col-meta">
 					<div class="rate-sku">
-						<p>
-							<span>满意度：</span>
-							<img src="<%=goodcommentPhoto%>">
-						</p>
+						满意度：
+						<div class="commstar">
+							<a href="javascript:;" class="star1" _val="1"></a>
+								<a href="javascript:;" class="star2" _val="2"></a>
+								<a href="javascript:;" class="star3" _val="3"></a>
+								<a href="javascript:;" class="star4" _val="4"></a>
+								<a href="javascript:;" class="star5" _val="5"></a>
+						</div>						
+						<input type="hidden" class="goodcommentPhoto" value="<%=goodComment%>">
 					</div>
 				</td>
 				<td class="col-author">						
@@ -144,5 +168,6 @@
 </div>
 <input type="hidden" id="total" value="<%=count%>">
 <input type="hidden" id="commentID" value="<%=id%>">
+
 </body>
 </html>
