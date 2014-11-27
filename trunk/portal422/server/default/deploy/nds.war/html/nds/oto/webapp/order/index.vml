@@ -4,7 +4,6 @@
 <html lang="zh-CN">
 <head>
 #parse("/html/nds/oto/webmall/topmeta.vml")
-<script type="text/javascript" src="/html/nds/oto/webapp/order/js/orderModify.js"></script>
 <script type="text/javascript" src="/html/nds/oto/webapp/order/js/order.js"></script>
 <link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/order/css/coupon.css">
 <title>我的订单</title>
