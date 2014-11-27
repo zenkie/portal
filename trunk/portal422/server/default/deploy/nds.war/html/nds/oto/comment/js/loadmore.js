@@ -7,6 +7,22 @@
 		var state = 0;  //dialog状态 0没有 1有
 		var _srollPos = 0;//记录临时scrollTop
 		jQuery(window).scroll(function(){
+		    //修改加载时星星个数选中的样式
+			var goodcommentPhoto=jQuery("body").find("input[class=goodcommentPhoto]");
+			for(var i=0;i<goodcommentPhoto.length;i++){
+				//console.log(jQuery(goodcommentPhoto[i]).val());
+				if(jQuery(goodcommentPhoto[i]).val()=='1'){
+					jQuery(jQuery(goodcommentPhoto[i]).prev().children()[0]).addClass("active");
+				}else if(jQuery(goodcommentPhoto[i]).val()=='2'){
+					jQuery(jQuery(goodcommentPhoto[i]).prev().children()[1]).addClass("active");
+				}else if(jQuery(goodcommentPhoto[i]).val()=='3'){
+					jQuery(jQuery(goodcommentPhoto[i]).prev().children()[2]).addClass("active");
+				}else if(jQuery(goodcommentPhoto[i]).val()=='4'){
+					jQuery(jQuery(goodcommentPhoto[i]).prev().children()[3]).addClass("active");
+				}else if(jQuery(goodcommentPhoto[i]).val()=='5'){
+					jQuery(jQuery(goodcommentPhoto[i]).prev().children()[4]).addClass("active");
+				}
+			}
             if( Math.ceil(total/pageSize)<=pageNum ){//总页数小于或等于当前页数 不需要加载
                 return false;
             }
@@ -21,7 +37,7 @@
 			var lastid = jQuery(lastCh).attr("data-id");//最后一条记录
 			var commentID = jQuery("#commentID").val();//
             totalheight = parseFloat(jQuery(window).height()) + parseFloat(srollPos);  
-            if(!state && ((jQuery(document).height()-range) <= totalheight) ) {//当滚动到最低端加载
+            if(!state && ((jQuery(document).height()-range) <= totalheight) ) {//当滚动到最低端加载				
           	    loading(true);//显示loading  dialog
             	state = 1;				
 				jQuery.ajax({
@@ -40,8 +56,8 @@
 					}					
 					}					
 				});
-            }  
-        }); 
+            }			
+        });
 });
 
 function loading(type){
