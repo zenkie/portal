@@ -149,4 +149,4 @@ function checkOptions(form){
 </tiles:insert>		
     </div>
 </div>
-<%@ include file="/html/nds/footer_info.jsp" %>
+<%@ include file="/html/nds/oto/security/footer_info.jsp" %>

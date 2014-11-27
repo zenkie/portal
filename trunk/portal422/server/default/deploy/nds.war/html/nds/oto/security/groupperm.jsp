@@ -1,6 +1,6 @@
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/header.jsp" %>
-<script src="/html/nds/js/security.js"></script>
+<script src="/html/nds/oto/js/security.js"></script>
 <%
 	String tabName= PortletUtils.getMessage(pageContext, "groupperm",null);
 %>
@@ -200,4 +200,4 @@ int table_Id= ParamUtils.getIntParameter(request, "table", -1);
   </script>
     </div>
 </div>		
-<%@ include file="/html/nds/footer_info.jsp" %>
+<%@ include file="/html/nds/oto/security/footer_info.jsp" %>

@@ -7,11 +7,11 @@
 <%@ include file="/html/common/themes/top_meta-ext.jsp" %>
 <link rel="Shortcut Icon" href="/html/nds/images/portal.ico" />
 <%if(GetterUtil.getBoolean(PropsUtil.get(PropsUtil.JAVASCRIPT_FAST_LOAD)) ){ %>
-<!--script language="javascript" src="/html/nds/oto/js/object_aio_<%=locale.toString()%>_min.js"></script-->
+<script language="javascript" src="/html/nds/oto/js/object_aio_<%=locale.toString()%>_min.js"></script>
 <link type="text/css" rel="stylesheet" href="/html/nds/oto/themes/01/css/object_aio_min.css">
 <%}else{%>
 <script language="javascript" src="/html/nds/oto/js/top_css_ext.js"></script>
-<script language="javascript" language="javascript1.5" src="/html/nds/js/ieemu.js"></script>
+<script language="javascript" language="javascript1.5" src="/html/nds/oto/js/ieemu.js"></script>
 <script language="javascript" src="/html/nds/oto/js/cb2.js"></script>
 <script language="javascript" src="/html/nds/oto/js/xp_progress.js"></script>
 <script language="javascript" src="<%=NDS_PATH%>/js/helptip.js"></script>
@@ -19,10 +19,10 @@
 if(BrowserSniffer.is_mozilla(request)){%>
 	<script language="javascript" src="/html/nds/oto/js/xmenu.js"></script>
 	<script language="javascript" src="/html/nds/oto/js/cssexpr.js"></script>
-	<link type="text/css" rel="stylesheet" href="/html/nds/css/xmenu.css"  />
-	<link type="text/css" rel="stylesheet" href="/html/nds/css/xmenu.windows.css" />
+	<link type="text/css" rel="stylesheet" href="/html/nds/oto/themes/01/css/xmenu.css"  />
+	<link type="text/css" rel="stylesheet" href="/html/nds/oto/themes/01/css/xmenu.windows.css" />
 <%}else{%>	
-	<link type="text/css" rel="StyleSheet" href="/html/nds/js/menu4/skins/officexp/officexp.css" />
+	<link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/menu4/skins/officexp/officexp.css" />
 	<script language="javascript" src="/html/nds/oto/js/menu4/poslib.js"></script>
 	<script language="javascript" src="/html/nds/oto/js/menu4/scrollbutton.js"></script>
 	<script language="javascript" src="/html/nds/oto/js/menu4/menu4.js"></script>
@@ -50,10 +50,10 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <script>
 	jQuery.noConflict();
 </script>
-	<script language="javascript" src="/html/js/sniffer.js"></script>
-	<script language="javascript" src="/html/js/ajax.js"></script>
-	<script language="javascript" src="/html/js/util.js"></script>
-	<script language="javascript" src="/html/js/portal.js"></script>
+	<script language="javascript" src="/html/nds/oto/js/sniffer.js"></script>
+	<script language="javascript" src="/html/nds/oto/js/ajax.js"></script>
+	<script language="javascript" src="/html/nds/oto/js/util.js"></script>
+	<script language="javascript" src="/html/nds/oto/js/portal.js"></script>
 <!--
 <script type="text/javascript" src="/html/nds/js/xloadtree111/xtree.js"></script>
 <script type="text/javascript" src="/html/nds/js/xloadtree111/xmlextras.js"></script>
@@ -100,11 +100,11 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <!--link type="text/css" rel="stylesheet" href="/html/nds/oto/themes/01/css/ui.tabs.css"-->
 <link type="text/css" rel="stylesheet" href="/html/nds/oto/themes/01/css/aple_menu.css">
 <link type="text/css" rel="stylesheet" href="/html/nds/oto/themes/01/css/object.css">
-<link type="text/css" rel="stylesheet" href="/html/nds/js/jqzoom/css/jquery.jqzoom.css"/>
-<link type="text/css" rel="StyleSheet" href="/html/nds/js/potips/tip-yellowsimple/tip-yellowsimple.css">
+<link type="text/css" rel="stylesheet" href="/html/nds/oto/js/jqzoom/css/jquery.jqzoom.css"/>
+<link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/potips/tip-yellowsimple/tip-yellowsimple.css">
 <!--link type="text/css" rel="stylesheet" href="/html/nds/js/artdialog4/skins/chrome.css" /-->
 <link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/jdate/My97DatePicker/skin/WdatePicker.css"/>
-<link type="text/css" rel="StyleSheet" href="/html/prg/upload/uploadify.css">
+<link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/prg/upload/uploadify.css">
 
 <script language="javascript" src="/html/nds/oto/js/customfold.js"></script>
 <!--script language="javascript" src="/html/nds/oto/js/spacification.js"></script-->
