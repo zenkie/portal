@@ -166,8 +166,9 @@ java.net.URL url=null;
 		
 		if("TRADE_FINISHED".equalsIgnoreCase(trade_status)||"TRADE_SUCCESS".equalsIgnoreCase(trade_status)){
 			//判断是否有作过处理
+			List orderinfo=null;
 			try {
-				List orderinfo=QueryEngine.getInstance().doQueryList("select nvl(o.tot_amt,0),o.sale_status,v.wechatno,v.issubscribe from wx_order o join wx_vip_inqury v on o.wx_vip_id=v.wx_vip_id where o.docno=? and o.ad_client_id=?", new Object[] {out_trade_no,wu.getAd_client_id()});
+				orderinfo=QueryEngine.getInstance().doQueryList("select nvl(o.tot_amt,0),o.sale_status,v.wechatno,v.issubscribe,o.id from wx_order o join wx_vip_inqury v on o.wx_vip_id=v.wx_vip_id where o.docno=? and o.ad_client_id=?", new Object[] {out_trade_no,wu.getAd_client_id()});
 				if(orderinfo==null||orderinfo.size()<=0){
 					System.out.println("not found order->"+out_trade_no+":"+wu.getAd_client_id());
 					out.print("not found order");
@@ -203,7 +204,7 @@ java.net.URL url=null;
 			String sql="insert into wx_payrecode(id,ad_client_id,ad_org_id,platform,trademode,status,banktype,bankorderno,totalfee,notifyno,transactionno,orderno,paytime,openid,issubscribe,ownerid,creationdate,modifierid,modifieddate,isactive)"
 					  +" select get_sequences('wx_payrecode'),w.ad_client_id,w.ad_org_id,'alipay',?,?,?,?,?,?,?,?,?,?,?,w.ownerid,sysdate,w.modifierid,sysdate,'Y' from web_client w where w.ad_client_id=? and rownum=1";
 			try{
-				QueryEngine.getInstance().executeUpdate("update wx_order t set t.isstock='N',t.sale_status=3,t.paytime=sysdate where t.docno=? and t.ad_client_id=?",new Object[] {out_trade_no,wu.getAd_client_id()});
+				QueryEngine.getInstance().executeUpdate("update wx_order t set t.isstock='N',t.sale_status=3,t.paytime=sysdate,t.paymoney=? where t.docno=? and t.ad_client_id=?",new Object[] {total_fee,out_trade_no,wu.getAd_client_id()});
 				QueryEngine.getInstance().executeUpdate(sql,new Object[] {payment_type,trade_state,"alipay",bankorderno,total_fee,notify_id,transaction_id,out_trade_no,time_end,openno,isSubscribe,wu.getAd_client_id()});
 			}catch(Exception e){
 				e.printStackTrace();
@@ -216,6 +217,7 @@ java.net.URL url=null;
 				System.out.println("call nds.weixin.ext.DeductstockCommand deductstock order["+out_trade_no+"||"+wu.getAd_client_id()+"]");
 				ClientControllerWebImpl controller=(ClientControllerWebImpl)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.WEB_CONTROLLER);
 				DefaultWebEvent event=new DefaultWebEvent("CommandEvent");
+				event.setParameter("orderid", String.valueOf(((List)orderinfo.get(0)).get(4)));
 				event.setParameter("orderno", out_trade_no);
 				event.setParameter("adclientid", String.valueOf(wu.getAd_client_id()));
 				event.setParameter("command", "nds.weixin.ext.DeductstockCommand");
