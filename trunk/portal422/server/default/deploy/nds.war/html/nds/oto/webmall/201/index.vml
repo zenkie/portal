@@ -1,56 +1,52 @@
 #parse('/html/nds/oto/webmall/init.vml')
 #parse('/html/nds/oto/webmall/initList.vml')
-<html">
-<head>
-#parse("/html/nds/oto/webmall/topmeta.vml")
-<title>$cate.categoryname</title>
-</head>
-<body>
-#if($mall.showmenu == '否')
-	#parse("/html/nds/oto/webmall/lay_header.vml")
-#end
-    <div class="lay_page page_cat_1">
-        <div class="lay_page_wrap">
-            <div>
-                 <img class="ui_fluid" src="$cate.categoryphoto" alt="$cate.categoryname">
-            </div>
-            <div class="fn_titles">
-                <h1>$cate.categoryname</h1> 
-            </div>
-            <div class="fn_goods qb_clearfix">
-            <ul id="show_container">
-			#foreach($list in $allList)
-				<li>
-				#if($list.get(6) == '是')
-					<div class="hotpdt"></div>
+<html>
+	<head>
+		#parse("/html/nds/oto/webmall/topmeta.vml")
+		<link href="/html/nds/oto/webmall/201/css/private.css" rel="stylesheet">
+		<title>$cate.categoryname</title>
+	</head>
+	<body>
+		#if($mall.showmenu == '否')
+			#parse("/html/nds/oto/webmall/lay_header.vml")
+		#end
+		<div class="lay_page">
+			<img class="cate_img" src="$cate.categoryphoto" alt="$cate.categoryname">
+			<h1 class="cate_title">$cate.categoryname</h1> 
+			<div class="cate_goods qb_clearfix">
+				<ul>
+				#foreach($list in $allList)
+					<li>
+					#if($list.get(6) == '是')
+						<div class="hotpdt"></div>
+					#end
+						<a href="$list.get(0)">
+							<img src="$list.get(2)" class="default">
+							<div class="goods_name">
+							#if($list.get(7) == '是')
+								【新品】$list.get(1)
+							#else
+								$list.get(1)
+							#end
+							</div>
+							<div class="price">
+							#if($iscost =='Y')
+								<span>$math.toInteger($list.get(5))积分</span>
+								<del>$math.toInteger($list.get(3))积分</del>
+							#else
+								<span>¥$list.get(5)</span>
+								<del>¥$list.get(3)</del>
+							#end
+							</div>
+						</a>
+					</li>
 				#end
-					<a href="$list.get(0)">
-						<img src="$list.get(2)" width="140" height="140" class="default">
-						<div class="goods_name qb_fs_s mod_color_weak">
-						#if($list.get(7) == '是')
-							【新品】$list.get(1)
-						#else
-						$list.get(1)
-						#end
-						</div>
-						<div class="price qb_fs_s mod_color_strong">
-						#if($iscost =='Y')
-							<span>$math.toInteger($list.get(5))积分</span>
-							<del style="color: #999;text-shadow: none;">$math.toInteger($list.get(3))积分</del>
-						#else
-							<span>¥$list.get(5)</span>
-							<del style="color: #999;text-shadow: none;">¥$list.get(3)</del>
-						#end
-						</div>
-					</a>
-				</li>
-			#end
-			</ul>
-    </div> 
-	#parse("/html/nds/oto/webmall/footer.vml")
-	</div>
-</div>
-#if($mall.showmenu == '是')
-	#parse("/html/nds/oto/webmall/bottom_menu.vml")
-#end
-</body></html>
+				</ul>
+			</div>
+		</div>
+		#parse("/html/nds/oto/webmall/footer.vml")
+		#if($mall.showmenu == '是')
+			#parse("/html/nds/oto/webmall/bottom_menu.vml")
+		#end
+	</body>
+</html>
