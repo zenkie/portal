@@ -69,15 +69,15 @@ overflow: visible;
 border-radius: 3px;
 -moz-border-radius: 3px;
 -webkit-border-radius: 3px;
-background-color: #67b959;
-background-image: linear-gradient(top,#67b959 3%,#56a548 97%);
+background-color: #acc136;
+/*background-image: linear-gradient(top,#67b959 3%,#56a548 97%);
 background-image: -moz-linear-gradient(top,#67b959 3%,#56a548 97%);
-background-image: -webkit-linear-gradient(top,#67b959 3%,#56a548 97%);
+background-image: -webkit-linear-gradient(top,#67b959 3%,#56a548 97%);*/
 color: #fff;
-border: 1px solid #c3c3c3;
 margin: 0;
 padding: 3px 5px;
-border-color: #3d810c;
+/*border: 1px solid #c3c3c3;
+border-color: #3d810c;*/
 }
 .buttons a {
 display: block;
@@ -86,7 +86,7 @@ margin-left: 6px;
 line-height: 20px;
 vertical-align: middle;
 height: 19px;
-width: 70px;
+min-width: 70px;
 //width:30px;
 /*border: 1px solid #A7A7A7;*/
 text-align: center;
@@ -98,8 +98,8 @@ white-space: nowrap;
 .buttons a:hover {
 //text-decoration: none;
 /*background: transparent url(/html/nds/themes/classic/01/images/bos-bt-ac.gif) repeat scroll 0%;*/
-background-color: #56a548;
-background-image: linear-gradient(top,#56a548 3%,#56a548 97%);
+background-color: #bed349;
+/*background-image: linear-gradient(top,#56a548 3%,#56a548 97%);
 background-image: -moz-linear-gradient(top,#56a548 3%,#56a548 97%);
 background-image: -webkit-linear-gradient(top,#56a548 3%,#56a548 97%);
 	background-image: -webkit-gradient(
@@ -109,7 +109,11 @@ background-image: -webkit-linear-gradient(top,#56a548 3%,#56a548 97%);
 		color-stop(0, #56a548),
 		color-stop(1, #56a548)
 	);
-	background-position: center bottom;}
+	background-position: center bottom;*/
+}
+.buttons a:active {
+	background-color: #9aaf26;
+}
 #statusimg {
 height: 60px;
 right: 0px;
@@ -144,7 +148,7 @@ padding: 3px 5px 5px 1px;
 z-index: 50;
 }
 .obj{
-	padding-top:0px!important;
+	padding-top:15px!important;
 }
 .modify_table thead td, #modify_table thead td {
 border: 1px solid #77A5E0;
@@ -323,6 +327,7 @@ height: 21px;
 }
 .obj-table  #inc-edit-line .nn {
 	color: black!important;
+	top: 4px;
 }
 #inc-edit-line div.buttons {
 	border-bottom: 1px solid #F7F7F7;
@@ -348,25 +353,56 @@ height: 21px;
 	/* font-size: 14px; */
 	font-size: 12px;
 }
+/*孙精妹修改10.20
 .obj-table .desc-txt {
 background-color: transparent;
 height: 36px;
 color: black;
 font-size: 14px;
 line-height: 36px;
+}*/
+.obj-table .desc-txt {
+background-color: transparent;
+height: 36px;
+color: black;
+font-size: 13px;
+line-height: 36px;
 }
 .obj-table .tabnav-1 span{
 font-size: 14px;
 }
+/*
+孙精妹修改10.20
 .obj-table .value input[type="text"] {
 width: 400px;
+height: 26px;
+border-radius: 3px;
+-webkit-border-radius: 3px;
+}*/
+.obj-table .value input[type="text"] {
+width: 400px;
+height: 20px;
+border-radius: 3px;
+-webkit-border-radius: 3px;
+top: 4px;
+}
+/*孙精妹修改10.20
+.obj-table .value select {
+width: 200px;
 height: 26px;
 border-radius: 3px;
 -webkit-border-radius: 3px;
 }
 .obj-table .value select {
 width: 200px;
-height: 26px;
+height: 20px;
+border-radius: 3px;
+-webkit-border-radius: 3px;
+}
+*/
+.obj-table .value select {
+width: 200px;
+height: 22px;
 border-radius: 3px;
 -webkit-border-radius: 3px;
 }
@@ -421,9 +457,16 @@ height: 20px;
 border-radius: 3px;
 -webkit-border-radius: 3px;
 }
+/*孙静妹修改10.21
 .objtb .value select {
 width: 200px;
 height: 25px;
+border-radius: 3px;
+-webkit-border-radius: 3px;
+}*/
+.objtb .value select {
+width: 200px;
+height: 24px;
 border-radius: 3px;
 -webkit-border-radius: 3px;
 }
@@ -447,4 +490,97 @@ margin-left: 80px;
 }
 .objtb .value{
 font-size: 13px;
+}
+
+
+/*金正修改：添加，微商城 商品管理的多图上传10.30*/
+.float-label{
+display: none;
+position: absolute; 
+z-index: 2;
+top: 50%;
+right: 50%; 
+width: 20px;  
+height: 20px;  
+font-size: 16px;  
+line-height: 18px;  
+color: #fff;  
+text-align: center; 
+cursor: pointer;  
+background: rgba(153,153,153,0.6); 
+border-radius: 10px;
+margin-top: -10px;
+margin-right: -10px;
+}
+body * {
+font-size: 12px;
+font-family: 微软雅黑;
+position: relative;
+}
+/*
+.media-upload:hover>span{
+display:block;
+}
+.media-upload>span{
+display:none;
+}
+*/
+.meupload:hover>span{
+display:block;
+}
+.meupload>span{
+display:none;
+}
+
+.media-upload{
+border:1px dashed #C0C0C0;
+height:100px;
+width:100px;
+float:left;	
+background-image:url(/html/nds/oto/themes/01/images/uploading.png);
+background-size: cover;
+}
+.uploadmedia-body{
+margin-top:20px;
+width: 788px;
+height:140px;
+padding: 5px;
+border: 1px solid #D3D3D3;
+border-radius: 5px;
+}
+#imgList{
+margin:0 auto;
+list-style:none;
+}
+#media_position{
+width: 540px;
+height:100px;
+margin:0 auto;
+margin-left:6px;
+margin-top:20px;
+}
+#media_attention{
+float:left;
+margin-top:-90px;
+margin-left:20px;
+width: 200px;
+height:100px;
+}
+#upload_44444{
+visibility:hidden;
+height: 30px; 
+line-height: 30px; 
+overflow: hidden; 
+position: relative; 
+text-align: center; 
+width: 100px;
+}
+#uploadifive-upload_44444{
+margin-left: 10px;
+}
+#button_attention{
+display:none;
+}
+.cli{
+margin-left: 6px;
 }
