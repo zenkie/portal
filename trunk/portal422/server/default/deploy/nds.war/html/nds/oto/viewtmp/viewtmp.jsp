@@ -16,21 +16,22 @@ WeUtils wu=Wemanage.getByAdClientId(userWeb.getAdClientId());
 %>
 <style>
 .wap-iframe {
-overflow: hidden;
-width: 273x;
-height: 413px;
-position: absolute;
-left: 10px;
-top: 46px;
+	overflow: hidden;
+	width: 233px;
+	height: 413px;
+	position: absolute;
+	left: 54px;
+	top: 85px;
+	border: 0px;
 }
 .wap-preview {
-position: relative;
-width: 297px;
-height: 557px;
-/*border-left: 1px solid #ccc;*/
-top:10px;
-right:0;
-background: url(/html/nds/oto/viewtmp/wapphone.png) no-repeat center center;
+	position: relative;
+	width: 340px;
+	height: 580px;
+	/* border-left: 1px solid #ccc; */
+	top: 10px;
+	right: 0;
+	background: url(/html/nds/oto/viewtmp/wapphone.png) no-repeat center center;
 }
 </style>
 <div class="rightcontent" style="width:<%=rightpct%>; float: right; text-align: center; padding-bottom: 0px;">
@@ -42,5 +43,5 @@ background: url(/html/nds/oto/viewtmp/wapphone.png) no-repeat center center;
     </div>
     <p style="border-left: 0px solid #ccc;">
         <font style="color: blue;"><img src="" alt=""></font></p>
-    <p style="border-left: 0px solid #ccc;">扫描二维码，通过手机预览微官网</p>
+    <p style="border-left: 0px solid #ccc;">扫描二维码，通过手机预览微商城</p>
 </div>
