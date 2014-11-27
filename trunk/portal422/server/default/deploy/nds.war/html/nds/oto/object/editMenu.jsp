@@ -139,22 +139,28 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<style>
+.uploadifive-button{
+margin-top:130px!important;
+}
+</style>
 <link href="/html/nds/oto/themes/01/css/reply.css" rel="stylesheet" type="text/css">
+<link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/prg/upload/uploadifive.css">
 <script type="text/javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
 <!--<link rel="stylesheet" type="text/css" href="../themes/01/css/uploadify.css">-->
-<link type="text/css" rel="StyleSheet" href="/html/prg/upload/uploadify.css">
+<!--<link type="text/css" rel="StyleSheet" href="/html/prg/upload/uploadify.css">-->
 <script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
-<script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script>
+<!--<script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script>-->
 <script>
 	jQuery.noConflict();
 </script>
 <script language="javascript" src="/html/nds/js/prototype.js"></script>
-<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>
+<!--<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>-->
 <script language="javascript" src="/html/nds/oto/js/artDialog4/jquery.artDialog.js?skin=chrome"></script>
 <script language="javascript" src="/html/nds/oto/js/artDialog4/plugins/iframeTools.js"></script>
+<script language="javascript" src="/html/nds/oto/js/prg/upload/jquery.uploadifive.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/webrootupload.js"></script>
 <script type="text/javascript">
-
-
 jQuery(document).ready(
 		 function a(){
 			
@@ -266,25 +272,25 @@ function changSelection(){
 
 
 var upinit={
-            'sizeLimit':1024*1024 *1,
-            'buttonText'	: '上传图片',
-            'fileDesc'      : '上传文件(dat)',
-            'fileExt'		: '*.dat;'
-        };
-        var para={
-            "next-screen":"/html/prg/msgjson.jsp",
-            "formRequest":"/html/nds/msg.jsp",
-           // "JSESSIONID":"<%=session.getId()%>",
-			"isThum":false,
-			"width":600,
-			"hight":600,
-			"onsuccess":"jQuery(\"#grouponimage\").attr(\"src\",\"$filepath$\");",
-			"onfail":"alert(\"上传图片失败，请重新选择上传\");"	,
-			"modname":"menuAdd"
-        };
-        jQuery(document).ready(function(){
-              fup.initForm(upinit,para);
-        });
+	'sizeLimit':1024*1024 *1,
+	'buttonText'	: '上传图片',
+	'fileDesc'      : '上传文件(dat)',
+	'fileExt'		: '*.dat;'
+};
+var para={
+	//"next-screen":"/html/prg/msgjson.jsp",
+	//"formRequest":"/html/nds/msg.jsp",
+    // "JSESSIONID":"<%=session.getId()%>",
+	"isThum":true,
+	"width":600,
+	"hight":600,
+	"onsuccess":"jQuery(\"#grouponimage\").attr(\"src\",\"$filepath$\");",
+	"onfail":"alert(\"上传图片失败，请重新选择上传\");"	,
+	"modname":"menuAdd"
+};
+jQuery(document).ready(function(){
+	  fup.initForm(upinit,para,"fileInput1");
+});
 
 function submitMessage(){
 	var _params="{\"table\":15921,";
