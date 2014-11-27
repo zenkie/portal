@@ -1176,8 +1176,10 @@ ObjectControl.prototype = {
 	 * @return false if failed to close
 	 */
 	closeDialog:function(ifr){
-		//var webact_id=this._masterObj.table.webact_id;
-		//alert(this.id);
+	//	try{
+	//	var webact_id=this._masterObj.table.props.bfclose_ac;
+	//	}catch(e){}
+		//if(webact_id!=undefined)oc.webaction(webact_id,null,null);
 		var w = window.opener;
 		if(w==undefined)w= window.parent;
 		if (w ){
