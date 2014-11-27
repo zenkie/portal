@@ -1,5 +1,5 @@
 #errorimg{
-	background:url(/html/nds/oto/webapp/images/error.jpg) no-repeat center center;
+	background:url(/html/nds/oto/webapp/images/error/images/error.jpg) no-repeat center center;
 	background-size:100% 100%;
 	width:100%;
 	height:100%;
@@ -7,7 +7,7 @@
 }
 
 #mallerror{
-	background:url(/html/nds/oto/webapp/images/mallerror.jpg) no-repeat center center;
+	background:url(/html/nds/oto/webapp/images/error/images/mallerror.jpg) no-repeat center center;
 	background-size:100% 100%;
 	width:100%;
 	height:100%;
@@ -15,14 +15,14 @@
 }
 
 #weberror{
-	background:url(/html/nds/oto/webapp/images/weberror.jpg) no-repeat center center;
+	background:url(/html/nds/oto/webapp/images/error/images/weberror.jpg) no-repeat center center;
 	background-size:100% 100%;
 	width:100%;
 	height:100%;
 	overflow:hidden;
 }
 #pcerror{
-	background:url(/html/nds/oto/webapp/images/pcerror.jpg) no-repeat center center;
+	background:url(/html/nds/oto/webapp/images/error/images/pcerror.jpg) no-repeat center center;
 	background-size:100% 100%;
 	width:100%;
 	height:100%;
