@@ -124,6 +124,10 @@ if(!userWeb.isActive()){
 
 <style type="text/css">
 .aui_main{overflow: auto;}
+#SWFUpload_1{width:75px;}
+.uploadifive-button{
+margin-top:130px!important;
+}
 </style>
 
 <!--<link rel="stylesheet" type="text/css" href="../themes/01/css/uploadify.css">-->
@@ -150,7 +154,10 @@ if(!userWeb.isActive()){
 <script language="javascript" src="/html/nds/oto/js/dw_scroller.js"></script>
 -->
 
-<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>
+<!--<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>-->
+
+<script language="javascript" src="/html/nds/oto/js/prg/upload/jquery.uploadifive.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/webrootupload.js"></script>
 
 <script language="javascript" src="/html/nds/oto/js/menuoperation.js"></script>
 
@@ -159,7 +166,7 @@ if(!userWeb.isActive()){
 <link type="text/css" href="/html/nds/oto/attention/css/wxreplay.css" rel="Stylesheet">
 <link href="/html/nds/oto/attention/css/reply.css" rel="stylesheet" type="text/css">
 
-<link type="text/css" rel="StyleSheet" href="/html/prg/upload/uploadify.css">
+<link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/prg/upload/uploadifive.css">
  
 <script type="text/javascript">
 	var tuWen=<%=objectTuwen==null?null:objectTuwen.toString()%>;
@@ -172,7 +179,9 @@ if(!userWeb.isActive()){
 		function init(){
 			var sid="<%=sid%>";
 			var imgsrc = "<%=imgsrc%>";
-			if(imgsrc!=""){jQuery("#grouponimage").attr("src",imgsrc);}
+			
+			jQuery("#PicUrl").val(imgsrc);
+			if(imgsrc!=""){jQuery("#grouponimage").attr("src",imgsrc.replace("@",""));}
 			if(tuWen&&tuWen.hasOwnProperty("imageSize")){jQuery("#proposalSize").html(proposalSize[tuWen.imageSize]);}
 			
 			var reg = new RegExp("^[0-9]*$");
@@ -263,7 +272,11 @@ if(!userWeb.isActive()){
 			art.dialog.tips('您未输入链接文字！');
 			return false;
 		}
-		var grouponimage=jQuery("#grouponimage").attr("src");
+		var grouponimage=jQuery("#PicUrl").val();
+		if(!grouponimage){
+			art.dialog.tips('您未上传图片！');
+			return false;
+		}
 		if(grouponimage=="/html/nds/oto/themes/01/images/noimage.png"){
 			art.dialog.tips('您未上传图片！');
 			return false;
@@ -329,18 +342,45 @@ if(!userWeb.isActive()){
 		'fileExt'		: '*.dat;'
 	};
 	var para={
-		"next-screen":"/html/prg/msgjson.jsp",
-		"formRequest":"/html/nds/msg.jsp",
+		//"next-screen":"/html/prg/msgjson.jsp",
+		//"formRequest":"/html/nds/msg.jsp",
 		//"JSESSIONID":"<%=session.getId()%>",
 		"isThum":true,
 		"width":<%=imagewidth%>,
 		"hight":<%=imageheight%>,
-		"onsuccess":"jQuery(\"#grouponimage\").attr(\"src\",\"$filepath$\");",
+		"onsuccess":"jQuery(\"#grouponimage\").attr(\"src\",\"$filepath$\");jQuery(\"#PicUrl\").val(\"$filepath$\");",
 		"onfail":"alert(\"上传图片失败，请重新选择上传\");"	,
 		"modname":"TwoDimensionalCode"
 	};
 	
-
+	//选择网络图文
+	function setNetWorkUrl(){
+		var options={
+			width:400,
+			height:100,
+			title:'选择网络图片',
+			resize:false,
+			drag:true,
+			lock:true,
+			esc:true,
+			skin:'chrome',
+			ispop:false,
+			close:function(){
+				setNWUrl();
+			}
+		}; 
+		
+		var url="/html/nds/oto/rqcode/network_url.jsp";
+		art.dialog.open(url,options);
+	};
+	
+	function setNWUrl(){
+		var result=art.dialog.data('networkurl');
+		if(!result){return;}
+		var url=result.url;
+		jQuery("#grouponimage").attr("src",url);
+		jQuery("#PicUrl").val('@'+url);
+	};
 </script>
 
 
@@ -366,10 +406,13 @@ if(!userWeb.isActive()){
 					<th>
 						栏目图片：
 					</th>
-					<td>
+					<td style="position: relative">
 						<img src="/html/nds/oto/themes/01/images/noimage.png" alt="" id="grouponimage" name="showPic" width="120" height="120" style="float:left; padding-right:20px;">
 						<input type="hidden" id="PicUrl" name="PicUrl" value="">
 						<input type="button" class="btn" id="fileInput1" name="imgFile" value="选择图片">
+						<div id="network-button" style="height: 30px; line-height: 30px; width: 120px;position: absolute;margin-top: -39px;margin-left: 113px;" class="uploadify-button ">
+							<span class="uploadify-button-text" onclick="setNetWorkUrl()">网络图片</span>
+						</div>
 						<label id="spUpload">
 						</label>
 						<span class="required">*</span>
@@ -411,5 +454,5 @@ if(!userWeb.isActive()){
 	<p id="whole"></p>
 
 <script>
-			  fup.initForm(upinit,para);
+			  fup.initForm(upinit,para,"fileInput1");
 </script>

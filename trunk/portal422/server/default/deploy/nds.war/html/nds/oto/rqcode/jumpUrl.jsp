@@ -106,9 +106,9 @@
 <!--
 <link rel="stylesheet" type="text/css" href="../themes/01/css/uploadify.css">
 
-<script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script>
-<script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
-<script language="javascript" src="/html/nds/js/prototype.js"></script>
+<script language="javascript" src="/html/nds/oto/js/prg/upload/jquery.uploadifive.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/hover_intent.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/prototype.js"></script>
 <script language="javascript" src="/html/nds/oto/js/keywords.js"></script>
 <script language="javascript" src="/html/nds/oto/js/menuopration.js"></script>
 <script language="javascript" src="/html/nds/oto/js/AsyncBox.v1.4.5.js"></script>

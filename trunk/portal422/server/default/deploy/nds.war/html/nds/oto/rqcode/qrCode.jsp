@@ -66,7 +66,7 @@ if(allActionType!=null&&allActionType.size()>0){
 <link type="text/css" href="/html/nds/oto/themes/01/css/qrcodes.css" rel="Stylesheet">
 
 <script language="javascript" src="/html/nds/oto/js/jquery1.3.2/hover_intent.min.js"></script>
-<script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/prg/upload/jquery.uploadifive.min.js"></script>
 
 <script>
 	jQuery.noConflict();
@@ -82,7 +82,8 @@ if(allActionType!=null&&allActionType.size()>0){
 <script language="javascript" src="/html/nds/oto/js/dw_scroller.js"></script>
 <script language="javascript" src="/html/nds/oto/js/menuoperation.js"></script>
 <script language="javascript" src="/html/nds/oto/rqcode/js/rqcode.js"></script>
-<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>
+<script language="javascript" src="/html/nds/oto/js/webrootupload.js"></script>
+<!--<script language="javascript" src="/html/nds/oto/groupon/js/fileupload.js"></script>-->
 <script type="text/javascript">
 	var upinit={
 		'sizeLimit':1024*1024 *1,		//上传文件最大值
@@ -91,8 +92,8 @@ if(allActionType!=null&&allActionType.size()>0){
 		'fileExt'		: '*.dat;'		//文件类型过滤,暂时没用到
 	};
 	var para={
-		"next-screen":"/html/prg/msgjson.jsp",		//
-		"formRequest":"/html/nds/msg.jsp",			//
+		//"next-screen":"/html/prg/msgjson.jsp",		//
+		//"formRequest":"/html/nds/msg.jsp",			//
 		//"JSESSIONID":"<%=session.getId()%>",
 		"isThum":true,
 		"width":100,
@@ -267,7 +268,7 @@ if(allActionType!=null&&allActionType.size()>0){
 	<script>
 		jQuery(document).ready(
 			function init(){
-				fup.initForm(upinit,para);
+				fup.initForm(upinit,para,"fileInput1");
 				rqcode.main();
 				rq.ad_client_id=<%=ad_client_id%>;
 				rq.id=<%=id%>;

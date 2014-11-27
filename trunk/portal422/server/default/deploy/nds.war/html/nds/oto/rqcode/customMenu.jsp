@@ -30,8 +30,8 @@ int ad_client_id=userWeb.getAdClientId();
 <link type="text/css" rel="stylesheet" href="/html/nds/oto/js/xloadtree222/xtree.css" />
 <link type="text/css" href="/html/nds/oto/themes/01/css/wemenu.css" rel="Stylesheet">
 
-<script language="javascript" src="/html/nds/js/jquery1.3.2/hover_intent.min.js"></script>
-<script language="javascript" src="/html/nds/js/upload/jquery.uploadify.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/hover_intent.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/prg/upload/jquery.uploadifive.min.js"></script>
 <script>
 	jQuery.noConflict();
 </script>

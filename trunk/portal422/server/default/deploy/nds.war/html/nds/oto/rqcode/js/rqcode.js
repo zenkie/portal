@@ -28,6 +28,12 @@ rqcode.prototype={
 			py:"Python"
 		};
 		this.actiontype="";
+		//显示图文操作按钮
+		jQuery("#divRelpyNews .appmsgItem").live('mouseover', function () {
+			jQuery(this).addClass("sub-msg-opr-show");
+		}).live('mouseout', function () {
+			jQuery(this).removeClass("sub-msg-opr-show");
+		});
 		
 		this.deleteTuwen();
 		application.addEventListener("SAVE_RQCODE", this._onSaveRqcode, this);
@@ -228,7 +234,7 @@ rqcode.prototype={
 				var pp = jQuery("#divRelpyNews>div div:first");
 				pp.find(".i-title").text(tuwen.title);
 				if(tuwen.url){
-					pp.find(".i-img").attr("src",tuwen.url);
+					pp.find(".i-img").attr("src",tuwen.url.replace("@",""));
 					pp.find(".i-img").css("display","block");
 					pp.find(".default-tip").css("display","none");
 				}
@@ -252,7 +258,7 @@ rqcode.prototype={
 				s += '<div id="'+tuwen.id+'" class="rel sub-msg-item appmsgItem" flag="1" imagetype=\"smallImage\" fromid='+tuwen.fromid+' replace=\"'+tuwen.objid+'\" title=\"'+tuwen.title+'\" url=\"'+tuwen.url+'\" content=\"'+tuwen.content+'\" >';
 				s += '    <span class="thumb">';
 				s += '        <span class="default-tip" style="display:'+(tuwen.url?"none":"block")+';">缩略图</span>';
-				s += '        <img class="i-img" style="display:'+(tuwen.url?"block":"none")+';" src="'+tuwen.url+'">';
+				s += '        <img class="i-img" style="display:'+(tuwen.url?"block":"none")+';" src="'+tuwen.url?tuwen.url.replace("@",""):""+'">';
 				s += '    </span>';
 				s += '    <div class="msg-t h4">';
 				s += '        <span class="i-title">'+tuwen.title+'</span>';
@@ -368,7 +374,7 @@ rqcode.prototype={
 				if(obj.title){parentN.find(".i-title").text(obj.title);}
 				if(obj.url){
 					parentN.find(".default-tip").css("display","none");
-					parentN.find(".i-img").attr("src",obj.url);
+					parentN.find(".i-img").attr("src",obj.url.replace("@",""));
 					parentN.find(".i-img").css("display","block");
 				}
 				jQuery(parentN).attr({"fromid":obj.fromid,"replace":obj.objid,"title":obj.title,"url":obj.url,"content":obj.content});
