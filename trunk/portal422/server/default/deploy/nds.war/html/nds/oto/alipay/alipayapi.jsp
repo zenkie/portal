@@ -32,20 +32,28 @@ AlipayConfig aliconfig=new AlipayConfig();
 java.net.URL url=null;
 	try{
 		url = new java.net.URL(request.getRequestURL().toString());
-	//System.out.print(url);
+		System.out.print("alipay url->"+url);
 		WeUtilsManager Wemanage =WeUtilsManager.getInstance();
 		wu =Wemanage.getByDomain(url.getHost());
-		//System.out.print(url.getHost());
-
+		System.out.print("alipay url->"+url.getHost());
 	}catch(Exception t){
 		System.out.print("get path error->"+t.getMessage());
 		t.printStackTrace();
+	}
+	if(wu==null){
+		System.out.println("not found WeUtils");
+		out.println("not found WeUtils");
+		return;
 	}
 	List al=QueryEngine.getInstance().doQueryList("select t.paymail,t.partner,t.alikey from WX_PAY t where t.ad_client_id="+wu.getAd_client_id()+" and t.pcode='alipay'");
 	if (al.size() > 0) {
 	String paymail = (String) ((List) al.get(0)).get(0);
 	String partner = (String) ((List) al.get(0)).get(1);
 	String alikey = (String) ((List) al.get(0)).get(2);
+	if(nds.util.Validator.isNull(paymail)||nds.util.Validator.isNull(partner)||nds.util.Validator.isNull(alikey)){
+		out.println("请正确设置支付宝支付方式中的参数");
+		return;
+	}
 	aliconfig=new AlipayConfig();
 	aliconfig.setKey(alikey);
 	aliconfig.setPaymail(paymail);
@@ -125,19 +133,19 @@ java.net.URL url=null;
 
 		sParaTempToken.put("_input_charset", aliconfig.input_charset);
 		sParaTempToken.put("sec_id", aliconfig.sign_type);
-		System.out.print(aliconfig.sign_type);
+		System.out.print("sec_id->"+aliconfig.sign_type);
 
 		sParaTempToken.put("format", format);
-		System.out.print(format);
+		System.out.print("format->"+format);
 
 		sParaTempToken.put("v", v);
-		System.out.print(v);
+		System.out.print("v->"+v);
 
 		sParaTempToken.put("req_id", req_id);
-		System.out.print(req_id);
+		System.out.print("req_id->"+req_id);
 
 		sParaTempToken.put("req_data", req_dataToken);
-		System.out.print(req_dataToken);
+		System.out.print("req_data->"+req_dataToken);
 
 
 		AlipaySubmit alisubimt=new AlipaySubmit();
@@ -147,11 +155,11 @@ java.net.URL url=null;
 		String sHtmlTextToken = alisubimt.buildRequest(ALIPAY_GATEWAY_NEW,"", "",sParaTempToken);
 		//URLDECODE返回的信息
 		sHtmlTextToken = URLDecoder.decode(sHtmlTextToken,aliconfig.input_charset);
-		System.out.print(sHtmlTextToken);
+		System.out.print("sHtmlTextToken->"+sHtmlTextToken);
 
 		//获取token
 		String request_token = alisubimt.getRequestToken(sHtmlTextToken);
-		System.out.print(request_token);
+		System.out.print("request_token->"+request_token);
 		
 		////////////////////////////////////根据授权码token调用交易接口alipay.wap.auth.authAndExecute//////////////////////////////////////
 		
@@ -171,6 +179,7 @@ java.net.URL url=null;
 		
 		//建立请求
 		String sHtmlText = alisubimt.buildRequest(ALIPAY_GATEWAY_NEW, sParaTemp, "get", "确认");
+		System.out.print("sHtmlText->"+sHtmlText);
 		out.println(sHtmlText);
 	%>
 	<body>
