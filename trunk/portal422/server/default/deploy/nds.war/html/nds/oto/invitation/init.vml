@@ -1,0 +1,7 @@
+#set ($id = $request.getParameter("id"))
+#set ($data_id = $request.getParameter("data_id"))
+#set ($data_dir = $request.getParameter("data_dir"))
+#set ($regisset=$myweb.getList("WX_REGISSET","WX_SETAD","","/@ID@",1))
+#set ($invitemo=$myweb.getList("WX_INVITATIONTEMP","WX_SETAD","","/@ID@",1))
+#set ($regismodify=$myweb.getObject("WX_INVITATION","WX_INVITATION.ID=$id"))
+ 

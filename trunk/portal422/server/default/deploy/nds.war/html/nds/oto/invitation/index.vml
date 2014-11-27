@@ -1,0 +1,152 @@
+#parse('/html/nds/oto/invitation/init.vml')
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>邀请函后台界面</title>
+<script language="javascript" src="/html/nds/oto/js/jquery1.3.2/jquery-1.7.2.js"></script>
+<script language="javascript" src="/html/nds/oto/js/prototype.js"></script>
+<script language="javascript"  src="/html/nds/oto/js/jdate/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" src="/html/nds/oto/js/prg/upload/jquery.uploadifive.min.js"></script>
+<script language="javascript" src="/html/nds/oto/js/webrootupload.js"></script>
+<script type="text/javascript" src="/html/nds/oto/invitation/js/invitation.js"></script>
+<script language="javascript" src="/html/nds/oto/invitation/js/fileUpload.js"></script>
+<link href="/html/nds/oto/js/jdate/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+<link type="text/css" rel="StyleSheet" href="/html/nds/oto/js/prg/upload/uploadifive.css">
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+<input type="hidden" id="data_id" value="$!data_id"/>
+<input type="hidden" id="data_dir" value="$!data_dir"/>
+<input type="hidden" id="flag" value="$id"/>
+<div id="addinvitation">
+<div class="invitation-top">
+	<span class="invitation-button">
+    	<a href="javascript:void(0);" id="save">保存</a>
+		#if(!$id.equals('-1'))
+		   <a href="javascript:void(0);" id="del">删除</a>
+		#end        
+    </span>
+</div>
+<div class="invitation-cont" id="invicon">    
+	<div class="invitation-cont-left" id="myForm">
+	
+		<dl id="regissetss">
+        	<dt>邀请函模板<span class="notice">*</span>：</dt>			
+            <dd>
+				#if($id.equals('-1'))
+					<select id="regissets">	
+						#foreach($list in $invitemo)
+							<option class="$list.get(2)" data-id="$list.get(0)" data-dir="$list.get(2)" value="$list.get(0)" >$list.get(1)</option>	
+						#end
+					</select>
+				#else
+					#foreach($list in $invitemo)
+						<input type="hidden" id="dataid" value="$list.get(0)"/>
+						<input type="hidden" id="datadir" value="$list.get(2)"/>
+					#end					
+					<select id="regissets">						
+						#foreach($list in $invitemo)
+							#if($!regismodify.get("wx_invitationtemp_id") == $list.get(0))						
+								<option data-id="$list.get(0)"  class="$list.get(2)" data-dir="$list.get(2)" value="$list.get(0)" selected>$list.get(1)</option>			
+							#else
+								<option   class="$list.get(2)" value="$list.get(0)">$list.get(1)</option>
+							#end
+						#end
+					</select>	
+				#end		
+			</dd>
+        </dl>
+    	<dl>
+        	<dt>报名模板<span class="notice">*</span>：</dt>			
+            <dd>																		
+			<select id="regisset">
+				<option value="0">请选择</option>
+				#foreach($list in $regisset)
+					#if($!regismodify.get("wx_regisset_id") == $list.get(0))
+					<option value="$list.get(0)" selected>$list.get(2)</option>
+					#else
+					<option value="$list.get(0)">$list.get(2)</option>
+					#end
+			    #end			  
+			</select>
+			</dd>
+        </dl>
+        <dl>
+       	  <dt>活动主题<span class="notice">*</span>：</dt>
+            <dd><input type="text" name="name" id="theme" value="$!regismodify.get("theme")"></dd>
+        </dl>
+        <dl>
+       	  <dt>活动时间<span class="notice">*</span>：</dt>
+            <dd>
+			  <input type="text" name="name" id="starttime" value="$!regismodify.get("starttime")" onfocus="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
+			  <img onclick="WdatePicker({el:'starttime',dateFmt:'yyyy/MM/dd HH:mm:ss'});" style="cursor:pointer" id="imageCalendar289" width="16" height="18" src="/html/nds/images/datenum.gif" border="0" align="absmiddle">
+			</dd>
+			
+        </dl>
+        <dl>
+       	  <dt>活动地点<span class="notice">*</span>：</dt>
+            <dd><input type="text" name="name" id="location" value="$!regismodify.get("location")" ></dd>
+        </dl>
+        <dl>
+       	  <dt>主办方<span class="notice">*</span>：</dt>
+            <dd><input type="text" name="name" id="organizers" value="$!regismodify.get("organizers")"></dd>
+        </dl>
+      <dl>
+       	<dt>报名截止日期<span class="notice">*</span>：</dt>
+            <dd>
+			  <input type="text" name="name" id="endtime" value="$!regismodify.get("endtime")" onfocus="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
+			  <img onclick="WdatePicker({el:'endtime',dateFmt:'yyyy/MM/dd HH:mm:ss'});" style="cursor:pointer" id="imageCalendar292" width="16" height="18" src="/html/nds/images/datenum.gif" border="0" align="absmiddle">
+            </dd>
+		</dl>
+        <dl>
+        	<dt>背景图：</dt>
+            <dd style="height:100%;width:230px;">
+				#if($!id=='-1')
+		          <img src="/html/nds/oto/invitation/images/bg1.jpg" width=116 height=116 id="photo"/>
+	            #else
+		          <img src="$!regismodify.get("photo")" width=116 height=116 id="photo"/>
+	            #end  			    
+			    <div id="btnUploadify" class="invitation-button" style="width:120px; height:30px;" >
+    	           <a href="javascript:void(0);" >上传背景图</a>
+				</div>
+                <p>建议大小300*200</p>
+           </dd> 
+        </dl>
+        <dl>
+        	<dt>活动描述<span class="notice">*</span>：</dt>
+            <dd>
+				<input type="hidden" name="photo" />
+            	<textarea cols=34 rows=10 id="introduction" >$!regismodify.get("introduction")</textarea>
+           </dd> 
+        </dl>
+        
+    </div>
+    <div class="invitation-cont-right">	
+    	<div class="invitation-cont-r-phone" id="name">
+			<iframe id="ifr" name="ifr" class="phone-iframe" src=""></iframe>
+		</div>
+        <p style="display:none;">更多更炫邀请函请至<a href="javascript:void(0);">微杂志</a>中设计</p>
+    </div>
+</div>
+</div>
+
+<div id="tem" style="display:none;position: absolute;left: 12%;top: 5%;border:solid;" >
+    <div style="font-size: 16px;padding-bottom: 8px;padding-left: 33px;padding-top: 11px;">请选择一个邀请函模板:</div>
+    <div style="padding-left: 57px;" id="item">        
+        <ul>
+            #foreach($list in $invitemo)			
+            <li>			   
+				<a href="javascript:void(0);" data-id="$list.get(0)" data-dir="$list.get(2)">
+					<img src="$list.get(3)" style="width: 285px;height: 422px;">					
+				</a>					
+                <p style="text-align: center;font-size: 20px;width: 285px;">$!list.get(1)</p>
+            </li>			
+			#end 			
+        </ul>
+    </div>
+	<div style="font-size: 16px;padding-top: 456px;padding-left: 70%;display:none;">更炫邀请函至<a href="javascript:void(0);">微杂志</a>中设计</div>
+</div>
+<div id="whole"></div>
+</body>
+</html>

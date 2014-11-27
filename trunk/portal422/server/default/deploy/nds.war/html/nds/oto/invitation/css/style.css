@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+/*全局控制*/
+body{margin:0; padding:0;font-family:"微软雅黑"; list-style:none; font-size:12px;overflow-x: hidden;}
+/*重置浏览器默认样式*/
+h1,h2,h3,ul,li,dl,dt,dd,img,p,ol,tr,td{margin:0; padding:0; list-style:none; border:0;}
+/*invitation-top*/
+.invitation-top{width:100%;height:47px;border-bottom:1px solid #ededed;padding:6px 0 0 18px}
+.invitation-button a{display: block;float: left;margin-left: 6px;line-height: 20px;vertical-align: middle;height: 19px;
+width: 70px;text-align: center;letter-spacing: 1px;white-space: nowrap;cursor: pointer;overflow: visible;
+border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;background-color: #acc136;color: #fff;
+/*border: 1px solid #c3c3c3;border-color: #3d810c;*/margin: 0;padding: 3px 5px;text-decoration: none; margin-right:20px;outline:none;}
+.invitation-button a:hover{background-color: #bed349;/*background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0,#56a548),color-stop(1,#56a548));
+background-position: center bottom;*/text-decoration: none;}
+.invitation-button a:active{background-color: #9aaf26;}
+/*invitation-cont-left*/
+.invitation-cont-left{width:60%;height:500px; padding:20px 0 0 18px; float:left;}
+.invitation-cont-left dl{width:400px; }
+.invitation-cont-left dl dt{float:left;width:92px; height:34px; line-height:34px;}
+.invitation-cont-left dl dd{float:left;height:46px;}
+.invitation-cont-left dl dd img{ padding-bottom:10px;}
+.invitation-cont-left dl dd input{height:20px; line-height:24px;padding:4px; width:230px;}
+.invitation-cont-left dl dd select{height:30px; line-height:24px;padding:4px; width:230px;}
+.invitation-cont-left dl p{font-size:10px;color:#65a1ee; line-height:30px;}
+/*invitation-cont-right*/
+.invitation-cont-right{width:34%;height:500px; float:left; padding:20px 0 0 20px;}
+.invitation-cont-right .invitation-cont-r-phone{padding:46px 5px 80px 10px;width:297px;height:557px; background:url(../images/wapphone_2.png) no-repeat;}
+.invitation-cont-right p{ line-height:40px; font-size:14px;padding-left:46px;}
+.invitation-cont-right p a:link,.invitation-cont-right p a:visited{color:#0059a4;}
+.invitation-cont-right p a:hover{color:#0059a4;}
+.phone-iframe{border:none;width:277px;height:419px;}
+.notice{color:red}
+#item li{float:left;width:425px;}
+.invitation-cont-left  #introduction{
+	resize:none;
+}
