@@ -1,60 +1,60 @@
 #parse('/html/nds/oto/webmall/init.vml')
 #parse('/html/nds/oto/webapp/store/init.vml')
-<!DOCTYPE html>
-<html><head>
-#parse("/html/nds/oto/webapp/usercentertopmeta.vml")
-<title>适用门店</title>
-</head>
-<body>
-        <div class="container addr">
-			<div class="body">
-				<ul class="list_ul list_addr ">
-			#set ($temp="1")
-			#foreach($city in $storeCity)
+<html>
+	<head>
+		#parse("/html/nds/oto/webmall/topmeta.vml")
+		<link href="/html/nds/oto/webapp/store/css/private.css" rel="stylesheet">
+		<title>适用门店</title>
+	</head>
+	<body>
+		<ul class="list_ul list_addr">
+		#set ($temp="1")
+		#foreach($city in $storeCity)
 			#if($temp!=$city.get(2))
 			#set ($temp=$city.get(2))
-				<ol>
-					<li class="li_b header tbox">
-						<dd>
-							<i>&nbsp;</i>
-						</dd>
-						<dd>
-							<label class="label">$city.get(2)</label>
-						</dd>
-					</li>
+			<ol>
+				<li class="li_b header store_info">
+					<dd>
+						<i></i>
+					</dd>
+					<dd>
+						<label class="label">$city.get(2)</label>
+					</dd>
+				</li>
 				#set ($allStore =$myweb.getList("WX_STORE","WX_SETAD","WX_STORE.CITY==$city.get(2)","/@ID@",1))
 				#foreach($list in $allStore)
-						<li>
-							<label class="label" onclick="this.parentNode.classList.toggle(&#39;on&#39;);">
-							$list.get(1)<span>&nbsp;</span></label>
-								<ol>
-									<h6>门店图片：</h6>
-									<p><img src="$list.get(8)" alt="$list.get(1)" class="storeImg" style="width:100%"></p>
-								</ol>
-						</li>
-						<li class="li_add tbox">
-							<dd>
-								<i>&nbsp;</i>
-							</dd>
-							<dd>
-								<a href="http://api.map.baidu.com/marker?location=$list.get(4)&title=$list.get(1)&content=$list.get(2)&output=html"><label class="label">地址：$list.get(3)</label></a>
-							</dd>
-						</li>
-						<li class="li_tel tbox">
-							<dd>
-								<i>&nbsp;</i>
-							</dd>
-							<dd>
-								<a class="label" href="tel:$list.get(7)">电话：$list.get(7)</a>
-							</dd>
-						</li>
-						#end
+				<li>
+					<label class="label" onclick="this.parentNode.classList.toggle(&#39;on&#39;);">
+						$list.get(1)
+						<span class="arrow"></span>
+					</label>
+					<ol>
+						<h6>门店图片：</h6>
+						<p><img src="$list.get(8)" alt="$list.get(1)" class="storeImg" style="width:100%"></p>
 					</ol>
-					#end
-					#end
-				</ul>
-			</div>
-			
-		</div>
-#parse("/html/nds/oto/webapp/userfooter.vml")
-</body></html>
+				</li>
+				<li class="li_add store_info">
+					<dd>
+						<i></i>
+					</dd>
+					<dd>
+						<a href="http://api.map.baidu.com/marker?location=$list.get(4)&title=$list.get(1)&content=$list.get(2)&output=html">
+							<label class="label">地址：$list.get(3)</label>
+						</a>
+					</dd>
+				</li>
+				<li class="li_tel store_info">
+					<dd>
+						<i></i>
+					</dd>
+					<dd>
+						<a class="label" href="tel:$list.get(7)">电话：$list.get(7)</a>
+					</dd>
+				</li>
+				#end
+			</ol>
+			#end
+		#end
+		</ul>
+	</body>
+</html>

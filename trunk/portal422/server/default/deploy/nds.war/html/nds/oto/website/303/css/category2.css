@@ -23,11 +23,17 @@ a{
 	display:block;
 	}
 	
-.part{
+	/*9.30孙静妹修改.part{
 	border:1px solid #e5e5e5;
 	background:#fff;
 	padding:1em;
 	margin:1em 1em 0;}
+	原*/
+.part{
+	border:1px solid #e5e5e5;
+	background:#fff;
+	padding:1em;
+	margin:0 1em 0 1em;}
 	
 .part .left{
 	/*float:left;*/

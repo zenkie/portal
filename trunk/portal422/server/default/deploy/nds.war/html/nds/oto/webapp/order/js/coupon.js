@@ -1,4 +1,48 @@
 $(function(){
+	var gsize=$("#goodssize").val();
+		if(gsize>3){
+			var goodslist=$("#page_order").find("ul[class=order_detail]");
+			var goodslistends=goodslist.slice(3,goodslist.length);
+			for(var i=0;i<goodslistends.length;i++){
+				var $goodslistends = $(goodslistends[i]);
+				$goodslistends.hide();
+			}
+			
+			$("#order_more").show();
+			
+			$("#order_morea,#order_mpic").click(function(){
+				var flag=$("#order_morea").attr("index");
+				if(flag=='1'){
+					for(var i=0;i<goodslistends.length;i++){
+						var $goodslistends = $(goodslistends[i]);
+						$goodslistends.slideDown();
+					}
+					$("#order_morea").html("点击收起");
+					$("#order_morea").attr("index","2");
+					$("#order_mpic").children().addClass("order_picflip");
+				}else{
+					for(var i=0;i<goodslistends.length;i++){
+						var $goodslistends = $(goodslistends[i]);
+						$goodslistends.slideUp();
+						$("#order_morea").html("点击加载更多");
+						$("#order_morea").attr("index","1");
+						$("#order_mpic").children().removeClass("order_picflip");
+					}
+				}
+			});
+		}
+		
+		/*通过商品的状态，控制页面的显示*/
+		var sale_status=$("#sale_status").val();
+		var iscomment=$("#iscomment").val();
+		if(sale_status == '5' && iscomment == '否'){
+			$(".order_evaluation").show();
+		}else if(sale_status == '8'){
+			$(".order_logistics").show();
+		}
+})
+
+$(function(){
 	$("#select_coupon").click(function(){
 		if($(".coupon-content").css("display") == "none"){
 			$(".coupon-content").show();
@@ -35,6 +79,7 @@ $(function(){
 			}									
 		}
 	});
+	
 });
 
 function init(){

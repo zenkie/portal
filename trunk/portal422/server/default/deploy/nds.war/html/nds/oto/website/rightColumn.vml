@@ -1,4 +1,4 @@
-﻿<!--<header class="globleHead">
+﻿<!--孙静妹修改9.29<header class="globleHead">
 		<nav class="navHead">
 			<a href="javascript:history.go(-1);" style="width:30%;" class="backBtn"></a>
 			<em class="seprate"></em>
@@ -22,10 +22,9 @@
 			<a href="/html/nds/oto/webapp/usercenter/index.vml" class="userBtn"></a>
 			#end
 			<em class="seprate"></em>
-			<a href="javascript:void(0);" style="width:26%;" class="menuBtn"></a>
+			<a href="javascript:void(0);" style="width:25%;" class="menuBtn"></a>
 		</nav>
 </header>
-
 <ul class="dropdown dpd-posT translate" style="display: none;">
     <li class="dpdli" style="text-align: center; background-color: #202223; height: 44px; line-height: 44px; font-weight: bold;"><a href="javascript:void(0)" style="color: #fff;" class="dpda">栏目</a></li>
     <li class="dpdli" onclick="location.href='/'"><a  href="/" class="dpda">首页</a></li>

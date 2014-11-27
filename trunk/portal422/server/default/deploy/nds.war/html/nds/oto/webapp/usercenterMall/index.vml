@@ -45,8 +45,7 @@
 			<div id="payList">
 				#parse("/html/nds/oto/webapp/orderdetail/index.vml")
 			</div>
-			
-			
+
             <div class="qb_tac qb_none" style="height: 30px;" evttag="loadMore" id="load-more"></div>
         </div>
     </div>

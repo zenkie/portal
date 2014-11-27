@@ -2,5 +2,4 @@
     #set($url="/html/nds/oto/webapp/error/index.vml")
 	$myweb.forwardTourl($url,$request,$response);
 #end
-##set($vipid=33)
 #set ($cardTradeList =$myweb.getList("WX_DEAL","WX_INTEGRAL","WX_DEAL.WX_VIP_ID=$vipid","/html/nds/oto/webapp/membercardtrade/index.vml?id=@ID@",1))

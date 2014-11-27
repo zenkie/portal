@@ -1,147 +1,169 @@
 #parse('/html/nds/oto/webmall/init.vml')
 #parse('/html/nds/oto/webapp/usercenter/init.vml')
-<html><head>
-#parse("/html/nds/oto/webapp/usercentertopmeta.vml")
-<title>会员中心</title>
-</head>
-<style>
-.red {
-background-color: #f66f6f;
-color: #FFF;
-border-radius: 14px;
-padding: 0 12px;
-line-height: 24px;
-margin-top: -12px;
-}
-.righttext {
-position: absolute;
-right: 22px;
-top: 50%;
-font-weight: normal;
-}
-</style>
-<body>
-<div class="container card">
-	<header>
-		<div class="header card">
-			<div id="card" data-role="card" onclick="this.classList.toggle(&#39;on&#39;);">
-				<div class="front" style="background-image:url($vipCard.vipphoto)">
-				#if($vip.docno && $vip.docno!="&nbsp;")
-					<span class="no" style="font-size:14px !important;font-weight:bold;color:#FFFFFF;">会员卡:$vip.docno</span>
-				#elseif($vip.vipcardno && $vip.vipcardno!="&nbsp;")
-					<span class="no" style="font-size:14px !important;font-weight:bold;color:#FFFFFF;">会员卡:$vip.vipcardno</span>
-				#else
-					<span class="no" style="font-size:14px !important;font-weight:bold;color:#FFFFFF;"></span>
+<html>
+	<head>
+		#parse("/html/nds/oto/webmall/topmeta.vml")
+		<link href="/html/nds/oto/webapp/usercenter/css/private.css" rel="stylesheet">
+		<title>会员中心</title>
+	</head>
+	<body>
+		<header onclick="this.classList.toggle(&#39;on&#39;);">
+		#if($vip.photo !="&nbsp;")
+			<img class="vip_photo" src="$vip.photo">
+		#else
+			<img class="vip_photo" src="/html/nds/oto/webapp/usercenter/images/my_icon.jpg">
+		#end
+			<span class="vip_name">$vip.name</span>
+		#if($vip.docno != "&nbsp;")
+			<span class="vip_no">$vip.docno</span>
+		#elseif($vip.vipcardno != "&nbsp;")
+			<span class="vip_no">$vip.vipcardno</span>
+		#end
+			<span class="arrow vip_arrow"></span>
+			<div class="vip_barcode">
+				#if($vip.docno != "&nbsp;")
+					<img src="/barcode?data=$vip.docno&type=Code128&width=1&height=60">
+					<p>$vip.docno</p>
+				#elseif($vip.vipcardno != "&nbsp;")
+					<img src="/barcode?data=$vip.vipcardno&type=Code128&width=1&height=60">
+					<p>$vip.vipcardno</p>
 				#end
-				</div>
-				<div class="back" style="background-image:url(/html/nds/oto/webapp/images/1.jpg);">
-				#if($vip.docno && $vip.docno!="&nbsp;")
-					<img src="/barcode?data=$vip.docno&type=Code128&width=1&height=50"><br>
-						<label>$vip.docno</label>
-				#elseif($vip.vipcardno && $vip.vipcardno!="&nbsp;")
-					<img src="/barcode?data=$vip.vipcardno&type=Code128&width=1&height=50"><br>
-						<label>$vip.vipcardno</label>
-				#else
-					<div></div>
-				#end
-				</div>
 			</div>
-		</div>
-		<div>
-			<ul class="box group_btn">
-					<li>
-						<a href="/html/nds/oto/webapp/cardscore/index.vml">
-							<label>积分：</label>
-							#if("$!vip.integral"=="" || $vip.integral=="&nbsp;")
-							<span>0</span>
-							#else
-							<span>$vip.integral</span>
-							#end
-						</a>
-					</li>
-					<li>
-						<a href="/html/nds/oto/webapp/cardbalance/index.vml">
-						<label>余额：</label>
-						#if("$!vip.lastamt"=="")
-							<span>0.00</span>
-						#else
-							<span>$vip.lastamt</span>
-						#end
-						</a>
-					</li>
-			</ul>
-		</div>
-	</header>
-	<div class="body my">
-		<ul class="list_ul">
-			<div>
-				<li class="li_a">
-					<a href="/html/nds/oto/webapp/userinfo/index.vml"><label class="label"><i>&nbsp;</i>完善会员卡资料<span>&nbsp;</span></label></a>
-				</li>
-				<li class="li_b">
-				#if($vip.isbd=="否")
-					<a href="/html/nds/oto/webapp/bindcard/index.vml"><label class="label"><i>&nbsp;</i>绑定实体卡<span>&nbsp;</span></label></a>
-				#else
-					<label class="label"  onclick="this.parentNode.classList.toggle(&#39;on&#39;);"><i>&nbsp;</i>绑定实体卡<span>&nbsp;</span></label>
-					<ol>
-						<h6>您已绑定实体卡</h6>
-						<p>您的实体卡号：$bindcard.docno</p>
-					</ol>
-				#end
-				</li>
-				<li class="li_d">
-					<a href="/html/nds/oto/webapp/coupon/index.vml"><label class="label">
-					#if($myweb.getCoupons($vipid)>0)
-					<b class="righttext red"><b id="couponCount">$myweb.getCoupons($vipid)</b></b>
+		</header>
+		<ul class="list_ul score_tamt">
+			<li>
+				<a href="/html/nds/oto/webapp/cardscore/index.vml">
+					<label>积分：
+					#if("$!vip.integral"=="" || $vip.integral=="&nbsp;")
+						<span>0</span>
+					#else
+						<span>$vip.integral</span>
 					#end
-					<i>&nbsp;</i>我的优惠券<span>&nbsp;</span></label></a>
-				</li>
-				<li class="li_e">
-					<label class="label" onclick="this.parentNode.classList.toggle(&#39;on&#39;);"><i>&nbsp;</i>会员卡权益说明<span>&nbsp;</span></label>
-					<ol>
-						<h6>详细说明：</h6>
-						<p>$vipCard.vipexplain</p>
-					</ol>
-				</li>
-			</div>
-			<div>
-				#if("$mall.ismall"=="是")
-				<li class="li_f">
-					<a href="/mall.jsp"><label class="label"><i>&nbsp;</i>进入商城<span>&nbsp;</span></label></a>
-				</li>
-
-				<li class="li_t">
-					<a href="/html/nds/oto/webapp/usercenterMall/index.vml?tabstatus=tab1"><label class="label"><i>&nbsp;</i>待付款订单<span>&nbsp;</span></label></a>
-				</li>
-						
-				<li class="li_v">
-					<a href="/html/nds/oto/webapp/usercenterMall/index.vml?tabstatus=tab2"><label class="label"><i>&nbsp;</i>待收货订单<span>&nbsp;</span></label></a>
-				</li>
-						
-				<li class="li_m">
-					<a href="/html/nds/oto/webapp/usercenterMall/index.vml?tabstatus=tab3"><label class="label"><i>&nbsp;</i>已结束订单<span>&nbsp;</span></label></a>
-				</li>
-				#else
-				<li class="li_f">
-					<label class="label" onclick="this.parentNode.classList.toggle(&#39;on&#39;);"><i>&nbsp;</i>进入商城<span>&nbsp;</span></label>
-					<ol>
-						<h6>商城功能即将推出，敬请期待！</h6>
-					</ol>
-				</li>
-				#end
-			</div>
-			<div>
-				<li class="li_j">
-					<a href="/html/nds/oto/webapp/store/index.vml"><label class="label"><i>&nbsp;</i>适用门店<span>&nbsp;</span></label></a>
-				</li>
-				#if("$mall.ismall"=="是")
-				<li class="li_k">
-					<label class="label"><i>&nbsp;</i>收货地址<a href="/html/nds/oto/webapp/address/addressMangage.vml" class="button">管  理</a></label>
-				</li>
-				#end
-			</div>
+					</label>
+				</a>
+			</li>
+			<li>
+				<a href="/html/nds/oto/webapp/cardbalance/index.vml">
+					<label>余额：
+					#if("$!vip.lastamt"=="")
+						<span>0.00</span>
+					#else
+						<span>$vip.lastamt</span>
+					#end
+					</label>
+				</a>
+			</li>
 		</ul>
-	</div>
-</div>
-#parse("/html/nds/oto/webapp/userfooter.vml")
-</body></html>
+		<ul class="list_ul list_order">
+		#if("$mall.ismall"=="是")
+			<li class="li_x">
+				<a href="/html/nds/oto/webapp/orderDetail/index.vml?tabstatus=tab1">
+					<label class="label">
+						<i></i>
+					</label>
+					<p>全部订单</p>
+				</a>
+			</li>
+			<li class="li_t">
+				<a href="/html/nds/oto/webapp/orderDetail/index.vml?tabstatus=tab2">
+					<label class="label">
+						<i></i>
+					</label>
+					<p>待付款</p>
+				</a>
+			</li>
+			<li class="li_v">
+				<a href="/html/nds/oto/webapp/orderDetail/index.vml?tabstatus=tab3">
+					<label class="label">
+						<i></i>
+					</label>
+					<p>配送中</p>
+				</a>
+			</li>
+			<li style="display:none;"class="li_m">
+				<a href="">
+					<label class="label">
+						<i></i>
+					</label>
+					<p>退换货</p>
+				</a>
+			</li>
+		#end
+		</ul>
+		<ul class="list_ul">
+			<li class="li_a">
+				<a href="/html/nds/oto/webapp/userinfo/index.vml">
+					<label class="label">
+						<i></i>
+						完善会员卡资料
+						<span class="arrow"></span>
+					</label>
+				</a>
+			</li>
+			<li class="li_b">
+			#if($vip.isbd=="否")
+				<a href="/html/nds/oto/webapp/bindcard/index.vml">
+					<label class="label">
+						<i></i>
+						绑定实体卡
+						<span class="arrow"></span>
+					</label>
+				</a>
+			#else
+				<label class="label" onclick="this.parentNode.classList.toggle(&#39;on&#39;);">
+					<i></i>
+					绑定实体卡
+					<span class="arrow"></span>
+				</label>
+				<ol>
+					<h6>您已绑定实体卡</h6>
+					<p>您的实体卡号：$bindcard.docno</p>
+				</ol>
+			#end
+			</li>
+			<li class="li_d">
+				<a href="/html/nds/oto/webapp/coupon/index.vml">
+					<label class="label">
+					#if($myweb.getCoupons($vipid)>0)
+						<b class="coupon_num">
+							<b id="couponCount">$myweb.getCoupons($vipid)</b>
+						</b>
+					#end
+						<i></i>
+						我的优惠券
+						<span class="arrow"></span>
+					</label>
+				</a>
+			</li>
+			<li class="li_e space">
+				<label class="label" onclick="this.parentNode.classList.toggle(&#39;on&#39;);">
+					<i></i>
+					会员卡权益说明
+					<span class="arrow"></span>
+				</label>
+				<ol>
+					<h6>详细说明：</h6>
+					<p>$vipCard.vipexplain</p>
+				</ol>
+			</li>
+			<li class="li_j">
+				<a href="/html/nds/oto/webapp/store/index.vml">
+					<label class="label">
+						<i></i>
+						适用门店
+						<span class="arrow"></span>
+					</label>
+				</a>
+			</li>
+			#if("$mall.ismall"=="是")
+			<li class="li_k">
+				<label class="label">
+					<i></i>
+					收货地址
+					<a href="/html/nds/oto/webapp/address/index.vml" class="button">管　理</a>
+				</label>
+			</li>
+			#end
+		</ul>
+	</body>
+</html>

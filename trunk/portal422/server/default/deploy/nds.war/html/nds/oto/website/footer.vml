@@ -3,5 +3,7 @@
 	<a href="#">© $company.company</a>
 	<br>
 #end
-	<a href="#">由<span style="text-decoration:underline;">伯俊软件星云团队</span>提供技术支持</a>
+#if($isShowSign==false)
+	<a href="#" class="support">由伯俊软件星云团队提供技术支持</a>
+#end
 </div>

@@ -1,6 +1,7 @@
 #if("$!vipid"=="")
+	#set($vipid = 10413)
     #set($url="/html/nds/oto/webapp/error/index.vml")
-	$myweb.forwardTourl($url,$request,$response);
+	##$myweb.forwardTourl($url,$request,$response);
 #end
 
 #set ($vip = $myweb.getObject("WX_VIP","WX_VIP.ID=$vipid"))

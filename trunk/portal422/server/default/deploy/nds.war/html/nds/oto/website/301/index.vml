@@ -6,7 +6,7 @@
     <link href="/html/nds/oto/website/301/css/module.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	#parse("/html/nds/oto/website/rightColumn.vml")
+	
 <div class="wrapper" style="float: left; margin-top: 48px;">
     <ul class="itml">
 		#foreach($list in $allList)
@@ -24,5 +24,7 @@
 		#end
     </ul>
 </div>
+
 #parse("/html/nds/oto/website/footer.vml")
+#parse("/html/nds/oto/website/rightColumn.vml")
 </body></html>

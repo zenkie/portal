@@ -15,11 +15,11 @@
 			QueryRequestImpl query = engine.createRequest(null);
 			query.setMainTable(table.getId());
 			query.addSelection(table.getColumn("ID").getId());
-			query.addSelection(table.getColumn("WX_APPENDGOODS_ID;ITEMNAME").getId());//用户昵称
-			
-			
-			query.addSelection(table.getColumn("WX_APPENDGOODS_ID;ITEMPHOTO").getId());//用户图像
-			query.addSelection(table.getColumn("QTY").getId());
+			query.addSelection(table.getColumn("WX_APPENDGOODS_ID;ITEMNAME").getId());//商品名称		
+			query.addSelection(table.getColumn("WX_APPENDGOODS_ID;ITEMPHOTO").getId());//商品图像			
+			query.addSelection(table.getColumn("QTY").getId());	//商品数量				
+			query.addSelection(table.getColumn("SIZE_NAME").getId());	//商品规格
+			query.addSelection(table.getColumn("PRICELIST").getId());//商品单价
 
 			query.addParam(table.getColumn("WX_ORDER_ID").getId(),indentID);
 			int[] orderKey;//排序
@@ -44,49 +44,19 @@
 </head>
 <body>
 	<div class="viewport">
-		<header class="navbar">
+		<!--<header class="navbar">
 			<ul>
 				<li>查看物流</li>
 				<li> <a href="javascript:history.go(-1)" class="c-btn c-btn-aw">返回</a> </li>
 				<li> </li>
 			</ul>
-		</header>
+		</header>-->
 		
 		<section class="content">
 			<div class="wrap">
-				<div class="inactive prev"></div>
+				<!--<div class="inactive prev"></div>-->
 				<div class="active">
-					<div id="J_oper_plugin">
-						<div class="logis-order">订单商品</div>
-						<%
-								String id="";
-								String amount="";
-								String photo="";		
-								String message="";
-								for (int j = 0; j < result.getRowCount(); j++) {
-									result.next();			
-									id = result.getObject(1).toString();
-									message = result.getObject(2).toString();
-									photo = (result.getObject(3)!=null)?result.getObject(3).toString():"/html/nds/oto/themes/01/images/upimg.jpg";
-									amount = result.getObject(4).toString();
-							%>
-						<div class="mb-ollr">							
-							<div class="ol-l">
-								<a class="fragment"> <img src="<%=photo%>" height="55px" width="55px"></a>
-							</div>
-							<div class="ol-r">
-								<a class="fragment">
-									<h3>
-										<span><%=message%></span>
-									</h3>
-									<p class="r-price"></p>
-									<p class="d-total">共<%=amount%>件</p> 
-								</a>
-							</div>
-						</div>
-							<%
-							}
-							%>
+					<div id="J_oper_plugin">						
 					<%
 						String content = null;
 						String com = request.getParameter("com");
@@ -131,15 +101,53 @@
 						if(errCode.equals("0")){						
 					%>
 						<div class="logis-info">
-						
-							<p>物流公司:<%=jso.getString("expTextName")%></p>
-						
-							<p>运单号码:<%=jso.getString("mailNo")%></p>
-						
+							<div class="logis-tit">
+								<p style="font-size: 17px;"><%=jso.getString("expTextName")%></p>
+								<p></p>								
+								<p>运单编号:<%=jso.getString("mailNo")%></p>
+			
+							</div>
 						</div>
+						<div class="logis-order" style="padding-top: 72px;">商品详情</div>
+						
+							<%
+								String id="";
+								String goodsname="";
+								String photo="";								
+								String amount="";	
+								String goossize="";	
+								String price="";								
+								
+								for (int j = 0; j < result.getRowCount(); j++) {
+									result.next();			
+									id = result.getObject(1).toString();
+									goodsname = result.getObject(2).toString();
+									photo = (result.getObject(3)!=null)?result.getObject(3).toString():"/html/nds/oto/themes/01/images/upimg.jpg";									
+									amount = result.getObject(4).toString();
+									goossize = result.getObject(5).toString();
+									price = result.getObject(6).toString();
+									
+							%>
+									<div class="mb-ollr">							
+										<div class="ol-l">
+											<img style="border: 1px solid #ddd;" src="<%=photo%>" height="60px" width="60px">
+										</div>
+										<div class="ol-r">
+											<div style="color: #898989;height: 33px;"><%=goodsname%></div>
+											<div style="color: #898989;">规格：x<%=goossize%></div>
+											<div style="float: left;color: #898989;">￥<%=price%>&nbsp;&nbsp;&nbsp;</div>
+											<div style="color: #898989;">x<%=amount%></div>
+											
+										</div>
+									</div>
+							<%
+							}
+							%>
+						
+						<div class="logis-order">物流详情</div>
 					<%	JSONArray array=jso.getJSONArray("data");%>
 						<div class="logis-detail">
-							<ul>
+							<ul style="padding-top: 41px;">
 								<%	
 								Date today=new Date();//今天的日期
 								Date newDate=null;//新的日期
@@ -170,12 +178,13 @@
 								todayStr=sdf.format(today);// 把今天的日期转换为字符串
 								
 								//首先判断是否是今天的日期
-								if (newDateStr.equals(todayStr)&&countToday==0) {
-									pContent="今天";//今天的数据第一次出现
-									countToday=1;
-									flag=0;
-								}
-								else if(newDateStr.equals(todayStr)&&countToday==1){//今天的数据重复出现
+								//if (newDateStr.equals(todayStr)&&countToday==0) {
+								//	pContent="今天";//今天的数据第一次出现
+								//	countToday=1;
+								//	flag=0;
+								//}
+								//else 
+								if(newDateStr.equals(todayStr)&&countToday==1){//今天的数据重复出现
 									flag=1;
 								}
 								else{
@@ -220,27 +229,34 @@
 									}
 									oldDateStr=newDateStr;
 								if(flag==0){
-								%>	
-							    <li>
-									<p class="logis-detail-date" visibility="invisible"><%=pContent%></p>
-									<div class="logis-detail-d logis-detail-first">
-										<div class="logis-detail-content">
-											<p class="logis-detail-content-time"><%=jsonStr.getString("time").split(" ")[1]%></p>
-												&nbsp;&nbsp;&nbsp;&nbsp;
-											<p class="logis-detail-content-detail"><%=jsonStr.getString("context")%></p>
+								%>								
+							    <li>								
+									<div class="logis-detail-d logis-detail-first">										
+										<div class="logis-detail-content" style="position:absolute;top:-14px;">
+									
+											<div class="logis-detail-content-detail">
+												<div><%=jsonStr.getString("context")%></div>
+												<div><%=jsonStr.getString("time")%></div>
+											</div>										
 										</div>
+										
 									</div>
 								</li>
 								
 								<%}else if(flag==1){%>
 								
 								<li>
+									
 									<div class="logis-detail-d ">
-										<div class="logis-detail-content">
-											<p class="logis-detail-content-time"><%=jsonStr.getString("time").split(" ")[1]%></p>
-											&nbsp;&nbsp;&nbsp;&nbsp;
-											<p class="logis-detail-content-detail"><%=jsonStr.getString("context")%></p>
-										</div>
+										
+										<div class="logis-detail-content" style="position:absolute;top:-14px;">
+										
+											<div class="logis-detail-content-detail">
+												<div><%=jsonStr.getString("context")%></div>
+												<div><%=jsonStr.getString("time")%></div>
+											</div>
+											
+										</div>										
 									</div>
 								</li>
 								

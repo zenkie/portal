@@ -9,7 +9,8 @@
 </head>
 <body>
 	#parse("/html/nds/oto/website/rightColumn.vml")
-	<div class="wrapper" style="margin-top:20px;">
+	<!-- 9.29<div class="wrapper" style="margin-top:20px;">孙静妹 修改  -->
+	<div class="wrapper">
         <ul class="mTh-itml">
 			#foreach($list in $allList)
              <a href="$list.get(0)">

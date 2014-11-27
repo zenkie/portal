@@ -1,82 +1,65 @@
 #parse('/html/nds/oto/website/init.vml')
 #parse('/html/nds/oto/webapp/bindcard/init.vml')
-<html><head>
-	#parse("/html/nds/oto/webmall/topmeta.vml")
-	#parse("/html/nds/oto/webapp/usercentertopmeta.vml")
-	<script type="text/javascript" src="/html/nds/oto/webapp/bindcard/js/bindcard.js"></script>
-    <title>绑定实体会员卡</title>
-</head>
-<body style="background:#d1e5e9;">
-<input type="hidden" id="clientid" value="$myweb.getClientId()">
-<input type="hidden" id="iserp" value="$erp.iserp">
-<div class="container info_tx">
-	<div class="body pt_10">
-		<ul class="list_ul_card">
-				<li data-card="">
-					<header class="center">
-						<label style="display:inline-block;"><span>&nbsp;</span>绑定实体会员卡</label>
-					</header>
-					<div class="forms">
-						<dl>
-							<dt>会员卡卡号：</dt>
-							#if("$!card.docno"=="")
-							<dd>
-								<input type="text" value="" id="cardnum" name="cardnum" placeholder="请输入会员卡卡号" maxlength="30" class="input">
-							</dd>
-							#else
-							<dd>
-								<input type="text" value="$card.docno" id="cardnum" name="cardnum" placeholder="请输入会员卡卡号" maxlength="30" class="input">
-							</dd>
-							#end
-							<div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="card_msg"></div>
-						</dl>
-						<dl>
-							<dt>会员卡密码：</dt>
-							#if("$!card.vippassword"=="")
-							<dd>
-								<input type="password" value="" id="cardpwd" name="cardpwd" placeholder="请输入会员卡密码" maxlength="30" class="input">
-							</dd>
-							#else
-							<dd>
-								<input type="password" value="$card.vippassword" id="cardpwd" name="cardpwd" placeholder="请输入会员卡密码" maxlength="30" class="input">
-							</dd>
-							#end
-						</dl>
-						<dl>
-							<dt>手机号：</dt>
-							<dd>
-								<div class="group_input input">
-									<table>
-										<tbody><tr>
-											#if("$!card.phonenum"=="")
-											<td>
-												<input type="tel" value="" id="mobile" name="Mobile" placeholder="请输入手机号" maxlength="30" class="input">
-											</td>
-											#else
-											<td>
-												<input type="tel" value="$card.phonenum" id="mobile" name="Mobile" placeholder="请输入手机号" maxlength="30" class="input">
-											</td>
-											#end
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</dd>
-								<div class="qb_mb10 mod_color_strong qb_fs_s qb_none" id="mobile_msg"></div>
-						</dl>
-				<div class="pt_10 pb_10">
-					<input type="hidden" id="vipid" value="$vipid"/>
-					<span class="button" onclick="bindcard();">提&nbsp;&nbsp;&nbsp;交</span>
-				</div>
-	<div class="mod_dialog qb_none" id="message-notice">
-        <div class="dialog_mask"></div>
-        <div class="dialog_main qb_br qb_tac">
-            <div class="dialog_bd" id="notice-content"></div>
-            <div class="dialog_ft qb_flex"><a href="javascript:void(0);" class="flex_box" id="notice-cancel">取消</a><a href="javascript:void(0);" class="flex_box" id="notice-sure">确定</a></div>
-        </div>
-    </div>
-		</ul>
-	</div>
-</div>
-#parse("/html/nds/oto/webapp/userfooter.vml")
-</body></html>
+<html>
+	<head>
+		#parse("/html/nds/oto/webmall/topmeta.vml")
+		<script type="text/javascript" src="/html/nds/oto/webapp/bindcard/js/bindcard.js"></script>
+		<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/bindcard/css/private.css">
+		<title>绑定实体会员卡</title>
+	</head>
+	<body>
+		#parse("/html/nds/oto/webapp/promptDialog/index.vml")
+		<input type="hidden" id="clientid" value="$myweb.getClientId()">
+		<input type="hidden" id="iserp" value="$erp.iserp">
+		<input type="hidden" id="issendmessage" value="$isSendMessage">
+		<header>
+			<span></span>
+			<label>绑定实体会员卡</label>
+		</header>
+		<div class="forms">
+			<dl>
+				<dt>
+					会员卡卡号：
+					<span class="msg_prompt qb_none" id="card_msg"></span>
+				</dt>
+				<dd>
+					<input type="text" value="$!card.docno" id="cardnum" placeholder="请输入会员卡卡号" maxlength="30">
+				</dd>
+				
+			</dl>
+			<dl>
+				<dt>
+					会员卡密码：
+					<span class="msg_prompt qb_none" id="pwd_msg"></span>
+				</dt>
+				<dd>
+					<input type="password" value="$!card.vippassword" id="cardpwd" placeholder="请输入会员卡密码" maxlength="30">
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					手机号：
+					<span class="msg_prompt qb_none" id="mobile_msg"></span>
+				</dt>
+				<dd>
+					<input type="tel" value="$!card.phonenum" id="mobile" placeholder="请输入手机号" maxlength="30">
+				</dd>
+				
+			</dl>
+			#if ($isSendMessage=="是")
+			<dl>
+				<dt>
+					验证码：
+					<span class="msg_prompt qb_none" id="captcha_msg"></span>
+				</dt>
+				<dd>
+					<input type="tel" id="verifycode" placeholder="请输入验证码" maxlength="30" class="captcha">
+					<input type="button" value="发送验证码" id="btn" class="button captcha_btn" onclick="sendopencrdverifycode(this)"/>				
+				</dd>
+			</dl>
+			#end
+			<input type="hidden" id="vipid" value="$vipid"/>
+			<span class="button submit" onclick="bindcard();">提　交</span>
+		</div>
+	</body>
+</html>

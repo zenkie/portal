@@ -3,9 +3,9 @@
 	$myweb.forwardTourl($url,$request,$response);
 #end
 #set ($shop = $myweb.getList("WX_SHOPPING","WX_SETAD","WX_SHOPPING.ISSALE==N&WX_SHOPPING.WX_VIP_ID=$vipid","/@ID@",1))
-
 ##会员折扣开始
 #if("$!vipid"!="")
 #set ($viptypeid=$myweb.getObject("WX_VIP","WX_VIP.ID=$vipid"))
 #set ($viptypeinfo=$myweb.getObject("WX_VIPBASESET","WX_VIPBASESET.ID=$viptypeid.get('viptype;id')"))
 #end
+

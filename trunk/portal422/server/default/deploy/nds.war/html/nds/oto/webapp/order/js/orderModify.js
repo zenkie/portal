@@ -29,7 +29,7 @@ function commitOrder(){
 
 
 function orderModify(para,link_param){
-	var _params ="{\"table\":15942,\"unionfk\":true,\"partial_update\":true,\"ID\":"+para.orderid+",\"REMARKS\":\""+para.remarks+"\",\"PAYMENT__NAME\":\""+para.pay+"\",\"WX_ADDRESS_ID__ADDRESS\":\""+para.address+"\",\"LOGISTICS_FREE\":"+oct.shipmentFree+""+link_param+"}";
+	var _params ="{\"table\":WX_ORDER,\"unionfk\":true,\"partial_update\":true,\"ID\":"+para.orderid+",\"REMARKS\":\""+para.remarks+"\",\"PAYMENT__NAME\":\""+para.pay+"\",\"WX_ADDRESS_ID__ADDRESS\":\""+para.address+"\",\"LOGISTICS_FREE\":"+oct.shipmentFree+""+link_param+"}";	
 	$.ajax({
         url: '/html/nds/schema/restajax.jsp',
         type: 'post',
@@ -64,6 +64,7 @@ ordercontroll.prototype.initialize=function(){
 	this.adjustFree=0;			//调整金额
 	this.productFree=0;			//商品金额	
 	this.orderItem=[];			//订单明细
+	this.ip="";
 };
 ordercontroll.prototype.changeLogistics=function(){
 	var addresses=$("#allAddress>li[class*=default]");
@@ -92,11 +93,15 @@ ordercontroll.prototype.changeLogistics=function(){
 				//优惠劵
 				var coupon = $("#couponId");
 				if(coupon.length==0 || coupon.val()==-1){
-					$("#all_total-price_detail").html("¥"+oct.formatNumber(oct.productFree)+"&nbsp;+&nbsp;¥"+oct.formatNumber(oct.shipmentFree)+"&nbsp;运费");
+					$("#all_total-price_detail").html("合计：¥"+oct.formatNumber(oct.productFree));
+					$("#order_freight").html("运费：¥"+oct.formatNumber(oct.shipmentFree));
 					$("#all_total-price").html("¥"+oct.formatNumber(oct.totalFree));
 					$("#WIDtotal_fee").val(oct.totalFree);
 				}else{
-					$("#all_total-price_detail").html("¥"+oct.formatNumber(oct.productFree)+"&nbsp;+&nbsp;¥"+oct.formatNumber(oct.shipmentFree)+"&nbsp;运费"+"&nbsp;-&nbsp;￥"+$(".couponDefault").attr("data-money")+"&nbsp;优惠劵");
+					//$("#all_total-price_detail").html("¥"+oct.formatNumber(oct.productFree)+"&nbsp;+&nbsp;¥"+oct.formatNumber(oct.shipmentFree)+"&nbsp;运费"+"&nbsp;-&nbsp;￥"+$(".couponDefault").attr("data-money")+"&nbsp;优惠劵");
+					
+					$("#all_total-price_detail").html("合计：¥"+oct.formatNumber(oct.productFree));
+					$("#order_freight").html("运费：¥"+oct.formatNumber(oct.shipmentFree)+"&nbsp;-&nbsp;￥"+$(".couponDefault").attr("data-money")+"&nbsp;优惠劵");
 					var fee = oct.shipmentFree + oct.productFree;
 					if($(".couponDefault").attr("data-money") >= fee){
 						$("#all_total-price").html("¥0");
@@ -132,11 +137,16 @@ ordercontroll.prototype.callpay=function(){
 		//判断微信浏览器版本
 		try{
 			var ua = navigator.userAgent;
-			var reg=new RegExp("(?!micromessenger\/)\\d+","i");
-			if(reg.test(ua)){
-				var verison=reg.exec(ua);
+			if(/MicroMessenger\/\s*\d+/i.test(ua)){
+				var verison=/MicroMessenger\/\s*\d+/i.exec(ua);
+				if(verison){verison=verison[0];}
+				if(!verison){
+					showBubble("请用微信支付！e",1500);
+					return;
+				}
+				verison=verison.replace(/MicroMessenger\/\s*\d+/i,"");
 				if(isNaN(verison)){
-					showBubble("请用微信中支付！",1500);
+					showBubble("请用微信支付！",1500);
 					return;
 				}
 				verison=parseInt(verison);
@@ -145,14 +155,37 @@ ordercontroll.prototype.callpay=function(){
 					return;
 				}
 			}else{
-				showBubble("请用微信中支付！",1500);
+				showBubble("请在微信中支付！",1500);
 				return;
 			}
 		}catch(e){
-			showBubble("请用微信中支付！",1500);
+			showBubble("请用微信中支付！"+e,1500);
 			return;
 		}
-		wxs.weixinpay();
+		//判断IP是否为空
+		if(!oct.ip){
+			showBubble("IP异常！",1500);
+			return false;
+		}
+		//请求微信支付签名数据
+		var _params = "{\"nds.control.ejb.UserTransaction\":\"N\",\"webaction\":\"wx_weixinpaysign\",\"id\":"+oct.orderId+",\"query\":{\"ip\":\""+oct.ip+"\",\"ad_client_id\":\""+oct.ad_client_id+"\",\"orderid\":\""+oct.orderId+"\"}}";
+		$.ajax({
+			url: '/html/nds/schema/restajax.jsp',
+			type: 'post',
+			data:{command:"ExecuteWebAction",params:_params},
+			success: function (data) {
+				var _data = eval("("+data+")");
+				if (_data[0].code == 0) {
+					var orderinfo=_data[0].result_data.message;
+					wxs.orderinfo=eval("("+orderinfo+")");
+					wxs.weixinpay();
+				}else if(_data[0].message){
+					showBubble(_data[0].message);
+				}else{
+					showBubble("支付失败");
+				}
+			}
+		});
 	}else{
 		showBubble("暂时只支付支付宝支付！",1500);
 		return false;
@@ -196,18 +229,20 @@ ordercontroll.main=function(){
 }
 $(document).ready(ordercontroll.main);
 
-function canleOrder(orderid) {
+function canleOrder(orderid,vipid,docno) {
 	showConfirm({
 		describeText:"是否确定要取消订单？",
 		sureText: "确定",
 		cancelText: "取消",
 		sureFn: function () {
-			cancleOrder_sure(orderid);
+			cancleOrder_sure(orderid,vipid,docno);
 		}
 	});	
 }
 
-function cancleOrder_sure(orderid){
+function cancleOrder_sure(orderid,vipid,docno){
+	//var order_freight = $("#order_freight").html();
+	console.log(order_freight);
 	var _params = "{\"webaction\":\"wx_order_cancel\",\"id\":"+orderid+"}";
 	$.ajax({
 		url: '/html/nds/schema/restajax.jsp',
@@ -218,7 +253,7 @@ function cancleOrder_sure(orderid){
 		if (_data[0].code == 0) {
 			showBubble("取消订单成功！");
 			setTimeout(function () {
-				location.href = '/html/nds/oto/webapp/usercenterMall/index.vml';
+				location.href = '/html/nds/oto/webapp/order/index_more.vml?vipid='+vipid+'&docno='+docno+'';
 			},500)
 			}
 		}

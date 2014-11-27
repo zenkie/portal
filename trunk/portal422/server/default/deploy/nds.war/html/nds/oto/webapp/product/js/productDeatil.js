@@ -1,70 +1,3 @@
-function initDetil(photoUrl) {
-    calculate();
-    showDetil();
-}
-
-function showConfirm(b) {
-    var a = {
-        sureNode: $("#notice-sure"),
-        cancelNode: $("#notice-cancel"),
-        contentNode: $("#notice-content"),
-        dialogNode: $("#message-notice")
-    };
-
-    function c() {
-        f.sureFn.call(this, arguments), e()
-    }
-    function d() {
-        f.cancelFn.call(this, arguments), e()
-    }
-    function e() {
-        a.contentNode.empty(), a.sureNode.html("确定").off("click", c), a.cancelNode.html("取消").off("click", d), a.dialogNode.addClass("qb_none")
-    }
-    var f = {
-        describeText: "",
-        sureText: "确定",
-        cancelText: "取消",
-        showNum: 2,
-        sureFn: function () {
-            return !0
-        },
-        cancelFn: function () {
-            return !0
-        }
-    };
-    $.extend(f, b), a.dialogNode.hasClass("qb_none") && (a.dialogNode.removeClass("qb_none"), a.sureNode.on("click", c), a.cancelNode.on("click", d), 1 == f.showNum && a.cancelNode.addClass("qb_none"), a.sureNode.html(f.sureText), a.cancelNode.html(f.cancelText), a.contentNode.html(f.describeText))
-
-}
-
-function showBubble(message, speed) {
-    if (message) {
-        speed = speed || 1000;
-        var bubble = $("#bubble");
-        bubble.stop().css("opacity", 1), bubble.hasClass("qb_none") || bubble.html(message), bubble.html(message).removeClass("qb_none"), setTimeout(function () {
-            bubble.animate({
-                opacity: 0
-            }, 1000, "swing", function () {
-                $(this).addClass("qb_none").removeAttr("style");
-            })
-        }, speed)
-    }
-}
-
-
-//显示商品详情
-function showDetil() {
-    $("#info-arrow").click(function () {
-        var detail = $("#detail-info");
-        if (detail.hasClass("qb_none")) {
-            detail.removeClass("qb_none");
-            $(".mod_fold").removeClass("fold");
-        } else {
-            detail.addClass("qb_none");
-            $(".mod_fold").addClass("fold");
-        }
-    });
-}
-
 function calculate() {
     var buyNumTemp = 1;//存储当前商品数量
     var stockNum = parseInt($("#stock-num").html().replace(/[^0-9-.]/g, ''));	//剩余量
@@ -252,7 +185,7 @@ function initAlias(spaces) {
                     if (!isInit) {
                         regexskus.push("\\d+");
                         properties.push({ pid: tempspace.pid, ids: [] });
-                        spacehtml[j] = "<dt value=\"" + tempspace.pid + "\" class=\"spacestr\">" + obj.keys[j].name + ":</dt><br><dd class=\"qb_color_weak mod_property\" index=\"" + j + "\" value=\"" + tempspace.pid + "\">";
+                        spacehtml[j] = "<dt value=\"" + tempspace.pid + "\">" + obj.keys[j].name + ":</dt><dd index=\"" + j + "\" value=\"" + tempspace.pid + "\">";
                     }
                     if (!selectspace.hasOwnProperty(tempspace.pid)) { selectspace[tempspace.pid] = {}; }
                     if (!selectspace[tempspace.pid].hasOwnProperty(tempspace.id)) {
@@ -261,9 +194,9 @@ function initAlias(spaces) {
                         spanid = tempspace.pid + "-" + tempspace.id;
 
                         if (obj.child.length == 1) {
-                            spacehtml[j] += "<span index=\"" + j + "\" skuname=\"" + jo.sku + "\" spanid=\"" + spanid + "\" tpid=\"" + tempspace.pid + "\" tid=\"" + tempspace.id + "\"  data-value=\"item_" + tempspace.pid + "_" + tempspace.id + "\" value=\"" + tempspace.value + "\" class=\"property bcf90\">" + tempspace.name + "</span>";
+                            spacehtml[j] += "<span index=\"" + j + "\" skuname=\"" + jo.sku + "\" spanid=\"" + spanid + "\" tpid=\"" + tempspace.pid + "\" tid=\"" + tempspace.id + "\"  data-value=\"item_" + tempspace.pid + "_" + tempspace.id + "\" value=\"" + tempspace.value + "\" class=\"options selected\">" + tempspace.name + "</span>";
                         } else {
-                            spacehtml[j] += "<span index=\"" + j + "\" skuname=\"" + jo.sku + "\" spanid=\"" + spanid + "\" tpid=\"" + tempspace.pid + "\" tid=\"" + tempspace.id + "\"  data-value=\"item_" + tempspace.pid + "_" + tempspace.id + "\" value=\"" + tempspace.value + "\" class=\"property\">" + tempspace.name + "</span>";
+                            spacehtml[j] += "<span index=\"" + j + "\" skuname=\"" + jo.sku + "\" spanid=\"" + spanid + "\" tpid=\"" + tempspace.pid + "\" tid=\"" + tempspace.id + "\"  data-value=\"item_" + tempspace.pid + "_" + tempspace.id + "\" value=\"" + tempspace.value + "\" class=\"options\">" + tempspace.name + "</span>";
                         }
                         properties[j].ids.push(tempspace.id);
                     }
@@ -276,11 +209,20 @@ function initAlias(spaces) {
         }
         var spacehtmls = spacehtml.join("</dd>") + "</dd>";
         $("#spacesdisplay").html(spacehtmls);
+		//没有上架的商品 总库存 不计算在内
+		if(product.length!=0){
+			var priceSum =0;
+			for(var i = 0;i<product.length;i++){
+				var key = product[i];priceSum = priceSum + spacepqy[key];
+			};
+			$("#stock-num").html(priceSum);
+			productqty = priceSum;	
+		}		
+		//没有上架的商品 总库存 不计算在内 结束
     }
 }
 
 function sliderimg() {
-    //alert(123);
     $(".main_visual").hover(function () {
         $("#btn_prev,#btn_next").fadeIn()
     }, function () {
@@ -333,7 +275,7 @@ function sliderimg() {
     });
 }
 function goTopEx() {
-    var obj = document.getElementById("goTopBtn");
+    var obj = document.getElementById("top_btn");
     function getScrollTop() {
         return document.documentElement.scrollTop + document.body.scrollTop;
     }
@@ -345,7 +287,7 @@ function goTopEx() {
         }
     }
     window.onscroll = function () {
-        getScrollTop() > 300 ? obj.style.display = "" : obj.style.display = "none";
+        getScrollTop() > 300 ? obj.style.display = "block" : obj.style.display = "";
     }
     obj.onclick = function () {
         var goTop = setInterval(scrollMove, 10);
@@ -443,78 +385,26 @@ function goTopEx() {
         var toucher = new touch();
         container.bind('touchstart', function (ev) { toucher.Call(toucher.TouchStart, ev); });
         container.bind('touchend', function (ev) { toucher.Call(toucher.TouchEnd, ev) });
-        //$(document.body).append("<div id='mymm' style='position:fixed;top:0px;width:100%;height:50px;background-color:black;'></div>");
         return toucher;
     }
 
 }(window));
 
-function slidercom() {
-    $dragShow = false;
-    var slider = $(".custom-store");
-    var selector = "#productContext";
-    var toucher = TouchUtil.touch(selector);
-    toucher.Total = slider.find("a").length - 1;
-    toucher.Current = slider.find(".showthis").index();
-    toucher.OnTouchStart = function () {
-        toucher.Current = slider.find(".showthis").index();
-    }
-    toucher.OnHorizontalTouchEnd = function () {
-        _params = this.TouchParams;
-        var current = this.Current;
-        var total = this.Total;
-        if (_params.Direction == this.Directions.right) {
-            if (current >= total) {
-                current = 0;
-            } else {
-                current++;
-            }
-        } else {
-            if (current <= 0) {
-                current = this.Total;
-            } else {
-                current--;
-            }
-        }
-        this.Current = current;
-        $(".custom-richtext").addClass("hide").eq(current).removeClass("hide");
-        $(".custom-store a").removeClass("showthis").eq(current).addClass("showthis");
-    }
-}
-
 function showcontent() {
-    //商品详情
-    $(".custom-store-name").click(function () {
-        //商品信息
-        $("#detail-info").removeClass("hide"),
-        //评论内容
-        $("#comment-info").addClass("hide"),
-        //热卖商品
-        $("#hot-info").addClass("hide"),
-        //商品a标签
-        $(".custom-store-name").addClass("showthis"),
-        //评价a标签
-        $(".comment-content").removeClass("showthis"),
-        //热卖a标签
-        $(".product-hot").removeClass("showthis");
-    });
-    //商品评价
-    $(".comment-content").click(function () {
-        $("#detail-info").addClass("hide"),
-        $("#comment-info").removeClass("hide"),
-        $("#hot-info").addClass("hide"),
-        $(".custom-store-name").removeClass("showthis"),
-        $(".comment-content").addClass("showthis"),
-        $(".product-hot").removeClass("showthis");
-    });
-    //热卖商品
-    $(".product-hot").click(function () {
-        $("#detail-info").addClass("hide"),
-        $("#comment-info").addClass("hide"),
-        $("#hot-info").removeClass("hide"),
-        $(".custom-store-name").removeClass("showthis"),
-        $(".comment-content").removeClass("showthis"),
-        $(".product-hot").addClass("showthis");
-    });
+    var tag = document.getElementById("details_tag").childNodes;
+	var content=document.getElementById("details_content").childNodes;
+	var len= tag.length;
+	for(var i=0; i<len; i++)
+	{
+		tag[i].index=i;
+		tag[i].onclick = function(){
+			for(var n=0; n<len; n++){
+				  tag[n].className="";
+				  content[n].className="this_none"; 
+			}
+			tag[this.index].className = "on";
+			content[this.index].className = "this_show";
+		}
+	}
 }
 $(function () { showcontent(); });

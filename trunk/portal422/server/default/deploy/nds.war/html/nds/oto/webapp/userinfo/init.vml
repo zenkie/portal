@@ -1,10 +1,12 @@
 #if("$!vipid"=="")
     #set($url="/html/nds/oto/webapp/error/index.vml")
-	$myweb.forwardTourl($url,$request,$response);
+	$myweb.forwardTourl($url,$request,$response)
 #end
 
 #set ($isopen=$getutil.getString($request.getParameter("isopen"),"2"))
-#set ($selfinfo =$myweb.getObject("WX_VIPINFO","WX_VIPINFO.WX_VIP_ID=$vipid"))
+#set ($selfinfo =$myweb.getObject("WX_VIP","WX_VIP.ID=$vipid"))
+#set ($webclient =$myweb.getObject("WEB_CLIENT","WEB_CLIENT.AD_CLIENT_ID=$myweb.getClientId()"))
+#set ($isSendMessage =$webclient.ismesauth)
 
 #if($selfinfo.birthday&&$selfinfo.birthday.length()==8)
 	#set($str=$selfinfo.birthday) 

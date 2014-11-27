@@ -12,7 +12,6 @@ body {
 	font-size: 12px;
 	font-family:微软雅黑;
 	color: #000;
-	background: #f6f6f6;
 }
 
 ul,ol,li {
@@ -26,7 +25,9 @@ h3{
 font-size:12px;
 }
 .ol-r{
-		margin-right:55px;
+margin-right:55px;
+word-wrap: break-word;
+width: 76%;
 	}
 input,img {
 	vertical-align: middle
@@ -70,8 +71,8 @@ a {
 }
 
 .d-total{
-margin-top: 4px;
-font-size: 12px;
+left: 78%;
+position: absolute;
 }
 
 .navbar {
@@ -135,7 +136,6 @@ width: 14px;
 
 .viewport>.content>.wrap {
 	/* background: #eee */
-	background:#f6f6f6;
 }
 
 .wrap {
@@ -146,26 +146,28 @@ width: 14px;
 
 .logis-order {
 font-size: 15px;
-padding: 10px 0;
+color: #707070;
+background-color: #f5f5f5;
+padding-left: 30px;
+height: 40px;
+line-height: 40px;
+border-bottom: 1px solid #ddd;
 }
+
 .mb-ollr {
 display: -webkit-box;
 padding: 10px;
-background-color: #fff;
-border: 1px solid;
-border-top-width: 0;
-border-color: #fff #e3e3e3 #d7d7d7;
-box-shadow: 0 1px 3px rgba(0,0,0,.1);
--webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
-border-bottom-left-radius: 8px;
-border-bottom-right-radius: 8px;
+background-color: #eeeeee;
+border-bottom: 1px solid #ddd;
+padding-left: 29px;
 }
-#J_oper_plugin{
+/*#J_oper_plugin{
 margin-left: 12px;
 margin-right: 12px;
-}
+}*/
 #J_oper_plugin .ol-l {
 margin-right: 6px;
+margin-top: 2px;
 }
 #J_oper_plugin .ol-l a {
 width: 56px;
@@ -178,14 +180,24 @@ display: -webkit-box;
 
 .logis-info {
 font-size: 13px;
-margin-bottom: 20px;
-}
-.logis-info p {
-margin: 15px 0;
+background: url(../images/background.png) no-repeat;
+background-size: cover;
+position: fixed;
+width: 100%;
+z-index: 1;
 }
 
+.logis-tit{
+padding-top: 15px;
+padding-left: 30px;
+padding-bottom: 15px;
+color: #ffffff;
+
+}
+.ddd{height:80px}
+
 #J_oper_plugin .logis-detail ul li {
-color: #666;
+color: #bfbfbf;
 position: relative;
 }
 #J_oper_plugin .logis-detail ul li:first-child p.logis-detail-date {
@@ -198,34 +210,32 @@ text-align: right;
 font-size: 14px;
 }
 #J_oper_plugin .logis-detail ul li:first-child div {
-border-left: 2px solid #F40;
+/*border-left: 2px solid #F40;*/
 }
 #J_oper_plugin .logis-detail ul .logis-detail-d {
 margin-left: 25px;
 border-left: 2px solid #bdbdbd;
-padding: 10px 0 10px 35px;
+padding: 0 0 0 35px;
 position: relative;
+padding-bottom: 101px;
 }
 
 #J_oper_plugin .logis-detail ul li:first-child div .logis-detail-content {
-background: #F40;
-color: #fff;
+/*background: #F40;*/
+color: #a7c234;
 }
 #J_oper_plugin .logis-detail ul .logis-detail-content {
 display: -webkit-box;
 position: relative;
 -webkit-border-radius: 2px;
-background: #ddd;
-padding: 5px 10px;
+/*background: #ddd;*/
+padding: 0 10px;
 font-size: 13px;
 }
-#J_oper_plugin .logis-detail ul .logis-detail-content .logis-detail-content-time {
-width: 50px;
-line-height: 25px;
-}
+
 #J_oper_plugin .logis-detail ul .logis-detail-content .logis-detail-content-detail {
 -webkit-box-flex: 1;
-line-height: 25px;
+/*line-height: 25px;*/
 }
 #J_oper_plugin .logis-detail ul li:first-child div .logis-detail-content:after {
 border-bottom-color: #F40;
@@ -235,7 +245,7 @@ left:-12px;
 background: #F40;
 }
 #J_oper_plugin .logis-detail ul .logis-detail-content:after {
-content: '';
+/*content: '';*/
 display: inline-block;
 position: absolute;
 left: -10px;
@@ -244,17 +254,17 @@ border-left: 10px solid #f6f6f6;
 border-bottom: 10px solid #ddd;
 }
 #J_oper_plugin .logis-detail ul li:first-child .logis-detail-first:after {
-background: #F40;
+background: #a7c234;
 border: 2px solid #EEE;
 }
 #J_oper_plugin .logis-detail ul .logis-detail-d:after {
 content: '';
 display: inline-block;
 position: absolute;
-left: -6px;
-top: 30px;
-width: 6px;
-height: 6px;
+left: -8px;
+top: 0px;
+width: 10px;
+height: 10px;
 -webkit-border-radius: 10px;
 background: #BDBDBD;
 border: 2px solid #EEE;

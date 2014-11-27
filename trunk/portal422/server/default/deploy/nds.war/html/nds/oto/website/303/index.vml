@@ -1,14 +1,18 @@
 #parse('/html/nds/oto/website/init.vml')
 #parse('/html/nds/oto/website/initCate.vml')
-<html><head>
+<html>
+<head>
 	#parse("/html/nds/oto/website/topmeta.vml")
 	<title>$web.name</title>
 
     <link href="/html/nds/oto/website/303/css/category2.css" rel="stylesheet" type="text/css">
 </head>
+
 <body style="">
 #parse("/html/nds/oto/website/rightColumn.vml")
-<div style="margin-top: 35px;">
+<!--孙静妹修改9.30<div style="margin-top: 35px;">
+-->
+<div>
 	#foreach($list in $allList)
     <div class="part part1">
 	

@@ -431,6 +431,16 @@ Wmp.Shopping = {
 				//spacehtml+= "</dd>";
 				var spacehtmls=spacehtml.join("</dd>")+"</dd>";
 				$("#spacesdisplay").html(spacehtmls);
+				//没有上架的商品 总库存 不计算在内
+				if(product.length!=0){
+					var priceSum =0;
+					for(var i = 0;i<product.length;i++){
+						var key = product[i];priceSum = priceSum + spacepqy[key];
+					};
+					$("#stock-num").html(priceSum);
+					productqty = priceSum;	
+				}
+				//没有上架的商品 总库存 不计算在内 结束
 			//}
 		}
 	}

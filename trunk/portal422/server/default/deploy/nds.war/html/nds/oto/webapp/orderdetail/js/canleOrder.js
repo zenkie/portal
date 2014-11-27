@@ -1,5 +1,5 @@
 function canleOrder(evt) {
-	var orderid=evt.id;
+	var orderid=evt;
 	showConfirm({
 		describeText:"是否确定要取消订单？",
 		sureText: "确定",

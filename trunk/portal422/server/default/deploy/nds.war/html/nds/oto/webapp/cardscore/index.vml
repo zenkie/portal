@@ -1,47 +1,31 @@
 #parse('/html/nds/oto/website/init.vml')
 #parse('/html/nds/oto/webapp/cardscore/init.vml')
-<html><head>
-#parse("/html/nds/oto/webapp/usercentertopmeta.vml")
-<script type="text/javascript" src="/html/nds/oto/website/js/jquery.js" ></script>
-<script type="text/javascript" src="/html/nds/oto/webapp/cardscore/js/dialog_min.js"></script>
-<script type="text/javascript" src="/html/nds/oto/webapp/cardscore/js/loadmore.js"></script>
-<link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/cardscore/css/dialog.css">
-<title>我的积分</title>
-</head>
-<body style="background:#d1e5e9;">
-<div class="container integral integral_record integral_my coupon">
-	<header style="display:none;">
-		<nav id="nav_1" class="p_10">
-			<ul class="box">
-				<li><a href="" class="on">全部</a></li>
-				<li><a href="">获得</a></li>
-				<li><a href="">支出</a></li>
-			</ul>
-		</nav>
-	</header>
-	<div class="body my">
-		 
-			<table class="table_record">
-				<thead>
+<html>
+	<head>
+		#parse("/html/nds/oto/webmall/topmeta.vml")
+		<link href="/html/nds/oto/webapp/cardscore/css/private.css" rel="stylesheet">
+		<title>我的积分</title>
+	</head>
+	<body>
+		<table class="table_record">
+			<thead>
 				<tr>
-					<th width="25%">积分详情 </th>
+					<th width="25%">积分详情</th>
 					<th width="25%">日期</th>
 					<th width="20%">积分</th>
 					<th width="30%">备注信息</th>
 				</tr>
-				</thead>
-				<tbody>
-				#foreach($list in $scoreList)
-					<tr data-id="$list.get(0)">
-						<td>$list.get(3)</td>
-						<td>$list.get(1)</td>
-						<td>$list.get(2)</td>
-						<td>$list.get(4)</td>
-					</tr>
-				#end
-				</tbody>
-			</table>
-		
-	</div>
-#parse("/html/nds/oto/webapp/userfooter.vml")
-</body></html>
+			</thead>
+			<tbody>
+			#foreach($list in $scoreList)
+				<tr>
+					<td>$list.get(3)</td>
+					<td>$list.get(1)</td>
+					<td>$list.get(2)</td>
+					<td>$list.get(4)</td>
+				</tr>
+			#end
+			</tbody>
+		</table>
+	</body>
+</html>

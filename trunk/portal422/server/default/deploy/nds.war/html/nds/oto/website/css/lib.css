@@ -23,16 +23,6 @@ time, mark, audio, video {
 	font-size: 14px!important;
 	font-family:微软雅黑!important;
 }
-.footer{
-	font-size:100%!important;
-	width: 100%;
-	text-align: center;
-	font-size: 12px;
-	clear: both;
-	text-shadow: 1px 1px 0 rgba(255,255,255,1);
-	position: fixed;
-	bottom: 0;
-}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, /*css reset */
 html, body, div, span, applet, object, iframe,
@@ -271,10 +261,27 @@ a{
   background-color:rgba(0,0,0,0.8);
   border:1px solid rgba(255,255,255,0.8);
 }
-
-.globleHead{
+/*9.29孙静妹修改*/
+/*.globleHead{
     position:fixed;
 	top:0;
+	left:0;
+	width: 100%;
+	height: 35px;  
+	background-color: #191717;
+	-webkit-box-shadow: inset 0 -1px #030304;
+	-moz-box-shadow: inset 0 -1px #030304;
+	box-shadow: inset 0 -1px #030304;
+	background-image: -webkit-linear-gradient(bottom, #16181a, #1e2528);
+	background-image: -moz-linear-gradient(bottom, #16181a, #1e2528);
+	background-image: -o-linear-gradient(bottom, #16181a, #1e2528);
+	background-image: linear-gradient(to top, #16181a, #1e2528);
+    z-index:5555;
+	
+}*/
+.globleHead{
+    position:fixed;
+	bottom:0;
 	left:0;
 	width: 100%;
 	height: 35px;  
@@ -307,6 +314,7 @@ a{
   background-size:2px 34px;
   
 }
+
 .backBtn{
   background:url(../images/back.png) no-repeat center center;
 }
@@ -557,7 +565,6 @@ color: #444340;
   background-color:rgba(0,0,0,0.8);
   border:1px solid rgba(255,255,255,0.8);
 }
-/*2014/9/11 孙静妹修改*/
 /*.globleHead{
     position:fixed;
 	top:0;
@@ -574,6 +581,26 @@ color: #444340;
 	background-image: linear-gradient(to top, #16181a, #1e2528);
 	z-index:5555;
 }*/
+/*2014/9/29 孙静妹修改*/
+
+.globleHead{
+    position:fixed;
+	bottom:0;
+	left:0;
+	width: 100%;
+	height: 35px;  
+	background-color: #191717;
+	-webkit-box-shadow: inset 0 -1px #030304;
+	-moz-box-shadow: inset 0 -1px #030304;
+	box-shadow: inset 0 -1px #030304;
+	background-image: -webkit-linear-gradient(bottom, #16181a, #1e2528);
+	background-image: -moz-linear-gradient(bottom, #16181a, #1e2528);
+	background-image: -o-linear-gradient(bottom, #16181a, #1e2528);
+	background-image: linear-gradient(to top, #16181a, #1e2528);
+	z-index:5555;
+}
+/*2014/9/11 孙静妹修改*/
+/*
 .globleHead{
     position:fixed;
 	top:0;
@@ -590,20 +617,31 @@ color: #444340;
 	background-image: linear-gradient(to top, #16181a, #1e2528);
 	z-index:5555;
 }
-
+*/
 .navHead{
   /*padding:5px 0;*/
 }
-/*2014/9/11 孙静妹修改*/
-/* .navHead a{
+
+.navHead a{
   display:inline-block;
  padding:0;
 
-  width:30%;
+  width:25%;
 
   height:36px;
   background-size:34px 34px;
-}*/
+}
+.navHead  .backBtn{
+  display:inline-block;
+ padding:0;
+
+  width:25%;
+
+  height:36px;
+  background-size:100px 26px;
+}
+/*2014/9/11 孙静妹修改*/
+/* 
 .navHead a{
   display:inline-block;
  padding:0;
@@ -613,7 +651,7 @@ color: #444340;
   height:36px;
   background-size:34px 34px;
 }
-
+*/
 .seprate{
   display:inline-block;
   width:2px;
@@ -622,17 +660,27 @@ color: #444340;
   background-size:2px 34px;
   
 }
-/*2014/9/11 孙静妹修改*/
-/*.backBtn{
+
+/*9.29孙静妹修改原文件
+.backBtn{
   background:url(../images/back.png) no-repeat center center;
 }
 .userBtn{
   background:url(../images/user.png) no-repeat center center;
 }
+*/
+.backBtn{
+  background:url(../images/logo.png) no-repeat center center;
+}
+.userBtn{
+  background:url(../images/pyq.png) no-repeat center center;
+}
 
 .menuBtn{
   background:url(../images/menu.png) no-repeat center center;
-}*/
+}
+/*2014/9/11 孙静妹修改*/
+/*
 .backBtn{
   background:url(../images/logo.png) no-repeat center center;
 }
@@ -640,7 +688,7 @@ color: #444340;
 .userBtn{
   background:url(../images/pyq.png) no-repeat center center;
 }
-
+*/
 .menuBtn{
   background:url(../images/menu1.png) no-repeat center center;
 }
@@ -764,6 +812,9 @@ color: #444340;
  clear:both;
 }
 .footer a{
-  color:#777;
-}   
+	color: #666;
+}
+.footer a.support{
+	color: #999;
+}
 /* 底部css end */

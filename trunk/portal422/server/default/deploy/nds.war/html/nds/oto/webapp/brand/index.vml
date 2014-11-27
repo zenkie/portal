@@ -1,19 +1,15 @@
 #parse('/html/nds/oto/webmall/init.vml')
 <html>
-<head>
-#parse("/html/nds/oto/webmall/topmeta.vml")
-<link href="/html/nds/oto/webapp/brand/css/brand.css" rel="stylesheet" type="text/css" media="all">
-<title>品牌介绍</title>
-</head>
-<body>
-#if($mall.showmenu == '否')
-	#parse("/html/nds/oto/webmall/lay_header.vml")
-#end
-<div class="brand">
-$mall.mallnote
-</div>
-#parse("/html/nds/oto/webmall/footer.vml")
-#if($mall.showmenu == '是')
-	#parse("/html/nds/oto/webmall/bottom_menu.vml")
-#end
-</body></html>
+	<head>
+		#parse("/html/nds/oto/webmall/topmeta.vml")
+		<link href="/html/nds/oto/webapp/brand/css/private.css" rel="stylesheet" type="text/css" media="all">
+		<title>品牌介绍</title>
+	</head>
+	<body>
+		<div class="brand">$mall.mallnote</div>
+		#parse("/html/nds/oto/webmall/footer.vml")
+	#if($mall.showmenu == '是')
+		#parse("/html/nds/oto/webmall/bottom_menu.vml")
+	#end
+	</body>
+</html>

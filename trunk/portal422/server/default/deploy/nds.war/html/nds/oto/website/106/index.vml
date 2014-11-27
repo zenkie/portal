@@ -36,33 +36,12 @@
 	    <div class="mnav clearfix">
 		#foreach($column in $allColumn)
             <li>
-				<a href="$column.get(5)" style="height: 102px;"><span class="m1">
+				<a href="$column.get(5)"><span class="m1">
 					<img src="$column.get(3)"></span>
 					<span class="m2">$stringutil.shorten($column.get(1),8)</span> 
 				</a>
             </li>
 		#end
-        </div>
-        <div class="mnav2" style="display:none;">
-            <img src="/html/nds/oto/website/106/images/mnavbg2.png" class="mnavbg2">
-            <ul>
-                <li>
-					<a href="$column.get(5)">
-						<span class="m1">
-							<img src="$column.get(3)">
-						</span>
-						<span class="m2">$stringutil.shorten($column.get(1),8)</span>
-					</a>
-				</li>
-                <li>
-					<a href="$column.get(5)">
-						<span class="m1">
-							<img src="$column.get(3)">
-						</span>
-						<span class="m2">$stringutil.shorten($column.get(1),8)</span>
-					</a>
-				</li>
-            </ul>
         </div>
     </div>
 #parse("/html/nds/oto/website/footer.vml")

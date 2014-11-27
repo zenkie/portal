@@ -144,4 +144,4 @@
     jQuery(function () { ImageUtil.Render(); });
 
 }(window));
-$(function(){$("#lay_head")[0].scrollIntoView();});
+$(function(){$("#top_btn")[0].scrollIntoView();});
