@@ -3,8 +3,6 @@
 <html><head>
 #parse("/html/nds/oto/webmall/topmeta.vml")
 <title>$mall.name</title>
-<!--script type="text/javascript" src="/html/nds/oto/webapp/hotproduct/js/iscroll.js"></script>
-<script type="text/javascript" src="/html/nds/oto/webapp/hotproduct/js/refresh.js"></script-->
 <link rel="stylesheet" type="text/css" href="/html/nds/oto/webapp/hotproduct/css/hotpdt.css">
 </head>
 <body>
