@@ -297,11 +297,12 @@ text-align:center;
 	background-color:#C0FEC0;
 }
 span.ckbox{
- background-image:url(/html/nds/images/checkbox.gif);
+ background-image:url(/html/nds/images/checkbox.png);
 background-repeat:no-repeat;
 display:block;
 height:16px;
 width:16px;
+margin: auto;
 }
 .num{
 text-align:right;
