@@ -1,5 +1,4 @@
 #if("$!vipid"=="")
-	#set ($vipid=10546)
 	#set($url="/html/nds/oto/webapp/error/index.vml")
 	$myweb.forwardTourl($url,$request,$response);
 #else
