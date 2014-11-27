@@ -1,79 +1,61 @@
 #parse('/html/nds/oto/webmall/init.vml')
 #parse('/html/nds/oto/webmall/initCate.vml')
-<!DOCTYPE html>
 <html>
-<head>
-	#parse("/html/nds/oto/webmall/topmeta.vml")
-	#if($cateid!=-1)
-		<title>$cate.categoryname</title>
-	#else
-		<title>全部分类</title>
-	#end
-</head>
-<body>
-#if($mall.showmenu == '否')
-	#parse("/html/nds/oto/webmall/lay_header.vml")
-#end
-<div class="module">
-#set ($i=0)
-#foreach($list in $cateList)
-	#if ($i%2 == 0)
-		<table id="tableOne" style="background:#953734;width:100%;">
-			<tbody><tr>
-				<td style="width:50%;">
-					<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">
-						<img width="100%" style="display:block;height:auto;min-height:50px;" src="$list.get(3)">
-					</a>
-				</td>
-				<td align="center" valign="center" style="position:relative;">
-					<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">
-						<p style=" text-align:center;color:#ffffff;font-family:Microsoft Yahei;font-size:20px;font-weight:normal;">$stringutil.shorten($list.get(1),12)</p>
-																
-						<p style="text-align:center;color:#ffffff;font-family:Microsoft Yahei;font-size:12px;">$list.get(7)</p>
-													
-						<div style=" text-align:center;">
-							<div style="display:inline-block;width:8px;height:8px;
-												border-right : 2px solid #ffffff;
-												border-bottom : 2px solid #ffffff;-webkit-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg);"></div>
-						</div>
-																
-						<div style="position:absolute;top:50%;margin-left:-8px;margin-top:-8px;border-right-color:#953734;" class="triangle_left_8"></div>
-															
-					</a>		
-				</td>
-			</tr></tbody>
-		</table>
-		<div test="5" style="height:0px;background:#000000"></div>
-	#else
-		<table id="tableTwo" style="background:#205867;width:100%;">
-			<tbody><tr>
-				<td align="center" valign="center" style="position:relative;">
-					<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">	
-						<p style=" text-align:center;color:#ffffff;font-family:Microsoft Yahei;font-size:20px;font-weight:normal;">$stringutil.shorten($list.get(1),12)</p>
-																		
-						<p style=" text-align:center;color:#ffffff;font-family:Microsoft Yahei;font-size:12px;">$list.get(7)</p>
-														
-						<div style=" text-align:center;">
-							<div id="arrow" style="display:inline-block;width:8px;
-													height:8px;border-right:2px solid #ffffff;
-													border-bottom:2px solid #ffffff;-webkit-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg);"></div>
-						</div>
-
-						<div style="position:absolute;top:50%;margin-right:-8px;margin-top:-8px;border-left-color:#205867;right:0" class="triangle_right_8"></div>
-					</a>
-				</td>
-				<td style="width:50%;">
-					<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)"><img width="100%" style="display:block;height:auto;min-height:50px;" src="$list.get(3)"></a>
-				</td>
-			</tr>
-		</tbody></table>
-		<div test="5" style="height:0px;background:#000000"></div>
-	#end
-#set($i=$i+1)
-#end
-	</div>
-	#parse("/html/nds/oto/webmall/footer.vml")
-#if($mall.showmenu == '是')
-	#parse("/html/nds/oto/webmall/bottom_menu.vml")
-#end
-</body></html>
+	<head>
+		#parse("/html/nds/oto/webmall/topmeta.vml")
+		<link href="/html/nds/oto/webmall/302/css/private.css" rel="stylesheet">
+		#if($cateid!=-1)
+			<title>$cate.categoryname</title>
+		#else
+			<title>全部分类</title>
+		#end
+	</head>
+	<body>
+		#if($mall.showmenu == '否')
+			#parse("/html/nds/oto/webmall/lay_header.vml")
+		#end
+		#set ($i=0)
+		#foreach($list in $cateList)
+			#if ($i%2 == 0)
+				<table class="table_one">
+					<tr>
+						<td>
+							<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">
+								<img src="$list.get(3)">
+							</a>
+						</td>
+						<td>
+							<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">
+								<p>$stringutil.shorten($list.get(1),12)</p>
+								<p>$list.get(7)</p>
+								<p class="arrow"></p>
+							</a>		
+						</td>
+					</tr>
+				</table>
+			#else
+				<table class="table_two">
+					<tr>
+						<td>
+							<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">	
+								<p>$stringutil.shorten($list.get(1),12)</p>
+								<p>$list.get(7)</p>
+								<p class="arrow"></p>
+							</a>
+						</td>
+						<td>
+							<a href="$stringutil.replace($list.get(0),'@mclass_tmp@',$tempmode.mclass_tmp)">
+								<img src="$list.get(3)">
+							</a>
+						</td>
+					</tr>
+				</table>
+			#end
+			#set($i=$i+1)
+		#end
+		#parse("/html/nds/oto/webmall/footer.vml")
+		#if($mall.showmenu == '是')
+			#parse("/html/nds/oto/webmall/bottom_menu.vml")
+		#end
+	</body>
+</html>
