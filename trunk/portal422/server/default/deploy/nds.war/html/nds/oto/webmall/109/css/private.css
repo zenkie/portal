@@ -1,0 +1,94 @@
+#wrap {
+	width: 320px;
+	margin: 0 auto;
+}
+.focus_pic{
+	overflow: hidden;
+	position: relative;
+}
+.focus_pic ul{
+	width: 30000px;
+	position: relative;
+}
+.focus_pic ul li{
+	width: 320px;
+	float: left;
+	position: relative;
+}
+.icon_dot{
+	position: absolute;
+	bottom: 0;
+	z-index: 53;
+	height: 5px;
+	width: 100%;
+}
+.icon_dot p{
+	float: left;
+	text-indent: -999px;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+.icon_dot p.curt{
+	background-color: rgba(255, 0, 0, 0.6);
+}
+.index_wap h2 {
+	font-weight: bold;
+	margin: 15px 8px 0;
+	padding-bottom: 5px;
+}
+.index_pics {
+	overflow: hidden;
+	margin: 0 4px;
+}
+.pull_left {
+	float: left;
+	width: 154px;
+}
+.pull_right {
+	float: right;
+	width: 154px;
+}
+.pull_left a,.pull_right a {
+	display: block;
+	margin-bottom: 5px;
+}
+.index_list {
+	background: #ebebeb;
+	overflow: hidden;
+	padding-bottom: 4px;
+}
+.index_list li {
+	float: left;
+	width: 158px;
+	margin: 4px 0 0;
+	padding-bottom: 5px;
+	background: #fff;
+}
+.index_list li a img {
+	width: 158px;
+	height: 158px;
+}
+.index_list li h4 {
+	color: #666;
+	height: 30px;
+	padding: 0 10px;
+	margin: 5px 0 0;
+	line-height: 15px;
+	overflow: hidden;
+}
+.index_list li strong {
+	color: #c00;
+	float: left;
+	margin-left: 8px;
+}
+.index_list li del {
+	margin: 0 5px;
+	vertical-align: middle;
+}
+.to_more {
+	float: right;
+	color: #999;
+	font-size: 12px;
+}
+.down_app {
+	padding: 10px 0;
+}
