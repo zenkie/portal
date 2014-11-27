@@ -909,6 +909,7 @@ function toggleByObject(obj, returnState, displayType) {
 }
 
 function trimString(str) {
+	if(!str){str=this;}
 	str = str.replace(/^\s+/g, "").replace(/\s+$/g, "");
 
 	var charCode = str.charCodeAt(0);
