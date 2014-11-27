@@ -26,8 +26,7 @@ table{
 input{
 	outline: none;
 	box-shadow: none;
-	-moz-box-shadow: none;
-	-webkit-box-shadow: none;
+	-webkit-appearance: none;
 }
 .display_none {
 	display: none!important;
