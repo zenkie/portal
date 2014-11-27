@@ -20,7 +20,7 @@ ul, li, p {
 }
 
 a {
-    color: #595959;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -30,7 +30,7 @@ a:active, a:focus {
 }
 
 a.active, a:hover {
-	color: #595959;
+	color: #fff;
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -64,16 +64,16 @@ em, cite {
 }
 
 .stepL h2 {
-	padding: 17px 27px;
+	padding: 17px 30px;
 	line-height: 24px;
-	font-size: 16px;
-	color: #fff;
-	background: #373d57;
+	font-size: 14px;
+	color: #8b8b8b;
+	background: #f8f8f8;
 }
 
 ul.stepDetail {
     padding:5% 10%;
-    background: #25293c;
+    background: #fff;
     overflow: hidden;
     
 }
@@ -105,38 +105,40 @@ ul.stepDetail li a:hover, ul.stepDetail li a.active {
 
 ul.stepDetail li a:hover h3, ul.stepDetail li a.active h3 {
 	background: url(/html/nds/oto/operateintro/images/scircle2.png) no-repeat 0px center;
-	color:white;
+	color:#acc136;
 }
 
 ul.stepDetail li a:hover p, ul.stepDetail li a.active p {
-	color:white;
+	color:#acc136;
 }
 
 .stepLine {
     width: 130px;
     height: 4px;
-    background: #4d5267;
+    background: #8b8b8b;
     border-radius: 2px;
     color: #fff;
     float: left;
+	margin-top: 15px;
 }
 
 .stepLine cite {
 	height: 4px;
-	background: #9ceb30;
+	background: #acc136;
 	display: block;
 	border-radius: 2px;
 }
 
 .stepBot {
-    padding:7% 11%;
-    background: #373d57;
+	height: 35px;
+    padding:0 12%;
+    background: #f8f8f8;
 }
 
 .stepBot em {
     float: right;
-    color: #fff;
-    margin-top: -5px;
+    color: #8b8b8b;
+    line-height: 35px;
 }
 
 .stepButton {
@@ -149,19 +151,26 @@ ul.stepDetail li a:hover p, ul.stepDetail li a.active p {
 	height: 32px;
 	line-height: 32px;
 	padding: 0 16px;
-	background: url(/html/nds/oto/operateintro/images/btbg1.jpg) repeat-x;
-	color: #7c7c7c;
+	/*background: url(/html/nds/oto/operateintro/images/btbg1.jpg) repeat-x;
+	border: 1px solid #e2e2e2;*/
+	color: #fff;
 	font-size: 14px;
-	border: 1px solid #e2e2e2;
+	font-weight: bold;
 	display: inline-block;
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
 	float: left;
+	background: #acc136;
 }
 
 .stepButton a:hover {
-	background: url(/html/nds/oto/operateintro/images/btbg2.jpg) repeat-x;
+	/*background: url(/html/nds/oto/operateintro/images/btbg2.jpg) repeat-x;*/
+	background: #bed349;
+}
+
+.stepButton a:active{
+	background: #9aaf26;
 }
 
 .stepButton a.aR {
