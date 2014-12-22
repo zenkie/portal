@@ -1512,7 +1512,25 @@ PortalControl.prototype = {
     _submitToNewWindow:function(resulthandler){
 		var fm= $("export_form");
 		$("exp_resulthandler").value=resulthandler;
+		var selectedIds = this._getSelectedItemIds();
+        if (selectedIds==null || selectedIds.length ==0) {
+            alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
+            return false;
+        }
+		if(selectedIds.length>20){
+			alert(gMessageHolder.PLEASE_SELECT_LINES_LESS_THAN);
+			return false;
+		}
+	    var objectIds=selectedIds.join(",");
+		//options.merge(option);
+		if(objectIds!=null&&objectIds!=undefined&&this._gridQuery!=null){
+			//this._gridQuery.table+".ID=in (123,123,123)"
+			//this._gridQuery.fixedColumns＝
+			var fixcol=this._gridQuery.table+".ID=in ("+objectIds+")";
+			this._gridQuery.objectIds=fixcol;
+		}
 		$("query_json").value=Object.toJSON(this._gridQuery);
+
 		fm.submit();
 		/*var url=fm.readAttribute('action')+"?"+fm.serialize();
 		//http://support.microsoft.com/kb/q208427/, Maximum URL length is 2,083 characters in Internet Explorer

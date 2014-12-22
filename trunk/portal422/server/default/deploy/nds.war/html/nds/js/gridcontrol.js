@@ -501,6 +501,20 @@ GridControl.prototype = {
 		if(this.checkDirty()) return;
 		if(this.checkNew()) return;
 		showProgressWindow(true);
+		var selectedIds=Array();
+		for(i=this._data.length-1;i>-1 ;i--){
+			var line= this._data[i];
+			if( dwr.util.getValue($(line[0]+"_chk"))==true){
+				selectedIds.push(line[4]);
+			}
+		}
+		var objectIds=selectedIds.join(",");
+		if(objectIds!=null&&objectIds!=undefined&&this._gridQuery!=null){
+			//this._gridQuery.table+".ID=in (123,123,123)"
+			//this._gridQuery.fixedColumns£½
+			var fixcol=this._gridQuery.table+".ID=in ("+objectIds+")";
+			this._gridQuery.objectIds=fixcol;
+		}
 		var s= Object.toJSON(this._gridQuery);
 		var fm= $("export_form");
 		$("resulthandler").value=NDS_PATH+"/reports/create_report.jsp";
