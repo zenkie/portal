@@ -42,11 +42,32 @@ for(int i=0;i< columns.size();i++){
 	if(!isModifiable){
 		colWidth= col.isColumnLink()? col.getColumnLink().getLastColumn().getLength(): col.getLength();
 		if(colWidth>30) colWidth=30;
+		}
+	String descp= col.getDescription(locale);
+	// add reflable desc
+	if(col.getJSONProps()!=null){
+	JSONObject jor=col.getJSONProps();
+	if(jor.has("reflable")){
+	JSONObject jo=col.getJSONProps().getJSONObject("reflable");
+	 int lable_id=jo.optInt("ref_id",0);
+		 int lable_tabid=jo.optInt("tabid",0);
+		 Table reftable= TableManager.getInstance().getTable(lable_tabid);
+		 QueryRequestImpl query=QueryEngine.getInstance().createRequest(userWeb.getSession());
+		 query.setMainTable(lable_tabid);
+		 query.addSelection(reftable.getAlternateKey().getId());
+		 query.addParam( reftable.getPrimaryKey().getId(), ""+ lable_id);
+	   QueryResult rs=QueryEngine.getInstance().doQuery(query); 
+	   if(lable_id !=0 || (rs!=null && rs.getTotalRowCount()>0)){
+		while(rs.next()) {
+		   descp=rs.getObject(1).toString(); 
+		}
+		}
+		}
 	}
  %>
   <td nowrap align='center'>
     <span onClick="javascript:oq.orderGrid(<%=col.getId()%>)"><span id="q_title_<%=col.getId()%>_<%=queryindex%>"></span>
-    	<%=col.getDescription(locale)%>
+    	<%=descp%>
     </span>
   </td>
 <%

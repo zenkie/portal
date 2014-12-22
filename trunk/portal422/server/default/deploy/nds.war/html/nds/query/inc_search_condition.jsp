@@ -10,12 +10,33 @@
       String cs= model.getColumns(column);
       int inputSize=model.getSizeForInput(column);
       String type=model.getTypeMeaningForInput(column);
-      nds.util.PairTable values = column.getValues(locale);
+	  nds.util.PairTable values = column.getValues(locale);
+	  desc= column.getDescription(locale);
+		// add reflable desc
+		if(column.getJSONProps()!=null){
+		JSONObject jor=column.getJSONProps();
+		if(jor.has("reflable")){
+		JSONObject jo=column.getJSONProps().getJSONObject("reflable");
+		 int lable_id=jo.optInt("ref_id",0);
+			 int lable_tabid=jo.optInt("tabid",0);
+			 Table reftable= TableManager.getInstance().getTable(lable_tabid);
+			 QueryRequestImpl query=QueryEngine.getInstance().createRequest(userWeb.getSession());
+			 query.setMainTable(lable_tabid);
+			 query.addSelection(reftable.getAlternateKey().getId());
+			 query.addParam( reftable.getPrimaryKey().getId(), ""+ lable_id);
+		   QueryResult rs=QueryEngine.getInstance().doQuery(query); 
+		   if(lable_id !=0 || (rs!=null && rs.getTotalRowCount()>0)){
+			while(rs.next()) {
+			   desc=rs.getObject(1).toString(); 
+			}
+			}
+			}
+		}
       if(i%columnsPerRow == 0)out.print("<tr>");
       String column_desc="column_"+column.getId()+"_desc"; // equals column_acc_Id + "_desc"
 %>
       <td height="18" width="<%=widthPerColumn*2/3%>%" nowrap align="left">
-			<div class="desc-txt"><%=column.getDescription(locale)%>:</div>
+			<div class="desc-txt"><%=desc%>:</div>
       </td>
       <td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left">
 
