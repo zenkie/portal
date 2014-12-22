@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ page contentType="text/xml;charset=UTF-8"%>
-<%@ page import="java.sql.ResultSet,java.sql.Connection,java.sql.PreparedStatement,nds.query.web.*,nds.control.web.*,nds.util.*,nds.schema.*,nds.query.*, java.io.*,java.util.*,nds.control.util.*,nds.portlet.util.*,nds.report.*,nds.web.bean.*,nds.model.*, nds.model.dao.*"%>
+<%@ page import="java.sql.ResultSet,java.sql.Connection,java.sql.PreparedStatement,nds.query.web.*,nds.control.web.*,nds.util.*,nds.schema.*,nds.query.*, java.io.*,java.util.*,nds.control.util.*,nds.portlet.util.*,nds.report.*,nds.web.bean.*,nds.model.*, nds.model.dao.*,org.json.*"%>
 
 <%    /**
      * Needed parameters:
@@ -49,6 +49,26 @@ for(int i=0;i< columns.size();i++){
 	String clink=( parent==null? table.getName()+"."+ col.getName():parent+";"+col.getName());
 	String desc= col.getDescription(locale);
 	Table rftTable= col.getReferenceTable(true);
+	// add reflable desc
+	if(col.getJSONProps()!=null){
+	JSONObject jor=col.getJSONProps();
+	if(jor.has("reflable")){
+	JSONObject jo=col.getJSONProps().getJSONObject("reflable");
+	 int lable_id=jo.optInt("ref_id",0);
+		 int lable_tabid=jo.optInt("tabid",0);
+		 Table reftable= TableManager.getInstance().getTable(lable_tabid);
+		 QueryRequestImpl query=QueryEngine.getInstance().createRequest(userWeb.getSession());
+		 query.setMainTable(lable_tabid);
+		 query.addSelection(reftable.getAlternateKey().getId());
+		 query.addParam( reftable.getPrimaryKey().getId(), ""+ lable_id);
+	   QueryResult rs=QueryEngine.getInstance().doQuery(query); 
+	   if(lable_id !=0 || (rs!=null && rs.getTotalRowCount()>0)){
+		while(rs.next()) {
+		   desc=rs.getObject(1).toString(); 
+		}
+		}
+		}
+	}
 	if(rftTable!=null){
 		String src= java.net.URLEncoder.encode("/html/nds/cxtab/columns.xml.jsp?table="+rftTable.getId()+"&parent="+clink,request.getCharacterEncoding());
 		clink = clink+";"+ rftTable.getAlternateKey().getName();
