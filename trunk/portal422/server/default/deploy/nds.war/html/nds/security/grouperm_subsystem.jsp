@@ -147,7 +147,7 @@ ResultSet rs= QueryEngine.getInstance().doQuery("select name,id from ad_subsyste
                       <input type="checkbox" class="checkbox" id="<%=subsystemId+"a"%>" name="<%=subsystemId+"a"%>" value="<%=catalog %>" onclick="javascript:subsystem_selectAll(<%=subsystemId%>)">
                       
                     </td>
-                    <td height="24" ><a href="<%=(NDS_PATH+"/security/groupperm.jsp?table="+table_Id+"&id="+groupId+"&subsystemId="+subsystemId) %>"><%=catalog %></a></td>
+                    <td height="24" ><a href="<%=(NDS_PATH+"/security/groupperm.jsp?table="+table_Id+"&id="+groupId+"&subsystemId="+subsystemId+"&cutname="+catalog) %>"><%=catalog %></a></td>
                     <td> <input type="checkbox" id=<%=subsystemId+"r"%> class="checkbox" name="<%=subsystemId %>" value="1" onclick="javascript:checkReadCheckBox(<%=subsystemId%>);subsystem_unselectall(<%=subsystemId %>)">
                     <td> <input type="checkbox" id=<%=subsystemId+"w"%> class="checkbox" name="<%=subsystemId %>" value="3" onclick="javascript:selectReadCheckbox('w',<%=subsystemId%>);subsystem_unselectall(<%=subsystemId %>)">
                     <td> <input type="checkbox" id=<%=subsystemId+"s"%> class="checkbox" name="<%=subsystemId %>" value="5" onclick="javascript:selectReadCheckbox('s',<%=subsystemId%>);subsystem_unselectall(<%=subsystemId %>)">

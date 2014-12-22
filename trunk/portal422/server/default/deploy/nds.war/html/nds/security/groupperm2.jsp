@@ -1,3 +1,5 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/html/nds/common/init.jsp" %>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/header.jsp" %>
 <%@ page import="nds.security.*"%>
@@ -65,7 +67,7 @@
      */
 String directory;
 directory="GROUPPERM_LIST";
-WebUtils.checkDirectoryReadPermission(directory,request);//�жϵ�ǰ�û��Ƿ��ж���Ȩ��
+WebUtils.checkDirectoryReadPermission(directory,request);//ÅÐ¶Ïµ±Ç°ÓÃ»§ÊÇ·ñÓÐ¶ÁµÄÈ¨ÏÞ
 
 manager=TableManager.getInstance();
 Table table= manager.getTable("Groups");
@@ -73,6 +75,7 @@ int tableId= table.getId();
 String catalog= request.getParameter("catalog");
 int groupId= ParamUtils.getIntParameter(request, "id", -1);
 int subsystemId= ParamUtils.getIntParameter(request, "subsystemId", -1);
+String pathname=ParamUtils.getAttributeOrParameter(request, "cutname");
 ResultSet res= QueryEngine.getInstance().doQuery("select name, description from groups where id="+groupId);
 if(!res.next()){
    out.println("Not found specified group!");
@@ -121,6 +124,7 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
 	function selectCheckbox(checkMark,tableId){
 			$(tableId+"c").checked=$(tableId+checkMark).checked||$(tableId+"c").checked;
 			$(tableId+"r").checked=$(tableId+"c").checked;
+                //alert(123);
 	}
 	function selectCheckBox(tableId){
 		var flag=false;
@@ -141,6 +145,7 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
 			$(tableId+"r").checked=flag;
 		}
 		$(tableId+"c").checked=$(tableId+"r").checked;
+    //alert(222);
 	}
 	function alltable_submit(){
 		$("command").value="DirectorySQLFilter";
@@ -158,7 +163,7 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
 <br>
 <form name="add_permission" id="add_permission" method="post" action="<%=request.getContextPath() %>/control/command">
   <input type='hidden' name="groupid" value="<%=groupId %>">
-  <input type='hidden' name="next-screen" value="<%=NDS_PATH+"/security/groupperm2.jsp?id="+groupId+"&subsystemId="+subsystemId+"&catalog="+java.net.URLEncoder.encode(catalog) %>">
+  <input type='hidden' name="next-screen" value="<%=NDS_PATH+"/security/groupperm2.jsp?id="+groupId+"&subsystemId="+subsystemId+"&catalog="+java.net.URLEncoder.encode(catalog)+"&cutname="+java.net.URLEncoder.encode(pathname,"UTF8") %>">
   <input type='hidden' name="action" value="set">
    <input type='hidden' name="command" id="command">
   <input type='hidden' name="dirid" id="dirid" value="0">
@@ -178,7 +183,7 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
         <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
           <tr>
             <td valign="bottom">
-              <div align="right"><a href="<%=NDS_PATH+"/security/groupperm.jsp?id="+groupId+"&subsystemId="+subsystemId%>"><%=PortletUtils.getMessage(pageContext, "backward",null)%></a></div>
+              <div align="right"><a href="javascript:history.go(-1);"><%=PortletUtils.getMessage(pageContext, "backward",null)%></a></div>
             </td>
           </tr>
         </table>
@@ -187,16 +192,20 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
                 <%=PortletUtils.getMessage(pageContext, "description",null)%>:<%= groupDesc%> 
                 <%=PortletUtils.getMessage(pageContext, "directory-catalog",null)%>: <%=catalog%><br>
                 <hr width="50%" size="1" noshade>
-
-				<table width="90%" class="modify_table" border="1" cellpadding="0" cellspacing="0" bordercolordark="#FFFFFF" bordercolorlight="#999999">
+                <table width="100%" border="0" cellpadding="1" cellspacing="1" bordercolordark="#FFFFFF" bordercolorlight="#CCCCCC">
+					<tr>
+						<td height="24" width="20%" align="left"><a>当前位置：<%=pathname%></a></td>
+                  </tr>
+                </table>
+				<table width="90%" class="modify_table" id="tabcont" border="1" cellpadding="0" cellspacing="0" bordercolordark="#FFFFFF" bordercolorlight="#999999">
                   <thead><tr>
                     <td height="24" width="1%" ><input type="checkbox" id="sall" class="checkbox" name="sall" value="" onclick="javascript:table_selectTotal()"></td>
                     <td height="24" width="49%" ><%=PortletUtils.getMessage(pageContext, "directory",null)%></td>
-                    <td height="24" width="8%"  nowrap ><%=PortletUtils.getMessage(pageContext, "permission-read",null)%></td>
-                    <td height="24" width="8%"  nowrap  ><%=PortletUtils.getMessage(pageContext, "permission-write",null)%></td>
-                    <td height="24" width="8%"  nowrap  ><%=PortletUtils.getMessage(pageContext, "permission-submit",null)%></td>
-                    <td height="24" width="8%"  nowrap  ><%=PortletUtils.getMessage(pageContext, "permission-audit",null)%></td>
-                    <td height="24" width="8%"  nowrap  ><%=PortletUtils.getMessage(pageContext, "permission-export",null)%></td>
+                    <td height="24" width="8%"  nowrap ><input type="checkbox" data-field='read' id="checkread" class="checkbox" name="" value="" onclick="javascript:selectTotalfortype(this)"><%=PortletUtils.getMessage(pageContext, "permission-read",null)%></td>
+                    <td height="24" width="8%"  nowrap  ><input type="checkbox" data-field='write' id="checkwrite"  class="checkbox" name="" value="" onclick="javascript:selectTotalfortype(this)"><%=PortletUtils.getMessage(pageContext, "permission-write",null)%></td>
+                    <td height="24" width="8%"  nowrap  ><input type="checkbox" data-field='submit' id="checksubmit"  class="checkbox" name="" value="" onclick="javascript:selectTotalfortype(this)"><%=PortletUtils.getMessage(pageContext, "permission-submit",null)%></td>
+                    <td height="24" width="8%"  nowrap  ><input type="checkbox" data-field='usubmit' id="checkusubmit"  class="checkbox" name="" value="" onclick="javascript:selectTotalfortype(this)"><%=PortletUtils.getMessage(pageContext, "permission-audit",null)%></td>
+                    <td height="24" width="8%"  nowrap  ><input type="checkbox" data-field='export' id="checkexport"  class="checkbox" name="" value="" onclick="javascript:selectTotalfortype(this)"><%=PortletUtils.getMessage(pageContext, "permission-export",null)%></td>
                   </tr></thead>
                   <%
                     
@@ -211,10 +220,10 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
                         String dirTag="d"+ dirId;
                         dirTagList.add(dirTag);
                         dirIdList.add(dirId);
-                        String name=res.getString(2);//��ȫList
-                        String desc=res.getString(3);//���ֶε�����
-                        String url=contextPath+res.getString(4);//��ַ
-                        int dirTableId=res.getInt(5);//table��ad_table_id
+                        String name=res.getString(2);//°²È«List
+                        String desc=res.getString(3);//±í×Ö¶ÎµÄÃèÊö
+                        String url=contextPath+res.getString(4);//µØÖ·
+                        int dirTableId=res.getInt(5);//tableµÄad_table_id
                         String tableName= null;
                         table= manager.getTable(dirTableId);
                         if( table ==null){
@@ -232,7 +241,8 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
                       <input type="checkbox" class="checkbox" id=<%=dirTag+"a"%> name="directory_total" value="<%=dirTag %>" onclick="javascript:table_selectAll('<%=dirTag%>')">
                     </td>
                     <td height="24"  width="49%">
-                          <a target=_blank href="<%= url%>" title='<%= name%>'> <%=desc %></a>
+                          <!--a target=_blank href="<%= url%>" title='<%= name%>'> <%=desc %></a-->
+                          <a target=_blank href="javascript:void()" title='<%= name%>'> <%=desc %></a>
                     <% 
 						ArrayList prms=getPermission( groupId,dirId,gff);
 						int permission=((Integer)prms.get(0)).intValue();
@@ -281,18 +291,18 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
                      %>
                     <td>
                      <% if( showRead){ %>
-                    <input type="checkbox" width="8%" id=<%=dirTag+"r"%> class="checkbox" name="<%=dirTag %>" value="1" <%=((isRead)?"checked":"")%> onclick="javascript:selectCheckBox('<%=dirTag%>');table_unselectall('<%=dirTag%>')">
+                    <input  data-field="read" type="checkbox" width="8%" id=<%=dirTag+"r"%> class="checkbox" name="<%=dirTag %>" value="1" <%=((isRead)?"checked":"")%> onclick="javascript:selectCheckBox('<%=dirTag%>');table_unselectall('<%=dirTag%>')">
                     <%}else out.print("<font color='#666666'>"+PortletUtils.getMessage(pageContext, "none-exists",null)+"</font>");%></td><td>
                     <%if (showWrite){%>
-                     <input type="checkbox" width="8%"  id=<%=dirTag+"w"%> class="checkbox" name="<%=dirTag %>" value="3" <%=((isWrite)?"checked":"")%>  onclick="javascript:selectCheckbox('w','<%=dirTag%>');table_unselectall('<%=dirTag%>')"><%=showWriteDetail(table,pageContext)%>
+                     <input data-field="write" type="checkbox" width="8%"  id=<%=dirTag+"w"%> class="checkbox" name="<%=dirTag %>" value="3" <%=((isWrite)?"checked":"")%>  onclick="javascript:selectCheckbox('w','<%=dirTag%>');table_unselectall('<%=dirTag%>')"><%=showWriteDetail(table,pageContext)%>
                     <%}else out.print("<font color='#666666'>"+PortletUtils.getMessage(pageContext, "none-exists",null)+"</font>");%></td><td>
                     <%if (showSubmit){%>
-                     <input type="checkbox" width="8%"  id=<%=dirTag+"s"%> class="checkbox" name="<%=dirTag %>" value="5" <%=((isSubmit)?"checked":"")%>  onclick="javascript:selectCheckbox('s','<%=dirTag%>');table_unselectall('<%=dirTag%>')">
+                     <input data-field="submit" type="checkbox" width="8%"  id=<%=dirTag+"s"%> class="checkbox" name="<%=dirTag %>" value="5" <%=((isSubmit)?"checked":"")%>  onclick="javascript:selectCheckbox('s','<%=dirTag%>');table_unselectall('<%=dirTag%>')">
                     <%}else out.print("<font color='#666666'>"+PortletUtils.getMessage(pageContext, "none-exists",null)+"</font>");%></td><td>
                      <%if (showAudit){%>
-                     <input type="checkbox" width="8%"  id=<%=dirTag+"u"%> class="checkbox" name="<%=dirTag %>" value="9" <%=((isAudit)?"checked":"")%>  onclick="javascript:selectCheckbox('u','<%=dirTag%>');table_unselectall('<%=dirTag%>')">
+                     <input data-field="usubmit" type="checkbox" width="8%"  id=<%=dirTag+"u"%> class="checkbox" name="<%=dirTag %>" value="9" <%=((isAudit)?"checked":"")%>  onclick="javascript:selectCheckbox('u','<%=dirTag%>');table_unselectall('<%=dirTag%>')">
                      <%}else out.print("<font color='#666666'>"+PortletUtils.getMessage(pageContext, "none-exists",null)+"</font>");%></td><td>
-                     <input type="checkbox" width="8%"  id=<%=dirTag+"e"%> class="checkbox" name="<%=dirTag %>" value="17" <%=((isExport)?"checked":"")%>  onclick="javascript:selectCheckbox('e','<%=dirTag%>');table_unselectall('<%=dirTag%>')">
+                     <input data-field="export" type="checkbox" width="8%"  id=<%=dirTag+"e"%> class="checkbox" name="<%=dirTag %>" value="17" <%=((isExport)?"checked":"")%>  onclick="javascript:selectCheckbox('e','<%=dirTag%>');table_unselectall('<%=dirTag%>')">
                      <input type="checkbox" name="directory_id" id=<%=dirTag+"c"%> value="<%=dirId%>" style="display:none" <%=((isChecked)?"checked":"")%>>
                       <input type="checkbox" name="tab_action" id=<%=dirTag+"t"%> value="<%=dirId%>" style="display:none">
                     </td>
@@ -339,7 +349,60 @@ res=QueryEngine.getInstance().doQuery("select d.id,d.name, d.description,d.url, 
 	    	out.print(sb);
 	    }
 	  %>
-	  }
+       syncAllHeaderColumnCheckedStatus();
+	  };
+var stopParent = false;
+ function selectTotalfortype(e){
+      stopParent = true;
+      var ptype=e.getAttribute("data-field");
+      if(e.checked){
+         jQuery(".modify_table  tbody input[data-field='"+ptype+"']").attr("checked","checked").click();
+      }else{
+        jQuery(".modify_table  tbody input[data-field='"+ptype+"']").removeAttr("checked").click();
+      }
+      stopParent = false;
+};
+
+function syncHeadColumnCheckedStatus(f){
+      var  chs= jQuery(".modify_table  tbody input[data-field='"+f+"']");
+      var totalCh = jQuery("#sall");
+      isAllChecked =chs.length<=0?totalCh[0].checked : chs.not("input:checked").length<=0;
+      if(isAllChecked){
+            // set the header column checkbox be checked
+            jQuery(".modify_table  thead input[data-field='"+f+"']").attr("checked","checked")
+      }else{
+            jQuery(".modify_table  thead input[data-field='"+f+"']").removeAttr("checked")
+      }
+}
+//sync all field checkbox
+function syncAllHeaderColumnCheckedStatus(){
+        jQuery(".modify_table thead input[data-field]").each(function(){
+          syncHeadColumnCheckedStatus(jQuery(this).attr("data-field"));
+      });
+}
+//sync first total checkbox
+function  syncTotalCheckboxStatus() {
+    if(jQuery(".modify_table thead input[data-field!=sall]").not(":checked").length<=0){
+        jQuery("#sall").attr("checked","checked");
+    }else{
+        jQuery("#sall").removeAttr("checked");
+    }
+}
+// stop checkbox default status setter  
+jQuery(function(){
+      jQuery(".modify_table thead").on('click',':checkbox[data-field!=sall]',function(ev){  
+            syncTotalCheckboxStatus();
+      });
+      jQuery(".modify_table tbody").on('click',':checkbox',function(ev){  
+            var f =jQuery(this).attr("data-field");
+            //syncHeadColumnCheckedStatus(f);
+            if(stopParent){
+              ev.stopPropagation();ev.preventDefault(); 
+            }
+            syncAllHeaderColumnCheckedStatus();
+            syncTotalCheckboxStatus();
+      });
+});
   </script>
 		
     </div>

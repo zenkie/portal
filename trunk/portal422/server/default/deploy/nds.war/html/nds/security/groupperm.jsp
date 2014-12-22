@@ -1,3 +1,4 @@
+ <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@page errorPage="/html/nds/error.jsp"%>
 <%@ include file="/html/nds/header.jsp" %>
 <script src="/html/nds/js/security.js"></script>
@@ -27,6 +28,7 @@ Table table= manager.getTable("Groups");
 int tableId= table.getId();
 int groupId= ParamUtils.getIntParameter(request, "id", -1);
 int subsystemId= ParamUtils.getIntParameter(request, "subsystemId", -1);
+String pathname=ParamUtils.getAttributeOrParameter(request, "cutname");
     ResultSet result= QueryEngine.getInstance().doQuery("select name, description from groups where id="+groupId);
     if(!result.next()) {
         out.println("The pointed group is not found, please refresh page and operate again!");
@@ -108,7 +110,7 @@ int table_Id= ParamUtils.getIntParameter(request, "table", -1);
         <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
           <tr>
             <td width="99%" valign="middle">
-              <div align="center"><%= PortletUtils.getMessage(pageContext, "current-group",null)%>: <%= groupName%> &nbsp;&nbsp;<%= PortletUtils.getMessage(pageContext, "description",null)%>: <%= groupDesc%></div>
+				<div align="center"><%= PortletUtils.getMessage(pageContext, "current-group",null)%>: <%= groupName%> &nbsp;&nbsp;<%= PortletUtils.getMessage(pageContext, "description",null)%>: <%= groupDesc%></div>
             </td>
             <td nowrap valign="bottom">
               <div align="right"><a href="<%=NDS_PATH+"/security/grouperm_subsystem.jsp?table="+table_Id+"&id="+groupId%>"><%=PortletUtils.getMessage(pageContext, "backward",null)%></a></div>
@@ -116,9 +118,10 @@ int table_Id= ParamUtils.getIntParameter(request, "table", -1);
           </tr>
         </table>
               <div align="center">
-                <table width="90%" border="0" cellpadding="1" cellspacing="1" bordercolordark="#FFFFFF" bordercolorlight="#CCCCCC">
-                  <tr>
-                    <td height="24" width="85%" align="center">
+                <table width="100%" border="0" cellpadding="1" cellspacing="1" bordercolordark="#FFFFFF" bordercolorlight="#CCCCCC">
+					<tr>
+						<td height="24" width="20%" align="left"><a>当前位置：<%=pathname%></a></td>
+                    <td height="24" width="85%" align="right">
                       <a href="javascript:viewPerm()"><%= PortletUtils.getMessage(pageContext, "show-permission",null)%> :<%= groupName%></a>
                     </td>
                   </tr>
@@ -141,14 +144,15 @@ int table_Id= ParamUtils.getIntParameter(request, "table", -1);
                         if(catalog==null || "".equals(catalog)) continue;
                         //catalogId++;
                         catalogId =rs.getInt(2);
-                        dirTagList.add(catalogId+"");
+						dirTagList.add(catalogId+"");
+					String tmpname =pathname+">"+catalog;
                   %>
                   <tr>
                     <td height="24">
                       <input type="checkbox" class="checkbox" id="<%=catalogId+"a"%>" name="<%=catalogId+"a"%>" value="<%=catalog %>" onclick="javascript:catalog_selectAll(<%=catalogId%>)">
                       
                     </td>
-                    <td height="24" ><a href="<%=(NDS_PATH+"/security/groupperm2.jsp?id="+groupId+"&catalog="+catalogId+"&subsystemId="+subsystemId) %>"><%=catalog %></a></td>
+                    <td height="24" ><a href="<%=(NDS_PATH+"/security/groupperm2.jsp?id="+groupId+"&catalog="+catalogId+"&subsystemId="+subsystemId+"&cutname="+tmpname) %>"><%=catalog %></a></td>
                     <td> <input type="checkbox" id=<%=catalogId+"r"%> class="checkbox" name="<%=catalogId %>" value="1" onclick="javascript:checkReadCheckBox(<%=catalogId%>);catalog_unselectall(<%=catalogId%>)"></td>
                     <td> <input type="checkbox" id=<%=catalogId+"w"%> class="checkbox" name="<%=catalogId %>" value="3" onclick="javascript:selectReadCheckbox('w',<%=catalogId%>);catalog_unselectall(<%=catalogId%>)"></td>
                     <td> <input type="checkbox" id=<%=catalogId+"s"%> class="checkbox" name="<%=catalogId %>" value="5" onclick="javascript:selectReadCheckbox('s',<%=catalogId%>);catalog_unselectall(<%=catalogId%>)"></td>
