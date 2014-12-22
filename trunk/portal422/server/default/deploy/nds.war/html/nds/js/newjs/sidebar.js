@@ -30,7 +30,7 @@ function sidebar(){
 				jQuery(this).css({"cursor":"wait"});
 
 				aAlertBoxDD.hide();
-				this.show();
+				jQuery(this).show();
 				jQuery("#top_alert_box").slideDown("fast");
 				//oTopAlertBox.stop.slideDown("fast");
 				/*oTopAlertBox.stop().animate({
