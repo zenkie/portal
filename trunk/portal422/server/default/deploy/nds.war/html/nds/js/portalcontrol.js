@@ -165,7 +165,7 @@ PortalControl.prototype = {
 			limitWidth=(jQuery(".nav_right").css("display")=="block")?jQuery(".nav_right").width()+jQuery("#portal_middle_left_fmenu").width():jQuery("#portal_middle_left_fmenu").width();
 		}
 		var e=$("portal-content");
-		if(limitWidth==null)limitWidth=200;
+		if(limitWidth==null&&jQuery("#portal_middle_left").css('display')!='none'&&jQuery("#portal_middle_left").length<1)limitWidth=200;
 		if(e==null)return;
 		if (!is_safari) {
 			e.style.width= (document.body.clientWidth - limitWidth)+"px";
@@ -1513,23 +1513,22 @@ PortalControl.prototype = {
 		var fm= $("export_form");
 		$("exp_resulthandler").value=resulthandler;
 		var selectedIds = this._getSelectedItemIds();
-        if (selectedIds==null || selectedIds.length ==0) {
-            alert(gMessageHolder.PLEASE_CHECK_SELECTED_LINES);
-            return false;
-        }
-		if(selectedIds.length>20){
-			alert(gMessageHolder.PLEASE_SELECT_LINES_LESS_THAN);
-			return false;
-		}
 	    var objectIds=selectedIds.join(",");
+		var option="";
 		//options.merge(option);
-		if(objectIds!=null&&objectIds!=undefined&&this._gridQuery!=null){
+		if(objectIds!=""&&objectIds!=null&&objectIds!=undefined&&this._gridQuery!=null){
 			//this._gridQuery.table+".ID=in (123,123,123)"
 			//this._gridQuery.fixedColumns＝
 			var fixcol=this._gridQuery.table+".ID=in ("+objectIds+")";
-			this._gridQuery.objectIds=fixcol;
+			//this._gridQuery.objectIds=fixcol;
+			option={"objectIds":fixcol};
 		}
-		$("query_json").value=Object.toJSON(this._gridQuery);
+		if(option!="") {
+			Object.extend(option, this._gridQuery);
+			$("query_json").value=Object.toJSON(option);
+		}else{
+			$("query_json").value=Object.toJSON(this._gridQuery);
+		}
 
 		fm.submit();
 		/*var url=fm.readAttribute('action')+"?"+fm.serialize();
