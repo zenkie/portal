@@ -372,11 +372,11 @@ ObjectControl.prototype = {
 
 	},
 	/*
-	    //�ȴ���ӡ
+	    //µÈ´ý´òÓ¡
     waitOneMomentToPrint:function(){
 
         // detect if browser is Chrome
-        //chrome print ����
+        //chrome print ºöÂÔ
        // Good! Bug fixed. The bug was fixed as part of v.23 if I'm not wrong
 				if(navigator.userAgent.toLowerCase().indexOf("chrome") >  -1) {
 				    // wrap private vars in a closure
@@ -778,7 +778,7 @@ ObjectControl.prototype = {
 		for(var i=0;i<cols.length;i++){
 			var col= cols[i];
 			if(col.displaySetting=="clob"){
-				//�滻Ϊckeditor
+				//Ìæ»»Îªckeditor
 				//var oEditor = FCKeditorAPI.GetInstance("column_"+ col.id) ;
 				var oEditor=CKEDITOR.instances["column_"+ col.id];
 				if(oEditor!=null){
@@ -821,10 +821,17 @@ ObjectControl.prototype = {
 		Controller.handle( Object.toJSON(evt), function(r){
 				//try{
 					$("timeoutBox").style.visibility = 'hidden';
-					
 					var result= r.evalJSON();
 					if (result.code !=0 ){
+						var msg="错误:\n";
+						if(result.data!=undefined&&result.data.results.length>0&&result.data!=null&&result.data.results!=null){
+							for (var i=0;i<result.data.results.length;i++){
+								if(result.data.results[i].msg!=undefined)msg+="行 "+(result.data.results[i].row+1)+":"+result.data.results[i].msg+"\n";
+								}
+								msgbox(msg);
+						}else{
 						msgbox(result.message);
+						}
 						oc._toggleButtons(false);
 					}else {
 						var evt=new BiEvent(result.callbackEvent);
