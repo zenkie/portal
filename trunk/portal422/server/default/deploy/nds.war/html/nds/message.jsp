@@ -39,10 +39,12 @@ ValueHolder holder= (ValueHolder)request.getAttribute(nds.util.WebKeys.VALUE_HOL
 	}
 if( Validator.isNotNull(header_message)){	
 %>
-<div id="message" class="nt">
+<script type="portal-message" id="message">
 <%=header_message%>
-</div>
-
+</script>
+<script type="text/javascript">
+	showGlobalMessage(document.getElementById('message').innerHTML);
+</script>
 <%
 }
 %>
