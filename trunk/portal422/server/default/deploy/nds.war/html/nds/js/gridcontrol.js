@@ -509,7 +509,7 @@ GridControl.prototype = {
 			}
 		}
 		var objectIds=selectedIds.join(",");
-		if(objectIds!=null&&objectIds!=undefined&&this._gridQuery!=null){
+		if(objectIds!=""&&objectIds!=null&&objectIds!=undefined&&this._gridQuery!=null){
 			//this._gridQuery.table+".ID=in (123,123,123)"
 			//this._gridQuery.fixedColumns£½
 			var fixcol=this._gridQuery.table+".ID=in ("+objectIds+")";
@@ -1432,12 +1432,22 @@ GridControl.prototype = {
 				ele.innerHTML=chkResult.pagecontent;
 				executeLoadedScript(ele);
 				*/
-				var options=$H({id:"art_itemdetail_div",title:gMessageHolder.SET_PRODUCT_ATTRIBUTE,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome'});
-				options.content=chkResult.pagecontent;
-				//var throughBox = art.dialog.through;
-				//options.init=function(){try{$("itemdetail_form").focusFirstElement();}catch(e){}};
-				//throughBox(options);
-				art.dialog(options);
+				if(chkResult.customJSP){
+					var theWidth=695;
+					var theHeight=470;
+					var options=$H({width:theWidth,height:theHeight,id:"art_itemdetail_div",title:gMessageHolder.SET_PRODUCT_ATTRIBUTE,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome'});
+					//options.content=chkResult.pagecontent;
+					art.dialog.open(chkResult.pagecontent,options);	
+				
+				}else{
+					
+					var options=$H({id:"art_itemdetail_div",title:gMessageHolder.SET_PRODUCT_ATTRIBUTE,padding:0,resize:true,drag:true,lock:true,esc:true,skin:'chrome'});
+					options.content=chkResult.pagecontent;
+					//var throughBox = art.dialog.through;
+					//options.init=function(){try{$("itemdetail_form").focusFirstElement();}catch(e){}};
+					//throughBox(options);
+					art.dialog(options);	
+				}
 				if(this._currentRow!=-1){
 					var jo= this._data[this._currentRow][3]; // array, each elements is array of eleId and value
 					var i;
