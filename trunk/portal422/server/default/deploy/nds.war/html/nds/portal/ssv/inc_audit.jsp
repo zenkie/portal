@@ -50,126 +50,151 @@ FKObjectQueryModel fkQueryModel=new FKObjectQueryModel(TableManager.getInstance(
 fkQueryModel.setQueryindex(-1);
 %>
 <form action="/control/command" method="post" id="form1">
-<ul class="audit">
-<input id="command" name="command" type="hidden" value="ExecuteAudit">
-<input id="auditActionType" type="hidden" name="auditAction" value="auditAction">
-<input type='hidden' name='arrayItemSelecter' value='selectedItemIdx'>
-<% 
-	// maiximized one
-	recordCount=5;
-	maxTitleLength=MAX_SUBJECT_LENGTH_MAX_1024;
- 	result= AuditUtils.findWaitingInstances(request, recordCount, startIndex, showAssignment);
- 	pageRecordCount=result.getRowCount();
-%>
-<%if(!showAssignment){%>
-<li>
-<span><%= LanguageUtil.get(pageContext, "audit-comments",null)%>:</span>
-<input type="text" class="pus_input" size="20" maxlength="255" name="comments" id="comments" value="">
-<a onclick="javascript:oa.submitAuditForm('accept')" class="button"><%= LanguageUtil.get(pageContext, "object.accept",null)%></a>
-<a href="" onclick="javascript:pc.submitAuditForm('reject')" class="button"><%= LanguageUtil.get(pageContext, "object.reject",null)%></a>
-</li>
-<li class="set_up"><span><%= LanguageUtil.get(pageContext, "assignee",null)%>:</span>
-   
-   <input type="text" class="aus_input" name="assignee" id="assignee">
-              <!--<i class="search"><input name="" type="image" src="images/search.gif" /></i>-->
-<span id="user" onaction="<%=fkQueryModel.getButtonClickEventScript()%>"><img border=0 width=16 height=16 align=absmiddle src='<%=fkQueryModel.getImageURL()%>' alt='<%= PortletUtils.getMessage(pageContext, "open-new-page-to-search" ,null)%>'></span>
-<script>
-	createButton(document.getElementById("user"));
-</script>
-	<a class="button" href="" onclick="pc.submitAuditForm('assign')"><%= LanguageUtil.get(pageContext, "object.assign",null)%></a>
+		<div class="index_main-table" style="min-width:1200px;">
+			<table width="100%" class="table01 nohover" style="border: 2px #EAEAEA solid;">
+				<tr height="40">
+					<td width="100%">
+						<input id="command" name="command" type="hidden" value="ExecuteAudit">
+						<input id="auditActionType" type="hidden" name="auditAction" value="auditAction">
+						<input type='hidden' name='arrayItemSelecter' value='selectedItemIdx'>
+						<% 
+						// maiximized one
+						recordCount=6;
+						maxTitleLength=MAX_SUBJECT_LENGTH_MAX_1024;
+						result= AuditUtils.findWaitingInstances(request, recordCount, startIndex, showAssignment);
+						pageRecordCount=result.getRowCount();
+						%>
+						<div style="width:40%; float:left;">
+							<span style="float:left; margin-left:20px;">批复&nbsp;&nbsp;
+								<input name="comments" id="comments" type="text" class="input-140" />
+							</span>
+							<span style="float:left; margin-left:20px;">
+								<input onclick="javascript:oa.submitAuditForm('accept')" type="button" class="button-blue" value="批准" />
+							</span>
+							<span style="float:left; margin-left:20px;">
+								<input onclick="javascript:oa.submitAuditForm('reject')" type="button" class="button-blue" value="驳回" />
+							</span>
+						</div>
+						<div style="width:60%; float:left;">
+							<span style="float:left; margin-left:20px;">代理人&nbsp;&nbsp;
+								<input name="assignee" id="assignee" type="text" class="input-140" />
+								<span id="user" onaction="<%=fkQueryModel.getButtonClickEventScript()%>">
+									<img class="login_78" align=absmiddle src="/html/nds/portal/ssv/images/pfind.gif" >
+								</span>
+								<script>createButton(document.getElementById("user"));</script>   
+							</span>
+							<span style="float:left; margin-left:20px;">
+								<input onclick="pc.submitAuditForm('assign')" type="button" class="button-blue" value="转派" />
+							</span>
+							<span style="float:left; margin-left:20px;">
+								<input onclick="javascript:oa.showdlg2('/html/nds/portal/ssv/setup.jsp')" type="button" class="button-blue" value="设置" />
+							</span>
+						</div>
+					</td>
+				</tr>
+			</table>
 
-<%}else{%>
-	<a class="button" href="" onclick="pc.submitAuditForm('cancel_assign')"><%= LanguageUtil.get(pageContext, "object.cancel-assign",null)%></a>
-<%}%>	
-<%if(isOut){%>
-<span class="bg-neg-alert">	<%= LanguageUtil.get(pageContext, "is-out",null)%></span>
-<a title="<%= LanguageUtil.get(pageContext, "click-to-setup-work-state",null)%>" href="javascript:oa.showdlg2('/html/nds/portal/ssv/setup.jsp')" class="button"><%= LanguageUtil.get(pageContext, "setup",null)%></a>
-<%}else{%>
-<a title="<%= LanguageUtil.get(pageContext, "click-to-setup-work-state",null)%>" href="javascript:oa.showdlg2('/html/nds/portal/ssv/setup.jsp')" class="button"><%= LanguageUtil.get(pageContext, "out-setting",null)%></a>
-</li>
-<%}%>
+			<%@include file="/html/nds/portal/ssv/inc_audits_msgs.jsp"%>
+            <div class="allselect_tab" style="position:relative;" id="audit_cox">
+				<div style="min-width:1200px;overflow: hidden;">
+                    <table id="order_table_head" class="table01" style="margin-top:-2px;background-color: #EAEAEA;border-collapse: separate;width:100%;">
+						<thead>
+							<tr height="30" bgcolor="#F7F7F7">
+								<td width="6%" align="center" style="text-indent:0px;">
+									<input id="chk_select_all" name="chk_select_all" value=1 onclick='javascript:oa.checkAll("form1",<%=pageRecordCount%>)' type="checkbox" />
+								</td>
+								<td width="18%">单据号</td>
+								<td width="12%"><%= manager.getTable("au_process").getDescription(locale)%></td>
+								<td width="32%">描述</td>
+								<td width="32%">创建时间</td>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div id="data_tab_inner" style="width:100%; min-height:100px; min-width:1200px; overflow:auto; position:relative; z-index:22">
+					<table id="order_table_body" class="table01" style="margin-top: -36px; min-width:1200px; width:100%;background-color: #EAEAEA;border-collapse: separate;">
+						<thead>
+							<tr height="30" bgcolor="#F7F7F7">
+								<td width="6%" align="center" style="text-indent:0px;">
+									<input id="chk_select_all" name="chk_select_all" value=1 onclick='javascript:oa.checkAll("form1",<%=pageRecordCount%>)' type="checkbox" />
+								</td>
+								<td width="18%">单据号</td>
+								<td width="12%"><%= manager.getTable("au_process").getDescription(locale)%></td>
+								<td width="32%">描述</td>
+								<td width="32%">创建时间</td>
+							</tr>
+						</thead>
+						<tbody>
+							<%//没有数据时候显示：
+								if(pageRecordCount==0){
+							%> 
+							<tr height="30" style="line-height: 30px;background-color: white;"><td align="center" colspan="5" valign="top">没有数据</td></tr> 
+							<%}
+							int userTableId= manager.getTable("users").getId();
+							int rowcut=1;
+							while(result.next()){
+								oid=((java.math.BigDecimal)result.getObject(1)).intValue(); // au_phaseinstance.id
+								processName= (String)result.getObject(2);
+								tableId=((java.math.BigDecimal)result.getObject(3)).intValue();
+								table= manager.getTable(tableId);
+								if( table ==null){
+									//special condition when table is not active set by admin
+									continue;
+								}
+								/* yfzhu marked up following line since real table must not show view's records */
+								//if(table.getRealTableName()!=null) tableId=manager.getTable(table.getRealTableName()).getId();
+								recordDocNo= (String)result.getObject(4);
+								recordId=Tools.getInt(result.getObject(5),-1) ; 
 
-</ul>
-<table width="95%" cellspacing="1" cellpadding="2" class="aud-table" id="audit_table">
-<thead><tr>
-<td width=1><input class='cbx' type="checkbox" id="chk_select_all" name="chk_select_all" value=1 onclick='javscript:pc.checkAll("form1",<%=pageRecordCount%>)'> </td>
-<td><%= LanguageUtil.get(pageContext,  "docno" )%></td>
-<td><%= manager.getTable("au_process").getDescription(locale)%></td>
-<td><%= LanguageUtil.get(pageContext,  "description" )%></td>
-<td><%= LanguageUtil.get(pageContext,  showAssignment?"assignee":"creationdate")%></td>
-<td>延期时间</td>
-</tr>
-</thead>
-<%
- if(pageRecordCount==0){
-%> 
-<tr>
-			<td align="center" colspan="5" valign="top">
-				<%= LanguageUtil.get(pageContext, "no-data") %>
-			</td>
-</tr> 
-<% }
- int userTableId= manager.getTable("users").getId();
- while(result.next()){
- 	 
- 	 oid=((java.math.BigDecimal)result.getObject(1)).intValue(); // au_phaseinstance.id
- 	 processName= (String)result.getObject(2);
- 	 tableId=((java.math.BigDecimal)result.getObject(3)).intValue();
- 	 table= manager.getTable(tableId);
- 	 if( table ==null){
- 	 	//special condition when table is not active set by admin
- 	 	continue;
- 	 }
- 	 /* yfzhu marked up following line since real table must not show view's records */
- 	 //if(table.getRealTableName()!=null) tableId=manager.getTable(table.getRealTableName()).getId();
- 	 recordDocNo= (String)result.getObject(4);
- 	 recordId=Tools.getInt(result.getObject(5),-1) ; 
- 	 
- 	 if(Validator.isNull(recordDocNo)){
- 	 	recordDocNo="[null]";
- 	 }
- 	  brief=StringUtils.shortenInBytes( (String)result.getObject(6), maxTitleLength);
- 	 if(!showAssignment){
-	 	 if(result.getObject(7) !=null){ 
-		 creationDate= df.format((java.util.Date)result.getObject(7));
-		 crdate=(java.util.Date)result.getObject(7);
-	 	 }else{
-	 	 	creationDate=StringUtils.NBSP;
-	 	 }
- 	 }else{
-		//loading assignee information
-		List al=(List)QueryEngine.getInstance().doQueryList("select u.id,u.name from users u, au_pi_user p where p.au_pi_id="+oid+" and p.ad_user_id="+ userWeb.getUserId()+" and p.assignee_id=u.id(+)").get(0);
-		assigneeId= Tools.getInt( al.get(0),-1);
-		assigneeName= (String)al.get(1);
- 	 }
-	relativeIdx++;
-	className= (relativeIdx%2==1?"gamma":"gamma");
-%>
-		<tr>
-		    <td width=1>
-		    <input class='cbx' type='checkbox' id='chk_obj_<%=oid%>' name='itemid' value='<%=oid%>' onclick="pc.unselectall()">
-			</td>
-			<td><a href="javascript:oa.auditObj(<%=oid%>)"><%=recordDocNo%></a></td>
-			<td><a href="javascript:dlgo(<%=phaseInstanceTableId%>,<%=oid%>)"><%=processName%></a></td>
-			<td><%=brief%></td>
-			<td>
-			<%if(showAssignment){%>
-				<a href="javascript:popup_window('/html/nds/object/object.jsp?table=<%=userTableId%>&id=<%=assigneeId%>')"><%=assigneeName%></a>
-			<%}else{%>
-				<%=creationDate%>
-			<%}%>
-			</td>
-			<td><%=(System.currentTimeMillis()-crdate.getTime())/(24*60*60*1000)>0?(System.currentTimeMillis()-crdate.getTime())/(24*60*60*1000):0%>天</td>
-		</tr>
-		
-<%
- }
- int totalCount=AuditUtils.getTotalCount(request,showAssignment);
- String url="/html/nds/portal/ssv/inc_audit.jsp?showassign="+Boolean.toString(showAssignment);
-%>
-</table>
+								if(Validator.isNull(recordDocNo)){
+									recordDocNo="[null]";
+								}
+								brief=StringUtils.shortenInBytes( (String)result.getObject(6), maxTitleLength);
+								if(!showAssignment){
+									if(result.getObject(7) !=null){ 
+										creationDate= df.format((java.util.Date)result.getObject(7));
+									}else{
+										creationDate=StringUtils.NBSP;
+									}
+								}else{
+									//loading assignee information
+									List pl=(List)QueryEngine.getInstance().doQueryList("select u.id,u.name from users u, au_pi_user p where p.au_pi_id="+oid+" and p.ad_user_id="+ userWeb.getUserId()+" and p.assignee_id=u.id(+)").get(0);
+									assigneeId= Tools.getInt( pl.get(0),-1);
+									assigneeName= (String)pl.get(1);
+								}
+								relativeIdx++;
+								className= (relativeIdx%2==1?"gamma":"gamma");
+							%>
+								<tr id="<%=oid%>_templaterow" class="<%=rowcut%2==0?"even-row":"odd-row"%>" height="30">
+									<td width="6%" align="center" valign="middle">
+										<span class="checkbox">
+										<input  type="checkbox" id='chk_obj_<%=oid%>' name='itemid' value='<%=oid%>' onclick="oa.unselectall()"/>
+										</span>
+									</td>
+									<td width="18%" align="center" valign="middle"><a href="javascript:oa.auditObj(<%=oid%>)"><%=recordDocNo%></a></td>
+									<td width="12%" align="center" valign="middle"><a href="javascript:oa.auditObj(<%=oid%>)"><%=processName%></a></td>
+									<td width="32%" align="center" valign="middle"><%=brief%></td>
+									<td width="32%" align="center" valign="middle">
+										<%if(showAssignment){%>
+											<a href="javascript:popup_window('/html/nds/object/object.jsp?table=<%=userTableId%>&id=<%=assigneeId%>')"><%=assigneeName%></a>
+										<%}else{%>
+										<%=creationDate%>
+										<%}%>
+									</td>
+								</tr>
+							<%
+							rowcut++;
+							}
+							int totalCount=AuditUtils.getTotalCount(request,showAssignment);
+							String url="/html/nds/portal/ssv/inc_audit.jsp?showassign="+Boolean.toString(showAssignment);
+							%>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 <div id="audit-nav">
-<a href="javascript:oa.navigate('/html/nds/portal/ssv/inc_audit.jsp?showassign=<%=Boolean.toString(!showAssignment)%>','audit_cox')" styleClass="bg">[<%= LanguageUtil.get(pageContext, showAssignment?"show-my-work-list":"show-assign",null)%>]</a>&nbsp;
+<a href="javascript:pc.navigate('/html/nds/portal/ssv/inc_audit.jsp?showassign=<%=Boolean.toString(!showAssignment)%>','audit_cox')" styleClass="bg">[<%= LanguageUtil.get(pageContext, showAssignment?"show-my-work-list":"show-assign",null)%>]</a>&nbsp;
 <% for(i=0 ;i< ((totalCount/recordCount)>15?15:(totalCount/recordCount));i++){ %>
   <!--a href="javascript:pc.navigate('<%=url+"&startidx="+(i*recordCount)%>','audit_cox')">
  	[<%=(i*recordCount)+1%>],&nbsp;
