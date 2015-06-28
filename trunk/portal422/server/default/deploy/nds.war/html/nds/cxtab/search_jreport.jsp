@@ -55,7 +55,7 @@
 	<input id="fold" type="hidden" value="<%=pathname==false?"":userWeb.getUserId()%>">
 
 	<div id="page-table-query-tab">
-		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span></a></li></ul>
+		<ul><li><a href="javascript:void(0)"><span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span></a></li></ul>
 		<div id="tab1" class="ui-tabs-panel">
 			<div id="rpt-search">
 <table border="0" cellspacing="0" cellpadding="0" align='center' width="98%"><tr><td>

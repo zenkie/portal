@@ -79,7 +79,7 @@
 <div id="page-table-query">
 	<input id="fold" type="hidden" value="<%=pathname==false?"":userWeb.getUserId()%>">
 	<div id="page-table-query-tab">
-		<ul><li><a href="#tab1"><span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span></a></li></ul>
+		<ul><li><a href="javascript:void(0);"><span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span></a></li></ul>
 		<div id="tab1" class="ui-tabs-panel">
 			<div id="rpt-search">
 <table border="0" cellspacing="0" cellpadding="0" align='center' width="98%"><tr><td>
@@ -227,6 +227,7 @@
                             	}else{
                             		//will check type first, for number, construct operator, for date, two fields, for string, contains or equal
                             		if(column.getType()==Column.DATE||column.getType()==Column.DATENUMBER ){
+										h.put("class",h.get("class")+" input-date");
                             			String showDefaultRange=firstDateColumnFound?"N":"Y";// only first date column will have default range set
                             		%>
                             		<input:daterange id="<%=column_acc_Id%>" name="<%=inputName%>" showDefaultRange="<%=showDefaultRange%>" attributes="<%= h %>"/>

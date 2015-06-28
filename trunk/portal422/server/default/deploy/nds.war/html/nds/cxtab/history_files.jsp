@@ -169,10 +169,12 @@
         <%= PortletUtils.getMessage(pageContext, "total-space",null)%> :<%=Tools.formatSize(spaceAvailable)%>,
         <%= PortletUtils.getMessage(pageContext, "space-used",null)%> :<%=Tools.formatSize(spaceUsed)%>,
     	<%= PortletUtils.getMessage(pageContext, "space-left",null)%> :<%=Tools.formatSize(spaceAvailable-spaceUsed)%></span>
-        	<input type="button" class="cbutton" onclick="javascript:pc.refreshCxtabHistoryFiles(<%=cxtabId%>)" value="<%=PortletUtils.getMessage(pageContext, "refresh",null)%>">&nbsp;&nbsp;
+        <div class="cxtab-buttons">
+		<input type="button" class="cbutton cxtab-refresh" onclick="javascript:pc.refreshCxtabHistoryFiles(<%=cxtabId%>)" value="<%=PortletUtils.getMessage(pageContext, "refresh",null)%>">&nbsp;&nbsp;
 		<%if(files!=null&& files.length>0){%>
-        	<input id="btn_clear_cxtab_files" type="button" class="cbutton" onclick="javascript:pc.deleteCxtabFiles(<%=cxtabId%>)" value="<%=PortletUtils.getMessage(pageContext, "delete-cxtab-files",null)%>">
+        	<input id="btn_clear_cxtab_files cxtab-clear" type="button" class="cbutton" onclick="javascript:pc.deleteCxtabFiles(<%=cxtabId%>)" value="<%=PortletUtils.getMessage(pageContext, "delete-cxtab-files",null)%>">
         <%}%>
+		</div>
         <script>
 <%
  int dimensionCnt=Tools.getInt(QueryEngine.getInstance().doQueryOne("select count(*) from ad_cxtab_dimension where ad_cxtab_id="+cxtabId),-1);
