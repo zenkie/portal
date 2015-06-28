@@ -7,8 +7,8 @@
 <script>
 	document.title="<%=PortletUtils.getMessage(pageContext, "export",null)%>";
 </script>
-<div id="maintab">
-	<ul><li><a href="#tab1"><span><%=tabName%></span></a></li></ul>
+<div class="export-container">
+	<ul><li><a href="javascript:void(0)"><span><%=tabName%></span></a></li></ul>
 	<div id="tab1">
 <%
     ReportUtils ru = new ReportUtils(request);
@@ -84,24 +84,14 @@
     SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmm");
     String actionPath = (qRequest == null)?NDS_PATH+"/reports/report_generator.jsp":contextPath+"/servlets/QueryInputHandler";
 %>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" bordercolordark="#FFFFFF" bordercolorlight="#cccccc" align="center">
-<form name= "form1" method="post" action="<%=actionPath %>" >
+<form name= "form1" class="export-form" method="post" action="<%=actionPath %>" >
 		<input type="hidden" name="next-screen" value="<%=NDS_PATH%>/reports/index.jsp">
-        <tr>
-          <td>
-          <table border="0" cellspacing="4" cellpadding="1" align="center">
-            <tr>
-              <td align="right">
-              <span class="object_desc2"><%= PortletUtils.getMessage(pageContext, "file-name",null)%>:</span>
-              </td>
-              <td>
-              <input type="text" class="text" name="fname" size ="48" value="<%=fileName + sdf.format(new Date())%>">
-              </td>
-            </tr>
-            <tr>
-              <td align="right">
-              <span class="object_desc2"><%= PortletUtils.getMessage(pageContext, "file-type",null)%>:</span>
-              </td><td>
+		<div class="export-item">
+			<span class="export-span"><%= PortletUtils.getMessage(pageContext, "file-name",null)%>:</span>
+			<input type="text" class="text" name="fname" size ="48" value="<%=fileName + sdf.format(new Date())%>">
+		</div>
+		<div class="export-item">
+			<span class="export-span"><%= PortletUtils.getMessage(pageContext, "file-type",null)%>:</span>
               <script language="javascript">
                   function checkExtension()
                   {
@@ -125,54 +115,41 @@
               <input type="hidden" name="page" value="no">
               <input type="hidden" name="ak" value="yes">
               <input type="hidden" name="pk" value="no">
-			  <br>是否显示表头:<input type="checkbox" name="column" value="yes" checked>
-              </td>
-            </tr>
+		</div>
+		<div class="export-item">
+			  <span class="export-span">显示表头:</span><input type="checkbox" class="vertical-middle" name="column" value="yes" checked>
+		</div>
             <%/* begin obsolete
             if(qRequest != null)
             {
-            %>
-            <tr>
-              <td align="right">
-              <span class="object_desc2"><%= PortletUtils.getMessage(pageContext, "data-this-page",null)%>:</span>
-              </td><td>
-              <input type="radio" class="radio" name="page" value="yes"><%= PortletUtils.getMessage(pageContext, "check-yes",null)%>,
-              <input type="radio" class="radio" name="page" value = "no" checked><%= PortletUtils.getMessage(pageContext, "check-no",null)%>
-              </td>
-            </tr>
-            <input type="hidden" name="ak" value="yes">
-            <tr>
-              <td align="right">
-              <span class="object_desc2"><%= PortletUtils.getMessage(pageContext, "including-id",null)%>:</span>
-              </td><td>
-              <input type="radio" class="radio" name="pk" value="yes"><%= PortletUtils.getMessage(pageContext, "check-yes",null)%>,
-              <input type="radio" class="radio" name="pk" value = "no" checked><%= PortletUtils.getMessage(pageContext, "check-no",null)%>
-              </td>
-            </tr>
+            %> 
+				<div class="export-item"> 
+					<span class="export-span"><%= PortletUtils.getMessage(pageContext, "data-this-page",null)%>:</span>
+					<input type="radio" class="radio" name="page" value="yes"><%= PortletUtils.getMessage(pageContext, "check-yes",null)%>,
+					<input type="radio" class="radio" name="page" value = "no" checked><%= PortletUtils.getMessage(pageContext, "check-no",null)%>
+					<input type="hidden" name="ak" value="yes">
+				</div>
+				<div class="export-item">
+					<span class="export-span"><%= PortletUtils.getMessage(pageContext, "including-id",null)%>:</span>
+					<input type="radio" class="radio" name="pk" value="yes"><%= PortletUtils.getMessage(pageContext, "check-yes",null)%>,
+					<input type="radio" class="radio" name="pk" value = "no" checked><%= PortletUtils.getMessage(pageContext, "check-no",null)%>
+				</div>
             <%
             }
             %>
-            
-            <tr>
-              <td align="right">
-              <span class="object_desc2"><%= PortletUtils.getMessage(pageContext, "including-column-name",null)%>:</span>
-              </td><td>
-              <input type="radio" class="radio" name="column" checked value="yes"><%= PortletUtils.getMessage(pageContext, "check-yes",null)%>,
-              <input type="radio" class="radio" name="column" value = "no"><%= PortletUtils.getMessage(pageContext, "check-no",null)%>
-              </td>
-            </tr>
-        	<%end obsolete*/%>
-            <tr>
-              <td valign="top" align="right">
-              &nbsp;
-              </td>
-              <td>
-              <input type="hidden" name="command" value="ReportCreate">
-              <input type="button" value="<%= PortletUtils.getMessage(pageContext, "export",null)%>" onclick="checkOptions(document.form1)"> 
-              &nbsp;&nbsp;&nbsp; <a href="<%=NDS_PATH%>/reports/index.jsp"><%= PortletUtils.getMessage(pageContext, "view-export-folder",null)%></a>
-              </td>
-            </tr>
-            </table>
+				<div class="export-item">
+					<span class="export-span"><%= PortletUtils.getMessage(pageContext, "including-column-name",null)%>:</span>
+					<input type="radio" class="radio" name="column" checked value="yes"><%= PortletUtils.getMessage(pageContext, "check-yes",null)%>,
+					<input type="radio" class="radio" name="column" value = "no"><%= PortletUtils.getMessage(pageContext, "check-no",null)%>
+				</div>
+          <%end obsolete*/%>
+				<div class="export-item align-center">
+				  &nbsp;
+				  <input type="hidden" name="command" value="ReportCreate">
+				  <input type="button" value="<%= PortletUtils.getMessage(pageContext, "export",null)%>" onclick="checkOptions(document.form1)"> 
+				  &nbsp;&nbsp;&nbsp; <a href="javascript:art.dialog.open('<%=NDS_PATH%>/reports/index.jsp',{width:940,height:500})"><%= PortletUtils.getMessage(pageContext, "view-export-folder",null)%></a>
+				</div>  
+          
       <%
         if(qRequest != null)
             out.print(QueryUtils.toHTMLControlForm(qRequest));
@@ -184,11 +161,7 @@
       <%
         }
       %>
-      </td></tr>
 </form>
-</table>
-
-
     </div>
 </div>		
 

@@ -11,7 +11,7 @@
 	<liferay-util:param name="enable_context_menu" value="true" />
 </liferay-util:include>
 <div id="maintab">
-	<ul><li><a href="#tab1"><span><%=tabName%></span></a></li></ul>
+	<ul><li><a href="javascript:void(0)"><span><%=tabName%></span></a></li></ul>
 	<div id="tab1"><br>
 <%!
     /**
