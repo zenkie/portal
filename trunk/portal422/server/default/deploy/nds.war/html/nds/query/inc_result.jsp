@@ -351,7 +351,27 @@ function selectall(theForm)
 %>
   function close_popup(return_string){
     // return_string is the ak, pkData is the pk id
-    if(typeof(window.opener.name)!='unknown'){
+	if(window.opener){
+		close_popup_window(return_string)
+	}else{
+		closeModal(return_string);
+	}
+  }
+  
+  function closeModal(return_string){
+    	var w = window.linkWindow;
+    	if (w){
+			var e = w.document.getElementById('<%=accepter_id%>');
+			if (e==null) e=w.document.<%=accepter_id%>;
+			e.value=return_string;
+			window.closeArtModal();
+		}else{
+			window.close();
+		}
+    }
+  
+  function close_popup_window(return_string){
+	 if(typeof(window.opener.name)!='unknown'){
            var e=window.opener.document.getElementById("<%=accepter_id%>");
            if (e==null) e=window.opener.document.<%=accepter_id%>;
            if(e==null){

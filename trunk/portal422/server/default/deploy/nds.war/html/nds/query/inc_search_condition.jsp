@@ -10,33 +10,12 @@
       String cs= model.getColumns(column);
       int inputSize=model.getSizeForInput(column);
       String type=model.getTypeMeaningForInput(column);
-	  nds.util.PairTable values = column.getValues(locale);
-	  desc= column.getDescription(locale);
-		// add reflable desc
-		if(column.getJSONProps()!=null){
-		JSONObject jor=column.getJSONProps();
-		if(jor.has("reflable")){
-		JSONObject jo=column.getJSONProps().getJSONObject("reflable");
-		 int lable_id=jo.optInt("ref_id",0);
-			 int lable_tabid=jo.optInt("tabid",0);
-			 Table reftable= TableManager.getInstance().getTable(lable_tabid);
-			 QueryRequestImpl query=QueryEngine.getInstance().createRequest(userWeb.getSession());
-			 query.setMainTable(lable_tabid);
-			 query.addSelection(reftable.getAlternateKey().getId());
-			 query.addParam( reftable.getPrimaryKey().getId(), ""+ lable_id);
-		   QueryResult rs=QueryEngine.getInstance().doQuery(query); 
-		   if(lable_id !=0 || (rs!=null && rs.getTotalRowCount()>0)){
-			while(rs.next()) {
-			   desc=rs.getObject(1).toString(); 
-			}
-			}
-			}
-		}
+      nds.util.PairTable values = column.getValues(locale);
       if(i%columnsPerRow == 0)out.print("<tr>");
       String column_desc="column_"+column.getId()+"_desc"; // equals column_acc_Id + "_desc"
 %>
       <td height="18" width="<%=widthPerColumn*2/3%>%" nowrap align="left">
-			<div class="desc-txt"><%=desc%>:</div>
+			<div class="desc-txt"><%=column.getDescription(locale)%>:</div>
       </td>
       <td height="18" width="<%=widthPerColumn*4/3%>%" nowrap align="left">
 
@@ -93,7 +72,7 @@
 				<input type='hidden' name='<%=column_acc_name+"/sql"%>' id='<%=column_acc_Id + "_sql"%>' />
 				<input type='hidden' name='<%=column_acc_name+"/filter"%>' id='<%=column_acc_Id + "_filter"%>' />
 				<span id='<%=column_acc_Id+"_link"%>' title="popup" onclick="<%=fkQueryModel.getButtonClickEventScript()%>">
-						<img id='<%=column_acc_Id+"_img"%>' border=0 width=16 height=16 align=absmiddle src='<%=NDS_PATH%>/images/filterobj.gif' alt='<%=PortletUtils.getMessage(pageContext, "open-new-page-to-search",null)%>'>
+						<span id='<%=column_acc_Id+"_img"%>' class="iconfont icon-loudouhover" alt='<%=PortletUtils.getMessage(pageContext, "open-new-page-to-search",null)%>'></span>
 				</span>
 				<script>createButton(document.getElementById("<%=column_acc_Id+"_link"%>"));</script>	
                 <%/* 
@@ -106,6 +85,7 @@
         	}else{
         		//will check type first, for number, construct operator, for date, two fields, for string, contains or equal
         		if(column.getType()==Column.DATE||column.getType()==Column.DATENUMBER ){
+					h.put("class",h.get("class")+" input-date");
         			String showDefaultRange=firstDateColumnFound?"N":"Y";// only first date column will have default range set
         		%>
         		<input:daterange id="<%=column_acc_Id%>" name="<%=inputName%>" showDefaultRange="<%=showDefaultRange%>" attributes="<%= h %>"/>

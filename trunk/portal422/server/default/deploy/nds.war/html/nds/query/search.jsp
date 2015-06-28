@@ -160,7 +160,7 @@ if(allowMultipleSelection){
 		<td width="99%" valign="top">
 <%}
 %>
-<div id="query_content" align="right">
+<div id="query_content">
 <%
  if ((searchOnColumn != null) && (searchOnColumn.isFilteredByWildcard()) && ((!allowMultipleSelection) || (searchOnColumn.getDisplaySetting().getObjectType() == 12))){
  /*
@@ -204,6 +204,7 @@ if(allowMultipleSelection){
 	<%}%>
 	<input id="btn-cancel" type="button" class="cbutton" onclick="javascript:oq.close()" value="<%=PortletUtils.getMessage(pageContext, "command.cancel",null)%>">
 </div>
+<div class="min-clear"></div>
 </div>
 <%}else{%>
 <div id="qbtns">
@@ -219,10 +220,10 @@ if(allowMultipleSelection){
 <%
 if(allowMultipleSelection){
 %>
-<div id="mulit-info_<%=queryindex%>" style="margin-top:30px;width:600px">
+<div id="mulit-info_<%=queryindex%>" class="mulit-info">
 </div>
 <%}%>
-<div id="query-data_<%=queryindex%>" align="right" style="display:none;">
+<div id="query-data_<%=queryindex%>" style="display:none;">
 		<div id="query-result">
 			<%@ include file="inc_search_list.jsp" %>
 		</div>
@@ -279,4 +280,5 @@ if(allowMultipleSelection){
 	oq.search();
 <%}
 %>
+
 </script>
