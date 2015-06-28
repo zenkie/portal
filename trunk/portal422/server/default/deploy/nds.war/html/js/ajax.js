@@ -259,6 +259,7 @@ function executeLoadedScript(el) {
 			catch (e) {
 				if(console!=undefined){
 					 console.log(e);
+					 e.stack && console.log(e.stack);
 					 console.log(scripts[i].textContent);
 				}
 				alert("error executeLoadedScript:"+e);
