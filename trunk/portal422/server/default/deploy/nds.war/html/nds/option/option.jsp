@@ -85,6 +85,7 @@ function optionsave(){
 <script language="javascript" src="/html/nds/js/application.js"></script>
 <script language="javascript" src="/html/nds/js/alerts.js"></script-->
 <script language="javascript" src="/html/nds/js/init_optioncontrol_<%=locale.toString()%>.js"></script>
+<script language="javascript" src="/html/nds/js/init_portalcontrol_<%=locale.toString()%>.js"></script>
 <%if(optionOnly){%>
 <div style="padding:20px 20px 10px 15px;">
 	<%= PortletUtils.getMessage(pageContext, "welcome-to-option",null) %>
@@ -128,11 +129,13 @@ function optionsave(){
   <%if(session.getAttribute("saasvendor")==null){
 		//alisoft does not allow home page and logout, change password
 	%>
-  <input class="cbutton" type="button" value='<%= PortletUtils.getMessage(pageContext, "change-password",null)%>' onclick="popup_window('/html/nds/security/changepassword.jsp?objectid=<%=userid%>')"/>
+  <input class="cbutton" type="button" value='<%= PortletUtils.getMessage(pageContext, "change-password",null)%>' onclick="showObject('/html/nds/security/changepassword.jsp?objectid=<%=userid%>',410,210)"/>
   <%}%>
 <%}%>
 </form> 
 <input type='hidden' name='queryindex_-1' id='queryindex_-1' value="-1" />
+<div style="display:none">
 <br><br><br><br>
-<font size=1>&nbsp;&nbsp;&nbsp;session id:<%=session.getId()%></font>
+<font size=1 >&nbsp;&nbsp;&nbsp;session id:<%=session.getId()%></font>
+</div>
 <%@ include file="/html/nds/footer_info.jsp" %>
