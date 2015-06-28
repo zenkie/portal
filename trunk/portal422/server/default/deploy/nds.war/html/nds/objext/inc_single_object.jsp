@@ -9,7 +9,9 @@
     */
     boolean bShowCheckBox=ParamUtils.getBooleanAttribute(request, "showcheckbox",true);
 
-    TableQueryModel model= new TableQueryModel(tableId, actionType,isInput,true,locale);
+	//TableQueryModel model= new TableQueryModel(tableId, actionType,isInput,true,locale);
+	//support sgrade column
+	TableQueryModel model= new TableQueryModel(tableId, columns,isInput,true,locale);
     if(result!=null)result.next();
 
     //ArrayList columns=table.getShowableColumns(actionType);

@@ -45,7 +45,7 @@ if(!canModify) throw new NDSException(PortletUtils.getMessage(pageContext, "no-p
 
 QueryResult result=null;
 int actionType=Column.MODIFY;
-ArrayList columns=table.getModifiableColumns(Column.MODIFY);
+ArrayList columns=table.getColumns(new int[]{3}, false,userWeb.getSecurityGrade(),true);//table.getModifiableColumns(Column.MODIFY);
 boolean isInput=true ;
 int objectId=-1;
 %>
