@@ -80,7 +80,7 @@ float:left;
 	<span id="closebtn"></span>
 	<input type='hidden' name='tableid' id="tableid" value='<%=table.getId()%>'>
 </div>
-<div id="message" class="nt">
+<div class="nt">
 	<%=PortletUtils.getMessage(pageContext, "print-notice",null)%>
 </div>
 <br><br>
