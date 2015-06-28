@@ -33,12 +33,13 @@
     width: 527px;
     height: 390px;
     z-index: 100;
-    top: -10px;
+	top:16px;
+    /*top: -10px;*//*孙静妹修改2015-4-29*/
     right: 17px;
     *top: -6px!important;
     *right: 65px!important;
     border: none;
-	opacity:.8;
+	/*opacity:.8;*//*孙静妹修改2015-4-29*/
 }
 
 .change_content{

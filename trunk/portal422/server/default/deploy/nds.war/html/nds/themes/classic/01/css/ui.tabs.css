@@ -35,8 +35,6 @@
 .ui-tabs-nav a, .ui-tabs-nav a span {
     display: block;
     padding: 0 10px;
-    background: url(/html/nds/themes/classic/01/images/tab.png) no-repeat;
-    background: url(/html/nds/themes/classic/01/images/tab.gif) no-repeat;
 }
 .ui-tabs-nav a {
     margin: 1px 0 0; /* position: relative makes opacity fail for disabled tab in IE */
