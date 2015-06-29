@@ -62,7 +62,7 @@ SliderMenu.main = function(){
 		btnContainer:".change_menu-mid_main-num",
 		btns: "li",
 		listContainer: ".change_menu-mid_main",
-		lists: ".change_content",			
+		lists: ".change_content"		
 	};		
 	new SliderMenu(opt);
 };
