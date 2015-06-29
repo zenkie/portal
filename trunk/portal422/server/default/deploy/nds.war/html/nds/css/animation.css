@@ -1,0 +1,833 @@
+﻿@charset "utf-8";
+/*
+    描述：基于CSS3的一组动画库
+    时间：2015-05-01
+*/
+.animating-iframe-hidden{
+	display:none !important;
+	opacity:0 !important;
+	position:absolute !important;
+}
+.animation3dparent {
+    -webkit-perspective: 600;
+    -moz-perspective: 600;
+    perspective: 600px;
+}
+
+.animation3d {
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform: translate3d(0, 0, 0);
+    -moz-transform-style: preserve-3d;
+    transform: translate3d(0, 0, 0);
+    transform-style: preserve-3d;
+}
+
+/*---动画样式定义区域---*/
+.translateToLeft {
+    -webkit-animation: translateToLeft .5s ease both;
+    -moz-animation: translateToLeft .5s ease both;
+    animation: translateToLeft .5s ease both;
+}
+
+.translateFromLeft {
+    -webkit-animation: translateFromLeft .5s ease both;
+    -moz-animation: translateFromLeft .5s ease both;
+    animation: translateFromLeft .5s ease both;
+}
+
+.translateToRight {
+    -webkit-animation: translateToRight .5s ease both;
+    -moz-animation: translateToRight .5s ease both;
+    animation: translateToRight .5s ease both;
+}
+
+.translateFromRight {
+    -webkit-animation: translateFromRight .5s ease both;
+    -moz-animation: translateFromRight .5s ease both;
+    animation: translateFromRight .5s ease both;
+}
+
+.translateToTop {
+    -webkit-animation: translateToTop .5s ease both;
+    -moz-animation: translateToTop .5s ease both;
+    animation: translateToTop .5s ease both;
+}
+
+.translateFromTop {
+    -webkit-animation: translateFromTop .5s ease both;
+    -moz-animation: translateFromTop .5s ease both;
+    animation: translateFromTop .5s ease both;
+}
+
+.translateToBottom {
+    -webkit-animation: translateToBottom .5s ease both;
+    -moz-animation: translateToBottom .5s ease both;
+    animation: translateToBottom .5s ease both;
+}
+
+.translateFromBottom {
+    -webkit-animation: translateFromBottom .5s ease both;
+    -moz-animation: translateFromBottom .5s ease both;
+    animation: translateFromBottom .5s ease both;
+}
+
+/*---动画(keyframes)定义区域---*/
+
+/*-----------移动篇-------------*/
+
+/*---1.动画：将目标元素位移至自身宽度-100%---*/
+@-webkit-keyframes translateToLeft {
+    to {
+        opacity:0;
+        -webkit-transform: translateX(-100%);
+    }
+}
+
+@-moz-keyframes translateToLeft {
+    to {
+         opacity:0;
+        -moz-transform: translateX(-100%);
+    }
+}
+
+@keyframes translateToLeft {
+    from {
+        opacity:1;
+        transform:translateX(0%);
+    }
+    to {
+         opacity:0;
+        transform: translateX(-100%);
+    }
+}
+
+/*---2.动画：将目标元素从自身宽度-100%至0%---*/
+@-webkit-keyframes translateFromLeft {
+    from {
+         opacity:0;
+        -webkit-transform: translateX(-100%);
+    }
+}
+
+@-moz-keyframes translateFromLeft {
+    from {
+         opacity:0;
+        -moz-transform: translateX(-100%);
+    }
+}
+
+@keyframes translateFromLeft {
+    from {
+         opacity:0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity:1;
+        transform:translateX(0%);
+    }
+}
+/*---3.动画：将目标元素往右边移动至自身100%---*/
+@-webkit-keyframes translateToRight {
+    to {
+         opacity:0;
+        -webkit-transform: translateX(100%);
+    }
+}
+
+@-moz-keyframes translateToRight {
+    to {
+         opacity:0;
+        -moz-transform: translateX(100%);
+    }
+}
+
+@keyframes translateToRight {
+    from {
+        opacity:1;
+        transform:translateX(0%);
+    }
+    to {
+         opacity:0;
+        transform: translateX(100%);
+    }
+}
+
+/*---4.动画：将目标元素从右边移动至初始位置---*/
+@-webkit-keyframes translateFromRight {
+    from {
+         opacity:0;
+        -webkit-transform: translateX(100%);
+    }
+}
+
+@-moz-keyframes translateFromRight {
+    from {
+         opacity:0;
+        -moz-transform: translateX(100%);
+    }
+}
+
+@keyframes translateFromRight {
+    from {
+         opacity:0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity:1;
+        transform:translateX(0%);
+    }
+}
+
+/*---5.动画：将目标元素往上边移动至自身100%---*/
+@-webkit-keyframes translateToTop {
+    to {
+         opacity:0;
+        -webkit-transform: translateY(-100%);
+    }
+}
+
+@-moz-keyframes translateToTop {
+    to {
+         opacity:0;
+        -moz-transform: translateY(-100%);
+    }
+}
+
+@keyframes translateToTop {
+    to {
+         opacity:0;
+        transform: translateY(-100%);
+    }
+    from {
+        opacity:1;
+        transform:translateY(0%);
+    }
+}
+
+/*---6.动画：将目标元素从上边移动至初始位置---*/
+@-webkit-keyframes translateFromTop {
+    from {
+        opacity:0;
+        -webkit-transform: translateY(-100%);
+    }
+}
+
+@-moz-keyframes translateFromTop {
+    from {
+        opacity:0;
+        -moz-transform: translateY(-100%);
+    }
+}
+
+@keyframes translateFromTop {
+    from {
+        opacity:0;
+        transform: translateY(-100%);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0%);
+    }
+}
+
+/*---7.动画：将目标元素往下边移动至自身100%---*/
+@-webkit-keyframes translateToBottom {
+    to {
+         opacity:0;
+        -webkit-transform: translateY(100%);
+    }
+}
+
+@-moz-keyframes translateToBottom {
+    to {
+         opacity:0;
+        -moz-transform: translateY(100%);
+    }
+}
+
+@keyframes translateToBottom {
+    from {
+        opacity:1;
+        transform:translateY(0%);
+    }
+    to {
+         opacity:0;
+        transform: translateY(100%);
+    }
+}
+
+/*---8.动画：将目标元素从下边移动至初始位置---*/
+@-webkit-keyframes translateFromBottom {
+    from {
+         opacity:0;
+        -webkit-transform: translateY(100%);
+    }
+}
+
+@-moz-keyframes translateFromBottom {
+    from {
+         opacity:0;
+        -moz-transform: translateY(100%);
+    }
+}
+
+@keyframes translateFromBottom {
+    from {
+         opacity:0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0%);
+    }
+}
+
+/*--------------缩放篇----------------------------*/
+.scaleDownFadeOut {
+    -webkit-animation: scaleDownFadeOut .5s ease both;
+    -moz-animation: scaleDownFadeOut .5s ease both;
+    animation: scaleDownFadeOut .5s ease both;
+}
+
+.scaleUpFadeIn {
+    -webkit-animation: scaleUpFadeIn .5s ease both;
+    -moz-animation: scaleUpFadeIn .5s ease both;
+    animation: scaleUpFadeIn .5s ease both;
+}
+
+.scaleDownFadeIn {
+    -webkit-animation: scaleDownFadeIn .5s ease both;
+    -moz-animation: scaleDownFadeIn .5s ease both;
+    animation: scaleDownFadeIn .5s ease both;
+}
+
+.scaleUpFadeOut {
+    -webkit-animation: scaleUpFadeOut .5s ease both;
+    -moz-animation: scaleUpFadeOut .5s ease both;
+    animation: scaleUpFadeOut .5s ease both;
+}
+
+/*---动画： 缩小淡出-----*/
+@-webkit-keyframes scaleDownFadeOut {
+    to {
+        opacity: 0.4;
+        -webkit-transform: scale(0.7);
+    }
+}
+
+@-moz-keyframes scaleDownFadeOut {
+    to {
+        opacity: 0.4;
+        -moz-transform: scale(0.7);
+    }
+}
+
+@keyframes scaleDownFadeOut {
+    to {
+        opacity: 0.4;
+        transform: scale(0.7);
+    }
+}
+/*---动画： 放大淡出-----*/
+@-webkit-keyframes scaleUpFadeOut {
+    to {
+        opacity: 0.4;
+        -webkit-transform: scale(1.2);
+    }
+}
+
+@-moz-keyframes scaleUpFadeOut {
+    to {
+        opacity: 0.4;
+        -moz-transform: scale(1.2);
+    }
+}
+
+@keyframes scaleUpFadeOut {
+    to {
+        opacity: 0.4;
+        transform: scale(1.2);
+    }
+}
+/*---动画： 缩小淡入-----*/
+@-webkit-keyframes scaleDownFadeIn {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(1.2);
+    }
+}
+
+@-moz-keyframes scaleDownFadeIn {
+    from {
+        opacity: 0;
+        -moz-transform: scale(1,2);
+    }
+}
+
+@keyframes scaleDownFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(1,2);
+    }
+}
+/*---动画：放大淡入----------------*/
+@-webkit-keyframes scaleUpFadeIn {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(0.8);
+    }
+}
+
+@-moz-keyframes scaleUpFadeIn {
+    from {
+        opacity: 0;
+        -moz-transform: scale(0.8);
+    }
+}
+
+@keyframes scaleUpFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+
+/*--------------旋转篇-------------------*/
+/*注意：
+    这里如果要见到3d效果，请在改样式所在元素的父元素 添加 perspective值，以及为当前元素添加3d呈现样式:
+    transform-style: preserve-3d;
+ */
+
+.rotateSlideLeftOut {
+    -webkit-transform-origin: 0% 50%;
+    -webkit-animation: rotateSlideLeftOut .8s ease both;
+    -moz-transform-origin: 0% 50%;
+    -moz-animation: rotateSlideLeftOut .8s ease both;
+    transform-origin: 0% 50%;
+    animation: rotateSlideLeftOut .8s ease both;
+}
+
+.rotateSlideRightOut {
+    -webkit-transform-origin: 100% 50%;
+    -webkit-animation: rotateSlideRightOut .8s ease both;
+    -moz-transform-origin: 100% 50%;
+    -moz-animation: rotateSlideRightOut .8s ease both;
+    transform-origin: 100% 50%;
+    animation: rotateSlideRightOut .8s ease both;
+}
+
+.rotateSlideUpOut {
+    -webkit-transform-origin: 50% 0%;
+    -webkit-animation: rotateSlideUpOut .8s ease both;
+    -moz-transform-origin: 50% 0%;
+    -moz-animation: rotateSlideUpOut .8s ease both;
+    transform-origin: 50% 0%;
+    animation: rotateSlideUpOut .8s ease both;
+}
+
+.rotateSlideDownOut {
+    -webkit-transform-origin: 50% 100%;
+    -webkit-animation: rotateSlideDownOut .8s ease both;
+    -moz-transform-origin: 50% 100%;
+    -moz-animation: rotateSlideDownOut .8s ease both;
+    transform-origin: 50% 100%;
+    animation: rotateSlideDownOut .8s ease both;
+}
+
+
+/*动画：开门淡出 即Y轴左边旋转淡出*/
+@-webkit-keyframes rotateSlideLeftOut {
+    to {
+        opacity: 0;
+        -webkit-transform: rotateY(90deg);
+    }
+}
+
+@-moz-keyframes rotateSlideLeftOut {
+    to {
+        opacity: 0;
+        -moz-transform: rotateY(90deg);
+    }
+}
+
+@keyframes rotateSlideLeftOut {
+    to {
+        opacity: 0;
+        transform: rotateY(90deg);
+    }
+}
+/*动画：Y轴右边旋转淡出*/
+@-webkit-keyframes rotateSlideRightOut {
+    to {
+        opacity: 0;
+        -webkit-transform: rotateY(-90deg);
+    }
+}
+
+@-moz-keyframes rotateSlideRightOut {
+    to {
+        opacity: 0;
+        -moz-transform: rotateY(-90deg);
+    }
+}
+
+@keyframes rotateSlideRightOut {
+    to {
+        opacity: 0;
+        transform: rotateY(-90deg);
+    }
+}
+/*动画：X轴上边旋转淡出*/
+@-webkit-keyframes rotateSlideUpOut {
+    to {
+        opacity: 0;
+        -webkit-transform: rotateX(-90deg);
+    }
+}
+
+@-moz-keyframes rotateSlideUpOut {
+    to {
+        opacity: 0;
+        -moz-transform: rotateX(-90deg);
+    }
+}
+
+@keyframes rotateSlideUpOut {
+    to {
+        opacity: 0;
+        transform: rotateX(-90deg);
+    }
+}
+/*动画：X轴下边边旋转淡出*/
+@-webkit-keyframes rotateSlideDownOut {
+    to {
+        opacity: 0;
+        -webkit-transform: rotateX(90deg);
+    }
+}
+
+@-moz-keyframes rotateSlideDownOut {
+    to {
+        opacity: 0;
+        -moz-transform: rotateX(90deg);
+    }
+}
+
+@keyframes rotateSlideDownOut {
+    to {
+        opacity: 0;
+        transform: rotateX(90deg);
+    }
+}
+
+
+.rotateSlideLeftIn {
+    -webkit-transform-origin: 0% 50%;
+    -webkit-animation: rotateSlideLeftIn .8s ease both;
+    -moz-transform-origin: 0% 50%;
+    -moz-animation: rotateSlideLeftIn .8s ease both;
+    transform-origin: 0% 50%;
+    animation: rotateSlideLeftIn .8s ease both;
+}
+
+.rotateSlideRightIn {
+    -webkit-transform-origin: 100% 50%;
+    -webkit-animation: rotateSlideRightIn .8s ease both;
+    -moz-transform-origin: 100% 50%;
+    -moz-animation: rotateSlideRightIn .8s ease both;
+    transform-origin: 100% 50%;
+    animation: rotateSlideRightIn .8s ease both;
+}
+
+.rotateSlideUpIn {
+    -webkit-transform-origin: 50% 0%;
+    -webkit-animation: rotateSlideUpIn .8s ease both;
+    -moz-transform-origin: 50% 0%;
+    -moz-animation: rotateSlideUpIn .8s ease both;
+    transform-origin: 50% 0%;
+    animation: rotateSlideUpIn .8s ease both;
+}
+
+.rotateSlideDownIn {
+    -webkit-transform-origin: 50% 100%;
+    -webkit-animation: rotateSlideDownIn .8s ease both;
+    -moz-transform-origin: 50% 100%;
+    -moz-animation: rotateSlideDownIn .8s ease both;
+    transform-origin: 50% 100%;
+    animation: rotateSlideDownIn .8s ease both;
+}
+
+/*动画：开门淡入 即Y轴左边旋转淡入*/
+@-webkit-keyframes rotateSlideLeftIn {
+    from {
+        opacity: 0;
+        -webkit-transform: rotateY(90deg);
+    }
+}
+
+@-moz-keyframes rotateSlideLeftIn {
+    from {
+        opacity: 0;
+        -moz-transform: rotateY(90deg);
+    }
+}
+
+@keyframes rotateSlideLeftIn {
+    from {
+        opacity: 0;
+        transform: rotateY(90deg);
+    }
+}
+/*动画：Y轴右边旋转淡入*/
+@-webkit-keyframes rotateSlideRightIn {
+    from {
+        opacity: 0;
+        -webkit-transform: rotateY(-90deg);
+    }
+}
+
+@-moz-keyframes rotateSlideRightIn {
+    from {
+        opacity: 0;
+        -moz-transform: rotateY(-90deg);
+    }
+}
+
+@keyframes rotateSlideRightIn {
+    from {
+        opacity: 0;
+        transform: rotateY(-90deg);
+    }
+}
+/*动画：X轴上边旋转淡入*/
+@-webkit-keyframes rotateSlideUpIn {
+    from {
+        opacity: 0;
+        -webkit-transform: rotateX(-90deg);
+    }
+}
+
+@-moz-keyframes rotateSlideUpIn {
+    from {
+        opacity: 0;
+        -moz-transform: rotateX(-90deg);
+    }
+}
+
+@keyframes rotateSlideUpIn {
+    from {
+        opacity: 0;
+        transform: rotateX(-90deg);
+    }
+}
+/*动画：X轴下边边旋转淡入*/
+@-webkit-keyframes rotateSlideDownIn {
+    from {
+        opacity: 0;
+        -webkit-transform: rotateX(90deg);
+    }
+}
+
+@-moz-keyframes rotateSlideDownIn {
+    from {
+        opacity: 0;
+        -moz-transform: rotateX(90deg);
+    }
+}
+
+@keyframes rotateSlideDownIn {
+    from {
+        opacity: 0;
+        transform: rotateX(90deg);
+    }
+}
+
+.rotateScaleUpOut {
+    -webkit-animation: rotateScaleUpOut .8s ease both;
+    -moz-animation: rotateScaleUpOut .8s ease both;
+    animation: rotateScaleUpOut .8s ease both;
+}
+
+.rotateScaleDownOut {
+    -webkit-animation: rotateScaleDownOut .8s ease both;
+    -moz-animation: rotateScaleDownOut .8s ease both;
+    animation: rotateScaleDownOut .8s ease both;
+}
+
+.rotateScaleLeftOut {
+    -webkit-animation: rotateScaleLeftOut .8s ease both;
+    -moz-animation: rotateScaleLeftOut .8s ease both;
+    animation: rotateScaleLeftOut .8s ease both;
+}
+
+.rotateScaleRightOut {
+    -webkit-animation: rotateScaleRightOut .8s ease both;
+    -moz-animation: rotateScaleRightOut .8s ease both;
+    animation: rotateScaleRightOut .8s ease both;
+}
+
+/*动画：缩小0.8 并且 X轴90度旋转从上边方向淡出*/
+@-webkit-keyframes rotateScaleUpOut {
+    to {
+        opacity: 0;
+        -webkit-transform: scale(0.6) rotateX(90deg);
+    }
+}
+
+@-moz-keyframes rotateScaleUpOut {
+    to {
+        opacity: 0;
+        -moz-transform: scale(0.6) rotateX(90deg);
+    }
+}
+
+@keyframes rotateScaleUpOut {
+    to {
+        opacity: 0;
+        transform: scale(0.6) rotateX(90deg);
+    }
+}
+/*动画：缩小0.6 并且 X轴90度旋转从下边方向淡出*/
+@-webkit-keyframes rotateScaleDownOut {
+    to {
+        opacity: 0;
+        -webkit-transform: scale(0.6) rotateX(-90deg);
+    }
+}
+
+@-moz-keyframes rotateScaleDownOut {
+    to {
+        opacity: 0;
+        -moz-transform: scale(0.6) rotateX(-90deg);
+    }
+}
+
+@keyframes rotateScaleDownOut {
+    to {
+        opacity: 0;
+        transform: scale(0.6) rotateX(-90deg);
+    }
+}
+/*动画：缩小0.6 并且 Y轴90度旋转从上边方向淡出*/
+@-webkit-keyframes rotateScaleLeftOut {
+    to {
+        opacity: 0;
+        -webkit-transform: scale(0.6) rotateY(90deg);
+    }
+}
+
+@-moz-keyframes rotateScaleLeftOut {
+    to {
+        opacity: 0;
+        -moz-transform: scale(0.6) rotateY(90deg);
+    }
+}
+
+@keyframes rotateScaleLeftOut {
+    to {
+        opacity: 0;
+        transform: scale(0.6) rotateY(90deg);
+    }
+}
+/*动画：缩小0.6 并且 Y轴90度旋转从下边方向淡出*/
+@-webkit-keyframes rotateScaleRightOut {
+    to {
+        opacity: 0;
+        -webkit-transform: scale(0.6) rotateY(-90deg);
+    }
+}
+
+@-moz-keyframes rotateScaleRightOut {
+    to {
+        opacity: 0;
+        -moz-transform: scale(0.6) rotateY(-90deg);
+    }
+}
+
+@keyframes rotateScaleRightOut {
+    to {
+        opacity: 0;
+        transform: scale(0.6) rotateY(-90deg);
+    }
+}
+
+.rotateLeftTopFail {
+    -webkit-transform-origin: 0% 0%;
+    -webkit-animation: rotateLeftTopFail 1s linear both;
+    -moz-transform-origin: 0% 0%;
+    -moz-animation: rotateLeftTopFail 1s linear both;
+    transform-origin: 0% 0%;
+    animation: rotateLeftTopFail 1s linear both;
+}
+
+/*动画：模拟挂画掉落效果 左上固定 即Z方向旋转*/
+@-webkit-keyframes rotateLeftTopFail {
+    0% {
+        -webkit-transform: rotateZ(0deg);
+    }
+
+    20% {
+        -webkit-transform: rotateZ(16deg);
+        -webkit-animation-timing-function: ease-out;
+    }
+
+    40% {
+        -webkit-transform: rotateZ(15deg);
+    }
+
+    60% {
+        -webkit-transform: rotateZ(16deg);
+    }
+
+    100% {
+        -webkit-transform: translateY(120%) rotateZ(17deg);
+    }
+}
+
+@-moz-keyframes rotateLeftTopFail {
+    0% {
+        -moz-transform: rotateZ(0deg);
+    }
+
+    20% {
+        -moz-transform: rotateZ(16deg);
+        -moz-animation-timing-function: ease-out;
+    }
+
+    40% {
+        -moz-transform: rotateZ(15deg);
+    }
+
+    60% {
+        -moz-transform: rotateZ(16deg);
+    }
+
+    100% {
+        -moz-transform: translateY(120%) rotateZ(17deg);
+    }
+}
+
+@keyframes rotateLeftTopFail {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    20% {
+        transform: rotateZ(16deg);
+        animation-timing-function: ease-out;
+    }
+
+    40% {
+        transform: rotateZ(15deg);
+    }
+
+    60% {
+        transform: rotateZ(16deg);
+    }
+
+    100% {
+        transform: translateY(120%) rotateZ(17deg);
+    }
+}

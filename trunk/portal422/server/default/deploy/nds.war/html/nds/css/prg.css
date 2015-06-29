@@ -1,0 +1,197 @@
+﻿@charset "utf-8";
+
+body {
+    background: #438eb9;
+    overflow: hidden;
+}
+
+.uploadifyQueueItem {
+    font: 11px Verdana, Geneva, sans-serif;
+    border: 2px solid #E5E5E5;
+    background-color: #F5F5F5;
+    margin-top: 5px;
+    padding: 5px;
+    width: 350px;
+}
+
+.uploadifyError {
+    border: 2px solid #FBCBBC !important;
+    background-color: #FDE5DD !important;
+}
+
+.uploadifyQueueItem .cancel {
+    float: right;
+}
+
+.uploadifyProgress {
+    background-color: #FFFFFF;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #C5C5C5;
+    border-bottom: 1px solid #C5C5C5;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.uploadifyProgressBar {
+    background-color: #0099FF;
+    width: 1px;
+    height: 3px;
+}
+
+.title {
+    width: 939px;
+    overflow: hidden;
+    right: 200px;
+    position: absolute;
+}
+
+.main {
+    width: 100%;
+    height: 360px;
+    position: absolute;
+    top: 100px;
+}
+
+#bottom {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 30px;
+}
+
+.bottom-logo {
+    width: 87px;
+    height: 20px;
+    /*left: 333px;*/
+    float: left;
+    display: block;
+}
+
+#bottom-right {
+    padding-bottom: 0px;
+    padding-top: 0px;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+}
+
+a.bottom-text {
+    color: #F4F11A;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.expdate {
+    margin-top: 50px;
+}
+
+.fail-panel {
+    text-align: center;
+    width: 600px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -134px 0px 0px -300px;
+}
+
+.white {
+    color: #fff;
+}
+
+.yellow {
+    color: yellow;
+}
+
+table {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+    width: 60%;
+    margin: auto;
+}
+
+.bordered {
+    border: solid #ccc 1px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px #ccc;
+    -moz-box-shadow: 0 1px 1px #ccc;
+    box-shadow: 0 1px 1px #ccc;
+    margin-top: 50px;
+}
+
+
+
+    .bordered td, .bordered th {
+        border-left: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+        font-size: 24px;
+    }
+
+    .bordered th {
+        color: black;
+        background-color: #f7f7f7;
+        -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        border-top: none;
+        text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    }
+
+        .bordered td:first-child, .bordered th:first-child {
+            border-left: none;
+        }
+
+        .bordered th:first-child {
+            -moz-border-radius: 6px 0 0 0;
+            -webkit-border-radius: 6px 0 0 0;
+            border-radius: 6px 0 0 0;
+        }
+
+        .bordered th:last-child {
+            -moz-border-radius: 0 6px 0 0;
+            -webkit-border-radius: 0 6px 0 0;
+            border-radius: 0 6px 0 0;
+        }
+
+        .bordered th:only-child {
+            -moz-border-radius: 6px 6px 0 0;
+            -webkit-border-radius: 6px 6px 0 0;
+            border-radius: 6px 6px 0 0;
+        }
+
+    .bordered tr:last-child td:first-child {
+        -moz-border-radius: 0 0 0 6px;
+        -webkit-border-radius: 0 0 0 6px;
+        border-radius: 0 0 0 6px;
+    }
+
+    .bordered tr:last-child td:last-child {
+        -moz-border-radius: 0 0 6px 0;
+        -webkit-border-radius: 0 0 6px 0;
+        border-radius: 0 0 6px 0;
+    }
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
