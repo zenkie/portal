@@ -2,158 +2,28 @@
 <%@ include file="/html/nds/common/init.jsp" %>
 <%
   int cu= Tools.getInt(request.getParameter("cu"),-1);
-  int cs= Tools.getInt(request.getParameter("cs"),-1);
-  int un= Tools.getInt(request.getParameter("un"),-1);
+  int cs=Tools.getInt(request.getParameter("cs"),-1);
+  int un=Tools.getInt(request.getParameter("un"),-1);
   int pn= Tools.getInt(request.getParameter("pn"),-1);
   String cp=(String)request.getParameter("cp");
   SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-  Date expdate= df.parse((String)request.getParameter("exp"));
+  Date expdate=df.parse((String)request.getParameter("exp"));
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-.title{
-width: 939px;
-overflow: hidden;
-right: 200px;
-position: absolute;
-}
-.main {
-width: 100%;
-height: 400px;
-background: no-repeat left #1670A5;
-position: absolute;
-top: 100px;
-background-position: 199px 0px;
-}
-#bottom {
-padding-bottom: 0px;
-padding-left: 0px;
-padding-right: 0px;
-padding-top: 510px;
-clear: both;
-margin: 0 auto;
-left: 955px;
-top: 438px;
-width: 604px;
-}
-.bottom-logo{
-background: url(/images/bottom.gif) no-repeat center;
-/*position: absolute;*/
-width: 87px;
-height: 20px;
-/*left: 333px;*/
-float: left;
-display: block;
-}
-#bottom-right {
-padding-bottom: 0px;
-padding-top: 0px;
-color: #999999;
-font-size: 12px;
-text-align: center;
-}
-a.bottom-text {
-    color: #FF6600;
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    text-decoration: underline;
-}
-a:link,a:visited{
- text-decoration:none;  /*超链接无下划线*/
-}
-</style>
-<style>
-
-table {
-*border-collapse: collapse; /* IE7 and lower */
-border-spacing: 0;
-width: 60%;
-margin:auto;
-}
-
-.bordered {
-border: solid #ccc 1px;
--moz-border-radius: 6px;
--webkit-border-radius: 6px;
-border-radius: 6px;
--webkit-box-shadow: 0 1px 1px #ccc;
--moz-box-shadow: 0 1px 1px #ccc;
-box-shadow: 0 1px 1px #ccc;
-}
-
-
-
-.bordered td, .bordered th {
-border-left: 1px solid #ccc;
-border-top: 1px solid #ccc;
-padding: 10px;
-text-align: left;
-font-size: 24px;
-}
-
-.bordered th {
-	color: black;
-background-color: #dce9f9;
--webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
--moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
-border-top: none;
-text-shadow: 0 1px 0 rgba(255,255,255,.5);
-}
-
-.bordered td:first-child, .bordered th:first-child {
-border-left: none;
-}
-
-.bordered th:first-child {
--moz-border-radius: 6px 0 0 0;
--webkit-border-radius: 6px 0 0 0;
-border-radius: 6px 0 0 0;
-}
-
-.bordered th:last-child {
--moz-border-radius: 0 6px 0 0;
--webkit-border-radius: 0 6px 0 0;
-border-radius: 0 6px 0 0;
-}
-
-.bordered th:only-child{
--moz-border-radius: 6px 6px 0 0;
--webkit-border-radius: 6px 6px 0 0;
-border-radius: 6px 6px 0 0;
-}
-
-.bordered tr:last-child td:first-child {
--moz-border-radius: 0 0 0 6px;
--webkit-border-radius: 0 0 0 6px;
-border-radius: 0 0 0 6px;
-}
-
-.bordered tr:last-child td:last-child {
--moz-border-radius: 0 0 6px 0;
--webkit-border-radius: 0 0 6px 0;
-border-radius: 0 0 6px 0;
-}
-
-
-
-
-
-</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>注册成功</title>
+<link rel="stylesheet" href="/html/nds/css/prg.css" type="text/css" />
 </head>
 <body>
 <div width=100% margin:0 auto>	
 <div class="title">
-<h4 class="Logo"><img src="/images/left.gif" alt="伯俊logo"></h4>
+<h4 class="Logo"><img src="/images/newimages/home_logo.png" alt="伯俊logo" title="" /></h4>
 </div>
 <div class="main" style="text-align:center;">
 <font color="#ffffff">
-<h1>BOS注册产品信息</h1>
+<h1>Portal注册产品信息</h1>
 <h2>客户名称：<span><%=cp%></span></h2>
 <table class="bordered">
 <thead>
@@ -180,7 +50,7 @@ border-radius: 0 0 6px 0;
 <ul><font color="yellow">当前点数已超过证书授权，系统将于1小时时候自动关闭！</font></ul>
 </div>
 <div id="bottom">
-<div id="bottom-right">&copy;2008-2014上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
+<div id="bottom-right">&copy;2008-<%=Calendar.getInstance().get(Calendar.YEAR)%>上海伯俊软件科技有限公司 版权所有 了解更多产品请点击:<a class="bottom-text" target="_parent" href="http://www.burgeon.com.cn">www.burgeon.com.cn</a></div>
 </div>
 </div>
 </body>
