@@ -1,18 +1,16 @@
 <%@ page language="java" pageEncoding="utf-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<table border="0" cellpadding="0" cellspacing="2" id="scrolltb">
-<tr>
-<td><input type="checkbox" id="chk_select_all" value="1" onclick="pc.selectAll()"> <%= PortletUtils.getMessage(pageContext, "select-all",null)%></td>
+<div class="pagination-toolbar" border="0" cellpadding="0" cellspacing="2" id="scrolltb">
+<input type="checkbox" id="chk_select_all" class="pagination-checkbox" value="1" onclick="pc.selectAll()"> <%= PortletUtils.getMessage(pageContext, "select-all",null)%>
 <%/*if(table.isSubTotalEnabled()){ %>
-<td><input type="checkbox" id="chk_select_all_fullrange" value='1' onclick="pc.toggleSubTotal()"><%= PortletUtils.getMessage(pageContext, "show-total",null)%></td>
+<input type="checkbox" id="chk_select_all_fullrange" class="pagination-checkbox" value='1' onclick="pc.toggleSubTotal()"><%= PortletUtils.getMessage(pageContext, "show-total",null)%>
 <%}*/%>
-<td id="begin_btn" onclick="pc.scrollPage('begin_btn')"><img src="<%=NDS_PATH%>/images/begin.gif" width="16" height="16"></td>
-<td id="prev_btn" onclick="pc.scrollPage('prev_btn')"><img src="<%=NDS_PATH%>/images/back.gif" width="16" height="16"></td>
-<td id="next_btn" onclick="pc.scrollPage('next_btn')"><img src="<%=NDS_PATH%>/images/next.gif" width="16" height="16"></td>
-<td id="end_btn" onclick="pc.scrollPage('end_btn')"><img src="<%=NDS_PATH%>/images/end.gif" width="16" height="16"></td>
-<td>
+<span id="begin_btn" onclick="pc.scrollPage('begin_btn')"><img class="pagination-page-begin" src="<%=NDS_PATH%>/images/begin.gif" width="16" height="16"></span>
+<span id="prev_btn" onclick="pc.scrollPage('prev_btn')"><img class="pagination-page-back" src="<%=NDS_PATH%>/images/back.gif" width="16" height="16"></span>
+<span id="next_btn" onclick="pc.scrollPage('next_btn')"><img class="pagination-page-next" src="<%=NDS_PATH%>/images/next.gif" width="16" height="16"></span>
+<span id="end_btn" onclick="pc.scrollPage('end_btn')"><img class="pagination-page-end" src="<%=NDS_PATH%>/images/end.gif" width="16" height="16"></span>
 <%= PortletUtils.getMessage(pageContext, "show-page-number",null)%>
-<select size="1" id="range_select" onChange="pc.scrollPage('range_select')">
+<select class="pagination-page-list" size="1" id="range_select" onChange="pc.scrollPage('range_select')">
 <%
 int[] selectRanges= QueryUtils.SELECT_RANGES;
 for(int i =0;i<selectRanges.length;i++){
@@ -31,14 +29,12 @@ some company does not want to have edit feature here
 */
 if(canModify && listEditable){
 %>
-<a href='javascript:pc.switchView()'>【<span class="link_cn" id="switch-view-txt"><%=(listViewPermissionType==3? PortletUtils.getMessage(pageContext, "read-only-view",null):PortletUtils.getMessage(pageContext, "modify-view",null))%></span>】</a>
+<a class="pagination-switchview" href='javascript:pc.switchView()'>【<span class="link_cn" id="switch-view-txt"><%=(listViewPermissionType==3? PortletUtils.getMessage(pageContext, "read-only-view",null):PortletUtils.getMessage(pageContext, "modify-view",null))%></span>】</a>
 <%}%>
-<a href='javascript:pc.refreshGrid()'>【<span class="link_cn"><%= PortletUtils.getMessage(pageContext, "refresh",null)%></span>】</a>
+<a class="pagination-refresh" href='javascript:pc.refreshGrid()'>【<span class="link_cn"><%= PortletUtils.getMessage(pageContext, "refresh",null)%></span>】</a>
 <span id="txtRange"></span>
 &nbsp;-&nbsp;<%=table.getDescription(locale)%>
-
-</td>
-</tr></table>
+</div>
 <script>
 	createButton(document.getElementById("begin_btn"));
 	createButton(document.getElementById("prev_btn"));

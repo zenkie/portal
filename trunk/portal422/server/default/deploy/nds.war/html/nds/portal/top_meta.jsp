@@ -91,7 +91,6 @@
 <link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/aple_menu.css" />
 <!--link type="text/css" rel="StyleSheet" href="<%=userWeb.getThemePath()%>/css/pag-tab.css" /-->
 <link type="text/css" href="/html/nds/js/jquery1.3.2/css/smoothness/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
-<link type="text/css" rel="StyleSheet" href="/html/nds/js/jdate/My97DatePicker/skin/WdatePicker.css"/>
 <link type="text/css" rel="StyleSheet" href="/html/nds/js/potips/tip-yellowsimple/tip-yellowsimple.css">
 <link type="text/css" rel="StyleSheet" href="/html/nds/js/potips/tip-green/tip-green.css">
 <link type="text/css" rel="stylesheet" href="/html/nds/js/jqzoom/css/jquery.jqzoom.css"/>
@@ -112,4 +111,10 @@
 <!--paco 2014-6-24 add end-->
 <%}//end JAVASCRIPT_FAST_LOAD
 %>
+<!-- portal2.0 ÐÂÔöjsÓëcss-->
+<script type="text/javascript" src="/html/nds/js/scrollbar/perfect-scrollbar-0.4.10.with-mousewheel.min.js"></script>
+<link type="text/css" rel="stylesheet" href="/html/nds/css/animation.css">
+<link type="text/css" rel="stylesheet" href="/html/nds/js/scrollbar/perfect-scrollbar-0.4.10.min.css" />
+<script language="javascript" src="/html/nds/js/theme.js"></script>
+<script type="text/javascript" src="/html/nds/js/im.client.js"></script>
 <title><%=userWeb.getClientDomainName()%></title>

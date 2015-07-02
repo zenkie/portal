@@ -41,12 +41,12 @@ if(mu_favorites.size()>0){
 		String	fa_rpt=(String)favs.get(2);
 		Object	fa_tab=favs.get(3);
 		String fa_tabimg = new String();
-		if(fa_rpt.equals("Y"))fa_tabimg="<img src='/html/nds/images/cxtab.gif' style='height:16px;width:20px;'/>";
+		if(fa_rpt!=null && fa_rpt.equals("Y"))fa_tabimg="<img src='/html/nds/images/cxtab.gif' style='height:16px;width:20px;'/>";
 
 		if(fa_tab instanceof Table){
 			fa_tableId =((Table)fa_tab).getId(); 
 			fa_tdesc=((Table)fa_tab).getDescription(locale);
-			famus=famus+"<div class=\"accordion_headings\">"+fa_tabimg+"<input type=\"checkbox\" value=\""+fa_tableId+"\" class=\"fa_mu\"/><a onclick=\""+fa_muac+"\">>"+StringUtils.escapeForXML(fa_tdesc)+"</a></div>";
+			famus=famus+"<div class=\"favorite_item\">"+fa_tabimg+"<input type=\"checkbox\" value=\""+fa_tableId+"\" class=\"fa_mu\"/><a onclick=\""+fa_muac+"\">>"+StringUtils.escapeForXML(fa_tdesc)+"</a></div>";
 		}	
 	}	
 }

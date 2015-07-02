@@ -20,7 +20,6 @@ if(userWeb==null || userWeb.isGuest()){
    String istree=userWeb.getUserOption("ISTREE","N");
    if(url!=null){
 %>
-<jsp:include page="<%=url%>" flush="true" />
 <%	}%>
 <table><tr><td>
 <script type="text/javascript">
@@ -31,13 +30,18 @@ if(userWeb==null || userWeb.isGuest()){
 					var tree=pc.createTree("<%=desc%>","/html/nds/portal/tablecategory.xml.jsp?id=<%=catId%>", <%=(url==null?"null":"\"javascript:pc.navigate('"+url+"')\"")%>,false);
 				}else{
 					jQuery.post("/html/nds/portal/tablecategoryout.jsp?id=<%=catId%>",
-						function(data){
+						function(data,b,response){
 							var result=data;
 							//alert(result);
 							//alert(result.xml);
+							var xml = result.xml;
+							xml = xml==null?response.responseText:xml;//兼容ie11
 							
 							changeClass();
-							jQuery("#portal_middle_left_smenu").html(result.xml);
+							var wrapper = jQuery('<div id="myscroll_container" style="height:100%;overflow:hidden;"></div>');
+							wrapper.html(xml);
+							jQuery("#portal_middle_left_smenu").empty().append(wrapper);
+							commjs_registCustomerScrollBar(wrapper,{suppressScrollX:true})						
 							try{
 								loadIndex();
 							}catch(ex){}
@@ -48,9 +52,10 @@ if(userWeb==null || userWeb.isGuest()){
 							//jQuery("#rpt-list-content").css("overflow-y","hidden");
 							//jQuery("#gamma-tab").remove();
 							var act=0;
-							//var fa_show=jQuery("#fav_show").val();
+							var fa_show=jQuery("#fav_show").val();
 							//alert(fa_show);
-							if($("mu_favorite").childElementCount>0&&fa_show!='1'){var act=0;}
+							if($("menuList").childElementCount>0&&fa_show!='1'){ act=0;}
+							
 							jQuery("#tab_accordion").accordion({ header: "h3",collapsible:true,autoHeight:true,navigation:true,active:act});
 								//.sortable({
 								//		axis: "y",

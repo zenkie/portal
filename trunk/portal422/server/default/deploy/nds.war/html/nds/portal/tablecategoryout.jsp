@@ -42,7 +42,7 @@ String	fa_muac=(String)favs.get(1);
 String	fa_rpt=(String)favs.get(2);
 Object	fa_tab=favs.get(3);
 String fa_tabimg = new String();
-if(fa_rpt.equals("Y"))fa_tabimg="<img src='/html/nds/images/cxtab.gif' style='height:16px;width:20px;'/>";
+if(fa_rpt !=null && fa_rpt.equals("Y"))fa_tabimg="<img src='/html/nds/images/cxtab.gif' style='height:16px;width:20px;'/>";
 
 if(fa_tab instanceof Table){
 		fa_tableId =((Table)fa_tab).getId(); 
@@ -98,25 +98,15 @@ for(int e=0;e<tab.size();e++){
 		}
 	}
 }
-//自适应调整OUTLOOK 菜单高度
-
-//System.out.println(Inable);
-//height:300px;
-if(tab.size()>=12&&Inable!=null){
-	tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div style=\"max-height:566px\">"+Inable+"</div></div>";
-	}else if(Inable != null && Inable.length() != 0){
-  tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div>"+Inable+"</div></div>";
+	//自适应调整OUTLOOK 菜单高度
+	if(Inable != null && Inable.length() != 0){
+		tabout="<div><h3 class='menu-accordion-header'><span class='menu-accordion-icon iconfont icon-folder2'></span><label>"+ACCORDION_name+"</label></h3><div id='menuList'>"+Inable+"</div></div>";
 	}else{
-	tabout=" ";
+		tabout=" ";
 	}
-//System.out.println(tabout);
- /*
-tabout="<div><h3><a>"+ACCORDION_name+"</a></h3><div>"+Inable+"</div></div>";
-*/
-if(onlyfa==null){
-tabout1=tabout1+tabout+Inaction;
+	if(onlyfa==null){
+		tabout1=tabout1+tabout+Inaction;
+	}
 }
-}
-//System.out.println(tabout1);
 out.print("<div id=\"tab_accordion\">"+tabout1+"</div>");
 %>

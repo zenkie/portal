@@ -15,9 +15,7 @@ try{
 			<li class="even-row">
 				<%= PortletUtils.getMessage(pageContext, "no-data",null)%>
 			</li>
-		<%}// end getRowCount=0
-		QueryResultMetaData meta=result.getMetaData();
-
+		<%}
 		String queryPath= NDS_PATH+"/sheet/object.jsp?input=false&table=";
 		String mainTablePath= dataConfig.getMainURL();
 		String mainTarget=dataConfig.getMainTarget();
@@ -30,7 +28,6 @@ try{
 		boolean whiteBg= false;
 		
 		int pkValue;
-		boolean showDiv=false;//(meta.getColumnCount()>2);
 		while(result.next()){
 			//if(serialno%5==0) whiteBg = (whiteBg==false);
 			whiteBg = (whiteBg==false);
@@ -39,66 +36,13 @@ try{
 			%>
 			<li id='<%=namespace%>li_<%=serialno%>' class='<%=(whiteBg?"even-row":"odd-row")%> not_<%=result.getObject(2)%>'>
 				<%
-				String resPkId = null;
-				String tdAttributes;
-				Column colmn;
-				pkValue= Tools.getInt(result.getObject(1),-1);
-				String columnDataShort;
-				for(int i=1;i< meta.getColumnCount();i++){ // first column should always be PK
-					tdAttributes="";
-					String columnData=(String)result.getObject(i+1);
-					String originColumnData= result.getString(i+1, false);
-					colmn=manager.getColumn(meta.getColumnId(i+1));
-					if(colmn.getName().equals("PRIORITYRULE")) continue;
-					String url=null;
-					int objId= result.getObjectID(i+1);
-					String target=null;
-					if(objId!=-1){
-						String s=(String)urls.get(new Integer(i+1)) ;
-						if( s!=null) {
-							url= contextPath+ s+"?id="+objId;
-						}else{
-							url=queryPath+ colmn.getTable().getId() +"&id="+objId;
-						}
-						url="javascript:showObject(\""+url+"\")";
-					}
-					if(i==2){
-						// alway set first column to PK url
-						objId=pkValue;
-						url= mainTablePath.replaceAll("@ID@",String.valueOf(pkValue));
-						tdAttributes="id='td_obj_"+ pkValue + "'";
-						if("_popup".equals(mainTarget))
-							url="javascript:showObject(\""+url+"\")";
-						else
-							target=mainTarget;
-					}
-					columnDataShort=columnData;
-					//Tools.isHTMLAnchorTag(columnData)
-					/*if(uiConfig.getColumnLength()!=null){
-						columnDataShort= StringUtils.shortenInBytes(columnData, uiConfig.getColumnLength()[i-1]);
-					}else{
-						columnDataShort= StringUtils.shortenInBytes(columnData, MAX_COLUMNLENGTH_WHEN_TOO_LONG);
-					}*/
-					if(url!=null) columnData="<a "+ 
-						(columnDataShort.length()==columnData.length()?"": "title='"+columnData+"' ")
-						+(target==null?"":"target='"+target+"' ") +"href='"+ url+"'>"+ columnDataShort + "</a>";
-					nds.web.alert.ColumnAlerter ca=(nds.web.alert.ColumnAlerter)colmn.getUIAlerter();
-					if(ca!=null){
-						String rowCss=ca.getRowCssClass(result, i+1, colmn);
-						if(nds.util.Validator.isNotNull(rowCss ))tableAlertHolder.add(namespace+"li_"+serialno, rowCss);
-					}
-					if(showDiv){%>
-						<div class="lidiv_<%=i%>">
-							<%=columnData%>
-						</div>	
-						<%}else{%>
-						<%=columnData%>
-
-							<%}
-					
-				}// for循环
+				Object id = result.getObject(1);
+				String columnData=(String)result.getObject(2);
 				%>
-			
+				<a href="javascript:im.dlgo2(10083,<%=id%>)">
+				<%=columnData%>
+				</a>
+
 			</li>
 		<%}//while
 		if(!"NONE".equals(uiConfig.getMoreStyle())  && !"TITLE".equals(uiConfig.getMoreStyle())  ){
