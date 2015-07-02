@@ -9,7 +9,7 @@ for(int i=0;i< validCommands.size();i++){
 	}
 	if(btn==null) throw new Error("Internal error: command not found:"+ cmd);
 %>
-	<%=btn.toHREFbyimg("table-buttons2")%>
+	<%=btn.toHREFbyimg("table-buttons2 iconfont icon-"+btn.getName().toLowerCase())%>
 <%	
 }
 %>

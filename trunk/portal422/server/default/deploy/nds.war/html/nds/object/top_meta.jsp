@@ -105,7 +105,11 @@ if(BrowserSniffer.is_mozilla(request)){%>
 <%}%>
 <!--script type="text/javascript" src="/flash/FABridge.js"></script>
 <script type="text/javascript" src="/flash/playErrorSound.js"></script-->
-
+<!-- portal2.0 ÐÂÔöjsÓëcss-->
+<script type="text/javascript" src="/html/nds/js/scrollbar/perfect-scrollbar-0.4.10.with-mousewheel.min.js"></script>
+<link type="text/css" rel="stylesheet" href="/html/nds/css/animation.css">
+<link type="text/css" rel="stylesheet" href="/html/nds/js/scrollbar/perfect-scrollbar-0.4.10.min.css" />
+<script language="javascript" src="/html/nds/js/theme.js"></script>
 <title><%=table==null?"Object":table.getCategory().getName()+ " - "+ table.getDescription(locale)%> - Agile NEA</title>
 <%
 String fkURLTarget= ((Configurations)WebUtils.getServletContextManager().getActor(nds.util.WebKeys.CONFIGURATIONS)).getProperty("object.url.target");

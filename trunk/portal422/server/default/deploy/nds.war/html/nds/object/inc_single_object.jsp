@@ -9,6 +9,7 @@
     	columnIndex++;
         column=(Column)columns.get(i);
         String showcomment=column.getShowcomment();
+		showcomment = showcomment==null?"N":showcomment;
         //out.print("showcomment "+showcomment);
         ds= column.getDisplaySetting();
         String attributesText="";//Validator.isNull(column.getRegExpression())? " ": column.getRegExpression()+" ";
