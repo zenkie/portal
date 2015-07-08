@@ -436,6 +436,7 @@ input[type="button"]:hover {
 .index-portal-content {
     height: 100% !important;
     overflow: hidden;
+    width:auto !important;
 }
 
 
@@ -1114,7 +1115,8 @@ input[type=button]:hover, .button:hover, .cbutton:hover {
 
 .button, .cbutton, input[type=button] {
     height: 24px; /*2015-4-24�����ﾲ���޸�*/
-    display: inline-block;
+    display: inline-block !important;
+	float:none !important;
     line-height: 24px; /*2015-4-24�����ﾲ���޸�*/
     min-width: 54px;
     text-align: center !important;
@@ -1639,14 +1641,18 @@ input {
 }
 
 .ui-tabs-nav li a {
-    display: inline-block;
     height: 100%;
     padding: 0 10px;
+    display: inline-block;
+    display:-moz-inline-stack;zoom:1;
+    *display:inline;
     border-top: 2px solid #eee;
 }
 
 .ui-tabs-nav li {
     display: inline-block;
+    display:-moz-inline-stack;zoom:1;
+    *display:inline;
     background: #ccc;
     cursor: pointer;
     height: 26px;

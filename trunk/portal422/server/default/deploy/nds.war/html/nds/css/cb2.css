@@ -98,6 +98,9 @@
     /*padding:			1px;*/
     color: GrayText;
 	display:inline-block;
+    display:-moz-inline-stack;
+    zoom:1;
+    *display:inline;
     filter: alpha(opacity=50);
     -moz-opacity: 0.5;
     -khtml-opacity: 0.5;

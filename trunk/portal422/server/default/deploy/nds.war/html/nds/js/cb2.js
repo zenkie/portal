@@ -39,17 +39,17 @@ if (window.moz) {
 
 function createButton(el) {
 
-	el.attachEvent("onmouseover",	createButton.overCoolButton);
-	el.attachEvent("onmouseout",	createButton.outCoolButton);
-	el.attachEvent("onmousedown",	createButton.downCoolButton);
-	el.attachEvent("onmouseup",		createButton.upCoolButton);
-	el.attachEvent("onclick",		createButton.clickCoolButton);
-	el.attachEvent("ondblclick",	createButton.clickCoolButton);
-	el.attachEvent("onkeypress",	createButton.keypressCoolButton);
-	el.attachEvent("onkeyup",		createButton.keyupCoolButton);
-	el.attachEvent("onkeydown",		createButton.keydownCoolButton);
-	el.attachEvent("onfocus",		createButton.focusCoolButton);
-	el.attachEvent("onblur",		createButton.blurCoolButton);
+	addElementEvent(el,"mouseover",createButton.overCoolButton);
+	addElementEvent(el,"mouseout",	createButton.outCoolButton);
+	addElementEvent(el,"mousedown",	createButton.downCoolButton);
+	addElementEvent(el,"mouseup",		createButton.upCoolButton);
+	addElementEvent(el,"click",		createButton.clickCoolButton);
+	addElementEvent(el,"dblclick",	createButton.clickCoolButton);
+	addElementEvent(el,"keypress",	createButton.keypressCoolButton);
+	addElementEvent(el,"keyup",		createButton.keyupCoolButton);
+	addElementEvent(el,"keydown",		createButton.keydownCoolButton);
+	addElementEvent(el,"focus",		createButton.focusCoolButton);
+	addElementEvent(el,"blur",		createButton.blurCoolButton);
 	
 	el.className = "coolButton";
 	
@@ -70,13 +70,28 @@ function createButton(el) {
 	return el;
 }
 
+/**
+ * 这里兼容所有版本的ie浏览器的事件绑定
+ */
+function addElementEvent(element,type,handler){
+	if(element==null){return;}
+	if(element.addEventListener){
+		element.addEventListener(type,handler);
+	}else if(element.attachEvent){
+		element.attachEvent('on'+type,handler);
+	}else{
+		element['on'+type] = handler;
+	}
+}
+
 createButton.LEFT = window.moz ? 0 : 1;
 
 /* event listeners */
 
-createButton.overCoolButton = function () {
-	var toEl = createButton.getParentCoolButton(window.event.toElement);
-	var fromEl = createButton.getParentCoolButton(window.event.fromElement);
+createButton.overCoolButton = function (ev) {
+    ev = ev || window.event;
+    var toEl = createButton.getParentCoolButton(ev.toElement);
+    var fromEl = createButton.getParentCoolButton(ev.fromElement);
 	if (toEl == fromEl || toEl == null) return;
 	
 	toEl._over = true;
@@ -86,9 +101,10 @@ createButton.overCoolButton = function () {
 	createButton.setClassName(toEl);
 };
 
-createButton.outCoolButton = function () {
-	var toEl = createButton.getParentCoolButton(window.event.toElement);
-	var fromEl = createButton.getParentCoolButton(window.event.fromElement);
+createButton.outCoolButton = function (ev) {
+    ev = ev || window.event;
+	var toEl = createButton.getParentCoolButton(ev.toElement);
+	var fromEl = createButton.getParentCoolButton(ev.fromElement);
 	if (toEl == fromEl || fromEl == null) return;
 	
 	fromEl._over = false;
@@ -99,10 +115,11 @@ createButton.outCoolButton = function () {
 	createButton.setClassName(fromEl);
 };
 
-createButton.downCoolButton = function () {
-	if (window.event.button != createButton.LEFT) return;
+createButton.downCoolButton = function (ev) {
+    ev = ev || window.event;
+    if (ev.button != createButton.LEFT) return;
 	
-	var el = createButton.getParentCoolButton(window.event.srcElement);
+    var el = createButton.getParentCoolButton(ev.srcElement);
 	if (el == null) return;
 	
 	el._down = true;
@@ -112,10 +129,11 @@ createButton.downCoolButton = function () {
 	createButton.setClassName(el);
 };
 
-createButton.upCoolButton = function () {
-	if (window.event.button != createButton.LEFT) return;
+createButton.upCoolButton = function (ev) {
+    ev = ev || window.event;
+    if (ev.button != createButton.LEFT) return;
 	
-	var el = createButton.getParentCoolButton(window.event.srcElement);
+    var el = createButton.getParentCoolButton(ev.srcElement);
 	if (el == null) return;
 	
 	el._down = false;
@@ -128,20 +146,22 @@ createButton.upCoolButton = function () {
 		createButton.setClassName(el);
 };
 
-createButton.clickCoolButton = function () {
- 	var el = createButton.getParentCoolButton(window.event.srcElement);
+createButton.clickCoolButton = function (ev) {
+    ev = ev || window.event;
+    var el = createButton.getParentCoolButton(ev.srcElement);
 	el.onaction = el.getAttribute("onaction");
 	if (el == null || !el._enabled || el.onaction == "" || el.onaction == null) return;
 	
 	if (typeof el.onaction == "string")
 		el.onaction = new Function ("event", el.onaction);
 	
-	el.onaction(window.event);
+	el.onaction(ev);
 };
 
-createButton.keypressCoolButton = function () {
-	var el = createButton.getParentCoolButton(window.event.srcElement);
-	if (el == null || !el._enabled || window.event.keyCode != 13) return;
+createButton.keypressCoolButton = function (ev) {
+    ev = ev || window.event;
+    var el = createButton.getParentCoolButton(ev.srcElement);
+    if (el == null || !el._enabled || ev.keyCode != 13) return;
 	
 	el.setValue(!el._value);
 	
@@ -150,18 +170,20 @@ createButton.keypressCoolButton = function () {
 	if (typeof el.onaction == "string")
 		el.onaction = new Function ("event", el.onaction);
 	
-	el.onaction(window.event);
+	el.onaction(ev);
 };
 
-createButton.keydownCoolButton = function () {
-	var el = createButton.getParentCoolButton(window.event.srcElement);
-	if (el == null || !el._enabled || window.event.keyCode != 32) return;
+createButton.keydownCoolButton = function (ev) {
+    ev = ev || window.event;
+    var el = createButton.getParentCoolButton(ev.srcElement);
+    if (el == null || !el._enabled || ev.keyCode != 32) return;
 	createButton.downCoolButton();
 };
 
-createButton.keyupCoolButton = function () {
-	var el = createButton.getParentCoolButton(window.event.srcElement);
-	if (el == null || !el._enabled || window.event.keyCode != 32) return;
+createButton.keyupCoolButton = function (ev) {
+    ev = ev || window.event;
+    var el = createButton.getParentCoolButton(ev.srcElement);
+    if (el == null || !el._enabled || ev.keyCode != 32) return;
 	createButton.upCoolButton();
 	
 	//el.setValue(!el._value);	// is handled in upCoolButton()
@@ -171,17 +193,19 @@ createButton.keyupCoolButton = function () {
 	if (typeof el.onaction == "string")
 		el.onaction = new Function ("event", el.onaction);
 	
-	el.onaction(window.event);
+	el.onaction(ev);
 };
 
-createButton.focusCoolButton = function () {
-	var el = createButton.getParentCoolButton(window.event.srcElement);
+createButton.focusCoolButton = function (ev) {
+    ev = ev || window.event;
+	var el = createButton.getParentCoolButton(ev.srcElement);
 	if (el == null || !el._enabled) return;
 	createButton.setClassName(el);
 };
 
-createButton.blurCoolButton = function () {
-	var el = createButton.getParentCoolButton(window.event.srcElement);
+createButton.blurCoolButton = function (ev) {
+    ev = ev || window.event;
+    var el = createButton.getParentCoolButton(ev.srcElement);
 	if (el == null) return;
 	
 	createButton.setClassName(el)

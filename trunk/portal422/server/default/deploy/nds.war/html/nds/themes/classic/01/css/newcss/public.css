@@ -548,6 +548,14 @@ table {
     vertical-align: bottom;
 }
 
+.tip-loading {
+    background-color: #E8E5E5;
+    background-image: url(../../images/tip-loading.gif);
+    background-repeat: no-repeat;
+    padding-left: 67px !important;
+    color: #1F4A98 !important;
+}
+
 .tip-box:hover {
     -moz-box-shadow: 0 0 12px #000;
     -webkit-box-shadow: 0 0 12px #000;
@@ -560,7 +568,7 @@ table {
 
 .tip-message {
     padding: 0px 5px;
-    text-align:left;
+    text-align: left;
 }
 
 .tip-box {
@@ -597,7 +605,7 @@ table {
     position: absolute;
     right: 10px;
     top: 0px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .tip-right {

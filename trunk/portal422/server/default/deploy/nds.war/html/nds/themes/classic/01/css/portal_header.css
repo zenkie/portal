@@ -10,7 +10,7 @@
 }
 
 * html body { /*IE6 hack*/
-    padding: 90px 0 24px 0; /*Set value to (HeightOfFrameDiv 0 0 0)*/
+    padding: 0px 0 0px 0; /*Set value to (HeightOfFrameDiv 0 0 0)*/
 }
 
 * html #portal-main { /*IE6 hack*/

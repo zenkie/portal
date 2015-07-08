@@ -1,4 +1,5 @@
-﻿/*****************************************************************
+﻿
+/*****************************************************************
  * 名称：Portal 主题全局脚本对象
  * 日期：2015-04-16
  * 版本：0.0.1
@@ -9,6 +10,8 @@
 
     var ThemeClass = function () { }
     var myGlobal = env.PortalTheme = new ThemeClass();
+
+    var Confiurature = { PlayAnimation: false };
 
     //切换动画列表
     var animationCss = [
@@ -178,6 +181,20 @@
     }
 
     /**
+     * 名称：是否播放弹出窗口动画，如果不执行则直接调用回掉函数，并且返回
+     */
+    ThemeClass.prototype.IsPlayAnimation = function (callback) {
+        if (Confiurature.PlayAnimation != true) {
+            setTimeout(function () {
+                callback && callback();
+            });
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * 名称:播放Portal弹出框载入动画
      * @param modal 弹出窗口最外层元素
      * @param config 默认配置 {inCss:'',outCss:''}
@@ -185,6 +202,7 @@
      */
     ThemeClass.prototype.PlayModalInAnimation = function (modal, config, callback) {
         try {
+            if (!this.IsPlayAnimation(callback)) { return; }
             modal = GetJqueryElement(modal);
             var apa = null;
             if (config && config.inCss) {
@@ -217,6 +235,7 @@
      */
     ThemeClass.prototype.PlayModalOutAnimation = function (modal, config, callback) {
         try {
+            if (!this.IsPlayAnimation(callback)) { return; }
             modal = GetJqueryElement(modal);
             var apa = null;
             if (config && config.inCss) {
@@ -233,6 +252,31 @@
         } catch (ex) {
             this.Log(ex.message);
             callback && callback();
+        }
+    }
+
+    /**
+     * 名称：显示一个top window的加载条
+     * @param message 要显示的提示信息 默认为：‘请稍后...'
+     */
+    ThemeClass.prototype.ShowLoading = function (message) {
+        message = message || '请稍后...';
+        var topWindow = top;
+        var topLoadingProcess = topWindow.__loadingProcess;
+        if (topLoadingProcess == null) {
+            var TipClass = top.PortalTheme.Tip.constructor;
+            topLoadingProcess = topWindow.__loadingProcess = new TipClass(-1);
+        }
+        topLoadingProcess.Message(message, 'tip-loading', -1);
+    }
+    /**
+     * 名称：关闭top wnidow的加载条
+     */
+    ThemeClass.prototype.CloseLoading = function () {
+        var topWindow = top;
+        var topLoadingProcess = topWindow.__loadingProcess;
+        if (topLoadingProcess) {
+            topLoadingProcess.Hidden();
         }
     }
 
@@ -312,7 +356,7 @@
         this.Init(timeout, tipPositionCls);
     }
     TipUtils.prototype.tipPositionCls = "tip-right";
-    TipUtils.prototype.timeout = 2500;
+    TipUtils.prototype.timeout = 2000;
     TipUtils.prototype.element = null;
     TipUtils.prototype.content = null;
     TipUtils.prototype.keepTimeout = true;
@@ -348,7 +392,7 @@
         var tip = this.element;
         if (tip) {
             this.keepTimeout = false;
-            AnimationMiddler.Animation(tip, 'translateToTop', function () { tip.style.display = "none"; });
+            AnimationMiddler.Animation(tip, 'translateToBottom', function () { tip.style.display = "none"; });
         }
     }
     //显示一个‘提示’提示信息
@@ -371,10 +415,11 @@
         clearTimeout(this.timer);
     }
     TipUtils.prototype.RunTimeout = function (timeout) {
-        if (this.keepTimeout) {
+        timeout = (timeout || this.timeout);
+        if (this.keepTimeout && timeout > 0) {
             var self = this;
             this.CancelTimeout();
-            this.timer = setTimeout(function () { self.Hidden(); }, (timeout || this.timeout));
+            this.timer = setTimeout(function () { self.Hidden(); }, timeout);
         }
     }
     TipUtils.prototype.OnClick = function (ev) {
@@ -509,6 +554,10 @@
             var eventNames = { 'webkit': 'webkitAnimationEnd', 'o': 'oAnimationEnd', 'ms': 'MSAnimationEnd' };
             prefix = GetPrefix();
             animationEnd = eventNames[prefix] || 'animationend';
+        }
+        if (!AnimationMiddler.SupportCSS3Animation()) {
+            var contaienr = document.documentElement || document.body;
+            contaienr.className = contaienr.className + " not-support-animation";
         }
     }
 

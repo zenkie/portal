@@ -13,7 +13,7 @@ max-height: 100%;
 }
 
 * html body { /*IE6 hack*/
-    padding: 40px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
 
 * html #objtb { /*IE6 hack*/
@@ -63,7 +63,7 @@ overflow: auto;
 
     #obj-top .buttons a {
         font-size: 12px !important;
-        font-family:: "Î¢ÈíÑÅºÚ"; /*Ëï¾²ÃÃÐÞ¸Ä2015-4-29*/
+        font-family: "Î¢ÈíÑÅºÚ"; /*Ëï¾²ÃÃÐÞ¸Ä2015-4-29*/
     }
 
     #obj-top .iconfont:before {
@@ -977,7 +977,6 @@ border-bottom: 1px solid #678FC2 !important;
         background: #6fb3e0;
         color: #fff;
         text-decoration: none;
-        float: left;
         margin-right: 6px;
         vertical-align: middle;
         padding-left: 10px;
@@ -985,6 +984,8 @@ border-bottom: 1px solid #678FC2 !important;
         text-align: center;
         letter-spacing: 1px;
         white-space: nowrap;
+        display:inline-block;
+        *display:inline;
     }
 
     .buttons img {

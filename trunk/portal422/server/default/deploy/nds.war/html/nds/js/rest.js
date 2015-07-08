@@ -134,6 +134,21 @@ PortalClient.prototype = {
 		return this.sendRequest(a, callback);
 	},
 	/**
+	@param table
+	@param columnslist need query column
+	@param qlcid id of QueryListConfig table
+	@param expr filter expression
+	@param maxCount max count of returned records, not bigger than server max value
+	@param callback function, omit for synchronous call, function should have one argument for RestResponse object{code,message,data}
+	*/
+	queryaddcolumn:function(table,columnslist,qlcid,expr,maxCount, callback){
+		var params={table:table,columns:columnslist,qlcid:qlcid,params: (expr==null?null:expr), range:maxCount};
+		var trans={id:1, command:"Query",params:params};
+		var a=new Array(1);
+		a[0]=trans;
+		return this.sendRequest(a, callback);
+	},
+	/**
 	Send request and return Array of TransactionResponse, or raise error
 	@param transactions should be array of Object, each contains a Transaction defined in API doc
 	@param callback function, omit for synchronous call, function should have one argument for RestResponse object{code,message,data}

@@ -88,7 +88,7 @@ PrintControl.prototype = {
 			
 			
 		}else{
-			popup_window(f);
+			popup_window(f,1130,500,true);
 		}
 	},
 	

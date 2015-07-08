@@ -219,6 +219,14 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     left: -1.4%;
 }
 
+.not-support-animation .spinner {
+    display: none !important;
+}
+
+.not-support-animation #progress {
+    background: url(../themes/classic/01/images/tip-loading.gif) no-repeat center center !important;
+}
+
 .nav_left .fh2 {
     color: #438eb9;
     position: absolute;

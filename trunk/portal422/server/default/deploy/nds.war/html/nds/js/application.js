@@ -329,4 +329,104 @@ _p.setAttribute=function(sName,sValue,oParser)
 	}
 };
 
-application=new BiApplication();
+application = new BiApplication();
+
+//------------------------------------------------
+// 关闭窗口的通用组件 放在这里的原因是，考虑到几乎所有页面都会引用application.js 这样便于宏观控制窗口关闭
+//------------------------------------------------
+; (function (env) {
+    if (env.Alerts) {
+        return;
+    }
+    var jQuery = env.jQuery;
+    var ArtUtils = env.Alerts = env.ArtUtils = {};
+
+    ArtUtils.killAlert = function (inArtElement) {
+        this.close(inArtElement);
+    }
+
+    /**
+     * 名称：关闭窗口 可以兼容关闭一下场景的窗口： 
+     *    1.关闭使用art弹出不包含iframe的弹出窗口,
+     *    2.关闭art弹出窗口(包含iframe) 例如:iframe的contentWindow中的ArtUtils.close(document.body)
+     *    3.关闭window.open的新窗口
+     *    推荐用法：如果是直接绑定元素上的点击事件：例如:<input type="button" onclick="ArtUtils.close(this)" value="取消" />
+     *    ArtUtils.close(推荐使用就近的元素);
+     *    如果弹出的内容不是iframe或者不是window.open 请必须如此调用 ArtUtils.close(位于弹窗内的元素);
+     * @param inArtElement 位于窗口中的元素 如果没有传递参数 则默认值为调用close所在的window
+     */
+    ArtUtils.close = function (inArtElement) {
+        if (arguments.length == 0) {
+            inArtElement = window;
+        }
+        var inTarget = jQuery(inArtElement);
+        inTarget = inTargetRender(inTarget);
+        var modal = inTarget.parents("[data-portal-art-modal]:eq(0)");
+        if (modal.length > 0) {
+            closeWithoutIframeArtModal(inTarget);
+        } else {
+            closeWithIframeArtModal(inTarget);
+        }
+    }
+    /**
+     * 名称：关闭包含iframe的弹出窗口
+     */
+    function closeWithIframeArtModal(inTarget) {
+        var element = inTarget[0];
+        if (element) {
+            var nw = getElementWindow(element);
+            //如果是浏览器新建窗口页
+            if (nw.opener) {
+                nw.close();
+            } else if (nw.parent) {
+                //如果是art弹窗
+                var ifr = getIframeByWindow(nw);
+                ifr && closeWithoutIframeArtModal(nw.parent.jQuery(ifr));
+            } else {
+                closeWithoutIframeArtModal(inTarget);
+            }
+        }
+    }
+    /**
+     * 名称：关闭不包含iframe的弹出窗口
+     */
+    function closeWithoutIframeArtModal(inTarget) {
+        var container = inTarget.is("[data-portal-art-modal],body,document") ? inTarget : inTarget.parent();
+        var closeTarget = jQuery('<input data-art-dismiss="art" type="button" style="display:none;"></div>');
+        container.append(closeTarget);
+        closeTarget.click();//这里通过调用关闭代理进行关闭窗口 代理委托事件详情见于artDialog的deletes函数
+        closeTarget.remove();
+    }
+    /**
+     * 名称：处理inTarget
+     */
+    function inTargetRender(inTarget) {
+        var orignObj = inTarget[0];
+        if (orignObj.document) {
+            inTarget = jQuery(orignObj.document.body);
+        }
+        if (orignObj.body) {
+            inTarget = jQuery(orignObj.body);
+        }
+        return inTarget;
+    }
+    /**
+    * 名称：获取指定元素的window
+    */
+    function getElementWindow(element) {
+        var doc = element.ownerDocument;
+        var nw = doc.defaultView || doc.parentWindow;
+        return nw;
+    }
+    /**
+     * 名称：获取指定window的frameElement
+     */
+    function getIframeByWindow(nw) {
+        try {
+            return nw.frameElement;
+        } catch (ex) {
+            return null;
+        }
+    }
+
+})(window);

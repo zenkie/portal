@@ -64,8 +64,8 @@ fkQueryModel.setQueryindex(-1);
 <%if(!showAssignment){%>
 <span><%= LanguageUtil.get(pageContext, "audit-comments",null)%>:</span>
 <input type="text" class="audit_input" size="20" maxlength="255" name="comments" id="comments" value="">
-<a onclick="javascript:oa.submitAuditForm('accept')" class="button"><%= LanguageUtil.get(pageContext, "object.accept",null)%></a>
-<a href="" onclick="javascript:pc.submitAuditForm('reject')" class="button"><%= LanguageUtil.get(pageContext, "object.reject",null)%></a>
+<a href="javascript:void(0);" onclick="javascript:oa.submitAuditForm('accept')" class="button"><%= LanguageUtil.get(pageContext, "object.accept",null)%></a>
+<a href="javascript:void(0);" onclick="javascript:pc.submitAuditForm('reject')" class="button"><%= LanguageUtil.get(pageContext, "object.reject",null)%></a>
 <span class="shenpi_span"><%= LanguageUtil.get(pageContext, "assignee",null)%>:</span>
 <input type="text" class="audit_input" name="assignee" id="assignee">
 <!--<i class="search"><input name="" type="image" src="images/search.gif" /></i>-->
@@ -76,10 +76,10 @@ fkQueryModel.setQueryindex(-1);
 <script>
 	createButton(document.getElementById("user"));
 </script>
-	<a class="button" href="" onclick="pc.submitAuditForm('assign')"><%= LanguageUtil.get(pageContext, "object.assign",null)%></a>
+	<a class="button" href="javascript:void(0)" onclick="pc.submitAuditForm('assign')"><%= LanguageUtil.get(pageContext, "object.assign",null)%></a>
 
 <%}else{%>
-	<a class="button" href="" onclick="pc.submitAuditForm('cancel_assign')"><%= LanguageUtil.get(pageContext, "object.cancel-assign",null)%></a>
+	<a class="button" href="javascript:void(0)" onclick="pc.submitAuditForm('cancel_assign')"><%= LanguageUtil.get(pageContext, "object.cancel-assign",null)%></a>
 <%}%>	
 <%if(isOut){%>
 <span class="bg-neg-alert">	<%= LanguageUtil.get(pageContext, "is-out",null)%></span>
