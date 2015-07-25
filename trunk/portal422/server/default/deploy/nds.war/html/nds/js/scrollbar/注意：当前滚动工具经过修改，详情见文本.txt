@@ -1,0 +1,7 @@
+1.修复body注册成滚动插件，能正常工作
+2.修复不同浏览器下改插件也能正常工作
+3.具体修改参见 perfect-scrollbar.editor.beven.js
+
+添加一下方法：
+compactBodyScroll
+bindScrollHandler方法添加body的滚动兼容监听事件

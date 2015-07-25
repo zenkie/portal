@@ -23,7 +23,7 @@ PortalControl.prototype = {
 		};
 		try{
 			var tabs=new CategoryTabs(gMenuObjects);
-			$("portal_middle_left_fmenu").innerHTML="<a href='#' style='opacity:0.4' class='icon0-1' title='' onclick='pc.menu_toggle(this);'></a>";
+			$("portal_middle_left_fmenu").innerHTML="<a href='#' class='portal-icon arrow-normal' title='' onclick='pc.menu_toggle(this);'></a>";
 			$("portal_middle_right_menu").innerHTML=tabs.toString();
 			//查询功能按钮
 			//识别IE8 没有查询功能
@@ -2293,10 +2293,13 @@ PortalControl.prototype = {
 		//jQuery("#page-table-query").css("width","99%");
 		//jQuery("#separator-icon").attr("src","/html/nds/themes/classic/01/images/arrow-right.gif");
 		//jQuery("#leftToggler").attr("class","leftToggler2");
-		jQuery("#portal_middle_left").width(33);
-		jQuery("#portal_middle_left_fmenu :first-child").css({'opacity':0.4,'-webkit-transform':'rotate(180deg)'});
-		//jQuery("#hide_bar").attr("class","show_bar");
-		pc.resize();
+			var navRight = jQuery(".nav_right");
+            //jQuery("#portal_middle_left").width(33);
+            jQuery("#portal_middle_left").animate({ width: 33 }, function () {
+                navRight.css("display", "none");
+                jQuery("#portal_middle_left_fmenu :first-child").addClass("arrow-toggle").removeClass("arrow-normal");
+                pc.resize();
+            });
 	}else{
 		//jQuery("#portal-menu").css("display","block");
 		//jQuery("#leftToggler").height("100%");
@@ -2311,12 +2314,12 @@ PortalControl.prototype = {
 		//jQuery("#embed-lines").css("width",new_high);
 		//alert(new_high)
 		//e.style.width=new_high;
-		jQuery("#portal_middle_left").width(222);
-		jQuery("#portal_middle_left_fmenu :first-child").css({'opacity':0.4,'-webkit-transform':''});
-
-		pc.resize();
+        jQuery("#portal_middle_left").animate({ width: 222 }, function () {
+                jQuery("#portal_middle_left_fmenu :first-child").addClass("arrow-normal").removeClass("arrow-toggle");
+                pc.resize();
+            });
 	}
-   	$('portal-bottom').focus();
+   $('portal-bottom').focus();
  }
 };
 // define static main method
@@ -2562,11 +2565,13 @@ mufavorite.prototype = {
 					
 					var p_id;
 					var rows=response.data[0].rows;
+					var tabid;
 					for(var i=0;i<rows.length;i++){
 						p_id=rows[i][0];
+						tabid=values[i];
 						portalClient.deleteObject("MU_FAVORITE",p_id,"id",function(response){
 							if(!mu.checkResponse(response,0)){return;}
-							mu.flash_mufavorite(values[i]);
+							mu.flash_mufavorite(tabid);
 						});
 					}
 				});
@@ -2598,7 +2603,8 @@ mufavorite.prototype = {
 	},
 
 	flash_mufavorite:function(tb_id){
-		jQuery("#mu_favorite > div:contains("+tb_id+")").hide('drop');
+		//jQuery("#mu_favorite > div:contains("+tb_id+")").hide('drop');
+		jQuery("#mu_favorite > div").find("input[value="+tb_id+"]").parent().hide('drop');
 	},
 	/**
 	 Check response created via _createResponse is ok

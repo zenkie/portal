@@ -78,17 +78,11 @@ String mms=nds.control.web.WebUtils.getMms();
 String cp=nds.control.web.WebUtils.getCompany();
 
 %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<title>Bos2.0 <%="<"+cp+">"%></title>
-	<!--meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"-->
-	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9;" />
+<title>Portal2.0 <%=""+cp+""%></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<!--script language = javascript>max.Click();</script-->
-	<!--script type="text/javascript" src="/flash/FABridge.js"></script>
-	<script type="text/javascript" src="/flash/playErrorSound.js"></script-->
 	<%@ include file="../top_meta.jsp" %>
 	<script type="text/javascript" src="/html/nds/js/newjs/pos.sliderMenu.js"></script>
 <script>
@@ -128,8 +122,8 @@ jQuery(document).ready(function(){
 		{
 			jQuery('#roll').fadeOut(200);
 			jQuery('#page-nav-commands').css("position","relative");
-			}
-  });
+		}
+	});
 
   jQuery('#roll_top').click(function(){jQuery("#portal-content").animate({scrollTop: '0px'}, 500);});
   jQuery('#roll_bottom').click(function(){jQuery("#portal-content").animate({scrollTop:jQuery('#list-legend').offset().top}, 500);});
@@ -173,62 +167,46 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 <body>
 <%}%>
 <%@ include file="../body_meta.jsp"%>
-
 <div id="container" class="<%=ssId!=-1?"cl":""%>">
+	<!--首页头部-->
 	<div id="portal_top" class="<%=ssId!=-1?"sub_top":"top"%>">
+		<!--头部左侧Logo-->
 		<div id="portal_top_left" class="<%=ssId!=-1?"sub_top_left":"top_left"%>">
 			<img src=<%if(ssId==-1){%>"/images/newimages/home_logo.png"<%}else{%>"/images/newimages/sub_logo.png"<%}%> />
 		</div>
+		<!--头部左侧结束-->
+		<!--头部右侧 用户信息与图标菜单-->
 		<div class="top_right">
-			<span style=" vertical-align:super;"><%= user.getGreeting() %></span>
+			<span style=" vertical-align:middle;"><%= user.getGreeting() %></span>
 			<label id="index_menu" style="display:<%=ssId==-1?"none":"black"%>">
-				<input id="changeMenu" type="button" title="切换菜单" class="top-button top-button-hover" style=" background: url(/images/newimages/home_top_1.png) no-repeat left top;" />
-				<!--<a href="#" class="change" onfocus="this.blur()" title="切换菜单"><img src="/images/newimages/home_top_1.png"/></a>-->
+				<span id="changeMenu" title="切换菜单" class="portal-top-icon icon-toggle"></span>
 			</label>
 			<label id="index_i" onclick="javascript:">
-				<input type="button" title="主页" class="top-button top-button-hover" onclick="javascript:location.href='/html/nds/portal/ssv/index.jsp?ss=-1'" style=" background: url(/images/newimages/home_top_2.png) no-repeat left top;" />
-				<!--<a href="/html/nds/portal/ssv/index.jsp?ss=-1"><img src="/images/newimages/home_top_2.png" title="主页"/></a>-->
+				<span title="主页" class="portal-top-icon icon-home" onclick="javascript:location.href='/html/nds/portal/ssv/index.jsp?ss=-1'"></span>
 			</label>
 			<label>
-				<input type="button" title="设置" class="top-button top-button-hover" onclick="javascript:showObject('/html/nds/option/option.jsp',null,null)" style=" background: url(/images/newimages/home_top_3.png) no-repeat left top;" />
-				<!--<a href="#">
-					<img title="设置" onclick="javascript:showObject('/html/nds/option/option.jsp',null,null)" src="/images/newimages/home_top_3.png" />
-				</a>-->
+				<span title="设置" class="portal-top-icon2 icon-setting" onclick="javascript:showObject('/html/nds/option/option.jsp',null,null)"></span>
 			</label>
-		
 			<label>
-				<input type="button" id="shou_cang" cid="collects" title="收藏夹" class="top-button top-button-hover" style=" background: url(/images/newimages/home_top_4.png) no-repeat left top;" />
-				<!--<a href="#">
-					<img id="shou_cang" cid="collects" url="" title="收藏夹" src="/images/newimages/home_top_4.png" />
-				</a>-->
+				<span id="shou_cang" cid="collects" title="收藏夹" class="portal-top-icon icon-favorite"></span>
 			</label>
-
 			<label>
 				<a href="#">
-					<input type="button" id="mail_xiao_xi" cid="systemMails" url="/html/nds/portal/portletlist/view_list.jsp" title="系统消息" class="top-button top-button-hover" style=" background: url(/images/newimages/home_top_6.png) no-repeat left top;" />
-					<!--<img id="mail_xiao_xi" cid="systemMails" title="系统邮件" src="/images/newimages/home_top_6.png"/>-->
+					<span id="mail_xiao_xi" cid="systemMails" url="/html/nds/portal/portletlist/view_list.jsp" title="系统消息" class="portal-top-icon icon-sysinfo"></span>
 					<b id="mail_nums"></b>
 				</a>
 			</label>
 			<label style="display:none;">
-				<input type="button" id="news" cid="dynamicNews" url="" title="新闻动态" class="top-button top-button-hover" style=" background: url(/images/newimages/home_top_7.png) no-repeat left top;" />
-				<!--<a href="#">
-					<img id="news" cid="dynamicNews" title="新闻动态" src="/images/newimages/home_top_7.png" />
-				</a>-->
+				<span id="news" cid="dynamicNews" url="" title="新闻动态" class="portal-top-icon icon-dongtai"></span>
 			</label>
 			<label>
-				<!--input type="button" title="注销" class="top-button top-button-hover" onclick="<%= themeDisplay.getURLSignOut() %>" style=" background: url(/images/newimages/home_top_8.png) no-repeat left top;" /-->
 				<a href="<%= themeDisplay.getURLSignOut() %>">
-					<img title="注销" id="close_window" src="/images/newimages/home_top_8.png" />
+					<span title="注销" class="portal-top-icon icon-exit"></span>
 				</a>
 			</label>
-		
 			<%if(ssId!=-1){%>
+				<!--子系统快捷切换-悬浮面板-->
 				<fieldset id="change_menu">
-					<div id="change_warp"></div>
-					<div class="change_menu-top"></div>
-					<div class="change_menu-mid">
-						<div class="change_menu-mid_main">							
 								<%
 								String allPage="<li>1</li>";
 								ssv=new nds.query.web.SubSystemView();
@@ -247,8 +225,8 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 									%>
 									<li>
 										<a href="javascript:pc.ssv(<%=ss.getId()%>)">
-											<p ><img class="icon-img" src="<%=ss.getIconURL()%>" /></p>
-											<p class="bghidden"><img class="icon-img" src="<%=FileUtils.getFileNameNoEx(ss.getIconURL())%>bg.<%=FileUtils.getExtension(ss.getIconURL())%>" /></p>
+											<!--span class="iconfont icon-subsys—<%=ss.getId()%>"></span-->
+											<p class="bghidden"><img class="icon-img" src="<%=ss.getIconURL()%>" /></p>
 											<p ><%=ss.getName()%></p>
 										</a>
 									</li>
@@ -265,84 +243,109 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 										}else if(ii == (sss.size()-1)){
 									%>
 										</ul>
-									</div>
 									<%
 										}
 									%>
 								<%}%>
-						</div>
-						<div class="change_menu-mid_main-num"><ul><%=allPage%></ul></div>
-					</div>
-					<div class="change_menu-bot"></div>
+						
 				</fieldset>
+				<!--子系统快捷切换悬-浮面板结束-->
 			<%}%>
-			<div id="div_shou_cang" style="display:none;">
-				<div id="change_show_cang_warp" style="display:none;"></div>
-				<div class="show_cang-top"></div>
-				<div id="content_show_cang"></div>
-			</div>
 		</div>
+		<!--头部右侧--结束-->
+		<!--收藏夹悬浮面板-->
+		<div id="div_shou_cang" style="display:none;">
+			<div id="change_show_cang_warp" style="display:none;"></div>
+			<div class="show_cang-top"></div>
+			<div id="content_show_cang"></div>
+		</div>
+			<!--收藏夹悬浮面板结束-->
 	</div>
 	<div><%@ include file="../navigation.jsp" %></div>
-	<div id="portal_middle" class="<%=ssId!=-1?"content cl":""%>">
-		<div id="portal_middle_left" class="content_left" style="<%=ssId!=-1?"wdith:222px;":"display:none;"%>">
-			<div id="portal_middle_left_fmenu" class="nav_left"></div>
-			<div class="nav_right">
-				<div class="out_scroll_btn_bar" style="dispaly:none;">
-					<div class="arrow_up"></div>
-					<div class="arrow_center"><b style="left: 0px; top: 0px;"></b></div>
-					<div class="arrow_down"></div>
-				</div>
-				<div id="portal_middle_left_smenu" class="nav_right-con" style="padding-right: 12px;width: 173px;"></div>
-			</div>
-		</div>
-		<div id="portal_middle_right" class="<%=ssId!=-1?"content_right":""%>">
-			<div id="portal_middle_right_menu" style="display:<%=ssId!=-1?"block":"none"%>;"></div>
-			<div id="portal_middle_right_search" class="<%=ssId!=-1?"":"title"%>" style="height:38px;">
-				<div id="portal_middle_right_search_title" class="<%=ssId!=-1?"content_right-title":"title-left"%>" style="margin-left: 10px;">子系统</div>
-				
-					<div id="portal_middle_right_search_input" class="<%=ssId!=-1?"search-1":"search"%>" >
-						<form name="lab" method="post" onsubmit="pc.navigate('ad_table')"><input id="pojam" type="text" class="search-button" autocomplete="off" placeholder="搜索菜单或关键字"/></form>
+	<!--首页正文-->
+	<div id="portal_middle" class="content cl">
+			<!--首页正文-左侧-菜单区域-->
+			<div id="portal_middle_left" class="content_left %>" style="width:222px;">
+				<div id="portal_middle_left_fmenu" class="nav_left" style="display:<%=ssId==-1?"none":"block"%>"></div>
+				<div class="nav_right <%=ssId==-1?"index_nav_right":""%>">
+					<div class="out_scroll_btn_bar" style="display:none;">
+						<div class="arrow_up"></div>
+						<div class="arrow_center"><b style="left: 0px; top: 0px;"></b></div>
+						<div class="arrow_down"></div>
 					</div>
-					<div style="margin:0;overflow:hidden;" ><%@ include file="../list_menu.jsp" %></div>
+					<div id="portal_middle_left_smenu" class="nav_right-con <%=ssId==-1?"index_middleleft_smenu":"middle_left_smenu"%>">
+						<%if(ssId==-1){%>
+							<%@ include file="../collect.new.jsp" %>
+						<%}%>
+					</div>
+				</div>
 			</div>
-			<div id="portal-content" style="margin-left:0px" width="auto"></div>
-		</div>
+			<!--首页正文-左侧-菜单区域--结束-->
+			<!--首页正文-右侧内容-->
+			<div id="portal_middle_right" class="content_right" style="<%=ssId==-1?"border:none;height:100%":""%>">
+					<div id="portal_middle_right_menu" style="display:<%=ssId!=-1?"block":"none"%>;"></div>
+					<!--右侧正文-搜索区域-->
+					<div id="portal_middle_right_search" class="<%=ssId!=-1?"":"title"%>"  style="display:<%=ssId!=-1?"block":"none"%>;height:38px;">
+						<div id="portal_middle_right_search_title" class="<%=ssId!=-1?"content_right-title":"title-left"%>" style="margin-left: 10px;">子系统</div>
+							<div id="portal_middle_right_search_input" class="<%=ssId!=-1?"search-1":"search"%>" >
+								<form name="lab" method="post" onsubmit="pc.navigate('ad_table')"><input id="pojam" type="text" class="search-button" autocomplete="off" placeholder="搜索菜单或关键字"/></form>
+							</div>
+					</div>
+					<!--右侧正文-内容区域-->
+					<div id="portal-content" class="<%=ssId!=-1?"":"index-portal-content"%>" style="margin-left:0px;" width="auto">
+						<div class="content-loading center">
+							<div class="dot-loading one"></div>
+							<div class="dot-loading two"></div>
+							<div class="dot-loading three"></div>
+						</div>
+					</div>
+			</div>
+			<!--首页正文-右侧内容--结束-->
 	</div>
+	<!--首页正文--结束-->
+	<!--首页底部-->
 	<div id="portal-bottom" class="bottom">
 		<iframe id="print_iframe" name="print_iframe" width="1" height="1" src="<%= contextPath %>/html/common/null.html"></iframe>
-		<%@ include file="../bottom.jsp" %>
+			<%@ include file="../bottom.jsp" %>
 	</div>
+	<!--首页底部--结束-->
 	<div id="cmdmsg" style="display:none;" ondblclick="$('cmdmsg').hide()"></div>
 	<div id="jpId"></div>
 	<div id="jp_container" class="jp-audio"></div>
 	<div id="roll" style="display:none; "><div title="" id="roll_top"></div><div title="" id="roll_bottom"></div></div>
 </div>
+	<!--消息列表-悬浮面板-->
 <div id="top_alert_box" class="allselect_tab" style="margin-left: -300px;display:none;">
-	<dl>
-        <!--dt>
-			<a href="javascript:;" style="display:none;"><img src="/images/newimages/tanchu/Trash.png" alt="" /></a>
-            <span>收藏夹</span>
-		</dt-->
-		<dd id="collects">	
-			<!--paco 2013-8-19 add note -->
-			<script type="text/javascript">
-				//nav
-				jQuery(function(){
-					jQuery.post("/html/nds/portal/tablecategoryout.jsp?id=4667&&onlyfa='Y'",
-						function(data){
-						var result=data;
-						//alert(data);
-						jQuery("#collects").html(result.xml);
-						});	
-				}); 
-			</script>
-		</dd>
-		<dd id="systemMessages"></dd>
-		<dd id="systemMails"></dd>
-		<dd id="dynamicNews"></dd>
-	</dl>
+		<dl>
+			<dd id="collects">	
+				<!--paco 2013-8-19 add note -->
+				<script type="text/javascript">
+					//nav
+					jQuery(function(){
+						jQuery.post("/html/nds/portal/tablecategoryout.jsp?id=4667&&onlyfa='Y'",
+							function(data){
+							var result=data;
+							//alert(data);
+							jQuery("#collects").html(result.xml);
+							});	
+					}); 
+				</script>
+			</dd>
+			<dd id="systemMessages"></dd>
+			<dd id="systemMails"></dd>
+			<dd id="dynamicNews"></dd>
+		</dl>
 </div>
+	<!--消息列表-悬浮面板--结束-->
+			 <div id="tabs-2" style="display:none;">
+		<!--liferay-ui:tabs names="mynotice"-->
+			<%
+			request.setAttribute("nds.portal.listconfig", "mynotice");
+			%>
+			<jsp:include page="/html/nds/portal/portletlist/view_list.jsp" flush="true"/>
+
+		<!--/liferay-ui:tabs-->	
+		</div>
 </body>
 <script type="text/javascript">
 
@@ -431,6 +434,19 @@ function loadIndex(){
 		});*/
 	<%}%>
 };
+jQuery(function(){
+	var hei = jQuery('#portal_middle_right').height()-2 - getViewableHeight("#portal_middle_right_menu") -getViewableHeight('#portal_middle_right_search');
+	jQuery('#portal-content').height(hei);
+});
+function getViewableHeight(id){
+	var target =jQuery(id);
+	if(target.is(":visible")){
+		return target.height();
+	}else{
+		return 0;
+	}
+}
+//commjs_registCustomerScrollBar("#portal-content");
 </script>
 <%
  if(!fav_show){

@@ -17,13 +17,13 @@
    int cxtabCategoryTableId=TableManager.getInstance().getTable("ad_cxtab_category").getId();
    int cxtabTableId=TableManager.getInstance().getTable("ad_cxtab").getId();
    String func="pc.qrpt";
-   String istree=userWeb.getUserOption("ISTREE","Y");
+   String istree=userWeb.getUserOption("ISTREE","N");
 %>	
 <div id="page-table-query">
 	<div id="page-table-query-tab">
 		<ul>
 			<li>
-				<a href="#tab1">
+				<a href="javascript:void(0)">
 					<span><%=PortletUtils.getMessage(pageContext, "rpt-filter-setting",null)%></span>
 				</a>
 			</li>
@@ -50,8 +50,11 @@
 		var result=data;
 		
 		changeClass();
-		jQuery("#portal_middle_left_smenu").html(result.xml);
+		var wrapper = jQuery('<div id="myscroll_container" style="height:100%;overflow:hidden;"></div>');
+		wrapper.html(result.xml);
+		jQuery("#portal_middle_left_smenu").empty().append(wrapper);
 		jQuery("#tab_accordion").accordion({ header: "h3",collapsible:true,autoHeight:false,navigation:true});
+		wrapper.perfectScrollbar({suppressScrollX:true});
 		// jQuery("#tree-list").html(result.xml);
 		// jQuery("#tree-list").css("padding","0");
 		// jQuery("#tab_accordion").accordion({ header: "h3",collapsible:true,autoHeight:false,navigation:true});

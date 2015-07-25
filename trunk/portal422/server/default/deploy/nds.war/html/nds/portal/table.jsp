@@ -88,7 +88,7 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 %>
 &nbsp;&nbsp;<%=PortletUtils.getMessage(pageContext, "my-recent-visit",null)%>:&nbsp;<%=sb.toString()%>
 </div-->
-<div id="page-table-query" style="width:99%;" class="con-r1 clear_both" style="margin-bottom:10px; *margin-top:10px!important;">
+<div id="page-table-query"  class="con-r1 clear_both">
 	<div id="navBar" class="con-r1-top"><a id="hide_bar"></a><p><img src="/images/newimages/con-r-top.png"></p></div>
 	<div id="page-table-query-tab" style="width:99%;overflow: hidden;">
 		<!--ul id="navBar">

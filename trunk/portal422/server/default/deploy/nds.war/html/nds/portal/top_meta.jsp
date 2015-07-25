@@ -112,4 +112,9 @@
 <!--paco 2014-6-24 add end-->
 <%}//end JAVASCRIPT_FAST_LOAD
 %>
+<!-- portal2.0 ÐÂÔöjsÓëcss-->
+<script type="text/javascript" src="/html/nds/js/scrollbar/perfect-scrollbar-0.4.10.with-mousewheel.min.js"></script>
+<link type="text/css" rel="stylesheet" href="/html/nds/js/scrollbar/perfect-scrollbar-0.4.10.min.css" />
+<!--script language="javascript" src="/html/nds/js/theme.js"></script-->
+<script type="text/javascript" src="/html/nds/js/im.client.js"></script>
 <title><%=userWeb.getClientDomainName()%></title>

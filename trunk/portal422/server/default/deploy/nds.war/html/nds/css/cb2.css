@@ -107,8 +107,8 @@
 .coolButtonUpDisabled .coolButtonDisabledContainer,
 .coolButtonActiveDisabled .coolButtonDisabledContainer,
 .coolButtonDisabled .coolButtonDisabledContainer {
-	display:			block;
-	background:			GrayText;
+	/*display:			block;*/
+	/*background:			GrayText;*/
 	filter:				chroma(color=#010101) dropshadow(color=ButtonHighlight, offx=1, offy=1);
 	width:				100%;
 	height:				100%;
@@ -166,7 +166,7 @@ float: left;
  max-width:668px; */
 }
 #qbtns{
-margin:5px 10px 10px 5px;
+margin:5px 10px 0px 5px;
 text-align:right;
 }
 #qbtns2{
@@ -174,7 +174,7 @@ text-align:right;
 text-align:right;
 }
 #qbtns-multi{
-/*margin:12px 0 10px 8px;*/
+margin:6px 0 0px 8px;
 +margin:5px 10px 10px 5px;/*IE¿ÉÖ´ÐÐ*/
 float:left;
 width: 33%;
@@ -204,7 +204,7 @@ margin:1px 0px 0px 1px;
 #query-result{
 overflow:auto;
 max-height: 266px;
-width: 99%;
+/*width: 99%;*/
 padding-left: 3px;
 }
 #q_result-filter-desc{
@@ -248,7 +248,7 @@ height:20px;
  overflow-x:auto;
  overflow-y:hidden;
  _padding-bottom:18px;/*for scrollbar*/
- margin-left:5px;
+ /*margin-left:5px;*/
  /*width:expression( document.body.width > 260 ? "260px":(document.body.width-260)+"px" );*/
 }
 .readonly{

@@ -72,8 +72,6 @@
 .main_left ul.audit li{float:left; width:50%; overflow:hidden;}
 .main_left ul.audit li.set_up{width:50%;}
 .main_left ul.audit li span{float:left; margin-left:8px; display:inline; line-height:23px;}
-.button{width:53px; height:23px; display:block; float:left; color:#fff; text-align:center; line-height:22px; margin-left:5px; background:url(/html/nds/portal/ssv/images/home_61.gif) no-repeat left top;}
-.button:hover{background:url(/html/nds/portal/ssv/images/home_59.gif) no-repeat left top; color:#fff;}
 .search{/*float:left;paco delete*/ margin-left:3px;}
 .main_left ul.docno{width:100%;  clear:both; overflow:hidden;  background:#bab9b9; color:#fff; margin:0 auto;}
 

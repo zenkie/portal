@@ -28,6 +28,7 @@ if(ssId==-1&&!defaultboshome){
 	
 	
 	if("true".equalsIgnoreCase(homeByJSP)){
+		System.out.print("asdfadfasdfasdfasdfasdfasdfad");
 		jc=new org.json.JSONObject();
 		jc.put("id", 0);
 		jc.put("desc",PortletUtils.getMessage(pageContext, "navitab",null));

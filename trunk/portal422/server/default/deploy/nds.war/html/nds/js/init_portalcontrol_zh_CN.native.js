@@ -69,5 +69,11 @@ var gMessageHolder={
 	CMD_VOID:"作废",
 	CMD_UNVOID:"取消作废",
 	DO_YOU_CONFIRM_VOID:"你确认要作废所选单据吗？",
-	DO_YOU_CONFIRM_UNVOID:"你确认要取消作废所选单据吗？"
+	DO_YOU_CONFIRM_UNVOID:"你确认要取消作废所选单据吗？",
+	VIEW_ATTACH:"查看附件",
+	VIEW_IMAGE:"查看图片",
+	CMD_CONCAT_PDF:"套打",
+	CONNECT_IM_NOW:"当前窗口的即时通讯器不在线，是否立刻上线？",
+	VIEW_NOTE:"查看通知明细",
+	CONFIRM_READ:"确认已读"
 };
