@@ -1,5 +1,5 @@
 <%@ include file="/html/nds/common/init.jsp" %>
-<%@ page language="java" import="java.util.*,nds.control.event.DefaultWebEvent" pageEncoding="utf-8"%>
+<%@ page language="java" import="nds.db.oracle.QueryRequestImpl,java.util.*,nds.control.event.DefaultWebEvent" pageEncoding="utf-8"%>
 <%!
 private nds.log.Logger logger= nds.log.LoggerManager.getInstance().getLogger("itemdetail.jsp");
 private final static int TABINDEX_START=20000;
@@ -38,9 +38,9 @@ static{
 	 	}
  		for(j=0;j<attrValues.size();j++){
  			vId=Tools.getInt(((List)attrValues.get(j)).get(0),-1);
-	 		vDesc= (String)((List)attrValues.get(j)).get(1);
+	 		vDesc= (String)((List)attrValues.get(j)).get(1);	
 	 		for(k=0;k<lastAttrValues.size();k++){
-	 			lastVId =Tools.getInt(((List)lastAttrValues.get(k)).get(0),-1);
+	 			lastVId =Tools.getInt(((List)lastAttrValues.get(k)).get(0),-1);	
 	 			key= prefix+"_"+vId+"_"+lastVId;
 	 			instanceId= instances.get(key);
 	 			if(instanceId!=null){
@@ -77,23 +77,23 @@ static{
 		DefaultWebEvent event=new DefaultWebEvent("CommandEvent");
 	MessagesHolder mh= MessagesHolder.getInstance();
 	int levels= attributes.size();
-	sb.append("<table align='left' id='modify_table_head' class='itemdetail_table' border='1' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF'>");
+	sb.append("<table align='left' id='modify_table_head' class='itemdetail_table' border='0' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF' style='position: relative; left: 0px; top: 0px;'>");
 	int j,k, vId, lastVId;
 	String vDesc, lastVDesc;
 	Object instanceId;
-  if(level==levels-2){
+	if(level==levels-2){
  		// table, first row is the last level, first column is the second last level
  		int lastAttrId= Tools.getInt(((List)attributes.get(level+1)).get(0),-1);
  		String lastAttrName= (String)((List)attributes.get(level+1)).get(1);
  		List lastAttrValues= (List) attributeValues.get(level+1);
 
- 		sb.append("<thead><tr><td style='width:62px;'>&nbsp;</td>");
+ 		sb.append("<thead><tr><td id='head-0'  class='hd' style='width:45px;'><div style='width:45px;'></div></td>");
  		for(j=0;j<lastAttrValues.size();j++){
 	 		lastVDesc= (String)((List)lastAttrValues.get(j)).get(1);
 	 		lastVId= Tools.getInt(((List)lastAttrValues.get(j)).get(0),-1);
-	 		sb.append("<td class='hd' style='width:54px;'>").append(lastVDesc).append("</td>");
+	 		sb.append("<td class='hd'id='head-"+(j+1)+"'  style='width:90px;'>").append(lastVDesc).append("</td>");
 	 	}
-	 	sb.append("<td class='hd' style='width:45px;'>").append(mh.getMessage(event.getLocale(), "row_total")).append("</td>");
+	 	sb.append("<td class='hd' id='headtot-"+(lastAttrValues.size()+1)+"' style='width:45px;'>").append(mh.getMessage(event.getLocale(), "row_total")).append("</td>");
 	 	sb.append("</tr></thead></table>");
  }
   	return sb;
@@ -121,7 +121,7 @@ static{
 	DefaultWebEvent event=new DefaultWebEvent("CommandEvent");
 	MessagesHolder mh= MessagesHolder.getInstance();
 	int levels= attributes.size();
-	sb.append("<table align='left' id='modify_table_product' class='modify_table' border='1' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF' style='position: relative; left: 0px; top: 0px;'>");
+	sb.append("<table align='left' id='modify_table_product' class='modify_table' border='0' cellspacing='0' cellpadding='0'  bordercolordark='#FFFFFF' bordercolorlight='#FFFFFF' style='position: relative; left: 0px; top: 0px;border-collapse:collapse;'>");
 	int j,k, vId, lastVId;
 	String vDesc, lastVDesc;
 	String key;
@@ -131,10 +131,10 @@ static{
 	 	//iteration
 		for(j=0;j<attrValues.size();j++){
 	 		vId=Tools.getInt(((List)attrValues.get(j)).get(0),-1);
-	 		vDesc= (String)((List)attrValues.get(j)).get(1);
-	 		sb.append("<tr><td class='hd'>").
-	 		append(vDesc).append("</td><td>&nbsp;</td></tr>");
-	 		sb.append("<tr><td>&nbsp;</td><td>").append(
+	 		vDesc= (String)((List)attrValues.get(j)).get(1);	
+	 		sb.append("<thead><tr><td  style='width:45px;'>").
+	 		append(vDesc).append("</td><td  style='width:95px;'>&nbsp;</td></tr>");
+	 		sb.append("<tr><td  style='width:45px;'>&nbsp;</td><td>").append(
 	 		getAttributeTable(instances,level+1,attributes,attributeValues, prefix+"_"+vId, inputList,li_store,li_dest,store_objectId,dest_objectId,store_table,dest_table,directory_store,directory_dest,userWeb)).
 	 		append("</td></tr>");
 	 	}
@@ -144,19 +144,21 @@ static{
  		String lastAttrName= (String)((List)attributes.get(level+1)).get(1);
  		List lastAttrValues= (List) attributeValues.get(level+1);
 
- 		sb.append("<tr style='display:none;'><td>&nbsp;</td>");
+ 		sb.append("<tr style='display:none;'><td  style='width:45px;'><div style='width:45px;'></div></td>");
  		for(j=0;j<lastAttrValues.size();j++){
 	 		lastVDesc= (String)((List)lastAttrValues.get(j)).get(1);
 	 		lastVId= Tools.getInt(((List)lastAttrValues.get(j)).get(0),-1);
-	 		sb.append("<td class='hd'>").append(lastVDesc).append("</td>");
+	 		sb.append("<td  style='width:95px;'>").append(lastVDesc).append("</td>");
 	 	}
-	 	sb.append("<td class='hd'>").append(mh.getMessage(event.getLocale(), "row_total")).append("</td>");
+	 	sb.append("<td  style='width:45px;'>").append(mh.getMessage(event.getLocale(), "row_total")).append("</td>");
 	 	sb.append("</tr>");
 
  		for(j=0;j<attrValues.size();j++){
  			vId=Tools.getInt(((List)attrValues.get(j)).get(0),-1);
 	 		vDesc= (String)((List)attrValues.get(j)).get(1);
-	 		sb.append("<tr><td class='hd' style='width:62px;'>").append(vDesc).append("</td>");
+	 		sb.append("<tr style='margin-top:0px;vertical-align:top;border:0px'><td class='hd'  style='width:45px;'><div id='pro-"+j+"-0' style='width:45px;'>").append(vDesc).append("</div></td>");
+	 		
+	 		/*boolean flag_storess =true;*/
 	 		for(k=0;k<lastAttrValues.size();k++){
 	 			lastVId =Tools.getInt(((List)lastAttrValues.get(k)).get(0),-1);
 	 			key= prefix+"_"+vId+"_"+lastVId;
@@ -165,16 +167,17 @@ static{
 	 			boolean flag_dest =false;
 	 			if(instanceId!=null){
 	 				nextInputId= inputCount+1>=totalInputs ?  ((Integer)inputList.get(0)).toString() : ((Integer)inputList.get(inputCount+1)).toString();
-		 			sb.append("<td style='width:54px;'><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' name='A").append(instanceId).append("' id='P").
-		 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,").append(j).append(",").append(k).append(");'").append(" 	onchange='return gc.oncellchange(").append(j).append(",").append(k).append(");'").append("><br><div class='product-storage'>");
+		 			sb.append("<td id='pro-"+j+"-"+(k+1)+"' style='width:95px;' ><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' name='A").append(instanceId).append("' id='P").
+		 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,").append(j).append(",").append(k).append(");'").append(" 	onchange='return gc.oncellchange(").append(j).append(",").append(k).append(");'").append("><br><div style='width:90px;'>");
 		 			if(store_objectId!=-1){
 			 			if(li_store.size()>0){
 			 				for(int m=0;m<li_store.size();m++){
 			 					int temp=Tools.getInt(((List)li_store.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-			 						sb.append("<div class='psl'>");
+			 						sb.append("<div class='psl' style='width:45px;'>");
 			 						if(directory_store){
 					 					sb.append("<div class='s'>").append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+					 					sb.append("<div style='background-color: yellow;' class='y'>").append(Tools.getInt(((List)li_store.get(m)).get(5),0)).append("</div>");
 					 					sb.append("<div class='c'>").append(Tools.getInt(((List)li_store.get(m)).get(3),0)).append("</div>");
 					 					sb.append("<div class='v'>").append(Tools.getInt(((List)li_store.get(m)).get(4),0)).append("</div>");
 					 				}else{
@@ -183,6 +186,13 @@ static{
 					 					}else{
 					 						sb.append("<div class='s'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
+					 					
+					 					if(Tools.getInt(((List)li_store.get(m)).get(5),0)>0){
+					 						sb.append("<div style='background-color: yellow;' class='y'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append("<div style='background-color: yellow;' class='y'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+					 					
 					 					if(Tools.getInt(((List)li_store.get(m)).get(3),0)>0){
 					 						sb.append("<div class='c'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
@@ -198,31 +208,56 @@ static{
 					 				sb.append("</div>");
 					 				flag_store =true;
 				 					break;
+		 				  	}else{
+		 				  		sb.append("<div class='psl' style='width:45px;'></div>");
 		 				  		}
+		 				  		
 			 				}
 			 			}
 			 			if(!flag_store){
 			 				if(directory_store){
-			 					sb.append("<div class='psl'><div class='s'>&nbsp;</div><div class='c'>&nbsp;</div><div class='v'>&nbsp;</div></div>");
+			 					sb.append("<div class='psl' style='width:45px;'><div class='s'>&nbsp;</div><div style='background-color: yellow;' class='y'>&nbsp;</div><div class='c'>&nbsp;</div><div class='v'>&nbsp;</div></div>");
 			 				}else{
-			 					sb.append("<div class='psl'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 					sb.append("<div class='psl' style='width:45px;'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 			 				}
 			 			}
+			 			/*flag_storess=false;*/
 			 		}
 		 			if(dest_objectId!=-1){
 			 			if(li_dest.size()>0){
 			 				for(int m=0;m<li_dest.size();m++){
 			 					int temp=Tools.getInt(((List)li_dest.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-			 						sb.append("<div class='psr'>");
+			 						sb.append("<div class='psr' style='width:45px;'>");
 					 				if(directory_dest){
-					 					sb.append(Tools.getInt(((List)li_dest.get(m)).get(1),0)).append("</div>");
+					 					sb.append("<div class='s'>").append(Tools.getInt(((List)li_dest.get(m)).get(1),0)).append("</div>");
+					 					sb.append("<div class='y'>").append(Tools.getInt(((List)li_dest.get(m)).get(5),0)).append("</div>");
+					 					sb.append("<div class='c'>").append(Tools.getInt(((List)li_dest.get(m)).get(3),0)).append("</div>");
+					 					sb.append("<div class='v'>").append(Tools.getInt(((List)li_dest.get(m)).get(4),0)).append("</div>");
 					 				}else{
 					 					if(Tools.getInt(((List)li_dest.get(m)).get(1),0)>0){
-					 						sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 						sb.append("<div class='s'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
-					 						sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 						sb.append("<div class='s'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
+					 					
+					 					if(Tools.getInt(((List)li_dest.get(m)).get(5),0)>0){
+					 						sb.append("<div  class='y'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append("<div  class='y'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+					 					
+					 					if(Tools.getInt(((List)li_dest.get(m)).get(3),0)>0){
+					 						sb.append("<div class='c'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append("<div class='c'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+					 					if(Tools.getInt(((List)li_dest.get(m)).get(4),0)>0){
+					 						sb.append("<div class='v'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append("<div class='v'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+
 					 				}
 					 				flag_dest =true;
 					 				break;
@@ -231,11 +266,12 @@ static{
 			 			}
 			 			if(!flag_dest){
 			 				if(directory_dest){
-			 					sb.append("<div class='psr'></div>");
+			 					sb.append("&nbsp;<div class='psr' style='width:45px;'></div>");
 			 				}else{
-			 					sb.append("<div class='psr'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 					sb.append("&nbsp;<div class='psr' style='width:45px;'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 			 				}
 			 			}
+			 			/*flag_storess=false;*/
 		 			}
 		 			sb.append("</div></td>");
 		 			inputCount++;
@@ -243,9 +279,13 @@ static{
 	 				sb.append("<td></td>");
 	 			}
 	 		}
-	 		sb.append("<td id='tot_");
-	 		sb.append(j);
-	 		sb.append("'align='center' valign='top' style='width:45px;max-width:45px;'>&nbsp;</td>");
+	 		sb.append("<td ");
+	 		/*if(!flag_storess){
+	 			sb.append("'align='center' valign='top' style='width:62px;'>&nbsp;</td>");
+	 		}else{*/
+	 			sb.append("'align='center' valign='top' style='width:45px;'><div id='tot_"+j+"' style='width:45px;'></div></td>");
+	 		/*}*/
+	 		
 	 		sb.append("</tr>");
 	 	}
  	}else{
@@ -253,12 +293,13 @@ static{
  		for(j=0;j<attrValues.size();j++){
 	 		vId=Tools.getInt(((List)attrValues.get(j)).get(0),-1);
 	 		vDesc= (String)((List)attrValues.get(j)).get(1);
+	 		/*boolean flag_storess =true;*/
 	 		key= "_"+vId;
 	 		instanceId= instances.get(key);
 	 		if(instanceId!=null){
 	 			nextInputId= inputCount+1>=totalInputs ?  ((Integer)inputList.get(0)).toString() : ((Integer)inputList.get(inputCount+1)).toString();
-	 			sb.append("<tr><td><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' value='' name='A").
-	 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,0,").append(j).append(");'").append(" onblur='return gc.oncellchange(0,").append(j).append(");'").append("><br><div class='product-storage'>");
+	 			sb.append("<tr style='margin-top:0px;vertical-align:top;border:0px'><td style='width:95px;'><input class='inputline' type='text' tabIndex='").append((inputCount+TABINDEX_START)).append("' size='5' value='' name='A").
+	 			append(instanceId).append("' value='' onkeydown='return gc.onMatrixKey(event,0,").append(j).append(");'").append(" onblur='return gc.oncellchange(0,").append(j).append(");'").append("><br><div style='width:90px;' class='product-storage'>");
 	 			boolean flag_store =false;
 	 			boolean flag_dest =false;
 	 			if(store_objectId!=-1){
@@ -266,9 +307,10 @@ static{
 			 				for(int m=0;m<li_store.size();m++){
 			 					int temp=Tools.getInt(((List)li_store.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-			 						sb.append("<div class='psl'>");
+			 						sb.append("<div class='psl' style='width:45px;'>");
 			 						if(directory_store){
 					 					sb.append("<div class='s'>").append(Tools.getInt(((List)li_store.get(m)).get(1),0)).append("</div>");
+					 					sb.append("<div style='background-color: yellow;' class='y'>").append(Tools.getInt(((List)li_store.get(m)).get(5),0)).append("</div>");
 					 					sb.append("<div class='c'>").append(Tools.getInt(((List)li_store.get(m)).get(3),0)).append("</div>");
 					 					sb.append("<div class='v'>").append(Tools.getInt(((List)li_store.get(m)).get(4),0)).append("</div>");
 					 				}else{
@@ -277,11 +319,19 @@ static{
 					 					}else{
 					 						sb.append("<div class='s'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
+					 					
+					 					if(Tools.getInt(((List)li_store.get(m)).get(5),0)>0){
+					 						sb.append("<div style='background-color:yellow;' class='y'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append("<div style='background-color: yellow;' class='y'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+					 					
 					 					if(Tools.getInt(((List)li_store.get(m)).get(3),0)>0){
 					 						sb.append("<div class='c'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
 					 						sb.append("<div class='c'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
+					 					
 					 					if(Tools.getInt(((List)li_store.get(m)).get(4),0)>0){
 					 						sb.append("<div class='v'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
@@ -297,26 +347,48 @@ static{
 			 			}
 			 			if(!flag_store){
 			 				if(directory_store){
-			 					sb.append("<div class='psl'>&nbsp;</div>");
+			 					sb.append("<div class='psl' style='width:45px;'>&nbsp;</div>");
 			 				}else{
-			 					sb.append("<div class='psl'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 					sb.append("<div class='psl' style='width:45px;'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 			 				}
 			 			}
+			 			/*flag_storess =false;*/
 		 			}
 		 			if(dest_objectId!=-1){
 			 			if(li_dest.size()>0){
 			 				for(int m=0;m<li_dest.size();m++){
 			 					int temp=Tools.getInt(((List)li_dest.get(m)).get(0),-1);
 			 					if(temp==Tools.getInt(instanceId,0)){
-			 						sb.append("<div class='psr'>");
+			 						sb.append("<div class='psr' style='width:45px;'>");
 					 				if(directory_dest){
-					 					sb.append(Tools.getInt(((List)li_dest.get(m)).get(1),0)).append("</div>");
+					 					sb.append("<div class='s'>").append(Tools.getInt(((List)li_dest.get(m)).get(1),0)).append("</div>");
+					 					sb.append("<div class='y'>").append(Tools.getInt(((List)li_dest.get(m)).get(5),0)).append("</div>");
+					 					sb.append("<div class='c'>").append(Tools.getInt(((List)li_dest.get(m)).get(3),0)).append("</div>");
+					 					sb.append("<div class='v'>").append(Tools.getInt(((List)li_dest.get(m)).get(4),0)).append("</div>");
 					 				}else{
 					 					if(Tools.getInt(((List)li_dest.get(m)).get(1),0)>0){
-					 						 	sb.append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 						sb.append("<div class='s'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
 					 					}else{
-					 							sb.append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 						sb.append("<div class='s'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 					 					}
+					 					
+					 					if(Tools.getInt(((List)li_dest.get(m)).get(5),0)>0){
+					 						sb.append("<div  class='y'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append(" <div  class='y'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+					 					
+					 					if(Tools.getInt(((List)li_dest.get(m)).get(3),0)>0){
+					 						sb.append("<div class='c'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append("<div class='c'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+					 					if(Tools.getInt(((List)li_dest.get(m)).get(4),0)>0){
+					 						sb.append("<div class='v'>").append(mh.getMessage(event.getLocale(), "enough_goods")).append("</div>");
+					 					}else{
+					 						sb.append("<div class='v'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+					 					}
+
 					 				}
 					 				flag_dest =true;
 					 				break;
@@ -325,22 +397,26 @@ static{
 			 			}
 			 			if(!flag_dest){
 			 				if(directory_dest){
-			 					sb.append("<div class='psr'>&nbsp;</div>");
+			 					sb.append("<div class='psr' style='width:45px;'>&nbsp;</div>");
 			 				}else{
-			 					sb.append("<div class='psr'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
+			 					sb.append("<div class='psr' style='width:45px;'>").append(mh.getMessage(event.getLocale(), "lack_goods")).append("</div>");
 			 				}
 			 			}
+			 			/*flag_storess =false;*/
 		 			}
 		 			sb.append("</div></td>");
-		 			sb.append("<td id='tot_");
-	 				sb.append(j);
-	 				sb.append("' align='center' valign='top'></td>");
+		 			sb.append("<td ");
+			 		/*if(!flag_storess){
+			 			sb.append("'align='center' valign='top' style='width:62px;'>&nbsp;</td>");
+			 		}else{*/
+			 			sb.append("'align='center' valign='top' style='width:45px;'><div id='tot_"+j+"' style='width:45px;'></div></td>");
+			 		/*}*/
 	 				sb.append("</tr>");
 	 			inputCount++;
 	 		}
 	 	}
  	}
-	sb.append("</table>");
+	sb.append("</thead></table>");
 	instances.put("inputCount", new Integer(inputCount));
  	return sb;
  }
@@ -375,6 +451,7 @@ boolean flagstore =false;
 boolean flagdest =false;
 Table store_table =null;
 Table dest_table =null;
+String orderQtySelect=userWeb.getUserOption("QTY_SELECT","1111");
 String attribueSetName=(String) QueryEngine.getInstance().doQueryOne("select name from m_attributeset where id="+ setId);
 String showSizeStyle = (String)QueryEngine.getInstance().doQueryOne("select value from ad_param where name='portal.4084'");
 String showColStyle = (String)QueryEngine.getInstance().doQueryOne("select value from ad_param where name='portal.4085'");
@@ -399,17 +476,14 @@ for(int i=0;i< attributes.size();i++){
 	String sql;
    if (Tools.getInt(((List)attributes.get(i)).get(2), -1) == 2)
    {
-     if ("NAME".equals(showSizeStyle)) {
-       sql = "select v.id, v.NAME from m_attributevalue v where v.isactive='Y' and v.m_attribute_id=" + aid;
-     }
-     else
-     {
-       if ("VALUENAME".equals(showSizeStyle))
-         sql = "select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end from m_attributevalue v where v.isactive='Y' and v.m_attribute_id=" + aid;
-       else
-         sql = "select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id=" + aid;
-     }
-   }
+     if("NAME".equals(showSizeStyle)){
+			sql="select v.id, v.NAME from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
+		}else if("VALUENAME".equals(showSizeStyle)){
+			sql="select v.id, case when v.name=v.value then v.name else  v.name||'(' || v.value ||')' end from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
+		}else{
+			sql="select v.id, v.value from m_attributevalue v where v.isactive='Y' and v.m_attribute_id="+aid ;
+		}
+	}
    else
    {
      if ("NAME".equals(showColStyle)) {
@@ -464,8 +538,9 @@ Table faStorageTable= manager.getTable("V_FA_STORAGE");
 
 ArrayList inputList=new ArrayList();
 prepareAttributeTable(instances2,0,attributes,attributeValues,"", inputList);
-List li_store=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty, t.id,t.qtyconsign, t.qtycan from V_FA_STORAGE t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(storedata)+") and t.m_product_id="+productId);
-List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty,t.id,t.qtyconsign, t.qtycan from V_FA_STORAGE t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(destdata)+") and t.m_product_id="+productId);
+List li_store=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty, t.id,t.qtyconsign, t.qtycan,qtyvalid from V_FA_STORAGE t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(storedata)+") and t.m_product_id="+productId);
+List li_dest=QueryEngine.getInstance().doQueryList("select t.m_attributesetinstance_id,t.qty,t.id,t.qtyconsign, t.qtycan,qtyvalid from V_FA_STORAGE t  where t.C_STORE_ID=(select d.id from c_store d where d.name="+QueryUtils.TO_STRING(destdata)+") and t.m_product_id="+productId);
+
 int dest_objectId=-1;
 int store_objectId=-1;
 boolean directory_store=false;
@@ -475,10 +550,70 @@ int idOfanyOfStoreStorage=-1;
 int idOfanyOfDestStorage=-1;
 if(li_store!=null && li_store.size()>0)  idOfanyOfStoreStorage=Tools.getInt(((List)li_store.get(0)).get(2),-1);
 if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)li_dest.get(0)).get(2),-1);
+
+Object pdtAttr=null;
+try{
+ pdtAttr=QueryEngine.getInstance().doQueryOne("select value from ad_param where name='portal.itemdetail.pdtAttr'");
+ if("".equals(((String)pdtAttr).trim()))pdtAttr="VALUE";
+}catch(Exception e2){
+ pdtAttr="VALUE";
+}
+String clks="M_PRODUCT.VALUE";
+if(null!=pdtAttr){
+	clks="M_PRODUCT."+pdtAttr;
+}
+ColumnLink clk=new ColumnLink(clks);
+Table t=TableManager.getInstance().getTable("M_PRODUCT");
+QueryRequestImpl qr=new QueryRequestImpl(userWeb.getSession());
+qr.setMainTable(t.getId(),false,null);
+qr.addSelection(t.getColumn("NAME").getId());
+qr.addSelection(clk.getColumnIDs(),false,"v");
+qr.addParam(t.getColumn("ID").getId(),productId+"");
+QueryResult result=QueryEngine.getInstance().doQuery(qr);
+String pdtName="";
+if(result.next()){
+	pdtName=result.getString(1)+"("+result.getString(2)+")";
+}
+
 %>
+<style>
+.itemdetail_table, #itemdetail_table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.itemdetail_table thead {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+.itemdetail_table thead tr {
+    border: 0px solid #CDCDCD;
+}
+.itemdetail_table thead td {
+    <!--background: none repeat scroll 0 0 #E1E1E1;-->
+    border: 0 none !important;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+}
+.itemdetail_table tr, #itemdetail_table tr {
+    height: 20px;
+}
+.itemdetail_table td, #itemdetail_table td {
+    border: 0px solid #CDCDCD;
+    text-align: center;
+    white-space: nowrap;
+    word-break: break-all;
+    border-collapse: collapse;
+}	
+.itemdetail_table td.hd, #itemdetail_table td.hd {
+    background-color: #E1EBFD;
+    border: 1px solid #77A5E0;
+    cursor: pointer;
+    border-collapse: collapse;
+}
+</style>
 <div id="itemdetail_div">
 <table cellpadding="1" cellspacing="0" border="0" width="100%"  style="margin-top: 5px;">
-<tr><td><%= PortletUtils.getMessage(pageContext, "bg-batch-value",null)%>:
+<tr><td><%= PortletUtils.getMessage(pageContext, "bg-batch-value",null)%><span style="color: #FF0000;font-weight: bold;"><%=pdtName%></span>:
 <input type="text" id="itemdetail_defaultvalue" value="" size="10"> &nbsp;
 <span style="display:none"><input type="checkbox" id="itemdetail_notnull" value="1"></span><!--<%= PortletUtils.getMessage(pageContext, "do-not-create-record-for-null",null)%>-->
 <input class="command2_button" type="button" name="clearinstances" value="<%=PortletUtils.getMessage(pageContext, "clear-all",null)%>(K)" onclick="gc.clearItemDetailInputs()" accessKey="K" >&nbsp;&nbsp;
@@ -493,12 +628,16 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 			(idOfanyOfStoreStorage!=-1 && userWeb.hasObjectPermission("V_FA_STORAGE",idOfanyOfStoreStorage,nds.security.Directory.READ))){
 				directory_store=true;
 		}
+		if(orderQtySelect==null)orderQtySelect="1111";
+		int qtysel=new java.math.BigInteger(orderQtySelect,2).intValue();
+		
 %>
 <span id="store1_desc"><%=store_col.getDescription(locale)%>:<%=storedata%></span>
-<span class="store1_desc_s"><input type="checkbox" id="sqty" value="sqty" checked onclick="gc.showQty('s')"><%=PortletUtils.getMessage(pageContext, "show_qty",null)%></span>
-<span class="store1_desc_c"><input type="checkbox" id="cqty" value="cqty" checked onclick="gc.showQty('c')"><%=PortletUtils.getMessage(pageContext, "show_qty_consign",null)%></span>
-<span class="store1_desc_v"><input type="checkbox" id="vqty" value="vqty" checked onclick="gc.showQty('v')"><%=PortletUtils.getMessage(pageContext, "show_qty_valid",null)%></span>
-&nbsp; &nbsp;
+<span class="store1_desc_s"><input type="checkbox" id="sqty" value="sqty" <%if((qtysel&8)==8){%>checked<%}%> onclick="gc.showQty('s')"><%=PortletUtils.getMessage(pageContext, "show_qty",null)%></span>
+<span style="background-color: yellow;"><input type="checkbox" id="yqty" value="yqty" <%if((qtysel&4)==4){%>checked<%}%> onclick="gc.showQty('y')"><%=PortletUtils.getMessage(pageContext, "show_qty_estimated",null)%></span>
+<span class="store1_desc_c"><input type="checkbox" id="cqty" value="cqty" <%if((qtysel&2)==2){%>checked<%}%> onclick="gc.showQty('c')"><%=PortletUtils.getMessage(pageContext, "show_qty_consign",null)%></span>
+<span class="store1_desc_v"><input type="checkbox" id="vqty" value="vqty" <%if((qtysel&1)==1){%>checked<%}%> onclick="gc.showQty('v')"><%=PortletUtils.getMessage(pageContext, "show_qty_valid",null)%></span>
+
 <%}%>
 <%
 	if(dest_col!=null){
@@ -509,18 +648,30 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 				directory_dest =true;
 		}
 %>
-<span style="background-color:#C0FEC0;"><%=dest_col.getDescription(locale)%>:<%=destdata%></span>
+
+&nbsp; &nbsp;<span style="background-color:#C0FEC0;"><%=dest_col.getDescription(locale)%>:<%=destdata%></span>
 <%}%></td></tr>
 <tr><td>
 <form id="itemdetail_form" onsubmit="return false;">
-<div id="itemdetail_div" style="width:100%; height:420px;overflow-y: hidden; overflow-x: scroll; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px">
-<div id="H_itemdetail_head" style="width: 100%;overflow: hidden; position: relative; z-index: 12;">
+<!--<div id="itemdetail_div" style="width:100%; height:420px;overflow-y: hidden; overflow-x: scroll; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px">-->
+<!--<div id="H_itemdetail_head" style="width: 100%;overflow: hidden; position: relative; z-index: 12;">
+
+</div>-->
+<div id="D_itemdetail_table" style="width:100%; height:300px;overflow-y: auto; overflow-x: auto; border-width:thin;border-style:groove;border-color:#CCCCCC;padding:0px">
+<table style="padding:0px;border-collapse:collapse;border:0px">
+	<tr>
+		<td style="margin-top:0px;vertical-align:top;border:0px">
 <%=getAttributeTable_head(instances2,0,attributes,attributeValues,"",inputList,li_store,li_dest,store_objectId,dest_objectId,store_table,dest_table,directory_store,directory_dest,userWeb)%>
-</div>
-<div id="D_itemdetail_table" style="width: 100%; max-height: 380px; min-height: 300px; overflow-y: scroll; overflow-x: hidden; z-index: 11;">
+		</td>
+	</tr>
+	<tr>
+		<td style="margin-top:0px;vertical-align:top;border:0px">
 <%=getAttributeTable(instances2,0,attributes,attributeValues,"",inputList,li_store,li_dest,store_objectId,dest_objectId,store_table,dest_table,directory_store,directory_dest,userWeb)%>
+</td>
+	</tr>
+</table>
 </div>
-</div>
+<!--</div>-->
 </form>
 </td></tr>
 <tr><td>
@@ -530,8 +681,38 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 </table>
 </div>
 <script type="text/javascript">
+	          jQuery(document).ready(function(){
+		jQuery("[id^='head-']").each(function(index,element){
+   					var id = jQuery(this).attr("id");
+   					var sad=document.getElementById(id);
+   					var i =0;
+   					var sad1=null;
+   					if(id.indexOf("headtot")>0){
+   						i = id.replace("headtot-","");
+   						sad1=document.getElementById("tot_0");
+   						var wi=sad.offsetWidth;
+   						sad1.style.width=wi+"px";
+   					}else{
+   						i = id.replace("head-","")
+   							sad1=document.getElementById("pro-0-"+i);
+	   						var wi=sad1.offsetWidth;
+	   						sad.style.width=wi+"px";
+   						/*i = id.replace("head-","");
+   						sad1=document.getElementById("tot_0");
+   						var wi=sad1.offsetWidth;
+   						sad.style.width=wi+"px";*/
+   					}
+   			});
+  });
+  
 	var theadTd = jQuery("#modify_table_head").find("thead tr:first td");
-	theadTd[theadTd.size()-1].style.paddingRight=getScrollbarWidth()+"px";
+	//theadTd[theadTd.size()-1].style.paddingRight=getScrollbarWidth()+"px";
+	<%if(store_col!=null){%>
+		gc.showQty('s');
+		gc.showQty('y');
+		gc.showQty('c');
+		gc.showQty('v');
+	<%}%>
 	function getScrollbarWidth() 
 	{
 		if (scrollbarWidth) return scrollbarWidth;
@@ -544,8 +725,10 @@ if(li_dest!=null && li_dest.size()>0)  idOfanyOfDestStorage=Tools.getInt(((List)
 		scrollbarWidth = (w1 - w2);
 		return scrollbarWidth;
 	}
+	
 </script>
 <%}catch(Throwable t){
 	logger.error("/html/nds/pdt/itemdetail.jsp", t);
 	out.print(PortletUtils.getMessage(pageContext, "exception",null)+":"+ t.getMessage());
 }%>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
