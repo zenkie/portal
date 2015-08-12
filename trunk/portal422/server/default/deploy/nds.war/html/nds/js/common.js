@@ -255,6 +255,6 @@ function showGlobalMessage(message) {
         } else {
             document.write('<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />');
         }
-        alert(navigator.userAgent);
+        //alert(navigator.userAgent);
     }
 }());
