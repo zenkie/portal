@@ -1315,8 +1315,8 @@ _hidePopupWindow:function(){
     	str=str+"</tbody></table>";
        }
     	str=str+"<table class='dq-scroll'><tr>";
-    	str=str+"<td id='refresh_"+accepterId+"' onaction=\"dq.scrollPage('refresh_"+accepterId+"','"+accepterId+"')\"><img src=\"/html/nds/images/tb_refresh.gif\" align='absmiddle' border=0></td>";
-    	str=str+"<td id='pop_"+accepterId+"' onaction=\"popup_window('"+dropdown_query.poppath+"&action=input')\"><img src=\"/html/nds/images/tb_new.gif\" align='absmiddle' border=0></td>";
+    	str=str+"<td id='refresh_"+accepterId+"' onaction=\"dq.scrollPage('refresh_"+accepterId+"','"+accepterId+"')\"><img src=\"/html/nds/images/tb_refresh_dq.gif\" align='absmiddle' border=0></td>";
+    	str=str+"<td id='pop_"+accepterId+"' onaction=\"popup_window('"+dropdown_query.poppath+"&action=input')\"><img src=\"/html/nds/images/tb_new_dq.gif\" align='absmiddle' border=0></td>";
     	str=str+"<td >-</td>";
     	str=str+"<td id='begin_btn_"+accepterId+"' onaction=\"dq.scrollPage('begin_btn_"+accepterId+"','"+accepterId+"')\"><img src=\"/html/nds/images/begin.gif\" width='16' height='16'></td>";
         str=str+"<td id='prev_btn_"+accepterId+"' onaction=\"dq.scrollPage('prev_btn_"+accepterId+"','"+accepterId+"')\"><img src=\"/html/nds/images/back.gif\" width='16' height='16'></td>";
