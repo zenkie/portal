@@ -116,7 +116,7 @@ jQuery(document).ready(function(){
 	jQuery("#portal-content").scroll(function() {
 		if(jQuery("#portal-content").scrollTop() >= 200){
 			jQuery('#roll').fadeIn(400);
-			jQuery('#page-nav-commands').css("position","absolute");
+			//jQuery('#page-nav-commands').css("position","absolute");
 		}
 		else
 		{
