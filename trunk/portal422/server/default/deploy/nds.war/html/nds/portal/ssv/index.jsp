@@ -83,6 +83,7 @@ String cp=nds.control.web.WebUtils.getCompany();
 <head>
 <title>Portal2.0 <%=""+cp+""%></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<%@ include file="../top_meta.jsp" %>
 	<script type="text/javascript" src="/html/nds/js/newjs/pos.sliderMenu.js"></script>
 <script>
