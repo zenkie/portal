@@ -245,7 +245,7 @@ function showGlobalMessage(message) {
         }
         return _version;
     }
-
+/*
     if (ieOf('8.0') || ieOf('7.0')) {
         var meta = document.createElement("meta");
         meta.setAttribute("http-equiv", "X-UA-Compatible");
@@ -256,5 +256,5 @@ function showGlobalMessage(message) {
             document.write('<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />');
         }
         //alert(navigator.userAgent);
-    }
+    }*/
 }());
