@@ -355,7 +355,7 @@ GridControl.prototype = {
 			$("so_M_PRODUCT_ID__NAME").focus();
 			return true;
 		}
-		if(!isNaN(pdt)&&parseInt(pdt,10)==1){
+		if(!isNaN(pdt)&&jQuery.trim(pdt)==1){
 			//add boxno
 			try{
 				$("so_SHELFNO").value= parseInt($("so_SHELFNO").value,10)+1;
@@ -511,7 +511,7 @@ GridControl.prototype = {
 		var objectIds=selectedIds.join(",");
 		if(objectIds!=""&&objectIds!=null&&objectIds!=undefined&&this._gridQuery!=null){
 			//this._gridQuery.table+".ID=in (123,123,123)"
-			//this._gridQuery.fixedColumns£½
+			//this._gridQuery.fixedColumnsÂ£Â½
 			var fixcol=this._gridQuery.table+".ID=in ("+objectIds+")";
 			this._gridQuery.objectIds=fixcol;
 		}
@@ -688,7 +688,11 @@ GridControl.prototype = {
 					$("timeoutBox").style.visibility = 'hidden';
 					var result= r.evalJSON();
 					if (result.code !=0 ){
-						msgbox(result.message);
+						if(dwr.util.getValue("error_refresh")==true){
+							msgbox(result.message,'','',true);
+							}else{
+							msgbox(result.message);
+						}
 						oc._toggleButtons(false);
 					}else {
 						var evt=new BiEvent(result.callbackEvent);
@@ -812,7 +816,7 @@ GridControl.prototype = {
 		var chkProductAttribute=$("check_product_attribute");
 		var chkMaterialAttribute=$("check_material_attribute");
 		
-		//add by robin 20121009 ÎïÁÏ ÅĞ¶Ï
+		//add by robin 20121009 ÃÃ¯ÃÃ Ã…ÃÂ¶Ã
 		if(chkMaterialAttribute&&-1!=this._getPositionInData("Y_MATERIALALIAS_ID__NO")){
 			
 			var mtlValue=String($("eo_"+chkMaterialAttribute.value).value);
@@ -1005,17 +1009,6 @@ GridControl.prototype = {
 		if(inputvale!=""&&!this._regexp_integer.test(inputvale)){
 			alert(gMessageHolder.NOT_INTEGER);
 			val[0].value="";
-			/*var inputele=val[0].id;
-			dwr.util.selectRange(val[0],0,this.MAX_INPUT_LENGTH);
-			if(Prototype.Browser.IE){	
-				event.cancelBubble = true;
-				event.returnValue = false;
-			}else{
-				event.returnValue = false;
-				event.stopPropagation();
-				event.preventDefault();
-			}*/
-			
 		}else{
 			flag=true;
 		}
@@ -1032,7 +1025,7 @@ GridControl.prototype = {
 		    sum=0;
 		    var temp_value;
 		    for(j=1;j<$("modify_table_product").rows.length;j++){
-		    	temp_value=$("modify_table_product").rows[j].cells[$("modify_table_product").rows[row].cells.length-1].innerHTML;
+		    	temp_value=$("tot_"+(j-1)).innerHTML;
 		    	if(temp_value==""||temp_value=="&nbsp;"){
 		    		temp_value=0;
 		    	}
@@ -1137,10 +1130,15 @@ GridControl.prototype = {
 		var cols=this._gridMetadata.columns,i,col,v;
 		// update asi_sum to first column that contains name "QTY"
 		if(chkResult!=null && chkResult.asi_sum!=undefined){
+			/*
 			if(chkResult.asi_sum==0){
 				alert(gMessageHolder.PRODUCT_NMNER_ZORE);
 				return;
-			}						
+			}*/						
+			if(chkResult.asi_objs.length==0){
+				alert("å•†å“æ•°é‡ä¸º0ï¼Œè¯·è¾“å…¥å•†å“æ•°é‡!");
+				return;
+			}	
 			for(i=5;i<cols.length;i++){
 				col=cols[i];
 				if((col.isUploadWhenCreate || col.isUploadWhenModify) && col.name.indexOf("QTY")>=0 ){
@@ -1532,7 +1530,7 @@ GridControl.prototype = {
 				var row= chkResult.tag;// @see showJsonObj
 				this.editLine(row);
 				/*
-				½çÃæ´íÎóshowerro
+				ç•Œé¢é”™è¯¯showerro
 				var ele = Alerts.fireMessageBox(
 				{
 					width: 800,
@@ -1983,7 +1981,7 @@ GridControl.prototype = {
 			}
 			dwr.util.setValue("chk_select_all", false); 
 			cyl 10 16
-			¸üĞÂSelectableTableRows to  selectable
+			Â¸Ã¼ÃÃ‚SelectableTableRows to  selectable
 		};	
 		*/
 		var tb=jQuery('#modify_table').selectable({filter:'tr',tolerance:"fit",cancel:"input,:input,a,.ui-selected"});
@@ -2218,10 +2216,13 @@ EditableGridMetadata.prototype = {
 	
 };
 
-function msgbox(msg, title, boxType ) {
+function msgbox(msg, title, boxType,refesh) {
 	showProgressWindow(false);
 	alert(msg);
+	var b = arguments[3] ? arguments[3] : false;
+	if(b){gc.refreshGrid(true)}
 }
+
 function playAlert(){
 		if($("jpId")&&!is_ie_8){
 			/*
@@ -2402,11 +2403,11 @@ function doQuickSearch(){
 	
 		
 		if (tableHeader.rows.length > 0) {
-			//»ñÈ¡Ã¿Ò»ĞĞTRÊı¾İ
+			//è·å–æ¯ä¸€è¡ŒTRæ•°æ®
 			  for (v = 0; v < tableHeader.rows.length; v++) {
 			  	var  trbody=tableHeader.rows[v];
 			    if (colsWidths.size() > 0) {
-			    	  //¸üĞÂÃ¿ĞĞTD¿í¶È
+			    	  //æ›´æ–°æ¯è¡ŒTDå®½åº¦
 			    	
 			        for (i = 0; i < trbody.children.length; i++) {
 			        	//alert(colsWidths[i]);
@@ -2454,11 +2455,11 @@ function doQuickSearch(){
 		
 		
 		if (masterTable.rows.length > 0) {
-			//»ñÈ¡Ã¿Ò»ĞĞTRÊı¾İ
+			//è·å–æ¯ä¸€è¡ŒTRæ•°æ®
 			  for (v = 0; v < masterTable.rows.length; v++) {
 			  	var  trbody=masterTable.rows[v];
 			    if (colsWidths.size() > 0) {
-			    	  //¸üĞÂÃ¿ĞĞTD¿í¶È
+			    	 //æ›´æ–°æ¯è¡ŒTDå®½åº¦
 			    	
 			        for (i = 0; i < trbody.children.length; i++) {
 			        	//alert(colsWidths[i]);
@@ -2570,7 +2571,7 @@ function doQuickSearch(){
 
      //alert(theadTD[0].offsetWidth);
      //alert(tbodyTD[0].offsetWidth);
-     //ĞŞ¸´Ã÷Ï¸Ë¢ĞÂ²»ÄÜ¿í¶È·Å´óÎÊÌâ
+     //ä¿®å¤æ˜ç»†åˆ·æ–°ä¸èƒ½å®½åº¦æ”¾å¤§é—®é¢˜
 	 
 	 
       //if(theadTD[0].offsetWidth!=tbodyTD[0].offsetWidth&&tbodyTD[0].offsetWidth!=0){
