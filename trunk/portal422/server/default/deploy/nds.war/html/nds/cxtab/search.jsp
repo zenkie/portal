@@ -3,6 +3,8 @@
 <%@ page import="org.json.*"%>
 <%@ page import="nds.control.web.ConfigValues"%>
 <%@ page import="nds.web.config.*" %>
+<%@ page import="nds.util.LicenseManager"%>
+<%@ page import="nds.util.LicenseWrapper"%>
 
 <%
 /**
@@ -74,8 +76,17 @@
 	ArrayList qColumns=table.getIndexedColumns();
 	TableQueryModel model= new TableQueryModel(tableId,qColumns,false,false,locale);
 
+	/*support jfr*/
+	Boolean supportjfr=false;
+	try{
+	Iterator b=LicenseManager.getLicenses();
+	    while (b.hasNext()) {
+	    	LicenseWrapper o = (LicenseWrapper)b.next();
+	    	supportjfr=o.getSupportJFR();
+	    }
+	} catch (Exception e) {}
 
-%>
+	%>
 <div id="page-table-query">
 	<input id="fold" type="hidden" value="<%=pathname==false?"":userWeb.getUserId()%>">
 	<div id="page-table-query-tab">
@@ -265,7 +276,7 @@
 <%
 
 
-if(Validator.isNotNull(fineReportPath)){%>
+if(Validator.isNotNull(fineReportPath)&&supportjfr){%>
 <input id="btn_run_fr" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'fr')" value="<%=PortletUtils.getMessage(pageContext, "execute-htm",null)%>">
       &nbsp;&nbsp;
 <%}
