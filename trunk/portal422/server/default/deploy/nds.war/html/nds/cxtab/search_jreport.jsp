@@ -2,6 +2,8 @@
 <%@ include file="/html/nds/common/init.jsp" %>
 <%@ page import="org.json.*"%>
 <%@ page import="nds.web.config.*" %>
+<%@ page import="nds.util.LicenseManager"%>
+<%@ page import="nds.util.LicenseWrapper"%>
 <%
 /**
    Only for report that not set ad_table, that means, whole parameters are read from ad_cxtab_jpara table
@@ -48,6 +50,16 @@
 	q.put("start",0);
 	q.put("range",QueryUtils.DEFAULT_RANGE);
 	boolean firstDateColumnFound=false;	
+
+		/*support jfr*/
+	Boolean supportjfr=false;
+	try{
+	Iterator b=LicenseManager.getLicenses();
+	    while (b.hasNext()) {
+	    	LicenseWrapper o = (LicenseWrapper)b.next();
+	    	supportjfr=o.getSupportJFR();
+	    }
+	} catch (Exception e) {}
 
 %>
 <div id="page-table-query">
@@ -212,7 +224,7 @@
 <div id="rpt-sbtns">
 	<a href="javascript:mu.add_mufavorite('<%=table.getDescription(locale)%>','<%=tableId%>',true,'<%=cxtabId%>')"><img src="/html/nds/images/mufa.png"><%=PortletUtils.getMessage(pageContext, "mufavorite",null)%></a>
 <%
-if(Validator.isNotNull(fineReportPath)){%>
+if(Validator.isNotNull(fineReportPath)&&supportjfr){%>
 <input id="btn_run_fr" type="button" class="cbutton" onclick="javascript:pc.doReportOnSelection(true,<%=tableId%>,'fr')" value="<%=PortletUtils.getMessage(pageContext, "execute-htm",null)%>">
       &nbsp;&nbsp;
 <%}
@@ -238,7 +250,7 @@ if(Validator.isNotNull(excelPath)){%>
  int objPerm= userWeb.getObjectPermission("AD_CXTAB", cxtabId);
 if((objPerm & nds.security.Directory.READ )== nds.security.Directory.READ ){
 %>    
-      <input type="button" class="cbutton" onclick="javascript:showObject2('/html/nds/cxtab/cxtabdef.jsp?id=<%=cxtabId%>',{close:function(){pc.qrpt(<%=cxtabId%>);}})" value="<%=PortletUtils.getMessage(pageContext, "define-cxtab",null)%>">
+      <input type="button" class="cbutton" onclick="javascript:pc.modifyrep();" value="<%=PortletUtils.getMessage(pageContext, "define-cxtab",null)%>">
 <%}%>      
 <script>
  pc.initCxtabQuery(<%=q.toString()%>);
