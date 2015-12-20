@@ -270,7 +270,7 @@ document.write(tree);
 			<td width="85%" align="left"><input title="<%=manager.getColumn("ad_cxtab_fact","AD_COLUMN_ID").getDescription(locale)%>" type="text"  id="TMPLmea_column" value="" size="60" maxlength="255" /></td>
 		</tr><tr>
 			<td width="15%" nowrap><%=manager.getColumn("ad_cxtab_fact","USERFACT").getDescription(locale)%>:</td>
-			<td width="85%" align="left"><input title="<%=manager.getColumn("ad_cxtab_fact","USERFACT").getDescription(locale)%>" type="text"  id="TMPLmea_userfact" value="" size="60" maxlength="80" /></td>
+			<td width="85%" align="left"><input title="<%=manager.getColumn("ad_cxtab_fact","USERFACT").getDescription(locale)%>" type="text"  id="TMPLmea_userfact" value="" size="60" maxlength="255" /></td>
 		</tr><tr>
 			<td width="15%" nowrap><%=manager.getColumn("ad_cxtab_fact","valuename").getDescription(locale)%>:</td>
 			<td width="85%" align="left"><input title="<%=manager.getColumn("ad_cxtab_fact","valuename").getDescription(locale)%>" type="text"  id="TMPLmea_valuename" value="" size="60" maxlength="80" /></td>
