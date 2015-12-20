@@ -7,6 +7,8 @@
 	int pn=0;
 	int  cu=0;
 	int  cs=0;
+	int padpos=0;
+	Boolean jfr=false;
 	String cp=null;
 	ResultSet rs = null;
 	PreparedStatement pstmt = null;
@@ -29,7 +31,7 @@
 	        }	
 	}
 	try{
-	LicenseManager.validateLicense("jackrain","5.0",mac,true);
+	LicenseManager.validateLicense("portal20","5.0",mac,true);
 	QueryEngine engine=QueryEngine.getInstance();
 	Iterator b=LicenseManager.getLicenses();
 	    while (b.hasNext()) {
@@ -38,6 +40,8 @@
 			pn=o.getNumPOS();
 			cp=o.getName();
 			expdate=o.getExpiresDate();
+			padpos=o.getPadPOS();
+			jfr=o.getSupportJFR();
 	    }
 		cu=Tools.getInt(engine.doQueryOne("select count(*) from users t where t.isactive='Y' and t.IS_SYS_USER!='Y'"), -1);
 		cs=Tools.getInt(engine.doQueryOne("select count(*) from c_store t where t.isactive='Y' and t.isretail='Y'"), -1);
@@ -203,6 +207,8 @@ border-radius: 0 0 6px 0;
     <th>当前用户数</th>
     <th>POS数</th>
     <th>当前POS数</th>
+    <th>当前padpos数</th>
+    <th>是否支持高级报表工具</th>
   </tr>
  </thead> 
   <tr>
@@ -210,6 +216,8 @@ border-radius: 0 0 6px 0;
     <td><%=cu%></td>
     <td><%=pn%></td>
     <td><%=cs%></td>
+    <td><%=padpos%></td>
+    <td><%=jfr?"是":"否"%></td>
   </tr>
 </table>
 <font color="yellow">
