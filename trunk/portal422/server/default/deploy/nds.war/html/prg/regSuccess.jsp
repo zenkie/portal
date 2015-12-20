@@ -1,12 +1,60 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ include file="/html/nds/common/init.jsp" %>
+<%@ page import="nds.util.LicenseManager"%>
+<%@ page import="nds.util.LicenseWrapper"%>
 <%
-  int usrnum= Tools.getInt(request.getParameter("user"),-1);
-  int posnum= Tools.getInt(request.getParameter("pos"),-1);
-  String cp=(String)request.getParameter("cp");
-  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-  Date expdate= df.parse((String)request.getParameter("exp"));
-  %>
+	int un=0;
+	int pn=0;
+	int  cu=0;
+	int  cs=0;
+	int padpos=0;
+	Boolean jfr=false;
+	String cp=null;
+	ResultSet rs = null;
+	PreparedStatement pstmt = null;
+	Connection conn=null;
+	String mac=null;
+	Object sc=null;
+	Date expdate=new java.util.Date();
+	java.text.SimpleDateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
+	try{
+	conn= nds.query.QueryEngine.getInstance().getConnection();
+	pstmt= conn.prepareStatement("select mac from users where id=?");
+	pstmt.setInt(1, 893);
+	rs= pstmt.executeQuery();
+	if(rs.next()){
+		sc=rs.getObject(1);
+		if(sc instanceof java.sql.Clob) {
+			mac=((java.sql.Clob)sc).getSubString(1, (int) ((java.sql.Clob)sc).length());
+	        }else{
+	        mac=(String)sc;
+	        }	
+	}
+	try{
+	LicenseManager.validateLicense("bos20","5.0",mac,true);
+	QueryEngine engine=QueryEngine.getInstance();
+	Iterator b=LicenseManager.getLicenses();
+	    while (b.hasNext()) {
+	    	LicenseWrapper o = (LicenseWrapper)b.next();
+	    	un=o.getNumUsers();
+			pn=o.getNumPOS();
+			cp=o.getName();
+			expdate=o.getExpiresDate();
+			padpos=o.getPadPOS();
+			jfr=o.getSupportJFR();
+	    }
+		cu=Tools.getInt(engine.doQueryOne("select count(*) from users t where t.isactive='Y' and t.IS_SYS_USER!='Y'"), -1);
+		cs=Tools.getInt(engine.doQueryOne("select count(*) from c_store t where t.isactive='Y' and t.isretail='Y'"), -1);
+	} catch (Exception e) {
+	}
+	}catch(Throwable t){
+
+	}finally{
+		try{if(rs!=null) rs.close();}catch(Throwable t){}
+		try{if(pstmt!=null) pstmt.close();}catch(Throwable t){}
+		try{if(conn!=null) conn.close();}catch(Throwable t){}
+		}  
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -76,8 +124,10 @@ a:link,a:visited{
 <font color="#ffffff">
 <h1>BOS注册产品信息</h1>
 <h2>客户名称：<span><%=cp%></span></h2>
-<h2>用户数：<span><%=usrnum%></span></h2>
-<h2>POS数：<span><%=posnum%></span></h2>
+<h2>用户数：<span><%=un%></span></h2>
+<h2>POS数：<span><%=pn%></span></h2>
+<h2>PADPOS数：<span><%=padpos%></span></h2>
+<h2>是否支持高级报表工具：<span><%=jfr?"是":"否"%></span></h2>
 <font color="yellow">
 	<h2>服务到期时间：<span><%=df.format(expdate)%></span></h2>
 	<h2>距离服务到期还有：<span><%=(expdate.getTime()-System.currentTimeMillis())/(24*60*60*1000)>0?(expdate.getTime()-System.currentTimeMillis())/(24*60*60*1000):0%></span>天</h2>
