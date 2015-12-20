@@ -823,14 +823,23 @@ ObjectControl.prototype = {
 					$("timeoutBox").style.visibility = 'hidden';
 					var result= r.evalJSON();
 					if (result.code !=0 ){
+						playAlert();
 						var msg="错误:\n";
 						if(result.data!=undefined&&result.data.results.length>0&&result.data!=null&&result.data.results!=null){
 							for (var i=0;i<result.data.results.length;i++){
 								if(result.data.results[i].msg!=undefined)msg+="行 "+(result.data.results[i].row+1)+":"+result.data.results[i].msg+"\n";
 								}
-								msgbox(msg);
+								if(dwr.util.getValue("error_refresh")==true){
+									msgbox(msg,'','',true);
+									}else{
+									msgbox(msg);
+								}
 						}else{
-						msgbox(result.message);
+								if(dwr.util.getValue("error_refresh")==true){
+									msgbox(result.message,'','',true);
+									}else{
+									msgbox(result.message);
+								}
 						}
 						oc._toggleButtons(false);
 					}else {
@@ -1490,6 +1499,13 @@ ObjectControl.prototype = {
 						jQuery("#jpsId").jPlayer("stop");
             jQuery("#jpsId").jPlayer("play");
             return;
+      }
+	},
+	playAlert:function(){
+		if($("jpId")&&!is_ie_8){
+			jQuery("#jpId").jPlayer("stop");
+            jQuery("#jpId").jPlayer("play");
+			return;
       }
 	}
 };
