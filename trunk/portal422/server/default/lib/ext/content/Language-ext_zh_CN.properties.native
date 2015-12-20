@@ -971,3 +971,4 @@ my-notice=通知
 view-workflow=查看工作流
 execute-cus=多维数据表
 inactive-user-smslogin=当前用户必须使用短信登录!
+error_refresh=错误刷新明细
