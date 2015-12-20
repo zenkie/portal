@@ -30,6 +30,10 @@ boolean hideInEditMode;
 boolean checkPdtBarcodeOnly=false;
 boolean addMatrix=false;
 String bindAliasQtyCol="";
+boolean checkClafterSave=true;
+if(table.getJSONProps()!=null&&!table.getJSONProps().optBoolean("clear_after_save",true))
+  checkClafterSave=false;
+
 for( int i=0;i< editColumns.size();i++){
 	colIdx++;
     if(colIdx%columnsPerRow == 0){
@@ -237,8 +241,9 @@ for( int i=0;i< editColumns.size();i++){
 	<!--end-->
 	
 	<input type="hidden" id="bind_alias_qty_col"  value="<%=bindAliasQtyCol%>"/>
-	<input type="checkbox" id="clear_after_insert" name="clear_after_save" checked><%=PortletUtils.getMessage(pageContext, "clear-after-insert",null)%>&nbsp;
-	<input type="checkbox" id="quick_save" name="quick_save" <%=(Tools.getYesNo(userWeb.getUserOption("QUICKSAVE","Y"),true)?"checked":"")%>><%=PortletUtils.getMessage(pageContext, "quick-save",null)%>
+	<input type="checkbox" id="clear_after_insert" name="clear_after_save" <%=(checkClafterSave?"checked":"")%> ><%=PortletUtils.getMessage(pageContext, "clear-after-insert",null)%>&nbsp;
+	<input type="checkbox" id="quick_save" name="quick_save" <%=(Tools.getYesNo(userWeb.getUserOption("QUICKSAVE","Y"),true)?"checked":"")%>><%=PortletUtils.getMessage(pageContext, "quick-save",null)%>&nbsp;
+	<input type="checkbox" id="error_refresh" name="error_refresh" <%=(Tools.getYesNo(userWeb.getUserOption("ERRORREFRESH","Y"),false)?"checked":"")%>><%=PortletUtils.getMessage(pageContext, "error_refresh",null)%>
 		</div>
 <div id="emtbts_btns">
 <table border="0" cellpadding="0" cellspacing="0" ><tr>
