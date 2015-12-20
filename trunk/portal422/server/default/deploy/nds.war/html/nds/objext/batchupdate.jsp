@@ -45,8 +45,8 @@ if(!canModify) throw new NDSException(PortletUtils.getMessage(pageContext, "no-p
 
 QueryResult result=null;
 int actionType=Column.MODIFY;
-ArrayList columns=table.getColumns(new int[]{3}, false,userWeb.getSecurityGrade(),true);//table.getModifiableColumns(Column.MODIFY);
-boolean isInput=true ;
+ArrayList columns=table.getColumns(new int[]{3},false,userWeb.getSecurityGrade(),false);//table.getModifiableColumns(Column.MODIFY);
+boolean isInput=true;
 int objectId=-1;
 %>
 
@@ -109,7 +109,7 @@ validCommands.add("Submit");
 <script>
 function doSubmit(){
 	if (!confirm("<%= PortletUtils.getMessage(pageContext, "do-you-confirm-batch-update" ,null)%>\n<%=filterDesc%>?")) {
-         return false;
+         return;
     }
 	form=document.<%=form_name%>;
 	form.command.value="BatchUpdate";
@@ -123,7 +123,7 @@ var masterObject={
 	 for(int i=0;i<inputColumns.size();i++){
 	 	inputColumnsJson.put( ((Column)inputColumns.get(i)).toJSONObject(locale));
 	 }
-	ArrayList modifyColumns=table.getColumns(new int[]{3}, false,userWeb.getSecurityGrade(),true);
+	ArrayList modifyColumns=table.getColumns(new int[]{3}, false,userWeb.getSecurityGrade(),false);
 	//Columns input for Modify 
 		 JSONArray modifyColumnsJson=new JSONArray();
 		 for(int i=0;i<modifyColumns.size();i++){
@@ -173,3 +173,4 @@ var masterObject={
 </div>
 
 <%@ include file="/html/nds/footer_info.jsp" %>
+
