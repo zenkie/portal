@@ -2279,13 +2279,15 @@ PortalControl.prototype = {
 	}
 	},
 	msgrefrsh:function(){
-				art.dialog.notice({
+			if(jQuery("#tabs-2 ul .not_3").size()>0){
+			art.dialog.notice({
 			    title: '系统消息',
 			    width: 220,
 			    content: jQuery("#tabs-2").html(),
 			    icon: 'face-smile',
 			    time: 5
 			});
+			}
 	},
 	menu_toggle:function(e){
    e.blur();
