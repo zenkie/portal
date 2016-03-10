@@ -2279,6 +2279,7 @@ PortalControl.prototype = {
 	}
 	},
 	msgrefrsh:function(){
+			if(jQuery("#tabs-2 ul .not_3").size()>0){
 				art.dialog.notice({
 			    title: '系统消息',
 			    width: 220,
@@ -2286,6 +2287,7 @@ PortalControl.prototype = {
 			    icon: 'face-smile',
 			    time: 5
 			});
+			}
 	},
 	menu_toggle:function(e){
    e.blur();
