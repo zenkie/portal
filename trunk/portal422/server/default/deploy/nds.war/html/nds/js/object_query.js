@@ -1154,7 +1154,7 @@ DropdownQuery.prototype = {
 			 $("begin_btn_"+accepter_id).setEnabled(false);
 			 $("prev_btn_"+accepter_id).setEnabled(false);
 		}
-		if((qr.start*qr.range)< qr.totalCount){
+		if((qr.start+qr.range)< qr.totalCount){
 			 $("next_btn_"+accepter_id).setEnabled(true);
 			 $("end_btn_"+accepter_id).setEnabled(true);
 		}else{
