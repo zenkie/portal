@@ -832,8 +832,13 @@ ObjectControl.prototype = {
 								if(dwr.util.getValue("error_refresh")==true){
 									msgbox(msg,'','',true);
 									}else{
-									msgbox(msg);
+									//msgbox(msg);
 								}
+								try{
+									var evt=new BiEvent(result.callbackEvent);
+									evt.setUserData(result);
+									gc.updateGrid(evt);
+								}catch(ex){}
 						}else{
 								if(dwr.util.getValue("error_refresh")==true){
 									msgbox(result.message,'','',true);
