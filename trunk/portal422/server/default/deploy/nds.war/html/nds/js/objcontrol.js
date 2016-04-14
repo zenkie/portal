@@ -823,28 +823,15 @@ ObjectControl.prototype = {
 					$("timeoutBox").style.visibility = 'hidden';
 					var result= r.evalJSON();
 					if (result.code !=0 ){
-						playAlert();
-						var msg="错误:\n";
-						if(result.data!=undefined&&result.data.results.length>0&&result.data!=null&&result.data.results!=null){
-							for (var i=0;i<result.data.results.length;i++){
-								if(result.data.results[i].msg!=undefined)msg+="行 "+(result.data.results[i].row+1)+":"+result.data.results[i].msg+"\n";
-								}
-								if(dwr.util.getValue("error_refresh")==true){
-									msgbox(msg,'','',true);
-									}else{
-									//msgbox(msg);
-								}
-								try{
-									var evt=new BiEvent(result.callbackEvent);
-									evt.setUserData(result);
-									gc.updateGrid(evt);
-								}catch(ex){}
+						if(dwr.util.getValue("error_refresh")==true){
+							playAlert();
+							setTimeout(function(){msgbox(result.message,'','',true)},50);
 						}else{
-								if(dwr.util.getValue("error_refresh")==true){
-									msgbox(result.message,'','',true);
-									}else{
-									msgbox(result.message);
-								}
+							try{
+								var evt=new BiEvent(result.callbackEvent);
+								evt.setUserData(result);
+								gc.updateGrid(evt);
+							}catch(ex){}
 						}
 						oc._toggleButtons(false);
 					}else {
@@ -855,7 +842,6 @@ ObjectControl.prototype = {
 				/*}catch(ex){
 					msgbox(ex.message);
 				}*/
-			
 		});
 	},
 	_checkInlineObjectInputs: function(){

@@ -1835,8 +1835,9 @@ GridControl.prototype = {
 			playScan();
 		}else{
 			if(errFound){
-				alert( gMessageHolder.EXCEPTION+":\n"+ sMsg);
+				//alert( gMessageHolder.EXCEPTION+":\n"+ sMsg);
 				playAlert();
+				setTimeout(function(){alert( gMessageHolder.EXCEPTION+":\n"+ sMsg);},50);
 			}
 		}
 	},
