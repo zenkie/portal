@@ -186,7 +186,7 @@ setInterval("pc.msgrefrsh()",<%=msgref_time%>*1000);
 				<span title="主页" class="portal-top-icon icon-home" onclick="javascript:location.href='/html/nds/portal/ssv/index.jsp?ss=-1'"></span>
 			</label>
 			<label>
-				<span title="设置" class="portal-top-icon2 icon-setting" onclick="javascript:showObject('/html/nds/option/option.jsp',null,null)"></span>
+				<span title="设置" class="portal-top-icon icon-setting" onclick="javascript:showObject('/html/nds/option/option.jsp',null,null)"></span>
 			</label>
 			<label>
 				<span id="shou_cang" cid="collects" title="收藏夹" class="portal-top-icon icon-favorite"></span>
