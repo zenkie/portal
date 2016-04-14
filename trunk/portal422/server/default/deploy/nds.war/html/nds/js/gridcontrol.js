@@ -1836,7 +1836,7 @@ GridControl.prototype = {
 		}else{
 			if(errFound){
 				playAlert();
-				setTimeout(function(){alert( gMessageHolder.EXCEPTION+":\n"+ sMsg);},1000);
+				setTimeout(function(){alert( gMessageHolder.EXCEPTION+":\n"+ sMsg);},50);
 				//playAlert();
 			}
 		}
