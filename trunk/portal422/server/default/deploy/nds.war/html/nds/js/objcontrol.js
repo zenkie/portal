@@ -820,21 +820,26 @@ ObjectControl.prototype = {
 		//showProgressWindow(true);
 		Controller.handle( Object.toJSON(evt), function(r){
 				//try{
-					$("timeoutBox").style.visibility = 'hidden';
-					var result= r.evalJSON();
-					if (result.code !=0 ){
-						if(dwr.util.getValue("error_refresh")==true){
-							playAlert();
-							setTimeout(function(){msgbox(result.message,'','',true)},50);
-						}else{
-							try{
-								var evt=new BiEvent(result.callbackEvent);
-								evt.setUserData(result);
+			$("timeoutBox").style.visibility = 'hidden';
+			var result= r.evalJSON();
+			if (result.code<0 ){
+					if(dwr.util.getValue("error_refresh")==true){
+						playAlert();
+						setTimeout(function(){msgbox(result.message,'','',true)},50);
+					}else{
+						try{
+							var evt=new BiEvent(result.callbackEvent);
+							evt.setUserData(result);
+							//application.dispatchEvent(evt);
+							if(evt.getUserData().data==undefined){
+								msgbox(result.message);
+							}else{
 								gc.updateGrid(evt);
+							}
 							}catch(ex){}
-						}
-						oc._toggleButtons(false);
-					}else {
+					}
+				oc._toggleButtons(false);
+					}else{
 						var evt=new BiEvent(result.callbackEvent);
 						evt.setUserData(result);
 						application.dispatchEvent(evt);
