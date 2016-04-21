@@ -1172,9 +1172,9 @@ scrollPage: function (t,accepterId) {
 		var qtot=queryObj.totalCount;
 		if(t=="refresh_"+accepterId) s=0;
 		else if(t=="begin_btn_"+accepterId)s=0;
-	    else if(t=="prev_btn_"+accepterId)s=qs-qrange-1;
-		else if(t=="next_btn_"+accepterId) s= qs+qrange-1;
-		else if(t=="end_btn_"+accepterId) s= qtot-qrange-1;
+		else if(t=="prev_btn_"+accepterId) { if (qs-qrange<0){s=0;}else{s=qs-qrange;}}
+		else if(t=="next_btn_"+accepterId) { if (qs+qrange>qtot){return;}else{s=qs+qrange;}}
+		else if(t=="end_btn_"+accepterId) s= s= qtot-qrange;
 		else s= qs;
 		queryObj.start=s;
 		queryObj.range=qrange;
