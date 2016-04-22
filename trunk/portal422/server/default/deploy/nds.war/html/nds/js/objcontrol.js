@@ -801,14 +801,18 @@ ObjectControl.prototype = {
 			return false;	
 		}
 		this._isButtonDisabled=disable;
-		var es=$("buttons").getElementsBySelector("input[type='button']");
+		//var es=$("buttons").getElementsBySelector("input[type='button']");
+		var es=jQuery(".table-buttons2");
 		if(disable){
 			for(var i=0;i< es.length;i++){
-				es[i].disable();
+				//try{es[i].disable()}catch(e){};
+				jQuery(es[i]).attr("bk",jQuery(es[i]).attr("href"));
+				jQuery(es[i]).attr("href","javascript:alert(gMessageHolder.DO_NOT_PRESS_TWICE);");
 			}
-		}else{
+		}else if(!disable){
 			for(var i=0;i< es.length;i++){
-				es[i].enable();
+				//es[i].enable();;
+				jQuery(es[i]).attr("href",jQuery(es[i]).attr("bk"));
 			}
 		}
 	},	
