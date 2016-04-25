@@ -801,7 +801,6 @@ ObjectControl.prototype = {
 			return false;	
 		}
 		this._isButtonDisabled=disable;
-		//var es=$("buttons").getElementsBySelector("input[type='button']");
 		var es=jQuery(".table-buttons2");
 		if(disable){
 			for(var i=0;i< es.length;i++){
@@ -811,11 +810,11 @@ ObjectControl.prototype = {
 			}
 		}else if(!disable){
 			for(var i=0;i< es.length;i++){
-				//es[i].enable();;
+				///es[i].enable();;
 				jQuery(es[i]).attr("href",jQuery(es[i]).attr("bk"));
 			}
 		}
-	},	
+	},
 	/**
 	* Request server handle command event
 	* @param evt CommandEvent
