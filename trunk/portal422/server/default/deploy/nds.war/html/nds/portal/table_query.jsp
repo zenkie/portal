@@ -77,7 +77,7 @@ List<ColumnLink> qColumns=qlc.getConditions(userWeb.getSecurityGrade());
                 }
                 java.util.HashMap a = new java.util.HashMap();
            		String defaultSelectValue="0";
-           		if("STATUS".equals(column.getName())){defaultSelectValue="=1";}
+           		if("STATUS".equals(column.getName())){defaultSelectValue="="+String.valueOf(selectstatusdef);}
            		if("ISACTIVE".equals(column.getName())){defaultSelectValue="=Y";}
            %>
            <input:select name="<%=inputName%>" default="<%=defaultSelectValue%>" attributes="<%= a %>" options="<%= o %>" />
