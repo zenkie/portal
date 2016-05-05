@@ -9,6 +9,7 @@
 private static boolean listEditable=Tools.getYesNo(((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("list.editable","Y"),true);
 private static boolean listUiconf=Tools.getYesNo(((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("list.uiconf","N"),true);
 private static boolean listHelp="true".equals( ((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("list.help","false"));
+private static int selectstatusdef=Tools.getInt(((Configurations)WebUtils.getServletContextManager().getActor( nds.util.WebKeys.CONFIGURATIONS)).getProperty("portal.tablequerystatus.default","1"),1);
 %>
 
 <%
