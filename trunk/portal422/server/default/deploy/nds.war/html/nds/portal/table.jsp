@@ -113,12 +113,30 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 						maxHeight=maxHeight.replace("px","");
 						maxHeight=parseInt(maxHeight,0);
 						jQuery("#embed-lines").css({"max-height":(maxHeight-height)+"px"});
+						if (jQuery("#D_inc_table_B").length>0) {
+							var itemlen=document.getElementById("grid_table").rows.length;
+						if(itemlen>1){
+								jQuery("#D_inc_table_B").css("maxHeight","370px");
+							return;
+							}else{
+								return;
+							}
+						}
 					},function(){ 
 						jQuery("#tab1").hide('blind','',500,'');
 						var maxHeight=jQuery("#embed-lines").css("max-height");
 						maxHeight=maxHeight.replace("px","");
 						maxHeight=parseInt(maxHeight,0);
 						jQuery("#embed-lines").css({"max-height":(height+maxHeight)+"px"});
+						if (jQuery("#D_inc_table_B").length>0) {
+							var itemlen=document.getElementById("grid_table").rows.length;
+						if(itemlen>1){
+								jQuery("#D_inc_table_B").css("maxHeight","240px");
+							return;
+							}else{
+								return;
+							}
+						} 
 					}
 				);
 			</script>
@@ -132,12 +150,30 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 						maxHeight=maxHeight.replace("px","");
 						maxHeight=parseInt(maxHeight,0);
 						jQuery("#embed-lines").css({"max-height":(height+maxHeight)+"px"});
+						if (jQuery("#D_inc_table_B").length>0) {
+							var itemlen=document.getElementById("grid_table").rows.length;
+						if(itemlen>1){
+								jQuery("#D_inc_table_B").css("maxHeight","370px");
+							return;
+							}else{
+								return;
+							}
+						}
 					},function(){ 
 						jQuery("#tab1").show('blind','',500,'');
 						var maxHeight=jQuery("#embed-lines").css("max-height");
 						maxHeight=maxHeight.replace("px","");
 						maxHeight=parseInt(maxHeight,0);
 						jQuery("#embed-lines").css({"max-height":(maxHeight-height)+"px"});
+						if (jQuery("#D_inc_table_B").length>0) {
+							var itemlen=document.getElementById("grid_table").rows.length;
+						if(itemlen>1){
+								jQuery("#D_inc_table_B").css("maxHeight","240px");
+							return;
+							}else{
+								return;
+							}
+						}
 					}
 				);
 				height=jQuery("#page-table-query-tab").height();
@@ -215,4 +251,10 @@ for(Iterator it=userWeb.getVisitTables();it.hasNext();){
 	//log visit in the end so this table will not show as last visited one on the breadcrumb
 	userWeb.registerVisit(tableId);
 	%>
-</script>  
+	<%if(WebUtils.getBrowserType(request)>0){%>
+	jQuery(document).ready(function(){
+	setTimeout("ScrollableTable.set('inc_table','100%',240,false)", 500);
+  });
+	<%}%>
+</script>
+
