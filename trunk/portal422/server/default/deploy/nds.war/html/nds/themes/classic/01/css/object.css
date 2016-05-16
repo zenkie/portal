@@ -366,7 +366,7 @@ fieldset.line {
         border-right: 1px solid #DBE2E7;
         border-top: 1px solid #DBE2E7;
         word-break: break-all;
-        text-align: center;
+        text-align: left;
     }
 
 .modify_table,
