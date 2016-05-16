@@ -91,7 +91,18 @@ ObjectQuery.prototype = {
 					onClose: function() {oq.close_query();}
 				});
 			 */
-			var options=$H({queryindex:this._queryindex,padding: 0,width:'auto',height:'auto',top:'7%',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,close:function(){oq.close_query();}});
+			var count=0; 
+			if(artDialog.list){
+			for(var key in artDialog.list){
+				count++; 
+			} 
+			}
+			var ptop='7%';
+			if(count>0){
+				ptop=(8+count)+'%';
+			}
+			var options=$H({queryindex:this._queryindex,padding: 0,width:'auto',height:'auto',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,close:function(){oq.close_query();}});
+			options.top=ptop;
 	    //
 			//AjaxUtil.update(url, popup, null);
 
@@ -180,8 +191,18 @@ ObjectQuery.prototype = {
 					});
 					*/
 				//AjaxUtil.update(url, popup, null);
-				var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:427,top:'7%',border: true,resize:true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,close:function(){oq.close_query();}});
-
+				var count=0; 
+				if(artDialog.list){
+				for(var key in artDialog.list){
+					count++; 
+				} 
+				}
+				var ptop='7%';
+				if(count>0){
+					ptop=(8+count)+'%';
+				}
+				var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:427,border: true,resize:true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,close:function(){oq.close_query();}});
+				options.top=ptop;
 				new Ajax.Request(url, {
 				  method: 'get',
 				  onSuccess: function(transport) {
