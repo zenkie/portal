@@ -619,6 +619,11 @@ PortalControl.prototype = {
 		if(qr.message !=undefined && qr.message!=null) desc+= "<br><blink><span class='err'>***"+ qr.message+"</blink>";
 		$("filter_setting").innerHTML= desc;
 		dwr.util.setValue($("chk_select_all"),false);
+		if(!jQuery.isIE()){
+		jQuery(document).ready(function(){
+			setTimeout("ScrollableTable.set('inc_table','100%',240,false)", 200);
+		  });
+		};
 	},
 	/**
 	 * Update subtotal
@@ -2642,3 +2647,323 @@ function popup_window(url,tgt,theWidth,theHeight){
     newWindow.focus();
 }
 
+	var ScrollableTable = {
+
+
+	init: false,
+
+	_scrollBarWidth : 18,
+
+	set: function(id,width,height, overflowX, center) {
+	 
+		if (jQuery("#D_inc_table_B").length>0) {
+			var itemlen=document.getElementById("grid_table").rows.length;
+		if(itemlen>0){
+			ScrollableTable._cprow();
+			return;
+			}else{
+				return;
+			}
+		} 
+		if (overflowX == null) {
+			overflowX = false;
+		}
+
+		if (center == null) {
+			center = false;
+		}
+
+		var masterTable = document.getElementById(id); 
+		//masterTable.style.tableLayout="fixed";
+		//var masterWidth=masterTable.getWidth(); //paco 2013-7-3
+
+		if (masterTable == null) {
+			alert("Err \n no table ");
+			return;
+		}
+		if (masterTable.tHead == null) {
+			alert("err\n no <THEAD>");
+			return;
+		}
+
+		if (masterTable.caption != null) {
+			masterTable.caption.innerHTML = ""; 
+		}
+
+		var thHeight = masterTable.tHead.offsetHeight;
+
+		var tableHeader = masterTable.cloneNode(true);
+
+    var ptableid=tableHeader.id;
+		tableHeader.id = ptableid + "_H";
+		/*
+		while (tableHeader.tBodies[0].rows.length) {
+			tableHeader.tBodies[0].deleteRow(0);
+		}*/
+		tableHeader.tBodies[0].id='h_grid_table';
+		
+		tableHeader.cellSpacing="0";
+		
+	  tableHeader.style.position = "relative";
+		tableHeader.style.left = "0";
+		tableHeader.style.top = "0";
+		tableHeader.tBodies[0].style.opacity=0.2;
+		tableHeader.tBodies[0].style.zIndex="-999";
+		//tableHeader.style.tableLayout="fixed";
+		 
+	 var tableOrg = jQuery("#" + id);
+		
+		//width=tableOrg.outerWidth()<jQuery("#embed-items").width()?jQuery("#embed-items").width():tableOrg.outerWidth();
+		
+	  //tableHeader.style.width = width+"px";
+	 
+		
+		
+		var colsWidths = jQuery(tableOrg).find("tbody tr:first td").map(function() {
+			return this.clientWidth;
+		});
+		
+		var allWidths=0;
+		colsWidths.each(function(index){
+			allWidths+=colsWidths[index];
+		});
+	
+		/*
+		if (tableHeader.rows.length > 0) {
+			//获取每一行TR数据
+			  for (v = 0; v < tableHeader.rows.length; v++) {
+			  	var  trbody=tableHeader.rows[v];
+			    if (colsWidths.size() > 0) {
+			    	  //更新每行TD宽度
+			    	
+			        for (i = 0; i < trbody.children.length; i++) {
+			        	//alert(colsWidths[i]);
+			        	var tdbody=trbody.children[i]
+						tdbody.width=colsWidths[i]+'px';
+			            if (i == tdbody.length - 1) {
+			                // if (browserVersion == 8.0)
+			                    // tdbody.width=colsWidths[i] + scrollWidth+'px';
+			                // else
+			                    tdbody.width=colsWidths[i]+'px';
+			            } else {
+			                //tdbody.width=colsWidths[i]+1+'px'; //paco 2013-7-3
+							tdbody.width=colsWidths[i]+'px'; //paco 2013-7-3
+							//tdbody.width=(colsWidths[i]/allWidths)+"%";
+			            }
+			        }
+			    }
+			    
+			  }
+ 		}*/
+		
+		var divHeader = document.createElement("div");
+		divHeader.id = "D_" + ptableid;
+		//divHeader.style.width =masterWidth + "px"; //paco 2013-7-3
+		divHeader.style.height = thHeight + "px";
+		divHeader.style.overflow = "hidden";
+		divHeader.style.position = "relative";//"absolute";
+		divHeader.style.zIndex=12;
+		divHeader.appendChild(tableHeader);
+
+		masterTable.parentNode.insertBefore(divHeader, masterTable);
+		//masterTable.tHead.style.display="none";
+		//masterTable.deleteTHead();
+		
+		/*
+		tableOrg = jQuery(ptableid + "_H");
+	 
+		colsWidths = jQuery(tableOrg).find("thead tr:first td").map(function() {
+			return jQuery(this).width();
+		});
+		*/
+		//var tableBody = masterTable.cloneNode(true);
+		//tableBody.id = tableBody.id + "_B";
+		//tableBody.deleteTHead();
+		
+		/*
+		if (masterTable.rows.length > 0) {
+			//获取每一行TR数据
+			  for (v = 0; v < masterTable.rows.length; v++) {
+			  	var  trbody=masterTable.rows[v];
+			    if (colsWidths.size() > 0) {
+			    	 //更新每行TD宽度
+			    	
+			        for (i = 0; i < trbody.children.length; i++) {
+			        	//alert(colsWidths[i]);
+			        	var tdbody=trbody.children[i];
+			            if (i == tdbody.length - 1) {
+			                // if (browserVersion == 8.0)
+			                    // tdbody.width=colsWidths[i] + scrollWidth+'px';
+			                // else
+			                    tdbody.width=colsWidths[i]+'px';
+			            } else {
+			                tdbody.width=colsWidths[i]+'px';
+							//tdbody.width=(colsWidths[i]/allWidths)+"%";
+			            }
+			        }
+			    }
+			    
+			  }
+ 		}
+		*/
+ 		
+ 	  //masterTable.style.width = width+ "px";//(width + getScrollbarWidth()) + "px";
+		
+		var divBody = document.createElement("div");
+		divBody.id = "D_" + masterTable.id+"_B";
+		//divBody.style.width = (width + getScrollbarWidth()) + "px";
+		//divBody.style.width=(masterWidth + getScrollbarWidth()) + "px"; //paco 2013-7-3
+		divBody.style.maxHeight = height + "px";
+		divBody.style.minHeight ="100px";
+		divBody.style.Height="240px";
+		divBody.style.marginTop ="-23px";
+		divBody.style.opacity=0;
+		divBody.style.zIndex="-999";
+		if (overflowX) {
+			divBody.style.overflow  = "auto";
+		} else {
+			divBody.style.overflowY = "auto";
+			divBody.style.overflowX = "hidden";
+			divBody.style.zIndex=11;
+		}
+		if (center) {
+			divBody.style.marginLeft  = getScrollbarWidth() + "px";
+		}
+		
+		
+			var bodyWrap = jQuery("#"+masterTable.id).wrap('<div></div>')
+									.parent()
+									.attr('id',divBody.id)
+									.css({
+										//width: (width + getScrollbarWidth()),
+										//width: (masterWidth + getScrollbarWidth()) + "px",//paco 2013-7-3
+										maxHeight: height,
+										minHeight:100,
+										overflowY:'auto',
+										overflowX:'hidden',
+										zIndex:11
+									});
+									
+		//masterTable.parentNode.insertBefore(divBody,masterTable);
+ 			//masterTable.prependTo(divBody);
+ 			//jQuery("#"+masterTable.id).prependTo(divBody);
+		//masterTable.parentNode.insertBefore(divBody, masterTable);
+		//masterTable.parentNode.removeChild(masterTable);
+   // jQuery('#modify_table_B thead').hide();
+		divBody.onscroll = function() {
+			ScrollableTable._onscroll(divHeader.id, divBody.id)
+		};
+
+		//this.init = true;
+		//sScrollableTable._matchFixedHead();
+		//gc._initTable();
+		//ScrollableTable._matchFixedHead();
+		jQuery("#D_inc_table_B").css("marginTop","-23px");
+		jQuery("#D_inc_table").width(jQuery("#inc_table").width());
+		jQuery("#D_inc_table_B").width(jQuery("#inc_table").width());
+	},
+
+  _cprow:function(){  
+  	var alist=[];
+  	var children=jQuery("#inc_table_H .odr");
+		jQuery.each(children, function(i, n){
+			if(jQuery(children[i]).children().length>0){
+			var obj={};
+			obj.index=i;
+			obj.html=jQuery(children[i]).html();
+		    alist.push(obj);
+		    }
+		});
+  	jQuery("#inc_table_H").remove();
+  	jQuery("#inc_table .odr").children().remove()
+  	var masterTable = document.getElementById("inc_table"); 
+		//masterTable.style.tableLayout="fixed";
+		//var masterWidth=masterTable.getWidth(); //paco 2013-7-3
+
+		var thHeight = masterTable.tHead.offsetHeight;
+
+		var tableHeader = masterTable.cloneNode(true);
+
+    var ptableid=tableHeader.id;
+		tableHeader.id = ptableid + "_H";
+		/*
+		while (tableHeader.tBodies[0].rows.length) {
+			tableHeader.tBodies[0].deleteRow(0);
+		}*/
+		tableHeader.tBodies[0].id='h_grid_table';
+		
+		tableHeader.cellSpacing="0";
+		
+	  tableHeader.style.position = "relative";
+		tableHeader.style.left = "0";
+		tableHeader.style.top = "0";
+		tableHeader.tBodies[0].style.opacity=0.2;
+		tableHeader.tBodies[0].style.zIndex="-999";
+		var divHeader = document.getElementById("D_inc_table");
+		divHeader.appendChild(tableHeader);
+		jQuery("#D_inc_table").width(jQuery("#inc_table").width());
+		jQuery("#D_inc_table_B").width(jQuery("#inc_table").width());
+		jQuery.each(alist, function(i, n){
+			jQuery(jQuery("#inc_table_H .odr")[n.index]).html(n.html);
+			jQuery(jQuery("#inc_table .odr")[n.index]).html(n.html);
+		});
+
+  },
+	
+	_onscroll: function(divHeaderId, divBodyId) {
+		var divHeader = document.getElementById(divHeaderId);
+		var divBody = document.getElementById(divBodyId);
+
+		divHeader.firstChild.style.left =  "-" + divBody.scrollLeft + "px";
+	},
+	
+		_matchFixedHead : function() {
+		
+		
+		/* 3 times change to match */
+		var thWidth = [];
+
+		var theadTD = jQuery("#inc_table_H").find("thead tr:first td");
+		var tbodyTD = jQuery("#inc_table").find("tbody tr:first td");
+		var diff=0;
+		theadTD.each(function(index) {
+			var tObj = jQuery(this);
+			var temp = tObj.width();
+			thWidth[index] = temp<24?26:temp;/*before +24px,now 26px for forbidding table's no wider.*/
+		});
+		tbodyTD.each(function(index) {
+			var temp = jQuery(this).width();
+			var arrayTemp = thWidth[index];
+			thWidth[index] = arrayTemp>temp?arrayTemp:temp;
+			diff=diff+(arrayTemp<temp?temp-arrayTemp:arrayTemp-temp);
+		});
+		
+		if (Prototype.Browser.IE) {
+			tbodyTD.each(function(index) {
+				//thWidth[index] += 4;
+				jQuery(this).width(thWidth[index]);
+			});
+	
+		} else{
+			//tbodyTD.each(function(index) {jQuery(this).css("min-width",thWidth[index]);});
+			tbodyTD.each(function(index) {jQuery(this).width(thWidth[index]);});
+		}
+		//theadTD.each(function(index) {jQuery(this).css("min-width",thWidth[index]);});
+		theadTD.each(function(index) {jQuery(this).width(thWidth[index]);});
+
+     //alert(theadTD[0].offsetWidth);
+     //alert(tbodyTD[0].offsetWidth);
+     //修复明细刷新不能宽度放大问题
+	 
+	 
+      //if(theadTD[0].offsetWidth!=tbodyTD[0].offsetWidth&&tbodyTD[0].offsetWidth!=0){
+	if(diff>0){ 
+		jQuery("#inc_table_H").width((jQuery("#inc_table_H").width()+diff));
+		//jQuery("#modify_table_H").width(diff);
+		jQuery("#inc_table").width(jQuery("#inc_table_H").width());
+		jQuery("#D_inc_table").width(jQuery("#inc_table_H").width());
+		jQuery("#D_inc_table_B").width((jQuery("#D_inc_table").width()+getScrollbarWidth()));
+	}
+	}
+	
+}
