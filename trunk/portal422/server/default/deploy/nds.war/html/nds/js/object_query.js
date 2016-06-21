@@ -92,14 +92,16 @@ ObjectQuery.prototype = {
 				});
 			 */
 			var count=0; 
+			var pv=2;
 			if(artDialog.list){
 			for(var key in artDialog.list){
 				count++; 
+				pv++;
 			} 
 			}
 			var ptop='7%';
 			if(count>0){
-				ptop=(8+count)+'%';
+				ptop=(10+count+pv)+'%';
 			}
 			var options=$H({queryindex:this._queryindex,padding: 0,width:'auto',height:'auto',title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,effect:false,close:function(){oq.close_query();}});
 			options.top=ptop;
@@ -192,14 +194,16 @@ ObjectQuery.prototype = {
 					*/
 				//AjaxUtil.update(url, popup, null);
 				var count=0; 
+				var pv=2;
 				if(artDialog.list){
 				for(var key in artDialog.list){
 					count++; 
+					pv++;
 				} 
 				}
 				var ptop='7%';
 				if(count>0){
-					ptop=(8+count)+'%';
+					ptop=(10+count+pv)+'%';
 				}
 				var options=$H({queryindex:this._queryindex,padding: 0,width:610,height:427,border: true,resize:true,title:gMessageHolder.SEARCH,skin:'chrome',drag:true,lock:true,esc:true,close:function(){oq.close_query();}});
 				options.top=ptop;
