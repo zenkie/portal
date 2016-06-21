@@ -149,9 +149,11 @@ We also remove the borders, since they don't need them. */
 
 /* 查询标签页样式   */
 #query-search-content ul {
+	/*
     margin: 0;
     padding: 0 10px;
     overflow: hidden;
+	*/
     margin-bottom: -1px;
     height: 2.25em;
 }

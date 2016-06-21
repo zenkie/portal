@@ -144,10 +144,11 @@ width:80px;
 }
 #query-search-content {
 padding:5px 0px 0px 5px;
-overflow:visible;
+/*overflow:visible;
 min-width:600px;
 max-width:668px;
-/*width:600px;*/
+width:600px;
+*/
 }
 #q_search_condition{
 /*

@@ -477,7 +477,7 @@ input[type="button"]:hover {
   color: #fff;
   transition: all 0.25s ease-out 0s;
   cursor:pointer;
-  }
+}
 
 .portal-icon {
     font-family: "_babyblue" !important;
@@ -1703,14 +1703,16 @@ input {
 }
 
 .ui-tabs-panel {
+	/*
     clear: left;
     position: relative;
     z-index: 2;
     padding: 0 1em;
+	*/
     border: 1px solid #CCC;
     background: #FFF;
     overflow-y: hidden;
-    behavior: url(PIE.htc);
+   /* behavior: url(PIE.htc);*/
     padding-bottom: 14px;
 }
 
