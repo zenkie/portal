@@ -836,6 +836,7 @@ ObjectControl.prototype = {
 							evt.setUserData(result);
 							//application.dispatchEvent(evt);
 							if(evt.getUserData().data==undefined){
+								playAlert();
 								msgbox(result.message);
 							}else{
 								gc.updateGrid(evt);
