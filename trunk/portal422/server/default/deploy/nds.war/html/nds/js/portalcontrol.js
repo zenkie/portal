@@ -262,7 +262,7 @@ PortalControl.prototype = {
 		if(r.url){
 			var option={close:function(){pc.refreshCxtabHistoryFiles(null);}};
 			if(r.url.startsWith("/ReportServer")){
-				popup_window(r.url);
+				popup_window(r.url,null,null,null,true);
 			}else if(!r.url.endsWith(".htm")){
 				//download only, not shown
 				showObject( r.url, 400, 200,option);
@@ -2635,16 +2635,21 @@ mufavorite.prototype = {
 	};
 jQuery(document).ready(mufavorite.main);
 
-function popup_window(url,tgt,theWidth,theHeight){
+function popup_window(url,tgt,theWidth,theHeight,fullscreen){
+	var features;
+	if(fullscreen){
+		features="fullscreen";
+	}else{
     if(tgt==null|| tgt==undefined) tgt="_blank";
     if(theWidth==null|| theWidth==undefined) theWidth=951;
     if(theHeight==null|| theHeight==undefined) theHeight=570;
-	var theTop=(screen.height/2)-(theHeight/2);
-	var theLeft=(screen.width/2)-(theWidth/2);
-	//alert(theTop+"--"+theLeft);
-	var features="height="+theHeight+",width="+theWidth+",top="+theTop+",left="+theLeft+",dependent=yes,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,status=yes";
-    var newWindow=window.open(url,tgt,features);
-    newWindow.focus();
+		var theTop=(screen.height/2)-(theHeight/2);
+		var theLeft=(screen.width/2)-(theWidth/2);
+		//alert(theTop+"--"+theLeft);
+		features="height="+theHeight+",width="+theWidth+",top="+theTop+",left="+theLeft+",dependent=yes,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,status=yes";
+	}
+  var newWindow=window.open(url,tgt,features);
+  newWindow.focus();
 }
 
 	var scrollbarWidth = 0;
@@ -3030,3 +3035,4 @@ function popup_window(url,tgt,theWidth,theHeight){
 	}
 	
 }
+
